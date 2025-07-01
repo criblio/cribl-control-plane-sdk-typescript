@@ -32,6 +32,7 @@ components:
             - healthy
             - shutting down
             - standby
+            - fake_status
         startTime:
           type: number
 security:
@@ -45,6 +46,27 @@ paths:
   /health:
     get:
       operationId: getHealthInfo
+      summary: Provides health info for REST server
+      security: []
+      tags:
+        - diag
+        - health
+      responses:
+        "200":
+          description: Healthy status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+        "420":
+          description: Shutting Down or Standby status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /healthDummy:
+    get:
+      operationId: getHealthInfoDummy
       summary: Provides health info for REST server
       security: []
       tags:
