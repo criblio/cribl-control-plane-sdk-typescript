@@ -5,11 +5,11 @@
 ```typescript
 import { Status } from "cribl-control-plane";
 
-let value: Status = "shutting down";
+let value: Status = "standby";
 ```
 
 ## Values
 
 ```typescript
-"healthy" | "shutting down" | "standby"
+"healthy" | "shutting down" | "standby" | "fake_status"
 ```

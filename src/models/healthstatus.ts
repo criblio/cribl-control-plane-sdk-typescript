@@ -18,6 +18,7 @@ export const Status = {
   Healthy: "healthy",
   ShuttingDown: "shutting down",
   Standby: "standby",
+  FakeStatus: "fake_status",
 } as const;
 export type Status = ClosedEnum<typeof Status>;
 
