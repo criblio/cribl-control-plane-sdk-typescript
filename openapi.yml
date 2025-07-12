@@ -63,3 +63,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+        "440":
+          description: Dummy Status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /healthDummyNew:
+    get:
+      operationId: getHealthInfoDummy
+      summary: Provides health info for REST server
+      security: []
+      tags:
+        - diag
+        - health
+      responses:
+        "200":
+          description: Healthy status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+        "420":
+          description: Shutting Down or Standby status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
