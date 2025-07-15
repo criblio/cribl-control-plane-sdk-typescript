@@ -7,7 +7,10 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.diag.getHealthInfo();
+  const result = await criblControlPlane.auth.login({
+    username: "Nikko.Connelly",
+    password: "Ljp4BunfMR9hNyM",
+  });
 
   console.log(result);
 }

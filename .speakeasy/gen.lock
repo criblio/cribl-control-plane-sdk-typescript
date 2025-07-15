@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 71444ed2f6fde336b5d6bf302ba8c06a
-  docVersion: 4.12.2-4b17c8d4
+  docChecksum: f5639556bbb478114b7e90796904fe73
+  docVersion: 4.14.0-alpha.1752602215751-e622ff04
   speakeasyVersion: 1.581.0
   generationVersion: 2.656.5
-  releaseVersion: 0.0.3
-  configChecksum: 1544632bff4e535cf611016fa519e4a9
+  releaseVersion: 0.0.4
+  configChecksum: 8557cba34d3156150d0e05f4c441b531
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -40,23 +40,27 @@ generatedFiles:
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
+  - docs/models/authtoken.md
   - docs/models/errors/healthstatuserror.md
   - docs/models/healthstatus.md
+  - docs/models/logininfo.md
   - docs/models/role.md
   - docs/models/schemeclientoauth.md
   - docs/models/security.md
   - docs/models/status.md
+  - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/diag/README.md
   - docs/sdks/health/README.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
-  - examples/diagGetHealthInfo.example.ts
+  - examples/authLogin.example.ts
   - examples/package.json
   - jsr.json
   - package.json
   - src/__tests__/assertions.ts
+  - src/__tests__/auth.test.ts
   - src/__tests__/diag.test.ts
   - src/__tests__/files.ts
   - src/__tests__/mockserver/.gitignore
@@ -74,6 +78,7 @@ generatedFiles:
   - src/__tests__/mockserver/internal/handler/generated_handler.go
   - src/__tests__/mockserver/internal/handler/generated_handlers.go
   - src/__tests__/mockserver/internal/handler/pathgethealth.go
+  - src/__tests__/mockserver/internal/handler/pathpostauthlogin.go
   - src/__tests__/mockserver/internal/handler/values/files.go
   - src/__tests__/mockserver/internal/logging/doc.go
   - src/__tests__/mockserver/internal/logging/formats.go
@@ -83,11 +88,14 @@ generatedFiles:
   - src/__tests__/mockserver/internal/logging/logger.go
   - src/__tests__/mockserver/internal/logging/oas_operation.go
   - src/__tests__/mockserver/internal/logging/oas_operation_call.go
+  - src/__tests__/mockserver/internal/sdk/models/components/authtoken.go
   - src/__tests__/mockserver/internal/sdk/models/components/healthstatus.go
   - src/__tests__/mockserver/internal/sdk/models/components/httpmetadata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/logininfo.go
   - src/__tests__/mockserver/internal/sdk/models/components/schemeclientoauth.go
   - src/__tests__/mockserver/internal/sdk/models/components/security.go
   - src/__tests__/mockserver/internal/sdk/models/operations/gethealthinfo.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/login.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/healthstatuserror.go
   - src/__tests__/mockserver/internal/sdk/types/bigint.go
   - src/__tests__/mockserver/internal/sdk/types/date.go
@@ -110,6 +118,7 @@ generatedFiles:
   - src/__tests__/mockserver/main.go
   - src/__tests__/testclient.ts
   - src/core.ts
+  - src/funcs/authLogin.ts
   - src/funcs/diagGetHealthInfo.ts
   - src/hooks/clientcredentials.ts
   - src/hooks/hooks.ts
@@ -145,7 +154,9 @@ generatedFiles:
   - src/mcp-server/server.ts
   - src/mcp-server/shared.ts
   - src/mcp-server/tools.ts
+  - src/mcp-server/tools/authLogin.ts
   - src/mcp-server/tools/diagGetHealthInfo.ts
+  - src/models/authtoken.ts
   - src/models/errors/criblcontrolplanedefaulterror.ts
   - src/models/errors/criblcontrolplaneerror.ts
   - src/models/errors/healthstatuserror.ts
@@ -155,8 +166,10 @@ generatedFiles:
   - src/models/errors/sdkvalidationerror.ts
   - src/models/healthstatus.ts
   - src/models/index.ts
+  - src/models/logininfo.ts
   - src/models/schemeclientoauth.ts
   - src/models/security.ts
+  - src/sdk/auth.ts
   - src/sdk/diag.ts
   - src/sdk/health.ts
   - src/sdk/index.ts
@@ -179,6 +192,14 @@ examples:
           application/json: {"status": "standby", "startTime": 8399.98}
         "420":
           application/json: {"status": "healthy", "startTime": 893.91}
+  login:
+    speakeasy-default-login:
+      requestBody:
+        application/json: {"username": "Nikko.Connelly", "password": "Ljp4BunfMR9hNyM"}
+      responses:
+        "200":
+          application/json: {"token": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:03:38+02:00"
+  login: "2025-07-15T18:05:26Z"

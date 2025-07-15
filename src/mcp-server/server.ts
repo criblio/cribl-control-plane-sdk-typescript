@@ -13,6 +13,7 @@ import {
 } from "./resources.js";
 import { MCPScope } from "./scopes.js";
 import { createRegisterTool } from "./tools.js";
+import { tool$authLogin } from "./tools/authLogin.js";
 import { tool$diagGetHealthInfo } from "./tools/diagGetHealthInfo.js";
 
 export function createMCPServer(deps: {
@@ -25,7 +26,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CriblControlPlane",
-    version: "0.0.3",
+    version: "0.0.4",
   });
 
   const client = new CriblControlPlaneCore({
@@ -55,6 +56,7 @@ export function createMCPServer(deps: {
   const register = { tool, resource, resourceTemplate, prompt };
   void register; // suppress unused warnings
 
+  tool(tool$authLogin);
   tool(tool$diagGetHealthInfo);
 
   return server;
