@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { diagGetHealthInfo } from "cribl-control-plane/funcs/diagGetHealthInfo.js";
+import { authLogin } from "cribl-control-plane/funcs/authLogin.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -29,12 +29,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await diagGetHealthInfo(criblControlPlane);
+  const res = await authLogin(criblControlPlane, {
+    username: "Nikko.Connelly",
+    password: "Ljp4BunfMR9hNyM",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("diagGetHealthInfo failed:", res.error);
+    console.log("authLogin failed:", res.error);
   }
 }
 

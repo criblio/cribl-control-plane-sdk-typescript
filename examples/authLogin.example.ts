@@ -6,7 +6,7 @@
  * Example usage of the cribl-control-plane SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx diagGetHealthInfo.ts
+ * npm run build && npx tsx authLogin.ts
  */
 
 import { CriblControlPlane } from "cribl-control-plane";
@@ -16,7 +16,10 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function main() {
-  const result = await criblControlPlane.getHealthInfo();
+  const result = await criblControlPlane.login({
+    username: "Nikko.Connelly",
+    password: "Ljp4BunfMR9hNyM",
+  });
 
   console.log(result);
 }
