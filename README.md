@@ -169,7 +169,10 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.diag.getHealthInfo();
+  const result = await criblControlPlane.auth.login({
+    username: "Nikko.Connelly",
+    password: "Ljp4BunfMR9hNyM",
+  });
 
   console.log(result);
 }
@@ -203,7 +206,10 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.diag.getHealthInfo();
+  const result = await criblControlPlane.auth.login({
+    username: "Nikko.Connelly",
+    password: "Ljp4BunfMR9hNyM",
+  });
 
   console.log(result);
 }
@@ -218,6 +224,10 @@ run();
 
 <details open>
 <summary>Available methods</summary>
+
+### [auth](docs/sdks/auth/README.md)
+
+* [login](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 
 
 ### [diag](docs/sdks/diag/README.md)
@@ -246,6 +256,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
+- [`authLogin`](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 - [`diagGetHealthInfo`](docs/sdks/diag/README.md#gethealthinfo) - Provides health info for REST server
 - [`diagGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 
@@ -266,7 +277,10 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.diag.getHealthInfo({
+  const result = await criblControlPlane.auth.login({
+    username: "Nikko.Connelly",
+    password: "Ljp4BunfMR9hNyM",
+  }, {
     retries: {
       strategy: "backoff",
       backoff: {
@@ -305,7 +319,10 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.diag.getHealthInfo();
+  const result = await criblControlPlane.auth.login({
+    username: "Nikko.Connelly",
+    password: "Ljp4BunfMR9hNyM",
+  });
 
   console.log(result);
 }
@@ -382,7 +399,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 2 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 3 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

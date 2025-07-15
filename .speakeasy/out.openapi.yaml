@@ -21,6 +21,23 @@ components:
           tokenUrl: https://login.cribl.cloud/oauth/token
           scopes: {}
   schemas:
+    LoginInfo:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    AuthToken:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
     HealthStatus:
       type: object
       required:
@@ -46,11 +63,40 @@ security:
   - bearerAuth: []
   - clientOauth: []
 tags:
+  - name: auth
+    description: Actions related to authentication. Do not use the /auth endpoints in Cribl.Cloud deployments. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to authenticate for Cribl.Cloud.
   - name: diag
     description: Actions related to diagnostics
   - name: health
     description: Actions related to REST server health
 paths:
+  /auth/login:
+    post:
+      operationId: login
+      summary: Log in and obtain Auth token
+      description: This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInfo"
+      security: []
+      responses:
+        "200":
+          description: Authentication token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthToken"
+        "401":
+          description: Unauthorized
+        "403":
+          description: Access denied
+        "429":
+          description: Rate limit exceeded
   /health:
     get:
       operationId: getHealthInfo
