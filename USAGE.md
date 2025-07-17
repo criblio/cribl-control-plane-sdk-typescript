@@ -4,13 +4,13 @@ import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function run() {
-  const result = await criblControlPlane.auth.login({
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
-  });
+  const result = await criblControlPlane.inputs.listInput();
 
   console.log(result);
 }

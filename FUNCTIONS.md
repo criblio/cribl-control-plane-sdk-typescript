@@ -20,24 +20,24 @@ specific category of applications.
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { authLogin } from "cribl-control-plane/funcs/authLogin.js";
+import { inputsListInput } from "cribl-control-plane/funcs/inputsListInput.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
   serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function run() {
-  const res = await authLogin(criblControlPlane, {
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
-  });
+  const res = await inputsListInput(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("authLogin failed:", res.error);
+    console.log("inputsListInput failed:", res.error);
   }
 }
 
