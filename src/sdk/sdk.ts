@@ -4,18 +4,12 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
-import { Diag } from "./diag.js";
 import { Health } from "./health.js";
 
 export class CriblControlPlane extends ClientSDK {
   private _auth?: Auth;
   get auth(): Auth {
     return (this._auth ??= new Auth(this._options));
-  }
-
-  private _diag?: Diag;
-  get diag(): Diag {
-    return (this._diag ??= new Diag(this._options));
   }
 
   private _health?: Health;
