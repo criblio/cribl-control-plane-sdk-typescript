@@ -74,13 +74,13 @@ import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function run() {
-  const result = await criblControlPlane.auth.login({
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
-  });
+  const result = await criblControlPlane.inputs.listInput();
 
   console.log(result);
 }
@@ -114,10 +114,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.auth.login({
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
-  });
+  const result = await criblControlPlane.inputs.listInput();
 
   console.log(result);
 }
@@ -142,6 +139,16 @@ run();
 
 * [getHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 
+### [inputs](docs/sdks/inputs/README.md)
+
+* [listInput](docs/sdks/inputs/README.md#listinput) - Get a list of Input objects
+* [createInput](docs/sdks/inputs/README.md#createinput) - Create Input
+* [getInputById](docs/sdks/inputs/README.md#getinputbyid) - Get Input by ID
+* [updateInputById](docs/sdks/inputs/README.md#updateinputbyid) - Update Input
+* [deleteInputById](docs/sdks/inputs/README.md#deleteinputbyid) - Delete Input
+* [createInputHecTokenById](docs/sdks/inputs/README.md#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
+* [updateInputHecTokenByIdAndToken](docs/sdks/inputs/README.md#updateinputhectokenbyidandtoken) - Update token metadata on existing hec input
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
@@ -162,6 +169,13 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 - [`authLogin`](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 - [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
+- [`inputsCreateInput`](docs/sdks/inputs/README.md#createinput) - Create Input
+- [`inputsCreateInputHecTokenById`](docs/sdks/inputs/README.md#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
+- [`inputsDeleteInputById`](docs/sdks/inputs/README.md#deleteinputbyid) - Delete Input
+- [`inputsGetInputById`](docs/sdks/inputs/README.md#getinputbyid) - Get Input by ID
+- [`inputsListInput`](docs/sdks/inputs/README.md#listinput) - Get a list of Input objects
+- [`inputsUpdateInputById`](docs/sdks/inputs/README.md#updateinputbyid) - Update Input
+- [`inputsUpdateInputHecTokenByIdAndToken`](docs/sdks/inputs/README.md#updateinputhectokenbyidandtoken) - Update token metadata on existing hec input
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -177,13 +191,13 @@ import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function run() {
-  const result = await criblControlPlane.auth.login({
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
-  }, {
+  const result = await criblControlPlane.inputs.listInput({
     retries: {
       strategy: "backoff",
       backoff: {
@@ -219,13 +233,13 @@ const criblControlPlane = new CriblControlPlane({
     },
     retryConnectionErrors: false,
   },
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function run() {
-  const result = await criblControlPlane.auth.login({
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
-  });
+  const result = await criblControlPlane.inputs.listInput();
 
   console.log(result);
 }
@@ -256,11 +270,14 @@ import * as errors from "cribl-control-plane/models/errors";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function run() {
   try {
-    const result = await criblControlPlane.health.getHealthInfo();
+    const result = await criblControlPlane.inputs.listInput();
 
     console.log(result);
   } catch (error) {
@@ -272,10 +289,8 @@ async function run() {
       console.log(error.headers);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.HealthStatusError) {
-        console.log(error.data$.role); // models.Role
-        console.log(error.data$.status); // models.Status
-        console.log(error.data$.startTime); // number
+      if (error instanceof errors.ErrorT) {
+        console.log(error.data$.message); // string
       }
     }
   }
@@ -289,7 +304,7 @@ run();
 **Primary error:**
 * [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (7)</summary>
+<details><summary>Less common errors (8)</summary>
 
 <br />
 
@@ -302,7 +317,8 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 2 methods.*
+* [`ErrorT`](./src/models/errors/errort.ts): Unexpected error. Status code `500`. Applicable to 7 of 9 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 9 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

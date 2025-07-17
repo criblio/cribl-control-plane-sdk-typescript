@@ -1,6 +1,6 @@
 {
   "name": "cribl-control-plane",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {
@@ -13,6 +13,7 @@
       "./types": "./src/types/index.ts",
       "./models/errors": "./src/models/errors/index.ts",
       "./models": "./src/models/index.ts",
+      "./models/operations": "./src/models/operations/index.ts",
       "./*.js": "./src/*.ts",
       "./*": "./src/*.ts"
     }
@@ -88,6 +89,17 @@
       "require": {
         "types": "./dist/commonjs/models/index.d.ts",
         "default": "./dist/commonjs/models/index.js"
+      }
+    },
+    "./models/operations": {
+      "import": {
+        "cribl-control-plane/source": "./src/models/operations/index.ts",
+        "types": "./dist/esm/models/operations/index.d.ts",
+        "default": "./dist/esm/models/operations/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/models/operations/index.d.ts",
+        "default": "./dist/commonjs/models/operations/index.js"
       }
     },
     "./*.js": {

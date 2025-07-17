@@ -6,20 +6,20 @@
  * Example usage of the cribl-control-plane SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx authLogin.ts
+ * npm run build && npx tsx inputsListInput.ts
  */
 
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
 });
 
 async function main() {
-  const result = await criblControlPlane.login({
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
-  });
+  const result = await criblControlPlane.listInput();
 
   console.log(result);
 }

@@ -1,0 +1,17 @@
+# InputSystemMetricsType
+
+## Example Usage
+
+```typescript
+import { InputSystemMetricsType } from "cribl-control-plane/models";
+
+let value: InputSystemMetricsType = "system_metrics";
+```
+
+## Values
+
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
+```typescript
+"system_metrics" | Unrecognized<string>
+```

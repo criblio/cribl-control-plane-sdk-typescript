@@ -1,0 +1,17 @@
+# InputWindowsMetricsDisk
+
+## Example Usage
+
+```typescript
+import { InputWindowsMetricsDisk } from "cribl-control-plane/models";
+
+let value: InputWindowsMetricsDisk = {};
+```
+
+## Fields
+
+| Field                                                                                                                                                  | Type                                                                                                                                                   | Required                                                                                                                                               | Description                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `mode`                                                                                                                                                 | [models.InputWindowsMetricsDiskMode](../models/inputwindowsmetricsdiskmode.md)                                                                         | :heavy_minus_sign:                                                                                                                                     | Select the level of details for disk metrics                                                                                                           |
+| `volumes`                                                                                                                                              | *string*[]                                                                                                                                             | :heavy_minus_sign:                                                                                                                                     | Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty. |
+| `perVolume`                                                                                                                                            | *boolean*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                     | Generate separate metrics for each volume                                                                                                              |
