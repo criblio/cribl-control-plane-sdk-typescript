@@ -3,10 +3,10 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 6f9679780d7e2a9b193a2a2dbe5e59a8
   docVersion: 4.14.0-alpha.1752737130572-995a4772
-  speakeasyVersion: 1.582.0
-  generationVersion: 2.657.1
-  releaseVersion: 0.0.9
-  configChecksum: 9668ce8ed6cf31b7d387808c97cfbca8
+  speakeasyVersion: 1.581.0
+  generationVersion: 2.656.5
+  releaseVersion: 0.0.10
+  configChecksum: 0543b4f3a37c9ffe7b6294ed239b2799
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -958,7 +958,6 @@ generatedFiles:
   - src/funcs/inputsListInput.ts
   - src/funcs/inputsUpdateInputById.ts
   - src/funcs/inputsUpdateInputHecTokenByIdAndToken.ts
-  - src/hooks/clientcredentials.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
