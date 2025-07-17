@@ -25,7 +25,7 @@ import { Result } from "../types/fp.js";
 /**
  * Provides health info for REST server
  */
-export function diagGetHealthInfo(
+export function healthGetHealthInfo(
   client: CriblControlPlaneCore,
   options?: RequestOptions,
 ): APIPromise<

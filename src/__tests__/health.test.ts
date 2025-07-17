@@ -6,7 +6,7 @@ import { expect, test } from "vitest";
 import { CriblControlPlane } from "../index.js";
 import { createTestHTTPClient } from "./testclient.js";
 
-test("Diag Get Health Info", async () => {
+test("Health Get Health Info", async () => {
   const testHttpClient = createTestHTTPClient("getHealthInfo");
 
   const criblControlPlane = new CriblControlPlane({
@@ -14,7 +14,7 @@ test("Diag Get Health Info", async () => {
     httpClient: testHttpClient,
   });
 
-  const result = await criblControlPlane.diag.getHealthInfo();
+  const result = await criblControlPlane.health.getHealthInfo();
   expect(result).toBeDefined();
   expect(result).toEqual({
     status: "standby",
