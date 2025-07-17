@@ -39,10 +39,10 @@ type Session = {
 
 function getAudience(fallback: string): string {
   if(typeof Deno !== "undefined" && typeof Deno.env !== "undefined") {
-    return Deno.env.get("CRIBL_AUDIENCE") ?? fallback;
+    return Deno.env.get("CRIBLCONTROLPLANE_AUDIENCE") ?? fallback;
   }
   if(typeof process !== "undefined" && process.env) {
-    return process.env["CRIBL_AUDIENCE"] ?? fallback;
+    return process.env["CRIBLCONTROLPLANE_AUDIENCE"] ?? fallback;
   }
   return fallback;
 }
@@ -224,7 +224,7 @@ export class ClientCredentialsHook
         ?? env().CRIBLCONTROLPLANE_CLIENT_SECRET ?? "",
       tokenURL: out?.clientOauth?.tokenURL ?? env().CRIBLCONTROLPLANE_TOKEN_URL
         ?? "",
-      audience: getAudience("default"),
+      audience: getAudience("https://api.cribl.cloud"),
     };
   }
 
