@@ -138,10 +138,6 @@ run();
 * [login](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 
 
-### [diag](docs/sdks/diag/README.md)
-
-* [getHealthInfo](docs/sdks/diag/README.md#gethealthinfo) - Provides health info for REST server
-
 ### [health](docs/sdks/health/README.md)
 
 * [getHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
@@ -165,8 +161,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`authLogin`](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
-- [`diagGetHealthInfo`](docs/sdks/diag/README.md#gethealthinfo) - Provides health info for REST server
-- [`diagGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
+- [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -265,7 +260,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   try {
-    const result = await criblControlPlane.diag.getHealthInfo();
+    const result = await criblControlPlane.health.getHealthInfo();
 
     console.log(result);
   } catch (error) {
@@ -307,7 +302,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 3 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 2 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
