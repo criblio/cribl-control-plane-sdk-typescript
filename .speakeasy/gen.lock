@@ -5,8 +5,8 @@ management:
   docVersion: 4.14.0-alpha.1752697438479-c2e9a1bc
   speakeasyVersion: 1.581.0
   generationVersion: 2.656.5
-  releaseVersion: 0.0.8
-  configChecksum: 86c7d2de1a77ededc31452a6a0fd871d
+  releaseVersion: 0.0.9
+  configChecksum: 9668ce8ed6cf31b7d387808c97cfbca8
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -118,7 +118,6 @@ generatedFiles:
   - src/core.ts
   - src/funcs/authLogin.ts
   - src/funcs/healthGetHealthInfo.ts
-  - src/hooks/clientcredentials.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
