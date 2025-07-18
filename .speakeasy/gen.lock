@@ -5,8 +5,8 @@ management:
   docVersion: 4.14.0-alpha.1752737130572-995a4772
   speakeasyVersion: 1.581.0
   generationVersion: 2.656.5
-  releaseVersion: 0.0.10
-  configChecksum: 0543b4f3a37c9ffe7b6294ed239b2799
+  releaseVersion: 0.0.12
+  configChecksum: 5908fea9501480ca2f69ef7b618446c5
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -807,7 +807,6 @@ generatedFiles:
   - docs/sdks/health/README.md
   - docs/sdks/inputs/README.md
   - eslint.config.mjs
-  - examples/.env.template
   - examples/README.md
   - examples/inputsListInput.example.ts
   - examples/package.json
@@ -966,7 +965,6 @@ generatedFiles:
   - src/lib/config.ts
   - src/lib/dlv.ts
   - src/lib/encodings.ts
-  - src/lib/env.ts
   - src/lib/files.ts
   - src/lib/http.ts
   - src/lib/is-plain-object.ts
@@ -1058,7 +1056,6 @@ generatedFiles:
   - src/models/operations/listinput.ts
   - src/models/operations/updateinputbyid.ts
   - src/models/operations/updateinputhectokenbyidandtoken.ts
-  - src/models/schemeclientoauth.ts
   - src/models/security.ts
   - src/models/updatehectokenrequest.ts
   - src/sdk/auth.ts
