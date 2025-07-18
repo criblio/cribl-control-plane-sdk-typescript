@@ -1,1 +1,4 @@
+src/lib/env.ts
 src/hooks/clientcredentials.ts
+src/models/schemeclientoauth.ts
+examples/.env.template

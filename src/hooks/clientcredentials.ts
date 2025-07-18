@@ -37,16 +37,6 @@ type Session = {
   scopes: string[];
 };
 
-function getAudience(fallback: string): string {
-  if(typeof Deno !== "undefined" && typeof Deno.env !== "undefined") {
-    return Deno.env.get("CRIBLCONTROLPLANE_AUDIENCE") ?? fallback;
-  }
-  if(typeof process !== "undefined" && process.env) {
-    return process.env["CRIBLCONTROLPLANE_AUDIENCE"] ?? fallback;
-  }
-  return fallback;
-}
-
 export class ClientCredentialsHook
   implements SDKInitHook, BeforeRequestHook, AfterErrorHook
 {
@@ -224,7 +214,8 @@ export class ClientCredentialsHook
         ?? env().CRIBLCONTROLPLANE_CLIENT_SECRET ?? "",
       tokenURL: out?.clientOauth?.tokenURL ?? env().CRIBLCONTROLPLANE_TOKEN_URL
         ?? "",
-      audience: getAudience("https://api.cribl.cloud"),
+      audience: out?.clientOauth?.audience ?? env().CRIBLCONTROLPLANE_AUDIENCE
+        ?? "",
     };
   }
 
