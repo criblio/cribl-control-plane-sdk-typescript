@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -21,24 +21,23 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create Input
+ * Update token metadata on existing HEC Source
  *
  * @remarks
- * Create Input
+ * Update token metadata on existing HEC Source
  */
-export function inputsCreateInput(
+export function sourcesUpdateSourceHecTokenByIdAndToken(
   client: CriblControlPlaneCore,
-  request: models.Input,
+  request: operations.UpdateInputHecTokenByIdAndTokenRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateInputResponse,
+    operations.UpdateInputHecTokenByIdAndTokenResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -59,12 +58,12 @@ export function inputsCreateInput(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.Input,
+  request: operations.UpdateInputHecTokenByIdAndTokenRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateInputResponse,
+      operations.UpdateInputHecTokenByIdAndTokenResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,16 +79,32 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.Input$outboundSchema.parse(value),
+    (value) =>
+      operations.UpdateInputHecTokenByIdAndTokenRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload, { explode: true });
+  const body = encodeJSON("body", payload.UpdateHecTokenRequest, {
+    explode: true,
+  });
 
-  const path = pathToFunc("/system/inputs")();
+  const pathParams = {
+    id: encodeSimple("id", payload.id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+    token: encodeSimple("token", payload.token, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/system/inputs/{id}/hectoken/{token}")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -102,7 +117,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createInput",
+    operationID: "updateInputHecTokenByIdAndToken",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -116,7 +131,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "PATCH",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -145,7 +160,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateInputResponse,
+    operations.UpdateInputHecTokenByIdAndTokenResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -156,7 +171,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateInputResponse$inboundSchema),
+    M.json(
+      200,
+      operations.UpdateInputHecTokenByIdAndTokenResponse$inboundSchema,
+    ),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

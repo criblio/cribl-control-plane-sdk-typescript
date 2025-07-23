@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -21,23 +21,24 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update Input
+ * Create Source
  *
  * @remarks
- * Update Input
+ * Create Source
  */
-export function inputsUpdateInputById(
+export function sourcesCreateSource(
   client: CriblControlPlaneCore,
-  request: operations.UpdateInputByIdRequest,
+  request: models.Input,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdateInputByIdResponse,
+    operations.CreateInputResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +59,12 @@ export function inputsUpdateInputById(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.UpdateInputByIdRequest,
+  request: models.Input,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.UpdateInputByIdResponse,
+      operations.CreateInputResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,23 +80,16 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.UpdateInputByIdRequest$outboundSchema.parse(value),
+    (value) => models.Input$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.Input, { explode: true });
+  const body = encodeJSON("body", payload, { explode: true });
 
-  const pathParams = {
-    id: encodeSimple("id", payload.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc("/system/inputs/{id}")(pathParams);
+  const path = pathToFunc("/system/inputs")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -108,7 +102,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "updateInputById",
+    operationID: "createInput",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -122,7 +116,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "PATCH",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -151,7 +145,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdateInputByIdResponse,
+    operations.CreateInputResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -162,7 +156,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.UpdateInputByIdResponse$inboundSchema),
+    M.json(200, operations.CreateInputResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

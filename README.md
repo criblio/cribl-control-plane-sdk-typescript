@@ -80,7 +80,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.listInput();
+  const result = await criblControlPlane.sources.listSource();
 
   console.log(result);
 }
@@ -114,7 +114,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.listInput();
+  const result = await criblControlPlane.sources.listSource();
 
   console.log(result);
 }
@@ -139,16 +139,6 @@ run();
 
 * [getHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 
-### [inputs](docs/sdks/inputs/README.md)
-
-* [listInput](docs/sdks/inputs/README.md#listinput) - Get a list of Input objects
-* [createInput](docs/sdks/inputs/README.md#createinput) - Create Input
-* [getInputById](docs/sdks/inputs/README.md#getinputbyid) - Get Input by ID
-* [updateInputById](docs/sdks/inputs/README.md#updateinputbyid) - Update Input
-* [deleteInputById](docs/sdks/inputs/README.md#deleteinputbyid) - Delete Input
-* [createInputHecTokenById](docs/sdks/inputs/README.md#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
-* [updateInputHecTokenByIdAndToken](docs/sdks/inputs/README.md#updateinputhectokenbyidandtoken) - Update token metadata on existing hec input
-
 ### [outputs](docs/sdks/outputs/README.md)
 
 * [listOutput](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
@@ -160,6 +150,16 @@ run();
 * [getOutputPqById](docs/sdks/outputs/README.md#getoutputpqbyid) - Retrieves status of latest clear PQ job for an output
 * [getOutputSamplesById](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 * [createOutputTestById](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
+
+### [sources](docs/sdks/sources/README.md)
+
+* [listSource](docs/sdks/sources/README.md#listsource) - Get a list of Source objects
+* [createSource](docs/sdks/sources/README.md#createsource) - Create Source
+* [getSourceById](docs/sdks/sources/README.md#getsourcebyid) - Get Source by ID
+* [updateSourceById](docs/sdks/sources/README.md#updatesourcebyid) - Update Source
+* [deleteSourceById](docs/sdks/sources/README.md#deletesourcebyid) - Delete Source
+* [createSourceHecTokenById](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
+* [updateSourceHecTokenByIdAndToken](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -181,13 +181,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 - [`authLogin`](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 - [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
-- [`inputsCreateInput`](docs/sdks/inputs/README.md#createinput) - Create Input
-- [`inputsCreateInputHecTokenById`](docs/sdks/inputs/README.md#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
-- [`inputsDeleteInputById`](docs/sdks/inputs/README.md#deleteinputbyid) - Delete Input
-- [`inputsGetInputById`](docs/sdks/inputs/README.md#getinputbyid) - Get Input by ID
-- [`inputsListInput`](docs/sdks/inputs/README.md#listinput) - Get a list of Input objects
-- [`inputsUpdateInputById`](docs/sdks/inputs/README.md#updateinputbyid) - Update Input
-- [`inputsUpdateInputHecTokenByIdAndToken`](docs/sdks/inputs/README.md#updateinputhectokenbyidandtoken) - Update token metadata on existing hec input
 - [`outputsCreateOutput`](docs/sdks/outputs/README.md#createoutput) - Create Output
 - [`outputsCreateOutputTestById`](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
 - [`outputsDeleteOutputById`](docs/sdks/outputs/README.md#deleteoutputbyid) - Delete Output
@@ -197,6 +190,13 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`outputsGetOutputSamplesById`](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 - [`outputsListOutput`](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
 - [`outputsUpdateOutputById`](docs/sdks/outputs/README.md#updateoutputbyid) - Update Output
+- [`sourcesCreateSource`](docs/sdks/sources/README.md#createsource) - Create Source
+- [`sourcesCreateSourceHecTokenById`](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
+- [`sourcesDeleteSourceById`](docs/sdks/sources/README.md#deletesourcebyid) - Delete Source
+- [`sourcesGetSourceById`](docs/sdks/sources/README.md#getsourcebyid) - Get Source by ID
+- [`sourcesListSource`](docs/sdks/sources/README.md#listsource) - Get a list of Source objects
+- [`sourcesUpdateSourceById`](docs/sdks/sources/README.md#updatesourcebyid) - Update Source
+- [`sourcesUpdateSourceHecTokenByIdAndToken`](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -218,7 +218,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.listInput({
+  const result = await criblControlPlane.sources.listSource({
     retries: {
       strategy: "backoff",
       backoff: {
@@ -260,7 +260,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.listInput();
+  const result = await criblControlPlane.sources.listSource();
 
   console.log(result);
 }
@@ -298,7 +298,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   try {
-    const result = await criblControlPlane.inputs.listInput();
+    const result = await criblControlPlane.sources.listSource();
 
     console.log(result);
   } catch (error) {

@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete Input
+ * Add token and optional metadata to an existing HEC Source
  *
  * @remarks
- * Delete Input
+ * Add token and optional metadata to an existing HEC Source
  */
-export function inputsDeleteInputById(
+export function sourcesCreateSourceHecTokenById(
   client: CriblControlPlaneCore,
-  request: operations.DeleteInputByIdRequest,
+  request: operations.CreateInputHecTokenByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteInputByIdResponse,
+    operations.CreateInputHecTokenByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function inputsDeleteInputById(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.DeleteInputByIdRequest,
+  request: operations.CreateInputHecTokenByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteInputByIdResponse,
+      operations.CreateInputHecTokenByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,14 +79,17 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.DeleteInputByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.CreateInputHecTokenByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload.AddHecTokenRequest, {
+    explode: true,
+  });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
@@ -95,9 +98,10 @@ async function $do(
     }),
   };
 
-  const path = pathToFunc("/system/inputs/{id}")(pathParams);
+  const path = pathToFunc("/system/inputs/{id}/hectoken")(pathParams);
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -107,7 +111,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "deleteInputById",
+    operationID: "createInputHecTokenById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -121,7 +125,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "DELETE",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -150,7 +154,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteInputByIdResponse,
+    operations.CreateInputHecTokenByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -161,7 +165,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DeleteInputByIdResponse$inboundSchema),
+    M.json(200, operations.CreateInputHecTokenByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

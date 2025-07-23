@@ -10,7 +10,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.listInput();
+  const result = await criblControlPlane.sources.listSource();
 
   console.log(result);
 }

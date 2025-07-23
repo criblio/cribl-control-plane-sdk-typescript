@@ -1,6 +1,6 @@
 # GetInputByIdResponse
 
-a list of Input objects
+a list of Source objects
 
 ## Example Usage
 

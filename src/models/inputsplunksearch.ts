@@ -226,7 +226,7 @@ export type InputSplunkSearch = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputSplunkSearchType | undefined;
+  type: InputSplunkSearchType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1117,7 +1117,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkSearchType$inboundSchema.optional(),
+  type: InputSplunkSearchType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1176,7 +1176,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSplunkSearch$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1232,7 +1232,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   InputSplunkSearch
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkSearchType$outboundSchema.optional(),
+  type: InputSplunkSearchType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

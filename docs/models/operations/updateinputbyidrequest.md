@@ -27,7 +27,7 @@ let value: UpdateInputByIdRequest = {
 
 ## Fields
 
-| Field                      | Type                       | Required                   | Description                |
-| -------------------------- | -------------------------- | -------------------------- | -------------------------- |
-| `id`                       | *string*                   | :heavy_check_mark:         | Unique ID to PATCH         |
-| `input`                    | *models.Input*             | :heavy_check_mark:         | Input object to be updated |
+| Field                       | Type                        | Required                    | Description                 |
+| --------------------------- | --------------------------- | --------------------------- | --------------------------- |
+| `id`                        | *string*                    | :heavy_check_mark:          | Unique ID to PATCH          |
+| `input`                     | *models.Input*              | :heavy_check_mark:          | Source object to be updated |

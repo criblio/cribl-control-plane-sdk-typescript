@@ -359,14 +359,28 @@ export type Input =
   | InputMsk
   | InputWiz
   | InputKafka
-  | InputAzureBlob
   | InputConfluentCloud
   | InputOffice365Mgmt
   | InputOffice365Service
   | InputEventhub
-  | InputExec
   | InputGooglePubsub
+  | InputKinesis
+  | InputJournalFiles
+  | InputHttp
+  | InputSplunk
+  | InputSplunkSearch
+  | InputSplunkHec
+  | InputAzureBlob
+  | InputElastic
+  | InputLoki
+  | InputPrometheusRw
+  | InputExec
+  | InputFirehose
   | InputCribl
+  | InputCriblTcp
+  | InputCriblHttp
+  | InputCriblLakeHttp
+  | InputTcpjson
   | InputSystemMetrics
   | InputSystemState
   | InputKubeMetrics
@@ -374,40 +388,26 @@ export type Input =
   | InputKubeEvents
   | InputWindowsMetrics
   | InputCrowdstrike
+  | InputDatadogAgent
   | InputDatagen
-  | InputKinesis
+  | InputHttpRaw
   | InputCriblmetrics
   | InputS3
   | InputS3Inventory
-  | InputFile
-  | InputAppscope
-  | InputWinEventLogs
-  | InputJournalFiles
-  | InputSecurityLake
-  | InputCollection
-  | InputHttp
-  | InputSplunk
-  | InputSplunkSearch
-  | InputSplunkHec
-  | InputElastic
-  | InputLoki
-  | InputPrometheusRw
-  | InputFirehose
-  | InputCriblTcp
-  | InputCriblHttp
-  | InputCriblLakeHttp
-  | InputTcpjson
-  | InputDatadogAgent
-  | InputHttpRaw
-  | InputMetrics
   | InputSqs
+  | InputFile
   | InputTcp
+  | InputAppscope
   | InputWef
+  | InputWinEventLogs
   | InputRawUdp
+  | InputSecurityLake
   | InputZscalerHec
+  | InputCollection
   | InputPrometheus
   | InputEdgePrometheus
   | InputOffice365MsgTrace
+  | InputMetrics
   | InputSnmp
   | InputOpenTelemetry
   | InputModelDrivenTelemetry
@@ -421,14 +421,28 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     InputMsk$inboundSchema,
     InputWiz$inboundSchema,
     InputKafka$inboundSchema,
-    InputAzureBlob$inboundSchema,
     InputConfluentCloud$inboundSchema,
     InputOffice365Mgmt$inboundSchema,
     InputOffice365Service$inboundSchema,
     InputEventhub$inboundSchema,
-    InputExec$inboundSchema,
     InputGooglePubsub$inboundSchema,
+    InputKinesis$inboundSchema,
+    InputJournalFiles$inboundSchema,
+    InputHttp$inboundSchema,
+    InputSplunk$inboundSchema,
+    InputSplunkSearch$inboundSchema,
+    InputSplunkHec$inboundSchema,
+    InputAzureBlob$inboundSchema,
+    InputElastic$inboundSchema,
+    InputLoki$inboundSchema,
+    InputPrometheusRw$inboundSchema,
+    InputExec$inboundSchema,
+    InputFirehose$inboundSchema,
     InputCribl$inboundSchema,
+    InputCriblTcp$inboundSchema,
+    InputCriblHttp$inboundSchema,
+    InputCriblLakeHttp$inboundSchema,
+    InputTcpjson$inboundSchema,
     InputSystemMetrics$inboundSchema,
     InputSystemState$inboundSchema,
     InputKubeMetrics$inboundSchema,
@@ -436,40 +450,26 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     InputKubeEvents$inboundSchema,
     InputWindowsMetrics$inboundSchema,
     InputCrowdstrike$inboundSchema,
+    InputDatadogAgent$inboundSchema,
     InputDatagen$inboundSchema,
-    InputKinesis$inboundSchema,
+    InputHttpRaw$inboundSchema,
     InputCriblmetrics$inboundSchema,
     InputS3$inboundSchema,
     InputS3Inventory$inboundSchema,
-    InputFile$inboundSchema,
-    InputAppscope$inboundSchema,
-    InputWinEventLogs$inboundSchema,
-    InputJournalFiles$inboundSchema,
-    InputSecurityLake$inboundSchema,
-    InputCollection$inboundSchema,
-    InputHttp$inboundSchema,
-    InputSplunk$inboundSchema,
-    InputSplunkSearch$inboundSchema,
-    InputSplunkHec$inboundSchema,
-    InputElastic$inboundSchema,
-    InputLoki$inboundSchema,
-    InputPrometheusRw$inboundSchema,
-    InputFirehose$inboundSchema,
-    InputCriblTcp$inboundSchema,
-    InputCriblHttp$inboundSchema,
-    InputCriblLakeHttp$inboundSchema,
-    InputTcpjson$inboundSchema,
-    InputDatadogAgent$inboundSchema,
-    InputHttpRaw$inboundSchema,
-    InputMetrics$inboundSchema,
     InputSqs$inboundSchema,
+    InputFile$inboundSchema,
     InputTcp$inboundSchema,
+    InputAppscope$inboundSchema,
     InputWef$inboundSchema,
+    InputWinEventLogs$inboundSchema,
     InputRawUdp$inboundSchema,
+    InputSecurityLake$inboundSchema,
     InputZscalerHec$inboundSchema,
+    InputCollection$inboundSchema,
     InputPrometheus$inboundSchema,
     InputEdgePrometheus$inboundSchema,
     InputOffice365MsgTrace$inboundSchema,
+    InputMetrics$inboundSchema,
     InputSnmp$inboundSchema,
     InputOpenTelemetry$inboundSchema,
     InputModelDrivenTelemetry$inboundSchema,
@@ -483,14 +483,28 @@ export type Input$Outbound =
   | InputMsk$Outbound
   | InputWiz$Outbound
   | InputKafka$Outbound
-  | InputAzureBlob$Outbound
   | InputConfluentCloud$Outbound
   | InputOffice365Mgmt$Outbound
   | InputOffice365Service$Outbound
   | InputEventhub$Outbound
-  | InputExec$Outbound
   | InputGooglePubsub$Outbound
+  | InputKinesis$Outbound
+  | InputJournalFiles$Outbound
+  | InputHttp$Outbound
+  | InputSplunk$Outbound
+  | InputSplunkSearch$Outbound
+  | InputSplunkHec$Outbound
+  | InputAzureBlob$Outbound
+  | InputElastic$Outbound
+  | InputLoki$Outbound
+  | InputPrometheusRw$Outbound
+  | InputExec$Outbound
+  | InputFirehose$Outbound
   | InputCribl$Outbound
+  | InputCriblTcp$Outbound
+  | InputCriblHttp$Outbound
+  | InputCriblLakeHttp$Outbound
+  | InputTcpjson$Outbound
   | InputSystemMetrics$Outbound
   | InputSystemState$Outbound
   | InputKubeMetrics$Outbound
@@ -498,40 +512,26 @@ export type Input$Outbound =
   | InputKubeEvents$Outbound
   | InputWindowsMetrics$Outbound
   | InputCrowdstrike$Outbound
+  | InputDatadogAgent$Outbound
   | InputDatagen$Outbound
-  | InputKinesis$Outbound
+  | InputHttpRaw$Outbound
   | InputCriblmetrics$Outbound
   | InputS3$Outbound
   | InputS3Inventory$Outbound
-  | InputFile$Outbound
-  | InputAppscope$Outbound
-  | InputWinEventLogs$Outbound
-  | InputJournalFiles$Outbound
-  | InputSecurityLake$Outbound
-  | InputCollection$Outbound
-  | InputHttp$Outbound
-  | InputSplunk$Outbound
-  | InputSplunkSearch$Outbound
-  | InputSplunkHec$Outbound
-  | InputElastic$Outbound
-  | InputLoki$Outbound
-  | InputPrometheusRw$Outbound
-  | InputFirehose$Outbound
-  | InputCriblTcp$Outbound
-  | InputCriblHttp$Outbound
-  | InputCriblLakeHttp$Outbound
-  | InputTcpjson$Outbound
-  | InputDatadogAgent$Outbound
-  | InputHttpRaw$Outbound
-  | InputMetrics$Outbound
   | InputSqs$Outbound
+  | InputFile$Outbound
   | InputTcp$Outbound
+  | InputAppscope$Outbound
   | InputWef$Outbound
+  | InputWinEventLogs$Outbound
   | InputRawUdp$Outbound
+  | InputSecurityLake$Outbound
   | InputZscalerHec$Outbound
+  | InputCollection$Outbound
   | InputPrometheus$Outbound
   | InputEdgePrometheus$Outbound
   | InputOffice365MsgTrace$Outbound
+  | InputMetrics$Outbound
   | InputSnmp$Outbound
   | InputOpenTelemetry$Outbound
   | InputModelDrivenTelemetry$Outbound
@@ -548,14 +548,28 @@ export const Input$outboundSchema: z.ZodType<
   InputMsk$outboundSchema,
   InputWiz$outboundSchema,
   InputKafka$outboundSchema,
-  InputAzureBlob$outboundSchema,
   InputConfluentCloud$outboundSchema,
   InputOffice365Mgmt$outboundSchema,
   InputOffice365Service$outboundSchema,
   InputEventhub$outboundSchema,
-  InputExec$outboundSchema,
   InputGooglePubsub$outboundSchema,
+  InputKinesis$outboundSchema,
+  InputJournalFiles$outboundSchema,
+  InputHttp$outboundSchema,
+  InputSplunk$outboundSchema,
+  InputSplunkSearch$outboundSchema,
+  InputSplunkHec$outboundSchema,
+  InputAzureBlob$outboundSchema,
+  InputElastic$outboundSchema,
+  InputLoki$outboundSchema,
+  InputPrometheusRw$outboundSchema,
+  InputExec$outboundSchema,
+  InputFirehose$outboundSchema,
   InputCribl$outboundSchema,
+  InputCriblTcp$outboundSchema,
+  InputCriblHttp$outboundSchema,
+  InputCriblLakeHttp$outboundSchema,
+  InputTcpjson$outboundSchema,
   InputSystemMetrics$outboundSchema,
   InputSystemState$outboundSchema,
   InputKubeMetrics$outboundSchema,
@@ -563,40 +577,26 @@ export const Input$outboundSchema: z.ZodType<
   InputKubeEvents$outboundSchema,
   InputWindowsMetrics$outboundSchema,
   InputCrowdstrike$outboundSchema,
+  InputDatadogAgent$outboundSchema,
   InputDatagen$outboundSchema,
-  InputKinesis$outboundSchema,
+  InputHttpRaw$outboundSchema,
   InputCriblmetrics$outboundSchema,
   InputS3$outboundSchema,
   InputS3Inventory$outboundSchema,
-  InputFile$outboundSchema,
-  InputAppscope$outboundSchema,
-  InputWinEventLogs$outboundSchema,
-  InputJournalFiles$outboundSchema,
-  InputSecurityLake$outboundSchema,
-  InputCollection$outboundSchema,
-  InputHttp$outboundSchema,
-  InputSplunk$outboundSchema,
-  InputSplunkSearch$outboundSchema,
-  InputSplunkHec$outboundSchema,
-  InputElastic$outboundSchema,
-  InputLoki$outboundSchema,
-  InputPrometheusRw$outboundSchema,
-  InputFirehose$outboundSchema,
-  InputCriblTcp$outboundSchema,
-  InputCriblHttp$outboundSchema,
-  InputCriblLakeHttp$outboundSchema,
-  InputTcpjson$outboundSchema,
-  InputDatadogAgent$outboundSchema,
-  InputHttpRaw$outboundSchema,
-  InputMetrics$outboundSchema,
   InputSqs$outboundSchema,
+  InputFile$outboundSchema,
   InputTcp$outboundSchema,
+  InputAppscope$outboundSchema,
   InputWef$outboundSchema,
+  InputWinEventLogs$outboundSchema,
   InputRawUdp$outboundSchema,
+  InputSecurityLake$outboundSchema,
   InputZscalerHec$outboundSchema,
+  InputCollection$outboundSchema,
   InputPrometheus$outboundSchema,
   InputEdgePrometheus$outboundSchema,
   InputOffice365MsgTrace$outboundSchema,
+  InputMetrics$outboundSchema,
   InputSnmp$outboundSchema,
   InputOpenTelemetry$outboundSchema,
   InputModelDrivenTelemetry$outboundSchema,

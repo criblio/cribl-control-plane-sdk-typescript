@@ -156,7 +156,7 @@ export type InputTcpjson = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputTcpjsonType | undefined;
+  type: InputTcpjsonType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -707,7 +707,7 @@ export const InputTcpjson$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputTcpjsonType$inboundSchema.optional(),
+  type: InputTcpjsonType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -738,7 +738,7 @@ export const InputTcpjson$inboundSchema: z.ZodType<
 /** @internal */
 export type InputTcpjson$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -771,7 +771,7 @@ export const InputTcpjson$outboundSchema: z.ZodType<
   InputTcpjson
 > = z.object({
   id: z.string().optional(),
-  type: InputTcpjsonType$outboundSchema.optional(),
+  type: InputTcpjsonType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

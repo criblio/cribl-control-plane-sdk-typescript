@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type CreateInputHecTokenByIdRequest = {
   /**
-   * hec input id
+   * HEC Source id
    */
   id: string;
   /**

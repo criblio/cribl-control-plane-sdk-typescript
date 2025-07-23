@@ -6,7 +6,7 @@ import { expect, test } from "vitest";
 import { CriblControlPlane } from "../index.js";
 import { createTestHTTPClient } from "./testclient.js";
 
-test("Inputs List Input", async () => {
+test("Sources List Input", async () => {
   const testHttpClient = createTestHTTPClient("listInput");
 
   const criblControlPlane = new CriblControlPlane({
@@ -17,12 +17,12 @@ test("Inputs List Input", async () => {
     },
   });
 
-  const result = await criblControlPlane.inputs.listInput();
+  const result = await criblControlPlane.sources.listSource();
   expect(result).toBeDefined();
   expect(result).toEqual({});
 });
 
-test("Inputs Create Input", async () => {
+test("Sources Create Input", async () => {
   const testHttpClient = createTestHTTPClient("createInput");
 
   const criblControlPlane = new CriblControlPlane({
@@ -33,7 +33,8 @@ test("Inputs Create Input", async () => {
     },
   });
 
-  const result = await criblControlPlane.inputs.createInput({
+  const result = await criblControlPlane.sources.createSource({
+    type: "tcp",
     disabled: false,
     sendToRoutes: true,
     pqEnabled: false,
@@ -53,7 +54,7 @@ test("Inputs Create Input", async () => {
   expect(result).toEqual({});
 });
 
-test("Inputs Get Input By Id", async () => {
+test("Sources Get Input By Id", async () => {
   const testHttpClient = createTestHTTPClient("getInputById");
 
   const criblControlPlane = new CriblControlPlane({
@@ -64,14 +65,14 @@ test("Inputs Get Input By Id", async () => {
     },
   });
 
-  const result = await criblControlPlane.inputs.getInputById({
+  const result = await criblControlPlane.sources.getSourceById({
     id: "<id>",
   });
   expect(result).toBeDefined();
   expect(result).toEqual({});
 });
 
-test("Inputs Update Input By Id", async () => {
+test("Sources Update Input By Id", async () => {
   const testHttpClient = createTestHTTPClient("updateInputById");
 
   const criblControlPlane = new CriblControlPlane({
@@ -82,7 +83,7 @@ test("Inputs Update Input By Id", async () => {
     },
   });
 
-  const result = await criblControlPlane.inputs.updateInputById({
+  const result = await criblControlPlane.sources.updateSourceById({
     id: "<id>",
     input: {
       id: "<id>",
@@ -96,7 +97,7 @@ test("Inputs Update Input By Id", async () => {
   expect(result).toEqual({});
 });
 
-test("Inputs Delete Input By Id", async () => {
+test("Sources Delete Input By Id", async () => {
   const testHttpClient = createTestHTTPClient("deleteInputById");
 
   const criblControlPlane = new CriblControlPlane({
@@ -107,14 +108,14 @@ test("Inputs Delete Input By Id", async () => {
     },
   });
 
-  const result = await criblControlPlane.inputs.deleteInputById({
+  const result = await criblControlPlane.sources.deleteSourceById({
     id: "<id>",
   });
   expect(result).toBeDefined();
   expect(result).toEqual({});
 });
 
-test("Inputs Create Input Hec Token By Id", async () => {
+test("Sources Create Input Hec Token By Id", async () => {
   const testHttpClient = createTestHTTPClient("createInputHecTokenById");
 
   const criblControlPlane = new CriblControlPlane({
@@ -125,7 +126,7 @@ test("Inputs Create Input Hec Token By Id", async () => {
     },
   });
 
-  const result = await criblControlPlane.inputs.createInputHecTokenById({
+  const result = await criblControlPlane.sources.createSourceHecTokenById({
     id: "<id>",
     addHecTokenRequest: {
       token: "<value>",
@@ -135,7 +136,7 @@ test("Inputs Create Input Hec Token By Id", async () => {
   expect(result).toEqual({});
 });
 
-test("Inputs Update Input Hec Token By Id And Token", async () => {
+test("Sources Update Input Hec Token By Id And Token", async () => {
   const testHttpClient = createTestHTTPClient(
     "updateInputHecTokenByIdAndToken",
   );
@@ -148,13 +149,12 @@ test("Inputs Update Input Hec Token By Id And Token", async () => {
     },
   });
 
-  const result = await criblControlPlane.inputs.updateInputHecTokenByIdAndToken(
-    {
+  const result = await criblControlPlane.sources
+    .updateSourceHecTokenByIdAndToken({
       id: "<id>",
       token: "<value>",
       updateHecTokenRequest: {},
-    },
-  );
+    });
   expect(result).toBeDefined();
   expect(result).toEqual({});
 });

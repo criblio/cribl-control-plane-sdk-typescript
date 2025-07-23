@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Input by ID
+ * Delete Source
  *
  * @remarks
- * Get Input by ID
+ * Delete Source
  */
-export function inputsGetInputById(
+export function sourcesDeleteSourceById(
   client: CriblControlPlaneCore,
-  request: operations.GetInputByIdRequest,
+  request: operations.DeleteInputByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetInputByIdResponse,
+    operations.DeleteInputByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function inputsGetInputById(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetInputByIdRequest,
+  request: operations.DeleteInputByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetInputByIdResponse,
+      operations.DeleteInputByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,7 +79,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.GetInputByIdRequest$outboundSchema.parse(value),
+    (value) => operations.DeleteInputByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -107,7 +107,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getInputById",
+    operationID: "deleteInputById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -121,7 +121,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "DELETE",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -150,7 +150,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetInputByIdResponse,
+    operations.DeleteInputByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -161,7 +161,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetInputByIdResponse$inboundSchema),
+    M.json(200, operations.DeleteInputByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

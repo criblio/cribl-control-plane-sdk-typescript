@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update token metadata on existing hec input
+ * Update Source
  *
  * @remarks
- * Update token metadata on existing hec input
+ * Update Source
  */
-export function inputsUpdateInputHecTokenByIdAndToken(
+export function sourcesUpdateSourceById(
   client: CriblControlPlaneCore,
-  request: operations.UpdateInputHecTokenByIdAndTokenRequest,
+  request: operations.UpdateInputByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdateInputHecTokenByIdAndTokenResponse,
+    operations.UpdateInputByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function inputsUpdateInputHecTokenByIdAndToken(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.UpdateInputHecTokenByIdAndTokenRequest,
+  request: operations.UpdateInputByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.UpdateInputHecTokenByIdAndTokenResponse,
+      operations.UpdateInputByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,32 +79,23 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.UpdateInputHecTokenByIdAndTokenRequest$outboundSchema.parse(
-        value,
-      ),
+    (value) => operations.UpdateInputByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.UpdateHecTokenRequest, {
-    explode: true,
-  });
+  const body = encodeJSON("body", payload.Input, { explode: true });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
       explode: false,
       charEncoding: "percent",
     }),
-    token: encodeSimple("token", payload.token, {
-      explode: false,
-      charEncoding: "percent",
-    }),
   };
 
-  const path = pathToFunc("/system/inputs/{id}/hectoken/{token}")(pathParams);
+  const path = pathToFunc("/system/inputs/{id}")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -117,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "updateInputHecTokenByIdAndToken",
+    operationID: "updateInputById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -160,7 +151,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdateInputHecTokenByIdAndTokenResponse,
+    operations.UpdateInputByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -171,10 +162,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.UpdateInputHecTokenByIdAndTokenResponse$inboundSchema,
-    ),
+    M.json(200, operations.UpdateInputByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

@@ -16,7 +16,7 @@ export type DeleteInputByIdRequest = {
 };
 
 /**
- * a list of Input objects
+ * a list of Source objects
  */
 export type DeleteInputByIdResponse = {
   /**

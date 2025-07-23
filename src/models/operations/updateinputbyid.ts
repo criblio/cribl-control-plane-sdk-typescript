@@ -15,13 +15,13 @@ export type UpdateInputByIdRequest = {
    */
   id: string;
   /**
-   * Input object to be updated
+   * Source object to be updated
    */
   input: models.Input;
 };
 
 /**
- * a list of Input objects
+ * a list of Source objects
  */
 export type UpdateInputByIdResponse = {
   /**

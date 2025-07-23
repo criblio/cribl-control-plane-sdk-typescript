@@ -182,7 +182,7 @@ export type InputLoki = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputLokiType | undefined;
+  type: InputLokiType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -904,7 +904,7 @@ export const InputLoki$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputLokiType$inboundSchema.optional(),
+  type: InputLokiType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -952,7 +952,7 @@ export const InputLoki$inboundSchema: z.ZodType<
 /** @internal */
 export type InputLoki$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1001,7 +1001,7 @@ export const InputLoki$outboundSchema: z.ZodType<
   InputLoki
 > = z.object({
   id: z.string().optional(),
-  type: InputLokiType$outboundSchema.optional(),
+  type: InputLokiType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

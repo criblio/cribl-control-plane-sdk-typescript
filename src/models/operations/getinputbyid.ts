@@ -16,7 +16,7 @@ export type GetInputByIdRequest = {
 };
 
 /**
- * a list of Input objects
+ * a list of Source objects
  */
 export type GetInputByIdResponse = {
   /**
