@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: eae20664d77e70e471b476c5972d62b0
-  docVersion: 4.14.0-alpha.1753109206843-5556f9ab
+  docChecksum: 53da85af9d541ea346e039f9ba1b510f
+  docVersion: 4.14.0-alpha.1753212696681-3b9b0ede
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.12
-  configChecksum: 5908fea9501480ca2f69ef7b618446c5
+  releaseVersion: 0.0.13
+  configChecksum: fb66b9492b088e8976230b50f1390152
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -43,29 +43,49 @@ generatedFiles:
   - docs/lib/utils/retryconfig.md
   - docs/models/addhectokenrequest.md
   - docs/models/addhectokenrequestmetadatum.md
+  - docs/models/additionalproperty.md
+  - docs/models/aisiemendpointpath.md
   - docs/models/allow.md
-  - docs/models/apiversion.md
   - docs/models/authenticationprotocol.md
   - docs/models/authtoken.md
-  - docs/models/certificate.md
+  - docs/models/authtype.md
+  - docs/models/awsauthenticationmethod.md
+  - docs/models/blobaccesstier.md
   - docs/models/certoptions.md
   - docs/models/collectors.md
+  - docs/models/columnmapping.md
   - docs/models/container.md
   - docs/models/containermode.md
+  - docs/models/criblevent.md
+  - docs/models/customlabel.md
+  - docs/models/datadogsite.md
+  - docs/models/datasetsite.md
   - docs/models/disksandfilesystems.md
   - docs/models/dns.md
+  - docs/models/elasticversion.md
+  - docs/models/endpoint.md
+  - docs/models/endpointconfiguration.md
   - docs/models/endpointheader.md
   - docs/models/endpointparam.md
+  - docs/models/endpointtype.md
   - docs/models/errors/errort.md
   - docs/models/errors/healthstatuserror.md
   - docs/models/eventformat.md
-  - docs/models/extrahttpheader.md
+  - docs/models/extenttag.md
+  - docs/models/extralogtype.md
+  - docs/models/facility.md
+  - docs/models/fieldname.md
   - docs/models/firewall.md
-  - docs/models/format.md
-  - docs/models/googleauthenticationmethod.md
+  - docs/models/flushperiodsec.md
+  - docs/models/flushperiodsectype.md
   - docs/models/healthstatus.md
   - docs/models/hostinfo.md
   - docs/models/hostsfile.md
+  - docs/models/indexerdiscoveryconfigs.md
+  - docs/models/indexerdiscoveryconfigsauthenticationmethod.md
+  - docs/models/indexerdiscoveryconfigsauthtokenauthenticationmethod.md
+  - docs/models/ingestifnotexist.md
+  - docs/models/ingestionmode.md
   - docs/models/input.md
   - docs/models/inputappscope.md
   - docs/models/inputappscopeauthenticationmethod.md
@@ -83,6 +103,7 @@ generatedFiles:
   - docs/models/inputappscopetype.md
   - docs/models/inputazureblob.md
   - docs/models/inputazureblobauthenticationmethod.md
+  - docs/models/inputazureblobcertificate.md
   - docs/models/inputazureblobcompression.md
   - docs/models/inputazureblobconnection.md
   - docs/models/inputazureblobmetadatum.md
@@ -204,10 +225,12 @@ generatedFiles:
   - docs/models/inputedgeprometheussignatureversion.md
   - docs/models/inputedgeprometheustype.md
   - docs/models/inputelastic.md
+  - docs/models/inputelasticapiversion.md
   - docs/models/inputelasticauthenticationmethod.md
   - docs/models/inputelasticauthenticationtype.md
   - docs/models/inputelasticcompression.md
   - docs/models/inputelasticconnection.md
+  - docs/models/inputelasticextrahttpheader.md
   - docs/models/inputelasticmaximumtlsversion.md
   - docs/models/inputelasticmetadatum.md
   - docs/models/inputelasticminimumtlsversion.md
@@ -254,6 +277,7 @@ generatedFiles:
   - docs/models/inputgooglepubsub.md
   - docs/models/inputgooglepubsubcompression.md
   - docs/models/inputgooglepubsubconnection.md
+  - docs/models/inputgooglepubsubgoogleauthenticationmethod.md
   - docs/models/inputgooglepubsubmetadatum.md
   - docs/models/inputgooglepubsubmode.md
   - docs/models/inputgooglepubsubpq.md
@@ -264,6 +288,10 @@ generatedFiles:
   - docs/models/inputgrafanacompression2.md
   - docs/models/inputgrafanaconnection1.md
   - docs/models/inputgrafanaconnection2.md
+  - docs/models/inputgrafanalokiauth1.md
+  - docs/models/inputgrafanalokiauth2.md
+  - docs/models/inputgrafanalokiauthauthenticationtype1.md
+  - docs/models/inputgrafanalokiauthauthenticationtype2.md
   - docs/models/inputgrafanamaximumtlsversion1.md
   - docs/models/inputgrafanamaximumtlsversion2.md
   - docs/models/inputgrafanametadatum1.md
@@ -274,6 +302,10 @@ generatedFiles:
   - docs/models/inputgrafanamode2.md
   - docs/models/inputgrafanapq1.md
   - docs/models/inputgrafanapq2.md
+  - docs/models/inputgrafanaprometheusauth1.md
+  - docs/models/inputgrafanaprometheusauth2.md
+  - docs/models/inputgrafanaprometheusauthauthenticationtype1.md
+  - docs/models/inputgrafanaprometheusauthauthenticationtype2.md
   - docs/models/inputgrafanatlssettingsserverside1.md
   - docs/models/inputgrafanatlssettingsserverside2.md
   - docs/models/inputgrafanatype1.md
@@ -335,6 +367,7 @@ generatedFiles:
   - docs/models/inputkinesismetadatum.md
   - docs/models/inputkinesismode.md
   - docs/models/inputkinesispq.md
+  - docs/models/inputkinesisrecorddataformat.md
   - docs/models/inputkinesissignatureversion.md
   - docs/models/inputkinesistype.md
   - docs/models/inputkubeevents.md
@@ -470,6 +503,7 @@ generatedFiles:
   - docs/models/inputopentelemetrymode.md
   - docs/models/inputopentelemetryoauthheader.md
   - docs/models/inputopentelemetryoauthparam.md
+  - docs/models/inputopentelemetryotlpversion.md
   - docs/models/inputopentelemetrypq.md
   - docs/models/inputopentelemetryprotocol.md
   - docs/models/inputopentelemetrytlssettingsserverside.md
@@ -568,6 +602,7 @@ generatedFiles:
   - docs/models/inputsplunkhectlssettingsserverside.md
   - docs/models/inputsplunkhectype.md
   - docs/models/inputsplunkmaximumtlsversion.md
+  - docs/models/inputsplunkmaxs2sversion.md
   - docs/models/inputsplunkmetadatum.md
   - docs/models/inputsplunkminimumtlsversion.md
   - docs/models/inputsplunkmode.md
@@ -595,6 +630,7 @@ generatedFiles:
   - docs/models/inputsqsmetadatum.md
   - docs/models/inputsqsmode.md
   - docs/models/inputsqspq.md
+  - docs/models/inputsqsqueuetype.md
   - docs/models/inputsqssignatureversion.md
   - docs/models/inputsqstype.md
   - docs/models/inputsyslog1.md
@@ -679,6 +715,7 @@ generatedFiles:
   - docs/models/inputwefauthenticationmethod.md
   - docs/models/inputwefcompression.md
   - docs/models/inputwefconnection.md
+  - docs/models/inputwefformat.md
   - docs/models/inputwefmaximumtlsversion.md
   - docs/models/inputwefmetadatum.md
   - docs/models/inputwefminimumtlsversion.md
@@ -744,44 +781,858 @@ generatedFiles:
   - docs/models/listeningports.md
   - docs/models/loggedinusers.md
   - docs/models/logininfo.md
-  - docs/models/lokiauth1.md
-  - docs/models/lokiauth2.md
-  - docs/models/lokiauthauthenticationtype1.md
-  - docs/models/lokiauthauthenticationtype2.md
+  - docs/models/loglabel.md
+  - docs/models/loglocationtype.md
   - docs/models/lokiauthoauthheader1.md
   - docs/models/lokiauthoauthheader2.md
   - docs/models/lokiauthoauthparam1.md
   - docs/models/lokiauthoauthparam2.md
-  - docs/models/maxs2sversion.md
+  - docs/models/mappingtype.md
   - docs/models/metricsprotocol.md
+  - docs/models/microsoftentraidauthenticationendpoint.md
   - docs/models/mtlssettings.md
   - docs/models/operations/createinputhectokenbyidrequest.md
   - docs/models/operations/createinputhectokenbyidresponse.md
   - docs/models/operations/createinputresponse.md
+  - docs/models/operations/createoutputresponse.md
+  - docs/models/operations/createoutputtestbyidrequest.md
+  - docs/models/operations/createoutputtestbyidresponse.md
   - docs/models/operations/deleteinputbyidrequest.md
   - docs/models/operations/deleteinputbyidresponse.md
+  - docs/models/operations/deleteoutputbyidrequest.md
+  - docs/models/operations/deleteoutputbyidresponse.md
+  - docs/models/operations/deleteoutputpqbyidrequest.md
+  - docs/models/operations/deleteoutputpqbyidresponse.md
   - docs/models/operations/getinputbyidrequest.md
   - docs/models/operations/getinputbyidresponse.md
+  - docs/models/operations/getoutputbyidrequest.md
+  - docs/models/operations/getoutputbyidresponse.md
+  - docs/models/operations/getoutputpqbyidrequest.md
+  - docs/models/operations/getoutputpqbyidresponse.md
+  - docs/models/operations/getoutputsamplesbyidrequest.md
+  - docs/models/operations/getoutputsamplesbyidresponse.md
   - docs/models/operations/listinputresponse.md
+  - docs/models/operations/listoutputresponse.md
   - docs/models/operations/updateinputbyidrequest.md
   - docs/models/operations/updateinputbyidresponse.md
   - docs/models/operations/updateinputhectokenbyidandtokenrequest.md
   - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
-  - docs/models/otlpversion.md
+  - docs/models/operations/updateoutputbyidrequest.md
+  - docs/models/operations/updateoutputbyidresponse.md
+  - docs/models/output.md
+  - docs/models/outputazureblob.md
+  - docs/models/outputazureblobauthenticationmethod.md
+  - docs/models/outputazureblobbackpressurebehavior.md
+  - docs/models/outputazureblobcertificate.md
+  - docs/models/outputazureblobcompression.md
+  - docs/models/outputazureblobcompressionlevel.md
+  - docs/models/outputazureblobdataformat.md
+  - docs/models/outputazureblobdatapageversion.md
+  - docs/models/outputazureblobdiskspaceprotection.md
+  - docs/models/outputazureblobkeyvaluemetadatum.md
+  - docs/models/outputazureblobparquetversion.md
+  - docs/models/outputazureblobtype.md
+  - docs/models/outputazuredataexplorer.md
+  - docs/models/outputazuredataexplorerauthenticationmethod.md
+  - docs/models/outputazuredataexplorerbackpressurebehavior.md
+  - docs/models/outputazuredataexplorercertificate.md
+  - docs/models/outputazuredataexplorercompresscompression.md
+  - docs/models/outputazuredataexplorerdataformat.md
+  - docs/models/outputazuredataexplorerdiskspaceprotection.md
+  - docs/models/outputazuredataexplorermode.md
+  - docs/models/outputazuredataexplorerpqcompresscompression.md
+  - docs/models/outputazuredataexplorerpqcontrols.md
+  - docs/models/outputazuredataexplorerqueuefullbehavior.md
+  - docs/models/outputazuredataexplorerresponseretrysetting.md
+  - docs/models/outputazuredataexplorertimeoutretrysettings.md
+  - docs/models/outputazuredataexplorertype.md
+  - docs/models/outputazureeventhub.md
+  - docs/models/outputazureeventhubacknowledgments.md
+  - docs/models/outputazureeventhubauthentication.md
+  - docs/models/outputazureeventhubbackpressurebehavior.md
+  - docs/models/outputazureeventhubcompression.md
+  - docs/models/outputazureeventhubmode.md
+  - docs/models/outputazureeventhubpqcontrols.md
+  - docs/models/outputazureeventhubqueuefullbehavior.md
+  - docs/models/outputazureeventhubrecorddataformat.md
+  - docs/models/outputazureeventhubsaslmechanism.md
+  - docs/models/outputazureeventhubtlssettingsclientside.md
+  - docs/models/outputazureeventhubtype.md
+  - docs/models/outputazurelogs.md
+  - docs/models/outputazurelogsauthenticationmethod.md
+  - docs/models/outputazurelogsbackpressurebehavior.md
+  - docs/models/outputazurelogscompression.md
+  - docs/models/outputazurelogsextrahttpheader.md
+  - docs/models/outputazurelogsfailedrequestloggingmode.md
+  - docs/models/outputazurelogsmode.md
+  - docs/models/outputazurelogspqcontrols.md
+  - docs/models/outputazurelogsqueuefullbehavior.md
+  - docs/models/outputazurelogsresponseretrysetting.md
+  - docs/models/outputazurelogstimeoutretrysettings.md
+  - docs/models/outputazurelogstype.md
+  - docs/models/outputclickhouse.md
+  - docs/models/outputclickhouseauthenticationtype.md
+  - docs/models/outputclickhousebackpressurebehavior.md
+  - docs/models/outputclickhousecompression.md
+  - docs/models/outputclickhouseextrahttpheader.md
+  - docs/models/outputclickhousefailedrequestloggingmode.md
+  - docs/models/outputclickhouseformat.md
+  - docs/models/outputclickhousemaximumtlsversion.md
+  - docs/models/outputclickhouseminimumtlsversion.md
+  - docs/models/outputclickhousemode.md
+  - docs/models/outputclickhouseoauthheader.md
+  - docs/models/outputclickhouseoauthparam.md
+  - docs/models/outputclickhousepqcontrols.md
+  - docs/models/outputclickhousequeuefullbehavior.md
+  - docs/models/outputclickhouseresponseretrysetting.md
+  - docs/models/outputclickhousetimeoutretrysettings.md
+  - docs/models/outputclickhousetlssettingsclientside.md
+  - docs/models/outputclickhousetype.md
+  - docs/models/outputcloudwatch.md
+  - docs/models/outputcloudwatchauthenticationmethod.md
+  - docs/models/outputcloudwatchbackpressurebehavior.md
+  - docs/models/outputcloudwatchcompression.md
+  - docs/models/outputcloudwatchmode.md
+  - docs/models/outputcloudwatchpqcontrols.md
+  - docs/models/outputcloudwatchqueuefullbehavior.md
+  - docs/models/outputcloudwatchtype.md
+  - docs/models/outputconfluentcloud.md
+  - docs/models/outputconfluentcloudacknowledgments.md
+  - docs/models/outputconfluentcloudauth.md
+  - docs/models/outputconfluentcloudauthentication.md
+  - docs/models/outputconfluentcloudbackpressurebehavior.md
+  - docs/models/outputconfluentcloudcompression.md
+  - docs/models/outputconfluentcloudkafkaschemaregistryauthentication.md
+  - docs/models/outputconfluentcloudkafkaschemaregistrymaximumtlsversion.md
+  - docs/models/outputconfluentcloudkafkaschemaregistryminimumtlsversion.md
+  - docs/models/outputconfluentcloudkafkaschemaregistrytlssettingsclientside.md
+  - docs/models/outputconfluentcloudmaximumtlsversion.md
+  - docs/models/outputconfluentcloudminimumtlsversion.md
+  - docs/models/outputconfluentcloudmode.md
+  - docs/models/outputconfluentcloudpqcompresscompression.md
+  - docs/models/outputconfluentcloudpqcontrols.md
+  - docs/models/outputconfluentcloudqueuefullbehavior.md
+  - docs/models/outputconfluentcloudrecorddataformat.md
+  - docs/models/outputconfluentcloudsaslmechanism.md
+  - docs/models/outputconfluentcloudtlssettingsclientside.md
+  - docs/models/outputconfluentcloudtype.md
+  - docs/models/outputcriblhttp.md
+  - docs/models/outputcriblhttpbackpressurebehavior.md
+  - docs/models/outputcriblhttpcompression.md
+  - docs/models/outputcriblhttpextrahttpheader.md
+  - docs/models/outputcriblhttpfailedrequestloggingmode.md
+  - docs/models/outputcriblhttpmaximumtlsversion.md
+  - docs/models/outputcriblhttpminimumtlsversion.md
+  - docs/models/outputcriblhttpmode.md
+  - docs/models/outputcriblhttppqcompresscompression.md
+  - docs/models/outputcriblhttppqcontrols.md
+  - docs/models/outputcriblhttpqueuefullbehavior.md
+  - docs/models/outputcriblhttpresponseretrysetting.md
+  - docs/models/outputcriblhttptimeoutretrysettings.md
+  - docs/models/outputcriblhttptlssettingsclientside.md
+  - docs/models/outputcriblhttptype.md
+  - docs/models/outputcriblhttpurl.md
+  - docs/models/outputcribllake.md
+  - docs/models/outputcribllakebackpressurebehavior.md
+  - docs/models/outputcribllakediskspaceprotection.md
+  - docs/models/outputcribllakeformat.md
+  - docs/models/outputcribllakeobjectacl.md
+  - docs/models/outputcribllakeserversideencryptionforuploadedobjects.md
+  - docs/models/outputcribllakesignatureversion.md
+  - docs/models/outputcribllakestorageclass.md
+  - docs/models/outputcribllaketype.md
+  - docs/models/outputcribltcp.md
+  - docs/models/outputcribltcpbackpressurebehavior.md
+  - docs/models/outputcribltcpcompression.md
+  - docs/models/outputcribltcphost.md
+  - docs/models/outputcribltcpmaximumtlsversion.md
+  - docs/models/outputcribltcpminimumtlsversion.md
+  - docs/models/outputcribltcpmode.md
+  - docs/models/outputcribltcppqcompresscompression.md
+  - docs/models/outputcribltcppqcontrols.md
+  - docs/models/outputcribltcpqueuefullbehavior.md
+  - docs/models/outputcribltcptls.md
+  - docs/models/outputcribltcptlssettingsclientside.md
+  - docs/models/outputcribltcptype.md
+  - docs/models/outputcrowdstrikenextgensiem.md
+  - docs/models/outputcrowdstrikenextgensiemauthenticationmethod.md
+  - docs/models/outputcrowdstrikenextgensiembackpressurebehavior.md
+  - docs/models/outputcrowdstrikenextgensiemcompression.md
+  - docs/models/outputcrowdstrikenextgensiemextrahttpheader.md
+  - docs/models/outputcrowdstrikenextgensiemfailedrequestloggingmode.md
+  - docs/models/outputcrowdstrikenextgensiemmode.md
+  - docs/models/outputcrowdstrikenextgensiempqcontrols.md
+  - docs/models/outputcrowdstrikenextgensiemqueuefullbehavior.md
+  - docs/models/outputcrowdstrikenextgensiemrequestformat.md
+  - docs/models/outputcrowdstrikenextgensiemresponseretrysetting.md
+  - docs/models/outputcrowdstrikenextgensiemtimeoutretrysettings.md
+  - docs/models/outputcrowdstrikenextgensiemtype.md
+  - docs/models/outputdatadog.md
+  - docs/models/outputdatadogauthenticationmethod.md
+  - docs/models/outputdatadogbackpressurebehavior.md
+  - docs/models/outputdatadogcompression.md
+  - docs/models/outputdatadogextrahttpheader.md
+  - docs/models/outputdatadogfailedrequestloggingmode.md
+  - docs/models/outputdatadogmode.md
+  - docs/models/outputdatadogpqcontrols.md
+  - docs/models/outputdatadogqueuefullbehavior.md
+  - docs/models/outputdatadogresponseretrysetting.md
+  - docs/models/outputdatadogseverity.md
+  - docs/models/outputdatadogtimeoutretrysettings.md
+  - docs/models/outputdatadogtype.md
+  - docs/models/outputdataset.md
+  - docs/models/outputdatasetauthenticationmethod.md
+  - docs/models/outputdatasetbackpressurebehavior.md
+  - docs/models/outputdatasetcompression.md
+  - docs/models/outputdatasetextrahttpheader.md
+  - docs/models/outputdatasetfailedrequestloggingmode.md
+  - docs/models/outputdatasetmode.md
+  - docs/models/outputdatasetpqcontrols.md
+  - docs/models/outputdatasetqueuefullbehavior.md
+  - docs/models/outputdatasetresponseretrysetting.md
+  - docs/models/outputdatasetseverity.md
+  - docs/models/outputdatasettimeoutretrysettings.md
+  - docs/models/outputdatasettype.md
+  - docs/models/outputdefault.md
+  - docs/models/outputdefaulttype.md
+  - docs/models/outputdevnull.md
+  - docs/models/outputdevnulltype.md
+  - docs/models/outputdiskspool.md
+  - docs/models/outputdiskspoolcompression.md
+  - docs/models/outputdiskspooltype.md
+  - docs/models/outputdls3.md
+  - docs/models/outputdls3authenticationmethod.md
+  - docs/models/outputdls3backpressurebehavior.md
+  - docs/models/outputdls3compression.md
+  - docs/models/outputdls3compressionlevel.md
+  - docs/models/outputdls3dataformat.md
+  - docs/models/outputdls3datapageversion.md
+  - docs/models/outputdls3diskspaceprotection.md
+  - docs/models/outputdls3keyvaluemetadatum.md
+  - docs/models/outputdls3objectacl.md
+  - docs/models/outputdls3parquetversion.md
+  - docs/models/outputdls3serversideencryptionforuploadedobjects.md
+  - docs/models/outputdls3signatureversion.md
+  - docs/models/outputdls3storageclass.md
+  - docs/models/outputdls3type.md
+  - docs/models/outputdynatracehttp.md
+  - docs/models/outputdynatracehttpauthenticationtype.md
+  - docs/models/outputdynatracehttpbackpressurebehavior.md
+  - docs/models/outputdynatracehttpcompression.md
+  - docs/models/outputdynatracehttpextrahttpheader.md
+  - docs/models/outputdynatracehttpfailedrequestloggingmode.md
+  - docs/models/outputdynatracehttpformat.md
+  - docs/models/outputdynatracehttpmethod.md
+  - docs/models/outputdynatracehttpmode.md
+  - docs/models/outputdynatracehttppqcontrols.md
+  - docs/models/outputdynatracehttpqueuefullbehavior.md
+  - docs/models/outputdynatracehttpresponseretrysetting.md
+  - docs/models/outputdynatracehttptimeoutretrysettings.md
+  - docs/models/outputdynatracehttptype.md
+  - docs/models/outputdynatraceotlp.md
+  - docs/models/outputdynatraceotlpbackpressurebehavior.md
+  - docs/models/outputdynatraceotlpcompresscompression.md
+  - docs/models/outputdynatraceotlpextrahttpheader.md
+  - docs/models/outputdynatraceotlpfailedrequestloggingmode.md
+  - docs/models/outputdynatraceotlphttpcompresscompression.md
+  - docs/models/outputdynatraceotlpmetadatum.md
+  - docs/models/outputdynatraceotlpmode.md
+  - docs/models/outputdynatraceotlpotlpversion.md
+  - docs/models/outputdynatraceotlppqcompresscompression.md
+  - docs/models/outputdynatraceotlppqcontrols.md
+  - docs/models/outputdynatraceotlpprotocol.md
+  - docs/models/outputdynatraceotlpqueuefullbehavior.md
+  - docs/models/outputdynatraceotlpresponseretrysetting.md
+  - docs/models/outputdynatraceotlptimeoutretrysettings.md
+  - docs/models/outputdynatraceotlptype.md
+  - docs/models/outputelastic.md
+  - docs/models/outputelasticauth.md
+  - docs/models/outputelasticauthenticationmethod.md
+  - docs/models/outputelasticbackpressurebehavior.md
+  - docs/models/outputelasticcloud.md
+  - docs/models/outputelasticcloudauth.md
+  - docs/models/outputelasticcloudauthenticationmethod.md
+  - docs/models/outputelasticcloudbackpressurebehavior.md
+  - docs/models/outputelasticcloudcompression.md
+  - docs/models/outputelasticcloudextrahttpheader.md
+  - docs/models/outputelasticcloudextraparam.md
+  - docs/models/outputelasticcloudfailedrequestloggingmode.md
+  - docs/models/outputelasticcloudmode.md
+  - docs/models/outputelasticcloudpqcontrols.md
+  - docs/models/outputelasticcloudqueuefullbehavior.md
+  - docs/models/outputelasticcloudresponseretrysetting.md
+  - docs/models/outputelasticcloudtimeoutretrysettings.md
+  - docs/models/outputelasticcloudtype.md
+  - docs/models/outputelasticcompression.md
+  - docs/models/outputelasticextrahttpheader.md
+  - docs/models/outputelasticextraparam.md
+  - docs/models/outputelasticfailedrequestloggingmode.md
+  - docs/models/outputelasticmode.md
+  - docs/models/outputelasticpqcontrols.md
+  - docs/models/outputelasticqueuefullbehavior.md
+  - docs/models/outputelasticresponseretrysetting.md
+  - docs/models/outputelastictimeoutretrysettings.md
+  - docs/models/outputelastictype.md
+  - docs/models/outputelasticurl.md
+  - docs/models/outputexabeam.md
+  - docs/models/outputexabeambackpressurebehavior.md
+  - docs/models/outputexabeamdiskspaceprotection.md
+  - docs/models/outputexabeamobjectacl.md
+  - docs/models/outputexabeamsignatureversion.md
+  - docs/models/outputexabeamstorageclass.md
+  - docs/models/outputexabeamtype.md
+  - docs/models/outputfilesystem.md
+  - docs/models/outputfilesystembackpressurebehavior.md
+  - docs/models/outputfilesystemcompression.md
+  - docs/models/outputfilesystemcompressionlevel.md
+  - docs/models/outputfilesystemdataformat.md
+  - docs/models/outputfilesystemdatapageversion.md
+  - docs/models/outputfilesystemdiskspaceprotection.md
+  - docs/models/outputfilesystemkeyvaluemetadatum.md
+  - docs/models/outputfilesystemparquetversion.md
+  - docs/models/outputfilesystemtype.md
+  - docs/models/outputgooglechronicle.md
+  - docs/models/outputgooglechronicleapiversion.md
+  - docs/models/outputgooglechronicleauthenticationmethod.md
+  - docs/models/outputgooglechroniclebackpressurebehavior.md
+  - docs/models/outputgooglechroniclecompression.md
+  - docs/models/outputgooglechronicleextrahttpheader.md
+  - docs/models/outputgooglechroniclefailedrequestloggingmode.md
+  - docs/models/outputgooglechroniclemode.md
+  - docs/models/outputgooglechroniclepqcontrols.md
+  - docs/models/outputgooglechroniclequeuefullbehavior.md
+  - docs/models/outputgooglechronicleresponseretrysetting.md
+  - docs/models/outputgooglechronicletimeoutretrysettings.md
+  - docs/models/outputgooglechronicletype.md
+  - docs/models/outputgooglecloudlogging.md
+  - docs/models/outputgooglecloudloggingbackpressurebehavior.md
+  - docs/models/outputgooglecloudloggingcompression.md
+  - docs/models/outputgooglecloudlogginggoogleauthenticationmethod.md
+  - docs/models/outputgooglecloudloggingmode.md
+  - docs/models/outputgooglecloudloggingpqcontrols.md
+  - docs/models/outputgooglecloudloggingqueuefullbehavior.md
+  - docs/models/outputgooglecloudloggingtype.md
+  - docs/models/outputgooglecloudstorage.md
+  - docs/models/outputgooglecloudstorageauthenticationmethod.md
+  - docs/models/outputgooglecloudstoragebackpressurebehavior.md
+  - docs/models/outputgooglecloudstoragecompression.md
+  - docs/models/outputgooglecloudstoragecompressionlevel.md
+  - docs/models/outputgooglecloudstoragedataformat.md
+  - docs/models/outputgooglecloudstoragedatapageversion.md
+  - docs/models/outputgooglecloudstoragediskspaceprotection.md
+  - docs/models/outputgooglecloudstoragekeyvaluemetadatum.md
+  - docs/models/outputgooglecloudstorageobjectacl.md
+  - docs/models/outputgooglecloudstorageparquetversion.md
+  - docs/models/outputgooglecloudstoragesignatureversion.md
+  - docs/models/outputgooglecloudstoragestorageclass.md
+  - docs/models/outputgooglecloudstoragetype.md
+  - docs/models/outputgooglepubsub.md
+  - docs/models/outputgooglepubsubbackpressurebehavior.md
+  - docs/models/outputgooglepubsubcompression.md
+  - docs/models/outputgooglepubsubgoogleauthenticationmethod.md
+  - docs/models/outputgooglepubsubmode.md
+  - docs/models/outputgooglepubsubpqcontrols.md
+  - docs/models/outputgooglepubsubqueuefullbehavior.md
+  - docs/models/outputgooglepubsubtype.md
+  - docs/models/outputgrafanacloud1.md
+  - docs/models/outputgrafanacloud2.md
+  - docs/models/outputgrafanacloudbackpressurebehavior1.md
+  - docs/models/outputgrafanacloudbackpressurebehavior2.md
+  - docs/models/outputgrafanacloudcompression1.md
+  - docs/models/outputgrafanacloudcompression2.md
+  - docs/models/outputgrafanacloudextrahttpheader1.md
+  - docs/models/outputgrafanacloudextrahttpheader2.md
+  - docs/models/outputgrafanacloudfailedrequestloggingmode1.md
+  - docs/models/outputgrafanacloudfailedrequestloggingmode2.md
+  - docs/models/outputgrafanacloudlabel1.md
+  - docs/models/outputgrafanacloudlabel2.md
+  - docs/models/outputgrafanacloudlokiauth1.md
+  - docs/models/outputgrafanacloudlokiauth2.md
+  - docs/models/outputgrafanacloudlokiauthauthenticationtype1.md
+  - docs/models/outputgrafanacloudlokiauthauthenticationtype2.md
+  - docs/models/outputgrafanacloudmessageformat1.md
+  - docs/models/outputgrafanacloudmessageformat2.md
+  - docs/models/outputgrafanacloudmode1.md
+  - docs/models/outputgrafanacloudmode2.md
+  - docs/models/outputgrafanacloudpqcontrols1.md
+  - docs/models/outputgrafanacloudpqcontrols2.md
+  - docs/models/outputgrafanacloudprometheusauth1.md
+  - docs/models/outputgrafanacloudprometheusauth2.md
+  - docs/models/outputgrafanacloudprometheusauthauthenticationtype1.md
+  - docs/models/outputgrafanacloudprometheusauthauthenticationtype2.md
+  - docs/models/outputgrafanacloudqueuefullbehavior1.md
+  - docs/models/outputgrafanacloudqueuefullbehavior2.md
+  - docs/models/outputgrafanacloudresponseretrysetting1.md
+  - docs/models/outputgrafanacloudresponseretrysetting2.md
+  - docs/models/outputgrafanacloudtimeoutretrysettings1.md
+  - docs/models/outputgrafanacloudtimeoutretrysettings2.md
+  - docs/models/outputgrafanacloudtype1.md
+  - docs/models/outputgrafanacloudtype2.md
+  - docs/models/outputgrafanacloudunion.md
+  - docs/models/outputgraphite.md
+  - docs/models/outputgraphitebackpressurebehavior.md
+  - docs/models/outputgraphitecompression.md
+  - docs/models/outputgraphitedestinationprotocol.md
+  - docs/models/outputgraphitemode.md
+  - docs/models/outputgraphitepqcontrols.md
+  - docs/models/outputgraphitequeuefullbehavior.md
+  - docs/models/outputgraphitetype.md
+  - docs/models/outputhoneycomb.md
+  - docs/models/outputhoneycombauthenticationmethod.md
+  - docs/models/outputhoneycombbackpressurebehavior.md
+  - docs/models/outputhoneycombcompression.md
+  - docs/models/outputhoneycombextrahttpheader.md
+  - docs/models/outputhoneycombfailedrequestloggingmode.md
+  - docs/models/outputhoneycombmode.md
+  - docs/models/outputhoneycombpqcontrols.md
+  - docs/models/outputhoneycombqueuefullbehavior.md
+  - docs/models/outputhoneycombresponseretrysetting.md
+  - docs/models/outputhoneycombtimeoutretrysettings.md
+  - docs/models/outputhoneycombtype.md
+  - docs/models/outputhumiohec.md
+  - docs/models/outputhumiohecauthenticationmethod.md
+  - docs/models/outputhumiohecbackpressurebehavior.md
+  - docs/models/outputhumioheccompression.md
+  - docs/models/outputhumiohecextrahttpheader.md
+  - docs/models/outputhumiohecfailedrequestloggingmode.md
+  - docs/models/outputhumiohecmode.md
+  - docs/models/outputhumiohecpqcontrols.md
+  - docs/models/outputhumiohecqueuefullbehavior.md
+  - docs/models/outputhumiohecrequestformat.md
+  - docs/models/outputhumiohecresponseretrysetting.md
+  - docs/models/outputhumiohectimeoutretrysettings.md
+  - docs/models/outputhumiohectype.md
+  - docs/models/outputinfluxdb.md
+  - docs/models/outputinfluxdbauthenticationtype.md
+  - docs/models/outputinfluxdbbackpressurebehavior.md
+  - docs/models/outputinfluxdbcompression.md
+  - docs/models/outputinfluxdbextrahttpheader.md
+  - docs/models/outputinfluxdbfailedrequestloggingmode.md
+  - docs/models/outputinfluxdbmode.md
+  - docs/models/outputinfluxdboauthheader.md
+  - docs/models/outputinfluxdboauthparam.md
+  - docs/models/outputinfluxdbpqcontrols.md
+  - docs/models/outputinfluxdbqueuefullbehavior.md
+  - docs/models/outputinfluxdbresponseretrysetting.md
+  - docs/models/outputinfluxdbtimeoutretrysettings.md
+  - docs/models/outputinfluxdbtype.md
+  - docs/models/outputkafka.md
+  - docs/models/outputkafkaacknowledgments.md
+  - docs/models/outputkafkaauth.md
+  - docs/models/outputkafkaauthentication.md
+  - docs/models/outputkafkabackpressurebehavior.md
+  - docs/models/outputkafkacompression.md
+  - docs/models/outputkafkakafkaschemaregistryauthentication.md
+  - docs/models/outputkafkakafkaschemaregistrymaximumtlsversion.md
+  - docs/models/outputkafkakafkaschemaregistryminimumtlsversion.md
+  - docs/models/outputkafkakafkaschemaregistrytlssettingsclientside.md
+  - docs/models/outputkafkamaximumtlsversion.md
+  - docs/models/outputkafkaminimumtlsversion.md
+  - docs/models/outputkafkamode.md
+  - docs/models/outputkafkapqcompresscompression.md
+  - docs/models/outputkafkapqcontrols.md
+  - docs/models/outputkafkaqueuefullbehavior.md
+  - docs/models/outputkafkarecorddataformat.md
+  - docs/models/outputkafkasaslmechanism.md
+  - docs/models/outputkafkatlssettingsclientside.md
+  - docs/models/outputkafkatype.md
+  - docs/models/outputkinesis.md
+  - docs/models/outputkinesisauthenticationmethod.md
+  - docs/models/outputkinesisbackpressurebehavior.md
+  - docs/models/outputkinesiscompression.md
+  - docs/models/outputkinesismode.md
+  - docs/models/outputkinesispqcompresscompression.md
+  - docs/models/outputkinesispqcontrols.md
+  - docs/models/outputkinesisqueuefullbehavior.md
+  - docs/models/outputkinesissignatureversion.md
+  - docs/models/outputkinesistype.md
+  - docs/models/outputloki.md
+  - docs/models/outputlokiauthenticationtype.md
+  - docs/models/outputlokibackpressurebehavior.md
+  - docs/models/outputlokicompression.md
+  - docs/models/outputlokiextrahttpheader.md
+  - docs/models/outputlokifailedrequestloggingmode.md
+  - docs/models/outputlokilabel.md
+  - docs/models/outputlokimessageformat.md
+  - docs/models/outputlokimode.md
+  - docs/models/outputlokipqcontrols.md
+  - docs/models/outputlokiqueuefullbehavior.md
+  - docs/models/outputlokiresponseretrysetting.md
+  - docs/models/outputlokitimeoutretrysettings.md
+  - docs/models/outputlokitype.md
+  - docs/models/outputminio.md
+  - docs/models/outputminioauthenticationmethod.md
+  - docs/models/outputminiobackpressurebehavior.md
+  - docs/models/outputminiocompression.md
+  - docs/models/outputminiocompressionlevel.md
+  - docs/models/outputminiodataformat.md
+  - docs/models/outputminiodatapageversion.md
+  - docs/models/outputminiodiskspaceprotection.md
+  - docs/models/outputminiokeyvaluemetadatum.md
+  - docs/models/outputminioobjectacl.md
+  - docs/models/outputminioparquetversion.md
+  - docs/models/outputminiosignatureversion.md
+  - docs/models/outputminiostorageclass.md
+  - docs/models/outputminiotype.md
   - docs/models/outputmode.md
+  - docs/models/outputmsk.md
+  - docs/models/outputmskacknowledgments.md
+  - docs/models/outputmskauth.md
+  - docs/models/outputmskauthenticationmethod.md
+  - docs/models/outputmskbackpressurebehavior.md
+  - docs/models/outputmskcompression.md
+  - docs/models/outputmskkafkaschemaregistryauthentication.md
+  - docs/models/outputmskkafkaschemaregistrymaximumtlsversion.md
+  - docs/models/outputmskkafkaschemaregistryminimumtlsversion.md
+  - docs/models/outputmskkafkaschemaregistrytlssettingsclientside.md
+  - docs/models/outputmskmaximumtlsversion.md
+  - docs/models/outputmskminimumtlsversion.md
+  - docs/models/outputmskmode.md
+  - docs/models/outputmskpqcompresscompression.md
+  - docs/models/outputmskpqcontrols.md
+  - docs/models/outputmskqueuefullbehavior.md
+  - docs/models/outputmskrecorddataformat.md
+  - docs/models/outputmsksignatureversion.md
+  - docs/models/outputmsktlssettingsclientside.md
+  - docs/models/outputmsktype.md
+  - docs/models/outputnetflow.md
+  - docs/models/outputnetflowhost.md
+  - docs/models/outputnetflowtype.md
+  - docs/models/outputnewrelic.md
+  - docs/models/outputnewrelicauthenticationmethod.md
+  - docs/models/outputnewrelicbackpressurebehavior.md
+  - docs/models/outputnewreliccompression.md
+  - docs/models/outputnewrelicevents.md
+  - docs/models/outputnewreliceventsauthenticationmethod.md
+  - docs/models/outputnewreliceventsbackpressurebehavior.md
+  - docs/models/outputnewreliceventscompression.md
+  - docs/models/outputnewreliceventsextrahttpheader.md
+  - docs/models/outputnewreliceventsfailedrequestloggingmode.md
+  - docs/models/outputnewreliceventsmode.md
+  - docs/models/outputnewreliceventspqcontrols.md
+  - docs/models/outputnewreliceventsqueuefullbehavior.md
+  - docs/models/outputnewreliceventsregion.md
+  - docs/models/outputnewreliceventsresponseretrysetting.md
+  - docs/models/outputnewreliceventstimeoutretrysettings.md
+  - docs/models/outputnewreliceventstype.md
+  - docs/models/outputnewrelicextrahttpheader.md
+  - docs/models/outputnewrelicfailedrequestloggingmode.md
+  - docs/models/outputnewrelicmetadatum.md
+  - docs/models/outputnewrelicmode.md
+  - docs/models/outputnewrelicpqcontrols.md
+  - docs/models/outputnewrelicqueuefullbehavior.md
+  - docs/models/outputnewrelicregion.md
+  - docs/models/outputnewrelicresponseretrysetting.md
+  - docs/models/outputnewrelictimeoutretrysettings.md
+  - docs/models/outputnewrelictype.md
+  - docs/models/outputopentelemetry.md
+  - docs/models/outputopentelemetryauthenticationtype.md
+  - docs/models/outputopentelemetrybackpressurebehavior.md
+  - docs/models/outputopentelemetrycompresscompression.md
+  - docs/models/outputopentelemetryextrahttpheader.md
+  - docs/models/outputopentelemetryfailedrequestloggingmode.md
+  - docs/models/outputopentelemetryhttpcompresscompression.md
+  - docs/models/outputopentelemetrymaximumtlsversion.md
+  - docs/models/outputopentelemetrymetadatum.md
+  - docs/models/outputopentelemetryminimumtlsversion.md
+  - docs/models/outputopentelemetrymode.md
+  - docs/models/outputopentelemetryoauthheader.md
+  - docs/models/outputopentelemetryoauthparam.md
+  - docs/models/outputopentelemetryotlpversion.md
+  - docs/models/outputopentelemetrypqcompresscompression.md
+  - docs/models/outputopentelemetrypqcontrols.md
+  - docs/models/outputopentelemetryprotocol.md
+  - docs/models/outputopentelemetryqueuefullbehavior.md
+  - docs/models/outputopentelemetryresponseretrysetting.md
+  - docs/models/outputopentelemetrytimeoutretrysettings.md
+  - docs/models/outputopentelemetrytlssettingsclientside.md
+  - docs/models/outputopentelemetrytype.md
+  - docs/models/outputprometheus.md
+  - docs/models/outputprometheusauthenticationtype.md
+  - docs/models/outputprometheusbackpressurebehavior.md
+  - docs/models/outputprometheuscompression.md
+  - docs/models/outputprometheusextrahttpheader.md
+  - docs/models/outputprometheusfailedrequestloggingmode.md
+  - docs/models/outputprometheusmode.md
+  - docs/models/outputprometheusoauthheader.md
+  - docs/models/outputprometheusoauthparam.md
+  - docs/models/outputprometheuspqcontrols.md
+  - docs/models/outputprometheusqueuefullbehavior.md
+  - docs/models/outputprometheusresponseretrysetting.md
+  - docs/models/outputprometheustimeoutretrysettings.md
+  - docs/models/outputprometheustype.md
+  - docs/models/outputring.md
+  - docs/models/outputringbackpressurebehavior.md
+  - docs/models/outputringdatacompressionformat.md
+  - docs/models/outputringdataformat.md
+  - docs/models/outputringtype.md
+  - docs/models/outputrouter.md
+  - docs/models/outputrouterrule.md
+  - docs/models/outputroutertype.md
+  - docs/models/outputs3.md
+  - docs/models/outputs3authenticationmethod.md
+  - docs/models/outputs3backpressurebehavior.md
+  - docs/models/outputs3compression.md
+  - docs/models/outputs3compressionlevel.md
+  - docs/models/outputs3dataformat.md
+  - docs/models/outputs3datapageversion.md
+  - docs/models/outputs3diskspaceprotection.md
+  - docs/models/outputs3keyvaluemetadatum.md
+  - docs/models/outputs3objectacl.md
+  - docs/models/outputs3parquetversion.md
+  - docs/models/outputs3serversideencryptionforuploadedobjects.md
+  - docs/models/outputs3signatureversion.md
+  - docs/models/outputs3storageclass.md
+  - docs/models/outputs3type.md
+  - docs/models/outputsamplesresponse.md
+  - docs/models/outputsecuritylake.md
+  - docs/models/outputsecuritylakeauthenticationmethod.md
+  - docs/models/outputsecuritylakebackpressurebehavior.md
+  - docs/models/outputsecuritylakedatapageversion.md
+  - docs/models/outputsecuritylakediskspaceprotection.md
+  - docs/models/outputsecuritylakekeyvaluemetadatum.md
+  - docs/models/outputsecuritylakeobjectacl.md
+  - docs/models/outputsecuritylakeparquetversion.md
+  - docs/models/outputsecuritylakeserversideencryptionforuploadedobjects.md
+  - docs/models/outputsecuritylakesignatureversion.md
+  - docs/models/outputsecuritylakestorageclass.md
+  - docs/models/outputsecuritylaketype.md
+  - docs/models/outputsentinel.md
+  - docs/models/outputsentinelbackpressurebehavior.md
+  - docs/models/outputsentinelcompression.md
+  - docs/models/outputsentinelextrahttpheader.md
+  - docs/models/outputsentinelfailedrequestloggingmode.md
+  - docs/models/outputsentinelformat.md
+  - docs/models/outputsentinelmode.md
+  - docs/models/outputsentineloneaisiem.md
+  - docs/models/outputsentineloneaisiemauthenticationmethod.md
+  - docs/models/outputsentineloneaisiembackpressurebehavior.md
+  - docs/models/outputsentineloneaisiemcompression.md
+  - docs/models/outputsentineloneaisiemextrahttpheader.md
+  - docs/models/outputsentineloneaisiemfailedrequestloggingmode.md
+  - docs/models/outputsentineloneaisiemmode.md
+  - docs/models/outputsentineloneaisiempqcontrols.md
+  - docs/models/outputsentineloneaisiemqueuefullbehavior.md
+  - docs/models/outputsentineloneaisiemregion.md
+  - docs/models/outputsentineloneaisiemresponseretrysetting.md
+  - docs/models/outputsentineloneaisiemtimeoutretrysettings.md
+  - docs/models/outputsentineloneaisiemtype.md
+  - docs/models/outputsentinelpqcontrols.md
+  - docs/models/outputsentinelqueuefullbehavior.md
+  - docs/models/outputsentinelresponseretrysetting.md
+  - docs/models/outputsentineltimeoutretrysettings.md
+  - docs/models/outputsentineltype.md
+  - docs/models/outputservicenow.md
+  - docs/models/outputservicenowbackpressurebehavior.md
+  - docs/models/outputservicenowcompresscompression.md
+  - docs/models/outputservicenowextrahttpheader.md
+  - docs/models/outputservicenowfailedrequestloggingmode.md
+  - docs/models/outputservicenowhttpcompresscompression.md
+  - docs/models/outputservicenowmaximumtlsversion.md
+  - docs/models/outputservicenowmetadatum.md
+  - docs/models/outputservicenowminimumtlsversion.md
+  - docs/models/outputservicenowmode.md
+  - docs/models/outputservicenowotlpversion.md
+  - docs/models/outputservicenowpqcompresscompression.md
+  - docs/models/outputservicenowpqcontrols.md
+  - docs/models/outputservicenowprotocol.md
+  - docs/models/outputservicenowqueuefullbehavior.md
+  - docs/models/outputservicenowresponseretrysetting.md
+  - docs/models/outputservicenowtimeoutretrysettings.md
+  - docs/models/outputservicenowtlssettingsclientside.md
+  - docs/models/outputservicenowtype.md
+  - docs/models/outputsignalfx.md
+  - docs/models/outputsignalfxauthenticationmethod.md
+  - docs/models/outputsignalfxbackpressurebehavior.md
+  - docs/models/outputsignalfxcompression.md
+  - docs/models/outputsignalfxextrahttpheader.md
+  - docs/models/outputsignalfxfailedrequestloggingmode.md
+  - docs/models/outputsignalfxmode.md
+  - docs/models/outputsignalfxpqcontrols.md
+  - docs/models/outputsignalfxqueuefullbehavior.md
+  - docs/models/outputsignalfxresponseretrysetting.md
+  - docs/models/outputsignalfxtimeoutretrysettings.md
+  - docs/models/outputsignalfxtype.md
+  - docs/models/outputsnmp.md
+  - docs/models/outputsnmphost.md
+  - docs/models/outputsnmptype.md
+  - docs/models/outputsns.md
+  - docs/models/outputsnsauthenticationmethod.md
+  - docs/models/outputsnsbackpressurebehavior.md
+  - docs/models/outputsnscompression.md
+  - docs/models/outputsnsmode.md
+  - docs/models/outputsnspqcontrols.md
+  - docs/models/outputsnsqueuefullbehavior.md
+  - docs/models/outputsnssignatureversion.md
+  - docs/models/outputsnstype.md
+  - docs/models/outputsplunk.md
+  - docs/models/outputsplunkauthenticationmethod.md
+  - docs/models/outputsplunkbackpressurebehavior.md
+  - docs/models/outputsplunkcompresscompression.md
+  - docs/models/outputsplunkhec.md
+  - docs/models/outputsplunkhecauthenticationmethod.md
+  - docs/models/outputsplunkhecbackpressurebehavior.md
+  - docs/models/outputsplunkheccompression.md
+  - docs/models/outputsplunkhecextrahttpheader.md
+  - docs/models/outputsplunkhecfailedrequestloggingmode.md
+  - docs/models/outputsplunkhecmode.md
+  - docs/models/outputsplunkhecpqcontrols.md
+  - docs/models/outputsplunkhecqueuefullbehavior.md
+  - docs/models/outputsplunkhecresponseretrysetting.md
+  - docs/models/outputsplunkhectimeoutretrysettings.md
+  - docs/models/outputsplunkhectype.md
+  - docs/models/outputsplunkhecurl.md
+  - docs/models/outputsplunklb.md
+  - docs/models/outputsplunklbauthenticationmethod.md
+  - docs/models/outputsplunklbauthtoken.md
+  - docs/models/outputsplunklbbackpressurebehavior.md
+  - docs/models/outputsplunklbcompresscompression.md
+  - docs/models/outputsplunklbhost.md
+  - docs/models/outputsplunklbmaximumtlsversion.md
+  - docs/models/outputsplunklbmaxs2sversion.md
+  - docs/models/outputsplunklbminimumtlsversion.md
+  - docs/models/outputsplunklbmode.md
+  - docs/models/outputsplunklbnestedfieldserialization.md
+  - docs/models/outputsplunklbpqcompresscompression.md
+  - docs/models/outputsplunklbpqcontrols.md
+  - docs/models/outputsplunklbqueuefullbehavior.md
+  - docs/models/outputsplunklbtls.md
+  - docs/models/outputsplunklbtlssettingsclientside.md
+  - docs/models/outputsplunklbtype.md
+  - docs/models/outputsplunkmaximumtlsversion.md
+  - docs/models/outputsplunkmaxs2sversion.md
+  - docs/models/outputsplunkminimumtlsversion.md
+  - docs/models/outputsplunkmode.md
+  - docs/models/outputsplunknestedfieldserialization.md
+  - docs/models/outputsplunkpqcompresscompression.md
+  - docs/models/outputsplunkpqcontrols.md
+  - docs/models/outputsplunkqueuefullbehavior.md
+  - docs/models/outputsplunktlssettingsclientside.md
+  - docs/models/outputsplunktype.md
+  - docs/models/outputsqs.md
+  - docs/models/outputsqsauthenticationmethod.md
+  - docs/models/outputsqsbackpressurebehavior.md
+  - docs/models/outputsqscompression.md
+  - docs/models/outputsqsmode.md
+  - docs/models/outputsqspqcontrols.md
+  - docs/models/outputsqsqueuefullbehavior.md
+  - docs/models/outputsqsqueuetype.md
+  - docs/models/outputsqssignatureversion.md
+  - docs/models/outputsqstype.md
+  - docs/models/outputstatsd.md
+  - docs/models/outputstatsdbackpressurebehavior.md
+  - docs/models/outputstatsdcompression.md
+  - docs/models/outputstatsddestinationprotocol.md
+  - docs/models/outputstatsdext.md
+  - docs/models/outputstatsdextbackpressurebehavior.md
+  - docs/models/outputstatsdextcompression.md
+  - docs/models/outputstatsdextdestinationprotocol.md
+  - docs/models/outputstatsdextmode.md
+  - docs/models/outputstatsdextpqcontrols.md
+  - docs/models/outputstatsdextqueuefullbehavior.md
+  - docs/models/outputstatsdexttype.md
+  - docs/models/outputstatsdmode.md
+  - docs/models/outputstatsdpqcontrols.md
+  - docs/models/outputstatsdqueuefullbehavior.md
+  - docs/models/outputstatsdtype.md
+  - docs/models/outputsumologic.md
+  - docs/models/outputsumologicbackpressurebehavior.md
+  - docs/models/outputsumologiccompression.md
+  - docs/models/outputsumologicdataformat.md
+  - docs/models/outputsumologicextrahttpheader.md
+  - docs/models/outputsumologicfailedrequestloggingmode.md
+  - docs/models/outputsumologicmode.md
+  - docs/models/outputsumologicpqcontrols.md
+  - docs/models/outputsumologicqueuefullbehavior.md
+  - docs/models/outputsumologicresponseretrysetting.md
+  - docs/models/outputsumologictimeoutretrysettings.md
+  - docs/models/outputsumologictype.md
+  - docs/models/outputsyslog.md
+  - docs/models/outputsyslogbackpressurebehavior.md
+  - docs/models/outputsyslogcompression.md
+  - docs/models/outputsyslogmaximumtlsversion.md
+  - docs/models/outputsyslogmessageformat.md
+  - docs/models/outputsyslogminimumtlsversion.md
+  - docs/models/outputsyslogmode.md
+  - docs/models/outputsyslogpqcontrols.md
+  - docs/models/outputsyslogprotocol.md
+  - docs/models/outputsyslogqueuefullbehavior.md
+  - docs/models/outputsyslogseverity.md
+  - docs/models/outputsyslogtlssettingsclientside.md
+  - docs/models/outputsyslogtype.md
+  - docs/models/outputtcpjson.md
+  - docs/models/outputtcpjsonauthenticationmethod.md
+  - docs/models/outputtcpjsonbackpressurebehavior.md
+  - docs/models/outputtcpjsoncompression.md
+  - docs/models/outputtcpjsonhost.md
+  - docs/models/outputtcpjsonmaximumtlsversion.md
+  - docs/models/outputtcpjsonminimumtlsversion.md
+  - docs/models/outputtcpjsonmode.md
+  - docs/models/outputtcpjsonpqcompresscompression.md
+  - docs/models/outputtcpjsonpqcontrols.md
+  - docs/models/outputtcpjsonqueuefullbehavior.md
+  - docs/models/outputtcpjsontls.md
+  - docs/models/outputtcpjsontlssettingsclientside.md
+  - docs/models/outputtcpjsontype.md
+  - docs/models/outputtestrequest.md
+  - docs/models/outputtestresponse.md
+  - docs/models/outputwavefront.md
+  - docs/models/outputwavefrontauthenticationmethod.md
+  - docs/models/outputwavefrontbackpressurebehavior.md
+  - docs/models/outputwavefrontcompression.md
+  - docs/models/outputwavefrontextrahttpheader.md
+  - docs/models/outputwavefrontfailedrequestloggingmode.md
+  - docs/models/outputwavefrontmode.md
+  - docs/models/outputwavefrontpqcontrols.md
+  - docs/models/outputwavefrontqueuefullbehavior.md
+  - docs/models/outputwavefrontresponseretrysetting.md
+  - docs/models/outputwavefronttimeoutretrysettings.md
+  - docs/models/outputwavefronttype.md
+  - docs/models/outputwebhook.md
+  - docs/models/outputwebhookauthenticationtype.md
+  - docs/models/outputwebhookbackpressurebehavior.md
+  - docs/models/outputwebhookcompression.md
+  - docs/models/outputwebhookextrahttpheader.md
+  - docs/models/outputwebhookfailedrequestloggingmode.md
+  - docs/models/outputwebhookformat.md
+  - docs/models/outputwebhookmaximumtlsversion.md
+  - docs/models/outputwebhookmethod.md
+  - docs/models/outputwebhookminimumtlsversion.md
+  - docs/models/outputwebhookmode.md
+  - docs/models/outputwebhookoauthheader.md
+  - docs/models/outputwebhookoauthparam.md
+  - docs/models/outputwebhookpqcontrols.md
+  - docs/models/outputwebhookqueuefullbehavior.md
+  - docs/models/outputwebhookresponseretrysetting.md
+  - docs/models/outputwebhooktimeoutretrysettings.md
+  - docs/models/outputwebhooktlssettingsclientside.md
+  - docs/models/outputwebhooktype.md
+  - docs/models/outputwebhookurl.md
+  - docs/models/outputxsiam.md
+  - docs/models/outputxsiamauthenticationmethod.md
+  - docs/models/outputxsiambackpressurebehavior.md
+  - docs/models/outputxsiamcompression.md
+  - docs/models/outputxsiamextrahttpheader.md
+  - docs/models/outputxsiamfailedrequestloggingmode.md
+  - docs/models/outputxsiammode.md
+  - docs/models/outputxsiampqcontrols.md
+  - docs/models/outputxsiamqueuefullbehavior.md
+  - docs/models/outputxsiamresponseretrysetting.md
+  - docs/models/outputxsiamtimeoutretrysettings.md
+  - docs/models/outputxsiamtype.md
+  - docs/models/outputxsiamurl.md
+  - docs/models/payloadformat.md
   - docs/models/podfilter.md
-  - docs/models/prometheusauth1.md
-  - docs/models/prometheusauth2.md
-  - docs/models/prometheusauthauthenticationtype1.md
-  - docs/models/prometheusauthauthenticationtype2.md
+  - docs/models/prefixoptional.md
   - docs/models/prometheusauthoauthheader1.md
   - docs/models/prometheusauthoauthheader2.md
   - docs/models/prometheusauthoauthparam1.md
   - docs/models/prometheusauthoauthparam2.md
   - docs/models/querybuildermode.md
-  - docs/models/queuetype.md
   - docs/models/readmode.md
-  - docs/models/recorddataformat.md
+  - docs/models/reportlevel.md
+  - docs/models/reportmethod.md
+  - docs/models/resourcetypelabel.md
   - docs/models/role.md
   - docs/models/routes.md
   - docs/models/sample.md
@@ -789,6 +1640,9 @@ generatedFiles:
   - docs/models/schemeclientoauth.md
   - docs/models/scrapeprotocolprotocol.md
   - docs/models/security.md
+  - docs/models/sendeventsas.md
+  - docs/models/sendlogsas.md
+  - docs/models/serversideencryption.md
   - docs/models/services.md
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
@@ -798,14 +1652,19 @@ generatedFiles:
   - docs/models/subscriptionmetadatum.md
   - docs/models/target.md
   - docs/models/targetprotocol.md
+  - docs/models/telemetrytype.md
+  - docs/models/timestampformat.md
+  - docs/models/timestampprecision.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
+  - docs/models/writeaction.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/health/README.md
   - docs/sdks/inputs/README.md
+  - docs/sdks/outputs/README.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
@@ -833,14 +1692,23 @@ generatedFiles:
   - src/__tests__/mockserver/internal/handler/generated_handler.go
   - src/__tests__/mockserver/internal/handler/generated_handlers.go
   - src/__tests__/mockserver/internal/handler/pathdeletesysteminputsid.go
+  - src/__tests__/mockserver/internal/handler/pathdeletesystemoutputsid.go
+  - src/__tests__/mockserver/internal/handler/pathdeletesystemoutputsidpq.go
   - src/__tests__/mockserver/internal/handler/pathgethealth.go
   - src/__tests__/mockserver/internal/handler/pathgetsysteminputs.go
   - src/__tests__/mockserver/internal/handler/pathgetsysteminputsid.go
+  - src/__tests__/mockserver/internal/handler/pathgetsystemoutputs.go
+  - src/__tests__/mockserver/internal/handler/pathgetsystemoutputsid.go
+  - src/__tests__/mockserver/internal/handler/pathgetsystemoutputsidpq.go
+  - src/__tests__/mockserver/internal/handler/pathgetsystemoutputsidsamples.go
   - src/__tests__/mockserver/internal/handler/pathpatchsysteminputsid.go
   - src/__tests__/mockserver/internal/handler/pathpatchsysteminputsidhectokentoken.go
+  - src/__tests__/mockserver/internal/handler/pathpatchsystemoutputsid.go
   - src/__tests__/mockserver/internal/handler/pathpostauthlogin.go
   - src/__tests__/mockserver/internal/handler/pathpostsysteminputs.go
   - src/__tests__/mockserver/internal/handler/pathpostsysteminputsidhectoken.go
+  - src/__tests__/mockserver/internal/handler/pathpostsystemoutputs.go
+  - src/__tests__/mockserver/internal/handler/pathpostsystemoutputsidtest.go
   - src/__tests__/mockserver/internal/handler/values/files.go
   - src/__tests__/mockserver/internal/logging/doc.go
   - src/__tests__/mockserver/internal/logging/formats.go
@@ -852,6 +1720,7 @@ generatedFiles:
   - src/__tests__/mockserver/internal/logging/oas_operation_call.go
   - src/__tests__/mockserver/internal/sdk/models/components/addhectokenrequest.go
   - src/__tests__/mockserver/internal/sdk/models/components/authtoken.go
+  - src/__tests__/mockserver/internal/sdk/models/components/criblevent.go
   - src/__tests__/mockserver/internal/sdk/models/components/healthstatus.go
   - src/__tests__/mockserver/internal/sdk/models/components/httpmetadata.go
   - src/__tests__/mockserver/internal/sdk/models/components/input.go
@@ -914,18 +1783,95 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/components/inputwiz.go
   - src/__tests__/mockserver/internal/sdk/models/components/inputzscalerhec.go
   - src/__tests__/mockserver/internal/sdk/models/components/logininfo.go
+  - src/__tests__/mockserver/internal/sdk/models/components/output.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputazureblob.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputazuredataexplorer.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputazureeventhub.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputazurelogs.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputclickhouse.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputcloudwatch.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputconfluentcloud.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputcriblhttp.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputcribllake.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputcribltcp.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputcrowdstrikenextgensiem.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputdatadog.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputdataset.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputdefault.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputdevnull.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputdiskspool.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputdls3.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputdynatracehttp.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputdynatraceotlp.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputelastic.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputelasticcloud.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputexabeam.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputfilesystem.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputgooglechronicle.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputgooglecloudlogging.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputgooglecloudstorage.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputgooglepubsub.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputgrafanacloudunion.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputgraphite.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputhoneycomb.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputhumiohec.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputinfluxdb.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputkafka.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputkinesis.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputloki.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputminio.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputmsk.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputnetflow.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputnewrelic.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputnewrelicevents.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputopentelemetry.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputprometheus.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputring.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputrouter.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputs3.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsamplesresponse.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsecuritylake.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsentinel.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsentineloneaisiem.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputservicenow.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsignalfx.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsnmp.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsns.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsplunk.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsplunkhec.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsplunklb.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsqs.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputstatsd.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputstatsdext.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsumologic.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputsyslog.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputtcpjson.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputtestrequest.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputtestresponse.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputwavefront.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputwebhook.go
+  - src/__tests__/mockserver/internal/sdk/models/components/outputxsiam.go
   - src/__tests__/mockserver/internal/sdk/models/components/schemeclientoauth.go
   - src/__tests__/mockserver/internal/sdk/models/components/security.go
   - src/__tests__/mockserver/internal/sdk/models/components/updatehectokenrequest.go
   - src/__tests__/mockserver/internal/sdk/models/operations/createinput.go
   - src/__tests__/mockserver/internal/sdk/models/operations/createinputhectokenbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/createoutput.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/createoutputtestbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/deleteinputbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/deleteoutputbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/deleteoutputpqbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/gethealthinfo.go
   - src/__tests__/mockserver/internal/sdk/models/operations/getinputbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getoutputbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getoutputpqbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getoutputsamplesbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/listinput.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/listoutput.go
   - src/__tests__/mockserver/internal/sdk/models/operations/login.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateinputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateinputhectokenbyidandtoken.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/updateoutputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/error.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/healthstatuserror.go
   - src/__tests__/mockserver/internal/sdk/types/bigint.go
@@ -947,6 +1893,7 @@ generatedFiles:
   - src/__tests__/mockserver/internal/server/templates/log/style.css.tmpl
   - src/__tests__/mockserver/internal/tracking/requesttracker.go
   - src/__tests__/mockserver/main.go
+  - src/__tests__/outputs.test.ts
   - src/__tests__/testclient.ts
   - src/core.ts
   - src/funcs/authLogin.ts
@@ -958,6 +1905,15 @@ generatedFiles:
   - src/funcs/inputsListInput.ts
   - src/funcs/inputsUpdateInputById.ts
   - src/funcs/inputsUpdateInputHecTokenByIdAndToken.ts
+  - src/funcs/outputsCreateOutput.ts
+  - src/funcs/outputsCreateOutputTestById.ts
+  - src/funcs/outputsDeleteOutputById.ts
+  - src/funcs/outputsDeleteOutputPqById.ts
+  - src/funcs/outputsGetOutputById.ts
+  - src/funcs/outputsGetOutputPqById.ts
+  - src/funcs/outputsGetOutputSamplesById.ts
+  - src/funcs/outputsListOutput.ts
+  - src/funcs/outputsUpdateOutputById.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -980,6 +1936,7 @@ generatedFiles:
   - src/lib/url.ts
   - src/models/addhectokenrequest.ts
   - src/models/authtoken.ts
+  - src/models/criblevent.ts
   - src/models/errors/criblcontrolplanedefaulterror.ts
   - src/models/errors/criblcontrolplaneerror.ts
   - src/models/errors/error.ts
@@ -1052,12 +2009,89 @@ generatedFiles:
   - src/models/logininfo.ts
   - src/models/operations/createinput.ts
   - src/models/operations/createinputhectokenbyid.ts
+  - src/models/operations/createoutput.ts
+  - src/models/operations/createoutputtestbyid.ts
   - src/models/operations/deleteinputbyid.ts
+  - src/models/operations/deleteoutputbyid.ts
+  - src/models/operations/deleteoutputpqbyid.ts
   - src/models/operations/getinputbyid.ts
+  - src/models/operations/getoutputbyid.ts
+  - src/models/operations/getoutputpqbyid.ts
+  - src/models/operations/getoutputsamplesbyid.ts
   - src/models/operations/index.ts
   - src/models/operations/listinput.ts
+  - src/models/operations/listoutput.ts
   - src/models/operations/updateinputbyid.ts
   - src/models/operations/updateinputhectokenbyidandtoken.ts
+  - src/models/operations/updateoutputbyid.ts
+  - src/models/output.ts
+  - src/models/outputazureblob.ts
+  - src/models/outputazuredataexplorer.ts
+  - src/models/outputazureeventhub.ts
+  - src/models/outputazurelogs.ts
+  - src/models/outputclickhouse.ts
+  - src/models/outputcloudwatch.ts
+  - src/models/outputconfluentcloud.ts
+  - src/models/outputcriblhttp.ts
+  - src/models/outputcribllake.ts
+  - src/models/outputcribltcp.ts
+  - src/models/outputcrowdstrikenextgensiem.ts
+  - src/models/outputdatadog.ts
+  - src/models/outputdataset.ts
+  - src/models/outputdefault.ts
+  - src/models/outputdevnull.ts
+  - src/models/outputdiskspool.ts
+  - src/models/outputdls3.ts
+  - src/models/outputdynatracehttp.ts
+  - src/models/outputdynatraceotlp.ts
+  - src/models/outputelastic.ts
+  - src/models/outputelasticcloud.ts
+  - src/models/outputexabeam.ts
+  - src/models/outputfilesystem.ts
+  - src/models/outputgooglechronicle.ts
+  - src/models/outputgooglecloudlogging.ts
+  - src/models/outputgooglecloudstorage.ts
+  - src/models/outputgooglepubsub.ts
+  - src/models/outputgrafanacloudunion.ts
+  - src/models/outputgraphite.ts
+  - src/models/outputhoneycomb.ts
+  - src/models/outputhumiohec.ts
+  - src/models/outputinfluxdb.ts
+  - src/models/outputkafka.ts
+  - src/models/outputkinesis.ts
+  - src/models/outputloki.ts
+  - src/models/outputminio.ts
+  - src/models/outputmsk.ts
+  - src/models/outputnetflow.ts
+  - src/models/outputnewrelic.ts
+  - src/models/outputnewrelicevents.ts
+  - src/models/outputopentelemetry.ts
+  - src/models/outputprometheus.ts
+  - src/models/outputring.ts
+  - src/models/outputrouter.ts
+  - src/models/outputs3.ts
+  - src/models/outputsamplesresponse.ts
+  - src/models/outputsecuritylake.ts
+  - src/models/outputsentinel.ts
+  - src/models/outputsentineloneaisiem.ts
+  - src/models/outputservicenow.ts
+  - src/models/outputsignalfx.ts
+  - src/models/outputsnmp.ts
+  - src/models/outputsns.ts
+  - src/models/outputsplunk.ts
+  - src/models/outputsplunkhec.ts
+  - src/models/outputsplunklb.ts
+  - src/models/outputsqs.ts
+  - src/models/outputstatsd.ts
+  - src/models/outputstatsdext.ts
+  - src/models/outputsumologic.ts
+  - src/models/outputsyslog.ts
+  - src/models/outputtcpjson.ts
+  - src/models/outputtestrequest.ts
+  - src/models/outputtestresponse.ts
+  - src/models/outputwavefront.ts
+  - src/models/outputwebhook.ts
+  - src/models/outputxsiam.ts
   - src/models/schemeclientoauth.ts
   - src/models/security.ts
   - src/models/updatehectokenrequest.ts
@@ -1065,6 +2099,7 @@ generatedFiles:
   - src/sdk/health.ts
   - src/sdk/index.ts
   - src/sdk/inputs.ts
+  - src/sdk/outputs.ts
   - src/sdk/sdk.ts
   - src/types/async.ts
   - src/types/blobs.ts
@@ -1164,6 +2199,96 @@ examples:
           application/json: {}
         "500":
           application/json: {}
+  listOutput:
+    speakeasy-default-list-output:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createOutput:
+    speakeasy-default-create-output:
+      requestBody:
+        application/json: {"url": "https://probable-rationale.com/", "index": "<value>", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "failedRequestLoggingMode": "none", "includeDocId": true, "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getOutputById:
+    speakeasy-default-get-output-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updateOutputById:
+    speakeasy-default-update-output-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"type": "signalfx", "authType": "manual", "realm": "us0", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "useRoundRobinDns": false, "failedRequestLoggingMode": "none", "responseHonorRetryAfterHeader": false, "onBackpressure": "block", "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqMode": "error"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  deleteOutputById:
+    speakeasy-default-delete-output-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  deleteOutputPqById:
+    speakeasy-default-delete-output-pq-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getOutputPqById:
+    speakeasy-default-get-output-pq-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getOutputSamplesById:
+    speakeasy-default-get-output-samples-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createOutputTestById:
+    speakeasy-default-create-output-test-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"events": [{"_raw": "<value>"}]}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:03:38+02:00"
@@ -1175,3 +2300,12 @@ generatedTests:
   deleteInputById: "2025-07-17T17:32:22Z"
   createInputHecTokenById: "2025-07-17T17:32:22Z"
   updateInputHecTokenByIdAndToken: "2025-07-17T17:32:22Z"
+  listOutput: "2025-07-23T01:57:33Z"
+  createOutput: "2025-07-23T01:57:33Z"
+  getOutputById: "2025-07-23T01:57:33Z"
+  updateOutputById: "2025-07-23T01:57:33Z"
+  deleteOutputById: "2025-07-23T01:57:33Z"
+  deleteOutputPqById: "2025-07-23T01:57:33Z"
+  getOutputPqById: "2025-07-23T01:57:33Z"
+  getOutputSamplesById: "2025-07-23T01:57:33Z"
+  createOutputTestById: "2025-07-23T01:57:33Z"

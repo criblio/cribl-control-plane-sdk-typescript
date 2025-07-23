@@ -142,7 +142,7 @@ export type InputElasticAuthenticationType = OpenEnum<
 /**
  * The API version to use for communicating with the server
  */
-export const APIVersion = {
+export const InputElasticAPIVersion = {
   SixDot8Dot4: "6.8.4",
   EightDot3Dot2: "8.3.2",
   Custom: "custom",
@@ -150,9 +150,9 @@ export const APIVersion = {
 /**
  * The API version to use for communicating with the server
  */
-export type APIVersion = OpenEnum<typeof APIVersion>;
+export type InputElasticAPIVersion = OpenEnum<typeof InputElasticAPIVersion>;
 
-export type ExtraHttpHeader = {
+export type InputElasticExtraHttpHeader = {
   name?: string | undefined;
   value: string;
 };
@@ -300,11 +300,11 @@ export type InputElastic = {
   /**
    * The API version to use for communicating with the server
    */
-  apiVersion?: APIVersion | undefined;
+  apiVersion?: InputElasticAPIVersion | undefined;
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<InputElasticExtraHttpHeader> | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -732,23 +732,23 @@ export namespace InputElasticAuthenticationType$ {
 }
 
 /** @internal */
-export const APIVersion$inboundSchema: z.ZodType<
-  APIVersion,
+export const InputElasticAPIVersion$inboundSchema: z.ZodType<
+  InputElasticAPIVersion,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(APIVersion),
+    z.nativeEnum(InputElasticAPIVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const APIVersion$outboundSchema: z.ZodType<
-  APIVersion,
+export const InputElasticAPIVersion$outboundSchema: z.ZodType<
+  InputElasticAPIVersion,
   z.ZodTypeDef,
-  APIVersion
+  InputElasticAPIVersion
 > = z.union([
-  z.nativeEnum(APIVersion),
+  z.nativeEnum(InputElasticAPIVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -756,16 +756,16 @@ export const APIVersion$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace APIVersion$ {
-  /** @deprecated use `APIVersion$inboundSchema` instead. */
-  export const inboundSchema = APIVersion$inboundSchema;
-  /** @deprecated use `APIVersion$outboundSchema` instead. */
-  export const outboundSchema = APIVersion$outboundSchema;
+export namespace InputElasticAPIVersion$ {
+  /** @deprecated use `InputElasticAPIVersion$inboundSchema` instead. */
+  export const inboundSchema = InputElasticAPIVersion$inboundSchema;
+  /** @deprecated use `InputElasticAPIVersion$outboundSchema` instead. */
+  export const outboundSchema = InputElasticAPIVersion$outboundSchema;
 }
 
 /** @internal */
-export const ExtraHttpHeader$inboundSchema: z.ZodType<
-  ExtraHttpHeader,
+export const InputElasticExtraHttpHeader$inboundSchema: z.ZodType<
+  InputElasticExtraHttpHeader,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -774,16 +774,16 @@ export const ExtraHttpHeader$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type ExtraHttpHeader$Outbound = {
+export type InputElasticExtraHttpHeader$Outbound = {
   name?: string | undefined;
   value: string;
 };
 
 /** @internal */
-export const ExtraHttpHeader$outboundSchema: z.ZodType<
-  ExtraHttpHeader$Outbound,
+export const InputElasticExtraHttpHeader$outboundSchema: z.ZodType<
+  InputElasticExtraHttpHeader$Outbound,
   z.ZodTypeDef,
-  ExtraHttpHeader
+  InputElasticExtraHttpHeader
 > = z.object({
   name: z.string().optional(),
   value: z.string(),
@@ -793,28 +793,32 @@ export const ExtraHttpHeader$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ExtraHttpHeader$ {
-  /** @deprecated use `ExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = ExtraHttpHeader$inboundSchema;
-  /** @deprecated use `ExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = ExtraHttpHeader$outboundSchema;
-  /** @deprecated use `ExtraHttpHeader$Outbound` instead. */
-  export type Outbound = ExtraHttpHeader$Outbound;
+export namespace InputElasticExtraHttpHeader$ {
+  /** @deprecated use `InputElasticExtraHttpHeader$inboundSchema` instead. */
+  export const inboundSchema = InputElasticExtraHttpHeader$inboundSchema;
+  /** @deprecated use `InputElasticExtraHttpHeader$outboundSchema` instead. */
+  export const outboundSchema = InputElasticExtraHttpHeader$outboundSchema;
+  /** @deprecated use `InputElasticExtraHttpHeader$Outbound` instead. */
+  export type Outbound = InputElasticExtraHttpHeader$Outbound;
 }
 
-export function extraHttpHeaderToJSON(
-  extraHttpHeader: ExtraHttpHeader,
+export function inputElasticExtraHttpHeaderToJSON(
+  inputElasticExtraHttpHeader: InputElasticExtraHttpHeader,
 ): string {
-  return JSON.stringify(ExtraHttpHeader$outboundSchema.parse(extraHttpHeader));
+  return JSON.stringify(
+    InputElasticExtraHttpHeader$outboundSchema.parse(
+      inputElasticExtraHttpHeader,
+    ),
+  );
 }
 
-export function extraHttpHeaderFromJSON(
+export function inputElasticExtraHttpHeaderFromJSON(
   jsonString: string,
-): SafeParseResult<ExtraHttpHeader, SDKValidationError> {
+): SafeParseResult<InputElasticExtraHttpHeader, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ExtraHttpHeader' from JSON`,
+    (x) => InputElasticExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticExtraHttpHeader' from JSON`,
   );
 }
 
@@ -1009,9 +1013,10 @@ export const InputElastic$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   elasticAPI: z.string().default("/"),
   authType: InputElasticAuthenticationType$inboundSchema.default("none"),
-  apiVersion: APIVersion$inboundSchema.default("8.3.2"),
-  extraHttpHeaders: z.array(z.lazy(() => ExtraHttpHeader$inboundSchema))
-    .optional(),
+  apiVersion: InputElasticAPIVersion$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(
+    z.lazy(() => InputElasticExtraHttpHeader$inboundSchema),
+  ).optional(),
   metadata: z.array(z.lazy(() => InputElasticMetadatum$inboundSchema))
     .optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$inboundSchema).optional(),
@@ -1054,7 +1059,7 @@ export type InputElastic$Outbound = {
   elasticAPI: string;
   authType: string;
   apiVersion: string;
-  extraHttpHeaders?: Array<ExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<InputElasticExtraHttpHeader$Outbound> | undefined;
   metadata?: Array<InputElasticMetadatum$Outbound> | undefined;
   proxyMode?: InputElasticProxyMode$Outbound | undefined;
   description?: string | undefined;
@@ -1099,9 +1104,10 @@ export const InputElastic$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   elasticAPI: z.string().default("/"),
   authType: InputElasticAuthenticationType$outboundSchema.default("none"),
-  apiVersion: APIVersion$outboundSchema.default("8.3.2"),
-  extraHttpHeaders: z.array(z.lazy(() => ExtraHttpHeader$outboundSchema))
-    .optional(),
+  apiVersion: InputElasticAPIVersion$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(
+    z.lazy(() => InputElasticExtraHttpHeader$outboundSchema),
+  ).optional(),
   metadata: z.array(z.lazy(() => InputElasticMetadatum$outboundSchema))
     .optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$outboundSchema).optional(),

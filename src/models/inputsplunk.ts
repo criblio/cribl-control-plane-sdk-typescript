@@ -150,14 +150,16 @@ export type InputSplunkAuthToken = {
 /**
  * The highest S2S protocol version to advertise during handshake
  */
-export const MaxS2SVersion = {
+export const InputSplunkMaxS2SVersion = {
   V3: "v3",
   V4: "v4",
 } as const;
 /**
  * The highest S2S protocol version to advertise during handshake
  */
-export type MaxS2SVersion = OpenEnum<typeof MaxS2SVersion>;
+export type InputSplunkMaxS2SVersion = OpenEnum<
+  typeof InputSplunkMaxS2SVersion
+>;
 
 /**
  * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
@@ -256,7 +258,7 @@ export type InputSplunk = {
   /**
    * The highest S2S protocol version to advertise during handshake
    */
-  maxS2Sversion?: MaxS2SVersion | undefined;
+  maxS2Sversion?: InputSplunkMaxS2SVersion | undefined;
   description?: string | undefined;
   /**
    * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
@@ -762,23 +764,23 @@ export function inputSplunkAuthTokenFromJSON(
 }
 
 /** @internal */
-export const MaxS2SVersion$inboundSchema: z.ZodType<
-  MaxS2SVersion,
+export const InputSplunkMaxS2SVersion$inboundSchema: z.ZodType<
+  InputSplunkMaxS2SVersion,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(MaxS2SVersion),
+    z.nativeEnum(InputSplunkMaxS2SVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const MaxS2SVersion$outboundSchema: z.ZodType<
-  MaxS2SVersion,
+export const InputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
+  InputSplunkMaxS2SVersion,
   z.ZodTypeDef,
-  MaxS2SVersion
+  InputSplunkMaxS2SVersion
 > = z.union([
-  z.nativeEnum(MaxS2SVersion),
+  z.nativeEnum(InputSplunkMaxS2SVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -786,11 +788,11 @@ export const MaxS2SVersion$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MaxS2SVersion$ {
-  /** @deprecated use `MaxS2SVersion$inboundSchema` instead. */
-  export const inboundSchema = MaxS2SVersion$inboundSchema;
-  /** @deprecated use `MaxS2SVersion$outboundSchema` instead. */
-  export const outboundSchema = MaxS2SVersion$outboundSchema;
+export namespace InputSplunkMaxS2SVersion$ {
+  /** @deprecated use `InputSplunkMaxS2SVersion$inboundSchema` instead. */
+  export const inboundSchema = InputSplunkMaxS2SVersion$inboundSchema;
+  /** @deprecated use `InputSplunkMaxS2SVersion$outboundSchema` instead. */
+  export const outboundSchema = InputSplunkMaxS2SVersion$outboundSchema;
 }
 
 /** @internal */
@@ -857,7 +859,7 @@ export const InputSplunk$inboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().default(10000),
   authTokens: z.array(z.lazy(() => InputSplunkAuthToken$inboundSchema))
     .optional(),
-  maxS2Sversion: MaxS2SVersion$inboundSchema.default("v3"),
+  maxS2Sversion: InputSplunkMaxS2SVersion$inboundSchema.default("v3"),
   description: z.string().optional(),
   useFwdTimezone: z.boolean().default(true),
   dropControlFields: z.boolean().default(true),
@@ -930,7 +932,7 @@ export const InputSplunk$outboundSchema: z.ZodType<
   staleChannelFlushMs: z.number().default(10000),
   authTokens: z.array(z.lazy(() => InputSplunkAuthToken$outboundSchema))
     .optional(),
-  maxS2Sversion: MaxS2SVersion$outboundSchema.default("v3"),
+  maxS2Sversion: InputSplunkMaxS2SVersion$outboundSchema.default("v3"),
   description: z.string().optional(),
   useFwdTimezone: z.boolean().default(true),
   dropControlFields: z.boolean().default(true),

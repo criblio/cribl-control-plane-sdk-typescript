@@ -97,7 +97,7 @@ export type InputAzureBlobAuthenticationMethod = OpenEnum<
   typeof InputAzureBlobAuthenticationMethod
 >;
 
-export type Certificate = {
+export type InputAzureBlobCertificate = {
   /**
    * The certificate you registered as credentials for your app in the Azure portal
    */
@@ -218,7 +218,7 @@ export type InputAzureBlob = {
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: Certificate | undefined;
+  certificate?: InputAzureBlobCertificate | undefined;
 };
 
 /** @internal */
@@ -537,8 +537,8 @@ export namespace InputAzureBlobAuthenticationMethod$ {
 }
 
 /** @internal */
-export const Certificate$inboundSchema: z.ZodType<
-  Certificate,
+export const InputAzureBlobCertificate$inboundSchema: z.ZodType<
+  InputAzureBlobCertificate,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -546,15 +546,15 @@ export const Certificate$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type Certificate$Outbound = {
+export type InputAzureBlobCertificate$Outbound = {
   certificateName: string;
 };
 
 /** @internal */
-export const Certificate$outboundSchema: z.ZodType<
-  Certificate$Outbound,
+export const InputAzureBlobCertificate$outboundSchema: z.ZodType<
+  InputAzureBlobCertificate$Outbound,
   z.ZodTypeDef,
-  Certificate
+  InputAzureBlobCertificate
 > = z.object({
   certificateName: z.string(),
 });
@@ -563,26 +563,30 @@ export const Certificate$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Certificate$ {
-  /** @deprecated use `Certificate$inboundSchema` instead. */
-  export const inboundSchema = Certificate$inboundSchema;
-  /** @deprecated use `Certificate$outboundSchema` instead. */
-  export const outboundSchema = Certificate$outboundSchema;
-  /** @deprecated use `Certificate$Outbound` instead. */
-  export type Outbound = Certificate$Outbound;
+export namespace InputAzureBlobCertificate$ {
+  /** @deprecated use `InputAzureBlobCertificate$inboundSchema` instead. */
+  export const inboundSchema = InputAzureBlobCertificate$inboundSchema;
+  /** @deprecated use `InputAzureBlobCertificate$outboundSchema` instead. */
+  export const outboundSchema = InputAzureBlobCertificate$outboundSchema;
+  /** @deprecated use `InputAzureBlobCertificate$Outbound` instead. */
+  export type Outbound = InputAzureBlobCertificate$Outbound;
 }
 
-export function certificateToJSON(certificate: Certificate): string {
-  return JSON.stringify(Certificate$outboundSchema.parse(certificate));
+export function inputAzureBlobCertificateToJSON(
+  inputAzureBlobCertificate: InputAzureBlobCertificate,
+): string {
+  return JSON.stringify(
+    InputAzureBlobCertificate$outboundSchema.parse(inputAzureBlobCertificate),
+  );
 }
 
-export function certificateFromJSON(
+export function inputAzureBlobCertificateFromJSON(
   jsonString: string,
-): SafeParseResult<Certificate, SDKValidationError> {
+): SafeParseResult<InputAzureBlobCertificate, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Certificate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Certificate' from JSON`,
+    (x) => InputAzureBlobCertificate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAzureBlobCertificate' from JSON`,
   );
 }
 
@@ -626,7 +630,7 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   clientTextSecret: z.string().optional(),
-  certificate: z.lazy(() => Certificate$inboundSchema).optional(),
+  certificate: z.lazy(() => InputAzureBlobCertificate$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -663,7 +667,7 @@ export type InputAzureBlob$Outbound = {
   azureCloud?: string | undefined;
   endpointSuffix?: string | undefined;
   clientTextSecret?: string | undefined;
-  certificate?: Certificate$Outbound | undefined;
+  certificate?: InputAzureBlobCertificate$Outbound | undefined;
 };
 
 /** @internal */
@@ -706,7 +710,8 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   clientTextSecret: z.string().optional(),
-  certificate: z.lazy(() => Certificate$outboundSchema).optional(),
+  certificate: z.lazy(() => InputAzureBlobCertificate$outboundSchema)
+    .optional(),
 });
 
 /**
