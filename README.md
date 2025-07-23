@@ -135,6 +135,11 @@ run();
 * [login](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 
 
+### [groups](docs/sdks/groups/README.md)
+
+* [updateGroupsDeployById](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
+* [getGroupsById](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
+
 ### [health](docs/sdks/health/README.md)
 
 * [getHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
@@ -161,6 +166,26 @@ run();
 * [getOutputSamplesById](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 * [createOutputTestById](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
 
+### [pipelines](docs/sdks/pipelines/README.md)
+
+* [listPipeline](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
+* [createPipeline](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
+* [getPipelineById](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
+* [updatePipelineById](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update Pipeline
+* [deletePipelineById](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
+
+### [routes](docs/sdks/routes/README.md)
+
+* [listRoutes](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
+* [getRoutesById](docs/sdks/routes/README.md#getroutesbyid) - Get Routes by ID
+* [updateRoutesById](docs/sdks/routes/README.md#updateroutesbyid) - Update Routes
+* [createRoutesAppendById](docs/sdks/routes/README.md#createroutesappendbyid) - Appends routes to the end of the routing table
+
+### [versioning](docs/sdks/versioning/README.md)
+
+* [createVersionCommit](docs/sdks/versioning/README.md#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
+* [getVersionDiff](docs/sdks/versioning/README.md#getversiondiff) - get the textual diff for given commit
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
@@ -180,6 +205,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`authLogin`](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
+- [`groupsGetGroupsById`](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
+- [`groupsUpdateGroupsDeployById`](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
 - [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 - [`inputsCreateInput`](docs/sdks/inputs/README.md#createinput) - Create Input
 - [`inputsCreateInputHecTokenById`](docs/sdks/inputs/README.md#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
@@ -197,6 +224,17 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`outputsGetOutputSamplesById`](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 - [`outputsListOutput`](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
 - [`outputsUpdateOutputById`](docs/sdks/outputs/README.md#updateoutputbyid) - Update Output
+- [`pipelinesCreatePipeline`](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
+- [`pipelinesDeletePipelineById`](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
+- [`pipelinesGetPipelineById`](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
+- [`pipelinesListPipeline`](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
+- [`pipelinesUpdatePipelineById`](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update Pipeline
+- [`routesCreateRoutesAppendById`](docs/sdks/routes/README.md#createroutesappendbyid) - Appends routes to the end of the routing table
+- [`routesGetRoutesById`](docs/sdks/routes/README.md#getroutesbyid) - Get Routes by ID
+- [`routesListRoutes`](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
+- [`routesUpdateRoutesById`](docs/sdks/routes/README.md#updateroutesbyid) - Update Routes
+- [`versioningCreateVersionCommit`](docs/sdks/versioning/README.md#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
+- [`versioningGetVersionDiff`](docs/sdks/versioning/README.md#getversiondiff) - get the textual diff for given commit
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -339,7 +377,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 18 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 31 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

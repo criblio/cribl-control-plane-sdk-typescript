@@ -4,7 +4,7 @@ servers:
 info:
   title: Cribl API Reference
   description: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
-  version: 4.14.0-alpha.1753212696681-3b9b0ede
+  version: 4.14.0-alpha.1753274540847-cf70360a
   contact:
     name: Support
     email: support@cribl.io
@@ -36161,6 +36161,230 @@ components:
             $ref: "#/components/schemas/CriblEvent"
       required:
         - events
+    PipelineFunctionConf:
+      type: object
+      required:
+        - id
+        - conf
+      additionalProperties: false
+      properties:
+        filter:
+          title: Filter
+          description: Filter that selects data to be fed through this Function
+          type: string
+          default: "true"
+        id:
+          title: ID
+          description: Function ID
+          type: string
+        description:
+          title: Description
+          description: Simple description of this step
+          type: string
+        disabled:
+          title: Disabled
+          description: If true, data will not be pushed through this function
+          type: boolean
+        final:
+          title: Final
+          description: If enabled, stops the results of this Function from being passed to the downstream Functions
+          type: boolean
+        conf:
+          type: object
+          title: Function-specific configs
+        groupId:
+          title: Group ID
+          description: Group ID
+          type: string
+    Pipeline:
+      title: Pipeline Settings
+      type: object
+      required:
+        - conf
+        - id
+      properties:
+        id:
+          title: ID
+          type: string
+        conf:
+          type: object
+          additionalProperties: false
+          properties:
+            asyncFuncTimeout:
+              type: integer
+              title: Async function timeout (ms)
+              description: Time (in ms) to wait for an async function to complete processing of a data item
+              minimum: 0
+              maximum: 10000
+            output:
+              type: string
+              title: Output event destination
+              description: The output destination for events processed by this Pipeline
+              default: default
+            description:
+              title: Description
+              type: string
+            streamtags:
+              type: array
+              title: Tags
+              description: Tags for filtering and grouping in @{product}
+              default: []
+              items:
+                type: string
+            functions:
+              title: Functions
+              description: List of Functions to pass data through
+              type: array
+              items:
+                $ref: "#/components/schemas/PipelineFunctionConf"
+            groups:
+              type: object
+              additionalProperties:
+                type: object
+                required:
+                  - name
+                properties:
+                  name:
+                    type: string
+                    title: Group Name
+                  description:
+                    type: string
+                    title: Description
+                    description: Short description of this group
+                  disabled:
+                    type: boolean
+                    title: Disabled
+                    description: Whether this group is disabled
+    RoutesRoute:
+      type: object
+      additionalProperties: true
+      required:
+        - pipeline
+        - name
+      properties:
+        id:
+          type: string
+          title: Route ID
+          readOnly: true
+        name:
+          type: string
+          title: Route name
+        disabled:
+          type: boolean
+          title: Disabled
+          description: Disable this routing rule
+        filter:
+          type: string
+          title: Filter
+          description: JavaScript expression to select data to route
+          default: "true"
+        pipeline:
+          type: string
+          title: Pipeline
+          description: Pipeline to send the matching data to
+        enableOutputExpression:
+          type: boolean
+          title: Enable expression
+          description: Enable to use a JavaScript expression that evaluates to the name of the Description below
+          default: false
+        output: {}
+        outputExpression: {}
+        description:
+          type: string
+          title: Description
+        final:
+          title: Final
+          description: Flag to control whether the event gets consumed by this Route (Final), or cloned into it
+          type: boolean
+          default: true
+    Routes:
+      type: object
+      additionalProperties: false
+      required:
+        - routes
+      properties:
+        id:
+          type: string
+          title: ID
+          description: Routes ID
+        routes:
+          type: array
+          title: Route
+          description: Pipeline routing rules
+          items:
+            $ref: "#/components/schemas/RoutesRoute"
+        groups:
+          type: object
+          additionalProperties:
+            type: object
+            required:
+              - name
+            properties:
+              name:
+                type: string
+                title: Group Name
+              description:
+                type: string
+                title: Description
+                description: Short description of this group
+              disabled:
+                type: boolean
+                title: Disabled
+                description: Whether this group is disabled
+        comments:
+          type: array
+          title: Comments
+          description: Comments
+          items:
+            type: object
+            properties:
+              comment:
+                type: string
+                title: Comment
+                description: Optional, short description of this Route's purpose
+            additionalProperties: true
+    RouteCloneConf:
+      type: object
+    RouteConf:
+      type: object
+      properties:
+        clones:
+          type: array
+          items:
+            $ref: "#/components/schemas/RouteCloneConf"
+        context:
+          type: string
+        description:
+          type: string
+        disabled:
+          type: boolean
+        enableOutputExpression:
+          type: boolean
+        filter:
+          type: string
+        final:
+          type: boolean
+        groupId:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        output:
+          type: string
+        outputExpression:
+          type: string
+        pipeline:
+          type: string
+      required:
+        - final
+        - id
+        - name
+        - pipeline
+    RouteDefinitions:
+      type: array
+      items:
+        $ref: "#/components/schemas/RouteConf"
     LoginInfo:
       type: object
       required:
@@ -36199,6 +36423,61 @@ components:
             - standby
         startTime:
           type: number
+    GitCommitSummary:
+      type: object
+      properties:
+        author:
+          type: object
+          properties:
+            email:
+              type: string
+            name:
+              type: string
+          required:
+            - email
+            - name
+        branch:
+          type: string
+        commit:
+          type: string
+        files:
+          type: object
+          properties:
+            created:
+              type: array
+              items:
+                type: string
+            deleted:
+              type: array
+              items:
+                type: string
+            modified:
+              type: array
+              items:
+                type: string
+            renamed:
+              type: array
+              items:
+                type: string
+        summary:
+          type: object
+          properties:
+            changes:
+              type: number
+            deletions:
+              type: number
+            insertions:
+              type: number
+          required:
+            - changes
+            - deletions
+            - insertions
+      required:
+        - author
+        - branch
+        - commit
+        - files
+        - summary
     GitFile:
       type: object
       properties:
@@ -36212,6 +36491,176 @@ components:
           type: string
       required:
         - name
+    GitCommitParams:
+      type: object
+      properties:
+        effective:
+          type: boolean
+        files:
+          type: array
+          items:
+            type: string
+        group:
+          type: string
+        message:
+          type: string
+      required:
+        - message
+    CloudProvider:
+      type: string
+      nullable: true
+      x-speakeasy-unknown-values: allow
+      enum:
+        - aws
+        - azure
+    ConfigGroupCloud:
+      type: object
+      properties:
+        provider:
+          $ref: "#/components/schemas/CloudProvider"
+        region:
+          type: string
+      required:
+        - provider
+        - region
+    Commit:
+      type: object
+      properties:
+        author_email:
+          type: string
+        author_name:
+          type: string
+        date:
+          type: string
+        hash:
+          type: string
+        message:
+          type: string
+        short:
+          type: string
+      required:
+        - date
+        - hash
+        - message
+        - short
+    ConfigGroupLookups:
+      type: object
+      properties:
+        context:
+          type: string
+        lookups:
+          type: array
+          items:
+            type: object
+            properties:
+              deployedVersion:
+                type: string
+              file:
+                type: string
+              version:
+                type: string
+            required:
+              - file
+      required:
+        - context
+        - lookups
+    ConfigGroup:
+      type: object
+      properties:
+        cloud:
+          $ref: "#/components/schemas/ConfigGroupCloud"
+        configVersion:
+          type: string
+        deployingWorkerCount:
+          type: number
+        description:
+          type: string
+        estimatedIngestRate:
+          type: number
+        git:
+          type: object
+          properties:
+            commit:
+              type: string
+            localChanges:
+              type: number
+            log:
+              type: array
+              items:
+                $ref: "#/components/schemas/Commit"
+        id:
+          type: string
+        incompatibleWorkerCount:
+          type: number
+        inherits:
+          type: string
+        isFleet:
+          type: boolean
+        isSearch:
+          type: boolean
+        lookupDeployments:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigGroupLookups"
+        maxWorkerAge:
+          type: string
+        name:
+          type: string
+        onPrem:
+          type: boolean
+        provisioned:
+          type: boolean
+        streamtags:
+          type: array
+          items:
+            type: string
+        tags:
+          type: string
+        type:
+          type: string
+          x-speakeasy-unknown-values: allow
+          enum:
+            - lake_access
+        upgradeVersion:
+          type: string
+        workerCount:
+          type: number
+        workerRemoteAccess:
+          type: boolean
+      required:
+        - configVersion
+        - id
+    DeployRequestLookups:
+      type: object
+      properties:
+        context:
+          type: string
+        lookups:
+          type: array
+          items:
+            type: object
+            properties:
+              file:
+                type: string
+              version:
+                type: string
+            required:
+              - file
+              - version
+      required:
+        - context
+        - lookups
+    DeployRequest:
+      type: object
+      properties:
+        lookups:
+          type: array
+          items:
+            $ref: "#/components/schemas/DeployRequestLookups"
+        version:
+          type: string
+      required:
+        - version
 security:
   - bearerAuth: []
   - clientOauth: []
@@ -37005,6 +37454,343 @@ paths:
           schema:
             type: string
           description: Output Id
+  /pipelines:
+    get:
+      operationId: listPipeline
+      tags:
+        - pipelines
+      summary: Get a list of Pipeline objects
+      description: Get a list of Pipeline objects
+      responses:
+        "200":
+          description: a list of Pipeline objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pipeline"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - pipelines
+      responses:
+        "200":
+          description: a list of Pipeline objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pipeline"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      operationId: createPipeline
+      summary: Create Pipeline
+      description: Create Pipeline
+      requestBody:
+        description: New Pipeline object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pipeline"
+  "/pipelines/{id}":
+    get:
+      tags:
+        - pipelines
+      responses:
+        "200":
+          description: a list of Pipeline objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pipeline"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      operationId: getPipelineById
+      summary: Get Pipeline by ID
+      description: Get Pipeline by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique ID to GET
+    patch:
+      tags:
+        - pipelines
+      responses:
+        "200":
+          description: a list of Pipeline objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pipeline"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      operationId: updatePipelineById
+      summary: Update Pipeline
+      description: Update Pipeline
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Unique ID to PATCH
+      requestBody:
+        description: Pipeline object to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pipeline"
+    delete:
+      tags:
+        - pipelines
+      responses:
+        "200":
+          description: a list of Pipeline objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pipeline"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      operationId: deletePipelineById
+      summary: Delete Pipeline
+      description: Delete Pipeline
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Unique ID to DELETE
+  /routes:
+    get:
+      operationId: listRoutes
+      tags:
+        - routes
+      summary: Get a list of Routes objects
+      description: Get a list of Routes objects
+      responses:
+        "200":
+          description: a list of Routes objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Routes"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/routes/{id}":
+    get:
+      tags:
+        - routes
+      responses:
+        "200":
+          description: a list of Routes objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Routes"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      operationId: getRoutesById
+      summary: Get Routes by ID
+      description: Get Routes by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique ID to GET
+    patch:
+      tags:
+        - routes
+      responses:
+        "200":
+          description: a list of Routes objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Routes"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      operationId: updateRoutesById
+      summary: Update Routes
+      description: Update Routes
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Unique ID to PATCH
+      requestBody:
+        description: Routes object to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Routes"
+  "/routes/{id}/append":
+    post:
+      operationId: createRoutesAppendById
+      tags:
+        - routes
+      summary: Appends routes to the end of the routing table
+      description: Appends routes to the end of the routing table
+      responses:
+        "200":
+          description: a list of any objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      requestBody:
+        description: RouteDefinitions object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RouteDefinitions"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: the route table to be appended to - currently default is the only supported value
   /auth/login:
     post:
       operationId: login
@@ -37052,3 +37838,183 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /version/commit:
+    post:
+      operationId: createVersionCommit
+      tags:
+        - versioning
+      summary: create a new commit containing the current configs the given log message describing the changes.
+      description: create a new commit containing the current configs the given log message describing the changes.
+      responses:
+        "200":
+          description: a list of GitCommitSummary objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/GitCommitSummary"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      requestBody:
+        description: GitCommitParams object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GitCommitParams"
+  /version/diff:
+    get:
+      operationId: getVersionDiff
+      tags:
+        - versioning
+      summary: get the textual diff for given commit
+      description: get the textual diff for given commit
+      responses:
+        "200":
+          description: a list of any objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      parameters:
+        - name: commit
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Commit hash (default is HEAD)
+        - name: group
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Group ID
+        - name: filename
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filename
+        - name: diffLineLimit
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Limit maximum lines in the diff
+  "/master/groups/{id}/deploy":
+    patch:
+      operationId: updateGroupsDeployById
+      tags:
+        - groups
+      summary: Deploy commits for a Fleet or Worker Group
+      description: Deploy commits for a Fleet or Worker Group
+      responses:
+        "200":
+          description: a list of ConfigGroup objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ConfigGroup"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      requestBody:
+        description: DeployRequest object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeployRequest"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Group ID
+  "/master/groups/{id}":
+    get:
+      operationId: getGroupsById
+      tags:
+        - groups
+      summary: Get a specific ConfigGroup object
+      description: Get a specific ConfigGroup object
+      responses:
+        "200":
+          description: a list of ConfigGroup objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ConfigGroup"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Group id
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "fields to add to results: git.commit, git.localChanges, git.log"

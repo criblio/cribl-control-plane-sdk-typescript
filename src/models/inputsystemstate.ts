@@ -118,7 +118,7 @@ export type HostInfo = {
 /**
  * Creates events based on entries collected from the host’s network routes
  */
-export type Routes = {
+export type InputSystemStateRoutes = {
   enable?: boolean | undefined;
 };
 
@@ -184,7 +184,7 @@ export type Collectors = {
   /**
    * Creates events based on entries collected from the host’s network routes
    */
-  routes?: Routes | undefined;
+  routes?: InputSystemStateRoutes | undefined;
   /**
    * Creates events for DNS resolvers and search entries
    */
@@ -779,21 +779,24 @@ export function hostInfoFromJSON(
 }
 
 /** @internal */
-export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
-  .object({
-    enable: z.boolean().default(true),
-  });
+export const InputSystemStateRoutes$inboundSchema: z.ZodType<
+  InputSystemStateRoutes,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
 
 /** @internal */
-export type Routes$Outbound = {
+export type InputSystemStateRoutes$Outbound = {
   enable: boolean;
 };
 
 /** @internal */
-export const Routes$outboundSchema: z.ZodType<
-  Routes$Outbound,
+export const InputSystemStateRoutes$outboundSchema: z.ZodType<
+  InputSystemStateRoutes$Outbound,
   z.ZodTypeDef,
-  Routes
+  InputSystemStateRoutes
 > = z.object({
   enable: z.boolean().default(true),
 });
@@ -802,26 +805,30 @@ export const Routes$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Routes$ {
-  /** @deprecated use `Routes$inboundSchema` instead. */
-  export const inboundSchema = Routes$inboundSchema;
-  /** @deprecated use `Routes$outboundSchema` instead. */
-  export const outboundSchema = Routes$outboundSchema;
-  /** @deprecated use `Routes$Outbound` instead. */
-  export type Outbound = Routes$Outbound;
+export namespace InputSystemStateRoutes$ {
+  /** @deprecated use `InputSystemStateRoutes$inboundSchema` instead. */
+  export const inboundSchema = InputSystemStateRoutes$inboundSchema;
+  /** @deprecated use `InputSystemStateRoutes$outboundSchema` instead. */
+  export const outboundSchema = InputSystemStateRoutes$outboundSchema;
+  /** @deprecated use `InputSystemStateRoutes$Outbound` instead. */
+  export type Outbound = InputSystemStateRoutes$Outbound;
 }
 
-export function routesToJSON(routes: Routes): string {
-  return JSON.stringify(Routes$outboundSchema.parse(routes));
+export function inputSystemStateRoutesToJSON(
+  inputSystemStateRoutes: InputSystemStateRoutes,
+): string {
+  return JSON.stringify(
+    InputSystemStateRoutes$outboundSchema.parse(inputSystemStateRoutes),
+  );
 }
 
-export function routesFromJSON(
+export function inputSystemStateRoutesFromJSON(
   jsonString: string,
-): SafeParseResult<Routes, SDKValidationError> {
+): SafeParseResult<InputSystemStateRoutes, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Routes$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Routes' from JSON`,
+    (x) => InputSystemStateRoutes$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateRoutes' from JSON`,
   );
 }
 
@@ -1129,7 +1136,7 @@ export const Collectors$inboundSchema: z.ZodType<
   interfaces: z.lazy(() => Interfaces$inboundSchema).optional(),
   disk: z.lazy(() => DisksAndFileSystems$inboundSchema).optional(),
   metadata: z.lazy(() => HostInfo$inboundSchema).optional(),
-  routes: z.lazy(() => Routes$inboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes$inboundSchema).optional(),
   dns: z.lazy(() => Dns$inboundSchema).optional(),
   user: z.lazy(() => UsersAndGroups$inboundSchema).optional(),
   firewall: z.lazy(() => Firewall$inboundSchema).optional(),
@@ -1144,7 +1151,7 @@ export type Collectors$Outbound = {
   interfaces?: Interfaces$Outbound | undefined;
   disk?: DisksAndFileSystems$Outbound | undefined;
   metadata?: HostInfo$Outbound | undefined;
-  routes?: Routes$Outbound | undefined;
+  routes?: InputSystemStateRoutes$Outbound | undefined;
   dns?: Dns$Outbound | undefined;
   user?: UsersAndGroups$Outbound | undefined;
   firewall?: Firewall$Outbound | undefined;
@@ -1163,7 +1170,7 @@ export const Collectors$outboundSchema: z.ZodType<
   interfaces: z.lazy(() => Interfaces$outboundSchema).optional(),
   disk: z.lazy(() => DisksAndFileSystems$outboundSchema).optional(),
   metadata: z.lazy(() => HostInfo$outboundSchema).optional(),
-  routes: z.lazy(() => Routes$outboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes$outboundSchema).optional(),
   dns: z.lazy(() => Dns$outboundSchema).optional(),
   user: z.lazy(() => UsersAndGroups$outboundSchema).optional(),
   firewall: z.lazy(() => Firewall$outboundSchema).optional(),

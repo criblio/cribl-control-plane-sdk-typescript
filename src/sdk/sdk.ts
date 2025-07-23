@@ -4,9 +4,13 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
+import { Groups } from "./groups.js";
 import { Health } from "./health.js";
 import { Inputs } from "./inputs.js";
 import { Outputs } from "./outputs.js";
+import { Pipelines } from "./pipelines.js";
+import { Routes } from "./routes.js";
+import { Versioning } from "./versioning.js";
 
 export class CriblControlPlane extends ClientSDK {
   private _inputs?: Inputs;
@@ -19,6 +23,16 @@ export class CriblControlPlane extends ClientSDK {
     return (this._outputs ??= new Outputs(this._options));
   }
 
+  private _pipelines?: Pipelines;
+  get pipelines(): Pipelines {
+    return (this._pipelines ??= new Pipelines(this._options));
+  }
+
+  private _routes?: Routes;
+  get routes(): Routes {
+    return (this._routes ??= new Routes(this._options));
+  }
+
   private _auth?: Auth;
   get auth(): Auth {
     return (this._auth ??= new Auth(this._options));
@@ -27,5 +41,15 @@ export class CriblControlPlane extends ClientSDK {
   private _health?: Health;
   get health(): Health {
     return (this._health ??= new Health(this._options));
+  }
+
+  private _versioning?: Versioning;
+  get versioning(): Versioning {
+    return (this._versioning ??= new Versioning(this._options));
+  }
+
+  private _groups?: Groups;
+  get groups(): Groups {
+    return (this._groups ??= new Groups(this._options));
   }
 }
