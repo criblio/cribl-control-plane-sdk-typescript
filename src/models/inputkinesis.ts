@@ -92,7 +92,7 @@ export type ShardIteratorStart = OpenEnum<typeof ShardIteratorStart>;
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export const RecordDataFormat = {
+export const InputKinesisRecordDataFormat = {
   Cribl: "cribl",
   Ndjson: "ndjson",
   Cloudwatch: "cloudwatch",
@@ -101,7 +101,9 @@ export const RecordDataFormat = {
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export type RecordDataFormat = OpenEnum<typeof RecordDataFormat>;
+export type InputKinesisRecordDataFormat = OpenEnum<
+  typeof InputKinesisRecordDataFormat
+>;
 
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
@@ -203,7 +205,7 @@ export type InputKinesis = {
   /**
    * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
    */
-  payloadFormat?: RecordDataFormat | undefined;
+  payloadFormat?: InputKinesisRecordDataFormat | undefined;
   /**
    * Maximum number of records per getRecords call
    */
@@ -531,23 +533,23 @@ export namespace ShardIteratorStart$ {
 }
 
 /** @internal */
-export const RecordDataFormat$inboundSchema: z.ZodType<
-  RecordDataFormat,
+export const InputKinesisRecordDataFormat$inboundSchema: z.ZodType<
+  InputKinesisRecordDataFormat,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(RecordDataFormat),
+    z.nativeEnum(InputKinesisRecordDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const RecordDataFormat$outboundSchema: z.ZodType<
-  RecordDataFormat,
+export const InputKinesisRecordDataFormat$outboundSchema: z.ZodType<
+  InputKinesisRecordDataFormat,
   z.ZodTypeDef,
-  RecordDataFormat
+  InputKinesisRecordDataFormat
 > = z.union([
-  z.nativeEnum(RecordDataFormat),
+  z.nativeEnum(InputKinesisRecordDataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -555,11 +557,11 @@ export const RecordDataFormat$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RecordDataFormat$ {
-  /** @deprecated use `RecordDataFormat$inboundSchema` instead. */
-  export const inboundSchema = RecordDataFormat$inboundSchema;
-  /** @deprecated use `RecordDataFormat$outboundSchema` instead. */
-  export const outboundSchema = RecordDataFormat$outboundSchema;
+export namespace InputKinesisRecordDataFormat$ {
+  /** @deprecated use `InputKinesisRecordDataFormat$inboundSchema` instead. */
+  export const inboundSchema = InputKinesisRecordDataFormat$inboundSchema;
+  /** @deprecated use `InputKinesisRecordDataFormat$outboundSchema` instead. */
+  export const outboundSchema = InputKinesisRecordDataFormat$outboundSchema;
 }
 
 /** @internal */
@@ -736,7 +738,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
   serviceInterval: z.number().default(1),
   shardExpr: z.string().default("true"),
   shardIteratorType: ShardIteratorStart$inboundSchema.default("TRIM_HORIZON"),
-  payloadFormat: RecordDataFormat$inboundSchema.default("cribl"),
+  payloadFormat: InputKinesisRecordDataFormat$inboundSchema.default("cribl"),
   getRecordsLimit: z.number().default(5000),
   getRecordsLimitTotal: z.number().default(20000),
   loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
@@ -823,7 +825,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   serviceInterval: z.number().default(1),
   shardExpr: z.string().default("true"),
   shardIteratorType: ShardIteratorStart$outboundSchema.default("TRIM_HORIZON"),
-  payloadFormat: RecordDataFormat$outboundSchema.default("cribl"),
+  payloadFormat: InputKinesisRecordDataFormat$outboundSchema.default("cribl"),
   getRecordsLimit: z.number().default(5000),
   getRecordsLimitTotal: z.number().default(20000),
   loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(

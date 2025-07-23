@@ -80,14 +80,14 @@ export type InputSqsPq = {
 /**
  * The queue type used (or created)
  */
-export const QueueType = {
+export const InputSqsQueueType = {
   Standard: "standard",
   Fifo: "fifo",
 } as const;
 /**
  * The queue type used (or created)
  */
-export type QueueType = OpenEnum<typeof QueueType>;
+export type InputSqsQueueType = OpenEnum<typeof InputSqsQueueType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -165,7 +165,7 @@ export type InputSqs = {
   /**
    * The queue type used (or created)
    */
-  queueType?: QueueType | undefined;
+  queueType?: InputSqsQueueType | undefined;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -465,23 +465,23 @@ export function inputSqsPqFromJSON(
 }
 
 /** @internal */
-export const QueueType$inboundSchema: z.ZodType<
-  QueueType,
+export const InputSqsQueueType$inboundSchema: z.ZodType<
+  InputSqsQueueType,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(QueueType),
+    z.nativeEnum(InputSqsQueueType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const QueueType$outboundSchema: z.ZodType<
-  QueueType,
+export const InputSqsQueueType$outboundSchema: z.ZodType<
+  InputSqsQueueType,
   z.ZodTypeDef,
-  QueueType
+  InputSqsQueueType
 > = z.union([
-  z.nativeEnum(QueueType),
+  z.nativeEnum(InputSqsQueueType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -489,11 +489,11 @@ export const QueueType$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace QueueType$ {
-  /** @deprecated use `QueueType$inboundSchema` instead. */
-  export const inboundSchema = QueueType$inboundSchema;
-  /** @deprecated use `QueueType$outboundSchema` instead. */
-  export const outboundSchema = QueueType$outboundSchema;
+export namespace InputSqsQueueType$ {
+  /** @deprecated use `InputSqsQueueType$inboundSchema` instead. */
+  export const inboundSchema = InputSqsQueueType$inboundSchema;
+  /** @deprecated use `InputSqsQueueType$outboundSchema` instead. */
+  export const outboundSchema = InputSqsQueueType$outboundSchema;
 }
 
 /** @internal */
@@ -635,7 +635,7 @@ export const InputSqs$inboundSchema: z.ZodType<
     .optional(),
   pq: z.lazy(() => InputSqsPq$inboundSchema).optional(),
   queueName: z.string(),
-  queueType: QueueType$inboundSchema.default("standard"),
+  queueType: InputSqsQueueType$inboundSchema.default("standard"),
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
   awsAuthenticationMethod: InputSqsAuthenticationMethod$inboundSchema.default(
@@ -716,7 +716,7 @@ export const InputSqs$outboundSchema: z.ZodType<
     .optional(),
   pq: z.lazy(() => InputSqsPq$outboundSchema).optional(),
   queueName: z.string(),
-  queueType: QueueType$outboundSchema.default("standard"),
+  queueType: InputSqsQueueType$outboundSchema.default("standard"),
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
   awsAuthenticationMethod: InputSqsAuthenticationMethod$outboundSchema.default(

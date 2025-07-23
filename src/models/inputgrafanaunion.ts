@@ -134,7 +134,7 @@ export type InputGrafanaTLSSettingsServerSide2 = {
 /**
  * Remote Write authentication type
  */
-export const PrometheusAuthAuthenticationType2 = {
+export const InputGrafanaPrometheusAuthAuthenticationType2 = {
   None: "none",
   Basic: "basic",
   CredentialsSecret: "credentialsSecret",
@@ -145,8 +145,8 @@ export const PrometheusAuthAuthenticationType2 = {
 /**
  * Remote Write authentication type
  */
-export type PrometheusAuthAuthenticationType2 = OpenEnum<
-  typeof PrometheusAuthAuthenticationType2
+export type InputGrafanaPrometheusAuthAuthenticationType2 = OpenEnum<
+  typeof InputGrafanaPrometheusAuthAuthenticationType2
 >;
 
 export type PrometheusAuthOauthParam2 = {
@@ -171,11 +171,11 @@ export type PrometheusAuthOauthHeader2 = {
   value: string;
 };
 
-export type PrometheusAuth2 = {
+export type InputGrafanaPrometheusAuth2 = {
   /**
    * Remote Write authentication type
    */
-  authType?: PrometheusAuthAuthenticationType2 | undefined;
+  authType?: InputGrafanaPrometheusAuthAuthenticationType2 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -227,7 +227,7 @@ export type PrometheusAuth2 = {
 /**
  * Loki logs authentication type
  */
-export const LokiAuthAuthenticationType2 = {
+export const InputGrafanaLokiAuthAuthenticationType2 = {
   None: "none",
   Basic: "basic",
   CredentialsSecret: "credentialsSecret",
@@ -238,8 +238,8 @@ export const LokiAuthAuthenticationType2 = {
 /**
  * Loki logs authentication type
  */
-export type LokiAuthAuthenticationType2 = OpenEnum<
-  typeof LokiAuthAuthenticationType2
+export type InputGrafanaLokiAuthAuthenticationType2 = OpenEnum<
+  typeof InputGrafanaLokiAuthAuthenticationType2
 >;
 
 export type LokiAuthOauthParam2 = {
@@ -264,11 +264,11 @@ export type LokiAuthOauthHeader2 = {
   value: string;
 };
 
-export type LokiAuth2 = {
+export type InputGrafanaLokiAuth2 = {
   /**
    * Loki logs authentication type
    */
-  authType?: LokiAuthAuthenticationType2 | undefined;
+  authType?: InputGrafanaLokiAuthAuthenticationType2 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -418,8 +418,8 @@ export type InputGrafana2 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  prometheusAuth?: PrometheusAuth2 | undefined;
-  lokiAuth?: LokiAuth2 | undefined;
+  prometheusAuth?: InputGrafanaPrometheusAuth2 | undefined;
+  lokiAuth?: InputGrafanaLokiAuth2 | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -549,7 +549,7 @@ export type InputGrafanaTLSSettingsServerSide1 = {
 /**
  * Remote Write authentication type
  */
-export const PrometheusAuthAuthenticationType1 = {
+export const InputGrafanaPrometheusAuthAuthenticationType1 = {
   None: "none",
   Basic: "basic",
   CredentialsSecret: "credentialsSecret",
@@ -560,8 +560,8 @@ export const PrometheusAuthAuthenticationType1 = {
 /**
  * Remote Write authentication type
  */
-export type PrometheusAuthAuthenticationType1 = OpenEnum<
-  typeof PrometheusAuthAuthenticationType1
+export type InputGrafanaPrometheusAuthAuthenticationType1 = OpenEnum<
+  typeof InputGrafanaPrometheusAuthAuthenticationType1
 >;
 
 export type PrometheusAuthOauthParam1 = {
@@ -586,11 +586,11 @@ export type PrometheusAuthOauthHeader1 = {
   value: string;
 };
 
-export type PrometheusAuth1 = {
+export type InputGrafanaPrometheusAuth1 = {
   /**
    * Remote Write authentication type
    */
-  authType?: PrometheusAuthAuthenticationType1 | undefined;
+  authType?: InputGrafanaPrometheusAuthAuthenticationType1 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -642,7 +642,7 @@ export type PrometheusAuth1 = {
 /**
  * Loki logs authentication type
  */
-export const LokiAuthAuthenticationType1 = {
+export const InputGrafanaLokiAuthAuthenticationType1 = {
   None: "none",
   Basic: "basic",
   CredentialsSecret: "credentialsSecret",
@@ -653,8 +653,8 @@ export const LokiAuthAuthenticationType1 = {
 /**
  * Loki logs authentication type
  */
-export type LokiAuthAuthenticationType1 = OpenEnum<
-  typeof LokiAuthAuthenticationType1
+export type InputGrafanaLokiAuthAuthenticationType1 = OpenEnum<
+  typeof InputGrafanaLokiAuthAuthenticationType1
 >;
 
 export type LokiAuthOauthParam1 = {
@@ -679,11 +679,11 @@ export type LokiAuthOauthHeader1 = {
   value: string;
 };
 
-export type LokiAuth1 = {
+export type InputGrafanaLokiAuth1 = {
   /**
    * Loki logs authentication type
    */
-  authType?: LokiAuthAuthenticationType1 | undefined;
+  authType?: InputGrafanaLokiAuthAuthenticationType1 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -833,8 +833,8 @@ export type InputGrafana1 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  prometheusAuth?: PrometheusAuth1 | undefined;
-  lokiAuth?: LokiAuth1 | undefined;
+  prometheusAuth?: InputGrafanaPrometheusAuth1 | undefined;
+  lokiAuth?: InputGrafanaLokiAuth1 | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -1220,36 +1220,39 @@ export function inputGrafanaTLSSettingsServerSide2FromJSON(
 }
 
 /** @internal */
-export const PrometheusAuthAuthenticationType2$inboundSchema: z.ZodType<
-  PrometheusAuthAuthenticationType2,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(PrometheusAuthAuthenticationType2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema:
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType2,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType2),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
-export const PrometheusAuthAuthenticationType2$outboundSchema: z.ZodType<
-  PrometheusAuthAuthenticationType2,
-  z.ZodTypeDef,
-  PrometheusAuthAuthenticationType2
-> = z.union([
-  z.nativeEnum(PrometheusAuthAuthenticationType2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema:
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType2,
+    z.ZodTypeDef,
+    InputGrafanaPrometheusAuthAuthenticationType2
+  > = z.union([
+    z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PrometheusAuthAuthenticationType2$ {
-  /** @deprecated use `PrometheusAuthAuthenticationType2$inboundSchema` instead. */
-  export const inboundSchema = PrometheusAuthAuthenticationType2$inboundSchema;
-  /** @deprecated use `PrometheusAuthAuthenticationType2$outboundSchema` instead. */
+export namespace InputGrafanaPrometheusAuthAuthenticationType2$ {
+  /** @deprecated use `InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema` instead. */
+  export const inboundSchema =
+    InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema;
+  /** @deprecated use `InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema` instead. */
   export const outboundSchema =
-    PrometheusAuthAuthenticationType2$outboundSchema;
+    InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema;
 }
 
 /** @internal */
@@ -1367,12 +1370,14 @@ export function prometheusAuthOauthHeader2FromJSON(
 }
 
 /** @internal */
-export const PrometheusAuth2$inboundSchema: z.ZodType<
-  PrometheusAuth2,
+export const InputGrafanaPrometheusAuth2$inboundSchema: z.ZodType<
+  InputGrafanaPrometheusAuth2,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: PrometheusAuthAuthenticationType2$inboundSchema.default("none"),
+  authType: InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema.default(
+    "none",
+  ),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -1391,7 +1396,7 @@ export const PrometheusAuth2$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type PrometheusAuth2$Outbound = {
+export type InputGrafanaPrometheusAuth2$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -1409,12 +1414,13 @@ export type PrometheusAuth2$Outbound = {
 };
 
 /** @internal */
-export const PrometheusAuth2$outboundSchema: z.ZodType<
-  PrometheusAuth2$Outbound,
+export const InputGrafanaPrometheusAuth2$outboundSchema: z.ZodType<
+  InputGrafanaPrometheusAuth2$Outbound,
   z.ZodTypeDef,
-  PrometheusAuth2
+  InputGrafanaPrometheusAuth2
 > = z.object({
-  authType: PrometheusAuthAuthenticationType2$outboundSchema.default("none"),
+  authType: InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema
+    .default("none"),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -1436,49 +1442,53 @@ export const PrometheusAuth2$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PrometheusAuth2$ {
-  /** @deprecated use `PrometheusAuth2$inboundSchema` instead. */
-  export const inboundSchema = PrometheusAuth2$inboundSchema;
-  /** @deprecated use `PrometheusAuth2$outboundSchema` instead. */
-  export const outboundSchema = PrometheusAuth2$outboundSchema;
-  /** @deprecated use `PrometheusAuth2$Outbound` instead. */
-  export type Outbound = PrometheusAuth2$Outbound;
+export namespace InputGrafanaPrometheusAuth2$ {
+  /** @deprecated use `InputGrafanaPrometheusAuth2$inboundSchema` instead. */
+  export const inboundSchema = InputGrafanaPrometheusAuth2$inboundSchema;
+  /** @deprecated use `InputGrafanaPrometheusAuth2$outboundSchema` instead. */
+  export const outboundSchema = InputGrafanaPrometheusAuth2$outboundSchema;
+  /** @deprecated use `InputGrafanaPrometheusAuth2$Outbound` instead. */
+  export type Outbound = InputGrafanaPrometheusAuth2$Outbound;
 }
 
-export function prometheusAuth2ToJSON(
-  prometheusAuth2: PrometheusAuth2,
+export function inputGrafanaPrometheusAuth2ToJSON(
+  inputGrafanaPrometheusAuth2: InputGrafanaPrometheusAuth2,
 ): string {
-  return JSON.stringify(PrometheusAuth2$outboundSchema.parse(prometheusAuth2));
+  return JSON.stringify(
+    InputGrafanaPrometheusAuth2$outboundSchema.parse(
+      inputGrafanaPrometheusAuth2,
+    ),
+  );
 }
 
-export function prometheusAuth2FromJSON(
+export function inputGrafanaPrometheusAuth2FromJSON(
   jsonString: string,
-): SafeParseResult<PrometheusAuth2, SDKValidationError> {
+): SafeParseResult<InputGrafanaPrometheusAuth2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PrometheusAuth2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PrometheusAuth2' from JSON`,
+    (x) => InputGrafanaPrometheusAuth2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPrometheusAuth2' from JSON`,
   );
 }
 
 /** @internal */
-export const LokiAuthAuthenticationType2$inboundSchema: z.ZodType<
-  LokiAuthAuthenticationType2,
+export const InputGrafanaLokiAuthAuthenticationType2$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType2,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(LokiAuthAuthenticationType2),
+    z.nativeEnum(InputGrafanaLokiAuthAuthenticationType2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const LokiAuthAuthenticationType2$outboundSchema: z.ZodType<
-  LokiAuthAuthenticationType2,
+export const InputGrafanaLokiAuthAuthenticationType2$outboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType2,
   z.ZodTypeDef,
-  LokiAuthAuthenticationType2
+  InputGrafanaLokiAuthAuthenticationType2
 > = z.union([
-  z.nativeEnum(LokiAuthAuthenticationType2),
+  z.nativeEnum(InputGrafanaLokiAuthAuthenticationType2),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -1486,11 +1496,13 @@ export const LokiAuthAuthenticationType2$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace LokiAuthAuthenticationType2$ {
-  /** @deprecated use `LokiAuthAuthenticationType2$inboundSchema` instead. */
-  export const inboundSchema = LokiAuthAuthenticationType2$inboundSchema;
-  /** @deprecated use `LokiAuthAuthenticationType2$outboundSchema` instead. */
-  export const outboundSchema = LokiAuthAuthenticationType2$outboundSchema;
+export namespace InputGrafanaLokiAuthAuthenticationType2$ {
+  /** @deprecated use `InputGrafanaLokiAuthAuthenticationType2$inboundSchema` instead. */
+  export const inboundSchema =
+    InputGrafanaLokiAuthAuthenticationType2$inboundSchema;
+  /** @deprecated use `InputGrafanaLokiAuthAuthenticationType2$outboundSchema` instead. */
+  export const outboundSchema =
+    InputGrafanaLokiAuthAuthenticationType2$outboundSchema;
 }
 
 /** @internal */
@@ -1608,12 +1620,14 @@ export function lokiAuthOauthHeader2FromJSON(
 }
 
 /** @internal */
-export const LokiAuth2$inboundSchema: z.ZodType<
-  LokiAuth2,
+export const InputGrafanaLokiAuth2$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuth2,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: LokiAuthAuthenticationType2$inboundSchema.default("none"),
+  authType: InputGrafanaLokiAuthAuthenticationType2$inboundSchema.default(
+    "none",
+  ),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -1632,7 +1646,7 @@ export const LokiAuth2$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type LokiAuth2$Outbound = {
+export type InputGrafanaLokiAuth2$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -1650,12 +1664,14 @@ export type LokiAuth2$Outbound = {
 };
 
 /** @internal */
-export const LokiAuth2$outboundSchema: z.ZodType<
-  LokiAuth2$Outbound,
+export const InputGrafanaLokiAuth2$outboundSchema: z.ZodType<
+  InputGrafanaLokiAuth2$Outbound,
   z.ZodTypeDef,
-  LokiAuth2
+  InputGrafanaLokiAuth2
 > = z.object({
-  authType: LokiAuthAuthenticationType2$outboundSchema.default("none"),
+  authType: InputGrafanaLokiAuthAuthenticationType2$outboundSchema.default(
+    "none",
+  ),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -1677,26 +1693,30 @@ export const LokiAuth2$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace LokiAuth2$ {
-  /** @deprecated use `LokiAuth2$inboundSchema` instead. */
-  export const inboundSchema = LokiAuth2$inboundSchema;
-  /** @deprecated use `LokiAuth2$outboundSchema` instead. */
-  export const outboundSchema = LokiAuth2$outboundSchema;
-  /** @deprecated use `LokiAuth2$Outbound` instead. */
-  export type Outbound = LokiAuth2$Outbound;
+export namespace InputGrafanaLokiAuth2$ {
+  /** @deprecated use `InputGrafanaLokiAuth2$inboundSchema` instead. */
+  export const inboundSchema = InputGrafanaLokiAuth2$inboundSchema;
+  /** @deprecated use `InputGrafanaLokiAuth2$outboundSchema` instead. */
+  export const outboundSchema = InputGrafanaLokiAuth2$outboundSchema;
+  /** @deprecated use `InputGrafanaLokiAuth2$Outbound` instead. */
+  export type Outbound = InputGrafanaLokiAuth2$Outbound;
 }
 
-export function lokiAuth2ToJSON(lokiAuth2: LokiAuth2): string {
-  return JSON.stringify(LokiAuth2$outboundSchema.parse(lokiAuth2));
+export function inputGrafanaLokiAuth2ToJSON(
+  inputGrafanaLokiAuth2: InputGrafanaLokiAuth2,
+): string {
+  return JSON.stringify(
+    InputGrafanaLokiAuth2$outboundSchema.parse(inputGrafanaLokiAuth2),
+  );
 }
 
-export function lokiAuth2FromJSON(
+export function inputGrafanaLokiAuth2FromJSON(
   jsonString: string,
-): SafeParseResult<LokiAuth2, SDKValidationError> {
+): SafeParseResult<InputGrafanaLokiAuth2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => LokiAuth2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LokiAuth2' from JSON`,
+    (x) => InputGrafanaLokiAuth2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaLokiAuth2' from JSON`,
   );
 }
 
@@ -1791,8 +1811,9 @@ export const InputGrafana2$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth2$inboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth2$inboundSchema).optional(),
+  prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth2$inboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => InputGrafanaLokiAuth2$inboundSchema).optional(),
   metadata: z.array(z.lazy(() => InputGrafanaMetadatum2$inboundSchema))
     .optional(),
   description: z.string().optional(),
@@ -1826,8 +1847,8 @@ export type InputGrafana2$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
-  prometheusAuth?: PrometheusAuth2$Outbound | undefined;
-  lokiAuth?: LokiAuth2$Outbound | undefined;
+  prometheusAuth?: InputGrafanaPrometheusAuth2$Outbound | undefined;
+  lokiAuth?: InputGrafanaLokiAuth2$Outbound | undefined;
   metadata?: Array<InputGrafanaMetadatum2$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -1866,8 +1887,9 @@ export const InputGrafana2$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
+  prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth2$outboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => InputGrafanaLokiAuth2$outboundSchema).optional(),
   metadata: z.array(z.lazy(() => InputGrafanaMetadatum2$outboundSchema))
     .optional(),
   description: z.string().optional(),
@@ -2276,36 +2298,39 @@ export function inputGrafanaTLSSettingsServerSide1FromJSON(
 }
 
 /** @internal */
-export const PrometheusAuthAuthenticationType1$inboundSchema: z.ZodType<
-  PrometheusAuthAuthenticationType1,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(PrometheusAuthAuthenticationType1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema:
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType1,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType1),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
-export const PrometheusAuthAuthenticationType1$outboundSchema: z.ZodType<
-  PrometheusAuthAuthenticationType1,
-  z.ZodTypeDef,
-  PrometheusAuthAuthenticationType1
-> = z.union([
-  z.nativeEnum(PrometheusAuthAuthenticationType1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema:
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType1,
+    z.ZodTypeDef,
+    InputGrafanaPrometheusAuthAuthenticationType1
+  > = z.union([
+    z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PrometheusAuthAuthenticationType1$ {
-  /** @deprecated use `PrometheusAuthAuthenticationType1$inboundSchema` instead. */
-  export const inboundSchema = PrometheusAuthAuthenticationType1$inboundSchema;
-  /** @deprecated use `PrometheusAuthAuthenticationType1$outboundSchema` instead. */
+export namespace InputGrafanaPrometheusAuthAuthenticationType1$ {
+  /** @deprecated use `InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema` instead. */
+  export const inboundSchema =
+    InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema;
+  /** @deprecated use `InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema` instead. */
   export const outboundSchema =
-    PrometheusAuthAuthenticationType1$outboundSchema;
+    InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema;
 }
 
 /** @internal */
@@ -2423,12 +2448,14 @@ export function prometheusAuthOauthHeader1FromJSON(
 }
 
 /** @internal */
-export const PrometheusAuth1$inboundSchema: z.ZodType<
-  PrometheusAuth1,
+export const InputGrafanaPrometheusAuth1$inboundSchema: z.ZodType<
+  InputGrafanaPrometheusAuth1,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: PrometheusAuthAuthenticationType1$inboundSchema.default("none"),
+  authType: InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema.default(
+    "none",
+  ),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -2447,7 +2474,7 @@ export const PrometheusAuth1$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type PrometheusAuth1$Outbound = {
+export type InputGrafanaPrometheusAuth1$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -2465,12 +2492,13 @@ export type PrometheusAuth1$Outbound = {
 };
 
 /** @internal */
-export const PrometheusAuth1$outboundSchema: z.ZodType<
-  PrometheusAuth1$Outbound,
+export const InputGrafanaPrometheusAuth1$outboundSchema: z.ZodType<
+  InputGrafanaPrometheusAuth1$Outbound,
   z.ZodTypeDef,
-  PrometheusAuth1
+  InputGrafanaPrometheusAuth1
 > = z.object({
-  authType: PrometheusAuthAuthenticationType1$outboundSchema.default("none"),
+  authType: InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema
+    .default("none"),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -2492,49 +2520,53 @@ export const PrometheusAuth1$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PrometheusAuth1$ {
-  /** @deprecated use `PrometheusAuth1$inboundSchema` instead. */
-  export const inboundSchema = PrometheusAuth1$inboundSchema;
-  /** @deprecated use `PrometheusAuth1$outboundSchema` instead. */
-  export const outboundSchema = PrometheusAuth1$outboundSchema;
-  /** @deprecated use `PrometheusAuth1$Outbound` instead. */
-  export type Outbound = PrometheusAuth1$Outbound;
+export namespace InputGrafanaPrometheusAuth1$ {
+  /** @deprecated use `InputGrafanaPrometheusAuth1$inboundSchema` instead. */
+  export const inboundSchema = InputGrafanaPrometheusAuth1$inboundSchema;
+  /** @deprecated use `InputGrafanaPrometheusAuth1$outboundSchema` instead. */
+  export const outboundSchema = InputGrafanaPrometheusAuth1$outboundSchema;
+  /** @deprecated use `InputGrafanaPrometheusAuth1$Outbound` instead. */
+  export type Outbound = InputGrafanaPrometheusAuth1$Outbound;
 }
 
-export function prometheusAuth1ToJSON(
-  prometheusAuth1: PrometheusAuth1,
+export function inputGrafanaPrometheusAuth1ToJSON(
+  inputGrafanaPrometheusAuth1: InputGrafanaPrometheusAuth1,
 ): string {
-  return JSON.stringify(PrometheusAuth1$outboundSchema.parse(prometheusAuth1));
+  return JSON.stringify(
+    InputGrafanaPrometheusAuth1$outboundSchema.parse(
+      inputGrafanaPrometheusAuth1,
+    ),
+  );
 }
 
-export function prometheusAuth1FromJSON(
+export function inputGrafanaPrometheusAuth1FromJSON(
   jsonString: string,
-): SafeParseResult<PrometheusAuth1, SDKValidationError> {
+): SafeParseResult<InputGrafanaPrometheusAuth1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PrometheusAuth1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PrometheusAuth1' from JSON`,
+    (x) => InputGrafanaPrometheusAuth1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPrometheusAuth1' from JSON`,
   );
 }
 
 /** @internal */
-export const LokiAuthAuthenticationType1$inboundSchema: z.ZodType<
-  LokiAuthAuthenticationType1,
+export const InputGrafanaLokiAuthAuthenticationType1$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType1,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(LokiAuthAuthenticationType1),
+    z.nativeEnum(InputGrafanaLokiAuthAuthenticationType1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const LokiAuthAuthenticationType1$outboundSchema: z.ZodType<
-  LokiAuthAuthenticationType1,
+export const InputGrafanaLokiAuthAuthenticationType1$outboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType1,
   z.ZodTypeDef,
-  LokiAuthAuthenticationType1
+  InputGrafanaLokiAuthAuthenticationType1
 > = z.union([
-  z.nativeEnum(LokiAuthAuthenticationType1),
+  z.nativeEnum(InputGrafanaLokiAuthAuthenticationType1),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -2542,11 +2574,13 @@ export const LokiAuthAuthenticationType1$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace LokiAuthAuthenticationType1$ {
-  /** @deprecated use `LokiAuthAuthenticationType1$inboundSchema` instead. */
-  export const inboundSchema = LokiAuthAuthenticationType1$inboundSchema;
-  /** @deprecated use `LokiAuthAuthenticationType1$outboundSchema` instead. */
-  export const outboundSchema = LokiAuthAuthenticationType1$outboundSchema;
+export namespace InputGrafanaLokiAuthAuthenticationType1$ {
+  /** @deprecated use `InputGrafanaLokiAuthAuthenticationType1$inboundSchema` instead. */
+  export const inboundSchema =
+    InputGrafanaLokiAuthAuthenticationType1$inboundSchema;
+  /** @deprecated use `InputGrafanaLokiAuthAuthenticationType1$outboundSchema` instead. */
+  export const outboundSchema =
+    InputGrafanaLokiAuthAuthenticationType1$outboundSchema;
 }
 
 /** @internal */
@@ -2664,12 +2698,14 @@ export function lokiAuthOauthHeader1FromJSON(
 }
 
 /** @internal */
-export const LokiAuth1$inboundSchema: z.ZodType<
-  LokiAuth1,
+export const InputGrafanaLokiAuth1$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuth1,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: LokiAuthAuthenticationType1$inboundSchema.default("none"),
+  authType: InputGrafanaLokiAuthAuthenticationType1$inboundSchema.default(
+    "none",
+  ),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -2688,7 +2724,7 @@ export const LokiAuth1$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type LokiAuth1$Outbound = {
+export type InputGrafanaLokiAuth1$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -2706,12 +2742,14 @@ export type LokiAuth1$Outbound = {
 };
 
 /** @internal */
-export const LokiAuth1$outboundSchema: z.ZodType<
-  LokiAuth1$Outbound,
+export const InputGrafanaLokiAuth1$outboundSchema: z.ZodType<
+  InputGrafanaLokiAuth1$Outbound,
   z.ZodTypeDef,
-  LokiAuth1
+  InputGrafanaLokiAuth1
 > = z.object({
-  authType: LokiAuthAuthenticationType1$outboundSchema.default("none"),
+  authType: InputGrafanaLokiAuthAuthenticationType1$outboundSchema.default(
+    "none",
+  ),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -2733,26 +2771,30 @@ export const LokiAuth1$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace LokiAuth1$ {
-  /** @deprecated use `LokiAuth1$inboundSchema` instead. */
-  export const inboundSchema = LokiAuth1$inboundSchema;
-  /** @deprecated use `LokiAuth1$outboundSchema` instead. */
-  export const outboundSchema = LokiAuth1$outboundSchema;
-  /** @deprecated use `LokiAuth1$Outbound` instead. */
-  export type Outbound = LokiAuth1$Outbound;
+export namespace InputGrafanaLokiAuth1$ {
+  /** @deprecated use `InputGrafanaLokiAuth1$inboundSchema` instead. */
+  export const inboundSchema = InputGrafanaLokiAuth1$inboundSchema;
+  /** @deprecated use `InputGrafanaLokiAuth1$outboundSchema` instead. */
+  export const outboundSchema = InputGrafanaLokiAuth1$outboundSchema;
+  /** @deprecated use `InputGrafanaLokiAuth1$Outbound` instead. */
+  export type Outbound = InputGrafanaLokiAuth1$Outbound;
 }
 
-export function lokiAuth1ToJSON(lokiAuth1: LokiAuth1): string {
-  return JSON.stringify(LokiAuth1$outboundSchema.parse(lokiAuth1));
+export function inputGrafanaLokiAuth1ToJSON(
+  inputGrafanaLokiAuth1: InputGrafanaLokiAuth1,
+): string {
+  return JSON.stringify(
+    InputGrafanaLokiAuth1$outboundSchema.parse(inputGrafanaLokiAuth1),
+  );
 }
 
-export function lokiAuth1FromJSON(
+export function inputGrafanaLokiAuth1FromJSON(
   jsonString: string,
-): SafeParseResult<LokiAuth1, SDKValidationError> {
+): SafeParseResult<InputGrafanaLokiAuth1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => LokiAuth1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LokiAuth1' from JSON`,
+    (x) => InputGrafanaLokiAuth1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaLokiAuth1' from JSON`,
   );
 }
 
@@ -2847,8 +2889,9 @@ export const InputGrafana1$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth1$inboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth1$inboundSchema).optional(),
+  prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth1$inboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => InputGrafanaLokiAuth1$inboundSchema).optional(),
   metadata: z.array(z.lazy(() => InputGrafanaMetadatum1$inboundSchema))
     .optional(),
   description: z.string().optional(),
@@ -2882,8 +2925,8 @@ export type InputGrafana1$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
-  prometheusAuth?: PrometheusAuth1$Outbound | undefined;
-  lokiAuth?: LokiAuth1$Outbound | undefined;
+  prometheusAuth?: InputGrafanaPrometheusAuth1$Outbound | undefined;
+  lokiAuth?: InputGrafanaLokiAuth1$Outbound | undefined;
   metadata?: Array<InputGrafanaMetadatum1$Outbound> | undefined;
   description?: string | undefined;
 };
@@ -2922,8 +2965,9 @@ export const InputGrafana1$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth1$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
+  prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth1$outboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => InputGrafanaLokiAuth1$outboundSchema).optional(),
   metadata: z.array(z.lazy(() => InputGrafanaMetadatum1$outboundSchema))
     .optional(),
   description: z.string().optional(),

@@ -82,7 +82,7 @@ export type InputGooglePubsubPq = {
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
-export const GoogleAuthenticationMethod = {
+export const InputGooglePubsubGoogleAuthenticationMethod = {
   Auto: "auto",
   Manual: "manual",
   Secret: "secret",
@@ -90,8 +90,8 @@ export const GoogleAuthenticationMethod = {
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
-export type GoogleAuthenticationMethod = OpenEnum<
-  typeof GoogleAuthenticationMethod
+export type InputGooglePubsubGoogleAuthenticationMethod = OpenEnum<
+  typeof InputGooglePubsubGoogleAuthenticationMethod
 >;
 
 export type InputGooglePubsubMetadatum = {
@@ -157,7 +157,7 @@ export type InputGooglePubsub = {
   /**
    * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
    */
-  googleAuthMethod?: GoogleAuthenticationMethod | undefined;
+  googleAuthMethod?: InputGooglePubsubGoogleAuthenticationMethod | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
    */
@@ -417,35 +417,39 @@ export function inputGooglePubsubPqFromJSON(
 }
 
 /** @internal */
-export const GoogleAuthenticationMethod$inboundSchema: z.ZodType<
-  GoogleAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(GoogleAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    InputGooglePubsubGoogleAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputGooglePubsubGoogleAuthenticationMethod),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
-export const GoogleAuthenticationMethod$outboundSchema: z.ZodType<
-  GoogleAuthenticationMethod,
-  z.ZodTypeDef,
-  GoogleAuthenticationMethod
-> = z.union([
-  z.nativeEnum(GoogleAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    InputGooglePubsubGoogleAuthenticationMethod,
+    z.ZodTypeDef,
+    InputGooglePubsubGoogleAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(InputGooglePubsubGoogleAuthenticationMethod),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace GoogleAuthenticationMethod$ {
-  /** @deprecated use `GoogleAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = GoogleAuthenticationMethod$inboundSchema;
-  /** @deprecated use `GoogleAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = GoogleAuthenticationMethod$outboundSchema;
+export namespace InputGooglePubsubGoogleAuthenticationMethod$ {
+  /** @deprecated use `InputGooglePubsubGoogleAuthenticationMethod$inboundSchema` instead. */
+  export const inboundSchema =
+    InputGooglePubsubGoogleAuthenticationMethod$inboundSchema;
+  /** @deprecated use `InputGooglePubsubGoogleAuthenticationMethod$outboundSchema` instead. */
+  export const outboundSchema =
+    InputGooglePubsubGoogleAuthenticationMethod$outboundSchema;
 }
 
 /** @internal */
@@ -527,7 +531,8 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   createTopic: z.boolean().default(false),
   createSubscription: z.boolean().default(true),
   region: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethod$inboundSchema.default("manual"),
+  googleAuthMethod: InputGooglePubsubGoogleAuthenticationMethod$inboundSchema
+    .default("manual"),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   maxBacklog: z.number().default(1000),
@@ -589,7 +594,8 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   createTopic: z.boolean().default(false),
   createSubscription: z.boolean().default(true),
   region: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethod$outboundSchema.default("manual"),
+  googleAuthMethod: InputGooglePubsubGoogleAuthenticationMethod$outboundSchema
+    .default("manual"),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   maxBacklog: z.number().default(1000),

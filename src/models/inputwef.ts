@@ -165,14 +165,14 @@ export type MTLSSettings = {
 /**
  * Content format in which the endpoint should deliver events
  */
-export const Format = {
+export const InputWefFormat = {
   Raw: "Raw",
   RenderedText: "RenderedText",
 } as const;
 /**
  * Content format in which the endpoint should deliver events
  */
-export type Format = OpenEnum<typeof Format>;
+export type InputWefFormat = OpenEnum<typeof InputWefFormat>;
 
 export const QueryBuilderMode = {
   Simple: "simple",
@@ -197,7 +197,7 @@ export type Subscription = {
   /**
    * Content format in which the endpoint should deliver events
    */
-  contentFormat?: Format | undefined;
+  contentFormat?: InputWefFormat | undefined;
   /**
    * Maximum time (in seconds) between endpoint checkins before considering it unavailable
    */
@@ -763,28 +763,35 @@ export function mTLSSettingsFromJSON(
 }
 
 /** @internal */
-export const Format$inboundSchema: z.ZodType<Format, z.ZodTypeDef, unknown> = z
+export const InputWefFormat$inboundSchema: z.ZodType<
+  InputWefFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
   .union([
-    z.nativeEnum(Format),
+    z.nativeEnum(InputWefFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const Format$outboundSchema: z.ZodType<Format, z.ZodTypeDef, Format> = z
-  .union([
-    z.nativeEnum(Format),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+export const InputWefFormat$outboundSchema: z.ZodType<
+  InputWefFormat,
+  z.ZodTypeDef,
+  InputWefFormat
+> = z.union([
+  z.nativeEnum(InputWefFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Format$ {
-  /** @deprecated use `Format$inboundSchema` instead. */
-  export const inboundSchema = Format$inboundSchema;
-  /** @deprecated use `Format$outboundSchema` instead. */
-  export const outboundSchema = Format$outboundSchema;
+export namespace InputWefFormat$ {
+  /** @deprecated use `InputWefFormat$inboundSchema` instead. */
+  export const inboundSchema = InputWefFormat$inboundSchema;
+  /** @deprecated use `InputWefFormat$outboundSchema` instead. */
+  export const outboundSchema = InputWefFormat$outboundSchema;
 }
 
 /** @internal */
@@ -884,7 +891,7 @@ export const Subscription$inboundSchema: z.ZodType<
 > = z.object({
   subscriptionName: z.string(),
   version: z.string().optional(),
-  contentFormat: Format$inboundSchema.default("Raw"),
+  contentFormat: InputWefFormat$inboundSchema.default("Raw"),
   heartbeatInterval: z.number().default(60),
   batchTimeout: z.number().default(60),
   readExistingEvents: z.boolean().default(false),
@@ -921,7 +928,7 @@ export const Subscription$outboundSchema: z.ZodType<
 > = z.object({
   subscriptionName: z.string(),
   version: z.string().optional(),
-  contentFormat: Format$outboundSchema.default("Raw"),
+  contentFormat: InputWefFormat$outboundSchema.default("Raw"),
   heartbeatInterval: z.number().default(60),
   batchTimeout: z.number().default(60),
   readExistingEvents: z.boolean().default(false),

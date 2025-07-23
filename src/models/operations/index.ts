@@ -4,8 +4,17 @@
 
 export * from "./createinput.js";
 export * from "./createinputhectokenbyid.js";
+export * from "./createoutput.js";
+export * from "./createoutputtestbyid.js";
 export * from "./deleteinputbyid.js";
+export * from "./deleteoutputbyid.js";
+export * from "./deleteoutputpqbyid.js";
 export * from "./getinputbyid.js";
+export * from "./getoutputbyid.js";
+export * from "./getoutputpqbyid.js";
+export * from "./getoutputsamplesbyid.js";
 export * from "./listinput.js";
+export * from "./listoutput.js";
 export * from "./updateinputbyid.js";
 export * from "./updateinputhectokenbyidandtoken.js";
+export * from "./updateoutputbyid.js";

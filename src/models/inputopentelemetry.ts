@@ -148,14 +148,16 @@ export type InputOpenTelemetryProtocol = OpenEnum<
 /**
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
-export const OTLPVersion = {
+export const InputOpenTelemetryOTLPVersion = {
   ZeroDot10Dot0: "0.10.0",
   OneDot3Dot1: "1.3.1",
 } as const;
 /**
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
-export type OTLPVersion = OpenEnum<typeof OTLPVersion>;
+export type InputOpenTelemetryOTLPVersion = OpenEnum<
+  typeof InputOpenTelemetryOTLPVersion
+>;
 
 /**
  * OpenTelemetry authentication type
@@ -296,7 +298,7 @@ export type InputOpenTelemetry = {
   /**
    * The version of OTLP Protobuf definitions to use when interpreting received data
    */
-  otlpVersion?: OTLPVersion | undefined;
+  otlpVersion?: InputOpenTelemetryOTLPVersion | undefined;
   /**
    * OpenTelemetry authentication type
    */
@@ -785,23 +787,23 @@ export namespace InputOpenTelemetryProtocol$ {
 }
 
 /** @internal */
-export const OTLPVersion$inboundSchema: z.ZodType<
-  OTLPVersion,
+export const InputOpenTelemetryOTLPVersion$inboundSchema: z.ZodType<
+  InputOpenTelemetryOTLPVersion,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OTLPVersion),
+    z.nativeEnum(InputOpenTelemetryOTLPVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const OTLPVersion$outboundSchema: z.ZodType<
-  OTLPVersion,
+export const InputOpenTelemetryOTLPVersion$outboundSchema: z.ZodType<
+  InputOpenTelemetryOTLPVersion,
   z.ZodTypeDef,
-  OTLPVersion
+  InputOpenTelemetryOTLPVersion
 > = z.union([
-  z.nativeEnum(OTLPVersion),
+  z.nativeEnum(InputOpenTelemetryOTLPVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -809,11 +811,11 @@ export const OTLPVersion$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace OTLPVersion$ {
-  /** @deprecated use `OTLPVersion$inboundSchema` instead. */
-  export const inboundSchema = OTLPVersion$inboundSchema;
-  /** @deprecated use `OTLPVersion$outboundSchema` instead. */
-  export const outboundSchema = OTLPVersion$outboundSchema;
+export namespace InputOpenTelemetryOTLPVersion$ {
+  /** @deprecated use `InputOpenTelemetryOTLPVersion$inboundSchema` instead. */
+  export const inboundSchema = InputOpenTelemetryOTLPVersion$inboundSchema;
+  /** @deprecated use `InputOpenTelemetryOTLPVersion$outboundSchema` instead. */
+  export const outboundSchema = InputOpenTelemetryOTLPVersion$outboundSchema;
 }
 
 /** @internal */
@@ -1062,7 +1064,7 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   protocol: InputOpenTelemetryProtocol$inboundSchema.default("grpc"),
   extractSpans: z.boolean().default(false),
   extractMetrics: z.boolean().default(false),
-  otlpVersion: OTLPVersion$inboundSchema.default("0.10.0"),
+  otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.default("0.10.0"),
   authType: InputOpenTelemetryAuthenticationType$inboundSchema.default("none"),
   metadata: z.array(z.lazy(() => InputOpenTelemetryMetadatum$inboundSchema))
     .optional(),
@@ -1173,7 +1175,7 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   protocol: InputOpenTelemetryProtocol$outboundSchema.default("grpc"),
   extractSpans: z.boolean().default(false),
   extractMetrics: z.boolean().default(false),
-  otlpVersion: OTLPVersion$outboundSchema.default("0.10.0"),
+  otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.default("0.10.0"),
   authType: InputOpenTelemetryAuthenticationType$outboundSchema.default("none"),
   metadata: z.array(z.lazy(() => InputOpenTelemetryMetadatum$outboundSchema))
     .optional(),
