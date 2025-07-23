@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type UpdateInputHecTokenByIdAndTokenRequest = {
   /**
-   * hec input id
+   * HEC Source id
    */
   id: string;
   /**

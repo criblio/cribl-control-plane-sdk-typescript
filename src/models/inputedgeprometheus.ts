@@ -272,7 +272,7 @@ export type InputEdgePrometheus = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputEdgePrometheusType | undefined;
+  type: InputEdgePrometheusType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1247,7 +1247,7 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputEdgePrometheusType$inboundSchema.optional(),
+  type: InputEdgePrometheusType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1314,7 +1314,7 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
 /** @internal */
 export type InputEdgePrometheus$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1366,7 +1366,7 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   InputEdgePrometheus
 > = z.object({
   id: z.string().optional(),
-  type: InputEdgePrometheusType$outboundSchema.optional(),
+  type: InputEdgePrometheusType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

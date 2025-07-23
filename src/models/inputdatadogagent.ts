@@ -155,7 +155,7 @@ export type InputDatadogAgent = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputDatadogAgentType | undefined;
+  type: InputDatadogAgentType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -751,7 +751,7 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputDatadogAgentType$inboundSchema.optional(),
+  type: InputDatadogAgentType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -786,7 +786,7 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
 /** @internal */
 export type InputDatadogAgent$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -822,7 +822,7 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   InputDatadogAgent
 > = z.object({
   id: z.string().optional(),
-  type: InputDatadogAgentType$outboundSchema.optional(),
+  type: InputDatadogAgentType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

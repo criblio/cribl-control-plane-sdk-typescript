@@ -159,7 +159,7 @@ export type InputKinesis = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputKinesisType | undefined;
+  type: InputKinesisType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -724,7 +724,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputKinesisType$inboundSchema.optional(),
+  type: InputKinesisType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -768,7 +768,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
 /** @internal */
 export type InputKinesis$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -811,7 +811,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   InputKinesis
 > = z.object({
   id: z.string().optional(),
-  type: InputKinesisType$outboundSchema.optional(),
+  type: InputKinesisType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

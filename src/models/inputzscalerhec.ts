@@ -185,7 +185,7 @@ export type InputZscalerHec = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputZscalerHecType | undefined;
+  type: InputZscalerHecType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -911,7 +911,7 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputZscalerHecType$inboundSchema.optional(),
+  type: InputZscalerHecType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -952,7 +952,7 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
 /** @internal */
 export type InputZscalerHec$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -993,7 +993,7 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   InputZscalerHec
 > = z.object({
   id: z.string().optional(),
-  type: InputZscalerHecType$outboundSchema.optional(),
+  type: InputZscalerHecType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -179,7 +179,7 @@ export type InputSplunk = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputSplunkType | undefined;
+  type: InputSplunkType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -834,7 +834,7 @@ export const InputSplunk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkType$inboundSchema.optional(),
+  type: InputSplunkType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -870,7 +870,7 @@ export const InputSplunk$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSplunk$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -907,7 +907,7 @@ export const InputSplunk$outboundSchema: z.ZodType<
   InputSplunk
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkType$outboundSchema.optional(),
+  type: InputSplunkType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

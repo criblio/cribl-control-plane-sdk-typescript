@@ -3,8 +3,10 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -24,17 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a list of Input objects
+ * Get Source by ID
  *
  * @remarks
- * Get a list of Input objects
+ * Get Source by ID
  */
-export function inputsListInput(
+export function sourcesGetSourceById(
   client: CriblControlPlaneCore,
+  request: operations.GetInputByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.ListInputResponse,
+    operations.GetInputByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -48,17 +51,19 @@ export function inputsListInput(
 > {
   return new APIPromise($do(
     client,
+    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
+  request: operations.GetInputByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.ListInputResponse,
+      operations.GetInputByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -72,7 +77,25 @@ async function $do(
     APICall,
   ]
 > {
-  const path = pathToFunc("/system/inputs")();
+  const parsed = safeParse(
+    request,
+    (value) => operations.GetInputByIdRequest$outboundSchema.parse(value),
+    "Input validation failed",
+  );
+  if (!parsed.ok) {
+    return [parsed, { status: "invalid" }];
+  }
+  const payload = parsed.value;
+  const body = null;
+
+  const pathParams = {
+    id: encodeSimple("id", payload.id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/system/inputs/{id}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -84,7 +107,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "listInput",
+    operationID: "getInputById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -102,6 +125,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -126,7 +150,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.ListInputResponse,
+    operations.GetInputByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -137,7 +161,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.ListInputResponse$inboundSchema),
+    M.json(200, operations.GetInputByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

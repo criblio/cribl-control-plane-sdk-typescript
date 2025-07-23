@@ -131,7 +131,7 @@ export type InputSqs = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputSqsType | undefined;
+  type: InputSqsType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -624,7 +624,7 @@ export const InputSqs$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSqsType$inboundSchema.optional(),
+  type: InputSqsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -664,7 +664,7 @@ export const InputSqs$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSqs$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -705,7 +705,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   InputSqs
 > = z.object({
   id: z.string().optional(),
-  type: InputSqsType$outboundSchema.optional(),
+  type: InputSqsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

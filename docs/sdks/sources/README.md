@@ -1,23 +1,23 @@
-# Inputs
-(*inputs*)
+# Sources
+(*sources*)
 
 ## Overview
 
-Actions related to inputs
+Actions related to Sources
 
 ### Available Operations
 
-* [listInput](#listinput) - Get a list of Input objects
-* [createInput](#createinput) - Create Input
-* [getInputById](#getinputbyid) - Get Input by ID
-* [updateInputById](#updateinputbyid) - Update Input
-* [deleteInputById](#deleteinputbyid) - Delete Input
-* [createInputHecTokenById](#createinputhectokenbyid) - Add token and optional metadata to an existing hec input
-* [updateInputHecTokenByIdAndToken](#updateinputhectokenbyidandtoken) - Update token metadata on existing hec input
+* [listSource](#listsource) - Get a list of Source objects
+* [createSource](#createsource) - Create Source
+* [getSourceById](#getsourcebyid) - Get Source by ID
+* [updateSourceById](#updatesourcebyid) - Update Source
+* [deleteSourceById](#deletesourcebyid) - Delete Source
+* [createSourceHecTokenById](#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
+* [updateSourceHecTokenByIdAndToken](#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
 
-## listInput
+## listSource
 
-Get a list of Input objects
+Get a list of Source objects
 
 ### Example Usage
 
@@ -32,7 +32,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.listInput();
+  const result = await criblControlPlane.sources.listSource();
 
   console.log(result);
 }
@@ -46,7 +46,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { inputsListInput } from "cribl-control-plane/funcs/inputsListInput.js";
+import { sourcesListSource } from "cribl-control-plane/funcs/sourcesListSource.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -58,12 +58,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await inputsListInput(criblControlPlane);
+  const res = await sourcesListSource(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("inputsListInput failed:", res.error);
+    console.log("sourcesListSource failed:", res.error);
   }
 }
 
@@ -89,9 +89,9 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createInput
+## createSource
 
-Create Input
+Create Source
 
 ### Example Usage
 
@@ -106,7 +106,8 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.createInput({
+  const result = await criblControlPlane.sources.createSource({
+    type: "tcp",
     disabled: false,
     sendToRoutes: true,
     pqEnabled: false,
@@ -135,7 +136,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { inputsCreateInput } from "cribl-control-plane/funcs/inputsCreateInput.js";
+import { sourcesCreateSource } from "cribl-control-plane/funcs/sourcesCreateSource.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -147,7 +148,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await inputsCreateInput(criblControlPlane, {
+  const res = await sourcesCreateSource(criblControlPlane, {
+    type: "tcp",
     disabled: false,
     sendToRoutes: true,
     pqEnabled: false,
@@ -167,7 +169,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("inputsCreateInput failed:", res.error);
+    console.log("sourcesCreateSource failed:", res.error);
   }
 }
 
@@ -194,9 +196,9 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getInputById
+## getSourceById
 
-Get Input by ID
+Get Source by ID
 
 ### Example Usage
 
@@ -211,7 +213,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.getInputById({
+  const result = await criblControlPlane.sources.getSourceById({
     id: "<id>",
   });
 
@@ -227,7 +229,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { inputsGetInputById } from "cribl-control-plane/funcs/inputsGetInputById.js";
+import { sourcesGetSourceById } from "cribl-control-plane/funcs/sourcesGetSourceById.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -239,14 +241,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await inputsGetInputById(criblControlPlane, {
+  const res = await sourcesGetSourceById(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("inputsGetInputById failed:", res.error);
+    console.log("sourcesGetSourceById failed:", res.error);
   }
 }
 
@@ -273,9 +275,9 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## updateInputById
+## updateSourceById
 
-Update Input
+Update Source
 
 ### Example Usage
 
@@ -290,7 +292,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.updateInputById({
+  const result = await criblControlPlane.sources.updateSourceById({
     id: "<id>",
     input: {
       id: "<id>",
@@ -313,7 +315,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { inputsUpdateInputById } from "cribl-control-plane/funcs/inputsUpdateInputById.js";
+import { sourcesUpdateSourceById } from "cribl-control-plane/funcs/sourcesUpdateSourceById.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -325,7 +327,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await inputsUpdateInputById(criblControlPlane, {
+  const res = await sourcesUpdateSourceById(criblControlPlane, {
     id: "<id>",
     input: {
       id: "<id>",
@@ -339,7 +341,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("inputsUpdateInputById failed:", res.error);
+    console.log("sourcesUpdateSourceById failed:", res.error);
   }
 }
 
@@ -366,9 +368,9 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## deleteInputById
+## deleteSourceById
 
-Delete Input
+Delete Source
 
 ### Example Usage
 
@@ -383,7 +385,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.deleteInputById({
+  const result = await criblControlPlane.sources.deleteSourceById({
     id: "<id>",
   });
 
@@ -399,7 +401,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { inputsDeleteInputById } from "cribl-control-plane/funcs/inputsDeleteInputById.js";
+import { sourcesDeleteSourceById } from "cribl-control-plane/funcs/sourcesDeleteSourceById.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -411,14 +413,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await inputsDeleteInputById(criblControlPlane, {
+  const res = await sourcesDeleteSourceById(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("inputsDeleteInputById failed:", res.error);
+    console.log("sourcesDeleteSourceById failed:", res.error);
   }
 }
 
@@ -445,9 +447,9 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createInputHecTokenById
+## createSourceHecTokenById
 
-Add token and optional metadata to an existing hec input
+Add token and optional metadata to an existing HEC Source
 
 ### Example Usage
 
@@ -462,7 +464,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.createInputHecTokenById({
+  const result = await criblControlPlane.sources.createSourceHecTokenById({
     id: "<id>",
     addHecTokenRequest: {
       token: "<value>",
@@ -481,7 +483,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { inputsCreateInputHecTokenById } from "cribl-control-plane/funcs/inputsCreateInputHecTokenById.js";
+import { sourcesCreateSourceHecTokenById } from "cribl-control-plane/funcs/sourcesCreateSourceHecTokenById.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -493,7 +495,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await inputsCreateInputHecTokenById(criblControlPlane, {
+  const res = await sourcesCreateSourceHecTokenById(criblControlPlane, {
     id: "<id>",
     addHecTokenRequest: {
       token: "<value>",
@@ -503,7 +505,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("inputsCreateInputHecTokenById failed:", res.error);
+    console.log("sourcesCreateSourceHecTokenById failed:", res.error);
   }
 }
 
@@ -530,9 +532,9 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## updateInputHecTokenByIdAndToken
+## updateSourceHecTokenByIdAndToken
 
-Update token metadata on existing hec input
+Update token metadata on existing HEC Source
 
 ### Example Usage
 
@@ -547,7 +549,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.inputs.updateInputHecTokenByIdAndToken({
+  const result = await criblControlPlane.sources.updateSourceHecTokenByIdAndToken({
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {},
@@ -565,7 +567,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { inputsUpdateInputHecTokenByIdAndToken } from "cribl-control-plane/funcs/inputsUpdateInputHecTokenByIdAndToken.js";
+import { sourcesUpdateSourceHecTokenByIdAndToken } from "cribl-control-plane/funcs/sourcesUpdateSourceHecTokenByIdAndToken.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -577,7 +579,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await inputsUpdateInputHecTokenByIdAndToken(criblControlPlane, {
+  const res = await sourcesUpdateSourceHecTokenByIdAndToken(criblControlPlane, {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {},
@@ -586,7 +588,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("inputsUpdateInputHecTokenByIdAndToken failed:", res.error);
+    console.log("sourcesUpdateSourceHecTokenByIdAndToken failed:", res.error);
   }
 }
 

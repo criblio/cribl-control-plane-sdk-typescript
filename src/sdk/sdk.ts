@@ -5,13 +5,13 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
 import { Health } from "./health.js";
-import { Inputs } from "./inputs.js";
 import { Outputs } from "./outputs.js";
+import { Sources } from "./sources.js";
 
 export class CriblControlPlane extends ClientSDK {
-  private _inputs?: Inputs;
-  get inputs(): Inputs {
-    return (this._inputs ??= new Inputs(this._options));
+  private _sources?: Sources;
+  get sources(): Sources {
+    return (this._sources ??= new Sources(this._options));
   }
 
   private _outputs?: Outputs;

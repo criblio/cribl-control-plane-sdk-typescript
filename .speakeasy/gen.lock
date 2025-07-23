@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 53da85af9d541ea346e039f9ba1b510f
-  docVersion: 4.14.0-alpha.1753212696681-3b9b0ede
+  docChecksum: fc240462f4ebcf2f1ee8afe0889e2cb0
+  docVersion: 4.14.0-alpha.1753295778758-ebd92ad1
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.13
-  configChecksum: fb66b9492b088e8976230b50f1390152
+  releaseVersion: 0.0.14
+  configChecksum: 66d2673231d870d5c1061b2c743578de
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -22,8 +22,10 @@ features:
     globalSecurity: 2.82.13
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
+    groups: 2.81.2
     methodArguments: 0.1.2
     mockServer: 0.1.1
+    nameOverrides: 2.81.2
     oauth2ClientCredentials: 0.4.1
     openEnums: 0.1.1
     responseFormat: 0.2.3
@@ -1663,20 +1665,19 @@ generatedFiles:
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/health/README.md
-  - docs/sdks/inputs/README.md
   - docs/sdks/outputs/README.md
+  - docs/sdks/sources/README.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
-  - examples/inputsListInput.example.ts
   - examples/package.json
+  - examples/sourcesListSource.example.ts
   - jsr.json
   - package.json
   - src/__tests__/assertions.ts
   - src/__tests__/auth.test.ts
   - src/__tests__/files.ts
   - src/__tests__/health.test.ts
-  - src/__tests__/inputs.test.ts
   - src/__tests__/mockserver/.gitignore
   - src/__tests__/mockserver/Dockerfile
   - src/__tests__/mockserver/Makefile
@@ -1894,17 +1895,11 @@ generatedFiles:
   - src/__tests__/mockserver/internal/tracking/requesttracker.go
   - src/__tests__/mockserver/main.go
   - src/__tests__/outputs.test.ts
+  - src/__tests__/sources.test.ts
   - src/__tests__/testclient.ts
   - src/core.ts
   - src/funcs/authLogin.ts
   - src/funcs/healthGetHealthInfo.ts
-  - src/funcs/inputsCreateInput.ts
-  - src/funcs/inputsCreateInputHecTokenById.ts
-  - src/funcs/inputsDeleteInputById.ts
-  - src/funcs/inputsGetInputById.ts
-  - src/funcs/inputsListInput.ts
-  - src/funcs/inputsUpdateInputById.ts
-  - src/funcs/inputsUpdateInputHecTokenByIdAndToken.ts
   - src/funcs/outputsCreateOutput.ts
   - src/funcs/outputsCreateOutputTestById.ts
   - src/funcs/outputsDeleteOutputById.ts
@@ -1914,6 +1909,13 @@ generatedFiles:
   - src/funcs/outputsGetOutputSamplesById.ts
   - src/funcs/outputsListOutput.ts
   - src/funcs/outputsUpdateOutputById.ts
+  - src/funcs/sourcesCreateSource.ts
+  - src/funcs/sourcesCreateSourceHecTokenById.ts
+  - src/funcs/sourcesDeleteSourceById.ts
+  - src/funcs/sourcesGetSourceById.ts
+  - src/funcs/sourcesListSource.ts
+  - src/funcs/sourcesUpdateSourceById.ts
+  - src/funcs/sourcesUpdateSourceHecTokenByIdAndToken.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -2098,9 +2100,9 @@ generatedFiles:
   - src/sdk/auth.ts
   - src/sdk/health.ts
   - src/sdk/index.ts
-  - src/sdk/inputs.ts
   - src/sdk/outputs.ts
   - src/sdk/sdk.ts
+  - src/sdk/sources.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts
@@ -2136,7 +2138,7 @@ examples:
   createInput:
     speakeasy-default-create-input:
       requestBody:
-        application/json: {"disabled": false, "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 301.76, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "staleChannelFlushMs": 10000, "enableHeader": false, "authType": "manual"}
+        application/json: {"type": "tcp", "disabled": false, "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 301.76, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "staleChannelFlushMs": 10000, "enableHeader": false, "authType": "manual"}
       responses:
         "200":
           application/json: {}
