@@ -1,18 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: fc240462f4ebcf2f1ee8afe0889e2cb0
-  docVersion: 4.14.0-alpha.1753295778758-ebd92ad1
+  docChecksum: f1e28519733acb0b3e3d0bd0ecbaab03
+  docVersion: 4.14.0-alpha.1753368616875-0eefebeb
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.15
-  configChecksum: 99cebe895f072ca5e3e4ab0fec8e3fa9
+  releaseVersion: 0.0.16
+  configChecksum: 6a4e5406765f038b3aa74554f2ffb4b9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
+    additionalProperties: 0.1.1
     constsAndDefaults: 0.1.12
     core: 3.21.14
     defaultEnabledRetries: 0.1.0
@@ -23,6 +24,7 @@ features:
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
     groups: 2.81.2
+    inputOutputModels: 2.82.0
     methodArguments: 0.1.2
     mockServer: 0.1.1
     nameOverrides: 2.81.2
@@ -56,6 +58,7 @@ generatedFiles:
   - docs/models/certoptions.md
   - docs/models/collectors.md
   - docs/models/columnmapping.md
+  - docs/models/comment.md
   - docs/models/container.md
   - docs/models/containermode.md
   - docs/models/criblevent.md
@@ -80,6 +83,7 @@ generatedFiles:
   - docs/models/firewall.md
   - docs/models/flushperiodsec.md
   - docs/models/flushperiodsectype.md
+  - docs/models/groups.md
   - docs/models/healthstatus.md
   - docs/models/hostinfo.md
   - docs/models/hostsfile.md
@@ -689,6 +693,7 @@ generatedFiles:
   - docs/models/inputsystemstatemode.md
   - docs/models/inputsystemstatepersistence.md
   - docs/models/inputsystemstatepq.md
+  - docs/models/inputsystemstateroutes.md
   - docs/models/inputsystemstatetype.md
   - docs/models/inputtcp.md
   - docs/models/inputtcpauthenticationmethod.md
@@ -799,6 +804,8 @@ generatedFiles:
   - docs/models/operations/createoutputresponse.md
   - docs/models/operations/createoutputtestbyidrequest.md
   - docs/models/operations/createoutputtestbyidresponse.md
+  - docs/models/operations/createroutesappendbyidrequest.md
+  - docs/models/operations/createroutesappendbyidresponse.md
   - docs/models/operations/deleteinputbyidrequest.md
   - docs/models/operations/deleteinputbyidresponse.md
   - docs/models/operations/deleteoutputbyidrequest.md
@@ -813,14 +820,19 @@ generatedFiles:
   - docs/models/operations/getoutputpqbyidresponse.md
   - docs/models/operations/getoutputsamplesbyidrequest.md
   - docs/models/operations/getoutputsamplesbyidresponse.md
+  - docs/models/operations/getroutesbyidrequest.md
+  - docs/models/operations/getroutesbyidresponse.md
   - docs/models/operations/listinputresponse.md
   - docs/models/operations/listoutputresponse.md
+  - docs/models/operations/listroutesresponse.md
   - docs/models/operations/updateinputbyidrequest.md
   - docs/models/operations/updateinputbyidresponse.md
   - docs/models/operations/updateinputhectokenbyidandtokenrequest.md
   - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
   - docs/models/operations/updateoutputbyidrequest.md
   - docs/models/operations/updateoutputbyidresponse.md
+  - docs/models/operations/updateroutesbyidrequest.md
+  - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/output.md
   - docs/models/outputazureblob.md
   - docs/models/outputazureblobauthenticationmethod.md
@@ -1636,7 +1648,12 @@ generatedFiles:
   - docs/models/reportmethod.md
   - docs/models/resourcetypelabel.md
   - docs/models/role.md
+  - docs/models/routecloneconf.md
+  - docs/models/routeconf.md
   - docs/models/routes.md
+  - docs/models/routesinput.md
+  - docs/models/routesroute.md
+  - docs/models/routesrouteinput.md
   - docs/models/sample.md
   - docs/models/scheduletype.md
   - docs/models/schemeclientoauth.md
@@ -1666,6 +1683,7 @@ generatedFiles:
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/health/README.md
   - docs/sdks/outputs/README.md
+  - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
   - eslint.config.mjs
   - examples/.env.template
@@ -1696,16 +1714,20 @@ generatedFiles:
   - src/__tests__/mockserver/internal/handler/pathdeletesystemoutputsid.go
   - src/__tests__/mockserver/internal/handler/pathdeletesystemoutputsidpq.go
   - src/__tests__/mockserver/internal/handler/pathgethealth.go
+  - src/__tests__/mockserver/internal/handler/pathgetroutes.go
+  - src/__tests__/mockserver/internal/handler/pathgetroutesid.go
   - src/__tests__/mockserver/internal/handler/pathgetsysteminputs.go
   - src/__tests__/mockserver/internal/handler/pathgetsysteminputsid.go
   - src/__tests__/mockserver/internal/handler/pathgetsystemoutputs.go
   - src/__tests__/mockserver/internal/handler/pathgetsystemoutputsid.go
   - src/__tests__/mockserver/internal/handler/pathgetsystemoutputsidpq.go
   - src/__tests__/mockserver/internal/handler/pathgetsystemoutputsidsamples.go
+  - src/__tests__/mockserver/internal/handler/pathpatchroutesid.go
   - src/__tests__/mockserver/internal/handler/pathpatchsysteminputsid.go
   - src/__tests__/mockserver/internal/handler/pathpatchsysteminputsidhectokentoken.go
   - src/__tests__/mockserver/internal/handler/pathpatchsystemoutputsid.go
   - src/__tests__/mockserver/internal/handler/pathpostauthlogin.go
+  - src/__tests__/mockserver/internal/handler/pathpostroutesidappend.go
   - src/__tests__/mockserver/internal/handler/pathpostsysteminputs.go
   - src/__tests__/mockserver/internal/handler/pathpostsysteminputsidhectoken.go
   - src/__tests__/mockserver/internal/handler/pathpostsystemoutputs.go
@@ -1852,6 +1874,11 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/components/outputwavefront.go
   - src/__tests__/mockserver/internal/sdk/models/components/outputwebhook.go
   - src/__tests__/mockserver/internal/sdk/models/components/outputxsiam.go
+  - src/__tests__/mockserver/internal/sdk/models/components/routecloneconf.go
+  - src/__tests__/mockserver/internal/sdk/models/components/routeconf.go
+  - src/__tests__/mockserver/internal/sdk/models/components/routes.go
+  - src/__tests__/mockserver/internal/sdk/models/components/routesroute.go
+  - src/__tests__/mockserver/internal/sdk/models/components/routesrouteinput.go
   - src/__tests__/mockserver/internal/sdk/models/components/schemeclientoauth.go
   - src/__tests__/mockserver/internal/sdk/models/components/security.go
   - src/__tests__/mockserver/internal/sdk/models/components/updatehectokenrequest.go
@@ -1859,6 +1886,7 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/operations/createinputhectokenbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/createoutput.go
   - src/__tests__/mockserver/internal/sdk/models/operations/createoutputtestbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/createroutesappendbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/deleteinputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/deleteoutputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/deleteoutputpqbyid.go
@@ -1867,12 +1895,15 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/operations/getoutputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/getoutputpqbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/getoutputsamplesbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getroutesbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/listinput.go
   - src/__tests__/mockserver/internal/sdk/models/operations/listoutput.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/listroutes.go
   - src/__tests__/mockserver/internal/sdk/models/operations/login.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateinputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateinputhectokenbyidandtoken.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateoutputbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/updateroutesbyid.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/error.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/healthstatuserror.go
   - src/__tests__/mockserver/internal/sdk/types/bigint.go
@@ -1895,6 +1926,7 @@ generatedFiles:
   - src/__tests__/mockserver/internal/tracking/requesttracker.go
   - src/__tests__/mockserver/main.go
   - src/__tests__/outputs.test.ts
+  - src/__tests__/routes.test.ts
   - src/__tests__/sources.test.ts
   - src/__tests__/testclient.ts
   - src/core.ts
@@ -1909,6 +1941,10 @@ generatedFiles:
   - src/funcs/outputsGetOutputSamplesById.ts
   - src/funcs/outputsListOutput.ts
   - src/funcs/outputsUpdateOutputById.ts
+  - src/funcs/routesCreateRoutesAppendById.ts
+  - src/funcs/routesGetRoutesById.ts
+  - src/funcs/routesListRoutes.ts
+  - src/funcs/routesUpdateRoutesById.ts
   - src/funcs/sourcesCreateSource.ts
   - src/funcs/sourcesCreateSourceHecTokenById.ts
   - src/funcs/sourcesDeleteSourceById.ts
@@ -2013,6 +2049,7 @@ generatedFiles:
   - src/models/operations/createinputhectokenbyid.ts
   - src/models/operations/createoutput.ts
   - src/models/operations/createoutputtestbyid.ts
+  - src/models/operations/createroutesappendbyid.ts
   - src/models/operations/deleteinputbyid.ts
   - src/models/operations/deleteoutputbyid.ts
   - src/models/operations/deleteoutputpqbyid.ts
@@ -2020,12 +2057,15 @@ generatedFiles:
   - src/models/operations/getoutputbyid.ts
   - src/models/operations/getoutputpqbyid.ts
   - src/models/operations/getoutputsamplesbyid.ts
+  - src/models/operations/getroutesbyid.ts
   - src/models/operations/index.ts
   - src/models/operations/listinput.ts
   - src/models/operations/listoutput.ts
+  - src/models/operations/listroutes.ts
   - src/models/operations/updateinputbyid.ts
   - src/models/operations/updateinputhectokenbyidandtoken.ts
   - src/models/operations/updateoutputbyid.ts
+  - src/models/operations/updateroutesbyid.ts
   - src/models/output.ts
   - src/models/outputazureblob.ts
   - src/models/outputazuredataexplorer.ts
@@ -2094,6 +2134,11 @@ generatedFiles:
   - src/models/outputwavefront.ts
   - src/models/outputwebhook.ts
   - src/models/outputxsiam.ts
+  - src/models/routecloneconf.ts
+  - src/models/routeconf.ts
+  - src/models/routes.ts
+  - src/models/routesroute.ts
+  - src/models/routesrouteinput.ts
   - src/models/schemeclientoauth.ts
   - src/models/security.ts
   - src/models/updatehectokenrequest.ts
@@ -2101,6 +2146,7 @@ generatedFiles:
   - src/sdk/health.ts
   - src/sdk/index.ts
   - src/sdk/outputs.ts
+  - src/sdk/routes.ts
   - src/sdk/sdk.ts
   - src/sdk/sources.ts
   - src/types/async.ts
@@ -2291,6 +2337,47 @@ examples:
           application/json: {}
         "500":
           application/json: {}
+  listRoutes:
+    speakeasy-default-list-routes:
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getRoutesById:
+    speakeasy-default-get-routes-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updateRoutesById:
+    speakeasy-default-update-routes-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"routes": []}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  createRoutesAppendById:
+    speakeasy-default-create-routes-append-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: []
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:03:38+02:00"
@@ -2311,3 +2398,7 @@ generatedTests:
   getOutputPqById: "2025-07-23T01:57:33Z"
   getOutputSamplesById: "2025-07-23T01:57:33Z"
   createOutputTestById: "2025-07-23T01:57:33Z"
+  listRoutes: "2025-07-24T14:55:24Z"
+  getRoutesById: "2025-07-24T14:55:24Z"
+  updateRoutesById: "2025-07-24T14:55:24Z"
+  createRoutesAppendById: "2025-07-24T14:55:24Z"
