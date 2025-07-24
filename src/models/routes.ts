@@ -23,7 +23,7 @@ import {
   RoutesRouteInput$outboundSchema,
 } from "./routesrouteinput.js";
 
-export type Groups = {
+export type RoutesGroups = {
   name: string;
   /**
    * Short description of this group
@@ -52,7 +52,7 @@ export type Routes = {
    * Pipeline routing rules
    */
   routes: Array<RoutesRoute>;
-  groups?: { [k: string]: Groups } | undefined;
+  groups?: { [k: string]: RoutesGroups } | undefined;
   /**
    * Comments
    */
@@ -68,7 +68,7 @@ export type RoutesInput = {
    * Pipeline routing rules
    */
   routes: Array<RoutesRouteInput>;
-  groups?: { [k: string]: Groups } | undefined;
+  groups?: { [k: string]: RoutesGroups } | undefined;
   /**
    * Comments
    */
@@ -76,25 +76,28 @@ export type RoutesInput = {
 };
 
 /** @internal */
-export const Groups$inboundSchema: z.ZodType<Groups, z.ZodTypeDef, unknown> = z
-  .object({
-    name: z.string(),
-    description: z.string().optional(),
-    disabled: z.boolean().optional(),
-  });
+export const RoutesGroups$inboundSchema: z.ZodType<
+  RoutesGroups,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  disabled: z.boolean().optional(),
+});
 
 /** @internal */
-export type Groups$Outbound = {
+export type RoutesGroups$Outbound = {
   name: string;
   description?: string | undefined;
   disabled?: boolean | undefined;
 };
 
 /** @internal */
-export const Groups$outboundSchema: z.ZodType<
-  Groups$Outbound,
+export const RoutesGroups$outboundSchema: z.ZodType<
+  RoutesGroups$Outbound,
   z.ZodTypeDef,
-  Groups
+  RoutesGroups
 > = z.object({
   name: z.string(),
   description: z.string().optional(),
@@ -105,26 +108,26 @@ export const Groups$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Groups$ {
-  /** @deprecated use `Groups$inboundSchema` instead. */
-  export const inboundSchema = Groups$inboundSchema;
-  /** @deprecated use `Groups$outboundSchema` instead. */
-  export const outboundSchema = Groups$outboundSchema;
-  /** @deprecated use `Groups$Outbound` instead. */
-  export type Outbound = Groups$Outbound;
+export namespace RoutesGroups$ {
+  /** @deprecated use `RoutesGroups$inboundSchema` instead. */
+  export const inboundSchema = RoutesGroups$inboundSchema;
+  /** @deprecated use `RoutesGroups$outboundSchema` instead. */
+  export const outboundSchema = RoutesGroups$outboundSchema;
+  /** @deprecated use `RoutesGroups$Outbound` instead. */
+  export type Outbound = RoutesGroups$Outbound;
 }
 
-export function groupsToJSON(groups: Groups): string {
-  return JSON.stringify(Groups$outboundSchema.parse(groups));
+export function routesGroupsToJSON(routesGroups: RoutesGroups): string {
+  return JSON.stringify(RoutesGroups$outboundSchema.parse(routesGroups));
 }
 
-export function groupsFromJSON(
+export function routesGroupsFromJSON(
   jsonString: string,
-): SafeParseResult<Groups, SDKValidationError> {
+): SafeParseResult<RoutesGroups, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Groups$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Groups' from JSON`,
+    (x) => RoutesGroups$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RoutesGroups' from JSON`,
   );
 }
 
@@ -193,7 +196,7 @@ export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
   .object({
     id: z.string().optional(),
     routes: z.array(RoutesRoute$inboundSchema),
-    groups: z.record(z.lazy(() => Groups$inboundSchema)).optional(),
+    groups: z.record(z.lazy(() => RoutesGroups$inboundSchema)).optional(),
     comments: z.array(z.lazy(() => Comment$inboundSchema)).optional(),
   });
 
@@ -201,7 +204,7 @@ export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
 export type Routes$Outbound = {
   id?: string | undefined;
   routes: Array<RoutesRoute$Outbound>;
-  groups?: { [k: string]: Groups$Outbound } | undefined;
+  groups?: { [k: string]: RoutesGroups$Outbound } | undefined;
   comments?: Array<Comment$Outbound> | undefined;
 };
 
@@ -213,7 +216,7 @@ export const Routes$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   routes: z.array(RoutesRoute$outboundSchema),
-  groups: z.record(z.lazy(() => Groups$outboundSchema)).optional(),
+  groups: z.record(z.lazy(() => RoutesGroups$outboundSchema)).optional(),
   comments: z.array(z.lazy(() => Comment$outboundSchema)).optional(),
 });
 
@@ -252,7 +255,7 @@ export const RoutesInput$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   routes: z.array(RoutesRouteInput$inboundSchema),
-  groups: z.record(z.lazy(() => Groups$inboundSchema)).optional(),
+  groups: z.record(z.lazy(() => RoutesGroups$inboundSchema)).optional(),
   comments: z.array(z.lazy(() => Comment$inboundSchema)).optional(),
 });
 
@@ -260,7 +263,7 @@ export const RoutesInput$inboundSchema: z.ZodType<
 export type RoutesInput$Outbound = {
   id?: string | undefined;
   routes: Array<RoutesRouteInput$Outbound>;
-  groups?: { [k: string]: Groups$Outbound } | undefined;
+  groups?: { [k: string]: RoutesGroups$Outbound } | undefined;
   comments?: Array<Comment$Outbound> | undefined;
 };
 
@@ -272,7 +275,7 @@ export const RoutesInput$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   routes: z.array(RoutesRouteInput$outboundSchema),
-  groups: z.record(z.lazy(() => Groups$outboundSchema)).optional(),
+  groups: z.record(z.lazy(() => RoutesGroups$outboundSchema)).optional(),
   comments: z.array(z.lazy(() => Comment$outboundSchema)).optional(),
 });
 

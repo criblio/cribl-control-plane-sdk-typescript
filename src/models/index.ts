@@ -134,6 +134,8 @@ export * from "./outputtestresponse.js";
 export * from "./outputwavefront.js";
 export * from "./outputwebhook.js";
 export * from "./outputxsiam.js";
+export * from "./pipeline.js";
+export * from "./pipelinefunctionconf.js";
 export * from "./routecloneconf.js";
 export * from "./routeconf.js";
 export * from "./routes.js";
