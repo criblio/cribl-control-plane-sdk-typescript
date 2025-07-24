@@ -151,6 +151,14 @@ run();
 * [getOutputSamplesById](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 * [createOutputTestById](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
 
+### [pipelines](docs/sdks/pipelines/README.md)
+
+* [listPipeline](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
+* [createPipeline](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
+* [getPipelineById](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
+* [updatePipelineById](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update Pipeline
+* [deletePipelineById](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
+
 ### [routes](docs/sdks/routes/README.md)
 
 * [listRoutes](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
@@ -197,6 +205,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`outputsGetOutputSamplesById`](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 - [`outputsListOutput`](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
 - [`outputsUpdateOutputById`](docs/sdks/outputs/README.md#updateoutputbyid) - Update Output
+- [`pipelinesCreatePipeline`](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
+- [`pipelinesDeletePipelineById`](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
+- [`pipelinesGetPipelineById`](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
+- [`pipelinesListPipeline`](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
+- [`pipelinesUpdatePipelineById`](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update Pipeline
 - [`routesCreateRoutesAppendById`](docs/sdks/routes/README.md#createroutesappendbyid) - Appends routes to the end of the routing table
 - [`routesGetRoutesById`](docs/sdks/routes/README.md#getroutesbyid) - Get Routes by ID
 - [`routesListRoutes`](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
@@ -350,7 +363,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 22 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 27 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

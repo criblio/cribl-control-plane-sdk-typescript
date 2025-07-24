@@ -1,11 +1,11 @@
-# Groups
+# RoutesGroups
 
 ## Example Usage
 
 ```typescript
-import { Groups } from "cribl-control-plane/models";
+import { RoutesGroups } from "cribl-control-plane/models";
 
-let value: Groups = {
+let value: RoutesGroups = {
   name: "<value>",
 };
 ```
