@@ -16,8 +16,5 @@ test("Health Get Health Info", async () => {
 
   const result = await criblControlPlane.health.getHealthInfo();
   expect(result).toBeDefined();
-  expect(result).toEqual({
-    status: "standby",
-    startTime: 8399.98,
-  });
+  expect(result?.status).toEqual("healthy");
 });

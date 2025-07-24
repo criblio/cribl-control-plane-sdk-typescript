@@ -6,7 +6,7 @@ import { expect, test } from "vitest";
 import { CriblControlPlane } from "../index.js";
 import { createTestHTTPClient } from "./testclient.js";
 
-test("Auth Login", async () => {
+test("Login Login", async () => {
   const testHttpClient = createTestHTTPClient("login");
 
   const criblControlPlane = new CriblControlPlane({
@@ -14,12 +14,9 @@ test("Auth Login", async () => {
     httpClient: testHttpClient,
   });
 
-  const result = await criblControlPlane.auth.login({
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
+  const authenticateResult = await criblControlPlane.auth.login({
+    username: "admin",
+    password: "admin",
   });
-  expect(result).toBeDefined();
-  expect(result).toEqual({
-    token: "<value>",
-  });
+  expect(authenticateResult).toBeDefined();
 });

@@ -6,52 +6,28 @@ import { expect, test } from "vitest";
 import { CriblControlPlane } from "../index.js";
 import { createTestHTTPClient } from "./testclient.js";
 
-test("Sources List Input", async () => {
-  const testHttpClient = createTestHTTPClient("listInput");
+test("Sources Test Inputs", async () => {
+  const testHttpClient = createTestHTTPClient("testInputs");
 
   const criblControlPlane = new CriblControlPlane({
     serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
-    httpClient: testHttpClient,
     security: {
-      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
+      bearerAuth: process.env["TEST_BEARER_TOKEN"] ?? "value",
     },
-  });
-
-  const result = await criblControlPlane.sources.listSource();
-  expect(result).toBeDefined();
-  expect(result).toEqual({});
-});
-
-test("Sources Create Input", async () => {
-  const testHttpClient = createTestHTTPClient("createInput");
-
-  const criblControlPlane = new CriblControlPlane({
-    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
     httpClient: testHttpClient,
-    security: {
-      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
-    },
   });
 
-  const result = await criblControlPlane.sources.createSource({
-    type: "tcp",
-    disabled: false,
-    sendToRoutes: true,
-    pqEnabled: false,
-    host: "0.0.0.0",
-    port: 301.76,
-    ipWhitelistRegex: "/.*/",
-    maxActiveCxn: 1000,
-    socketIdleTimeout: 0,
-    socketEndingMaxWait: 30,
-    socketMaxLifespan: 0,
-    enableProxyHeader: false,
-    staleChannelFlushMs: 10000,
-    enableHeader: false,
-    authType: "manual",
+  const listResult = await criblControlPlane.sources.listSource();
+  expect(listResult).toBeDefined();
+
+  const createResult = await criblControlPlane.sources.createSource({
+    id: "inputOne",
+    type: "exec",
+    command: "echo hello",
   });
-  expect(result).toBeDefined();
-  expect(result).toEqual({});
+  expect(createResult).toBeDefined();
+  expect(createResult?.count).toBeDefined();
+  expect(createResult?.count).toEqual(1);
 });
 
 test("Sources Get Input By Id", async () => {
