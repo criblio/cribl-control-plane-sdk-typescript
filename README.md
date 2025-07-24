@@ -151,6 +151,13 @@ run();
 * [getOutputSamplesById](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 * [createOutputTestById](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
 
+### [routes](docs/sdks/routes/README.md)
+
+* [listRoutes](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
+* [getRoutesById](docs/sdks/routes/README.md#getroutesbyid) - Get Routes by ID
+* [updateRoutesById](docs/sdks/routes/README.md#updateroutesbyid) - Update Routes
+* [createRoutesAppendById](docs/sdks/routes/README.md#createroutesappendbyid) - Appends routes to the end of the routing table
+
 ### [sources](docs/sdks/sources/README.md)
 
 * [listSource](docs/sdks/sources/README.md#listsource) - Get a list of Source objects
@@ -190,6 +197,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`outputsGetOutputSamplesById`](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
 - [`outputsListOutput`](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
 - [`outputsUpdateOutputById`](docs/sdks/outputs/README.md#updateoutputbyid) - Update Output
+- [`routesCreateRoutesAppendById`](docs/sdks/routes/README.md#createroutesappendbyid) - Appends routes to the end of the routing table
+- [`routesGetRoutesById`](docs/sdks/routes/README.md#getroutesbyid) - Get Routes by ID
+- [`routesListRoutes`](docs/sdks/routes/README.md#listroutes) - Get a list of Routes objects
+- [`routesUpdateRoutesById`](docs/sdks/routes/README.md#updateroutesbyid) - Update Routes
 - [`sourcesCreateSource`](docs/sdks/sources/README.md#createsource) - Create Source
 - [`sourcesCreateSourceHecTokenById`](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
 - [`sourcesDeleteSourceById`](docs/sdks/sources/README.md#deletesourcebyid) - Delete Source
@@ -339,7 +350,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 18 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 22 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
