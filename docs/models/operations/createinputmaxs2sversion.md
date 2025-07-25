@@ -12,8 +12,6 @@ let value: CreateInputMaxS2SVersion = "v3";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"v3" | "v4" | Unrecognized<string>
+"v3" | "v4"
 ```

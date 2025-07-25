@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputNewrelicEventsType = {
   NewrelicEvents: "newrelic_events",
 } as const;
-export type OutputNewrelicEventsType = OpenEnum<
+export type OutputNewrelicEventsType = ClosedEnum<
   typeof OutputNewrelicEventsType
 >;
 
@@ -30,7 +26,7 @@ export const OutputNewrelicEventsRegion = {
 /**
  * Which New Relic region endpoint to use.
  */
-export type OutputNewrelicEventsRegion = OpenEnum<
+export type OutputNewrelicEventsRegion = ClosedEnum<
   typeof OutputNewrelicEventsRegion
 >;
 
@@ -50,7 +46,7 @@ export const OutputNewrelicEventsFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputNewrelicEventsFailedRequestLoggingMode = OpenEnum<
+export type OutputNewrelicEventsFailedRequestLoggingMode = ClosedEnum<
   typeof OutputNewrelicEventsFailedRequestLoggingMode
 >;
 
@@ -100,7 +96,7 @@ export const OutputNewrelicEventsBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputNewrelicEventsBackpressureBehavior = OpenEnum<
+export type OutputNewrelicEventsBackpressureBehavior = ClosedEnum<
   typeof OutputNewrelicEventsBackpressureBehavior
 >;
 
@@ -114,7 +110,7 @@ export const OutputNewrelicEventsAuthenticationMethod = {
 /**
  * Enter API key directly, or select a stored secret
  */
-export type OutputNewrelicEventsAuthenticationMethod = OpenEnum<
+export type OutputNewrelicEventsAuthenticationMethod = ClosedEnum<
   typeof OutputNewrelicEventsAuthenticationMethod
 >;
 
@@ -128,7 +124,7 @@ export const OutputNewrelicEventsCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputNewrelicEventsCompression = OpenEnum<
+export type OutputNewrelicEventsCompression = ClosedEnum<
   typeof OutputNewrelicEventsCompression
 >;
 
@@ -142,7 +138,7 @@ export const OutputNewrelicEventsQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputNewrelicEventsQueueFullBehavior = OpenEnum<
+export type OutputNewrelicEventsQueueFullBehavior = ClosedEnum<
   typeof OutputNewrelicEventsQueueFullBehavior
 >;
 
@@ -157,7 +153,7 @@ export const OutputNewrelicEventsMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputNewrelicEventsMode = OpenEnum<
+export type OutputNewrelicEventsMode = ClosedEnum<
   typeof OutputNewrelicEventsMode
 >;
 
@@ -304,25 +300,14 @@ export type OutputNewrelicEvents = {
 };
 
 /** @internal */
-export const OutputNewrelicEventsType$inboundSchema: z.ZodType<
-  OutputNewrelicEventsType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputNewrelicEventsType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicEventsType
+> = z.nativeEnum(OutputNewrelicEventsType);
 
 /** @internal */
-export const OutputNewrelicEventsType$outboundSchema: z.ZodType<
-  OutputNewrelicEventsType,
-  z.ZodTypeDef,
-  OutputNewrelicEventsType
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputNewrelicEventsType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicEventsType
+> = OutputNewrelicEventsType$inboundSchema;
 
 /**
  * @internal
@@ -336,25 +321,14 @@ export namespace OutputNewrelicEventsType$ {
 }
 
 /** @internal */
-export const OutputNewrelicEventsRegion$inboundSchema: z.ZodType<
-  OutputNewrelicEventsRegion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsRegion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputNewrelicEventsRegion$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicEventsRegion
+> = z.nativeEnum(OutputNewrelicEventsRegion);
 
 /** @internal */
-export const OutputNewrelicEventsRegion$outboundSchema: z.ZodType<
-  OutputNewrelicEventsRegion,
-  z.ZodTypeDef,
-  OutputNewrelicEventsRegion
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsRegion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputNewrelicEventsRegion$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicEventsRegion
+> = OutputNewrelicEventsRegion$inboundSchema;
 
 /**
  * @internal
@@ -431,26 +405,13 @@ export function outputNewrelicEventsExtraHttpHeaderFromJSON(
 
 /** @internal */
 export const OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputNewrelicEventsFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<typeof OutputNewrelicEventsFailedRequestLoggingMode> = z
+    .nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<
-    OutputNewrelicEventsFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    OutputNewrelicEventsFailedRequestLoggingMode
-  > = z.union([
-    z.nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof OutputNewrelicEventsFailedRequestLoggingMode> =
+    OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema;
 
 /**
  * @internal
@@ -614,25 +575,14 @@ export function outputNewrelicEventsTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputNewrelicEventsBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputNewrelicEventsBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputNewrelicEventsBackpressureBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputNewrelicEventsBackpressureBehavior> = z
+    .nativeEnum(OutputNewrelicEventsBackpressureBehavior);
 
 /** @internal */
-export const OutputNewrelicEventsBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicEventsBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputNewrelicEventsBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputNewrelicEventsBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputNewrelicEventsBackpressureBehavior> =
+    OutputNewrelicEventsBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -648,25 +598,14 @@ export namespace OutputNewrelicEventsBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputNewrelicEventsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputNewrelicEventsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputNewrelicEventsAuthenticationMethod$inboundSchema:
+  z.ZodNativeEnum<typeof OutputNewrelicEventsAuthenticationMethod> = z
+    .nativeEnum(OutputNewrelicEventsAuthenticationMethod);
 
 /** @internal */
-export const OutputNewrelicEventsAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputNewrelicEventsAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputNewrelicEventsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputNewrelicEventsAuthenticationMethod$outboundSchema:
+  z.ZodNativeEnum<typeof OutputNewrelicEventsAuthenticationMethod> =
+    OutputNewrelicEventsAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -682,25 +621,14 @@ export namespace OutputNewrelicEventsAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputNewrelicEventsCompression$inboundSchema: z.ZodType<
-  OutputNewrelicEventsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputNewrelicEventsCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicEventsCompression
+> = z.nativeEnum(OutputNewrelicEventsCompression);
 
 /** @internal */
-export const OutputNewrelicEventsCompression$outboundSchema: z.ZodType<
-  OutputNewrelicEventsCompression,
-  z.ZodTypeDef,
-  OutputNewrelicEventsCompression
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputNewrelicEventsCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicEventsCompression
+> = OutputNewrelicEventsCompression$inboundSchema;
 
 /**
  * @internal
@@ -714,25 +642,15 @@ export namespace OutputNewrelicEventsCompression$ {
 }
 
 /** @internal */
-export const OutputNewrelicEventsQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputNewrelicEventsQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputNewrelicEventsQueueFullBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputNewrelicEventsQueueFullBehavior> = z.nativeEnum(
+    OutputNewrelicEventsQueueFullBehavior,
+  );
 
 /** @internal */
-export const OutputNewrelicEventsQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicEventsQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputNewrelicEventsQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputNewrelicEventsQueueFullBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputNewrelicEventsQueueFullBehavior> =
+    OutputNewrelicEventsQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -748,25 +666,14 @@ export namespace OutputNewrelicEventsQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputNewrelicEventsMode$inboundSchema: z.ZodType<
-  OutputNewrelicEventsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputNewrelicEventsMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicEventsMode
+> = z.nativeEnum(OutputNewrelicEventsMode);
 
 /** @internal */
-export const OutputNewrelicEventsMode$outboundSchema: z.ZodType<
-  OutputNewrelicEventsMode,
-  z.ZodTypeDef,
-  OutputNewrelicEventsMode
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputNewrelicEventsMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicEventsMode
+> = OutputNewrelicEventsMode$inboundSchema;
 
 /**
  * @internal

@@ -12,8 +12,6 @@ let value: OutputGoogleCloudStorageStorageClass = "STANDARD";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"STANDARD" | "NEARLINE" | "COLDLINE" | "ARCHIVE" | Unrecognized<string>
+"STANDARD" | "NEARLINE" | "COLDLINE" | "ARCHIVE"
 ```

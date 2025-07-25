@@ -12,8 +12,6 @@ let value: OutputSyslogSeverity = 2;
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<number>` branded type.
-
 ```typescript
-0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | Unrecognized<number>
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
 ```

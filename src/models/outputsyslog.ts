@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputSyslogType = {
   Syslog: "syslog",
 } as const;
-export type OutputSyslogType = OpenEnum<typeof OutputSyslogType>;
+export type OutputSyslogType = ClosedEnum<typeof OutputSyslogType>;
 
 /**
  * The network protocol to use for sending out syslog messages
@@ -27,7 +23,7 @@ export const OutputSyslogProtocol = {
 /**
  * The network protocol to use for sending out syslog messages
  */
-export type OutputSyslogProtocol = OpenEnum<typeof OutputSyslogProtocol>;
+export type OutputSyslogProtocol = ClosedEnum<typeof OutputSyslogProtocol>;
 
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
@@ -59,7 +55,7 @@ export const Facility = {
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
-export type Facility = OpenEnum<typeof Facility>;
+export type Facility = ClosedEnum<typeof Facility>;
 
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
@@ -77,7 +73,7 @@ export const OutputSyslogSeverity = {
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
-export type OutputSyslogSeverity = OpenEnum<typeof OutputSyslogSeverity>;
+export type OutputSyslogSeverity = ClosedEnum<typeof OutputSyslogSeverity>;
 
 /**
  * The syslog message format depending on the receiver's support
@@ -89,7 +85,7 @@ export const OutputSyslogMessageFormat = {
 /**
  * The syslog message format depending on the receiver's support
  */
-export type OutputSyslogMessageFormat = OpenEnum<
+export type OutputSyslogMessageFormat = ClosedEnum<
   typeof OutputSyslogMessageFormat
 >;
 
@@ -103,7 +99,7 @@ export const TimestampFormat = {
 /**
  * Timestamp format to use when serializing event's time field
  */
-export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+export type TimestampFormat = ClosedEnum<typeof TimestampFormat>;
 
 export const OutputSyslogMinimumTLSVersion = {
   TLSv1: "TLSv1",
@@ -111,7 +107,7 @@ export const OutputSyslogMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputSyslogMinimumTLSVersion = OpenEnum<
+export type OutputSyslogMinimumTLSVersion = ClosedEnum<
   typeof OutputSyslogMinimumTLSVersion
 >;
 
@@ -121,7 +117,7 @@ export const OutputSyslogMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputSyslogMaximumTLSVersion = OpenEnum<
+export type OutputSyslogMaximumTLSVersion = ClosedEnum<
   typeof OutputSyslogMaximumTLSVersion
 >;
 
@@ -173,7 +169,7 @@ export const OutputSyslogBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputSyslogBackpressureBehavior = OpenEnum<
+export type OutputSyslogBackpressureBehavior = ClosedEnum<
   typeof OutputSyslogBackpressureBehavior
 >;
 
@@ -187,7 +183,9 @@ export const OutputSyslogCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputSyslogCompression = OpenEnum<typeof OutputSyslogCompression>;
+export type OutputSyslogCompression = ClosedEnum<
+  typeof OutputSyslogCompression
+>;
 
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -199,7 +197,7 @@ export const OutputSyslogQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputSyslogQueueFullBehavior = OpenEnum<
+export type OutputSyslogQueueFullBehavior = ClosedEnum<
   typeof OutputSyslogQueueFullBehavior
 >;
 
@@ -214,7 +212,7 @@ export const OutputSyslogMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputSyslogMode = OpenEnum<typeof OutputSyslogMode>;
+export type OutputSyslogMode = ClosedEnum<typeof OutputSyslogMode>;
 
 export type OutputSyslogPqControls = {};
 
@@ -338,25 +336,14 @@ export type OutputSyslog = {
 };
 
 /** @internal */
-export const OutputSyslogType$inboundSchema: z.ZodType<
-  OutputSyslogType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogType
+> = z.nativeEnum(OutputSyslogType);
 
 /** @internal */
-export const OutputSyslogType$outboundSchema: z.ZodType<
-  OutputSyslogType,
-  z.ZodTypeDef,
-  OutputSyslogType
-> = z.union([
-  z.nativeEnum(OutputSyslogType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogType
+> = OutputSyslogType$inboundSchema;
 
 /**
  * @internal
@@ -370,25 +357,14 @@ export namespace OutputSyslogType$ {
 }
 
 /** @internal */
-export const OutputSyslogProtocol$inboundSchema: z.ZodType<
-  OutputSyslogProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogProtocol
+> = z.nativeEnum(OutputSyslogProtocol);
 
 /** @internal */
-export const OutputSyslogProtocol$outboundSchema: z.ZodType<
-  OutputSyslogProtocol,
-  z.ZodTypeDef,
-  OutputSyslogProtocol
-> = z.union([
-  z.nativeEnum(OutputSyslogProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogProtocol
+> = OutputSyslogProtocol$inboundSchema;
 
 /**
  * @internal
@@ -402,25 +378,12 @@ export namespace OutputSyslogProtocol$ {
 }
 
 /** @internal */
-export const Facility$inboundSchema: z.ZodType<
-  Facility,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(Facility),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+export const Facility$inboundSchema: z.ZodNativeEnum<typeof Facility> = z
+  .nativeEnum(Facility);
 
 /** @internal */
-export const Facility$outboundSchema: z.ZodType<
-  Facility,
-  z.ZodTypeDef,
-  Facility
-> = z.union([
-  z.nativeEnum(Facility),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
+export const Facility$outboundSchema: z.ZodNativeEnum<typeof Facility> =
+  Facility$inboundSchema;
 
 /**
  * @internal
@@ -434,25 +397,14 @@ export namespace Facility$ {
 }
 
 /** @internal */
-export const OutputSyslogSeverity$inboundSchema: z.ZodType<
-  OutputSyslogSeverity,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogSeverity),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogSeverity$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogSeverity
+> = z.nativeEnum(OutputSyslogSeverity);
 
 /** @internal */
-export const OutputSyslogSeverity$outboundSchema: z.ZodType<
-  OutputSyslogSeverity,
-  z.ZodTypeDef,
-  OutputSyslogSeverity
-> = z.union([
-  z.nativeEnum(OutputSyslogSeverity),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
+export const OutputSyslogSeverity$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogSeverity
+> = OutputSyslogSeverity$inboundSchema;
 
 /**
  * @internal
@@ -466,25 +418,14 @@ export namespace OutputSyslogSeverity$ {
 }
 
 /** @internal */
-export const OutputSyslogMessageFormat$inboundSchema: z.ZodType<
-  OutputSyslogMessageFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMessageFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogMessageFormat$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogMessageFormat
+> = z.nativeEnum(OutputSyslogMessageFormat);
 
 /** @internal */
-export const OutputSyslogMessageFormat$outboundSchema: z.ZodType<
-  OutputSyslogMessageFormat,
-  z.ZodTypeDef,
-  OutputSyslogMessageFormat
-> = z.union([
-  z.nativeEnum(OutputSyslogMessageFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogMessageFormat$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogMessageFormat
+> = OutputSyslogMessageFormat$inboundSchema;
 
 /**
  * @internal
@@ -498,25 +439,14 @@ export namespace OutputSyslogMessageFormat$ {
 }
 
 /** @internal */
-export const TimestampFormat$inboundSchema: z.ZodType<
-  TimestampFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(TimestampFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const TimestampFormat$inboundSchema: z.ZodNativeEnum<
+  typeof TimestampFormat
+> = z.nativeEnum(TimestampFormat);
 
 /** @internal */
-export const TimestampFormat$outboundSchema: z.ZodType<
-  TimestampFormat,
-  z.ZodTypeDef,
-  TimestampFormat
-> = z.union([
-  z.nativeEnum(TimestampFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const TimestampFormat$outboundSchema: z.ZodNativeEnum<
+  typeof TimestampFormat
+> = TimestampFormat$inboundSchema;
 
 /**
  * @internal
@@ -530,25 +460,14 @@ export namespace TimestampFormat$ {
 }
 
 /** @internal */
-export const OutputSyslogMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputSyslogMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogMinimumTLSVersion
+> = z.nativeEnum(OutputSyslogMinimumTLSVersion);
 
 /** @internal */
-export const OutputSyslogMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputSyslogMinimumTLSVersion,
-  z.ZodTypeDef,
-  OutputSyslogMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSyslogMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogMinimumTLSVersion
+> = OutputSyslogMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -562,25 +481,14 @@ export namespace OutputSyslogMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const OutputSyslogMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputSyslogMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogMaximumTLSVersion
+> = z.nativeEnum(OutputSyslogMaximumTLSVersion);
 
 /** @internal */
-export const OutputSyslogMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputSyslogMaximumTLSVersion,
-  z.ZodTypeDef,
-  OutputSyslogMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSyslogMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogMaximumTLSVersion
+> = OutputSyslogMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -678,25 +586,14 @@ export function outputSyslogTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputSyslogBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSyslogBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogBackpressureBehavior
+> = z.nativeEnum(OutputSyslogBackpressureBehavior);
 
 /** @internal */
-export const OutputSyslogBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSyslogBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSyslogBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSyslogBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogBackpressureBehavior
+> = OutputSyslogBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -710,25 +607,14 @@ export namespace OutputSyslogBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputSyslogCompression$inboundSchema: z.ZodType<
-  OutputSyslogCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogCompression
+> = z.nativeEnum(OutputSyslogCompression);
 
 /** @internal */
-export const OutputSyslogCompression$outboundSchema: z.ZodType<
-  OutputSyslogCompression,
-  z.ZodTypeDef,
-  OutputSyslogCompression
-> = z.union([
-  z.nativeEnum(OutputSyslogCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogCompression
+> = OutputSyslogCompression$inboundSchema;
 
 /**
  * @internal
@@ -742,25 +628,14 @@ export namespace OutputSyslogCompression$ {
 }
 
 /** @internal */
-export const OutputSyslogQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSyslogQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogQueueFullBehavior
+> = z.nativeEnum(OutputSyslogQueueFullBehavior);
 
 /** @internal */
-export const OutputSyslogQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSyslogQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSyslogQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSyslogQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogQueueFullBehavior
+> = OutputSyslogQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -774,25 +649,14 @@ export namespace OutputSyslogQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputSyslogMode$inboundSchema: z.ZodType<
-  OutputSyslogMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSyslogMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogMode
+> = z.nativeEnum(OutputSyslogMode);
 
 /** @internal */
-export const OutputSyslogMode$outboundSchema: z.ZodType<
-  OutputSyslogMode,
-  z.ZodTypeDef,
-  OutputSyslogMode
-> = z.union([
-  z.nativeEnum(OutputSyslogMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSyslogMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSyslogMode
+> = OutputSyslogMode$inboundSchema;
 
 /**
  * @internal

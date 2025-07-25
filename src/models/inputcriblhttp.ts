@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputCriblHttpType = {
   CriblHttp: "cribl_http",
 } as const;
-export type InputCriblHttpType = OpenEnum<typeof InputCriblHttpType>;
+export type InputCriblHttpType = ClosedEnum<typeof InputCriblHttpType>;
 
 export type InputCriblHttpConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputCriblHttpMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputCriblHttpMode = OpenEnum<typeof InputCriblHttpMode>;
+export type InputCriblHttpMode = ClosedEnum<typeof InputCriblHttpMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputCriblHttpCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputCriblHttpCompression = OpenEnum<
+export type InputCriblHttpCompression = ClosedEnum<
   typeof InputCriblHttpCompression
 >;
 
@@ -85,7 +81,7 @@ export const InputCriblHttpMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputCriblHttpMinimumTLSVersion = OpenEnum<
+export type InputCriblHttpMinimumTLSVersion = ClosedEnum<
   typeof InputCriblHttpMinimumTLSVersion
 >;
 
@@ -95,7 +91,7 @@ export const InputCriblHttpMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputCriblHttpMaximumTLSVersion = OpenEnum<
+export type InputCriblHttpMaximumTLSVersion = ClosedEnum<
   typeof InputCriblHttpMaximumTLSVersion
 >;
 
@@ -236,25 +232,14 @@ export type InputCriblHttp = {
 };
 
 /** @internal */
-export const InputCriblHttpType$inboundSchema: z.ZodType<
-  InputCriblHttpType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputCriblHttpType$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpType
+> = z.nativeEnum(InputCriblHttpType);
 
 /** @internal */
-export const InputCriblHttpType$outboundSchema: z.ZodType<
-  InputCriblHttpType,
-  z.ZodTypeDef,
-  InputCriblHttpType
-> = z.union([
-  z.nativeEnum(InputCriblHttpType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputCriblHttpType$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpType
+> = InputCriblHttpType$inboundSchema;
 
 /**
  * @internal
@@ -325,25 +310,14 @@ export function inputCriblHttpConnectionFromJSON(
 }
 
 /** @internal */
-export const InputCriblHttpMode$inboundSchema: z.ZodType<
-  InputCriblHttpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputCriblHttpMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpMode
+> = z.nativeEnum(InputCriblHttpMode);
 
 /** @internal */
-export const InputCriblHttpMode$outboundSchema: z.ZodType<
-  InputCriblHttpMode,
-  z.ZodTypeDef,
-  InputCriblHttpMode
-> = z.union([
-  z.nativeEnum(InputCriblHttpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputCriblHttpMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpMode
+> = InputCriblHttpMode$inboundSchema;
 
 /**
  * @internal
@@ -357,25 +331,14 @@ export namespace InputCriblHttpMode$ {
 }
 
 /** @internal */
-export const InputCriblHttpCompression$inboundSchema: z.ZodType<
-  InputCriblHttpCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputCriblHttpCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpCompression
+> = z.nativeEnum(InputCriblHttpCompression);
 
 /** @internal */
-export const InputCriblHttpCompression$outboundSchema: z.ZodType<
-  InputCriblHttpCompression,
-  z.ZodTypeDef,
-  InputCriblHttpCompression
-> = z.union([
-  z.nativeEnum(InputCriblHttpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputCriblHttpCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpCompression
+> = InputCriblHttpCompression$inboundSchema;
 
 /**
  * @internal
@@ -461,25 +424,14 @@ export function inputCriblHttpPqFromJSON(
 }
 
 /** @internal */
-export const InputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputCriblHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpMinimumTLSVersion
+> = z.nativeEnum(InputCriblHttpMinimumTLSVersion);
 
 /** @internal */
-export const InputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputCriblHttpMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblHttpMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpMinimumTLSVersion
+> = InputCriblHttpMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -493,25 +445,14 @@ export namespace InputCriblHttpMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputCriblHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpMaximumTLSVersion
+> = z.nativeEnum(InputCriblHttpMaximumTLSVersion);
 
 /** @internal */
-export const InputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputCriblHttpMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblHttpMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblHttpMaximumTLSVersion
+> = InputCriblHttpMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal

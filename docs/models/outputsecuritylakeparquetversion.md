@@ -12,8 +12,6 @@ let value: OutputSecurityLakeParquetVersion = "PARQUET_2_4";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"PARQUET_1_0" | "PARQUET_2_4" | "PARQUET_2_6" | Unrecognized<string>
+"PARQUET_1_0" | "PARQUET_2_4" | "PARQUET_2_6"
 ```

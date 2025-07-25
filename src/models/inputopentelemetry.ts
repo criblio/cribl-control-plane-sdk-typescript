@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputOpenTelemetryType = {
   OpenTelemetry: "open_telemetry",
 } as const;
-export type InputOpenTelemetryType = OpenEnum<typeof InputOpenTelemetryType>;
+export type InputOpenTelemetryType = ClosedEnum<typeof InputOpenTelemetryType>;
 
 export type InputOpenTelemetryConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputOpenTelemetryMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputOpenTelemetryMode = OpenEnum<typeof InputOpenTelemetryMode>;
+export type InputOpenTelemetryMode = ClosedEnum<typeof InputOpenTelemetryMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputOpenTelemetryCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputOpenTelemetryCompression = OpenEnum<
+export type InputOpenTelemetryCompression = ClosedEnum<
   typeof InputOpenTelemetryCompression
 >;
 
@@ -85,7 +81,7 @@ export const InputOpenTelemetryMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputOpenTelemetryMinimumTLSVersion = OpenEnum<
+export type InputOpenTelemetryMinimumTLSVersion = ClosedEnum<
   typeof InputOpenTelemetryMinimumTLSVersion
 >;
 
@@ -95,7 +91,7 @@ export const InputOpenTelemetryMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputOpenTelemetryMaximumTLSVersion = OpenEnum<
+export type InputOpenTelemetryMaximumTLSVersion = ClosedEnum<
   typeof InputOpenTelemetryMaximumTLSVersion
 >;
 
@@ -141,7 +137,7 @@ export const InputOpenTelemetryProtocol = {
 /**
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
-export type InputOpenTelemetryProtocol = OpenEnum<
+export type InputOpenTelemetryProtocol = ClosedEnum<
   typeof InputOpenTelemetryProtocol
 >;
 
@@ -155,7 +151,7 @@ export const InputOpenTelemetryOTLPVersion = {
 /**
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
-export type InputOpenTelemetryOTLPVersion = OpenEnum<
+export type InputOpenTelemetryOTLPVersion = ClosedEnum<
   typeof InputOpenTelemetryOTLPVersion
 >;
 
@@ -173,7 +169,7 @@ export const InputOpenTelemetryAuthenticationType = {
 /**
  * OpenTelemetry authentication type
  */
-export type InputOpenTelemetryAuthenticationType = OpenEnum<
+export type InputOpenTelemetryAuthenticationType = ClosedEnum<
   typeof InputOpenTelemetryAuthenticationType
 >;
 
@@ -365,25 +361,14 @@ export type InputOpenTelemetry = {
 };
 
 /** @internal */
-export const InputOpenTelemetryType$inboundSchema: z.ZodType<
-  InputOpenTelemetryType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputOpenTelemetryType$inboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryType
+> = z.nativeEnum(InputOpenTelemetryType);
 
 /** @internal */
-export const InputOpenTelemetryType$outboundSchema: z.ZodType<
-  InputOpenTelemetryType,
-  z.ZodTypeDef,
-  InputOpenTelemetryType
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOpenTelemetryType$outboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryType
+> = InputOpenTelemetryType$inboundSchema;
 
 /**
  * @internal
@@ -456,25 +441,14 @@ export function inputOpenTelemetryConnectionFromJSON(
 }
 
 /** @internal */
-export const InputOpenTelemetryMode$inboundSchema: z.ZodType<
-  InputOpenTelemetryMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputOpenTelemetryMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryMode
+> = z.nativeEnum(InputOpenTelemetryMode);
 
 /** @internal */
-export const InputOpenTelemetryMode$outboundSchema: z.ZodType<
-  InputOpenTelemetryMode,
-  z.ZodTypeDef,
-  InputOpenTelemetryMode
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOpenTelemetryMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryMode
+> = InputOpenTelemetryMode$inboundSchema;
 
 /**
  * @internal
@@ -488,25 +462,14 @@ export namespace InputOpenTelemetryMode$ {
 }
 
 /** @internal */
-export const InputOpenTelemetryCompression$inboundSchema: z.ZodType<
-  InputOpenTelemetryCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputOpenTelemetryCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryCompression
+> = z.nativeEnum(InputOpenTelemetryCompression);
 
 /** @internal */
-export const InputOpenTelemetryCompression$outboundSchema: z.ZodType<
-  InputOpenTelemetryCompression,
-  z.ZodTypeDef,
-  InputOpenTelemetryCompression
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOpenTelemetryCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryCompression
+> = InputOpenTelemetryCompression$inboundSchema;
 
 /**
  * @internal
@@ -592,25 +555,14 @@ export function inputOpenTelemetryPqFromJSON(
 }
 
 /** @internal */
-export const InputOpenTelemetryMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputOpenTelemetryMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputOpenTelemetryMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryMinimumTLSVersion
+> = z.nativeEnum(InputOpenTelemetryMinimumTLSVersion);
 
 /** @internal */
-export const InputOpenTelemetryMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputOpenTelemetryMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputOpenTelemetryMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOpenTelemetryMinimumTLSVersion$outboundSchema:
+  z.ZodNativeEnum<typeof InputOpenTelemetryMinimumTLSVersion> =
+    InputOpenTelemetryMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -626,25 +578,14 @@ export namespace InputOpenTelemetryMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputOpenTelemetryMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputOpenTelemetryMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputOpenTelemetryMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryMaximumTLSVersion
+> = z.nativeEnum(InputOpenTelemetryMaximumTLSVersion);
 
 /** @internal */
-export const InputOpenTelemetryMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputOpenTelemetryMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputOpenTelemetryMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOpenTelemetryMaximumTLSVersion$outboundSchema:
+  z.ZodNativeEnum<typeof InputOpenTelemetryMaximumTLSVersion> =
+    InputOpenTelemetryMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -755,25 +696,14 @@ export function inputOpenTelemetryTLSSettingsServerSideFromJSON(
 }
 
 /** @internal */
-export const InputOpenTelemetryProtocol$inboundSchema: z.ZodType<
-  InputOpenTelemetryProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputOpenTelemetryProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryProtocol
+> = z.nativeEnum(InputOpenTelemetryProtocol);
 
 /** @internal */
-export const InputOpenTelemetryProtocol$outboundSchema: z.ZodType<
-  InputOpenTelemetryProtocol,
-  z.ZodTypeDef,
-  InputOpenTelemetryProtocol
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOpenTelemetryProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryProtocol
+> = InputOpenTelemetryProtocol$inboundSchema;
 
 /**
  * @internal
@@ -787,25 +717,14 @@ export namespace InputOpenTelemetryProtocol$ {
 }
 
 /** @internal */
-export const InputOpenTelemetryOTLPVersion$inboundSchema: z.ZodType<
-  InputOpenTelemetryOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryOTLPVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputOpenTelemetryOTLPVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryOTLPVersion
+> = z.nativeEnum(InputOpenTelemetryOTLPVersion);
 
 /** @internal */
-export const InputOpenTelemetryOTLPVersion$outboundSchema: z.ZodType<
-  InputOpenTelemetryOTLPVersion,
-  z.ZodTypeDef,
-  InputOpenTelemetryOTLPVersion
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryOTLPVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOpenTelemetryOTLPVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputOpenTelemetryOTLPVersion
+> = InputOpenTelemetryOTLPVersion$inboundSchema;
 
 /**
  * @internal
@@ -819,25 +738,15 @@ export namespace InputOpenTelemetryOTLPVersion$ {
 }
 
 /** @internal */
-export const InputOpenTelemetryAuthenticationType$inboundSchema: z.ZodType<
-  InputOpenTelemetryAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputOpenTelemetryAuthenticationType$inboundSchema:
+  z.ZodNativeEnum<typeof InputOpenTelemetryAuthenticationType> = z.nativeEnum(
+    InputOpenTelemetryAuthenticationType,
+  );
 
 /** @internal */
-export const InputOpenTelemetryAuthenticationType$outboundSchema: z.ZodType<
-  InputOpenTelemetryAuthenticationType,
-  z.ZodTypeDef,
-  InputOpenTelemetryAuthenticationType
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOpenTelemetryAuthenticationType$outboundSchema:
+  z.ZodNativeEnum<typeof InputOpenTelemetryAuthenticationType> =
+    InputOpenTelemetryAuthenticationType$inboundSchema;
 
 /**
  * @internal

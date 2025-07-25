@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputAzureBlobType = {
   AzureBlob: "azure_blob",
 } as const;
-export type InputAzureBlobType = OpenEnum<typeof InputAzureBlobType>;
+export type InputAzureBlobType = ClosedEnum<typeof InputAzureBlobType>;
 
 export type InputAzureBlobConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputAzureBlobMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputAzureBlobMode = OpenEnum<typeof InputAzureBlobMode>;
+export type InputAzureBlobMode = ClosedEnum<typeof InputAzureBlobMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputAzureBlobCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputAzureBlobCompression = OpenEnum<
+export type InputAzureBlobCompression = ClosedEnum<
   typeof InputAzureBlobCompression
 >;
 
@@ -93,7 +89,7 @@ export const InputAzureBlobAuthenticationMethod = {
   ClientSecret: "clientSecret",
   ClientCert: "clientCert",
 } as const;
-export type InputAzureBlobAuthenticationMethod = OpenEnum<
+export type InputAzureBlobAuthenticationMethod = ClosedEnum<
   typeof InputAzureBlobAuthenticationMethod
 >;
 
@@ -222,25 +218,14 @@ export type InputAzureBlob = {
 };
 
 /** @internal */
-export const InputAzureBlobType$inboundSchema: z.ZodType<
-  InputAzureBlobType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputAzureBlobType$inboundSchema: z.ZodNativeEnum<
+  typeof InputAzureBlobType
+> = z.nativeEnum(InputAzureBlobType);
 
 /** @internal */
-export const InputAzureBlobType$outboundSchema: z.ZodType<
-  InputAzureBlobType,
-  z.ZodTypeDef,
-  InputAzureBlobType
-> = z.union([
-  z.nativeEnum(InputAzureBlobType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputAzureBlobType$outboundSchema: z.ZodNativeEnum<
+  typeof InputAzureBlobType
+> = InputAzureBlobType$inboundSchema;
 
 /**
  * @internal
@@ -311,25 +296,14 @@ export function inputAzureBlobConnectionFromJSON(
 }
 
 /** @internal */
-export const InputAzureBlobMode$inboundSchema: z.ZodType<
-  InputAzureBlobMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputAzureBlobMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputAzureBlobMode
+> = z.nativeEnum(InputAzureBlobMode);
 
 /** @internal */
-export const InputAzureBlobMode$outboundSchema: z.ZodType<
-  InputAzureBlobMode,
-  z.ZodTypeDef,
-  InputAzureBlobMode
-> = z.union([
-  z.nativeEnum(InputAzureBlobMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputAzureBlobMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputAzureBlobMode
+> = InputAzureBlobMode$inboundSchema;
 
 /**
  * @internal
@@ -343,25 +317,14 @@ export namespace InputAzureBlobMode$ {
 }
 
 /** @internal */
-export const InputAzureBlobCompression$inboundSchema: z.ZodType<
-  InputAzureBlobCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputAzureBlobCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputAzureBlobCompression
+> = z.nativeEnum(InputAzureBlobCompression);
 
 /** @internal */
-export const InputAzureBlobCompression$outboundSchema: z.ZodType<
-  InputAzureBlobCompression,
-  z.ZodTypeDef,
-  InputAzureBlobCompression
-> = z.union([
-  z.nativeEnum(InputAzureBlobCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputAzureBlobCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputAzureBlobCompression
+> = InputAzureBlobCompression$inboundSchema;
 
 /**
  * @internal
@@ -504,25 +467,14 @@ export function inputAzureBlobMetadatumFromJSON(
 }
 
 /** @internal */
-export const InputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
-  InputAzureBlobAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputAzureBlobAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof InputAzureBlobAuthenticationMethod
+> = z.nativeEnum(InputAzureBlobAuthenticationMethod);
 
 /** @internal */
-export const InputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
-  InputAzureBlobAuthenticationMethod,
-  z.ZodTypeDef,
-  InputAzureBlobAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputAzureBlobAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputAzureBlobAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
+  typeof InputAzureBlobAuthenticationMethod
+> = InputAzureBlobAuthenticationMethod$inboundSchema;
 
 /**
  * @internal

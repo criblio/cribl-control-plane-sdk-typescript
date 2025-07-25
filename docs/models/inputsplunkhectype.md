@@ -10,8 +10,6 @@ let value: InputSplunkHecType = "splunk_hec";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"splunk_hec" | Unrecognized<string>
+"splunk_hec"
 ```

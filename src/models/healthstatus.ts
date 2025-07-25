@@ -4,11 +4,7 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -16,14 +12,14 @@ export const Role = {
   Primary: "primary",
   Standby: "standby",
 } as const;
-export type Role = OpenEnum<typeof Role>;
+export type Role = ClosedEnum<typeof Role>;
 
 export const Status = {
   Healthy: "healthy",
   ShuttingDown: "shutting down",
   Standby: "standby",
 } as const;
-export type Status = OpenEnum<typeof Status>;
+export type Status = ClosedEnum<typeof Status>;
 
 export type HealthStatus = {
   role?: Role | undefined;
@@ -32,19 +28,13 @@ export type HealthStatus = {
 };
 
 /** @internal */
-export const Role$inboundSchema: z.ZodType<Role, z.ZodTypeDef, unknown> = z
-  .union([
-    z.nativeEnum(Role),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const Role$inboundSchema: z.ZodNativeEnum<typeof Role> = z.nativeEnum(
+  Role,
+);
 
 /** @internal */
-export const Role$outboundSchema: z.ZodType<Role, z.ZodTypeDef, Role> = z.union(
-  [
-    z.nativeEnum(Role),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ],
-);
+export const Role$outboundSchema: z.ZodNativeEnum<typeof Role> =
+  Role$inboundSchema;
 
 /**
  * @internal
@@ -58,18 +48,12 @@ export namespace Role$ {
 }
 
 /** @internal */
-export const Status$inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> = z
-  .union([
-    z.nativeEnum(Status),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const Status$inboundSchema: z.ZodNativeEnum<typeof Status> = z
+  .nativeEnum(Status);
 
 /** @internal */
-export const Status$outboundSchema: z.ZodType<Status, z.ZodTypeDef, Status> = z
-  .union([
-    z.nativeEnum(Status),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+export const Status$outboundSchema: z.ZodNativeEnum<typeof Status> =
+  Status$inboundSchema;
 
 /**
  * @internal

@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputDatadogType = {
   Datadog: "datadog",
 } as const;
-export type OutputDatadogType = OpenEnum<typeof OutputDatadogType>;
+export type OutputDatadogType = ClosedEnum<typeof OutputDatadogType>;
 
 /**
  * The content type to use when sending logs
@@ -27,7 +23,7 @@ export const SendLogsAs = {
 /**
  * The content type to use when sending logs
  */
-export type SendLogsAs = OpenEnum<typeof SendLogsAs>;
+export type SendLogsAs = ClosedEnum<typeof SendLogsAs>;
 
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
@@ -45,7 +41,7 @@ export const OutputDatadogSeverity = {
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export type OutputDatadogSeverity = OpenEnum<typeof OutputDatadogSeverity>;
+export type OutputDatadogSeverity = ClosedEnum<typeof OutputDatadogSeverity>;
 
 /**
  * Datadog site to which events should be sent
@@ -62,7 +58,7 @@ export const DatadogSite = {
 /**
  * Datadog site to which events should be sent
  */
-export type DatadogSite = OpenEnum<typeof DatadogSite>;
+export type DatadogSite = ClosedEnum<typeof DatadogSite>;
 
 export type OutputDatadogExtraHttpHeader = {
   name?: string | undefined;
@@ -80,7 +76,7 @@ export const OutputDatadogFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputDatadogFailedRequestLoggingMode = OpenEnum<
+export type OutputDatadogFailedRequestLoggingMode = ClosedEnum<
   typeof OutputDatadogFailedRequestLoggingMode
 >;
 
@@ -130,7 +126,7 @@ export const OutputDatadogBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputDatadogBackpressureBehavior = OpenEnum<
+export type OutputDatadogBackpressureBehavior = ClosedEnum<
   typeof OutputDatadogBackpressureBehavior
 >;
 
@@ -144,7 +140,7 @@ export const OutputDatadogAuthenticationMethod = {
 /**
  * Enter API key directly, or select a stored secret
  */
-export type OutputDatadogAuthenticationMethod = OpenEnum<
+export type OutputDatadogAuthenticationMethod = ClosedEnum<
   typeof OutputDatadogAuthenticationMethod
 >;
 
@@ -158,7 +154,7 @@ export const OutputDatadogCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputDatadogCompression = OpenEnum<
+export type OutputDatadogCompression = ClosedEnum<
   typeof OutputDatadogCompression
 >;
 
@@ -172,7 +168,7 @@ export const OutputDatadogQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputDatadogQueueFullBehavior = OpenEnum<
+export type OutputDatadogQueueFullBehavior = ClosedEnum<
   typeof OutputDatadogQueueFullBehavior
 >;
 
@@ -187,7 +183,7 @@ export const OutputDatadogMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputDatadogMode = OpenEnum<typeof OutputDatadogMode>;
+export type OutputDatadogMode = ClosedEnum<typeof OutputDatadogMode>;
 
 export type OutputDatadogPqControls = {};
 
@@ -364,25 +360,14 @@ export type OutputDatadog = {
 };
 
 /** @internal */
-export const OutputDatadogType$inboundSchema: z.ZodType<
-  OutputDatadogType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatadogType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType
+> = z.nativeEnum(OutputDatadogType);
 
 /** @internal */
-export const OutputDatadogType$outboundSchema: z.ZodType<
-  OutputDatadogType,
-  z.ZodTypeDef,
-  OutputDatadogType
-> = z.union([
-  z.nativeEnum(OutputDatadogType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType
+> = OutputDatadogType$inboundSchema;
 
 /**
  * @internal
@@ -396,25 +381,12 @@ export namespace OutputDatadogType$ {
 }
 
 /** @internal */
-export const SendLogsAs$inboundSchema: z.ZodType<
-  SendLogsAs,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(SendLogsAs),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const SendLogsAs$inboundSchema: z.ZodNativeEnum<typeof SendLogsAs> = z
+  .nativeEnum(SendLogsAs);
 
 /** @internal */
-export const SendLogsAs$outboundSchema: z.ZodType<
-  SendLogsAs,
-  z.ZodTypeDef,
-  SendLogsAs
-> = z.union([
-  z.nativeEnum(SendLogsAs),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const SendLogsAs$outboundSchema: z.ZodNativeEnum<typeof SendLogsAs> =
+  SendLogsAs$inboundSchema;
 
 /**
  * @internal
@@ -428,25 +400,14 @@ export namespace SendLogsAs$ {
 }
 
 /** @internal */
-export const OutputDatadogSeverity$inboundSchema: z.ZodType<
-  OutputDatadogSeverity,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogSeverity),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatadogSeverity$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogSeverity
+> = z.nativeEnum(OutputDatadogSeverity);
 
 /** @internal */
-export const OutputDatadogSeverity$outboundSchema: z.ZodType<
-  OutputDatadogSeverity,
-  z.ZodTypeDef,
-  OutputDatadogSeverity
-> = z.union([
-  z.nativeEnum(OutputDatadogSeverity),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogSeverity$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogSeverity
+> = OutputDatadogSeverity$inboundSchema;
 
 /**
  * @internal
@@ -460,25 +421,12 @@ export namespace OutputDatadogSeverity$ {
 }
 
 /** @internal */
-export const DatadogSite$inboundSchema: z.ZodType<
-  DatadogSite,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(DatadogSite),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const DatadogSite$inboundSchema: z.ZodNativeEnum<typeof DatadogSite> = z
+  .nativeEnum(DatadogSite);
 
 /** @internal */
-export const DatadogSite$outboundSchema: z.ZodType<
-  DatadogSite,
-  z.ZodTypeDef,
-  DatadogSite
-> = z.union([
-  z.nativeEnum(DatadogSite),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const DatadogSite$outboundSchema: z.ZodNativeEnum<typeof DatadogSite> =
+  DatadogSite$inboundSchema;
 
 /**
  * @internal
@@ -551,25 +499,15 @@ export function outputDatadogExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputDatadogFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputDatadogFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatadogFailedRequestLoggingMode$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDatadogFailedRequestLoggingMode> = z.nativeEnum(
+    OutputDatadogFailedRequestLoggingMode,
+  );
 
 /** @internal */
-export const OutputDatadogFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputDatadogFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputDatadogFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputDatadogFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogFailedRequestLoggingMode$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDatadogFailedRequestLoggingMode> =
+    OutputDatadogFailedRequestLoggingMode$inboundSchema;
 
 /**
  * @internal
@@ -717,25 +655,14 @@ export function outputDatadogTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputDatadogBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDatadogBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatadogBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogBackpressureBehavior
+> = z.nativeEnum(OutputDatadogBackpressureBehavior);
 
 /** @internal */
-export const OutputDatadogBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDatadogBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputDatadogBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputDatadogBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogBackpressureBehavior
+> = OutputDatadogBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -750,25 +677,14 @@ export namespace OutputDatadogBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputDatadogAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputDatadogAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatadogAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogAuthenticationMethod
+> = z.nativeEnum(OutputDatadogAuthenticationMethod);
 
 /** @internal */
-export const OutputDatadogAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputDatadogAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputDatadogAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputDatadogAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogAuthenticationMethod
+> = OutputDatadogAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -783,25 +699,14 @@ export namespace OutputDatadogAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputDatadogCompression$inboundSchema: z.ZodType<
-  OutputDatadogCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatadogCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogCompression
+> = z.nativeEnum(OutputDatadogCompression);
 
 /** @internal */
-export const OutputDatadogCompression$outboundSchema: z.ZodType<
-  OutputDatadogCompression,
-  z.ZodTypeDef,
-  OutputDatadogCompression
-> = z.union([
-  z.nativeEnum(OutputDatadogCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogCompression
+> = OutputDatadogCompression$inboundSchema;
 
 /**
  * @internal
@@ -815,25 +720,14 @@ export namespace OutputDatadogCompression$ {
 }
 
 /** @internal */
-export const OutputDatadogQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDatadogQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatadogQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogQueueFullBehavior
+> = z.nativeEnum(OutputDatadogQueueFullBehavior);
 
 /** @internal */
-export const OutputDatadogQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDatadogQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputDatadogQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDatadogQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogQueueFullBehavior
+> = OutputDatadogQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -847,25 +741,14 @@ export namespace OutputDatadogQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputDatadogMode$inboundSchema: z.ZodType<
-  OutputDatadogMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatadogMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogMode
+> = z.nativeEnum(OutputDatadogMode);
 
 /** @internal */
-export const OutputDatadogMode$outboundSchema: z.ZodType<
-  OutputDatadogMode,
-  z.ZodTypeDef,
-  OutputDatadogMode
-> = z.union([
-  z.nativeEnum(OutputDatadogMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogMode
+> = OutputDatadogMode$inboundSchema;
 
 /**
  * @internal

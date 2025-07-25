@@ -4,18 +4,16 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputDynatraceHttpType = {
   DynatraceHttp: "dynatrace_http",
 } as const;
-export type OutputDynatraceHttpType = OpenEnum<typeof OutputDynatraceHttpType>;
+export type OutputDynatraceHttpType = ClosedEnum<
+  typeof OutputDynatraceHttpType
+>;
 
 /**
  * The method to use when sending events
@@ -28,7 +26,7 @@ export const OutputDynatraceHttpMethod = {
 /**
  * The method to use when sending events
  */
-export type OutputDynatraceHttpMethod = OpenEnum<
+export type OutputDynatraceHttpMethod = ClosedEnum<
   typeof OutputDynatraceHttpMethod
 >;
 
@@ -48,7 +46,7 @@ export const OutputDynatraceHttpFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputDynatraceHttpFailedRequestLoggingMode = OpenEnum<
+export type OutputDynatraceHttpFailedRequestLoggingMode = ClosedEnum<
   typeof OutputDynatraceHttpFailedRequestLoggingMode
 >;
 
@@ -98,7 +96,7 @@ export const OutputDynatraceHttpBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputDynatraceHttpBackpressureBehavior = OpenEnum<
+export type OutputDynatraceHttpBackpressureBehavior = ClosedEnum<
   typeof OutputDynatraceHttpBackpressureBehavior
 >;
 
@@ -106,7 +104,7 @@ export const OutputDynatraceHttpAuthenticationType = {
   Token: "token",
   TextSecret: "textSecret",
 } as const;
-export type OutputDynatraceHttpAuthenticationType = OpenEnum<
+export type OutputDynatraceHttpAuthenticationType = ClosedEnum<
   typeof OutputDynatraceHttpAuthenticationType
 >;
 
@@ -120,7 +118,7 @@ export const OutputDynatraceHttpFormat = {
 /**
  * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
  */
-export type OutputDynatraceHttpFormat = OpenEnum<
+export type OutputDynatraceHttpFormat = ClosedEnum<
   typeof OutputDynatraceHttpFormat
 >;
 
@@ -129,13 +127,13 @@ export const Endpoint = {
   ActiveGate: "activeGate",
   Manual: "manual",
 } as const;
-export type Endpoint = OpenEnum<typeof Endpoint>;
+export type Endpoint = ClosedEnum<typeof Endpoint>;
 
 export const TelemetryType = {
   Logs: "logs",
   Metrics: "metrics",
 } as const;
-export type TelemetryType = OpenEnum<typeof TelemetryType>;
+export type TelemetryType = ClosedEnum<typeof TelemetryType>;
 
 /**
  * Codec to use to compress the persisted data
@@ -147,7 +145,7 @@ export const OutputDynatraceHttpCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputDynatraceHttpCompression = OpenEnum<
+export type OutputDynatraceHttpCompression = ClosedEnum<
   typeof OutputDynatraceHttpCompression
 >;
 
@@ -161,7 +159,7 @@ export const OutputDynatraceHttpQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputDynatraceHttpQueueFullBehavior = OpenEnum<
+export type OutputDynatraceHttpQueueFullBehavior = ClosedEnum<
   typeof OutputDynatraceHttpQueueFullBehavior
 >;
 
@@ -176,7 +174,9 @@ export const OutputDynatraceHttpMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputDynatraceHttpMode = OpenEnum<typeof OutputDynatraceHttpMode>;
+export type OutputDynatraceHttpMode = ClosedEnum<
+  typeof OutputDynatraceHttpMode
+>;
 
 export type OutputDynatraceHttpPqControls = {};
 
@@ -335,25 +335,14 @@ export type OutputDynatraceHttp = {
 };
 
 /** @internal */
-export const OutputDynatraceHttpType$inboundSchema: z.ZodType<
-  OutputDynatraceHttpType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceHttpType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpType
+> = z.nativeEnum(OutputDynatraceHttpType);
 
 /** @internal */
-export const OutputDynatraceHttpType$outboundSchema: z.ZodType<
-  OutputDynatraceHttpType,
-  z.ZodTypeDef,
-  OutputDynatraceHttpType
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceHttpType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpType
+> = OutputDynatraceHttpType$inboundSchema;
 
 /**
  * @internal
@@ -367,25 +356,14 @@ export namespace OutputDynatraceHttpType$ {
 }
 
 /** @internal */
-export const OutputDynatraceHttpMethod$inboundSchema: z.ZodType<
-  OutputDynatraceHttpMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceHttpMethod$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpMethod
+> = z.nativeEnum(OutputDynatraceHttpMethod);
 
 /** @internal */
-export const OutputDynatraceHttpMethod$outboundSchema: z.ZodType<
-  OutputDynatraceHttpMethod,
-  z.ZodTypeDef,
-  OutputDynatraceHttpMethod
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceHttpMethod$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpMethod
+> = OutputDynatraceHttpMethod$inboundSchema;
 
 /**
  * @internal
@@ -461,26 +439,13 @@ export function outputDynatraceHttpExtraHttpHeaderFromJSON(
 
 /** @internal */
 export const OutputDynatraceHttpFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputDynatraceHttpFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputDynatraceHttpFailedRequestLoggingMode),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<typeof OutputDynatraceHttpFailedRequestLoggingMode> = z
+    .nativeEnum(OutputDynatraceHttpFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputDynatraceHttpFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<
-    OutputDynatraceHttpFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    OutputDynatraceHttpFailedRequestLoggingMode
-  > = z.union([
-    z.nativeEnum(OutputDynatraceHttpFailedRequestLoggingMode),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof OutputDynatraceHttpFailedRequestLoggingMode> =
+    OutputDynatraceHttpFailedRequestLoggingMode$inboundSchema;
 
 /**
  * @internal
@@ -644,25 +609,14 @@ export function outputDynatraceHttpTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputDynatraceHttpBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDynatraceHttpBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceHttpBackpressureBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceHttpBackpressureBehavior> = z
+    .nativeEnum(OutputDynatraceHttpBackpressureBehavior);
 
 /** @internal */
-export const OutputDynatraceHttpBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDynatraceHttpBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputDynatraceHttpBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceHttpBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceHttpBackpressureBehavior> =
+    OutputDynatraceHttpBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -678,25 +632,15 @@ export namespace OutputDynatraceHttpBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputDynatraceHttpAuthenticationType$inboundSchema: z.ZodType<
-  OutputDynatraceHttpAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceHttpAuthenticationType$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceHttpAuthenticationType> = z.nativeEnum(
+    OutputDynatraceHttpAuthenticationType,
+  );
 
 /** @internal */
-export const OutputDynatraceHttpAuthenticationType$outboundSchema: z.ZodType<
-  OutputDynatraceHttpAuthenticationType,
-  z.ZodTypeDef,
-  OutputDynatraceHttpAuthenticationType
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceHttpAuthenticationType$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceHttpAuthenticationType> =
+    OutputDynatraceHttpAuthenticationType$inboundSchema;
 
 /**
  * @internal
@@ -712,25 +656,14 @@ export namespace OutputDynatraceHttpAuthenticationType$ {
 }
 
 /** @internal */
-export const OutputDynatraceHttpFormat$inboundSchema: z.ZodType<
-  OutputDynatraceHttpFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceHttpFormat$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpFormat
+> = z.nativeEnum(OutputDynatraceHttpFormat);
 
 /** @internal */
-export const OutputDynatraceHttpFormat$outboundSchema: z.ZodType<
-  OutputDynatraceHttpFormat,
-  z.ZodTypeDef,
-  OutputDynatraceHttpFormat
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceHttpFormat$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpFormat
+> = OutputDynatraceHttpFormat$inboundSchema;
 
 /**
  * @internal
@@ -744,25 +677,12 @@ export namespace OutputDynatraceHttpFormat$ {
 }
 
 /** @internal */
-export const Endpoint$inboundSchema: z.ZodType<
-  Endpoint,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(Endpoint),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const Endpoint$inboundSchema: z.ZodNativeEnum<typeof Endpoint> = z
+  .nativeEnum(Endpoint);
 
 /** @internal */
-export const Endpoint$outboundSchema: z.ZodType<
-  Endpoint,
-  z.ZodTypeDef,
-  Endpoint
-> = z.union([
-  z.nativeEnum(Endpoint),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const Endpoint$outboundSchema: z.ZodNativeEnum<typeof Endpoint> =
+  Endpoint$inboundSchema;
 
 /**
  * @internal
@@ -776,25 +696,14 @@ export namespace Endpoint$ {
 }
 
 /** @internal */
-export const TelemetryType$inboundSchema: z.ZodType<
-  TelemetryType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(TelemetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const TelemetryType$inboundSchema: z.ZodNativeEnum<
+  typeof TelemetryType
+> = z.nativeEnum(TelemetryType);
 
 /** @internal */
-export const TelemetryType$outboundSchema: z.ZodType<
-  TelemetryType,
-  z.ZodTypeDef,
-  TelemetryType
-> = z.union([
-  z.nativeEnum(TelemetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const TelemetryType$outboundSchema: z.ZodNativeEnum<
+  typeof TelemetryType
+> = TelemetryType$inboundSchema;
 
 /**
  * @internal
@@ -808,25 +717,14 @@ export namespace TelemetryType$ {
 }
 
 /** @internal */
-export const OutputDynatraceHttpCompression$inboundSchema: z.ZodType<
-  OutputDynatraceHttpCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceHttpCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpCompression
+> = z.nativeEnum(OutputDynatraceHttpCompression);
 
 /** @internal */
-export const OutputDynatraceHttpCompression$outboundSchema: z.ZodType<
-  OutputDynatraceHttpCompression,
-  z.ZodTypeDef,
-  OutputDynatraceHttpCompression
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceHttpCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpCompression
+> = OutputDynatraceHttpCompression$inboundSchema;
 
 /**
  * @internal
@@ -840,25 +738,15 @@ export namespace OutputDynatraceHttpCompression$ {
 }
 
 /** @internal */
-export const OutputDynatraceHttpQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDynatraceHttpQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceHttpQueueFullBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceHttpQueueFullBehavior> = z.nativeEnum(
+    OutputDynatraceHttpQueueFullBehavior,
+  );
 
 /** @internal */
-export const OutputDynatraceHttpQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDynatraceHttpQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputDynatraceHttpQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceHttpQueueFullBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceHttpQueueFullBehavior> =
+    OutputDynatraceHttpQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -874,25 +762,14 @@ export namespace OutputDynatraceHttpQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputDynatraceHttpMode$inboundSchema: z.ZodType<
-  OutputDynatraceHttpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceHttpMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpMode
+> = z.nativeEnum(OutputDynatraceHttpMode);
 
 /** @internal */
-export const OutputDynatraceHttpMode$outboundSchema: z.ZodType<
-  OutputDynatraceHttpMode,
-  z.ZodTypeDef,
-  OutputDynatraceHttpMode
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceHttpMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceHttpMode
+> = OutputDynatraceHttpMode$inboundSchema;
 
 /**
  * @internal

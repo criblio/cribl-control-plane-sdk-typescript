@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputEventhubType = {
   Eventhub: "eventhub",
 } as const;
-export type InputEventhubType = OpenEnum<typeof InputEventhubType>;
+export type InputEventhubType = ClosedEnum<typeof InputEventhubType>;
 
 export type InputEventhubConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputEventhubMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputEventhubMode = OpenEnum<typeof InputEventhubMode>;
+export type InputEventhubMode = ClosedEnum<typeof InputEventhubMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputEventhubCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputEventhubCompression = OpenEnum<
+export type InputEventhubCompression = ClosedEnum<
   typeof InputEventhubCompression
 >;
 
@@ -83,7 +79,7 @@ export const InputEventhubSASLMechanism = {
   Plain: "plain",
   Oauthbearer: "oauthbearer",
 } as const;
-export type InputEventhubSASLMechanism = OpenEnum<
+export type InputEventhubSASLMechanism = ClosedEnum<
   typeof InputEventhubSASLMechanism
 >;
 
@@ -253,25 +249,14 @@ export type InputEventhub = {
 };
 
 /** @internal */
-export const InputEventhubType$inboundSchema: z.ZodType<
-  InputEventhubType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEventhubType$inboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType
+> = z.nativeEnum(InputEventhubType);
 
 /** @internal */
-export const InputEventhubType$outboundSchema: z.ZodType<
-  InputEventhubType,
-  z.ZodTypeDef,
-  InputEventhubType
-> = z.union([
-  z.nativeEnum(InputEventhubType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEventhubType$outboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType
+> = InputEventhubType$inboundSchema;
 
 /**
  * @internal
@@ -342,25 +327,14 @@ export function inputEventhubConnectionFromJSON(
 }
 
 /** @internal */
-export const InputEventhubMode$inboundSchema: z.ZodType<
-  InputEventhubMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEventhubMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubMode
+> = z.nativeEnum(InputEventhubMode);
 
 /** @internal */
-export const InputEventhubMode$outboundSchema: z.ZodType<
-  InputEventhubMode,
-  z.ZodTypeDef,
-  InputEventhubMode
-> = z.union([
-  z.nativeEnum(InputEventhubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEventhubMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubMode
+> = InputEventhubMode$inboundSchema;
 
 /**
  * @internal
@@ -374,25 +348,14 @@ export namespace InputEventhubMode$ {
 }
 
 /** @internal */
-export const InputEventhubCompression$inboundSchema: z.ZodType<
-  InputEventhubCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEventhubCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubCompression
+> = z.nativeEnum(InputEventhubCompression);
 
 /** @internal */
-export const InputEventhubCompression$outboundSchema: z.ZodType<
-  InputEventhubCompression,
-  z.ZodTypeDef,
-  InputEventhubCompression
-> = z.union([
-  z.nativeEnum(InputEventhubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEventhubCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubCompression
+> = InputEventhubCompression$inboundSchema;
 
 /**
  * @internal
@@ -476,25 +439,14 @@ export function inputEventhubPqFromJSON(
 }
 
 /** @internal */
-export const InputEventhubSASLMechanism$inboundSchema: z.ZodType<
-  InputEventhubSASLMechanism,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubSASLMechanism),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEventhubSASLMechanism$inboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubSASLMechanism
+> = z.nativeEnum(InputEventhubSASLMechanism);
 
 /** @internal */
-export const InputEventhubSASLMechanism$outboundSchema: z.ZodType<
-  InputEventhubSASLMechanism,
-  z.ZodTypeDef,
-  InputEventhubSASLMechanism
-> = z.union([
-  z.nativeEnum(InputEventhubSASLMechanism),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEventhubSASLMechanism$outboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubSASLMechanism
+> = InputEventhubSASLMechanism$inboundSchema;
 
 /**
  * @internal

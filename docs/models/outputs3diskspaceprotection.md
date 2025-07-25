@@ -12,8 +12,6 @@ let value: OutputS3DiskSpaceProtection = "block";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"block" | "drop" | Unrecognized<string>
+"block" | "drop"
 ```
