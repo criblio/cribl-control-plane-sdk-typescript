@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputFilesystemType = {
   Filesystem: "filesystem",
 } as const;
-export type OutputFilesystemType = OpenEnum<typeof OutputFilesystemType>;
+export type OutputFilesystemType = ClosedEnum<typeof OutputFilesystemType>;
 
 /**
  * Format of the output data
@@ -28,7 +24,7 @@ export const OutputFilesystemDataFormat = {
 /**
  * Format of the output data
  */
-export type OutputFilesystemDataFormat = OpenEnum<
+export type OutputFilesystemDataFormat = ClosedEnum<
   typeof OutputFilesystemDataFormat
 >;
 
@@ -42,7 +38,7 @@ export const OutputFilesystemBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputFilesystemBackpressureBehavior = OpenEnum<
+export type OutputFilesystemBackpressureBehavior = ClosedEnum<
   typeof OutputFilesystemBackpressureBehavior
 >;
 
@@ -56,7 +52,7 @@ export const OutputFilesystemDiskSpaceProtection = {
 /**
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
-export type OutputFilesystemDiskSpaceProtection = OpenEnum<
+export type OutputFilesystemDiskSpaceProtection = ClosedEnum<
   typeof OutputFilesystemDiskSpaceProtection
 >;
 
@@ -70,7 +66,7 @@ export const OutputFilesystemCompression = {
 /**
  * Data compression format to apply to HTTP content before it is delivered
  */
-export type OutputFilesystemCompression = OpenEnum<
+export type OutputFilesystemCompression = ClosedEnum<
   typeof OutputFilesystemCompression
 >;
 
@@ -85,7 +81,7 @@ export const OutputFilesystemCompressionLevel = {
 /**
  * Compression level to apply before moving files to final destination
  */
-export type OutputFilesystemCompressionLevel = OpenEnum<
+export type OutputFilesystemCompressionLevel = ClosedEnum<
   typeof OutputFilesystemCompressionLevel
 >;
 
@@ -100,7 +96,7 @@ export const OutputFilesystemParquetVersion = {
 /**
  * Determines which data types are supported and how they are represented
  */
-export type OutputFilesystemParquetVersion = OpenEnum<
+export type OutputFilesystemParquetVersion = ClosedEnum<
   typeof OutputFilesystemParquetVersion
 >;
 
@@ -114,7 +110,7 @@ export const OutputFilesystemDataPageVersion = {
 /**
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
-export type OutputFilesystemDataPageVersion = OpenEnum<
+export type OutputFilesystemDataPageVersion = ClosedEnum<
   typeof OutputFilesystemDataPageVersion
 >;
 
@@ -277,25 +273,14 @@ export type OutputFilesystem = {
 };
 
 /** @internal */
-export const OutputFilesystemType$inboundSchema: z.ZodType<
-  OutputFilesystemType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputFilesystemType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType
+> = z.nativeEnum(OutputFilesystemType);
 
 /** @internal */
-export const OutputFilesystemType$outboundSchema: z.ZodType<
-  OutputFilesystemType,
-  z.ZodTypeDef,
-  OutputFilesystemType
-> = z.union([
-  z.nativeEnum(OutputFilesystemType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputFilesystemType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType
+> = OutputFilesystemType$inboundSchema;
 
 /**
  * @internal
@@ -309,25 +294,14 @@ export namespace OutputFilesystemType$ {
 }
 
 /** @internal */
-export const OutputFilesystemDataFormat$inboundSchema: z.ZodType<
-  OutputFilesystemDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputFilesystemDataFormat$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemDataFormat
+> = z.nativeEnum(OutputFilesystemDataFormat);
 
 /** @internal */
-export const OutputFilesystemDataFormat$outboundSchema: z.ZodType<
-  OutputFilesystemDataFormat,
-  z.ZodTypeDef,
-  OutputFilesystemDataFormat
-> = z.union([
-  z.nativeEnum(OutputFilesystemDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputFilesystemDataFormat$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemDataFormat
+> = OutputFilesystemDataFormat$inboundSchema;
 
 /**
  * @internal
@@ -341,25 +315,15 @@ export namespace OutputFilesystemDataFormat$ {
 }
 
 /** @internal */
-export const OutputFilesystemBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputFilesystemBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputFilesystemBackpressureBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputFilesystemBackpressureBehavior> = z.nativeEnum(
+    OutputFilesystemBackpressureBehavior,
+  );
 
 /** @internal */
-export const OutputFilesystemBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputFilesystemBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputFilesystemBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputFilesystemBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputFilesystemBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputFilesystemBackpressureBehavior> =
+    OutputFilesystemBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -375,25 +339,14 @@ export namespace OutputFilesystemBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputFilesystemDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputFilesystemDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputFilesystemDiskSpaceProtection$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemDiskSpaceProtection
+> = z.nativeEnum(OutputFilesystemDiskSpaceProtection);
 
 /** @internal */
-export const OutputFilesystemDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputFilesystemDiskSpaceProtection,
-  z.ZodTypeDef,
-  OutputFilesystemDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputFilesystemDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputFilesystemDiskSpaceProtection$outboundSchema:
+  z.ZodNativeEnum<typeof OutputFilesystemDiskSpaceProtection> =
+    OutputFilesystemDiskSpaceProtection$inboundSchema;
 
 /**
  * @internal
@@ -409,25 +362,14 @@ export namespace OutputFilesystemDiskSpaceProtection$ {
 }
 
 /** @internal */
-export const OutputFilesystemCompression$inboundSchema: z.ZodType<
-  OutputFilesystemCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputFilesystemCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemCompression
+> = z.nativeEnum(OutputFilesystemCompression);
 
 /** @internal */
-export const OutputFilesystemCompression$outboundSchema: z.ZodType<
-  OutputFilesystemCompression,
-  z.ZodTypeDef,
-  OutputFilesystemCompression
-> = z.union([
-  z.nativeEnum(OutputFilesystemCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputFilesystemCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemCompression
+> = OutputFilesystemCompression$inboundSchema;
 
 /**
  * @internal
@@ -441,25 +383,14 @@ export namespace OutputFilesystemCompression$ {
 }
 
 /** @internal */
-export const OutputFilesystemCompressionLevel$inboundSchema: z.ZodType<
-  OutputFilesystemCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputFilesystemCompressionLevel$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemCompressionLevel
+> = z.nativeEnum(OutputFilesystemCompressionLevel);
 
 /** @internal */
-export const OutputFilesystemCompressionLevel$outboundSchema: z.ZodType<
-  OutputFilesystemCompressionLevel,
-  z.ZodTypeDef,
-  OutputFilesystemCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputFilesystemCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputFilesystemCompressionLevel$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemCompressionLevel
+> = OutputFilesystemCompressionLevel$inboundSchema;
 
 /**
  * @internal
@@ -473,25 +404,14 @@ export namespace OutputFilesystemCompressionLevel$ {
 }
 
 /** @internal */
-export const OutputFilesystemParquetVersion$inboundSchema: z.ZodType<
-  OutputFilesystemParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputFilesystemParquetVersion$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemParquetVersion
+> = z.nativeEnum(OutputFilesystemParquetVersion);
 
 /** @internal */
-export const OutputFilesystemParquetVersion$outboundSchema: z.ZodType<
-  OutputFilesystemParquetVersion,
-  z.ZodTypeDef,
-  OutputFilesystemParquetVersion
-> = z.union([
-  z.nativeEnum(OutputFilesystemParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputFilesystemParquetVersion$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemParquetVersion
+> = OutputFilesystemParquetVersion$inboundSchema;
 
 /**
  * @internal
@@ -505,25 +425,14 @@ export namespace OutputFilesystemParquetVersion$ {
 }
 
 /** @internal */
-export const OutputFilesystemDataPageVersion$inboundSchema: z.ZodType<
-  OutputFilesystemDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputFilesystemDataPageVersion$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemDataPageVersion
+> = z.nativeEnum(OutputFilesystemDataPageVersion);
 
 /** @internal */
-export const OutputFilesystemDataPageVersion$outboundSchema: z.ZodType<
-  OutputFilesystemDataPageVersion,
-  z.ZodTypeDef,
-  OutputFilesystemDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputFilesystemDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputFilesystemDataPageVersion$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemDataPageVersion
+> = OutputFilesystemDataPageVersion$inboundSchema;
 
 /**
  * @internal

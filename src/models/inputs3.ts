@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputS3Type = {
   S3: "s3",
 } as const;
-export type InputS3Type = OpenEnum<typeof InputS3Type>;
+export type InputS3Type = ClosedEnum<typeof InputS3Type>;
 
 export type InputS3Connection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputS3Mode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputS3Mode = OpenEnum<typeof InputS3Mode>;
+export type InputS3Mode = ClosedEnum<typeof InputS3Mode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputS3Compression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputS3Compression = OpenEnum<typeof InputS3Compression>;
+export type InputS3Compression = ClosedEnum<typeof InputS3Compression>;
 
 export type InputS3Pq = {
   /**
@@ -88,7 +84,7 @@ export const InputS3AuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type InputS3AuthenticationMethod = OpenEnum<
+export type InputS3AuthenticationMethod = ClosedEnum<
   typeof InputS3AuthenticationMethod
 >;
 
@@ -102,7 +98,9 @@ export const InputS3SignatureVersion = {
 /**
  * Signature version to use for signing S3 requests
  */
-export type InputS3SignatureVersion = OpenEnum<typeof InputS3SignatureVersion>;
+export type InputS3SignatureVersion = ClosedEnum<
+  typeof InputS3SignatureVersion
+>;
 
 export type InputS3Preprocess = {
   disabled?: boolean | undefined;
@@ -295,25 +293,12 @@ export type InputS3 = {
 };
 
 /** @internal */
-export const InputS3Type$inboundSchema: z.ZodType<
-  InputS3Type,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3Type),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputS3Type$inboundSchema: z.ZodNativeEnum<typeof InputS3Type> = z
+  .nativeEnum(InputS3Type);
 
 /** @internal */
-export const InputS3Type$outboundSchema: z.ZodType<
-  InputS3Type,
-  z.ZodTypeDef,
-  InputS3Type
-> = z.union([
-  z.nativeEnum(InputS3Type),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputS3Type$outboundSchema: z.ZodNativeEnum<typeof InputS3Type> =
+  InputS3Type$inboundSchema;
 
 /**
  * @internal
@@ -384,25 +369,12 @@ export function inputS3ConnectionFromJSON(
 }
 
 /** @internal */
-export const InputS3Mode$inboundSchema: z.ZodType<
-  InputS3Mode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3Mode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputS3Mode$inboundSchema: z.ZodNativeEnum<typeof InputS3Mode> = z
+  .nativeEnum(InputS3Mode);
 
 /** @internal */
-export const InputS3Mode$outboundSchema: z.ZodType<
-  InputS3Mode,
-  z.ZodTypeDef,
-  InputS3Mode
-> = z.union([
-  z.nativeEnum(InputS3Mode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputS3Mode$outboundSchema: z.ZodNativeEnum<typeof InputS3Mode> =
+  InputS3Mode$inboundSchema;
 
 /**
  * @internal
@@ -416,25 +388,14 @@ export namespace InputS3Mode$ {
 }
 
 /** @internal */
-export const InputS3Compression$inboundSchema: z.ZodType<
-  InputS3Compression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3Compression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputS3Compression$inboundSchema: z.ZodNativeEnum<
+  typeof InputS3Compression
+> = z.nativeEnum(InputS3Compression);
 
 /** @internal */
-export const InputS3Compression$outboundSchema: z.ZodType<
-  InputS3Compression,
-  z.ZodTypeDef,
-  InputS3Compression
-> = z.union([
-  z.nativeEnum(InputS3Compression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputS3Compression$outboundSchema: z.ZodNativeEnum<
+  typeof InputS3Compression
+> = InputS3Compression$inboundSchema;
 
 /**
  * @internal
@@ -516,25 +477,14 @@ export function inputS3PqFromJSON(
 }
 
 /** @internal */
-export const InputS3AuthenticationMethod$inboundSchema: z.ZodType<
-  InputS3AuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3AuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputS3AuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof InputS3AuthenticationMethod
+> = z.nativeEnum(InputS3AuthenticationMethod);
 
 /** @internal */
-export const InputS3AuthenticationMethod$outboundSchema: z.ZodType<
-  InputS3AuthenticationMethod,
-  z.ZodTypeDef,
-  InputS3AuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputS3AuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputS3AuthenticationMethod$outboundSchema: z.ZodNativeEnum<
+  typeof InputS3AuthenticationMethod
+> = InputS3AuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -548,25 +498,14 @@ export namespace InputS3AuthenticationMethod$ {
 }
 
 /** @internal */
-export const InputS3SignatureVersion$inboundSchema: z.ZodType<
-  InputS3SignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3SignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputS3SignatureVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputS3SignatureVersion
+> = z.nativeEnum(InputS3SignatureVersion);
 
 /** @internal */
-export const InputS3SignatureVersion$outboundSchema: z.ZodType<
-  InputS3SignatureVersion,
-  z.ZodTypeDef,
-  InputS3SignatureVersion
-> = z.union([
-  z.nativeEnum(InputS3SignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputS3SignatureVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputS3SignatureVersion
+> = InputS3SignatureVersion$inboundSchema;
 
 /**
  * @internal

@@ -12,8 +12,6 @@ let value: OutputHumioHecRequestFormat = "JSON";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"JSON" | "raw" | Unrecognized<string>
+"JSON" | "raw"
 ```

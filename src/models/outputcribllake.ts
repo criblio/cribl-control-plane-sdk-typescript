@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputCriblLakeType = {
   CriblLake: "cribl_lake",
 } as const;
-export type OutputCriblLakeType = OpenEnum<typeof OutputCriblLakeType>;
+export type OutputCriblLakeType = ClosedEnum<typeof OutputCriblLakeType>;
 
 /**
  * Signature version to use for signing S3 requests
@@ -27,7 +23,7 @@ export const OutputCriblLakeSignatureVersion = {
 /**
  * Signature version to use for signing S3 requests
  */
-export type OutputCriblLakeSignatureVersion = OpenEnum<
+export type OutputCriblLakeSignatureVersion = ClosedEnum<
   typeof OutputCriblLakeSignatureVersion
 >;
 
@@ -46,7 +42,7 @@ export const OutputCriblLakeObjectACL = {
 /**
  * Object ACL to assign to uploaded objects
  */
-export type OutputCriblLakeObjectACL = OpenEnum<
+export type OutputCriblLakeObjectACL = ClosedEnum<
   typeof OutputCriblLakeObjectACL
 >;
 
@@ -66,7 +62,7 @@ export const OutputCriblLakeStorageClass = {
 /**
  * Storage class to select for uploaded objects
  */
-export type OutputCriblLakeStorageClass = OpenEnum<
+export type OutputCriblLakeStorageClass = ClosedEnum<
   typeof OutputCriblLakeStorageClass
 >;
 
@@ -74,7 +70,7 @@ export const OutputCriblLakeServerSideEncryptionForUploadedObjects = {
   Aes256: "AES256",
   AwsKms: "aws:kms",
 } as const;
-export type OutputCriblLakeServerSideEncryptionForUploadedObjects = OpenEnum<
+export type OutputCriblLakeServerSideEncryptionForUploadedObjects = ClosedEnum<
   typeof OutputCriblLakeServerSideEncryptionForUploadedObjects
 >;
 
@@ -88,7 +84,7 @@ export const OutputCriblLakeBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputCriblLakeBackpressureBehavior = OpenEnum<
+export type OutputCriblLakeBackpressureBehavior = ClosedEnum<
   typeof OutputCriblLakeBackpressureBehavior
 >;
 
@@ -102,7 +98,7 @@ export const OutputCriblLakeDiskSpaceProtection = {
 /**
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
-export type OutputCriblLakeDiskSpaceProtection = OpenEnum<
+export type OutputCriblLakeDiskSpaceProtection = ClosedEnum<
   typeof OutputCriblLakeDiskSpaceProtection
 >;
 
@@ -111,14 +107,16 @@ export const AwsAuthenticationMethod = {
   AutoRpc: "auto_rpc",
   Manual: "manual",
 } as const;
-export type AwsAuthenticationMethod = OpenEnum<typeof AwsAuthenticationMethod>;
+export type AwsAuthenticationMethod = ClosedEnum<
+  typeof AwsAuthenticationMethod
+>;
 
 export const OutputCriblLakeFormat = {
   Json: "json",
   Parquet: "parquet",
   Ddss: "ddss",
 } as const;
-export type OutputCriblLakeFormat = OpenEnum<typeof OutputCriblLakeFormat>;
+export type OutputCriblLakeFormat = ClosedEnum<typeof OutputCriblLakeFormat>;
 
 export type OutputCriblLake = {
   /**
@@ -291,25 +289,14 @@ export type OutputCriblLake = {
 };
 
 /** @internal */
-export const OutputCriblLakeType$inboundSchema: z.ZodType<
-  OutputCriblLakeType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputCriblLakeType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType
+> = z.nativeEnum(OutputCriblLakeType);
 
 /** @internal */
-export const OutputCriblLakeType$outboundSchema: z.ZodType<
-  OutputCriblLakeType,
-  z.ZodTypeDef,
-  OutputCriblLakeType
-> = z.union([
-  z.nativeEnum(OutputCriblLakeType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputCriblLakeType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType
+> = OutputCriblLakeType$inboundSchema;
 
 /**
  * @internal
@@ -323,25 +310,14 @@ export namespace OutputCriblLakeType$ {
 }
 
 /** @internal */
-export const OutputCriblLakeSignatureVersion$inboundSchema: z.ZodType<
-  OutputCriblLakeSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputCriblLakeSignatureVersion$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeSignatureVersion
+> = z.nativeEnum(OutputCriblLakeSignatureVersion);
 
 /** @internal */
-export const OutputCriblLakeSignatureVersion$outboundSchema: z.ZodType<
-  OutputCriblLakeSignatureVersion,
-  z.ZodTypeDef,
-  OutputCriblLakeSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputCriblLakeSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputCriblLakeSignatureVersion$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeSignatureVersion
+> = OutputCriblLakeSignatureVersion$inboundSchema;
 
 /**
  * @internal
@@ -355,25 +331,14 @@ export namespace OutputCriblLakeSignatureVersion$ {
 }
 
 /** @internal */
-export const OutputCriblLakeObjectACL$inboundSchema: z.ZodType<
-  OutputCriblLakeObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputCriblLakeObjectACL$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeObjectACL
+> = z.nativeEnum(OutputCriblLakeObjectACL);
 
 /** @internal */
-export const OutputCriblLakeObjectACL$outboundSchema: z.ZodType<
-  OutputCriblLakeObjectACL,
-  z.ZodTypeDef,
-  OutputCriblLakeObjectACL
-> = z.union([
-  z.nativeEnum(OutputCriblLakeObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputCriblLakeObjectACL$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeObjectACL
+> = OutputCriblLakeObjectACL$inboundSchema;
 
 /**
  * @internal
@@ -387,25 +352,14 @@ export namespace OutputCriblLakeObjectACL$ {
 }
 
 /** @internal */
-export const OutputCriblLakeStorageClass$inboundSchema: z.ZodType<
-  OutputCriblLakeStorageClass,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeStorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputCriblLakeStorageClass$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeStorageClass
+> = z.nativeEnum(OutputCriblLakeStorageClass);
 
 /** @internal */
-export const OutputCriblLakeStorageClass$outboundSchema: z.ZodType<
-  OutputCriblLakeStorageClass,
-  z.ZodTypeDef,
-  OutputCriblLakeStorageClass
-> = z.union([
-  z.nativeEnum(OutputCriblLakeStorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputCriblLakeStorageClass$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeStorageClass
+> = OutputCriblLakeStorageClass$inboundSchema;
 
 /**
  * @internal
@@ -420,26 +374,15 @@ export namespace OutputCriblLakeStorageClass$ {
 
 /** @internal */
 export const OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema:
-  z.ZodType<
-    OutputCriblLakeServerSideEncryptionForUploadedObjects,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputCriblLakeServerSideEncryptionForUploadedObjects),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<
+    typeof OutputCriblLakeServerSideEncryptionForUploadedObjects
+  > = z.nativeEnum(OutputCriblLakeServerSideEncryptionForUploadedObjects);
 
 /** @internal */
 export const OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema:
-  z.ZodType<
-    OutputCriblLakeServerSideEncryptionForUploadedObjects,
-    z.ZodTypeDef,
-    OutputCriblLakeServerSideEncryptionForUploadedObjects
-  > = z.union([
-    z.nativeEnum(OutputCriblLakeServerSideEncryptionForUploadedObjects),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<
+    typeof OutputCriblLakeServerSideEncryptionForUploadedObjects
+  > = OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema;
 
 /**
  * @internal
@@ -455,25 +398,14 @@ export namespace OutputCriblLakeServerSideEncryptionForUploadedObjects$ {
 }
 
 /** @internal */
-export const OutputCriblLakeBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputCriblLakeBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputCriblLakeBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeBackpressureBehavior
+> = z.nativeEnum(OutputCriblLakeBackpressureBehavior);
 
 /** @internal */
-export const OutputCriblLakeBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputCriblLakeBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputCriblLakeBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputCriblLakeBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputCriblLakeBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputCriblLakeBackpressureBehavior> =
+    OutputCriblLakeBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -489,25 +421,14 @@ export namespace OutputCriblLakeBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputCriblLakeDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputCriblLakeDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputCriblLakeDiskSpaceProtection$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeDiskSpaceProtection
+> = z.nativeEnum(OutputCriblLakeDiskSpaceProtection);
 
 /** @internal */
-export const OutputCriblLakeDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputCriblLakeDiskSpaceProtection,
-  z.ZodTypeDef,
-  OutputCriblLakeDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputCriblLakeDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputCriblLakeDiskSpaceProtection$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeDiskSpaceProtection
+> = OutputCriblLakeDiskSpaceProtection$inboundSchema;
 
 /**
  * @internal
@@ -522,25 +443,14 @@ export namespace OutputCriblLakeDiskSpaceProtection$ {
 }
 
 /** @internal */
-export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
-  AwsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(AwsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const AwsAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof AwsAuthenticationMethod
+> = z.nativeEnum(AwsAuthenticationMethod);
 
 /** @internal */
-export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
-  AwsAuthenticationMethod,
-  z.ZodTypeDef,
-  AwsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(AwsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const AwsAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
+  typeof AwsAuthenticationMethod
+> = AwsAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -554,25 +464,14 @@ export namespace AwsAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputCriblLakeFormat$inboundSchema: z.ZodType<
-  OutputCriblLakeFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputCriblLakeFormat$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeFormat
+> = z.nativeEnum(OutputCriblLakeFormat);
 
 /** @internal */
-export const OutputCriblLakeFormat$outboundSchema: z.ZodType<
-  OutputCriblLakeFormat,
-  z.ZodTypeDef,
-  OutputCriblLakeFormat
-> = z.union([
-  z.nativeEnum(OutputCriblLakeFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputCriblLakeFormat$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeFormat
+> = OutputCriblLakeFormat$inboundSchema;
 
 /**
  * @internal

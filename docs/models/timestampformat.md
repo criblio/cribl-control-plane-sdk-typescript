@@ -12,8 +12,6 @@ let value: TimestampFormat = "syslog";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"syslog" | "iso8601" | Unrecognized<string>
+"syslog" | "iso8601"
 ```

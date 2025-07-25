@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputFirehoseType = {
   Firehose: "firehose",
 } as const;
-export type InputFirehoseType = OpenEnum<typeof InputFirehoseType>;
+export type InputFirehoseType = ClosedEnum<typeof InputFirehoseType>;
 
 export type InputFirehoseConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputFirehoseMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputFirehoseMode = OpenEnum<typeof InputFirehoseMode>;
+export type InputFirehoseMode = ClosedEnum<typeof InputFirehoseMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputFirehoseCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputFirehoseCompression = OpenEnum<
+export type InputFirehoseCompression = ClosedEnum<
   typeof InputFirehoseCompression
 >;
 
@@ -85,7 +81,7 @@ export const InputFirehoseMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputFirehoseMinimumTLSVersion = OpenEnum<
+export type InputFirehoseMinimumTLSVersion = ClosedEnum<
   typeof InputFirehoseMinimumTLSVersion
 >;
 
@@ -95,7 +91,7 @@ export const InputFirehoseMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputFirehoseMaximumTLSVersion = OpenEnum<
+export type InputFirehoseMaximumTLSVersion = ClosedEnum<
   typeof InputFirehoseMaximumTLSVersion
 >;
 
@@ -236,25 +232,14 @@ export type InputFirehose = {
 };
 
 /** @internal */
-export const InputFirehoseType$inboundSchema: z.ZodType<
-  InputFirehoseType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFirehoseType$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType
+> = z.nativeEnum(InputFirehoseType);
 
 /** @internal */
-export const InputFirehoseType$outboundSchema: z.ZodType<
-  InputFirehoseType,
-  z.ZodTypeDef,
-  InputFirehoseType
-> = z.union([
-  z.nativeEnum(InputFirehoseType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFirehoseType$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType
+> = InputFirehoseType$inboundSchema;
 
 /**
  * @internal
@@ -325,25 +310,14 @@ export function inputFirehoseConnectionFromJSON(
 }
 
 /** @internal */
-export const InputFirehoseMode$inboundSchema: z.ZodType<
-  InputFirehoseMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFirehoseMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseMode
+> = z.nativeEnum(InputFirehoseMode);
 
 /** @internal */
-export const InputFirehoseMode$outboundSchema: z.ZodType<
-  InputFirehoseMode,
-  z.ZodTypeDef,
-  InputFirehoseMode
-> = z.union([
-  z.nativeEnum(InputFirehoseMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFirehoseMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseMode
+> = InputFirehoseMode$inboundSchema;
 
 /**
  * @internal
@@ -357,25 +331,14 @@ export namespace InputFirehoseMode$ {
 }
 
 /** @internal */
-export const InputFirehoseCompression$inboundSchema: z.ZodType<
-  InputFirehoseCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFirehoseCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseCompression
+> = z.nativeEnum(InputFirehoseCompression);
 
 /** @internal */
-export const InputFirehoseCompression$outboundSchema: z.ZodType<
-  InputFirehoseCompression,
-  z.ZodTypeDef,
-  InputFirehoseCompression
-> = z.union([
-  z.nativeEnum(InputFirehoseCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFirehoseCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseCompression
+> = InputFirehoseCompression$inboundSchema;
 
 /**
  * @internal
@@ -459,25 +422,14 @@ export function inputFirehosePqFromJSON(
 }
 
 /** @internal */
-export const InputFirehoseMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputFirehoseMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFirehoseMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseMinimumTLSVersion
+> = z.nativeEnum(InputFirehoseMinimumTLSVersion);
 
 /** @internal */
-export const InputFirehoseMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputFirehoseMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputFirehoseMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputFirehoseMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFirehoseMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseMinimumTLSVersion
+> = InputFirehoseMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -491,25 +443,14 @@ export namespace InputFirehoseMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputFirehoseMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputFirehoseMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFirehoseMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseMaximumTLSVersion
+> = z.nativeEnum(InputFirehoseMaximumTLSVersion);
 
 /** @internal */
-export const InputFirehoseMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputFirehoseMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputFirehoseMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputFirehoseMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFirehoseMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseMaximumTLSVersion
+> = InputFirehoseMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal

@@ -10,8 +10,6 @@ let value: OutputDiskSpoolType = "disk_spool";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"disk_spool" | Unrecognized<string>
+"disk_spool"
 ```

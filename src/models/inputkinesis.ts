@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputKinesisType = {
   Kinesis: "kinesis",
 } as const;
-export type InputKinesisType = OpenEnum<typeof InputKinesisType>;
+export type InputKinesisType = ClosedEnum<typeof InputKinesisType>;
 
 export type InputKinesisConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputKinesisMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputKinesisMode = OpenEnum<typeof InputKinesisMode>;
+export type InputKinesisMode = ClosedEnum<typeof InputKinesisMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,9 @@ export const InputKinesisCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputKinesisCompression = OpenEnum<typeof InputKinesisCompression>;
+export type InputKinesisCompression = ClosedEnum<
+  typeof InputKinesisCompression
+>;
 
 export type InputKinesisPq = {
   /**
@@ -87,7 +85,7 @@ export const ShardIteratorStart = {
 /**
  * Location at which to start reading a shard for the first time
  */
-export type ShardIteratorStart = OpenEnum<typeof ShardIteratorStart>;
+export type ShardIteratorStart = ClosedEnum<typeof ShardIteratorStart>;
 
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
@@ -101,7 +99,7 @@ export const InputKinesisRecordDataFormat = {
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export type InputKinesisRecordDataFormat = OpenEnum<
+export type InputKinesisRecordDataFormat = ClosedEnum<
   typeof InputKinesisRecordDataFormat
 >;
 
@@ -115,7 +113,7 @@ export const ShardLoadBalancing = {
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
+export type ShardLoadBalancing = ClosedEnum<typeof ShardLoadBalancing>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -128,7 +126,7 @@ export const InputKinesisAuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type InputKinesisAuthenticationMethod = OpenEnum<
+export type InputKinesisAuthenticationMethod = ClosedEnum<
   typeof InputKinesisAuthenticationMethod
 >;
 
@@ -142,7 +140,7 @@ export const InputKinesisSignatureVersion = {
 /**
  * Signature version to use for signing Kinesis stream requests
  */
-export type InputKinesisSignatureVersion = OpenEnum<
+export type InputKinesisSignatureVersion = ClosedEnum<
   typeof InputKinesisSignatureVersion
 >;
 
@@ -280,25 +278,14 @@ export type InputKinesis = {
 };
 
 /** @internal */
-export const InputKinesisType$inboundSchema: z.ZodType<
-  InputKinesisType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKinesisType$inboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisType
+> = z.nativeEnum(InputKinesisType);
 
 /** @internal */
-export const InputKinesisType$outboundSchema: z.ZodType<
-  InputKinesisType,
-  z.ZodTypeDef,
-  InputKinesisType
-> = z.union([
-  z.nativeEnum(InputKinesisType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKinesisType$outboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisType
+> = InputKinesisType$inboundSchema;
 
 /**
  * @internal
@@ -369,25 +356,14 @@ export function inputKinesisConnectionFromJSON(
 }
 
 /** @internal */
-export const InputKinesisMode$inboundSchema: z.ZodType<
-  InputKinesisMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKinesisMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisMode
+> = z.nativeEnum(InputKinesisMode);
 
 /** @internal */
-export const InputKinesisMode$outboundSchema: z.ZodType<
-  InputKinesisMode,
-  z.ZodTypeDef,
-  InputKinesisMode
-> = z.union([
-  z.nativeEnum(InputKinesisMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKinesisMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisMode
+> = InputKinesisMode$inboundSchema;
 
 /**
  * @internal
@@ -401,25 +377,14 @@ export namespace InputKinesisMode$ {
 }
 
 /** @internal */
-export const InputKinesisCompression$inboundSchema: z.ZodType<
-  InputKinesisCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKinesisCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisCompression
+> = z.nativeEnum(InputKinesisCompression);
 
 /** @internal */
-export const InputKinesisCompression$outboundSchema: z.ZodType<
-  InputKinesisCompression,
-  z.ZodTypeDef,
-  InputKinesisCompression
-> = z.union([
-  z.nativeEnum(InputKinesisCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKinesisCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisCompression
+> = InputKinesisCompression$inboundSchema;
 
 /**
  * @internal
@@ -501,25 +466,14 @@ export function inputKinesisPqFromJSON(
 }
 
 /** @internal */
-export const ShardIteratorStart$inboundSchema: z.ZodType<
-  ShardIteratorStart,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(ShardIteratorStart),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const ShardIteratorStart$inboundSchema: z.ZodNativeEnum<
+  typeof ShardIteratorStart
+> = z.nativeEnum(ShardIteratorStart);
 
 /** @internal */
-export const ShardIteratorStart$outboundSchema: z.ZodType<
-  ShardIteratorStart,
-  z.ZodTypeDef,
-  ShardIteratorStart
-> = z.union([
-  z.nativeEnum(ShardIteratorStart),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const ShardIteratorStart$outboundSchema: z.ZodNativeEnum<
+  typeof ShardIteratorStart
+> = ShardIteratorStart$inboundSchema;
 
 /**
  * @internal
@@ -533,25 +487,14 @@ export namespace ShardIteratorStart$ {
 }
 
 /** @internal */
-export const InputKinesisRecordDataFormat$inboundSchema: z.ZodType<
-  InputKinesisRecordDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisRecordDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKinesisRecordDataFormat$inboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisRecordDataFormat
+> = z.nativeEnum(InputKinesisRecordDataFormat);
 
 /** @internal */
-export const InputKinesisRecordDataFormat$outboundSchema: z.ZodType<
-  InputKinesisRecordDataFormat,
-  z.ZodTypeDef,
-  InputKinesisRecordDataFormat
-> = z.union([
-  z.nativeEnum(InputKinesisRecordDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKinesisRecordDataFormat$outboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisRecordDataFormat
+> = InputKinesisRecordDataFormat$inboundSchema;
 
 /**
  * @internal
@@ -565,25 +508,14 @@ export namespace InputKinesisRecordDataFormat$ {
 }
 
 /** @internal */
-export const ShardLoadBalancing$inboundSchema: z.ZodType<
-  ShardLoadBalancing,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(ShardLoadBalancing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const ShardLoadBalancing$inboundSchema: z.ZodNativeEnum<
+  typeof ShardLoadBalancing
+> = z.nativeEnum(ShardLoadBalancing);
 
 /** @internal */
-export const ShardLoadBalancing$outboundSchema: z.ZodType<
-  ShardLoadBalancing,
-  z.ZodTypeDef,
-  ShardLoadBalancing
-> = z.union([
-  z.nativeEnum(ShardLoadBalancing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const ShardLoadBalancing$outboundSchema: z.ZodNativeEnum<
+  typeof ShardLoadBalancing
+> = ShardLoadBalancing$inboundSchema;
 
 /**
  * @internal
@@ -597,25 +529,14 @@ export namespace ShardLoadBalancing$ {
 }
 
 /** @internal */
-export const InputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
-  InputKinesisAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKinesisAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisAuthenticationMethod
+> = z.nativeEnum(InputKinesisAuthenticationMethod);
 
 /** @internal */
-export const InputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
-  InputKinesisAuthenticationMethod,
-  z.ZodTypeDef,
-  InputKinesisAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputKinesisAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKinesisAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisAuthenticationMethod
+> = InputKinesisAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -629,25 +550,14 @@ export namespace InputKinesisAuthenticationMethod$ {
 }
 
 /** @internal */
-export const InputKinesisSignatureVersion$inboundSchema: z.ZodType<
-  InputKinesisSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKinesisSignatureVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisSignatureVersion
+> = z.nativeEnum(InputKinesisSignatureVersion);
 
 /** @internal */
-export const InputKinesisSignatureVersion$outboundSchema: z.ZodType<
-  InputKinesisSignatureVersion,
-  z.ZodTypeDef,
-  InputKinesisSignatureVersion
-> = z.union([
-  z.nativeEnum(InputKinesisSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKinesisSignatureVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputKinesisSignatureVersion
+> = InputKinesisSignatureVersion$inboundSchema;
 
 /**
  * @internal

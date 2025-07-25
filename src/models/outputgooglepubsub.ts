@@ -4,18 +4,16 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const OutputGooglePubsubType = {
+export const OutputGooglePubsubTypeGooglePubsub = {
   GooglePubsub: "google_pubsub",
 } as const;
-export type OutputGooglePubsubType = OpenEnum<typeof OutputGooglePubsubType>;
+export type OutputGooglePubsubTypeGooglePubsub = ClosedEnum<
+  typeof OutputGooglePubsubTypeGooglePubsub
+>;
 
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
@@ -28,14 +26,14 @@ export const OutputGooglePubsubGoogleAuthenticationMethod = {
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
-export type OutputGooglePubsubGoogleAuthenticationMethod = OpenEnum<
+export type OutputGooglePubsubGoogleAuthenticationMethod = ClosedEnum<
   typeof OutputGooglePubsubGoogleAuthenticationMethod
 >;
 
 export const FlushPeriodSecType = {
   Number: "number",
 } as const;
-export type FlushPeriodSecType = OpenEnum<typeof FlushPeriodSecType>;
+export type FlushPeriodSecType = ClosedEnum<typeof FlushPeriodSecType>;
 
 /**
  * Maximum time to wait before sending a batch (when batch size limit is not reached).
@@ -56,7 +54,7 @@ export const OutputGooglePubsubBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputGooglePubsubBackpressureBehavior = OpenEnum<
+export type OutputGooglePubsubBackpressureBehavior = ClosedEnum<
   typeof OutputGooglePubsubBackpressureBehavior
 >;
 
@@ -70,7 +68,7 @@ export const OutputGooglePubsubCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputGooglePubsubCompression = OpenEnum<
+export type OutputGooglePubsubCompression = ClosedEnum<
   typeof OutputGooglePubsubCompression
 >;
 
@@ -84,7 +82,7 @@ export const OutputGooglePubsubQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputGooglePubsubQueueFullBehavior = OpenEnum<
+export type OutputGooglePubsubQueueFullBehavior = ClosedEnum<
   typeof OutputGooglePubsubQueueFullBehavior
 >;
 
@@ -99,7 +97,7 @@ export const OutputGooglePubsubMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputGooglePubsubMode = OpenEnum<typeof OutputGooglePubsubMode>;
+export type OutputGooglePubsubMode = ClosedEnum<typeof OutputGooglePubsubMode>;
 
 export type OutputGooglePubsubPqControls = {};
 
@@ -108,7 +106,7 @@ export type OutputGooglePubsub = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGooglePubsubType;
+  type: OutputGooglePubsubTypeGooglePubsub;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -210,59 +208,36 @@ export type OutputGooglePubsub = {
 };
 
 /** @internal */
-export const OutputGooglePubsubType$inboundSchema: z.ZodType<
-  OutputGooglePubsubType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputGooglePubsubTypeGooglePubsub$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubTypeGooglePubsub
+> = z.nativeEnum(OutputGooglePubsubTypeGooglePubsub);
 
 /** @internal */
-export const OutputGooglePubsubType$outboundSchema: z.ZodType<
-  OutputGooglePubsubType,
-  z.ZodTypeDef,
-  OutputGooglePubsubType
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputGooglePubsubTypeGooglePubsub$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubTypeGooglePubsub
+> = OutputGooglePubsubTypeGooglePubsub$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace OutputGooglePubsubType$ {
-  /** @deprecated use `OutputGooglePubsubType$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubType$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubType$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubType$outboundSchema;
+export namespace OutputGooglePubsubTypeGooglePubsub$ {
+  /** @deprecated use `OutputGooglePubsubTypeGooglePubsub$inboundSchema` instead. */
+  export const inboundSchema = OutputGooglePubsubTypeGooglePubsub$inboundSchema;
+  /** @deprecated use `OutputGooglePubsubTypeGooglePubsub$outboundSchema` instead. */
+  export const outboundSchema =
+    OutputGooglePubsubTypeGooglePubsub$outboundSchema;
 }
 
 /** @internal */
 export const OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    OutputGooglePubsubGoogleAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<typeof OutputGooglePubsubGoogleAuthenticationMethod> = z
+    .nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod);
 
 /** @internal */
 export const OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    OutputGooglePubsubGoogleAuthenticationMethod,
-    z.ZodTypeDef,
-    OutputGooglePubsubGoogleAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof OutputGooglePubsubGoogleAuthenticationMethod> =
+    OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -278,25 +253,14 @@ export namespace OutputGooglePubsubGoogleAuthenticationMethod$ {
 }
 
 /** @internal */
-export const FlushPeriodSecType$inboundSchema: z.ZodType<
-  FlushPeriodSecType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(FlushPeriodSecType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const FlushPeriodSecType$inboundSchema: z.ZodNativeEnum<
+  typeof FlushPeriodSecType
+> = z.nativeEnum(FlushPeriodSecType);
 
 /** @internal */
-export const FlushPeriodSecType$outboundSchema: z.ZodType<
-  FlushPeriodSecType,
-  z.ZodTypeDef,
-  FlushPeriodSecType
-> = z.union([
-  z.nativeEnum(FlushPeriodSecType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const FlushPeriodSecType$outboundSchema: z.ZodNativeEnum<
+  typeof FlushPeriodSecType
+> = FlushPeriodSecType$inboundSchema;
 
 /**
  * @internal
@@ -363,25 +327,15 @@ export function flushPeriodSecFromJSON(
 }
 
 /** @internal */
-export const OutputGooglePubsubBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputGooglePubsubBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputGooglePubsubBackpressureBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputGooglePubsubBackpressureBehavior> = z.nativeEnum(
+    OutputGooglePubsubBackpressureBehavior,
+  );
 
 /** @internal */
-export const OutputGooglePubsubBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputGooglePubsubBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputGooglePubsubBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputGooglePubsubBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputGooglePubsubBackpressureBehavior> =
+    OutputGooglePubsubBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -397,25 +351,14 @@ export namespace OutputGooglePubsubBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputGooglePubsubCompression$inboundSchema: z.ZodType<
-  OutputGooglePubsubCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputGooglePubsubCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubCompression
+> = z.nativeEnum(OutputGooglePubsubCompression);
 
 /** @internal */
-export const OutputGooglePubsubCompression$outboundSchema: z.ZodType<
-  OutputGooglePubsubCompression,
-  z.ZodTypeDef,
-  OutputGooglePubsubCompression
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputGooglePubsubCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubCompression
+> = OutputGooglePubsubCompression$inboundSchema;
 
 /**
  * @internal
@@ -429,25 +372,14 @@ export namespace OutputGooglePubsubCompression$ {
 }
 
 /** @internal */
-export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputGooglePubsubQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubQueueFullBehavior
+> = z.nativeEnum(OutputGooglePubsubQueueFullBehavior);
 
 /** @internal */
-export const OutputGooglePubsubQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputGooglePubsubQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputGooglePubsubQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputGooglePubsubQueueFullBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputGooglePubsubQueueFullBehavior> =
+    OutputGooglePubsubQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -463,25 +395,14 @@ export namespace OutputGooglePubsubQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
-  OutputGooglePubsubMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputGooglePubsubMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubMode
+> = z.nativeEnum(OutputGooglePubsubMode);
 
 /** @internal */
-export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
-  OutputGooglePubsubMode,
-  z.ZodTypeDef,
-  OutputGooglePubsubMode
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputGooglePubsubMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubMode
+> = OutputGooglePubsubMode$inboundSchema;
 
 /**
  * @internal
@@ -551,7 +472,7 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGooglePubsubType$inboundSchema,
+  type: OutputGooglePubsubTypeGooglePubsub$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -625,7 +546,7 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   OutputGooglePubsub
 > = z.object({
   id: z.string().optional(),
-  type: OutputGooglePubsubType$outboundSchema,
+  type: OutputGooglePubsubTypeGooglePubsub$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

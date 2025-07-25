@@ -12,8 +12,6 @@ let value: OutputAzureDataExplorerAuthenticationMethod = "certificate";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"clientSecret" | "clientTextSecret" | "certificate" | Unrecognized<string>
+"clientSecret" | "clientTextSecret" | "certificate"
 ```

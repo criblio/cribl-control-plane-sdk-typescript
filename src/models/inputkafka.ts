@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputKafkaType = {
   Kafka: "kafka",
 } as const;
-export type InputKafkaType = OpenEnum<typeof InputKafkaType>;
+export type InputKafkaType = ClosedEnum<typeof InputKafkaType>;
 
 export type InputKafkaConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputKafkaMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputKafkaMode = OpenEnum<typeof InputKafkaMode>;
+export type InputKafkaMode = ClosedEnum<typeof InputKafkaMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputKafkaCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputKafkaCompression = OpenEnum<typeof InputKafkaCompression>;
+export type InputKafkaCompression = ClosedEnum<typeof InputKafkaCompression>;
 
 export type InputKafkaPq = {
   /**
@@ -94,7 +90,7 @@ export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputKafkaKafkaSchemaRegistryMinimumTLSVersion = OpenEnum<
+export type InputKafkaKafkaSchemaRegistryMinimumTLSVersion = ClosedEnum<
   typeof InputKafkaKafkaSchemaRegistryMinimumTLSVersion
 >;
 
@@ -104,7 +100,7 @@ export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputKafkaKafkaSchemaRegistryMaximumTLSVersion = OpenEnum<
+export type InputKafkaKafkaSchemaRegistryMaximumTLSVersion = ClosedEnum<
   typeof InputKafkaKafkaSchemaRegistryMaximumTLSVersion
 >;
 
@@ -176,7 +172,9 @@ export const InputKafkaSASLMechanism = {
   ScramSha512: "scram-sha-512",
   Kerberos: "kerberos",
 } as const;
-export type InputKafkaSASLMechanism = OpenEnum<typeof InputKafkaSASLMechanism>;
+export type InputKafkaSASLMechanism = ClosedEnum<
+  typeof InputKafkaSASLMechanism
+>;
 
 /**
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
@@ -192,7 +190,7 @@ export const InputKafkaMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputKafkaMinimumTLSVersion = OpenEnum<
+export type InputKafkaMinimumTLSVersion = ClosedEnum<
   typeof InputKafkaMinimumTLSVersion
 >;
 
@@ -202,7 +200,7 @@ export const InputKafkaMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputKafkaMaximumTLSVersion = OpenEnum<
+export type InputKafkaMaximumTLSVersion = ClosedEnum<
   typeof InputKafkaMaximumTLSVersion
 >;
 
@@ -391,25 +389,14 @@ export type InputKafka = {
 };
 
 /** @internal */
-export const InputKafkaType$inboundSchema: z.ZodType<
-  InputKafkaType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKafkaType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKafkaType$inboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaType
+> = z.nativeEnum(InputKafkaType);
 
 /** @internal */
-export const InputKafkaType$outboundSchema: z.ZodType<
-  InputKafkaType,
-  z.ZodTypeDef,
-  InputKafkaType
-> = z.union([
-  z.nativeEnum(InputKafkaType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKafkaType$outboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaType
+> = InputKafkaType$inboundSchema;
 
 /**
  * @internal
@@ -480,25 +467,14 @@ export function inputKafkaConnectionFromJSON(
 }
 
 /** @internal */
-export const InputKafkaMode$inboundSchema: z.ZodType<
-  InputKafkaMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKafkaMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKafkaMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaMode
+> = z.nativeEnum(InputKafkaMode);
 
 /** @internal */
-export const InputKafkaMode$outboundSchema: z.ZodType<
-  InputKafkaMode,
-  z.ZodTypeDef,
-  InputKafkaMode
-> = z.union([
-  z.nativeEnum(InputKafkaMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKafkaMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaMode
+> = InputKafkaMode$inboundSchema;
 
 /**
  * @internal
@@ -512,25 +488,14 @@ export namespace InputKafkaMode$ {
 }
 
 /** @internal */
-export const InputKafkaCompression$inboundSchema: z.ZodType<
-  InputKafkaCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKafkaCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKafkaCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaCompression
+> = z.nativeEnum(InputKafkaCompression);
 
 /** @internal */
-export const InputKafkaCompression$outboundSchema: z.ZodType<
-  InputKafkaCompression,
-  z.ZodTypeDef,
-  InputKafkaCompression
-> = z.union([
-  z.nativeEnum(InputKafkaCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKafkaCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaCompression
+> = InputKafkaCompression$inboundSchema;
 
 /**
  * @internal
@@ -666,26 +631,13 @@ export function inputKafkaAuthFromJSON(
 
 /** @internal */
 export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
-  z.ZodType<
-    InputKafkaKafkaSchemaRegistryMinimumTLSVersion,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(InputKafkaKafkaSchemaRegistryMinimumTLSVersion),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<typeof InputKafkaKafkaSchemaRegistryMinimumTLSVersion> = z
+    .nativeEnum(InputKafkaKafkaSchemaRegistryMinimumTLSVersion);
 
 /** @internal */
 export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
-  z.ZodType<
-    InputKafkaKafkaSchemaRegistryMinimumTLSVersion,
-    z.ZodTypeDef,
-    InputKafkaKafkaSchemaRegistryMinimumTLSVersion
-  > = z.union([
-    z.nativeEnum(InputKafkaKafkaSchemaRegistryMinimumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof InputKafkaKafkaSchemaRegistryMinimumTLSVersion> =
+    InputKafkaKafkaSchemaRegistryMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -702,26 +654,13 @@ export namespace InputKafkaKafkaSchemaRegistryMinimumTLSVersion$ {
 
 /** @internal */
 export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
-  z.ZodType<
-    InputKafkaKafkaSchemaRegistryMaximumTLSVersion,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(InputKafkaKafkaSchemaRegistryMaximumTLSVersion),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<typeof InputKafkaKafkaSchemaRegistryMaximumTLSVersion> = z
+    .nativeEnum(InputKafkaKafkaSchemaRegistryMaximumTLSVersion);
 
 /** @internal */
 export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
-  z.ZodType<
-    InputKafkaKafkaSchemaRegistryMaximumTLSVersion,
-    z.ZodTypeDef,
-    InputKafkaKafkaSchemaRegistryMaximumTLSVersion
-  > = z.union([
-    z.nativeEnum(InputKafkaKafkaSchemaRegistryMaximumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof InputKafkaKafkaSchemaRegistryMaximumTLSVersion> =
+    InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -925,25 +864,14 @@ export function inputKafkaKafkaSchemaRegistryAuthenticationFromJSON(
 }
 
 /** @internal */
-export const InputKafkaSASLMechanism$inboundSchema: z.ZodType<
-  InputKafkaSASLMechanism,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKafkaSASLMechanism),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKafkaSASLMechanism$inboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaSASLMechanism
+> = z.nativeEnum(InputKafkaSASLMechanism);
 
 /** @internal */
-export const InputKafkaSASLMechanism$outboundSchema: z.ZodType<
-  InputKafkaSASLMechanism,
-  z.ZodTypeDef,
-  InputKafkaSASLMechanism
-> = z.union([
-  z.nativeEnum(InputKafkaSASLMechanism),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKafkaSASLMechanism$outboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaSASLMechanism
+> = InputKafkaSASLMechanism$inboundSchema;
 
 /**
  * @internal
@@ -1014,25 +942,14 @@ export function inputKafkaAuthenticationFromJSON(
 }
 
 /** @internal */
-export const InputKafkaMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputKafkaMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKafkaMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKafkaMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaMinimumTLSVersion
+> = z.nativeEnum(InputKafkaMinimumTLSVersion);
 
 /** @internal */
-export const InputKafkaMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputKafkaMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputKafkaMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputKafkaMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKafkaMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaMinimumTLSVersion
+> = InputKafkaMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -1046,25 +963,14 @@ export namespace InputKafkaMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputKafkaMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputKafkaMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKafkaMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputKafkaMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaMaximumTLSVersion
+> = z.nativeEnum(InputKafkaMaximumTLSVersion);
 
 /** @internal */
-export const InputKafkaMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputKafkaMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputKafkaMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputKafkaMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputKafkaMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaMaximumTLSVersion
+> = InputKafkaMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal

@@ -12,8 +12,6 @@ let value: OutputSplunkNestedFieldSerialization = "none";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"json" | "none" | Unrecognized<string>
+"json" | "none"
 ```

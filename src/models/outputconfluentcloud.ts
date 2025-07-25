@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputConfluentCloudType = {
   ConfluentCloud: "confluent_cloud",
 } as const;
-export type OutputConfluentCloudType = OpenEnum<
+export type OutputConfluentCloudType = ClosedEnum<
   typeof OutputConfluentCloudType
 >;
 
@@ -25,7 +21,7 @@ export const OutputConfluentCloudMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputConfluentCloudMinimumTLSVersion = OpenEnum<
+export type OutputConfluentCloudMinimumTLSVersion = ClosedEnum<
   typeof OutputConfluentCloudMinimumTLSVersion
 >;
 
@@ -35,7 +31,7 @@ export const OutputConfluentCloudMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputConfluentCloudMaximumTLSVersion = OpenEnum<
+export type OutputConfluentCloudMaximumTLSVersion = ClosedEnum<
   typeof OutputConfluentCloudMaximumTLSVersion
 >;
 
@@ -87,7 +83,7 @@ export const OutputConfluentCloudAcknowledgments = {
 /**
  * Control the number of required acknowledgments.
  */
-export type OutputConfluentCloudAcknowledgments = OpenEnum<
+export type OutputConfluentCloudAcknowledgments = ClosedEnum<
   typeof OutputConfluentCloudAcknowledgments
 >;
 
@@ -102,7 +98,7 @@ export const OutputConfluentCloudRecordDataFormat = {
 /**
  * Format to use to serialize events before writing to Kafka.
  */
-export type OutputConfluentCloudRecordDataFormat = OpenEnum<
+export type OutputConfluentCloudRecordDataFormat = ClosedEnum<
   typeof OutputConfluentCloudRecordDataFormat
 >;
 
@@ -118,7 +114,7 @@ export const OutputConfluentCloudCompression = {
 /**
  * Codec to use to compress the data before sending to Kafka
  */
-export type OutputConfluentCloudCompression = OpenEnum<
+export type OutputConfluentCloudCompression = ClosedEnum<
   typeof OutputConfluentCloudCompression
 >;
 
@@ -139,9 +135,8 @@ export const OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion = OpenEnum<
-  typeof OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion
->;
+export type OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion =
+  ClosedEnum<typeof OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion>;
 
 export const OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = {
   TLSv1: "TLSv1",
@@ -149,9 +144,8 @@ export const OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = OpenEnum<
-  typeof OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion
->;
+export type OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion =
+  ClosedEnum<typeof OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion>;
 
 export type OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide = {
   disabled?: boolean | undefined;
@@ -235,7 +229,7 @@ export const OutputConfluentCloudSASLMechanism = {
   ScramSha512: "scram-sha-512",
   Kerberos: "kerberos",
 } as const;
-export type OutputConfluentCloudSASLMechanism = OpenEnum<
+export type OutputConfluentCloudSASLMechanism = ClosedEnum<
   typeof OutputConfluentCloudSASLMechanism
 >;
 
@@ -258,7 +252,7 @@ export const OutputConfluentCloudBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputConfluentCloudBackpressureBehavior = OpenEnum<
+export type OutputConfluentCloudBackpressureBehavior = ClosedEnum<
   typeof OutputConfluentCloudBackpressureBehavior
 >;
 
@@ -272,7 +266,7 @@ export const OutputConfluentCloudPqCompressCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputConfluentCloudPqCompressCompression = OpenEnum<
+export type OutputConfluentCloudPqCompressCompression = ClosedEnum<
   typeof OutputConfluentCloudPqCompressCompression
 >;
 
@@ -286,7 +280,7 @@ export const OutputConfluentCloudQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputConfluentCloudQueueFullBehavior = OpenEnum<
+export type OutputConfluentCloudQueueFullBehavior = ClosedEnum<
   typeof OutputConfluentCloudQueueFullBehavior
 >;
 
@@ -301,7 +295,7 @@ export const OutputConfluentCloudMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputConfluentCloudMode = OpenEnum<
+export type OutputConfluentCloudMode = ClosedEnum<
   typeof OutputConfluentCloudMode
 >;
 
@@ -438,25 +432,14 @@ export type OutputConfluentCloud = {
 };
 
 /** @internal */
-export const OutputConfluentCloudType$inboundSchema: z.ZodType<
-  OutputConfluentCloudType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudType
+> = z.nativeEnum(OutputConfluentCloudType);
 
 /** @internal */
-export const OutputConfluentCloudType$outboundSchema: z.ZodType<
-  OutputConfluentCloudType,
-  z.ZodTypeDef,
-  OutputConfluentCloudType
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudType
+> = OutputConfluentCloudType$inboundSchema;
 
 /**
  * @internal
@@ -470,25 +453,15 @@ export namespace OutputConfluentCloudType$ {
 }
 
 /** @internal */
-export const OutputConfluentCloudMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputConfluentCloudMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudMinimumTLSVersion$inboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudMinimumTLSVersion> = z.nativeEnum(
+    OutputConfluentCloudMinimumTLSVersion,
+  );
 
 /** @internal */
-export const OutputConfluentCloudMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputConfluentCloudMinimumTLSVersion,
-  z.ZodTypeDef,
-  OutputConfluentCloudMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudMinimumTLSVersion$outboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudMinimumTLSVersion> =
+    OutputConfluentCloudMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -504,25 +477,15 @@ export namespace OutputConfluentCloudMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const OutputConfluentCloudMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputConfluentCloudMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudMaximumTLSVersion$inboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudMaximumTLSVersion> = z.nativeEnum(
+    OutputConfluentCloudMaximumTLSVersion,
+  );
 
 /** @internal */
-export const OutputConfluentCloudMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputConfluentCloudMaximumTLSVersion,
-  z.ZodTypeDef,
-  OutputConfluentCloudMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudMaximumTLSVersion$outboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudMaximumTLSVersion> =
+    OutputConfluentCloudMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -631,25 +594,14 @@ export function outputConfluentCloudTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputConfluentCloudAcknowledgments$inboundSchema: z.ZodType<
-  OutputConfluentCloudAcknowledgments,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudAcknowledgments),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudAcknowledgments$inboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudAcknowledgments
+> = z.nativeEnum(OutputConfluentCloudAcknowledgments);
 
 /** @internal */
-export const OutputConfluentCloudAcknowledgments$outboundSchema: z.ZodType<
-  OutputConfluentCloudAcknowledgments,
-  z.ZodTypeDef,
-  OutputConfluentCloudAcknowledgments
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudAcknowledgments),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
+export const OutputConfluentCloudAcknowledgments$outboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudAcknowledgments> =
+    OutputConfluentCloudAcknowledgments$inboundSchema;
 
 /**
  * @internal
@@ -665,25 +617,15 @@ export namespace OutputConfluentCloudAcknowledgments$ {
 }
 
 /** @internal */
-export const OutputConfluentCloudRecordDataFormat$inboundSchema: z.ZodType<
-  OutputConfluentCloudRecordDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudRecordDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudRecordDataFormat$inboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudRecordDataFormat> = z.nativeEnum(
+    OutputConfluentCloudRecordDataFormat,
+  );
 
 /** @internal */
-export const OutputConfluentCloudRecordDataFormat$outboundSchema: z.ZodType<
-  OutputConfluentCloudRecordDataFormat,
-  z.ZodTypeDef,
-  OutputConfluentCloudRecordDataFormat
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudRecordDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudRecordDataFormat$outboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudRecordDataFormat> =
+    OutputConfluentCloudRecordDataFormat$inboundSchema;
 
 /**
  * @internal
@@ -699,25 +641,14 @@ export namespace OutputConfluentCloudRecordDataFormat$ {
 }
 
 /** @internal */
-export const OutputConfluentCloudCompression$inboundSchema: z.ZodType<
-  OutputConfluentCloudCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudCompression
+> = z.nativeEnum(OutputConfluentCloudCompression);
 
 /** @internal */
-export const OutputConfluentCloudCompression$outboundSchema: z.ZodType<
-  OutputConfluentCloudCompression,
-  z.ZodTypeDef,
-  OutputConfluentCloudCompression
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudCompression
+> = OutputConfluentCloudCompression$inboundSchema;
 
 /**
  * @internal
@@ -789,26 +720,15 @@ export function outputConfluentCloudAuthFromJSON(
 
 /** @internal */
 export const OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
-  z.ZodType<
-    OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<
+    typeof OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion
+  > = z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion);
 
 /** @internal */
 export const OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
-  z.ZodType<
-    OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion,
-    z.ZodTypeDef,
-    OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion
-  > = z.union([
-    z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<
+    typeof OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion
+  > = OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -825,26 +745,15 @@ export namespace OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$ {
 
 /** @internal */
 export const OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
-  z.ZodType<
-    OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<
+    typeof OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion
+  > = z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion);
 
 /** @internal */
 export const OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
-  z.ZodType<
-    OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion,
-    z.ZodTypeDef,
-    OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion
-  > = z.union([
-    z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<
+    typeof OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion
+  > = OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -1060,25 +969,14 @@ export function outputConfluentCloudKafkaSchemaRegistryAuthenticationFromJSON(
 }
 
 /** @internal */
-export const OutputConfluentCloudSASLMechanism$inboundSchema: z.ZodType<
-  OutputConfluentCloudSASLMechanism,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudSASLMechanism),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudSASLMechanism$inboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudSASLMechanism
+> = z.nativeEnum(OutputConfluentCloudSASLMechanism);
 
 /** @internal */
-export const OutputConfluentCloudSASLMechanism$outboundSchema: z.ZodType<
-  OutputConfluentCloudSASLMechanism,
-  z.ZodTypeDef,
-  OutputConfluentCloudSASLMechanism
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudSASLMechanism),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudSASLMechanism$outboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudSASLMechanism
+> = OutputConfluentCloudSASLMechanism$inboundSchema;
 
 /**
  * @internal
@@ -1154,25 +1052,14 @@ export function outputConfluentCloudAuthenticationFromJSON(
 }
 
 /** @internal */
-export const OutputConfluentCloudBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputConfluentCloudBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudBackpressureBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudBackpressureBehavior> = z
+    .nativeEnum(OutputConfluentCloudBackpressureBehavior);
 
 /** @internal */
-export const OutputConfluentCloudBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputConfluentCloudBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputConfluentCloudBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudBackpressureBehavior> =
+    OutputConfluentCloudBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -1188,26 +1075,14 @@ export namespace OutputConfluentCloudBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputConfluentCloudPqCompressCompression$inboundSchema: z.ZodType<
-  OutputConfluentCloudPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudPqCompressCompression$inboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudPqCompressCompression> = z
+    .nativeEnum(OutputConfluentCloudPqCompressCompression);
 
 /** @internal */
 export const OutputConfluentCloudPqCompressCompression$outboundSchema:
-  z.ZodType<
-    OutputConfluentCloudPqCompressCompression,
-    z.ZodTypeDef,
-    OutputConfluentCloudPqCompressCompression
-  > = z.union([
-    z.nativeEnum(OutputConfluentCloudPqCompressCompression),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof OutputConfluentCloudPqCompressCompression> =
+    OutputConfluentCloudPqCompressCompression$inboundSchema;
 
 /**
  * @internal
@@ -1223,25 +1098,15 @@ export namespace OutputConfluentCloudPqCompressCompression$ {
 }
 
 /** @internal */
-export const OutputConfluentCloudQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputConfluentCloudQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudQueueFullBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudQueueFullBehavior> = z.nativeEnum(
+    OutputConfluentCloudQueueFullBehavior,
+  );
 
 /** @internal */
-export const OutputConfluentCloudQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputConfluentCloudQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputConfluentCloudQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudQueueFullBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputConfluentCloudQueueFullBehavior> =
+    OutputConfluentCloudQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -1257,25 +1122,14 @@ export namespace OutputConfluentCloudQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputConfluentCloudMode$inboundSchema: z.ZodType<
-  OutputConfluentCloudMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputConfluentCloudMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputConfluentCloudMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudMode
+> = z.nativeEnum(OutputConfluentCloudMode);
 
 /** @internal */
-export const OutputConfluentCloudMode$outboundSchema: z.ZodType<
-  OutputConfluentCloudMode,
-  z.ZodTypeDef,
-  OutputConfluentCloudMode
-> = z.union([
-  z.nativeEnum(OutputConfluentCloudMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputConfluentCloudMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudMode
+> = OutputConfluentCloudMode$inboundSchema;
 
 /**
  * @internal

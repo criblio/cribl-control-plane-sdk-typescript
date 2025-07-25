@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputSecurityLakeType = {
   SecurityLake: "security_lake",
 } as const;
-export type InputSecurityLakeType = OpenEnum<typeof InputSecurityLakeType>;
+export type InputSecurityLakeType = ClosedEnum<typeof InputSecurityLakeType>;
 
 export type InputSecurityLakeConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputSecurityLakeMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSecurityLakeMode = OpenEnum<typeof InputSecurityLakeMode>;
+export type InputSecurityLakeMode = ClosedEnum<typeof InputSecurityLakeMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputSecurityLakeCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSecurityLakeCompression = OpenEnum<
+export type InputSecurityLakeCompression = ClosedEnum<
   typeof InputSecurityLakeCompression
 >;
 
@@ -90,7 +86,7 @@ export const InputSecurityLakeAuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type InputSecurityLakeAuthenticationMethod = OpenEnum<
+export type InputSecurityLakeAuthenticationMethod = ClosedEnum<
   typeof InputSecurityLakeAuthenticationMethod
 >;
 
@@ -104,7 +100,7 @@ export const InputSecurityLakeSignatureVersion = {
 /**
  * Signature version to use for signing S3 requests
  */
-export type InputSecurityLakeSignatureVersion = OpenEnum<
+export type InputSecurityLakeSignatureVersion = ClosedEnum<
   typeof InputSecurityLakeSignatureVersion
 >;
 
@@ -143,7 +139,7 @@ export const InputSecurityLakeTagAfterProcessing = {
   False: "false",
   True: "true",
 } as const;
-export type InputSecurityLakeTagAfterProcessing = OpenEnum<
+export type InputSecurityLakeTagAfterProcessing = ClosedEnum<
   typeof InputSecurityLakeTagAfterProcessing
 >;
 
@@ -304,25 +300,14 @@ export type InputSecurityLake = {
 };
 
 /** @internal */
-export const InputSecurityLakeType$inboundSchema: z.ZodType<
-  InputSecurityLakeType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSecurityLakeType$inboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeType
+> = z.nativeEnum(InputSecurityLakeType);
 
 /** @internal */
-export const InputSecurityLakeType$outboundSchema: z.ZodType<
-  InputSecurityLakeType,
-  z.ZodTypeDef,
-  InputSecurityLakeType
-> = z.union([
-  z.nativeEnum(InputSecurityLakeType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSecurityLakeType$outboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeType
+> = InputSecurityLakeType$inboundSchema;
 
 /**
  * @internal
@@ -395,25 +380,14 @@ export function inputSecurityLakeConnectionFromJSON(
 }
 
 /** @internal */
-export const InputSecurityLakeMode$inboundSchema: z.ZodType<
-  InputSecurityLakeMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSecurityLakeMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeMode
+> = z.nativeEnum(InputSecurityLakeMode);
 
 /** @internal */
-export const InputSecurityLakeMode$outboundSchema: z.ZodType<
-  InputSecurityLakeMode,
-  z.ZodTypeDef,
-  InputSecurityLakeMode
-> = z.union([
-  z.nativeEnum(InputSecurityLakeMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSecurityLakeMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeMode
+> = InputSecurityLakeMode$inboundSchema;
 
 /**
  * @internal
@@ -427,25 +401,14 @@ export namespace InputSecurityLakeMode$ {
 }
 
 /** @internal */
-export const InputSecurityLakeCompression$inboundSchema: z.ZodType<
-  InputSecurityLakeCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSecurityLakeCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeCompression
+> = z.nativeEnum(InputSecurityLakeCompression);
 
 /** @internal */
-export const InputSecurityLakeCompression$outboundSchema: z.ZodType<
-  InputSecurityLakeCompression,
-  z.ZodTypeDef,
-  InputSecurityLakeCompression
-> = z.union([
-  z.nativeEnum(InputSecurityLakeCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSecurityLakeCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeCompression
+> = InputSecurityLakeCompression$inboundSchema;
 
 /**
  * @internal
@@ -531,25 +494,15 @@ export function inputSecurityLakePqFromJSON(
 }
 
 /** @internal */
-export const InputSecurityLakeAuthenticationMethod$inboundSchema: z.ZodType<
-  InputSecurityLakeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSecurityLakeAuthenticationMethod$inboundSchema:
+  z.ZodNativeEnum<typeof InputSecurityLakeAuthenticationMethod> = z.nativeEnum(
+    InputSecurityLakeAuthenticationMethod,
+  );
 
 /** @internal */
-export const InputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
-  InputSecurityLakeAuthenticationMethod,
-  z.ZodTypeDef,
-  InputSecurityLakeAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputSecurityLakeAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSecurityLakeAuthenticationMethod$outboundSchema:
+  z.ZodNativeEnum<typeof InputSecurityLakeAuthenticationMethod> =
+    InputSecurityLakeAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -565,25 +518,14 @@ export namespace InputSecurityLakeAuthenticationMethod$ {
 }
 
 /** @internal */
-export const InputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
-  InputSecurityLakeSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSecurityLakeSignatureVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeSignatureVersion
+> = z.nativeEnum(InputSecurityLakeSignatureVersion);
 
 /** @internal */
-export const InputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
-  InputSecurityLakeSignatureVersion,
-  z.ZodTypeDef,
-  InputSecurityLakeSignatureVersion
-> = z.union([
-  z.nativeEnum(InputSecurityLakeSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSecurityLakeSignatureVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeSignatureVersion
+> = InputSecurityLakeSignatureVersion$inboundSchema;
 
 /**
  * @internal
@@ -776,25 +718,14 @@ export function inputSecurityLakeCheckpointingFromJSON(
 }
 
 /** @internal */
-export const InputSecurityLakeTagAfterProcessing$inboundSchema: z.ZodType<
-  InputSecurityLakeTagAfterProcessing,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeTagAfterProcessing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSecurityLakeTagAfterProcessing$inboundSchema: z.ZodNativeEnum<
+  typeof InputSecurityLakeTagAfterProcessing
+> = z.nativeEnum(InputSecurityLakeTagAfterProcessing);
 
 /** @internal */
-export const InputSecurityLakeTagAfterProcessing$outboundSchema: z.ZodType<
-  InputSecurityLakeTagAfterProcessing,
-  z.ZodTypeDef,
-  InputSecurityLakeTagAfterProcessing
-> = z.union([
-  z.nativeEnum(InputSecurityLakeTagAfterProcessing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSecurityLakeTagAfterProcessing$outboundSchema:
+  z.ZodNativeEnum<typeof InputSecurityLakeTagAfterProcessing> =
+    InputSecurityLakeTagAfterProcessing$inboundSchema;
 
 /**
  * @internal
