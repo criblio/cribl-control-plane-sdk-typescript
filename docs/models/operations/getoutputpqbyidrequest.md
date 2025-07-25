@@ -14,4 +14,4 @@ let value: GetOutputPqByIdRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *string*           | :heavy_check_mark: | Output Id          |
+| `id`               | *string*           | :heavy_check_mark: | Destination Id     |

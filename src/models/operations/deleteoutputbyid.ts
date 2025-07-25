@@ -16,7 +16,7 @@ export type DeleteOutputByIdRequest = {
 };
 
 /**
- * a list of Output objects
+ * a list of Destination objects
  */
 export type DeleteOutputByIdResponse = {
   /**

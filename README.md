@@ -135,21 +135,21 @@ run();
 * [login](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
 
 
+### [destinations](docs/sdks/destinations/README.md)
+
+* [listDestination](docs/sdks/destinations/README.md#listdestination) - Get a list of Destination objects
+* [createDestination](docs/sdks/destinations/README.md#createdestination) - Create Destination
+* [getDestinationById](docs/sdks/destinations/README.md#getdestinationbyid) - Get Destination by ID
+* [updateDestinationById](docs/sdks/destinations/README.md#updatedestinationbyid) - Update Destination
+* [deleteDestinationById](docs/sdks/destinations/README.md#deletedestinationbyid) - Delete Destination
+* [deleteDestinationPqById](docs/sdks/destinations/README.md#deletedestinationpqbyid) - Clears destination persistent queue
+* [getDestinationPqById](docs/sdks/destinations/README.md#getdestinationpqbyid) - Retrieves status of latest clear PQ job for a destination
+* [getDestinationSamplesById](docs/sdks/destinations/README.md#getdestinationsamplesbyid) - Retrieve samples data for the specified destination. Used to get sample data for the test action.
+* [createDestinationTestById](docs/sdks/destinations/README.md#createdestinationtestbyid) - Send sample data to a destination to validate configuration or test connectivity
+
 ### [health](docs/sdks/health/README.md)
 
 * [getHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
-
-### [outputs](docs/sdks/outputs/README.md)
-
-* [listOutput](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
-* [createOutput](docs/sdks/outputs/README.md#createoutput) - Create Output
-* [getOutputById](docs/sdks/outputs/README.md#getoutputbyid) - Get Output by ID
-* [updateOutputById](docs/sdks/outputs/README.md#updateoutputbyid) - Update Output
-* [deleteOutputById](docs/sdks/outputs/README.md#deleteoutputbyid) - Delete Output
-* [deleteOutputPqById](docs/sdks/outputs/README.md#deleteoutputpqbyid) - Clears destination persistent queue
-* [getOutputPqById](docs/sdks/outputs/README.md#getoutputpqbyid) - Retrieves status of latest clear PQ job for an output
-* [getOutputSamplesById](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
-* [createOutputTestById](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
 
 ### [pipelines](docs/sdks/pipelines/README.md)
 
@@ -195,16 +195,16 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`authLogin`](docs/sdks/auth/README.md#login) - Log in and obtain Auth token
+- [`destinationsCreateDestination`](docs/sdks/destinations/README.md#createdestination) - Create Destination
+- [`destinationsCreateDestinationTestById`](docs/sdks/destinations/README.md#createdestinationtestbyid) - Send sample data to a destination to validate configuration or test connectivity
+- [`destinationsDeleteDestinationById`](docs/sdks/destinations/README.md#deletedestinationbyid) - Delete Destination
+- [`destinationsDeleteDestinationPqById`](docs/sdks/destinations/README.md#deletedestinationpqbyid) - Clears destination persistent queue
+- [`destinationsGetDestinationById`](docs/sdks/destinations/README.md#getdestinationbyid) - Get Destination by ID
+- [`destinationsGetDestinationPqById`](docs/sdks/destinations/README.md#getdestinationpqbyid) - Retrieves status of latest clear PQ job for a destination
+- [`destinationsGetDestinationSamplesById`](docs/sdks/destinations/README.md#getdestinationsamplesbyid) - Retrieve samples data for the specified destination. Used to get sample data for the test action.
+- [`destinationsListDestination`](docs/sdks/destinations/README.md#listdestination) - Get a list of Destination objects
+- [`destinationsUpdateDestinationById`](docs/sdks/destinations/README.md#updatedestinationbyid) - Update Destination
 - [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
-- [`outputsCreateOutput`](docs/sdks/outputs/README.md#createoutput) - Create Output
-- [`outputsCreateOutputTestById`](docs/sdks/outputs/README.md#createoutputtestbyid) - Send sample data to an output to validate configuration or test connectivity
-- [`outputsDeleteOutputById`](docs/sdks/outputs/README.md#deleteoutputbyid) - Delete Output
-- [`outputsDeleteOutputPqById`](docs/sdks/outputs/README.md#deleteoutputpqbyid) - Clears destination persistent queue
-- [`outputsGetOutputById`](docs/sdks/outputs/README.md#getoutputbyid) - Get Output by ID
-- [`outputsGetOutputPqById`](docs/sdks/outputs/README.md#getoutputpqbyid) - Retrieves status of latest clear PQ job for an output
-- [`outputsGetOutputSamplesById`](docs/sdks/outputs/README.md#getoutputsamplesbyid) - Retrieve samples data for the specified output. Used to get sample data for the test action.
-- [`outputsListOutput`](docs/sdks/outputs/README.md#listoutput) - Get a list of Output objects
-- [`outputsUpdateOutputById`](docs/sdks/outputs/README.md#updateoutputbyid) - Update Output
 - [`pipelinesCreatePipeline`](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
 - [`pipelinesDeletePipelineById`](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
 - [`pipelinesGetPipelineById`](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID

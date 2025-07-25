@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type CreateOutputTestByIdRequest = {
   /**
-   * Output Id
+   * Destination Id
    */
   id: string;
   /**

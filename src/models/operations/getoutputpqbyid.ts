@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetOutputPqByIdRequest = {
   /**
-   * Output Id
+   * Destination Id
    */
   id: string;
 };

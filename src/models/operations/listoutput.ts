@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 /**
- * a list of Output objects
+ * a list of Destination objects
  */
 export type ListOutputResponse = {
   /**

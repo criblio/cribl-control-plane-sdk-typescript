@@ -1,6 +1,6 @@
 # GetOutputByIdResponse
 
-a list of Output objects
+a list of Destination objects
 
 ## Example Usage
 
