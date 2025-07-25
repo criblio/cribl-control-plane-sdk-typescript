@@ -115,16 +115,16 @@ const value: operations.InputConfluentCloud = {
 };
 ```
 
-### `operations.InputGrafanaUnion`
+### `operations.InputGrafana`
 
 ```typescript
-const value: operations.InputGrafanaUnion = {
+const value: operations.InputGrafana = {
   id: "<id>",
   disabled: false,
   sendToRoutes: true,
   pqEnabled: false,
   host: "0.0.0.0",
-  port: 7433.63,
+  port: 1453.12,
   maxActiveReq: 256,
   maxRequestsPerSocket: 0,
   enableProxyHeader: false,
@@ -467,17 +467,17 @@ const value: operations.InputSqs = {
 };
 ```
 
-### `operations.InputSyslogUnion`
+### `operations.InputSyslog`
 
 ```typescript
-const value: operations.InputSyslogUnion = {
+const value: operations.InputSyslog = {
   id: "<id>",
   type: "syslog",
   disabled: false,
   sendToRoutes: true,
   pqEnabled: false,
   host: "0.0.0.0",
-  tcpPort: 966.81,
+  udpPort: 4799.28,
   maxBufferSize: 1000,
   ipWhitelistRegex: "/.*/",
   timestampTimezone: "local",

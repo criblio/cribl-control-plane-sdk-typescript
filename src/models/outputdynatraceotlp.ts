@@ -4,18 +4,16 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputDynatraceOtlpType = {
   DynatraceOtlp: "dynatrace_otlp",
 } as const;
-export type OutputDynatraceOtlpType = OpenEnum<typeof OutputDynatraceOtlpType>;
+export type OutputDynatraceOtlpType = ClosedEnum<
+  typeof OutputDynatraceOtlpType
+>;
 
 /**
  * Select a transport option for Dynatrace
@@ -26,7 +24,7 @@ export const OutputDynatraceOtlpProtocol = {
 /**
  * Select a transport option for Dynatrace
  */
-export type OutputDynatraceOtlpProtocol = OpenEnum<
+export type OutputDynatraceOtlpProtocol = ClosedEnum<
   typeof OutputDynatraceOtlpProtocol
 >;
 
@@ -39,7 +37,7 @@ export const OutputDynatraceOTLPOTLPVersion = {
 /**
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
-export type OutputDynatraceOTLPOTLPVersion = OpenEnum<
+export type OutputDynatraceOTLPOTLPVersion = ClosedEnum<
   typeof OutputDynatraceOTLPOTLPVersion
 >;
 
@@ -54,7 +52,7 @@ export const OutputDynatraceOtlpCompressCompression = {
 /**
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
-export type OutputDynatraceOtlpCompressCompression = OpenEnum<
+export type OutputDynatraceOtlpCompressCompression = ClosedEnum<
   typeof OutputDynatraceOtlpCompressCompression
 >;
 
@@ -68,7 +66,7 @@ export const OutputDynatraceOtlpHttpCompressCompression = {
 /**
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
-export type OutputDynatraceOtlpHttpCompressCompression = OpenEnum<
+export type OutputDynatraceOtlpHttpCompressCompression = ClosedEnum<
   typeof OutputDynatraceOtlpHttpCompressCompression
 >;
 
@@ -88,7 +86,7 @@ export const OutputDynatraceOtlpFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputDynatraceOtlpFailedRequestLoggingMode = OpenEnum<
+export type OutputDynatraceOtlpFailedRequestLoggingMode = ClosedEnum<
   typeof OutputDynatraceOtlpFailedRequestLoggingMode
 >;
 
@@ -102,7 +100,7 @@ export const EndpointType = {
 /**
  * Select the type of Dynatrace endpoint configured
  */
-export type EndpointType = OpenEnum<typeof EndpointType>;
+export type EndpointType = ClosedEnum<typeof EndpointType>;
 
 /**
  * How to handle events when all receivers are exerting backpressure
@@ -115,7 +113,7 @@ export const OutputDynatraceOtlpBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputDynatraceOtlpBackpressureBehavior = OpenEnum<
+export type OutputDynatraceOtlpBackpressureBehavior = ClosedEnum<
   typeof OutputDynatraceOtlpBackpressureBehavior
 >;
 
@@ -169,7 +167,7 @@ export const OutputDynatraceOtlpPqCompressCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputDynatraceOtlpPqCompressCompression = OpenEnum<
+export type OutputDynatraceOtlpPqCompressCompression = ClosedEnum<
   typeof OutputDynatraceOtlpPqCompressCompression
 >;
 
@@ -183,7 +181,7 @@ export const OutputDynatraceOtlpQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputDynatraceOtlpQueueFullBehavior = OpenEnum<
+export type OutputDynatraceOtlpQueueFullBehavior = ClosedEnum<
   typeof OutputDynatraceOtlpQueueFullBehavior
 >;
 
@@ -198,7 +196,9 @@ export const OutputDynatraceOtlpMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputDynatraceOtlpMode = OpenEnum<typeof OutputDynatraceOtlpMode>;
+export type OutputDynatraceOtlpMode = ClosedEnum<
+  typeof OutputDynatraceOtlpMode
+>;
 
 export type OutputDynatraceOtlpPqControls = {};
 
@@ -367,25 +367,14 @@ export type OutputDynatraceOtlp = {
 };
 
 /** @internal */
-export const OutputDynatraceOtlpType$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOtlpType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceOtlpType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceOtlpType
+> = z.nativeEnum(OutputDynatraceOtlpType);
 
 /** @internal */
-export const OutputDynatraceOtlpType$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpType,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpType
-> = z.union([
-  z.nativeEnum(OutputDynatraceOtlpType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceOtlpType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceOtlpType
+> = OutputDynatraceOtlpType$inboundSchema;
 
 /**
  * @internal
@@ -399,25 +388,14 @@ export namespace OutputDynatraceOtlpType$ {
 }
 
 /** @internal */
-export const OutputDynatraceOtlpProtocol$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOtlpProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceOtlpProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceOtlpProtocol
+> = z.nativeEnum(OutputDynatraceOtlpProtocol);
 
 /** @internal */
-export const OutputDynatraceOtlpProtocol$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpProtocol,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpProtocol
-> = z.union([
-  z.nativeEnum(OutputDynatraceOtlpProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceOtlpProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceOtlpProtocol
+> = OutputDynatraceOtlpProtocol$inboundSchema;
 
 /**
  * @internal
@@ -431,25 +409,14 @@ export namespace OutputDynatraceOtlpProtocol$ {
 }
 
 /** @internal */
-export const OutputDynatraceOTLPOTLPVersion$inboundSchema: z.ZodType<
-  OutputDynatraceOTLPOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOTLPOTLPVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceOTLPOTLPVersion$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceOTLPOTLPVersion
+> = z.nativeEnum(OutputDynatraceOTLPOTLPVersion);
 
 /** @internal */
-export const OutputDynatraceOTLPOTLPVersion$outboundSchema: z.ZodType<
-  OutputDynatraceOTLPOTLPVersion,
-  z.ZodTypeDef,
-  OutputDynatraceOTLPOTLPVersion
-> = z.union([
-  z.nativeEnum(OutputDynatraceOTLPOTLPVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceOTLPOTLPVersion$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceOTLPOTLPVersion
+> = OutputDynatraceOTLPOTLPVersion$inboundSchema;
 
 /**
  * @internal
@@ -463,25 +430,15 @@ export namespace OutputDynatraceOTLPOTLPVersion$ {
 }
 
 /** @internal */
-export const OutputDynatraceOtlpCompressCompression$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOtlpCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceOtlpCompressCompression$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpCompressCompression> = z.nativeEnum(
+    OutputDynatraceOtlpCompressCompression,
+  );
 
 /** @internal */
-export const OutputDynatraceOtlpCompressCompression$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpCompressCompression,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpCompressCompression
-> = z.union([
-  z.nativeEnum(OutputDynatraceOtlpCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceOtlpCompressCompression$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpCompressCompression> =
+    OutputDynatraceOtlpCompressCompression$inboundSchema;
 
 /**
  * @internal
@@ -498,23 +455,13 @@ export namespace OutputDynatraceOtlpCompressCompression$ {
 
 /** @internal */
 export const OutputDynatraceOtlpHttpCompressCompression$inboundSchema:
-  z.ZodType<OutputDynatraceOtlpHttpCompressCompression, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(OutputDynatraceOtlpHttpCompressCompression),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpHttpCompressCompression> = z
+    .nativeEnum(OutputDynatraceOtlpHttpCompressCompression);
 
 /** @internal */
 export const OutputDynatraceOtlpHttpCompressCompression$outboundSchema:
-  z.ZodType<
-    OutputDynatraceOtlpHttpCompressCompression,
-    z.ZodTypeDef,
-    OutputDynatraceOtlpHttpCompressCompression
-  > = z.union([
-    z.nativeEnum(OutputDynatraceOtlpHttpCompressCompression),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpHttpCompressCompression> =
+    OutputDynatraceOtlpHttpCompressCompression$inboundSchema;
 
 /**
  * @internal
@@ -590,26 +537,13 @@ export function outputDynatraceOtlpMetadatumFromJSON(
 
 /** @internal */
 export const OutputDynatraceOtlpFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputDynatraceOtlpFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputDynatraceOtlpFailedRequestLoggingMode),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpFailedRequestLoggingMode> = z
+    .nativeEnum(OutputDynatraceOtlpFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputDynatraceOtlpFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<
-    OutputDynatraceOtlpFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    OutputDynatraceOtlpFailedRequestLoggingMode
-  > = z.union([
-    z.nativeEnum(OutputDynatraceOtlpFailedRequestLoggingMode),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpFailedRequestLoggingMode> =
+    OutputDynatraceOtlpFailedRequestLoggingMode$inboundSchema;
 
 /**
  * @internal
@@ -625,25 +559,12 @@ export namespace OutputDynatraceOtlpFailedRequestLoggingMode$ {
 }
 
 /** @internal */
-export const EndpointType$inboundSchema: z.ZodType<
-  EndpointType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(EndpointType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const EndpointType$inboundSchema: z.ZodNativeEnum<typeof EndpointType> =
+  z.nativeEnum(EndpointType);
 
 /** @internal */
-export const EndpointType$outboundSchema: z.ZodType<
-  EndpointType,
-  z.ZodTypeDef,
-  EndpointType
-> = z.union([
-  z.nativeEnum(EndpointType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const EndpointType$outboundSchema: z.ZodNativeEnum<typeof EndpointType> =
+  EndpointType$inboundSchema;
 
 /**
  * @internal
@@ -657,25 +578,14 @@ export namespace EndpointType$ {
 }
 
 /** @internal */
-export const OutputDynatraceOtlpBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOtlpBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceOtlpBackpressureBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpBackpressureBehavior> = z
+    .nativeEnum(OutputDynatraceOtlpBackpressureBehavior);
 
 /** @internal */
-export const OutputDynatraceOtlpBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputDynatraceOtlpBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceOtlpBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpBackpressureBehavior> =
+    OutputDynatraceOtlpBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -900,25 +810,14 @@ export function outputDynatraceOtlpTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputDynatraceOtlpPqCompressCompression$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOtlpPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceOtlpPqCompressCompression$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpPqCompressCompression> = z
+    .nativeEnum(OutputDynatraceOtlpPqCompressCompression);
 
 /** @internal */
-export const OutputDynatraceOtlpPqCompressCompression$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpPqCompressCompression,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputDynatraceOtlpPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceOtlpPqCompressCompression$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpPqCompressCompression> =
+    OutputDynatraceOtlpPqCompressCompression$inboundSchema;
 
 /**
  * @internal
@@ -934,25 +833,15 @@ export namespace OutputDynatraceOtlpPqCompressCompression$ {
 }
 
 /** @internal */
-export const OutputDynatraceOtlpQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOtlpQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceOtlpQueueFullBehavior$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpQueueFullBehavior> = z.nativeEnum(
+    OutputDynatraceOtlpQueueFullBehavior,
+  );
 
 /** @internal */
-export const OutputDynatraceOtlpQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDynatraceOtlpQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceOtlpQueueFullBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDynatraceOtlpQueueFullBehavior> =
+    OutputDynatraceOtlpQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -968,25 +857,14 @@ export namespace OutputDynatraceOtlpQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputDynatraceOtlpMode$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOtlpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDynatraceOtlpMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceOtlpMode
+> = z.nativeEnum(OutputDynatraceOtlpMode);
 
 /** @internal */
-export const OutputDynatraceOtlpMode$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpMode,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpMode
-> = z.union([
-  z.nativeEnum(OutputDynatraceOtlpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDynatraceOtlpMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDynatraceOtlpMode
+> = OutputDynatraceOtlpMode$inboundSchema;
 
 /**
  * @internal

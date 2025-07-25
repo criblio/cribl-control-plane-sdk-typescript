@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputSplunkHecType = {
   SplunkHec: "splunk_hec",
 } as const;
-export type OutputSplunkHecType = OpenEnum<typeof OutputSplunkHecType>;
+export type OutputSplunkHecType = ClosedEnum<typeof OutputSplunkHecType>;
 
 export type OutputSplunkHecExtraHttpHeader = {
   name?: string | undefined;
@@ -33,7 +29,7 @@ export const OutputSplunkHecFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputSplunkHecFailedRequestLoggingMode = OpenEnum<
+export type OutputSplunkHecFailedRequestLoggingMode = ClosedEnum<
   typeof OutputSplunkHecFailedRequestLoggingMode
 >;
 
@@ -47,7 +43,7 @@ export const OutputSplunkHecAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type OutputSplunkHecAuthenticationMethod = OpenEnum<
+export type OutputSplunkHecAuthenticationMethod = ClosedEnum<
   typeof OutputSplunkHecAuthenticationMethod
 >;
 
@@ -97,7 +93,7 @@ export const OutputSplunkHecBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputSplunkHecBackpressureBehavior = OpenEnum<
+export type OutputSplunkHecBackpressureBehavior = ClosedEnum<
   typeof OutputSplunkHecBackpressureBehavior
 >;
 
@@ -122,7 +118,7 @@ export const OutputSplunkHecCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputSplunkHecCompression = OpenEnum<
+export type OutputSplunkHecCompression = ClosedEnum<
   typeof OutputSplunkHecCompression
 >;
 
@@ -136,7 +132,7 @@ export const OutputSplunkHecQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputSplunkHecQueueFullBehavior = OpenEnum<
+export type OutputSplunkHecQueueFullBehavior = ClosedEnum<
   typeof OutputSplunkHecQueueFullBehavior
 >;
 
@@ -151,7 +147,7 @@ export const OutputSplunkHecMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputSplunkHecMode = OpenEnum<typeof OutputSplunkHecMode>;
+export type OutputSplunkHecMode = ClosedEnum<typeof OutputSplunkHecMode>;
 
 export type OutputSplunkHecPqControls = {};
 
@@ -316,25 +312,14 @@ export type OutputSplunkHec = {
 };
 
 /** @internal */
-export const OutputSplunkHecType$inboundSchema: z.ZodType<
-  OutputSplunkHecType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSplunkHecType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecType
+> = z.nativeEnum(OutputSplunkHecType);
 
 /** @internal */
-export const OutputSplunkHecType$outboundSchema: z.ZodType<
-  OutputSplunkHecType,
-  z.ZodTypeDef,
-  OutputSplunkHecType
-> = z.union([
-  z.nativeEnum(OutputSplunkHecType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSplunkHecType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecType
+> = OutputSplunkHecType$inboundSchema;
 
 /**
  * @internal
@@ -407,25 +392,14 @@ export function outputSplunkHecExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputSplunkHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputSplunkHecFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSplunkHecFailedRequestLoggingMode$inboundSchema:
+  z.ZodNativeEnum<typeof OutputSplunkHecFailedRequestLoggingMode> = z
+    .nativeEnum(OutputSplunkHecFailedRequestLoggingMode);
 
 /** @internal */
-export const OutputSplunkHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputSplunkHecFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputSplunkHecFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputSplunkHecFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSplunkHecFailedRequestLoggingMode$outboundSchema:
+  z.ZodNativeEnum<typeof OutputSplunkHecFailedRequestLoggingMode> =
+    OutputSplunkHecFailedRequestLoggingMode$inboundSchema;
 
 /**
  * @internal
@@ -441,25 +415,14 @@ export namespace OutputSplunkHecFailedRequestLoggingMode$ {
 }
 
 /** @internal */
-export const OutputSplunkHecAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSplunkHecAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSplunkHecAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecAuthenticationMethod
+> = z.nativeEnum(OutputSplunkHecAuthenticationMethod);
 
 /** @internal */
-export const OutputSplunkHecAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSplunkHecAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputSplunkHecAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSplunkHecAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSplunkHecAuthenticationMethod$outboundSchema:
+  z.ZodNativeEnum<typeof OutputSplunkHecAuthenticationMethod> =
+    OutputSplunkHecAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -611,25 +574,14 @@ export function outputSplunkHecTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputSplunkHecBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSplunkHecBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSplunkHecBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecBackpressureBehavior
+> = z.nativeEnum(OutputSplunkHecBackpressureBehavior);
 
 /** @internal */
-export const OutputSplunkHecBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSplunkHecBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSplunkHecBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkHecBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSplunkHecBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputSplunkHecBackpressureBehavior> =
+    OutputSplunkHecBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -702,25 +654,14 @@ export function outputSplunkHecUrlFromJSON(
 }
 
 /** @internal */
-export const OutputSplunkHecCompression$inboundSchema: z.ZodType<
-  OutputSplunkHecCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSplunkHecCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecCompression
+> = z.nativeEnum(OutputSplunkHecCompression);
 
 /** @internal */
-export const OutputSplunkHecCompression$outboundSchema: z.ZodType<
-  OutputSplunkHecCompression,
-  z.ZodTypeDef,
-  OutputSplunkHecCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkHecCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSplunkHecCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecCompression
+> = OutputSplunkHecCompression$inboundSchema;
 
 /**
  * @internal
@@ -734,25 +675,14 @@ export namespace OutputSplunkHecCompression$ {
 }
 
 /** @internal */
-export const OutputSplunkHecQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSplunkHecQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSplunkHecQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecQueueFullBehavior
+> = z.nativeEnum(OutputSplunkHecQueueFullBehavior);
 
 /** @internal */
-export const OutputSplunkHecQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSplunkHecQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSplunkHecQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkHecQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSplunkHecQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecQueueFullBehavior
+> = OutputSplunkHecQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -766,25 +696,14 @@ export namespace OutputSplunkHecQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputSplunkHecMode$inboundSchema: z.ZodType<
-  OutputSplunkHecMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputSplunkHecMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecMode
+> = z.nativeEnum(OutputSplunkHecMode);
 
 /** @internal */
-export const OutputSplunkHecMode$outboundSchema: z.ZodType<
-  OutputSplunkHecMode,
-  z.ZodTypeDef,
-  OutputSplunkHecMode
-> = z.union([
-  z.nativeEnum(OutputSplunkHecMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputSplunkHecMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkHecMode
+> = OutputSplunkHecMode$inboundSchema;
 
 /**
  * @internal

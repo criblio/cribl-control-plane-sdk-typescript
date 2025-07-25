@@ -12,8 +12,6 @@ let value: OutputDatasetSeverity = "finest";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"finest" | "finer" | "fine" | "info" | "warning" | "error" | "fatal" | Unrecognized<string>
+"finest" | "finer" | "fine" | "info" | "warning" | "error" | "fatal"
 ```

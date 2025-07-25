@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputStatsdType = {
   Statsd: "statsd",
 } as const;
-export type OutputStatsdType = OpenEnum<typeof OutputStatsdType>;
+export type OutputStatsdType = ClosedEnum<typeof OutputStatsdType>;
 
 /**
  * Protocol to use when communicating with the destination.
@@ -27,7 +23,7 @@ export const OutputStatsdDestinationProtocol = {
 /**
  * Protocol to use when communicating with the destination.
  */
-export type OutputStatsdDestinationProtocol = OpenEnum<
+export type OutputStatsdDestinationProtocol = ClosedEnum<
   typeof OutputStatsdDestinationProtocol
 >;
 
@@ -42,7 +38,7 @@ export const OutputStatsdBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputStatsdBackpressureBehavior = OpenEnum<
+export type OutputStatsdBackpressureBehavior = ClosedEnum<
   typeof OutputStatsdBackpressureBehavior
 >;
 
@@ -56,7 +52,9 @@ export const OutputStatsdCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputStatsdCompression = OpenEnum<typeof OutputStatsdCompression>;
+export type OutputStatsdCompression = ClosedEnum<
+  typeof OutputStatsdCompression
+>;
 
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -68,7 +66,7 @@ export const OutputStatsdQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputStatsdQueueFullBehavior = OpenEnum<
+export type OutputStatsdQueueFullBehavior = ClosedEnum<
   typeof OutputStatsdQueueFullBehavior
 >;
 
@@ -83,7 +81,7 @@ export const OutputStatsdMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputStatsdMode = OpenEnum<typeof OutputStatsdMode>;
+export type OutputStatsdMode = ClosedEnum<typeof OutputStatsdMode>;
 
 export type OutputStatsdPqControls = {};
 
@@ -178,25 +176,14 @@ export type OutputStatsd = {
 };
 
 /** @internal */
-export const OutputStatsdType$inboundSchema: z.ZodType<
-  OutputStatsdType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputStatsdType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType
+> = z.nativeEnum(OutputStatsdType);
 
 /** @internal */
-export const OutputStatsdType$outboundSchema: z.ZodType<
-  OutputStatsdType,
-  z.ZodTypeDef,
-  OutputStatsdType
-> = z.union([
-  z.nativeEnum(OutputStatsdType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputStatsdType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType
+> = OutputStatsdType$inboundSchema;
 
 /**
  * @internal
@@ -210,25 +197,14 @@ export namespace OutputStatsdType$ {
 }
 
 /** @internal */
-export const OutputStatsdDestinationProtocol$inboundSchema: z.ZodType<
-  OutputStatsdDestinationProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdDestinationProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputStatsdDestinationProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdDestinationProtocol
+> = z.nativeEnum(OutputStatsdDestinationProtocol);
 
 /** @internal */
-export const OutputStatsdDestinationProtocol$outboundSchema: z.ZodType<
-  OutputStatsdDestinationProtocol,
-  z.ZodTypeDef,
-  OutputStatsdDestinationProtocol
-> = z.union([
-  z.nativeEnum(OutputStatsdDestinationProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputStatsdDestinationProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdDestinationProtocol
+> = OutputStatsdDestinationProtocol$inboundSchema;
 
 /**
  * @internal
@@ -242,25 +218,14 @@ export namespace OutputStatsdDestinationProtocol$ {
 }
 
 /** @internal */
-export const OutputStatsdBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputStatsdBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputStatsdBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdBackpressureBehavior
+> = z.nativeEnum(OutputStatsdBackpressureBehavior);
 
 /** @internal */
-export const OutputStatsdBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputStatsdBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputStatsdBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputStatsdBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputStatsdBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdBackpressureBehavior
+> = OutputStatsdBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -274,25 +239,14 @@ export namespace OutputStatsdBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputStatsdCompression$inboundSchema: z.ZodType<
-  OutputStatsdCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputStatsdCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdCompression
+> = z.nativeEnum(OutputStatsdCompression);
 
 /** @internal */
-export const OutputStatsdCompression$outboundSchema: z.ZodType<
-  OutputStatsdCompression,
-  z.ZodTypeDef,
-  OutputStatsdCompression
-> = z.union([
-  z.nativeEnum(OutputStatsdCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputStatsdCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdCompression
+> = OutputStatsdCompression$inboundSchema;
 
 /**
  * @internal
@@ -306,25 +260,14 @@ export namespace OutputStatsdCompression$ {
 }
 
 /** @internal */
-export const OutputStatsdQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputStatsdQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputStatsdQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdQueueFullBehavior
+> = z.nativeEnum(OutputStatsdQueueFullBehavior);
 
 /** @internal */
-export const OutputStatsdQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputStatsdQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputStatsdQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputStatsdQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputStatsdQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdQueueFullBehavior
+> = OutputStatsdQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -338,25 +281,14 @@ export namespace OutputStatsdQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputStatsdMode$inboundSchema: z.ZodType<
-  OutputStatsdMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputStatsdMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdMode
+> = z.nativeEnum(OutputStatsdMode);
 
 /** @internal */
-export const OutputStatsdMode$outboundSchema: z.ZodType<
-  OutputStatsdMode,
-  z.ZodTypeDef,
-  OutputStatsdMode
-> = z.union([
-  z.nativeEnum(OutputStatsdMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputStatsdMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdMode
+> = OutputStatsdMode$inboundSchema;
 
 /**
  * @internal

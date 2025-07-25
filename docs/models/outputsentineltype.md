@@ -10,8 +10,6 @@ let value: OutputSentinelType = "sentinel";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"sentinel" | Unrecognized<string>
+"sentinel"
 ```

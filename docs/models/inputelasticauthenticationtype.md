@@ -10,8 +10,6 @@ let value: InputElasticAuthenticationType = "basic";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"none" | "basic" | "credentialsSecret" | "authTokens" | Unrecognized<string>
+"none" | "basic" | "credentialsSecret" | "authTokens"
 ```

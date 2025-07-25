@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputSnmpType = {
   Snmp: "snmp",
 } as const;
-export type InputSnmpType = OpenEnum<typeof InputSnmpType>;
+export type InputSnmpType = ClosedEnum<typeof InputSnmpType>;
 
 export type InputSnmpConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputSnmpMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSnmpMode = OpenEnum<typeof InputSnmpMode>;
+export type InputSnmpMode = ClosedEnum<typeof InputSnmpMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputSnmpCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSnmpCompression = OpenEnum<typeof InputSnmpCompression>;
+export type InputSnmpCompression = ClosedEnum<typeof InputSnmpCompression>;
 
 export type InputSnmpPq = {
   /**
@@ -86,7 +82,7 @@ export const AuthenticationProtocol = {
   Sha384: "sha384",
   Sha512: "sha512",
 } as const;
-export type AuthenticationProtocol = OpenEnum<typeof AuthenticationProtocol>;
+export type AuthenticationProtocol = ClosedEnum<typeof AuthenticationProtocol>;
 
 export type V3User = {
   name: string;
@@ -190,25 +186,14 @@ export type InputSnmp = {
 };
 
 /** @internal */
-export const InputSnmpType$inboundSchema: z.ZodType<
-  InputSnmpType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSnmpType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSnmpType$inboundSchema: z.ZodNativeEnum<
+  typeof InputSnmpType
+> = z.nativeEnum(InputSnmpType);
 
 /** @internal */
-export const InputSnmpType$outboundSchema: z.ZodType<
-  InputSnmpType,
-  z.ZodTypeDef,
-  InputSnmpType
-> = z.union([
-  z.nativeEnum(InputSnmpType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSnmpType$outboundSchema: z.ZodNativeEnum<
+  typeof InputSnmpType
+> = InputSnmpType$inboundSchema;
 
 /**
  * @internal
@@ -279,25 +264,14 @@ export function inputSnmpConnectionFromJSON(
 }
 
 /** @internal */
-export const InputSnmpMode$inboundSchema: z.ZodType<
-  InputSnmpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSnmpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSnmpMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSnmpMode
+> = z.nativeEnum(InputSnmpMode);
 
 /** @internal */
-export const InputSnmpMode$outboundSchema: z.ZodType<
-  InputSnmpMode,
-  z.ZodTypeDef,
-  InputSnmpMode
-> = z.union([
-  z.nativeEnum(InputSnmpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSnmpMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSnmpMode
+> = InputSnmpMode$inboundSchema;
 
 /**
  * @internal
@@ -311,25 +285,14 @@ export namespace InputSnmpMode$ {
 }
 
 /** @internal */
-export const InputSnmpCompression$inboundSchema: z.ZodType<
-  InputSnmpCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSnmpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSnmpCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputSnmpCompression
+> = z.nativeEnum(InputSnmpCompression);
 
 /** @internal */
-export const InputSnmpCompression$outboundSchema: z.ZodType<
-  InputSnmpCompression,
-  z.ZodTypeDef,
-  InputSnmpCompression
-> = z.union([
-  z.nativeEnum(InputSnmpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSnmpCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputSnmpCompression
+> = InputSnmpCompression$inboundSchema;
 
 /**
  * @internal
@@ -411,25 +374,14 @@ export function inputSnmpPqFromJSON(
 }
 
 /** @internal */
-export const AuthenticationProtocol$inboundSchema: z.ZodType<
-  AuthenticationProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(AuthenticationProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const AuthenticationProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof AuthenticationProtocol
+> = z.nativeEnum(AuthenticationProtocol);
 
 /** @internal */
-export const AuthenticationProtocol$outboundSchema: z.ZodType<
-  AuthenticationProtocol,
-  z.ZodTypeDef,
-  AuthenticationProtocol
-> = z.union([
-  z.nativeEnum(AuthenticationProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const AuthenticationProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof AuthenticationProtocol
+> = AuthenticationProtocol$inboundSchema;
 
 /**
  * @internal

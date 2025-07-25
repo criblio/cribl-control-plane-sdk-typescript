@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputSystemMetricsType = {
   SystemMetrics: "system_metrics",
 } as const;
-export type InputSystemMetricsType = OpenEnum<typeof InputSystemMetricsType>;
+export type InputSystemMetricsType = ClosedEnum<typeof InputSystemMetricsType>;
 
 export type InputSystemMetricsConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputSystemMetricsPqMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSystemMetricsPqMode = OpenEnum<
+export type InputSystemMetricsPqMode = ClosedEnum<
   typeof InputSystemMetricsPqMode
 >;
 
@@ -46,7 +42,7 @@ export const InputSystemMetricsCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSystemMetricsCompression = OpenEnum<
+export type InputSystemMetricsCompression = ClosedEnum<
   typeof InputSystemMetricsCompression
 >;
 
@@ -93,7 +89,7 @@ export const InputSystemMetricsHostMode = {
 /**
  * Select level of detail for host metrics
  */
-export type InputSystemMetricsHostMode = OpenEnum<
+export type InputSystemMetricsHostMode = ClosedEnum<
   typeof InputSystemMetricsHostMode
 >;
 
@@ -109,7 +105,7 @@ export const InputSystemMetricsSystemMode = {
 /**
  * Select the level of detail for system metrics
  */
-export type InputSystemMetricsSystemMode = OpenEnum<
+export type InputSystemMetricsSystemMode = ClosedEnum<
   typeof InputSystemMetricsSystemMode
 >;
 
@@ -136,7 +132,7 @@ export const InputSystemMetricsCpuMode = {
 /**
  * Select the level of detail for CPU metrics
  */
-export type InputSystemMetricsCpuMode = OpenEnum<
+export type InputSystemMetricsCpuMode = ClosedEnum<
   typeof InputSystemMetricsCpuMode
 >;
 
@@ -171,7 +167,7 @@ export const InputSystemMetricsMemoryMode = {
 /**
  * Select the level of detail for memory metrics
  */
-export type InputSystemMetricsMemoryMode = OpenEnum<
+export type InputSystemMetricsMemoryMode = ClosedEnum<
   typeof InputSystemMetricsMemoryMode
 >;
 
@@ -198,7 +194,7 @@ export const InputSystemMetricsNetworkMode = {
 /**
  * Select the level of detail for network metrics
  */
-export type InputSystemMetricsNetworkMode = OpenEnum<
+export type InputSystemMetricsNetworkMode = ClosedEnum<
   typeof InputSystemMetricsNetworkMode
 >;
 
@@ -233,7 +229,7 @@ export const InputSystemMetricsDiskMode = {
 /**
  * Select the level of detail for disk metrics
  */
-export type InputSystemMetricsDiskMode = OpenEnum<
+export type InputSystemMetricsDiskMode = ClosedEnum<
   typeof InputSystemMetricsDiskMode
 >;
 
@@ -305,7 +301,7 @@ export const ContainerMode = {
 /**
  * Select the level of detail for container metrics
  */
-export type ContainerMode = OpenEnum<typeof ContainerMode>;
+export type ContainerMode = ClosedEnum<typeof ContainerMode>;
 
 export type InputSystemMetricsFilter = {
   expr: string;
@@ -354,7 +350,7 @@ export const InputSystemMetricsDataCompressionFormat = {
   None: "none",
   Gzip: "gzip",
 } as const;
-export type InputSystemMetricsDataCompressionFormat = OpenEnum<
+export type InputSystemMetricsDataCompressionFormat = ClosedEnum<
   typeof InputSystemMetricsDataCompressionFormat
 >;
 
@@ -430,25 +426,14 @@ export type InputSystemMetrics = {
 };
 
 /** @internal */
-export const InputSystemMetricsType$inboundSchema: z.ZodType<
-  InputSystemMetricsType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsType$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType
+> = z.nativeEnum(InputSystemMetricsType);
 
 /** @internal */
-export const InputSystemMetricsType$outboundSchema: z.ZodType<
-  InputSystemMetricsType,
-  z.ZodTypeDef,
-  InputSystemMetricsType
-> = z.union([
-  z.nativeEnum(InputSystemMetricsType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsType$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType
+> = InputSystemMetricsType$inboundSchema;
 
 /**
  * @internal
@@ -521,25 +506,14 @@ export function inputSystemMetricsConnectionFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsPqMode$inboundSchema: z.ZodType<
-  InputSystemMetricsPqMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsPqMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsPqMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsPqMode
+> = z.nativeEnum(InputSystemMetricsPqMode);
 
 /** @internal */
-export const InputSystemMetricsPqMode$outboundSchema: z.ZodType<
-  InputSystemMetricsPqMode,
-  z.ZodTypeDef,
-  InputSystemMetricsPqMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsPqMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsPqMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsPqMode
+> = InputSystemMetricsPqMode$inboundSchema;
 
 /**
  * @internal
@@ -553,25 +527,14 @@ export namespace InputSystemMetricsPqMode$ {
 }
 
 /** @internal */
-export const InputSystemMetricsCompression$inboundSchema: z.ZodType<
-  InputSystemMetricsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsCompression
+> = z.nativeEnum(InputSystemMetricsCompression);
 
 /** @internal */
-export const InputSystemMetricsCompression$outboundSchema: z.ZodType<
-  InputSystemMetricsCompression,
-  z.ZodTypeDef,
-  InputSystemMetricsCompression
-> = z.union([
-  z.nativeEnum(InputSystemMetricsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsCompression
+> = InputSystemMetricsCompression$inboundSchema;
 
 /**
  * @internal
@@ -657,25 +620,14 @@ export function inputSystemMetricsPqFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsHostMode$inboundSchema: z.ZodType<
-  InputSystemMetricsHostMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsHostMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsHostMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsHostMode
+> = z.nativeEnum(InputSystemMetricsHostMode);
 
 /** @internal */
-export const InputSystemMetricsHostMode$outboundSchema: z.ZodType<
-  InputSystemMetricsHostMode,
-  z.ZodTypeDef,
-  InputSystemMetricsHostMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsHostMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsHostMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsHostMode
+> = InputSystemMetricsHostMode$inboundSchema;
 
 /**
  * @internal
@@ -689,25 +641,14 @@ export namespace InputSystemMetricsHostMode$ {
 }
 
 /** @internal */
-export const InputSystemMetricsSystemMode$inboundSchema: z.ZodType<
-  InputSystemMetricsSystemMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsSystemMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsSystemMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsSystemMode
+> = z.nativeEnum(InputSystemMetricsSystemMode);
 
 /** @internal */
-export const InputSystemMetricsSystemMode$outboundSchema: z.ZodType<
-  InputSystemMetricsSystemMode,
-  z.ZodTypeDef,
-  InputSystemMetricsSystemMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsSystemMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsSystemMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsSystemMode
+> = InputSystemMetricsSystemMode$inboundSchema;
 
 /**
  * @internal
@@ -778,25 +719,14 @@ export function inputSystemMetricsSystemFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsCpuMode$inboundSchema: z.ZodType<
-  InputSystemMetricsCpuMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsCpuMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsCpuMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsCpuMode
+> = z.nativeEnum(InputSystemMetricsCpuMode);
 
 /** @internal */
-export const InputSystemMetricsCpuMode$outboundSchema: z.ZodType<
-  InputSystemMetricsCpuMode,
-  z.ZodTypeDef,
-  InputSystemMetricsCpuMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsCpuMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsCpuMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsCpuMode
+> = InputSystemMetricsCpuMode$inboundSchema;
 
 /**
  * @internal
@@ -873,25 +803,14 @@ export function inputSystemMetricsCpuFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsMemoryMode$inboundSchema: z.ZodType<
-  InputSystemMetricsMemoryMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsMemoryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsMemoryMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsMemoryMode
+> = z.nativeEnum(InputSystemMetricsMemoryMode);
 
 /** @internal */
-export const InputSystemMetricsMemoryMode$outboundSchema: z.ZodType<
-  InputSystemMetricsMemoryMode,
-  z.ZodTypeDef,
-  InputSystemMetricsMemoryMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsMemoryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsMemoryMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsMemoryMode
+> = InputSystemMetricsMemoryMode$inboundSchema;
 
 /**
  * @internal
@@ -962,25 +881,14 @@ export function inputSystemMetricsMemoryFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsNetworkMode$inboundSchema: z.ZodType<
-  InputSystemMetricsNetworkMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsNetworkMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsNetworkMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsNetworkMode
+> = z.nativeEnum(InputSystemMetricsNetworkMode);
 
 /** @internal */
-export const InputSystemMetricsNetworkMode$outboundSchema: z.ZodType<
-  InputSystemMetricsNetworkMode,
-  z.ZodTypeDef,
-  InputSystemMetricsNetworkMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsNetworkMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsNetworkMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsNetworkMode
+> = InputSystemMetricsNetworkMode$inboundSchema;
 
 /**
  * @internal
@@ -1057,25 +965,14 @@ export function inputSystemMetricsNetworkFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsDiskMode$inboundSchema: z.ZodType<
-  InputSystemMetricsDiskMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsDiskMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsDiskMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsDiskMode
+> = z.nativeEnum(InputSystemMetricsDiskMode);
 
 /** @internal */
-export const InputSystemMetricsDiskMode$outboundSchema: z.ZodType<
-  InputSystemMetricsDiskMode,
-  z.ZodTypeDef,
-  InputSystemMetricsDiskMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsDiskMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsDiskMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsDiskMode
+> = InputSystemMetricsDiskMode$inboundSchema;
 
 /**
  * @internal
@@ -1395,25 +1292,14 @@ export function inputSystemMetricsProcessFromJSON(
 }
 
 /** @internal */
-export const ContainerMode$inboundSchema: z.ZodType<
-  ContainerMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(ContainerMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const ContainerMode$inboundSchema: z.ZodNativeEnum<
+  typeof ContainerMode
+> = z.nativeEnum(ContainerMode);
 
 /** @internal */
-export const ContainerMode$outboundSchema: z.ZodType<
-  ContainerMode,
-  z.ZodTypeDef,
-  ContainerMode
-> = z.union([
-  z.nativeEnum(ContainerMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const ContainerMode$outboundSchema: z.ZodNativeEnum<
+  typeof ContainerMode
+> = ContainerMode$inboundSchema;
 
 /**
  * @internal
@@ -1610,25 +1496,14 @@ export function inputSystemMetricsMetadatumFromJSON(
 }
 
 /** @internal */
-export const InputSystemMetricsDataCompressionFormat$inboundSchema: z.ZodType<
-  InputSystemMetricsDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputSystemMetricsDataCompressionFormat$inboundSchema:
+  z.ZodNativeEnum<typeof InputSystemMetricsDataCompressionFormat> = z
+    .nativeEnum(InputSystemMetricsDataCompressionFormat);
 
 /** @internal */
-export const InputSystemMetricsDataCompressionFormat$outboundSchema: z.ZodType<
-  InputSystemMetricsDataCompressionFormat,
-  z.ZodTypeDef,
-  InputSystemMetricsDataCompressionFormat
-> = z.union([
-  z.nativeEnum(InputSystemMetricsDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputSystemMetricsDataCompressionFormat$outboundSchema:
+  z.ZodNativeEnum<typeof InputSystemMetricsDataCompressionFormat> =
+    InputSystemMetricsDataCompressionFormat$inboundSchema;
 
 /**
  * @internal

@@ -10,8 +10,6 @@ let value: InputSyslogType1 = "syslog";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"syslog" | Unrecognized<string>
+"syslog"
 ```

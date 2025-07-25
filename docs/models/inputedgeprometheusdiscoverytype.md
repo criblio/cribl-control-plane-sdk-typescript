@@ -12,8 +12,6 @@ let value: InputEdgePrometheusDiscoveryType = "k8s-node";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"static" | "dns" | "ec2" | "k8s-node" | "k8s-pods" | Unrecognized<string>
+"static" | "dns" | "ec2" | "k8s-node" | "k8s-pods"
 ```

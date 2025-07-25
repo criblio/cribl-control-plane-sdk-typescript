@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputRouterType = {
   Router: "router",
 } as const;
-export type OutputRouterType = OpenEnum<typeof OutputRouterType>;
+export type OutputRouterType = ClosedEnum<typeof OutputRouterType>;
 
 export type OutputRouterRule = {
   /**
@@ -66,25 +62,14 @@ export type OutputRouter = {
 };
 
 /** @internal */
-export const OutputRouterType$inboundSchema: z.ZodType<
-  OutputRouterType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputRouterType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputRouterType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputRouterType
+> = z.nativeEnum(OutputRouterType);
 
 /** @internal */
-export const OutputRouterType$outboundSchema: z.ZodType<
-  OutputRouterType,
-  z.ZodTypeDef,
-  OutputRouterType
-> = z.union([
-  z.nativeEnum(OutputRouterType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputRouterType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputRouterType
+> = OutputRouterType$inboundSchema;
 
 /**
  * @internal

@@ -12,8 +12,6 @@ let value: OutputDynatraceHttpBackpressureBehavior = "queue";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"block" | "drop" | "queue" | Unrecognized<string>
+"block" | "drop" | "queue"
 ```

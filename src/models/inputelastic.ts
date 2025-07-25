@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputElasticType = {
   Elastic: "elastic",
 } as const;
-export type InputElasticType = OpenEnum<typeof InputElasticType>;
+export type InputElasticType = ClosedEnum<typeof InputElasticType>;
 
 export type InputElasticConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputElasticMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputElasticMode = OpenEnum<typeof InputElasticMode>;
+export type InputElasticMode = ClosedEnum<typeof InputElasticMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,9 @@ export const InputElasticCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputElasticCompression = OpenEnum<typeof InputElasticCompression>;
+export type InputElasticCompression = ClosedEnum<
+  typeof InputElasticCompression
+>;
 
 export type InputElasticPq = {
   /**
@@ -83,7 +81,7 @@ export const InputElasticMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputElasticMinimumTLSVersion = OpenEnum<
+export type InputElasticMinimumTLSVersion = ClosedEnum<
   typeof InputElasticMinimumTLSVersion
 >;
 
@@ -93,7 +91,7 @@ export const InputElasticMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputElasticMaximumTLSVersion = OpenEnum<
+export type InputElasticMaximumTLSVersion = ClosedEnum<
   typeof InputElasticMaximumTLSVersion
 >;
 
@@ -135,7 +133,7 @@ export const InputElasticAuthenticationType = {
   CredentialsSecret: "credentialsSecret",
   AuthTokens: "authTokens",
 } as const;
-export type InputElasticAuthenticationType = OpenEnum<
+export type InputElasticAuthenticationType = ClosedEnum<
   typeof InputElasticAuthenticationType
 >;
 
@@ -150,7 +148,7 @@ export const InputElasticAPIVersion = {
 /**
  * The API version to use for communicating with the server
  */
-export type InputElasticAPIVersion = OpenEnum<typeof InputElasticAPIVersion>;
+export type InputElasticAPIVersion = ClosedEnum<typeof InputElasticAPIVersion>;
 
 export type InputElasticExtraHttpHeader = {
   name?: string | undefined;
@@ -176,7 +174,7 @@ export const InputElasticAuthenticationMethod = {
 /**
  * Enter credentials directly, or select a stored secret
  */
-export type InputElasticAuthenticationMethod = OpenEnum<
+export type InputElasticAuthenticationMethod = ClosedEnum<
   typeof InputElasticAuthenticationMethod
 >;
 
@@ -328,25 +326,14 @@ export type InputElastic = {
 };
 
 /** @internal */
-export const InputElasticType$inboundSchema: z.ZodType<
-  InputElasticType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputElasticType$inboundSchema: z.ZodNativeEnum<
+  typeof InputElasticType
+> = z.nativeEnum(InputElasticType);
 
 /** @internal */
-export const InputElasticType$outboundSchema: z.ZodType<
-  InputElasticType,
-  z.ZodTypeDef,
-  InputElasticType
-> = z.union([
-  z.nativeEnum(InputElasticType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticType$outboundSchema: z.ZodNativeEnum<
+  typeof InputElasticType
+> = InputElasticType$inboundSchema;
 
 /**
  * @internal
@@ -417,25 +404,14 @@ export function inputElasticConnectionFromJSON(
 }
 
 /** @internal */
-export const InputElasticMode$inboundSchema: z.ZodType<
-  InputElasticMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputElasticMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputElasticMode
+> = z.nativeEnum(InputElasticMode);
 
 /** @internal */
-export const InputElasticMode$outboundSchema: z.ZodType<
-  InputElasticMode,
-  z.ZodTypeDef,
-  InputElasticMode
-> = z.union([
-  z.nativeEnum(InputElasticMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputElasticMode
+> = InputElasticMode$inboundSchema;
 
 /**
  * @internal
@@ -449,25 +425,14 @@ export namespace InputElasticMode$ {
 }
 
 /** @internal */
-export const InputElasticCompression$inboundSchema: z.ZodType<
-  InputElasticCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputElasticCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputElasticCompression
+> = z.nativeEnum(InputElasticCompression);
 
 /** @internal */
-export const InputElasticCompression$outboundSchema: z.ZodType<
-  InputElasticCompression,
-  z.ZodTypeDef,
-  InputElasticCompression
-> = z.union([
-  z.nativeEnum(InputElasticCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputElasticCompression
+> = InputElasticCompression$inboundSchema;
 
 /**
  * @internal
@@ -549,25 +514,14 @@ export function inputElasticPqFromJSON(
 }
 
 /** @internal */
-export const InputElasticMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputElasticMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputElasticMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputElasticMinimumTLSVersion
+> = z.nativeEnum(InputElasticMinimumTLSVersion);
 
 /** @internal */
-export const InputElasticMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputElasticMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputElasticMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputElasticMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputElasticMinimumTLSVersion
+> = InputElasticMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -581,25 +535,14 @@ export namespace InputElasticMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputElasticMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputElasticMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputElasticMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputElasticMaximumTLSVersion
+> = z.nativeEnum(InputElasticMaximumTLSVersion);
 
 /** @internal */
-export const InputElasticMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputElasticMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputElasticMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputElasticMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputElasticMaximumTLSVersion
+> = InputElasticMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -700,25 +643,14 @@ export function inputElasticTLSSettingsServerSideFromJSON(
 }
 
 /** @internal */
-export const InputElasticAuthenticationType$inboundSchema: z.ZodType<
-  InputElasticAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputElasticAuthenticationType$inboundSchema: z.ZodNativeEnum<
+  typeof InputElasticAuthenticationType
+> = z.nativeEnum(InputElasticAuthenticationType);
 
 /** @internal */
-export const InputElasticAuthenticationType$outboundSchema: z.ZodType<
-  InputElasticAuthenticationType,
-  z.ZodTypeDef,
-  InputElasticAuthenticationType
-> = z.union([
-  z.nativeEnum(InputElasticAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticAuthenticationType$outboundSchema: z.ZodNativeEnum<
+  typeof InputElasticAuthenticationType
+> = InputElasticAuthenticationType$inboundSchema;
 
 /**
  * @internal
@@ -732,25 +664,14 @@ export namespace InputElasticAuthenticationType$ {
 }
 
 /** @internal */
-export const InputElasticAPIVersion$inboundSchema: z.ZodType<
-  InputElasticAPIVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticAPIVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputElasticAPIVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputElasticAPIVersion
+> = z.nativeEnum(InputElasticAPIVersion);
 
 /** @internal */
-export const InputElasticAPIVersion$outboundSchema: z.ZodType<
-  InputElasticAPIVersion,
-  z.ZodTypeDef,
-  InputElasticAPIVersion
-> = z.union([
-  z.nativeEnum(InputElasticAPIVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticAPIVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputElasticAPIVersion
+> = InputElasticAPIVersion$inboundSchema;
 
 /**
  * @internal
@@ -880,25 +801,14 @@ export function inputElasticMetadatumFromJSON(
 }
 
 /** @internal */
-export const InputElasticAuthenticationMethod$inboundSchema: z.ZodType<
-  InputElasticAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputElasticAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof InputElasticAuthenticationMethod
+> = z.nativeEnum(InputElasticAuthenticationMethod);
 
 /** @internal */
-export const InputElasticAuthenticationMethod$outboundSchema: z.ZodType<
-  InputElasticAuthenticationMethod,
-  z.ZodTypeDef,
-  InputElasticAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputElasticAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
+  typeof InputElasticAuthenticationMethod
+> = InputElasticAuthenticationMethod$inboundSchema;
 
 /**
  * @internal

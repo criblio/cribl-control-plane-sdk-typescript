@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputPrometheusRwType = {
   PrometheusRw: "prometheus_rw",
 } as const;
-export type InputPrometheusRwType = OpenEnum<typeof InputPrometheusRwType>;
+export type InputPrometheusRwType = ClosedEnum<typeof InputPrometheusRwType>;
 
 export type InputPrometheusRwConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputPrometheusRwMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputPrometheusRwMode = OpenEnum<typeof InputPrometheusRwMode>;
+export type InputPrometheusRwMode = ClosedEnum<typeof InputPrometheusRwMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputPrometheusRwCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputPrometheusRwCompression = OpenEnum<
+export type InputPrometheusRwCompression = ClosedEnum<
   typeof InputPrometheusRwCompression
 >;
 
@@ -85,7 +81,7 @@ export const InputPrometheusRwMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputPrometheusRwMinimumTLSVersion = OpenEnum<
+export type InputPrometheusRwMinimumTLSVersion = ClosedEnum<
   typeof InputPrometheusRwMinimumTLSVersion
 >;
 
@@ -95,7 +91,7 @@ export const InputPrometheusRwMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputPrometheusRwMaximumTLSVersion = OpenEnum<
+export type InputPrometheusRwMaximumTLSVersion = ClosedEnum<
   typeof InputPrometheusRwMaximumTLSVersion
 >;
 
@@ -145,7 +141,7 @@ export const InputPrometheusRwAuthenticationType = {
 /**
  * Remote Write authentication type
  */
-export type InputPrometheusRwAuthenticationType = OpenEnum<
+export type InputPrometheusRwAuthenticationType = ClosedEnum<
   typeof InputPrometheusRwAuthenticationType
 >;
 
@@ -326,25 +322,14 @@ export type InputPrometheusRw = {
 };
 
 /** @internal */
-export const InputPrometheusRwType$inboundSchema: z.ZodType<
-  InputPrometheusRwType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputPrometheusRwType$inboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwType
+> = z.nativeEnum(InputPrometheusRwType);
 
 /** @internal */
-export const InputPrometheusRwType$outboundSchema: z.ZodType<
-  InputPrometheusRwType,
-  z.ZodTypeDef,
-  InputPrometheusRwType
-> = z.union([
-  z.nativeEnum(InputPrometheusRwType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputPrometheusRwType$outboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwType
+> = InputPrometheusRwType$inboundSchema;
 
 /**
  * @internal
@@ -417,25 +402,14 @@ export function inputPrometheusRwConnectionFromJSON(
 }
 
 /** @internal */
-export const InputPrometheusRwMode$inboundSchema: z.ZodType<
-  InputPrometheusRwMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputPrometheusRwMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwMode
+> = z.nativeEnum(InputPrometheusRwMode);
 
 /** @internal */
-export const InputPrometheusRwMode$outboundSchema: z.ZodType<
-  InputPrometheusRwMode,
-  z.ZodTypeDef,
-  InputPrometheusRwMode
-> = z.union([
-  z.nativeEnum(InputPrometheusRwMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputPrometheusRwMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwMode
+> = InputPrometheusRwMode$inboundSchema;
 
 /**
  * @internal
@@ -449,25 +423,14 @@ export namespace InputPrometheusRwMode$ {
 }
 
 /** @internal */
-export const InputPrometheusRwCompression$inboundSchema: z.ZodType<
-  InputPrometheusRwCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputPrometheusRwCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwCompression
+> = z.nativeEnum(InputPrometheusRwCompression);
 
 /** @internal */
-export const InputPrometheusRwCompression$outboundSchema: z.ZodType<
-  InputPrometheusRwCompression,
-  z.ZodTypeDef,
-  InputPrometheusRwCompression
-> = z.union([
-  z.nativeEnum(InputPrometheusRwCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputPrometheusRwCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwCompression
+> = InputPrometheusRwCompression$inboundSchema;
 
 /**
  * @internal
@@ -553,25 +516,14 @@ export function inputPrometheusRwPqFromJSON(
 }
 
 /** @internal */
-export const InputPrometheusRwMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputPrometheusRwMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputPrometheusRwMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwMinimumTLSVersion
+> = z.nativeEnum(InputPrometheusRwMinimumTLSVersion);
 
 /** @internal */
-export const InputPrometheusRwMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputPrometheusRwMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputPrometheusRwMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputPrometheusRwMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputPrometheusRwMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwMinimumTLSVersion
+> = InputPrometheusRwMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -586,25 +538,14 @@ export namespace InputPrometheusRwMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputPrometheusRwMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputPrometheusRwMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputPrometheusRwMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwMaximumTLSVersion
+> = z.nativeEnum(InputPrometheusRwMaximumTLSVersion);
 
 /** @internal */
-export const InputPrometheusRwMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputPrometheusRwMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputPrometheusRwMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputPrometheusRwMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputPrometheusRwMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwMaximumTLSVersion
+> = InputPrometheusRwMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal
@@ -709,25 +650,14 @@ export function inputPrometheusRwTLSSettingsServerSideFromJSON(
 }
 
 /** @internal */
-export const InputPrometheusRwAuthenticationType$inboundSchema: z.ZodType<
-  InputPrometheusRwAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputPrometheusRwAuthenticationType$inboundSchema: z.ZodNativeEnum<
+  typeof InputPrometheusRwAuthenticationType
+> = z.nativeEnum(InputPrometheusRwAuthenticationType);
 
 /** @internal */
-export const InputPrometheusRwAuthenticationType$outboundSchema: z.ZodType<
-  InputPrometheusRwAuthenticationType,
-  z.ZodTypeDef,
-  InputPrometheusRwAuthenticationType
-> = z.union([
-  z.nativeEnum(InputPrometheusRwAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputPrometheusRwAuthenticationType$outboundSchema:
+  z.ZodNativeEnum<typeof InputPrometheusRwAuthenticationType> =
+    InputPrometheusRwAuthenticationType$inboundSchema;
 
 /**
  * @internal

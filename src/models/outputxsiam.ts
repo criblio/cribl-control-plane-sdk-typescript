@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputXsiamType = {
   Xsiam: "xsiam",
 } as const;
-export type OutputXsiamType = OpenEnum<typeof OutputXsiamType>;
+export type OutputXsiamType = ClosedEnum<typeof OutputXsiamType>;
 
 export type OutputXsiamExtraHttpHeader = {
   name?: string | undefined;
@@ -33,7 +29,7 @@ export const OutputXsiamFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputXsiamFailedRequestLoggingMode = OpenEnum<
+export type OutputXsiamFailedRequestLoggingMode = ClosedEnum<
   typeof OutputXsiamFailedRequestLoggingMode
 >;
 
@@ -47,7 +43,7 @@ export const OutputXsiamAuthenticationMethod = {
 /**
  * Enter a token directly, or provide a secret referencing a token
  */
-export type OutputXsiamAuthenticationMethod = OpenEnum<
+export type OutputXsiamAuthenticationMethod = ClosedEnum<
   typeof OutputXsiamAuthenticationMethod
 >;
 
@@ -97,7 +93,7 @@ export const OutputXsiamBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputXsiamBackpressureBehavior = OpenEnum<
+export type OutputXsiamBackpressureBehavior = ClosedEnum<
   typeof OutputXsiamBackpressureBehavior
 >;
 
@@ -119,7 +115,7 @@ export const OutputXsiamCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputXsiamCompression = OpenEnum<typeof OutputXsiamCompression>;
+export type OutputXsiamCompression = ClosedEnum<typeof OutputXsiamCompression>;
 
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -131,7 +127,7 @@ export const OutputXsiamQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputXsiamQueueFullBehavior = OpenEnum<
+export type OutputXsiamQueueFullBehavior = ClosedEnum<
   typeof OutputXsiamQueueFullBehavior
 >;
 
@@ -146,7 +142,7 @@ export const OutputXsiamMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputXsiamMode = OpenEnum<typeof OutputXsiamMode>;
+export type OutputXsiamMode = ClosedEnum<typeof OutputXsiamMode>;
 
 export type OutputXsiamPqControls = {};
 
@@ -299,25 +295,14 @@ export type OutputXsiam = {
 };
 
 /** @internal */
-export const OutputXsiamType$inboundSchema: z.ZodType<
-  OutputXsiamType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputXsiamType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType
+> = z.nativeEnum(OutputXsiamType);
 
 /** @internal */
-export const OutputXsiamType$outboundSchema: z.ZodType<
-  OutputXsiamType,
-  z.ZodTypeDef,
-  OutputXsiamType
-> = z.union([
-  z.nativeEnum(OutputXsiamType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputXsiamType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType
+> = OutputXsiamType$inboundSchema;
 
 /**
  * @internal
@@ -388,25 +373,14 @@ export function outputXsiamExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputXsiamFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputXsiamFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputXsiamFailedRequestLoggingMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamFailedRequestLoggingMode
+> = z.nativeEnum(OutputXsiamFailedRequestLoggingMode);
 
 /** @internal */
-export const OutputXsiamFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputXsiamFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputXsiamFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputXsiamFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputXsiamFailedRequestLoggingMode$outboundSchema:
+  z.ZodNativeEnum<typeof OutputXsiamFailedRequestLoggingMode> =
+    OutputXsiamFailedRequestLoggingMode$inboundSchema;
 
 /**
  * @internal
@@ -422,25 +396,14 @@ export namespace OutputXsiamFailedRequestLoggingMode$ {
 }
 
 /** @internal */
-export const OutputXsiamAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputXsiamAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputXsiamAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamAuthenticationMethod
+> = z.nativeEnum(OutputXsiamAuthenticationMethod);
 
 /** @internal */
-export const OutputXsiamAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputXsiamAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputXsiamAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputXsiamAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputXsiamAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamAuthenticationMethod
+> = OutputXsiamAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -584,25 +547,14 @@ export function outputXsiamTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputXsiamBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputXsiamBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputXsiamBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamBackpressureBehavior
+> = z.nativeEnum(OutputXsiamBackpressureBehavior);
 
 /** @internal */
-export const OutputXsiamBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputXsiamBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputXsiamBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputXsiamBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputXsiamBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamBackpressureBehavior
+> = OutputXsiamBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -669,25 +621,14 @@ export function outputXsiamUrlFromJSON(
 }
 
 /** @internal */
-export const OutputXsiamCompression$inboundSchema: z.ZodType<
-  OutputXsiamCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputXsiamCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamCompression
+> = z.nativeEnum(OutputXsiamCompression);
 
 /** @internal */
-export const OutputXsiamCompression$outboundSchema: z.ZodType<
-  OutputXsiamCompression,
-  z.ZodTypeDef,
-  OutputXsiamCompression
-> = z.union([
-  z.nativeEnum(OutputXsiamCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputXsiamCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamCompression
+> = OutputXsiamCompression$inboundSchema;
 
 /**
  * @internal
@@ -701,25 +642,14 @@ export namespace OutputXsiamCompression$ {
 }
 
 /** @internal */
-export const OutputXsiamQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputXsiamQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputXsiamQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamQueueFullBehavior
+> = z.nativeEnum(OutputXsiamQueueFullBehavior);
 
 /** @internal */
-export const OutputXsiamQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputXsiamQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputXsiamQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputXsiamQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputXsiamQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamQueueFullBehavior
+> = OutputXsiamQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -733,25 +663,14 @@ export namespace OutputXsiamQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputXsiamMode$inboundSchema: z.ZodType<
-  OutputXsiamMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputXsiamMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamMode
+> = z.nativeEnum(OutputXsiamMode);
 
 /** @internal */
-export const OutputXsiamMode$outboundSchema: z.ZodType<
-  OutputXsiamMode,
-  z.ZodTypeDef,
-  OutputXsiamMode
-> = z.union([
-  z.nativeEnum(OutputXsiamMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputXsiamMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamMode
+> = OutputXsiamMode$inboundSchema;
 
 /**
  * @internal

@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputAzureLogsType = {
   AzureLogs: "azure_logs",
 } as const;
-export type OutputAzureLogsType = OpenEnum<typeof OutputAzureLogsType>;
+export type OutputAzureLogsType = ClosedEnum<typeof OutputAzureLogsType>;
 
 export type OutputAzureLogsExtraHttpHeader = {
   name?: string | undefined;
@@ -33,7 +29,7 @@ export const OutputAzureLogsFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputAzureLogsFailedRequestLoggingMode = OpenEnum<
+export type OutputAzureLogsFailedRequestLoggingMode = ClosedEnum<
   typeof OutputAzureLogsFailedRequestLoggingMode
 >;
 
@@ -83,7 +79,7 @@ export const OutputAzureLogsBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputAzureLogsBackpressureBehavior = OpenEnum<
+export type OutputAzureLogsBackpressureBehavior = ClosedEnum<
   typeof OutputAzureLogsBackpressureBehavior
 >;
 
@@ -97,7 +93,7 @@ export const OutputAzureLogsAuthenticationMethod = {
 /**
  * Enter workspace ID and workspace key directly, or select a stored secret
  */
-export type OutputAzureLogsAuthenticationMethod = OpenEnum<
+export type OutputAzureLogsAuthenticationMethod = ClosedEnum<
   typeof OutputAzureLogsAuthenticationMethod
 >;
 
@@ -111,7 +107,7 @@ export const OutputAzureLogsCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputAzureLogsCompression = OpenEnum<
+export type OutputAzureLogsCompression = ClosedEnum<
   typeof OutputAzureLogsCompression
 >;
 
@@ -125,7 +121,7 @@ export const OutputAzureLogsQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputAzureLogsQueueFullBehavior = OpenEnum<
+export type OutputAzureLogsQueueFullBehavior = ClosedEnum<
   typeof OutputAzureLogsQueueFullBehavior
 >;
 
@@ -140,7 +136,7 @@ export const OutputAzureLogsMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputAzureLogsMode = OpenEnum<typeof OutputAzureLogsMode>;
+export type OutputAzureLogsMode = ClosedEnum<typeof OutputAzureLogsMode>;
 
 export type OutputAzureLogsPqControls = {};
 
@@ -285,25 +281,14 @@ export type OutputAzureLogs = {
 };
 
 /** @internal */
-export const OutputAzureLogsType$inboundSchema: z.ZodType<
-  OutputAzureLogsType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputAzureLogsType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType
+> = z.nativeEnum(OutputAzureLogsType);
 
 /** @internal */
-export const OutputAzureLogsType$outboundSchema: z.ZodType<
-  OutputAzureLogsType,
-  z.ZodTypeDef,
-  OutputAzureLogsType
-> = z.union([
-  z.nativeEnum(OutputAzureLogsType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputAzureLogsType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType
+> = OutputAzureLogsType$inboundSchema;
 
 /**
  * @internal
@@ -376,25 +361,14 @@ export function outputAzureLogsExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputAzureLogsFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputAzureLogsFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputAzureLogsFailedRequestLoggingMode$inboundSchema:
+  z.ZodNativeEnum<typeof OutputAzureLogsFailedRequestLoggingMode> = z
+    .nativeEnum(OutputAzureLogsFailedRequestLoggingMode);
 
 /** @internal */
-export const OutputAzureLogsFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputAzureLogsFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputAzureLogsFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputAzureLogsFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputAzureLogsFailedRequestLoggingMode$outboundSchema:
+  z.ZodNativeEnum<typeof OutputAzureLogsFailedRequestLoggingMode> =
+    OutputAzureLogsFailedRequestLoggingMode$inboundSchema;
 
 /**
  * @internal
@@ -546,25 +520,14 @@ export function outputAzureLogsTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputAzureLogsBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputAzureLogsBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputAzureLogsBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsBackpressureBehavior
+> = z.nativeEnum(OutputAzureLogsBackpressureBehavior);
 
 /** @internal */
-export const OutputAzureLogsBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputAzureLogsBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputAzureLogsBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureLogsBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputAzureLogsBackpressureBehavior$outboundSchema:
+  z.ZodNativeEnum<typeof OutputAzureLogsBackpressureBehavior> =
+    OutputAzureLogsBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -580,25 +543,14 @@ export namespace OutputAzureLogsBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputAzureLogsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputAzureLogsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputAzureLogsAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsAuthenticationMethod
+> = z.nativeEnum(OutputAzureLogsAuthenticationMethod);
 
 /** @internal */
-export const OutputAzureLogsAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputAzureLogsAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputAzureLogsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputAzureLogsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputAzureLogsAuthenticationMethod$outboundSchema:
+  z.ZodNativeEnum<typeof OutputAzureLogsAuthenticationMethod> =
+    OutputAzureLogsAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -614,25 +566,14 @@ export namespace OutputAzureLogsAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputAzureLogsCompression$inboundSchema: z.ZodType<
-  OutputAzureLogsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputAzureLogsCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsCompression
+> = z.nativeEnum(OutputAzureLogsCompression);
 
 /** @internal */
-export const OutputAzureLogsCompression$outboundSchema: z.ZodType<
-  OutputAzureLogsCompression,
-  z.ZodTypeDef,
-  OutputAzureLogsCompression
-> = z.union([
-  z.nativeEnum(OutputAzureLogsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputAzureLogsCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsCompression
+> = OutputAzureLogsCompression$inboundSchema;
 
 /**
  * @internal
@@ -646,25 +587,14 @@ export namespace OutputAzureLogsCompression$ {
 }
 
 /** @internal */
-export const OutputAzureLogsQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputAzureLogsQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputAzureLogsQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsQueueFullBehavior
+> = z.nativeEnum(OutputAzureLogsQueueFullBehavior);
 
 /** @internal */
-export const OutputAzureLogsQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputAzureLogsQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputAzureLogsQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureLogsQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputAzureLogsQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsQueueFullBehavior
+> = OutputAzureLogsQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -678,25 +608,14 @@ export namespace OutputAzureLogsQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputAzureLogsMode$inboundSchema: z.ZodType<
-  OutputAzureLogsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputAzureLogsMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsMode
+> = z.nativeEnum(OutputAzureLogsMode);
 
 /** @internal */
-export const OutputAzureLogsMode$outboundSchema: z.ZodType<
-  OutputAzureLogsMode,
-  z.ZodTypeDef,
-  OutputAzureLogsMode
-> = z.union([
-  z.nativeEnum(OutputAzureLogsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputAzureLogsMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsMode
+> = OutputAzureLogsMode$inboundSchema;
 
 /**
  * @internal

@@ -101,15 +101,15 @@ const value: models.InputConfluentCloud = {
 };
 ```
 
-### `models.InputGrafanaUnion`
+### `models.InputGrafana`
 
 ```typescript
-const value: models.InputGrafanaUnion = {
+const value: models.InputGrafana = {
   disabled: false,
   sendToRoutes: true,
   pqEnabled: false,
   host: "0.0.0.0",
-  port: 1484.05,
+  port: 9700.46,
   maxActiveReq: 256,
   maxRequestsPerSocket: 0,
   enableProxyHeader: false,
@@ -416,16 +416,16 @@ const value: models.InputSqs = {
 };
 ```
 
-### `models.InputSyslogUnion`
+### `models.InputSyslog`
 
 ```typescript
-const value: models.InputSyslogUnion = {
+const value: models.InputSyslog = {
   type: "syslog",
   disabled: false,
   sendToRoutes: true,
   pqEnabled: false,
   host: "0.0.0.0",
-  tcpPort: 485.88,
+  tcpPort: 9463.57,
   maxBufferSize: 1000,
   ipWhitelistRegex: "/.*/",
   timestampTimezone: "local",

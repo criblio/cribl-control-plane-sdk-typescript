@@ -5,18 +5,16 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputEdgePrometheusType = {
   EdgePrometheus: "edge_prometheus",
 } as const;
-export type InputEdgePrometheusType = OpenEnum<typeof InputEdgePrometheusType>;
+export type InputEdgePrometheusType = ClosedEnum<
+  typeof InputEdgePrometheusType
+>;
 
 export type InputEdgePrometheusConnection = {
   pipeline?: string | undefined;
@@ -33,7 +31,9 @@ export const InputEdgePrometheusMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputEdgePrometheusMode = OpenEnum<typeof InputEdgePrometheusMode>;
+export type InputEdgePrometheusMode = ClosedEnum<
+  typeof InputEdgePrometheusMode
+>;
 
 /**
  * Codec to use to compress the persisted data
@@ -45,7 +45,7 @@ export const InputEdgePrometheusPqCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputEdgePrometheusPqCompression = OpenEnum<
+export type InputEdgePrometheusPqCompression = ClosedEnum<
   typeof InputEdgePrometheusPqCompression
 >;
 
@@ -93,7 +93,7 @@ export const InputEdgePrometheusDiscoveryType = {
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
-export type InputEdgePrometheusDiscoveryType = OpenEnum<
+export type InputEdgePrometheusDiscoveryType = ClosedEnum<
   typeof InputEdgePrometheusDiscoveryType
 >;
 
@@ -107,7 +107,7 @@ export const InputEdgePrometheusPersistenceCompression = {
 /**
  * Data compression format. Default is gzip.
  */
-export type InputEdgePrometheusPersistenceCompression = OpenEnum<
+export type InputEdgePrometheusPersistenceCompression = ClosedEnum<
   typeof InputEdgePrometheusPersistenceCompression
 >;
 
@@ -153,7 +153,7 @@ export const InputEdgePrometheusAuthTypeAuthenticationMethod = {
 /**
  * Enter credentials directly, or select a stored secret
  */
-export type InputEdgePrometheusAuthTypeAuthenticationMethod = OpenEnum<
+export type InputEdgePrometheusAuthTypeAuthenticationMethod = ClosedEnum<
   typeof InputEdgePrometheusAuthTypeAuthenticationMethod
 >;
 
@@ -167,7 +167,7 @@ export const TargetProtocol = {
 /**
  * Protocol to use when collecting metrics
  */
-export type TargetProtocol = OpenEnum<typeof TargetProtocol>;
+export type TargetProtocol = ClosedEnum<typeof TargetProtocol>;
 
 export type Target = {
   /**
@@ -199,7 +199,7 @@ export const InputEdgePrometheusRecordType = {
 /**
  * DNS Record type to resolve
  */
-export type InputEdgePrometheusRecordType = OpenEnum<
+export type InputEdgePrometheusRecordType = ClosedEnum<
   typeof InputEdgePrometheusRecordType
 >;
 
@@ -213,7 +213,7 @@ export const ScrapeProtocolProtocol = {
 /**
  * Protocol to use when collecting metrics
  */
-export type ScrapeProtocolProtocol = OpenEnum<typeof ScrapeProtocolProtocol>;
+export type ScrapeProtocolProtocol = ClosedEnum<typeof ScrapeProtocolProtocol>;
 
 export type InputEdgePrometheusSearchFilter = {
   /**
@@ -238,7 +238,7 @@ export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod =
-  OpenEnum<
+  ClosedEnum<
     typeof InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
   >;
 
@@ -252,7 +252,7 @@ export const InputEdgePrometheusSignatureVersion = {
 /**
  * Signature version to use for signing EC2 requests
  */
-export type InputEdgePrometheusSignatureVersion = OpenEnum<
+export type InputEdgePrometheusSignatureVersion = ClosedEnum<
   typeof InputEdgePrometheusSignatureVersion
 >;
 
@@ -432,25 +432,14 @@ export type InputEdgePrometheus = {
 };
 
 /** @internal */
-export const InputEdgePrometheusType$inboundSchema: z.ZodType<
-  InputEdgePrometheusType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEdgePrometheusType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEdgePrometheusType$inboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusType
+> = z.nativeEnum(InputEdgePrometheusType);
 
 /** @internal */
-export const InputEdgePrometheusType$outboundSchema: z.ZodType<
-  InputEdgePrometheusType,
-  z.ZodTypeDef,
-  InputEdgePrometheusType
-> = z.union([
-  z.nativeEnum(InputEdgePrometheusType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEdgePrometheusType$outboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusType
+> = InputEdgePrometheusType$inboundSchema;
 
 /**
  * @internal
@@ -523,25 +512,14 @@ export function inputEdgePrometheusConnectionFromJSON(
 }
 
 /** @internal */
-export const InputEdgePrometheusMode$inboundSchema: z.ZodType<
-  InputEdgePrometheusMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEdgePrometheusMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEdgePrometheusMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusMode
+> = z.nativeEnum(InputEdgePrometheusMode);
 
 /** @internal */
-export const InputEdgePrometheusMode$outboundSchema: z.ZodType<
-  InputEdgePrometheusMode,
-  z.ZodTypeDef,
-  InputEdgePrometheusMode
-> = z.union([
-  z.nativeEnum(InputEdgePrometheusMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEdgePrometheusMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusMode
+> = InputEdgePrometheusMode$inboundSchema;
 
 /**
  * @internal
@@ -555,25 +533,14 @@ export namespace InputEdgePrometheusMode$ {
 }
 
 /** @internal */
-export const InputEdgePrometheusPqCompression$inboundSchema: z.ZodType<
-  InputEdgePrometheusPqCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEdgePrometheusPqCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEdgePrometheusPqCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusPqCompression
+> = z.nativeEnum(InputEdgePrometheusPqCompression);
 
 /** @internal */
-export const InputEdgePrometheusPqCompression$outboundSchema: z.ZodType<
-  InputEdgePrometheusPqCompression,
-  z.ZodTypeDef,
-  InputEdgePrometheusPqCompression
-> = z.union([
-  z.nativeEnum(InputEdgePrometheusPqCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEdgePrometheusPqCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusPqCompression
+> = InputEdgePrometheusPqCompression$inboundSchema;
 
 /**
  * @internal
@@ -659,25 +626,14 @@ export function inputEdgePrometheusPqFromJSON(
 }
 
 /** @internal */
-export const InputEdgePrometheusDiscoveryType$inboundSchema: z.ZodType<
-  InputEdgePrometheusDiscoveryType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEdgePrometheusDiscoveryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEdgePrometheusDiscoveryType$inboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusDiscoveryType
+> = z.nativeEnum(InputEdgePrometheusDiscoveryType);
 
 /** @internal */
-export const InputEdgePrometheusDiscoveryType$outboundSchema: z.ZodType<
-  InputEdgePrometheusDiscoveryType,
-  z.ZodTypeDef,
-  InputEdgePrometheusDiscoveryType
-> = z.union([
-  z.nativeEnum(InputEdgePrometheusDiscoveryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEdgePrometheusDiscoveryType$outboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusDiscoveryType
+> = InputEdgePrometheusDiscoveryType$inboundSchema;
 
 /**
  * @internal
@@ -691,26 +647,14 @@ export namespace InputEdgePrometheusDiscoveryType$ {
 }
 
 /** @internal */
-export const InputEdgePrometheusPersistenceCompression$inboundSchema: z.ZodType<
-  InputEdgePrometheusPersistenceCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEdgePrometheusPersistenceCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEdgePrometheusPersistenceCompression$inboundSchema:
+  z.ZodNativeEnum<typeof InputEdgePrometheusPersistenceCompression> = z
+    .nativeEnum(InputEdgePrometheusPersistenceCompression);
 
 /** @internal */
 export const InputEdgePrometheusPersistenceCompression$outboundSchema:
-  z.ZodType<
-    InputEdgePrometheusPersistenceCompression,
-    z.ZodTypeDef,
-    InputEdgePrometheusPersistenceCompression
-  > = z.union([
-    z.nativeEnum(InputEdgePrometheusPersistenceCompression),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof InputEdgePrometheusPersistenceCompression> =
+    InputEdgePrometheusPersistenceCompression$inboundSchema;
 
 /**
  * @internal
@@ -858,26 +802,13 @@ export function inputEdgePrometheusMetadatumFromJSON(
 
 /** @internal */
 export const InputEdgePrometheusAuthTypeAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    InputEdgePrometheusAuthTypeAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(InputEdgePrometheusAuthTypeAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  z.ZodNativeEnum<typeof InputEdgePrometheusAuthTypeAuthenticationMethod> = z
+    .nativeEnum(InputEdgePrometheusAuthTypeAuthenticationMethod);
 
 /** @internal */
 export const InputEdgePrometheusAuthTypeAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputEdgePrometheusAuthTypeAuthenticationMethod,
-    z.ZodTypeDef,
-    InputEdgePrometheusAuthTypeAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputEdgePrometheusAuthTypeAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<typeof InputEdgePrometheusAuthTypeAuthenticationMethod> =
+    InputEdgePrometheusAuthTypeAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -893,25 +824,14 @@ export namespace InputEdgePrometheusAuthTypeAuthenticationMethod$ {
 }
 
 /** @internal */
-export const TargetProtocol$inboundSchema: z.ZodType<
-  TargetProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(TargetProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const TargetProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof TargetProtocol
+> = z.nativeEnum(TargetProtocol);
 
 /** @internal */
-export const TargetProtocol$outboundSchema: z.ZodType<
-  TargetProtocol,
-  z.ZodTypeDef,
-  TargetProtocol
-> = z.union([
-  z.nativeEnum(TargetProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const TargetProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof TargetProtocol
+> = TargetProtocol$inboundSchema;
 
 /**
  * @internal
@@ -981,25 +901,14 @@ export function targetFromJSON(
 }
 
 /** @internal */
-export const InputEdgePrometheusRecordType$inboundSchema: z.ZodType<
-  InputEdgePrometheusRecordType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEdgePrometheusRecordType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEdgePrometheusRecordType$inboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusRecordType
+> = z.nativeEnum(InputEdgePrometheusRecordType);
 
 /** @internal */
-export const InputEdgePrometheusRecordType$outboundSchema: z.ZodType<
-  InputEdgePrometheusRecordType,
-  z.ZodTypeDef,
-  InputEdgePrometheusRecordType
-> = z.union([
-  z.nativeEnum(InputEdgePrometheusRecordType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEdgePrometheusRecordType$outboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusRecordType
+> = InputEdgePrometheusRecordType$inboundSchema;
 
 /**
  * @internal
@@ -1013,25 +922,14 @@ export namespace InputEdgePrometheusRecordType$ {
 }
 
 /** @internal */
-export const ScrapeProtocolProtocol$inboundSchema: z.ZodType<
-  ScrapeProtocolProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(ScrapeProtocolProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const ScrapeProtocolProtocol$inboundSchema: z.ZodNativeEnum<
+  typeof ScrapeProtocolProtocol
+> = z.nativeEnum(ScrapeProtocolProtocol);
 
 /** @internal */
-export const ScrapeProtocolProtocol$outboundSchema: z.ZodType<
-  ScrapeProtocolProtocol,
-  z.ZodTypeDef,
-  ScrapeProtocolProtocol
-> = z.union([
-  z.nativeEnum(ScrapeProtocolProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const ScrapeProtocolProtocol$outboundSchema: z.ZodNativeEnum<
+  typeof ScrapeProtocolProtocol
+> = ScrapeProtocolProtocol$inboundSchema;
 
 /**
  * @internal
@@ -1115,30 +1013,18 @@ export function inputEdgePrometheusSearchFilterFromJSON(
 
 /** @internal */
 export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema:
-  z.ZodType<
+  z.ZodNativeEnum<
+    typeof InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
+  > = z.nativeEnum(
     InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(
-        InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-      ),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  );
 
 /** @internal */
 export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(
-      InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    ),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodNativeEnum<
+    typeof InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
+  > =
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -1154,25 +1040,14 @@ export namespace InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$
 }
 
 /** @internal */
-export const InputEdgePrometheusSignatureVersion$inboundSchema: z.ZodType<
-  InputEdgePrometheusSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEdgePrometheusSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputEdgePrometheusSignatureVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputEdgePrometheusSignatureVersion
+> = z.nativeEnum(InputEdgePrometheusSignatureVersion);
 
 /** @internal */
-export const InputEdgePrometheusSignatureVersion$outboundSchema: z.ZodType<
-  InputEdgePrometheusSignatureVersion,
-  z.ZodTypeDef,
-  InputEdgePrometheusSignatureVersion
-> = z.union([
-  z.nativeEnum(InputEdgePrometheusSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputEdgePrometheusSignatureVersion$outboundSchema:
+  z.ZodNativeEnum<typeof InputEdgePrometheusSignatureVersion> =
+    InputEdgePrometheusSignatureVersion$inboundSchema;
 
 /**
  * @internal

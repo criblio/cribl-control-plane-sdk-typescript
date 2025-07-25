@@ -12,8 +12,6 @@ let value: OutputAzureDataExplorerDataFormat = "json";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"json" | "raw" | "parquet" | Unrecognized<string>
+"json" | "raw" | "parquet"
 ```

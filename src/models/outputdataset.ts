@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputDatasetType = {
   Dataset: "dataset",
 } as const;
-export type OutputDatasetType = OpenEnum<typeof OutputDatasetType>;
+export type OutputDatasetType = ClosedEnum<typeof OutputDatasetType>;
 
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
@@ -32,7 +28,7 @@ export const OutputDatasetSeverity = {
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export type OutputDatasetSeverity = OpenEnum<typeof OutputDatasetSeverity>;
+export type OutputDatasetSeverity = ClosedEnum<typeof OutputDatasetSeverity>;
 
 export type OutputDatasetResponseRetrySetting = {
   /**
@@ -80,7 +76,7 @@ export const DataSetSite = {
 /**
  * DataSet site to which events should be sent
  */
-export type DataSetSite = OpenEnum<typeof DataSetSite>;
+export type DataSetSite = ClosedEnum<typeof DataSetSite>;
 
 export type OutputDatasetExtraHttpHeader = {
   name?: string | undefined;
@@ -98,7 +94,7 @@ export const OutputDatasetFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputDatasetFailedRequestLoggingMode = OpenEnum<
+export type OutputDatasetFailedRequestLoggingMode = ClosedEnum<
   typeof OutputDatasetFailedRequestLoggingMode
 >;
 
@@ -113,7 +109,7 @@ export const OutputDatasetBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputDatasetBackpressureBehavior = OpenEnum<
+export type OutputDatasetBackpressureBehavior = ClosedEnum<
   typeof OutputDatasetBackpressureBehavior
 >;
 
@@ -127,7 +123,7 @@ export const OutputDatasetAuthenticationMethod = {
 /**
  * Enter API key directly, or select a stored secret
  */
-export type OutputDatasetAuthenticationMethod = OpenEnum<
+export type OutputDatasetAuthenticationMethod = ClosedEnum<
   typeof OutputDatasetAuthenticationMethod
 >;
 
@@ -141,7 +137,7 @@ export const OutputDatasetCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputDatasetCompression = OpenEnum<
+export type OutputDatasetCompression = ClosedEnum<
   typeof OutputDatasetCompression
 >;
 
@@ -155,7 +151,7 @@ export const OutputDatasetQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputDatasetQueueFullBehavior = OpenEnum<
+export type OutputDatasetQueueFullBehavior = ClosedEnum<
   typeof OutputDatasetQueueFullBehavior
 >;
 
@@ -170,7 +166,7 @@ export const OutputDatasetMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputDatasetMode = OpenEnum<typeof OutputDatasetMode>;
+export type OutputDatasetMode = ClosedEnum<typeof OutputDatasetMode>;
 
 export type OutputDatasetPqControls = {};
 
@@ -327,25 +323,14 @@ export type OutputDataset = {
 };
 
 /** @internal */
-export const OutputDatasetType$inboundSchema: z.ZodType<
-  OutputDatasetType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatasetType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType
+> = z.nativeEnum(OutputDatasetType);
 
 /** @internal */
-export const OutputDatasetType$outboundSchema: z.ZodType<
-  OutputDatasetType,
-  z.ZodTypeDef,
-  OutputDatasetType
-> = z.union([
-  z.nativeEnum(OutputDatasetType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType
+> = OutputDatasetType$inboundSchema;
 
 /**
  * @internal
@@ -359,25 +344,14 @@ export namespace OutputDatasetType$ {
 }
 
 /** @internal */
-export const OutputDatasetSeverity$inboundSchema: z.ZodType<
-  OutputDatasetSeverity,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetSeverity),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatasetSeverity$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetSeverity
+> = z.nativeEnum(OutputDatasetSeverity);
 
 /** @internal */
-export const OutputDatasetSeverity$outboundSchema: z.ZodType<
-  OutputDatasetSeverity,
-  z.ZodTypeDef,
-  OutputDatasetSeverity
-> = z.union([
-  z.nativeEnum(OutputDatasetSeverity),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetSeverity$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetSeverity
+> = OutputDatasetSeverity$inboundSchema;
 
 /**
  * @internal
@@ -523,25 +497,12 @@ export function outputDatasetTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const DataSetSite$inboundSchema: z.ZodType<
-  DataSetSite,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(DataSetSite),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const DataSetSite$inboundSchema: z.ZodNativeEnum<typeof DataSetSite> = z
+  .nativeEnum(DataSetSite);
 
 /** @internal */
-export const DataSetSite$outboundSchema: z.ZodType<
-  DataSetSite,
-  z.ZodTypeDef,
-  DataSetSite
-> = z.union([
-  z.nativeEnum(DataSetSite),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const DataSetSite$outboundSchema: z.ZodNativeEnum<typeof DataSetSite> =
+  DataSetSite$inboundSchema;
 
 /**
  * @internal
@@ -614,25 +575,15 @@ export function outputDatasetExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputDatasetFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputDatasetFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatasetFailedRequestLoggingMode$inboundSchema:
+  z.ZodNativeEnum<typeof OutputDatasetFailedRequestLoggingMode> = z.nativeEnum(
+    OutputDatasetFailedRequestLoggingMode,
+  );
 
 /** @internal */
-export const OutputDatasetFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputDatasetFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputDatasetFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputDatasetFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetFailedRequestLoggingMode$outboundSchema:
+  z.ZodNativeEnum<typeof OutputDatasetFailedRequestLoggingMode> =
+    OutputDatasetFailedRequestLoggingMode$inboundSchema;
 
 /**
  * @internal
@@ -648,25 +599,14 @@ export namespace OutputDatasetFailedRequestLoggingMode$ {
 }
 
 /** @internal */
-export const OutputDatasetBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDatasetBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatasetBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetBackpressureBehavior
+> = z.nativeEnum(OutputDatasetBackpressureBehavior);
 
 /** @internal */
-export const OutputDatasetBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDatasetBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputDatasetBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputDatasetBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetBackpressureBehavior
+> = OutputDatasetBackpressureBehavior$inboundSchema;
 
 /**
  * @internal
@@ -681,25 +621,14 @@ export namespace OutputDatasetBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputDatasetAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputDatasetAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatasetAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetAuthenticationMethod
+> = z.nativeEnum(OutputDatasetAuthenticationMethod);
 
 /** @internal */
-export const OutputDatasetAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputDatasetAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputDatasetAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputDatasetAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetAuthenticationMethod
+> = OutputDatasetAuthenticationMethod$inboundSchema;
 
 /**
  * @internal
@@ -714,25 +643,14 @@ export namespace OutputDatasetAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputDatasetCompression$inboundSchema: z.ZodType<
-  OutputDatasetCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatasetCompression$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetCompression
+> = z.nativeEnum(OutputDatasetCompression);
 
 /** @internal */
-export const OutputDatasetCompression$outboundSchema: z.ZodType<
-  OutputDatasetCompression,
-  z.ZodTypeDef,
-  OutputDatasetCompression
-> = z.union([
-  z.nativeEnum(OutputDatasetCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetCompression$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetCompression
+> = OutputDatasetCompression$inboundSchema;
 
 /**
  * @internal
@@ -746,25 +664,14 @@ export namespace OutputDatasetCompression$ {
 }
 
 /** @internal */
-export const OutputDatasetQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDatasetQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatasetQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetQueueFullBehavior
+> = z.nativeEnum(OutputDatasetQueueFullBehavior);
 
 /** @internal */
-export const OutputDatasetQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDatasetQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputDatasetQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDatasetQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetQueueFullBehavior
+> = OutputDatasetQueueFullBehavior$inboundSchema;
 
 /**
  * @internal
@@ -778,25 +685,14 @@ export namespace OutputDatasetQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputDatasetMode$inboundSchema: z.ZodType<
-  OutputDatasetMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputDatasetMode$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetMode
+> = z.nativeEnum(OutputDatasetMode);
 
 /** @internal */
-export const OutputDatasetMode$outboundSchema: z.ZodType<
-  OutputDatasetMode,
-  z.ZodTypeDef,
-  OutputDatasetMode
-> = z.union([
-  z.nativeEnum(OutputDatasetMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetMode$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetMode
+> = OutputDatasetMode$inboundSchema;
 
 /**
  * @internal

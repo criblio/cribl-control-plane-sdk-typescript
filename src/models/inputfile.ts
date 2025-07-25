@@ -4,18 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputFileType = {
   File: "file",
 } as const;
-export type InputFileType = OpenEnum<typeof InputFileType>;
+export type InputFileType = ClosedEnum<typeof InputFileType>;
 
 export type InputFileConnection = {
   pipeline?: string | undefined;
@@ -32,7 +28,7 @@ export const InputFilePqMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputFilePqMode = OpenEnum<typeof InputFilePqMode>;
+export type InputFilePqMode = ClosedEnum<typeof InputFilePqMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -44,7 +40,7 @@ export const InputFileCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputFileCompression = OpenEnum<typeof InputFileCompression>;
+export type InputFileCompression = ClosedEnum<typeof InputFileCompression>;
 
 export type InputFilePq = {
   /**
@@ -87,7 +83,7 @@ export const InputFileMode = {
 /**
  * Choose how to discover files to monitor
  */
-export type InputFileMode = OpenEnum<typeof InputFileMode>;
+export type InputFileMode = ClosedEnum<typeof InputFileMode>;
 
 export type InputFileMetadatum = {
   name: string;
@@ -198,25 +194,14 @@ export type InputFile = {
 };
 
 /** @internal */
-export const InputFileType$inboundSchema: z.ZodType<
-  InputFileType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFileType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFileType$inboundSchema: z.ZodNativeEnum<
+  typeof InputFileType
+> = z.nativeEnum(InputFileType);
 
 /** @internal */
-export const InputFileType$outboundSchema: z.ZodType<
-  InputFileType,
-  z.ZodTypeDef,
-  InputFileType
-> = z.union([
-  z.nativeEnum(InputFileType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFileType$outboundSchema: z.ZodNativeEnum<
+  typeof InputFileType
+> = InputFileType$inboundSchema;
 
 /**
  * @internal
@@ -287,25 +272,14 @@ export function inputFileConnectionFromJSON(
 }
 
 /** @internal */
-export const InputFilePqMode$inboundSchema: z.ZodType<
-  InputFilePqMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFilePqMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFilePqMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputFilePqMode
+> = z.nativeEnum(InputFilePqMode);
 
 /** @internal */
-export const InputFilePqMode$outboundSchema: z.ZodType<
-  InputFilePqMode,
-  z.ZodTypeDef,
-  InputFilePqMode
-> = z.union([
-  z.nativeEnum(InputFilePqMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFilePqMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputFilePqMode
+> = InputFilePqMode$inboundSchema;
 
 /**
  * @internal
@@ -319,25 +293,14 @@ export namespace InputFilePqMode$ {
 }
 
 /** @internal */
-export const InputFileCompression$inboundSchema: z.ZodType<
-  InputFileCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFileCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFileCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputFileCompression
+> = z.nativeEnum(InputFileCompression);
 
 /** @internal */
-export const InputFileCompression$outboundSchema: z.ZodType<
-  InputFileCompression,
-  z.ZodTypeDef,
-  InputFileCompression
-> = z.union([
-  z.nativeEnum(InputFileCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFileCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputFileCompression
+> = InputFileCompression$inboundSchema;
 
 /**
  * @internal
@@ -419,25 +382,14 @@ export function inputFilePqFromJSON(
 }
 
 /** @internal */
-export const InputFileMode$inboundSchema: z.ZodType<
-  InputFileMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFileMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputFileMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputFileMode
+> = z.nativeEnum(InputFileMode);
 
 /** @internal */
-export const InputFileMode$outboundSchema: z.ZodType<
-  InputFileMode,
-  z.ZodTypeDef,
-  InputFileMode
-> = z.union([
-  z.nativeEnum(InputFileMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputFileMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputFileMode
+> = InputFileMode$inboundSchema;
 
 /**
  * @internal

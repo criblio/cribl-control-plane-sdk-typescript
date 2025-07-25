@@ -10,8 +10,6 @@ let value: OutputServiceNowType = "service_now";
 
 ## Values
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
 ```typescript
-"service_now" | Unrecognized<string>
+"service_now"
 ```

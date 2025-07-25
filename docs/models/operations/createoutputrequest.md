@@ -452,13 +452,13 @@ const value: models.OutputDatadog = {
 };
 ```
 
-### `models.OutputGrafanaCloudUnion`
+### `models.OutputGrafanaCloud`
 
 ```typescript
-const value: models.OutputGrafanaCloudUnion = {
+const value: models.OutputGrafanaCloud = {
   id: "<id>",
   type: "grafana_cloud",
-  prometheusUrl: "https://adolescent-cutlet.org",
+  prometheusUrl: "https://pitiful-cap.com/",
   messageFormat: "protobuf",
   metricRenameExpr: "name.replace(/[^a-zA-Z0-9_]/g, '_')",
   concurrency: 1,
