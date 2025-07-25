@@ -144,7 +144,7 @@ export type InputFirehose = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputFirehoseType;
+  type?: InputFirehoseType | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -674,7 +674,7 @@ export const InputFirehose$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputFirehoseType$inboundSchema,
+  type: InputFirehoseType$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -708,7 +708,7 @@ export const InputFirehose$inboundSchema: z.ZodType<
 /** @internal */
 export type InputFirehose$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -743,7 +743,7 @@ export const InputFirehose$outboundSchema: z.ZodType<
   InputFirehose
 > = z.object({
   id: z.string().optional(),
-  type: InputFirehoseType$outboundSchema,
+  type: InputFirehoseType$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

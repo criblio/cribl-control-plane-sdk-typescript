@@ -15,7 +15,6 @@ const value: models.InputCollection = {
 
 ```typescript
 const value: models.InputKafka = {
-  type: "kafka",
   brokers: [
     "<value 1>",
     "<value 2>",
@@ -30,7 +29,6 @@ const value: models.InputKafka = {
 
 ```typescript
 const value: models.InputMsk = {
-  type: "msk",
   brokers: [
     "<value 1>",
   ],
@@ -45,7 +43,6 @@ const value: models.InputMsk = {
 
 ```typescript
 const value: models.InputHttp = {
-  type: "http",
   port: 5706.87,
 };
 ```
@@ -54,7 +51,6 @@ const value: models.InputHttp = {
 
 ```typescript
 const value: models.InputSplunk = {
-  type: "splunk",
   port: 7778.34,
 };
 ```
@@ -63,7 +59,6 @@ const value: models.InputSplunk = {
 
 ```typescript
 const value: models.InputSplunkSearch = {
-  type: "splunk_search",
   search: "<value>",
 };
 ```
@@ -72,7 +67,6 @@ const value: models.InputSplunkSearch = {
 
 ```typescript
 const value: models.InputSplunkHec = {
-  type: "splunk_hec",
   port: 6978.57,
 };
 ```
@@ -90,7 +84,6 @@ const value: models.InputAzureBlob = {
 
 ```typescript
 const value: models.InputElastic = {
-  type: "elastic",
   port: 4251.06,
 };
 ```
@@ -99,7 +92,6 @@ const value: models.InputElastic = {
 
 ```typescript
 const value: models.InputConfluentCloud = {
-  type: "confluent_cloud",
   brokers: [
     "<value 1>",
   ],
@@ -113,7 +105,6 @@ const value: models.InputConfluentCloud = {
 
 ```typescript
 const value: models.InputGrafanaUnion = {
-  type: "grafana",
   disabled: false,
   sendToRoutes: true,
   pqEnabled: false,
@@ -139,7 +130,6 @@ const value: models.InputGrafanaUnion = {
 
 ```typescript
 const value: models.InputLoki = {
-  type: "loki",
   port: 1032.46,
 };
 ```
@@ -148,7 +138,6 @@ const value: models.InputLoki = {
 
 ```typescript
 const value: models.InputPrometheusRw = {
-  type: "prometheus_rw",
   port: 253.9,
 };
 ```
@@ -156,24 +145,19 @@ const value: models.InputPrometheusRw = {
 ### `models.InputPrometheus`
 
 ```typescript
-const value: models.InputPrometheus = {
-  type: "prometheus",
-};
+const value: models.InputPrometheus = {};
 ```
 
 ### `models.InputEdgePrometheus`
 
 ```typescript
-const value: models.InputEdgePrometheus = {
-  type: "edge_prometheus",
-};
+const value: models.InputEdgePrometheus = {};
 ```
 
 ### `models.InputOffice365Mgmt`
 
 ```typescript
 const value: models.InputOffice365Mgmt = {
-  type: "office365_mgmt",
   tenantId: "<id>",
   appId: "<id>",
 };
@@ -183,7 +167,6 @@ const value: models.InputOffice365Mgmt = {
 
 ```typescript
 const value: models.InputOffice365Service = {
-  type: "office365_service",
   tenantId: "<id>",
   appId: "<id>",
 };
@@ -192,16 +175,13 @@ const value: models.InputOffice365Service = {
 ### `models.InputOffice365MsgTrace`
 
 ```typescript
-const value: models.InputOffice365MsgTrace = {
-  type: "office365_msg_trace",
-};
+const value: models.InputOffice365MsgTrace = {};
 ```
 
 ### `models.InputEventhub`
 
 ```typescript
 const value: models.InputEventhub = {
-  type: "eventhub",
   brokers: [
     "<value 1>",
   ],
@@ -224,7 +204,6 @@ const value: models.InputExec = {
 
 ```typescript
 const value: models.InputFirehose = {
-  type: "firehose",
   port: 652.18,
 };
 ```
@@ -233,7 +212,6 @@ const value: models.InputFirehose = {
 
 ```typescript
 const value: models.InputGooglePubsub = {
-  type: "google_pubsub",
   topicName: "<value>",
   subscriptionName: "<value>",
 };
@@ -252,7 +230,6 @@ const value: models.InputCribl = {
 
 ```typescript
 const value: models.InputCriblTcp = {
-  type: "cribl_tcp",
   port: 9867.66,
 };
 ```
@@ -261,7 +238,6 @@ const value: models.InputCriblTcp = {
 
 ```typescript
 const value: models.InputCriblHttp = {
-  type: "cribl_http",
   port: 9559.16,
 };
 ```
@@ -270,7 +246,6 @@ const value: models.InputCriblHttp = {
 
 ```typescript
 const value: models.InputCriblLakeHttp = {
-  type: "cribl_lake_http",
   port: 3387.19,
 };
 ```
@@ -279,7 +254,6 @@ const value: models.InputCriblLakeHttp = {
 
 ```typescript
 const value: models.InputTcpjson = {
-  type: "tcpjson",
   port: 2999.39,
 };
 ```
@@ -351,7 +325,6 @@ const value: models.InputCrowdstrike = {
 
 ```typescript
 const value: models.InputDatadogAgent = {
-  type: "datadog_agent",
   port: 7967.97,
 };
 ```
@@ -369,7 +342,6 @@ const value: models.InputDatagen = {
 
 ```typescript
 const value: models.InputHttpRaw = {
-  type: "http_raw",
   port: 2333.1,
 };
 ```
@@ -378,7 +350,6 @@ const value: models.InputHttpRaw = {
 
 ```typescript
 const value: models.InputKinesis = {
-  type: "kinesis",
   streamName: "<value>",
   region: "<value>",
 };
@@ -422,32 +393,25 @@ const value: models.InputS3Inventory = {
 ### `models.InputSnmp`
 
 ```typescript
-const value: models.InputSnmp = {
-  type: "snmp",
-};
+const value: models.InputSnmp = {};
 ```
 
 ### `models.InputOpenTelemetry`
 
 ```typescript
-const value: models.InputOpenTelemetry = {
-  type: "open_telemetry",
-};
+const value: models.InputOpenTelemetry = {};
 ```
 
 ### `models.InputModelDrivenTelemetry`
 
 ```typescript
-const value: models.InputModelDrivenTelemetry = {
-  type: "model_driven_telemetry",
-};
+const value: models.InputModelDrivenTelemetry = {};
 ```
 
 ### `models.InputSqs`
 
 ```typescript
 const value: models.InputSqs = {
-  type: "sqs",
   queueName: "<value>",
 };
 ```
@@ -492,7 +456,6 @@ const value: models.InputFile = {
 
 ```typescript
 const value: models.InputTcp = {
-  type: "tcp",
   port: 6759.94,
 };
 ```
@@ -510,7 +473,6 @@ const value: models.InputAppscope = {
 
 ```typescript
 const value: models.InputWef = {
-  type: "wef",
   subscriptions: [],
 };
 ```
@@ -532,7 +494,6 @@ const value: models.InputWinEventLogs = {
 
 ```typescript
 const value: models.InputRawUdp = {
-  type: "raw_udp",
   port: 5524.24,
 };
 ```
@@ -541,7 +502,6 @@ const value: models.InputRawUdp = {
 
 ```typescript
 const value: models.InputJournalFiles = {
-  type: "journal_files",
   path: "/bin",
   journals: [
     "<value 1>",
@@ -553,7 +513,6 @@ const value: models.InputJournalFiles = {
 
 ```typescript
 const value: models.InputWiz = {
-  type: "wiz",
   authUrl: "https://lone-cinder.name/",
   clientId: "<id>",
   contentConfig: [],
@@ -563,9 +522,7 @@ const value: models.InputWiz = {
 ### `models.InputNetflow`
 
 ```typescript
-const value: models.InputNetflow = {
-  type: "netflow",
-};
+const value: models.InputNetflow = {};
 ```
 
 ### `models.InputSecurityLake`
@@ -581,7 +538,6 @@ const value: models.InputSecurityLake = {
 
 ```typescript
 const value: models.InputZscalerHec = {
-  type: "zscaler_hec",
   port: 4733.79,
 };
 ```

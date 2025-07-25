@@ -269,7 +269,7 @@ export type InputMsk = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputMskType;
+  type?: InputMskType | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1253,7 +1253,7 @@ export const InputMsk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputMskType$inboundSchema,
+  type: InputMskType$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1309,7 +1309,7 @@ export const InputMsk$inboundSchema: z.ZodType<
 /** @internal */
 export type InputMsk$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1366,7 +1366,7 @@ export const InputMsk$outboundSchema: z.ZodType<
   InputMsk
 > = z.object({
   id: z.string().optional(),
-  type: InputMskType$outboundSchema,
+  type: InputMskType$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

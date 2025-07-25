@@ -107,7 +107,7 @@ export type InputGooglePubsub = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputGooglePubsubType;
+  type?: InputGooglePubsubType | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -516,7 +516,7 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputGooglePubsubType$inboundSchema,
+  type: InputGooglePubsubType$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -547,7 +547,7 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
 /** @internal */
 export type InputGooglePubsub$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -579,7 +579,7 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   InputGooglePubsub
 > = z.object({
   id: z.string().optional(),
-  type: InputGooglePubsubType$outboundSchema,
+  type: InputGooglePubsubType$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

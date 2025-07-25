@@ -90,7 +90,7 @@ export type InputNetflow = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputNetflowType;
+  type?: InputNetflowType | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -449,7 +449,7 @@ export const InputNetflow$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputNetflowType$inboundSchema,
+  type: InputNetflowType$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -477,7 +477,7 @@ export const InputNetflow$inboundSchema: z.ZodType<
 /** @internal */
 export type InputNetflow$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -507,7 +507,7 @@ export const InputNetflow$outboundSchema: z.ZodType<
   InputNetflow
 > = z.object({
   id: z.string().optional(),
-  type: InputNetflowType$outboundSchema,
+  type: InputNetflowType$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

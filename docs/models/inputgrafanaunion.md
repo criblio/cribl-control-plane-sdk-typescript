@@ -7,7 +7,6 @@
 
 ```typescript
 const value: models.InputGrafana1 = {
-  type: "grafana",
   port: 6590.82,
 };
 ```
@@ -16,7 +15,6 @@ const value: models.InputGrafana1 = {
 
 ```typescript
 const value: models.InputGrafana2 = {
-  type: "grafana",
   port: 130.1,
 };
 ```
