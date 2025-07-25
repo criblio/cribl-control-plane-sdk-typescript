@@ -264,7 +264,7 @@ export type InputConfluentCloud = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputConfluentCloudType;
+  type?: InputConfluentCloudType | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1268,7 +1268,7 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputConfluentCloudType$inboundSchema,
+  type: InputConfluentCloudType$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1314,7 +1314,7 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
 /** @internal */
 export type InputConfluentCloud$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1359,7 +1359,7 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   InputConfluentCloud
 > = z.object({
   id: z.string().optional(),
-  type: InputConfluentCloudType$outboundSchema,
+  type: InputConfluentCloudType$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

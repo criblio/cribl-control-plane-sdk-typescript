@@ -116,7 +116,7 @@ export type InputEventhub = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputEventhubType;
+  type?: InputEventhubType | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -691,7 +691,7 @@ export const InputEventhub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputEventhubType$inboundSchema,
+  type: InputEventhubType$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -733,7 +733,7 @@ export const InputEventhub$inboundSchema: z.ZodType<
 /** @internal */
 export type InputEventhub$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -776,7 +776,7 @@ export const InputEventhub$outboundSchema: z.ZodType<
   InputEventhub
 > = z.object({
   id: z.string().optional(),
-  type: InputEventhubType$outboundSchema,
+  type: InputEventhubType$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

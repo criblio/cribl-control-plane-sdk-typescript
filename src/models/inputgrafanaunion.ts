@@ -330,7 +330,7 @@ export type InputGrafana2 = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputGrafanaType2;
+  type?: InputGrafanaType2 | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -745,7 +745,7 @@ export type InputGrafana1 = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputGrafanaType1;
+  type?: InputGrafanaType1 | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1784,7 +1784,7 @@ export const InputGrafana2$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputGrafanaType2$inboundSchema,
+  type: InputGrafanaType2$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1822,7 +1822,7 @@ export const InputGrafana2$inboundSchema: z.ZodType<
 /** @internal */
 export type InputGrafana2$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1860,7 +1860,7 @@ export const InputGrafana2$outboundSchema: z.ZodType<
   InputGrafana2
 > = z.object({
   id: z.string().optional(),
-  type: InputGrafanaType2$outboundSchema,
+  type: InputGrafanaType2$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -2862,7 +2862,7 @@ export const InputGrafana1$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputGrafanaType1$inboundSchema,
+  type: InputGrafanaType1$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -2900,7 +2900,7 @@ export const InputGrafana1$inboundSchema: z.ZodType<
 /** @internal */
 export type InputGrafana1$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -2938,7 +2938,7 @@ export const InputGrafana1$outboundSchema: z.ZodType<
   InputGrafana1
 > = z.object({
   id: z.string().optional(),
-  type: InputGrafanaType1$outboundSchema,
+  type: InputGrafanaType1$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

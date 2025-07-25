@@ -212,7 +212,7 @@ export type InputElastic = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputElasticType;
+  type?: InputElasticType | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -987,7 +987,7 @@ export const InputElastic$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputElasticType$inboundSchema,
+  type: InputElasticType$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1033,7 +1033,7 @@ export const InputElastic$inboundSchema: z.ZodType<
 /** @internal */
 export type InputElastic$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1077,7 +1077,7 @@ export const InputElastic$outboundSchema: z.ZodType<
   InputElastic
 > = z.object({
   id: z.string().optional(),
-  type: InputElasticType$outboundSchema,
+  type: InputElasticType$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

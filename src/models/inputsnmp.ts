@@ -123,7 +123,7 @@ export type InputSnmp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSnmpType;
+  type?: InputSnmpType | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -622,7 +622,7 @@ export const InputSnmp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSnmpType$inboundSchema,
+  type: InputSnmpType$inboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -647,7 +647,7 @@ export const InputSnmp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSnmp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type?: string | undefined;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -675,7 +675,7 @@ export const InputSnmp$outboundSchema: z.ZodType<
   InputSnmp
 > = z.object({
   id: z.string().optional(),
-  type: InputSnmpType$outboundSchema,
+  type: InputSnmpType$outboundSchema.optional(),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
