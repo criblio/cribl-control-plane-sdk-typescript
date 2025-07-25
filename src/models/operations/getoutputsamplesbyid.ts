@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type GetOutputSamplesByIdRequest = {
   /**
-   * Output Id
+   * Destination Id
    */
   id: string;
 };

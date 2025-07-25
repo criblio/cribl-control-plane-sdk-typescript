@@ -1,0 +1,18 @@
+# InputGrafanaConnection1
+
+## Example Usage
+
+```typescript
+import { InputGrafanaConnection1 } from "cribl-control-plane/models/operations";
+
+let value: InputGrafanaConnection1 = {
+  output: "<value>",
+};
+```
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `pipeline`         | *string*           | :heavy_minus_sign: | N/A                |
+| `output`           | *string*           | :heavy_check_mark: | N/A                |

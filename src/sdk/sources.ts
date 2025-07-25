@@ -10,7 +10,6 @@ import { sourcesListSource } from "../funcs/sourcesListSource.js";
 import { sourcesUpdateSourceById } from "../funcs/sourcesUpdateSourceById.js";
 import { sourcesUpdateSourceHecTokenByIdAndToken } from "../funcs/sourcesUpdateSourceHecTokenByIdAndToken.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -37,7 +36,7 @@ export class Sources extends ClientSDK {
    * Create Source
    */
   async createSource(
-    request: models.Input,
+    request: operations.CreateInputRequest,
     options?: RequestOptions,
   ): Promise<operations.CreateInputResponse> {
     return unwrapAsync(sourcesCreateSource(

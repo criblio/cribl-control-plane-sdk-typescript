@@ -15,13 +15,13 @@ export type UpdateOutputByIdRequest = {
    */
   id: string;
   /**
-   * Output object to be updated
+   * Destination object to be updated
    */
   output: models.Output;
 };
 
 /**
- * a list of Output objects
+ * a list of Destination objects
  */
 export type UpdateOutputByIdResponse = {
   /**

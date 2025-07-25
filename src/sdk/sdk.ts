@@ -4,8 +4,8 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
+import { Destinations } from "./destinations.js";
 import { Health } from "./health.js";
-import { Outputs } from "./outputs.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
@@ -16,9 +16,9 @@ export class CriblControlPlane extends ClientSDK {
     return (this._sources ??= new Sources(this._options));
   }
 
-  private _outputs?: Outputs;
-  get outputs(): Outputs {
-    return (this._outputs ??= new Outputs(this._options));
+  private _destinations?: Destinations;
+  get destinations(): Destinations {
+    return (this._destinations ??= new Destinations(this._options));
   }
 
   private _pipelines?: Pipelines;
