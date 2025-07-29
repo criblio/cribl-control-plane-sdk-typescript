@@ -9,6 +9,7 @@ import { Health } from "./health.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
+import { Versioning } from "./versioning.js";
 
 export class CriblControlPlane extends ClientSDK {
   private _sources?: Sources;
@@ -39,5 +40,10 @@ export class CriblControlPlane extends ClientSDK {
   private _health?: Health;
   get health(): Health {
     return (this._health ??= new Health(this._options));
+  }
+
+  private _versioning?: Versioning;
+  get versioning(): Versioning {
+    return (this._versioning ??= new Versioning(this._options));
   }
 }
