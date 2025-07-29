@@ -5,11 +5,15 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
 import { Destinations } from "./destinations.js";
+import { Distributed } from "./distributed.js";
+import { Groups } from "./groups.js";
 import { Health } from "./health.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
+import { Teams } from "./teams.js";
 import { Versioning } from "./versioning.js";
+import { Workers } from "./workers.js";
 
 export class CriblControlPlane extends ClientSDK {
   private _sources?: Sources;
@@ -37,6 +41,16 @@ export class CriblControlPlane extends ClientSDK {
     return (this._auth ??= new Auth(this._options));
   }
 
+  private _workers?: Workers;
+  get workers(): Workers {
+    return (this._workers ??= new Workers(this._options));
+  }
+
+  private _distributed?: Distributed;
+  get distributed(): Distributed {
+    return (this._distributed ??= new Distributed(this._options));
+  }
+
   private _health?: Health;
   get health(): Health {
     return (this._health ??= new Health(this._options));
@@ -45,5 +59,15 @@ export class CriblControlPlane extends ClientSDK {
   private _versioning?: Versioning;
   get versioning(): Versioning {
     return (this._versioning ??= new Versioning(this._options));
+  }
+
+  private _groups?: Groups;
+  get groups(): Groups {
+    return (this._groups ??= new Groups(this._options));
+  }
+
+  private _teams?: Teams;
+  get teams(): Teams {
+    return (this._teams ??= new Teams(this._options));
   }
 }
