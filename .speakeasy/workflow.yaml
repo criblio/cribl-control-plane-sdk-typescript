@@ -7,6 +7,11 @@ sources:
         output: .speakeasy/out.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/cribl/cribl/cribl-api-reference
+    Cribl API Reference Dev:
+        inputs:
+            - location: https://raw.githubusercontent.com/criblio/cribl-openapi-spec/main/specs/control-plane-prerelease.yml
+        registry:
+            location: registry.speakeasyapi.dev/cribl/cribl/cribl-api-reference-dev
 targets:
     cribl-control-plane:
         target: typescript
@@ -22,3 +27,9 @@ targets:
             blocking: false
         testing:
             enabled: true
+    cribl-control-plane-dev:
+        target: typescript
+        source: Cribl API Reference Dev
+        publish:
+            npm:
+                token: $npm_token

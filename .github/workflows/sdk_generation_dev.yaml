@@ -1,4 +1,4 @@
-name: Prod Generate
+name: Non-Prod Generate
 permissions:
   checks: write
   contents: write
@@ -27,8 +27,7 @@ jobs:
       force: ${{ github.event.inputs.force }}
       mode: pr
       set_version: ${{ github.event.inputs.set_version }}
-      target: cribl-control-plane
+      target: cribl-control-plane-dev
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      npm_token: ${{ secrets.NPM_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
