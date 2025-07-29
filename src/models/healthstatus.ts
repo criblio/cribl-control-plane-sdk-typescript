@@ -14,16 +14,16 @@ export const Role = {
 } as const;
 export type Role = ClosedEnum<typeof Role>;
 
-export const Status = {
+export const HealthStatusStatus = {
   Healthy: "healthy",
   ShuttingDown: "shutting down",
   Standby: "standby",
 } as const;
-export type Status = ClosedEnum<typeof Status>;
+export type HealthStatusStatus = ClosedEnum<typeof HealthStatusStatus>;
 
 export type HealthStatus = {
   role?: Role | undefined;
-  status: Status;
+  status: HealthStatusStatus;
   startTime: number;
 };
 
@@ -48,22 +48,24 @@ export namespace Role$ {
 }
 
 /** @internal */
-export const Status$inboundSchema: z.ZodNativeEnum<typeof Status> = z
-  .nativeEnum(Status);
+export const HealthStatusStatus$inboundSchema: z.ZodNativeEnum<
+  typeof HealthStatusStatus
+> = z.nativeEnum(HealthStatusStatus);
 
 /** @internal */
-export const Status$outboundSchema: z.ZodNativeEnum<typeof Status> =
-  Status$inboundSchema;
+export const HealthStatusStatus$outboundSchema: z.ZodNativeEnum<
+  typeof HealthStatusStatus
+> = HealthStatusStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Status$ {
-  /** @deprecated use `Status$inboundSchema` instead. */
-  export const inboundSchema = Status$inboundSchema;
-  /** @deprecated use `Status$outboundSchema` instead. */
-  export const outboundSchema = Status$outboundSchema;
+export namespace HealthStatusStatus$ {
+  /** @deprecated use `HealthStatusStatus$inboundSchema` instead. */
+  export const inboundSchema = HealthStatusStatus$inboundSchema;
+  /** @deprecated use `HealthStatusStatus$outboundSchema` instead. */
+  export const outboundSchema = HealthStatusStatus$outboundSchema;
 }
 
 /** @internal */
@@ -73,7 +75,7 @@ export const HealthStatus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   role: Role$inboundSchema.optional(),
-  status: Status$inboundSchema,
+  status: HealthStatusStatus$inboundSchema,
   startTime: z.number(),
 });
 
@@ -91,7 +93,7 @@ export const HealthStatus$outboundSchema: z.ZodType<
   HealthStatus
 > = z.object({
   role: Role$outboundSchema.optional(),
-  status: Status$outboundSchema,
+  status: HealthStatusStatus$outboundSchema,
   startTime: z.number(),
 });
 

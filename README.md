@@ -147,6 +147,19 @@ run();
 * [getDestinationSamplesById](docs/sdks/destinations/README.md#getdestinationsamplesbyid) - Retrieve samples data for the specified destination. Used to get sample data for the test action.
 * [createDestinationTestById](docs/sdks/destinations/README.md#createdestinationtestbyid) - Send sample data to a destination to validate configuration or test connectivity
 
+### [distributed](docs/sdks/distributed/README.md)
+
+* [getSummary](docs/sdks/distributed/README.md#getsummary) - Get summary of Distributed deployment
+
+### [groups](docs/sdks/groups/README.md)
+
+* [getGroupsConfigVersionById](docs/sdks/groups/README.md#getgroupsconfigversionbyid) - Get effective bundle version for given Group
+* [createProductsGroupsByProduct](docs/sdks/groups/README.md#createproductsgroupsbyproduct) - Create a Fleet or Worker Group
+* [getProductsGroupsByProduct](docs/sdks/groups/README.md#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
+* [updateGroupsDeployById](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
+* [getGroupsById](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
+* [getGroupsAclById](docs/sdks/groups/README.md#getgroupsaclbyid) - ACL of members with permissions for resources in this Group
+
 ### [health](docs/sdks/health/README.md)
 
 * [getHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
@@ -176,6 +189,10 @@ run();
 * [createSourceHecTokenById](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
 * [updateSourceHecTokenByIdAndToken](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
 
+### [teams](docs/sdks/teams/README.md)
+
+* [getProductsGroupsAclTeamsByProductAndId](docs/sdks/teams/README.md#getproductsgroupsaclteamsbyproductandid) - ACL of team with permissions for resources in this Group
+
 ### [versioning](docs/sdks/versioning/README.md)
 
 * [getVersionBranch](docs/sdks/versioning/README.md#getversionbranch) - get the list of branches
@@ -191,6 +208,12 @@ run();
 * [getVersionStatus](docs/sdks/versioning/README.md#getversionstatus) - get the the working tree status
 * [createVersionSync](docs/sdks/versioning/README.md#createversionsync) - syncs with remote repo via POST requests
 * [createVersionUndo](docs/sdks/versioning/README.md#createversionundo) - undo the last commit
+
+### [workers](docs/sdks/workers/README.md)
+
+* [getSummaryWorkers](docs/sdks/workers/README.md#getsummaryworkers) - get worker and edge nodes count
+* [getWorkers](docs/sdks/workers/README.md#getworkers) - get worker and edge nodes
+* [updateWorkersRestart](docs/sdks/workers/README.md#updateworkersrestart) - restarts worker nodes
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -220,6 +243,13 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`destinationsGetDestinationSamplesById`](docs/sdks/destinations/README.md#getdestinationsamplesbyid) - Retrieve samples data for the specified destination. Used to get sample data for the test action.
 - [`destinationsListDestination`](docs/sdks/destinations/README.md#listdestination) - Get a list of Destination objects
 - [`destinationsUpdateDestinationById`](docs/sdks/destinations/README.md#updatedestinationbyid) - Update Destination
+- [`distributedGetSummary`](docs/sdks/distributed/README.md#getsummary) - Get summary of Distributed deployment
+- [`groupsCreateProductsGroupsByProduct`](docs/sdks/groups/README.md#createproductsgroupsbyproduct) - Create a Fleet or Worker Group
+- [`groupsGetGroupsAclById`](docs/sdks/groups/README.md#getgroupsaclbyid) - ACL of members with permissions for resources in this Group
+- [`groupsGetGroupsById`](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
+- [`groupsGetGroupsConfigVersionById`](docs/sdks/groups/README.md#getgroupsconfigversionbyid) - Get effective bundle version for given Group
+- [`groupsGetProductsGroupsByProduct`](docs/sdks/groups/README.md#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
+- [`groupsUpdateGroupsDeployById`](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
 - [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 - [`pipelinesCreatePipeline`](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
 - [`pipelinesDeletePipelineById`](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
@@ -237,6 +267,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesListSource`](docs/sdks/sources/README.md#listsource) - Get a list of Source objects
 - [`sourcesUpdateSourceById`](docs/sdks/sources/README.md#updatesourcebyid) - Update Source
 - [`sourcesUpdateSourceHecTokenByIdAndToken`](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
+- [`teamsGetProductsGroupsAclTeamsByProductAndId`](docs/sdks/teams/README.md#getproductsgroupsaclteamsbyproductandid) - ACL of team with permissions for resources in this Group
 - [`versioningCreateVersionCommit`](docs/sdks/versioning/README.md#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
 - [`versioningCreateVersionPush`](docs/sdks/versioning/README.md#createversionpush) - push the current configs to the remote repository.
 - [`versioningCreateVersionRevert`](docs/sdks/versioning/README.md#createversionrevert) - revert a commit
@@ -250,6 +281,9 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versioningGetVersionInfo`](docs/sdks/versioning/README.md#getversioninfo) - Get info about versioning availability
 - [`versioningGetVersionShow`](docs/sdks/versioning/README.md#getversionshow) - get the log message and textual diff for given commit
 - [`versioningGetVersionStatus`](docs/sdks/versioning/README.md#getversionstatus) - get the the working tree status
+- [`workersGetSummaryWorkers`](docs/sdks/workers/README.md#getsummaryworkers) - get worker and edge nodes count
+- [`workersGetWorkers`](docs/sdks/workers/README.md#getworkers) - get worker and edge nodes
+- [`workersUpdateWorkersRestart`](docs/sdks/workers/README.md#updateworkersrestart) - restarts worker nodes
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -392,7 +426,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 40 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 51 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
