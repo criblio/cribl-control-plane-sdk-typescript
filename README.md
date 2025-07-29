@@ -176,6 +176,22 @@ run();
 * [createSourceHecTokenById](docs/sdks/sources/README.md#createsourcehectokenbyid) - Add token and optional metadata to an existing HEC Source
 * [updateSourceHecTokenByIdAndToken](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
 
+### [versioning](docs/sdks/versioning/README.md)
+
+* [getVersionBranch](docs/sdks/versioning/README.md#getversionbranch) - get the list of branches
+* [createVersionCommit](docs/sdks/versioning/README.md#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
+* [getVersionCount](docs/sdks/versioning/README.md#getversioncount) - get the count of files of changed
+* [getVersionCurrentBranch](docs/sdks/versioning/README.md#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
+* [getVersionDiff](docs/sdks/versioning/README.md#getversiondiff) - get the textual diff for given commit
+* [getVersionFiles](docs/sdks/versioning/README.md#getversionfiles) - get the files changed
+* [getVersionInfo](docs/sdks/versioning/README.md#getversioninfo) - Get info about versioning availability
+* [createVersionPush](docs/sdks/versioning/README.md#createversionpush) - push the current configs to the remote repository.
+* [createVersionRevert](docs/sdks/versioning/README.md#createversionrevert) - revert a commit
+* [getVersionShow](docs/sdks/versioning/README.md#getversionshow) - get the log message and textual diff for given commit
+* [getVersionStatus](docs/sdks/versioning/README.md#getversionstatus) - get the the working tree status
+* [createVersionSync](docs/sdks/versioning/README.md#createversionsync) - syncs with remote repo via POST requests
+* [createVersionUndo](docs/sdks/versioning/README.md#createversionundo) - undo the last commit
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
@@ -221,6 +237,19 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesListSource`](docs/sdks/sources/README.md#listsource) - Get a list of Source objects
 - [`sourcesUpdateSourceById`](docs/sdks/sources/README.md#updatesourcebyid) - Update Source
 - [`sourcesUpdateSourceHecTokenByIdAndToken`](docs/sdks/sources/README.md#updatesourcehectokenbyidandtoken) - Update token metadata on existing HEC Source
+- [`versioningCreateVersionCommit`](docs/sdks/versioning/README.md#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
+- [`versioningCreateVersionPush`](docs/sdks/versioning/README.md#createversionpush) - push the current configs to the remote repository.
+- [`versioningCreateVersionRevert`](docs/sdks/versioning/README.md#createversionrevert) - revert a commit
+- [`versioningCreateVersionSync`](docs/sdks/versioning/README.md#createversionsync) - syncs with remote repo via POST requests
+- [`versioningCreateVersionUndo`](docs/sdks/versioning/README.md#createversionundo) - undo the last commit
+- [`versioningGetVersionBranch`](docs/sdks/versioning/README.md#getversionbranch) - get the list of branches
+- [`versioningGetVersionCount`](docs/sdks/versioning/README.md#getversioncount) - get the count of files of changed
+- [`versioningGetVersionCurrentBranch`](docs/sdks/versioning/README.md#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
+- [`versioningGetVersionDiff`](docs/sdks/versioning/README.md#getversiondiff) - get the textual diff for given commit
+- [`versioningGetVersionFiles`](docs/sdks/versioning/README.md#getversionfiles) - get the files changed
+- [`versioningGetVersionInfo`](docs/sdks/versioning/README.md#getversioninfo) - Get info about versioning availability
+- [`versioningGetVersionShow`](docs/sdks/versioning/README.md#getversionshow) - get the log message and textual diff for given commit
+- [`versioningGetVersionStatus`](docs/sdks/versioning/README.md#getversionstatus) - get the the working tree status
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -363,7 +392,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 27 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 40 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
