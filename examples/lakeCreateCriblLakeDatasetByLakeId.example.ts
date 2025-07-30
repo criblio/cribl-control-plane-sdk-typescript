@@ -8,7 +8,7 @@ dotenv.config();
  * Example usage of the cribl-control-plane SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx sourcesListSource.ts
+ * npm run build && npx tsx lakeCreateCriblLakeDatasetByLakeId.ts
  */
 
 import { CriblControlPlane } from "cribl-control-plane";
@@ -21,7 +21,12 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function main() {
-  const result = await criblControlPlane.listSource();
+  const result = await criblControlPlane.createCriblLakeDatasetByLakeId({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+    },
+  });
 
   console.log(result);
 }

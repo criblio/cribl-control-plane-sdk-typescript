@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { sourcesListSource } from "cribl-control-plane/funcs/sourcesListSource.js";
+import { lakeCreateCriblLakeDatasetByLakeId } from "cribl-control-plane/funcs/lakeCreateCriblLakeDatasetByLakeId.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -32,12 +32,17 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await sourcesListSource(criblControlPlane);
+  const res = await lakeCreateCriblLakeDatasetByLakeId(criblControlPlane, {
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+    },
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("sourcesListSource failed:", res.error);
+    console.log("lakeCreateCriblLakeDatasetByLakeId failed:", res.error);
   }
 }
 
