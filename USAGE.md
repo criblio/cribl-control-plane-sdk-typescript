@@ -10,7 +10,12 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.sources.listSource();
+  const result = await criblControlPlane.lake.createCriblLakeDatasetByLakeId({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+    },
+  });
 
   console.log(result);
 }

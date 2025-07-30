@@ -80,7 +80,12 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.sources.listSource();
+  const result = await criblControlPlane.lake.createCriblLakeDatasetByLakeId({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+    },
+  });
 
   console.log(result);
 }
@@ -114,7 +119,12 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.sources.listSource();
+  const result = await criblControlPlane.lake.createCriblLakeDatasetByLakeId({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+    },
+  });
 
   console.log(result);
 }
@@ -163,6 +173,17 @@ run();
 ### [health](docs/sdks/health/README.md)
 
 * [getHealthInfo](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
+
+### [lake](docs/sdks/lake/README.md)
+
+* [createCriblLakeDatasetByLakeId](docs/sdks/lake/README.md#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
+* [getCriblLakeDatasetByLakeId](docs/sdks/lake/README.md#getcribllakedatasetbylakeid) - Get the list of Dataset contained in the specified Lake
+
+### [packs](docs/sdks/packs/README.md)
+
+* [createPacks](docs/sdks/packs/README.md#createpacks) - Install Pack
+* [getPacks](docs/sdks/packs/README.md#getpacks) - Get info on packs
+* [updatePacks](docs/sdks/packs/README.md#updatepacks) - Upload Pack
 
 ### [pipelines](docs/sdks/pipelines/README.md)
 
@@ -251,6 +272,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`groupsGetProductsGroupsByProduct`](docs/sdks/groups/README.md#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
 - [`groupsUpdateGroupsDeployById`](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
 - [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
+- [`lakeCreateCriblLakeDatasetByLakeId`](docs/sdks/lake/README.md#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
+- [`lakeGetCriblLakeDatasetByLakeId`](docs/sdks/lake/README.md#getcribllakedatasetbylakeid) - Get the list of Dataset contained in the specified Lake
+- [`packsCreatePacks`](docs/sdks/packs/README.md#createpacks) - Install Pack
+- [`packsGetPacks`](docs/sdks/packs/README.md#getpacks) - Get info on packs
+- [`packsUpdatePacks`](docs/sdks/packs/README.md#updatepacks) - Upload Pack
 - [`pipelinesCreatePipeline`](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
 - [`pipelinesDeletePipelineById`](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
 - [`pipelinesGetPipelineById`](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
@@ -305,7 +331,12 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.sources.listSource({
+  const result = await criblControlPlane.lake.createCriblLakeDatasetByLakeId({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+    },
+  }, {
     retries: {
       strategy: "backoff",
       backoff: {
@@ -347,7 +378,12 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.sources.listSource();
+  const result = await criblControlPlane.lake.createCriblLakeDatasetByLakeId({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+    },
+  });
 
   console.log(result);
 }
@@ -385,7 +421,12 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   try {
-    const result = await criblControlPlane.sources.listSource();
+    const result = await criblControlPlane.lake.createCriblLakeDatasetByLakeId({
+      lakeId: "<id>",
+      criblLakeDataset: {
+        id: "<id>",
+      },
+    });
 
     console.log(result);
   } catch (error) {
@@ -426,7 +467,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 51 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 56 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

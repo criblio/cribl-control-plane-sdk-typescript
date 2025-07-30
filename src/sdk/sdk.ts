@@ -8,6 +8,8 @@ import { Destinations } from "./destinations.js";
 import { Distributed } from "./distributed.js";
 import { Groups } from "./groups.js";
 import { Health } from "./health.js";
+import { Lake } from "./lake.js";
+import { Packs } from "./packs.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
@@ -16,6 +18,11 @@ import { Versioning } from "./versioning.js";
 import { Workers } from "./workers.js";
 
 export class CriblControlPlane extends ClientSDK {
+  private _lake?: Lake;
+  get lake(): Lake {
+    return (this._lake ??= new Lake(this._options));
+  }
+
   private _sources?: Sources;
   get sources(): Sources {
     return (this._sources ??= new Sources(this._options));
@@ -54,6 +61,11 @@ export class CriblControlPlane extends ClientSDK {
   private _health?: Health;
   get health(): Health {
     return (this._health ??= new Health(this._options));
+  }
+
+  private _packs?: Packs;
+  get packs(): Packs {
+    return (this._packs ??= new Packs(this._options));
   }
 
   private _versioning?: Versioning;

@@ -877,3 +877,85 @@ workflows:
             type: simple
     x-speakeasy-test-group: teams
     x-speakeasy-test-rebuild: true
+  - workflowId: createCriblLakeDatasetByLakeId
+    steps:
+      - stepId: test
+        operationId: createCriblLakeDatasetByLakeId
+        parameters:
+          - name: lakeId
+            in: path
+            value: <id>
+        requestBody:
+          contentType: application/json
+          payload:
+            id: <id>
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.header.Content-Type == application/json
+          - context: $response.body
+            condition: |
+              {}
+            type: simple
+    x-speakeasy-test-group: lake
+    x-speakeasy-test-rebuild: true
+  - workflowId: getCriblLakeDatasetByLakeId
+    steps:
+      - stepId: test
+        operationId: getCriblLakeDatasetByLakeId
+        parameters:
+          - name: lakeId
+            in: path
+            value: <id>
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.header.Content-Type == application/json
+          - context: $response.body
+            condition: |
+              {}
+            type: simple
+    x-speakeasy-test-group: lake
+    x-speakeasy-test-rebuild: true
+  - workflowId: createPacks
+    steps:
+      - stepId: test
+        operationId: createPacks
+        requestBody:
+          contentType: application/json
+          payload:
+            id: <id>
+            source: <value>
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.header.Content-Type == application/json
+          - context: $response.body
+            condition: |
+              {}
+            type: simple
+    x-speakeasy-test-group: packs
+    x-speakeasy-test-rebuild: true
+  - workflowId: getPacks
+    steps:
+      - stepId: test
+        operationId: getPacks
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.header.Content-Type == application/json
+          - context: $response.body
+            condition: |
+              {}
+            type: simple
+    x-speakeasy-test-group: packs
+    x-speakeasy-test-rebuild: true
+  - workflowId: updatePacks
+    steps:
+      - stepId: test
+        operationId: updatePacks
+        successCriteria:
+          - condition: $statusCode == 200
+          - condition: $response.header.Content-Type == application/json
+          - context: $response.body
+            condition: |
+              {}
+            type: simple
+    x-speakeasy-test-group: packs
+    x-speakeasy-test-rebuild: true

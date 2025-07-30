@@ -23,8 +23,10 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodGet, "/master/summary", pathGetMasterSummary(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/master/summary/workers", pathGetMasterSummaryWorkers(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/master/workers", pathGetMasterWorkers(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/packs", pathGetPacks(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/pipelines", pathGetPipelines(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/pipelines/{id}", pathGetPipelinesID(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/products/lake/lakes/{lakeId}/datasets", pathGetProductsLakeLakesLakeIDDatasets(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/products/{product}/groups", pathGetProductsProductGroups(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/products/{product}/groups/{id}/acl/teams", pathGetProductsProductGroupsIDACLTeams(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/routes", pathGetRoutes(dir, rt)),
@@ -51,7 +53,9 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodPatch, "/system/inputs/{id}/hectoken/{token}", pathPatchSystemInputsIDHectokenToken(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPatch, "/system/outputs/{id}", pathPatchSystemOutputsID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/auth/login", pathPostAuthLogin(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/packs", pathPostPacks(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/pipelines", pathPostPipelines(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/products/lake/lakes/{lakeId}/datasets", pathPostProductsLakeLakesLakeIDDatasets(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/products/{product}/groups", pathPostProductsProductGroups(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/routes/{id}/append", pathPostRoutesIDAppend(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/system/inputs", pathPostSystemInputs(dir, rt)),
@@ -63,5 +67,6 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodPost, "/version/revert", pathPostVersionRevert(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/version/sync", pathPostVersionSync(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/version/undo", pathPostVersionUndo(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPut, "/packs", pathPutPacks(dir, rt)),
 	}
 }
