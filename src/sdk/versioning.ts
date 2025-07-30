@@ -54,7 +54,7 @@ export class Versioning extends ClientSDK {
   }
 
   /**
-   * get the count of files of changed
+   * Lorem ipsum version count dummy summary change
    *
    * @remarks
    * get the count of files of changed

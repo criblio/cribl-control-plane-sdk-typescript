@@ -38386,7 +38386,7 @@ paths:
       operationId: getVersionCount
       tags:
         - versioning
-      summary: get the count of files of changed
+      summary: Lorem ipsum version count dummy summary change
       description: get the count of files of changed
       responses:
         "200":

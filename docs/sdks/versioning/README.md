@@ -9,7 +9,7 @@ Actions related to Versioning
 
 * [getVersionBranch](#getversionbranch) - get the list of branches
 * [createVersionCommit](#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
-* [getVersionCount](#getversioncount) - get the count of files of changed
+* [getVersionCount](#getversioncount) - Lorem ipsum version count dummy summary change
 * [getVersionCurrentBranch](#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
 * [getVersionDiff](#getversiondiff) - get the textual diff for given commit
 * [getVersionFiles](#getversionfiles) - get the files changed

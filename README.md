@@ -218,7 +218,7 @@ run();
 
 * [getVersionBranch](docs/sdks/versioning/README.md#getversionbranch) - get the list of branches
 * [createVersionCommit](docs/sdks/versioning/README.md#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
-* [getVersionCount](docs/sdks/versioning/README.md#getversioncount) - get the count of files of changed
+* [getVersionCount](docs/sdks/versioning/README.md#getversioncount) - Lorem ipsum version count dummy summary change
 * [getVersionCurrentBranch](docs/sdks/versioning/README.md#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
 * [getVersionDiff](docs/sdks/versioning/README.md#getversiondiff) - get the textual diff for given commit
 * [getVersionFiles](docs/sdks/versioning/README.md#getversionfiles) - get the files changed
@@ -300,7 +300,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versioningCreateVersionSync`](docs/sdks/versioning/README.md#createversionsync) - syncs with remote repo via POST requests
 - [`versioningCreateVersionUndo`](docs/sdks/versioning/README.md#createversionundo) - undo the last commit
 - [`versioningGetVersionBranch`](docs/sdks/versioning/README.md#getversionbranch) - get the list of branches
-- [`versioningGetVersionCount`](docs/sdks/versioning/README.md#getversioncount) - get the count of files of changed
+- [`versioningGetVersionCount`](docs/sdks/versioning/README.md#getversioncount) - Lorem ipsum version count dummy summary change
 - [`versioningGetVersionCurrentBranch`](docs/sdks/versioning/README.md#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
 - [`versioningGetVersionDiff`](docs/sdks/versioning/README.md#getversiondiff) - get the textual diff for given commit
 - [`versioningGetVersionFiles`](docs/sdks/versioning/README.md#getversionfiles) - get the files changed
