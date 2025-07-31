@@ -16,12 +16,6 @@ import {
   RoutesRoute$Outbound,
   RoutesRoute$outboundSchema,
 } from "./routesroute.js";
-import {
-  RoutesRouteInput,
-  RoutesRouteInput$inboundSchema,
-  RoutesRouteInput$Outbound,
-  RoutesRouteInput$outboundSchema,
-} from "./routesrouteinput.js";
 
 export type RoutesGroups = {
   name: string;
@@ -52,22 +46,6 @@ export type Routes = {
    * Pipeline routing rules
    */
   routes: Array<RoutesRoute>;
-  groups?: { [k: string]: RoutesGroups } | undefined;
-  /**
-   * Comments
-   */
-  comments?: Array<Comment> | undefined;
-};
-
-export type RoutesInput = {
-  /**
-   * Routes ID
-   */
-  id?: string | undefined;
-  /**
-   * Pipeline routing rules
-   */
-  routes: Array<RoutesRouteInput>;
   groups?: { [k: string]: RoutesGroups } | undefined;
   /**
    * Comments
@@ -244,64 +222,5 @@ export function routesFromJSON(
     jsonString,
     (x) => Routes$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Routes' from JSON`,
-  );
-}
-
-/** @internal */
-export const RoutesInput$inboundSchema: z.ZodType<
-  RoutesInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  routes: z.array(RoutesRouteInput$inboundSchema),
-  groups: z.record(z.lazy(() => RoutesGroups$inboundSchema)).optional(),
-  comments: z.array(z.lazy(() => Comment$inboundSchema)).optional(),
-});
-
-/** @internal */
-export type RoutesInput$Outbound = {
-  id?: string | undefined;
-  routes: Array<RoutesRouteInput$Outbound>;
-  groups?: { [k: string]: RoutesGroups$Outbound } | undefined;
-  comments?: Array<Comment$Outbound> | undefined;
-};
-
-/** @internal */
-export const RoutesInput$outboundSchema: z.ZodType<
-  RoutesInput$Outbound,
-  z.ZodTypeDef,
-  RoutesInput
-> = z.object({
-  id: z.string().optional(),
-  routes: z.array(RoutesRouteInput$outboundSchema),
-  groups: z.record(z.lazy(() => RoutesGroups$outboundSchema)).optional(),
-  comments: z.array(z.lazy(() => Comment$outboundSchema)).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RoutesInput$ {
-  /** @deprecated use `RoutesInput$inboundSchema` instead. */
-  export const inboundSchema = RoutesInput$inboundSchema;
-  /** @deprecated use `RoutesInput$outboundSchema` instead. */
-  export const outboundSchema = RoutesInput$outboundSchema;
-  /** @deprecated use `RoutesInput$Outbound` instead. */
-  export type Outbound = RoutesInput$Outbound;
-}
-
-export function routesInputToJSON(routesInput: RoutesInput): string {
-  return JSON.stringify(RoutesInput$outboundSchema.parse(routesInput));
-}
-
-export function routesInputFromJSON(
-  jsonString: string,
-): SafeParseResult<RoutesInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RoutesInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RoutesInput' from JSON`,
   );
 }

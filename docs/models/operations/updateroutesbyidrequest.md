@@ -20,7 +20,7 @@ let value: UpdateRoutesByIdRequest = {
 
 ## Fields
 
-| Field                                             | Type                                              | Required                                          | Description                                       |
-| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| `id`                                              | *string*                                          | :heavy_check_mark:                                | Unique ID to PATCH                                |
-| `routes`                                          | [models.RoutesInput](../../models/routesinput.md) | :heavy_check_mark:                                | Routes object to be updated                       |
+| Field                                   | Type                                    | Required                                | Description                             |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| `id`                                    | *string*                                | :heavy_check_mark:                      | Unique ID to PATCH                      |
+| `routes`                                | [models.Routes](../../models/routes.md) | :heavy_check_mark:                      | Routes object to be updated             |

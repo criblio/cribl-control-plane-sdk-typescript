@@ -181,7 +181,6 @@ export * from "./routecloneconf.js";
 export * from "./routeconf.js";
 export * from "./routes.js";
 export * from "./routesroute.js";
-export * from "./routesrouteinput.js";
 export * from "./schemeclientoauth.js";
 export * from "./security.js";
 export * from "./teamaccesscontrollist.js";

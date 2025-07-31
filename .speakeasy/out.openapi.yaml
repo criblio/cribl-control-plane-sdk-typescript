@@ -35546,7 +35546,6 @@ components:
         id:
           type: string
           title: Route ID
-          readOnly: true
         name:
           type: string
           title: Route name
