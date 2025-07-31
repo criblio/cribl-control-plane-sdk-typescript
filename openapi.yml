@@ -38447,11 +38447,18 @@ paths:
           schema:
             type: string
           description: the file to upload
+        - name: size
+          in: query
+          description: Size of the pack file in bytes
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         required: true
         description: Gzip-compressed payload of the pack file
         content:
-          application/gzip:
+          application/octet-stream:
             schema:
               type: string
               format: binary
