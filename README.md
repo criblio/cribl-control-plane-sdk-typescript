@@ -178,12 +178,17 @@ run();
 
 * [createCriblLakeDatasetByLakeId](docs/sdks/lake/README.md#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
 * [getCriblLakeDatasetByLakeId](docs/sdks/lake/README.md#getcribllakedatasetbylakeid) - Get the list of Dataset contained in the specified Lake
+* [deleteCriblLakeDatasetByLakeIdAndId](docs/sdks/lake/README.md#deletecribllakedatasetbylakeidandid) - Delete a Dataset in the specified Lake
+* [getCriblLakeDatasetByLakeIdAndId](docs/sdks/lake/README.md#getcribllakedatasetbylakeidandid) - Get a Dataset in the specified Lake
+* [updateCriblLakeDatasetByLakeIdAndId](docs/sdks/lake/README.md#updatecribllakedatasetbylakeidandid) - Update a Dataset in the specified Lake
 
 ### [packs](docs/sdks/packs/README.md)
 
 * [createPacks](docs/sdks/packs/README.md#createpacks) - Install Pack
 * [getPacks](docs/sdks/packs/README.md#getpacks) - Get info on packs
 * [updatePacks](docs/sdks/packs/README.md#updatepacks) - Upload Pack
+* [deletePacksById](docs/sdks/packs/README.md#deletepacksbyid) - Uninstall Pack from the system
+* [updatePacksById](docs/sdks/packs/README.md#updatepacksbyid) - Upgrade Pack
 
 ### [pipelines](docs/sdks/pipelines/README.md)
 
@@ -273,10 +278,15 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`groupsUpdateGroupsDeployById`](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
 - [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 - [`lakeCreateCriblLakeDatasetByLakeId`](docs/sdks/lake/README.md#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
+- [`lakeDeleteCriblLakeDatasetByLakeIdAndId`](docs/sdks/lake/README.md#deletecribllakedatasetbylakeidandid) - Delete a Dataset in the specified Lake
 - [`lakeGetCriblLakeDatasetByLakeId`](docs/sdks/lake/README.md#getcribllakedatasetbylakeid) - Get the list of Dataset contained in the specified Lake
+- [`lakeGetCriblLakeDatasetByLakeIdAndId`](docs/sdks/lake/README.md#getcribllakedatasetbylakeidandid) - Get a Dataset in the specified Lake
+- [`lakeUpdateCriblLakeDatasetByLakeIdAndId`](docs/sdks/lake/README.md#updatecribllakedatasetbylakeidandid) - Update a Dataset in the specified Lake
 - [`packsCreatePacks`](docs/sdks/packs/README.md#createpacks) - Install Pack
+- [`packsDeletePacksById`](docs/sdks/packs/README.md#deletepacksbyid) - Uninstall Pack from the system
 - [`packsGetPacks`](docs/sdks/packs/README.md#getpacks) - Get info on packs
 - [`packsUpdatePacks`](docs/sdks/packs/README.md#updatepacks) - Upload Pack
+- [`packsUpdatePacksById`](docs/sdks/packs/README.md#updatepacksbyid) - Upgrade Pack
 - [`pipelinesCreatePipeline`](docs/sdks/pipelines/README.md#createpipeline) - Create Pipeline
 - [`pipelinesDeletePipelineById`](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
 - [`pipelinesGetPipelineById`](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
@@ -467,7 +477,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 56 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 61 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

@@ -56,3 +56,39 @@ test("Packs Update Packs", async () => {
   expect(result).toBeDefined();
   expect(result).toEqual({});
 });
+
+test("Packs Delete Packs By Id", async () => {
+  const testHttpClient = createTestHTTPClient("deletePacksById");
+
+  const criblControlPlane = new CriblControlPlane({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: testHttpClient,
+    security: {
+      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
+    },
+  });
+
+  const result = await criblControlPlane.packs.deletePacksById({
+    id: "<id>",
+  });
+  expect(result).toBeDefined();
+  expect(result).toEqual({});
+});
+
+test("Packs Update Packs By Id", async () => {
+  const testHttpClient = createTestHTTPClient("updatePacksById");
+
+  const criblControlPlane = new CriblControlPlane({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: testHttpClient,
+    security: {
+      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
+    },
+  });
+
+  const result = await criblControlPlane.packs.updatePacksById({
+    id: "<id>",
+  });
+  expect(result).toBeDefined();
+  expect(result).toEqual({});
+});

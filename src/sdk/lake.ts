@@ -3,7 +3,10 @@
  */
 
 import { lakeCreateCriblLakeDatasetByLakeId } from "../funcs/lakeCreateCriblLakeDatasetByLakeId.js";
+import { lakeDeleteCriblLakeDatasetByLakeIdAndId } from "../funcs/lakeDeleteCriblLakeDatasetByLakeIdAndId.js";
 import { lakeGetCriblLakeDatasetByLakeId } from "../funcs/lakeGetCriblLakeDatasetByLakeId.js";
+import { lakeGetCriblLakeDatasetByLakeIdAndId } from "../funcs/lakeGetCriblLakeDatasetByLakeIdAndId.js";
+import { lakeUpdateCriblLakeDatasetByLakeIdAndId } from "../funcs/lakeUpdateCriblLakeDatasetByLakeIdAndId.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -37,6 +40,57 @@ export class Lake extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GetCriblLakeDatasetByLakeIdResponse> {
     return unwrapAsync(lakeGetCriblLakeDatasetByLakeId(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Dataset in the specified Lake
+   *
+   * @remarks
+   * Delete a Dataset in the specified Lake
+   */
+  async deleteCriblLakeDatasetByLakeIdAndId(
+    request: operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteCriblLakeDatasetByLakeIdAndIdResponse> {
+    return unwrapAsync(lakeDeleteCriblLakeDatasetByLakeIdAndId(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get a Dataset in the specified Lake
+   *
+   * @remarks
+   * Get a Dataset in the specified Lake
+   */
+  async getCriblLakeDatasetByLakeIdAndId(
+    request: operations.GetCriblLakeDatasetByLakeIdAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetCriblLakeDatasetByLakeIdAndIdResponse> {
+    return unwrapAsync(lakeGetCriblLakeDatasetByLakeIdAndId(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update a Dataset in the specified Lake
+   *
+   * @remarks
+   * Update a Dataset in the specified Lake
+   */
+  async updateCriblLakeDatasetByLakeIdAndId(
+    request: operations.UpdateCriblLakeDatasetByLakeIdAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateCriblLakeDatasetByLakeIdAndIdResponse> {
+    return unwrapAsync(lakeUpdateCriblLakeDatasetByLakeIdAndId(
       this,
       request,
       options,
