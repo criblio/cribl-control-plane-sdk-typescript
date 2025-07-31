@@ -54,6 +54,7 @@ test("Packs Update Packs", async () => {
   });
 
   const result = await criblControlPlane.packs.updatePacks({
+    size: 779474,
     requestBody: filesToStream(".speakeasy/testfiles/example.file"),
   });
   expect(result).toBeDefined();

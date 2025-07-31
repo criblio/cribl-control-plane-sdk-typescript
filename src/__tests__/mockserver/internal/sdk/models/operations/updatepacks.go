@@ -10,8 +10,10 @@ import (
 type UpdatePacksRequest struct {
 	// the file to upload
 	Filename *string `queryParam:"style=form,explode=true,name=filename"`
+	// Size of the pack file in bytes
+	Size int64 `queryParam:"style=form,explode=true,name=size"`
 	// Gzip-compressed payload of the pack file
-	RequestBody io.Reader `request:"mediaType=application/gzip"`
+	RequestBody io.Reader `request:"mediaType=application/octet-stream"`
 }
 
 func (o *UpdatePacksRequest) GetFilename() *string {
@@ -19,6 +21,13 @@ func (o *UpdatePacksRequest) GetFilename() *string {
 		return nil
 	}
 	return o.Filename
+}
+
+func (o *UpdatePacksRequest) GetSize() int64 {
+	if o == nil {
+		return 0
+	}
+	return o.Size
 }
 
 func (o *UpdatePacksRequest) GetRequestBody() io.Reader {

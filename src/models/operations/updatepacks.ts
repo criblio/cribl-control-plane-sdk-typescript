@@ -14,6 +14,10 @@ export type UpdatePacksRequest = {
    */
   filename?: string | undefined;
   /**
+   * Size of the pack file in bytes
+   */
+  size: number;
+  /**
    * Gzip-compressed payload of the pack file
    */
   requestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
@@ -37,6 +41,7 @@ export const UpdatePacksRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   filename: z.string().optional(),
+  size: z.number().int(),
   RequestBody: z.union([
     z.instanceof(ReadableStream<Uint8Array>),
     z.instanceof(Blob),
@@ -52,6 +57,7 @@ export const UpdatePacksRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type UpdatePacksRequest$Outbound = {
   filename?: string | undefined;
+  size: number;
   RequestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
@@ -62,6 +68,7 @@ export const UpdatePacksRequest$outboundSchema: z.ZodType<
   UpdatePacksRequest
 > = z.object({
   filename: z.string().optional(),
+  size: z.number().int(),
   requestBody: z.union([
     z.instanceof(ReadableStream<Uint8Array>),
     z.instanceof(Blob),

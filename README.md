@@ -352,6 +352,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.packs.updatePacks({
+    size: 779474,
     requestBody: await openAsBlob("example.file"),
   });
 

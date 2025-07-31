@@ -92,10 +92,11 @@ async function $do(
 
   const query = encodeFormQuery({
     "filename": payload.filename,
+    "size": payload.size,
   });
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/gzip",
+    "Content-Type": "application/octet-stream",
     Accept: "application/json",
   }));
 

@@ -958,8 +958,12 @@ workflows:
               {}
             type: simple
         requestBody:
-          contentType: application/gzip
+          contentType: application/octet-stream
           payload: 'x-file: example.file'
+        parameters:
+          - name: size
+            in: query
+            value: 779474
     x-speakeasy-test-group: packs
     x-speakeasy-test-rebuild: true
   - workflowId: deleteCriblLakeDatasetByLakeIdAndId

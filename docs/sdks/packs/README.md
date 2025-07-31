@@ -188,6 +188,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.packs.updatePacks({
+    size: 779474,
     requestBody: await openAsBlob("example.file"),
   });
 
@@ -217,6 +218,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await packsUpdatePacks(criblControlPlane, {
+    size: 779474,
     requestBody: await openAsBlob("example.file"),
   });
   if (res.ok) {

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: b95389a151360643cfcdbf9edc2dd1b0
+  docChecksum: 293064ab109c5cfb9c4122106a4de1dc
   docVersion: 4.14.0-alpha.1753968519625-08e89eb4
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.25-alpha
-  configChecksum: 935911fa56b8c2da0e810ab21afc7f73
+  releaseVersion: 0.0.26-alpha
+  configChecksum: 023bc11162dbeeba36964352da5f0fc4
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -4321,8 +4321,12 @@ examples:
           application/json: {}
   updatePacks:
     speakeasy-default-update-packs:
+      parameters:
+        query:
+          size: 779474
       requestBody:
         application/gzip: "x-file: example.file"
+        application/octet-stream: "x-file: example.file"
       responses:
         "200":
           application/json: {}
