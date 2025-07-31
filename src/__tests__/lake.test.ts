@@ -44,3 +44,71 @@ test("Lake Get Cribl Lake Dataset By Lake Id", async () => {
   expect(result).toBeDefined();
   expect(result).toEqual({});
 });
+
+test("Lake Delete Cribl Lake Dataset By Lake Id And Id", async () => {
+  const testHttpClient = createTestHTTPClient(
+    "deleteCriblLakeDatasetByLakeIdAndId",
+  );
+
+  const criblControlPlane = new CriblControlPlane({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: testHttpClient,
+    security: {
+      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
+    },
+  });
+
+  const result = await criblControlPlane.lake
+    .deleteCriblLakeDatasetByLakeIdAndId({
+      lakeId: "<id>",
+      id: "<id>",
+    });
+  expect(result).toBeDefined();
+  expect(result).toEqual({});
+});
+
+test("Lake Get Cribl Lake Dataset By Lake Id And Id", async () => {
+  const testHttpClient = createTestHTTPClient(
+    "getCriblLakeDatasetByLakeIdAndId",
+  );
+
+  const criblControlPlane = new CriblControlPlane({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: testHttpClient,
+    security: {
+      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
+    },
+  });
+
+  const result = await criblControlPlane.lake.getCriblLakeDatasetByLakeIdAndId({
+    lakeId: "<id>",
+    id: "<id>",
+  });
+  expect(result).toBeDefined();
+  expect(result).toEqual({});
+});
+
+test("Lake Update Cribl Lake Dataset By Lake Id And Id", async () => {
+  const testHttpClient = createTestHTTPClient(
+    "updateCriblLakeDatasetByLakeIdAndId",
+  );
+
+  const criblControlPlane = new CriblControlPlane({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: testHttpClient,
+    security: {
+      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
+    },
+  });
+
+  const result = await criblControlPlane.lake
+    .updateCriblLakeDatasetByLakeIdAndId({
+      lakeId: "<id>",
+      id: "<id>",
+      criblLakeDataset: {
+        id: "<id>",
+      },
+    });
+  expect(result).toBeDefined();
+  expect(result).toEqual({});
+});

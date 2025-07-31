@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 87a23a1f4a28e80108f276c7d8843532
-  docVersion: 4.14.0-alpha.1753854543129-e0f06d67
+  docChecksum: 54dacb22afa6b64fbd3c5dde04e94480
+  docVersion: 4.14.0-alpha.1753968519625-08e89eb4
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.23
-  configChecksum: 88a1b0a37ae1f8264ab450306856cb72
+  releaseVersion: 0.0.24
+  configChecksum: 0f8185ca9387d415f2b2ec4a8a2b05fb
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -1307,12 +1307,16 @@ generatedFiles:
   - docs/models/operations/datapageversiongooglecloudstorage.md
   - docs/models/operations/datapageversions3.md
   - docs/models/operations/datapageversionsecuritylake.md
+  - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
+  - docs/models/operations/deletecribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/deleteinputbyidrequest.md
   - docs/models/operations/deleteinputbyidresponse.md
   - docs/models/operations/deleteoutputbyidrequest.md
   - docs/models/operations/deleteoutputbyidresponse.md
   - docs/models/operations/deleteoutputpqbyidrequest.md
   - docs/models/operations/deleteoutputpqbyidresponse.md
+  - docs/models/operations/deletepacksbyidrequest.md
+  - docs/models/operations/deletepacksbyidresponse.md
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
   - docs/models/operations/destinationprotocolgraphite.md
@@ -1386,6 +1390,8 @@ generatedFiles:
   - docs/models/operations/formatclickhouse.md
   - docs/models/operations/formatdynatracehttp.md
   - docs/models/operations/formatsentinel.md
+  - docs/models/operations/getcribllakedatasetbylakeidandidrequest.md
+  - docs/models/operations/getcribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidresponse.md
   - docs/models/operations/getgroupsaclbyidrequest.md
@@ -2171,6 +2177,8 @@ generatedFiles:
   - docs/models/operations/typewineventlogs.md
   - docs/models/operations/typewiz.md
   - docs/models/operations/typezscalerhec.md
+  - docs/models/operations/updatecribllakedatasetbylakeidandidrequest.md
+  - docs/models/operations/updatecribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/updategroupsdeploybyidrequest.md
   - docs/models/operations/updategroupsdeploybyidresponse.md
   - docs/models/operations/updateinputbyidrequest.md
@@ -2179,6 +2187,8 @@ generatedFiles:
   - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
   - docs/models/operations/updateoutputbyidrequest.md
   - docs/models/operations/updateoutputbyidresponse.md
+  - docs/models/operations/updatepacksbyidrequest.md
+  - docs/models/operations/updatepacksbyidresponse.md
   - docs/models/operations/updatepacksrequest.md
   - docs/models/operations/updatepacksresponse.md
   - docs/models/operations/updatepipelinebyidrequest.md
@@ -3098,7 +3108,9 @@ generatedFiles:
   - src/__tests__/mockserver/internal/handler/doc.go
   - src/__tests__/mockserver/internal/handler/generated_handler.go
   - src/__tests__/mockserver/internal/handler/generated_handlers.go
+  - src/__tests__/mockserver/internal/handler/pathdeletepacksid.go
   - src/__tests__/mockserver/internal/handler/pathdeletepipelinesid.go
+  - src/__tests__/mockserver/internal/handler/pathdeleteproductslakelakeslakeiddatasetsid.go
   - src/__tests__/mockserver/internal/handler/pathdeletesysteminputsid.go
   - src/__tests__/mockserver/internal/handler/pathdeletesystemoutputsid.go
   - src/__tests__/mockserver/internal/handler/pathdeletesystemoutputsidpq.go
@@ -3113,6 +3125,7 @@ generatedFiles:
   - src/__tests__/mockserver/internal/handler/pathgetpipelines.go
   - src/__tests__/mockserver/internal/handler/pathgetpipelinesid.go
   - src/__tests__/mockserver/internal/handler/pathgetproductslakelakeslakeiddatasets.go
+  - src/__tests__/mockserver/internal/handler/pathgetproductslakelakeslakeiddatasetsid.go
   - src/__tests__/mockserver/internal/handler/pathgetproductsproductgroups.go
   - src/__tests__/mockserver/internal/handler/pathgetproductsproductgroupsidaclteams.go
   - src/__tests__/mockserver/internal/handler/pathgetroutes.go
@@ -3133,7 +3146,9 @@ generatedFiles:
   - src/__tests__/mockserver/internal/handler/pathgetversionstatus.go
   - src/__tests__/mockserver/internal/handler/pathpatchmastergroupsiddeploy.go
   - src/__tests__/mockserver/internal/handler/pathpatchmasterworkersrestart.go
+  - src/__tests__/mockserver/internal/handler/pathpatchpacksid.go
   - src/__tests__/mockserver/internal/handler/pathpatchpipelinesid.go
+  - src/__tests__/mockserver/internal/handler/pathpatchproductslakelakeslakeiddatasetsid.go
   - src/__tests__/mockserver/internal/handler/pathpatchroutesid.go
   - src/__tests__/mockserver/internal/handler/pathpatchsysteminputsid.go
   - src/__tests__/mockserver/internal/handler/pathpatchsysteminputsidhectokentoken.go
@@ -3363,11 +3378,14 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/operations/createversionrevert.go
   - src/__tests__/mockserver/internal/sdk/models/operations/createversionsync.go
   - src/__tests__/mockserver/internal/sdk/models/operations/createversionundo.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/deletecribllakedatasetbylakeidandid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/deleteinputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/deleteoutputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/deleteoutputpqbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/deletepacksbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/deletepipelinebyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/getcribllakedatasetbylakeid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getcribllakedatasetbylakeidandid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/getgroupsaclbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/getgroupsbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/getgroupsconfigversionbyid.go
@@ -3397,11 +3415,13 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/operations/listpipeline.go
   - src/__tests__/mockserver/internal/sdk/models/operations/listroutes.go
   - src/__tests__/mockserver/internal/sdk/models/operations/login.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/updatecribllakedatasetbylakeidandid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updategroupsdeploybyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateinputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateinputhectokenbyidandtoken.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateoutputbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updatepacks.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/updatepacksbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updatepipelinebyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateroutesbyid.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateworkersrestart.go
@@ -3454,10 +3474,15 @@ generatedFiles:
   - src/funcs/groupsUpdateGroupsDeployById.ts
   - src/funcs/healthGetHealthInfo.ts
   - src/funcs/lakeCreateCriblLakeDatasetByLakeId.ts
+  - src/funcs/lakeDeleteCriblLakeDatasetByLakeIdAndId.ts
   - src/funcs/lakeGetCriblLakeDatasetByLakeId.ts
+  - src/funcs/lakeGetCriblLakeDatasetByLakeIdAndId.ts
+  - src/funcs/lakeUpdateCriblLakeDatasetByLakeIdAndId.ts
   - src/funcs/packsCreatePacks.ts
+  - src/funcs/packsDeletePacksById.ts
   - src/funcs/packsGetPacks.ts
   - src/funcs/packsUpdatePacks.ts
+  - src/funcs/packsUpdatePacksById.ts
   - src/funcs/pipelinesCreatePipeline.ts
   - src/funcs/pipelinesDeletePipelineById.ts
   - src/funcs/pipelinesGetPipelineById.ts
@@ -3633,11 +3658,14 @@ generatedFiles:
   - src/models/operations/createversionrevert.ts
   - src/models/operations/createversionsync.ts
   - src/models/operations/createversionundo.ts
+  - src/models/operations/deletecribllakedatasetbylakeidandid.ts
   - src/models/operations/deleteinputbyid.ts
   - src/models/operations/deleteoutputbyid.ts
   - src/models/operations/deleteoutputpqbyid.ts
+  - src/models/operations/deletepacksbyid.ts
   - src/models/operations/deletepipelinebyid.ts
   - src/models/operations/getcribllakedatasetbylakeid.ts
+  - src/models/operations/getcribllakedatasetbylakeidandid.ts
   - src/models/operations/getgroupsaclbyid.ts
   - src/models/operations/getgroupsbyid.ts
   - src/models/operations/getgroupsconfigversionbyid.ts
@@ -3666,11 +3694,13 @@ generatedFiles:
   - src/models/operations/listoutput.ts
   - src/models/operations/listpipeline.ts
   - src/models/operations/listroutes.ts
+  - src/models/operations/updatecribllakedatasetbylakeidandid.ts
   - src/models/operations/updategroupsdeploybyid.ts
   - src/models/operations/updateinputbyid.ts
   - src/models/operations/updateinputhectokenbyidandtoken.ts
   - src/models/operations/updateoutputbyid.ts
   - src/models/operations/updatepacks.ts
+  - src/models/operations/updatepacksbyid.ts
   - src/models/operations/updatepipelinebyid.ts
   - src/models/operations/updateroutesbyid.ts
   - src/models/operations/updateworkersrestart.ts
@@ -4295,6 +4325,61 @@ examples:
           application/json: {}
         "500":
           application/json: {}
+  deleteCriblLakeDatasetByLakeIdAndId:
+    speakeasy-default-delete-cribl-lake-dataset-by-lake-id-and-id:
+      parameters:
+        path:
+          lakeId: "<id>"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  getCriblLakeDatasetByLakeIdAndId:
+    speakeasy-default-get-cribl-lake-dataset-by-lake-id-and-id:
+      parameters:
+        path:
+          lakeId: "<id>"
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updateCriblLakeDatasetByLakeIdAndId:
+    speakeasy-default-update-cribl-lake-dataset-by-lake-id-and-id:
+      parameters:
+        path:
+          lakeId: "<id>"
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "<id>"}
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  deletePacksById:
+    speakeasy-default-delete-packs-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
+  updatePacksById:
+    speakeasy-default-update-packs-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "500":
+          application/json: {}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:03:38+02:00"
@@ -4353,3 +4438,8 @@ generatedTests:
   createPacks: "2025-07-30T06:52:18Z"
   getPacks: "2025-07-30T06:52:18Z"
   updatePacks: "2025-07-30T06:52:18Z"
+  deleteCriblLakeDatasetByLakeIdAndId: "2025-07-31T13:41:19Z"
+  getCriblLakeDatasetByLakeIdAndId: "2025-07-31T13:41:19Z"
+  updateCriblLakeDatasetByLakeIdAndId: "2025-07-31T13:41:19Z"
+  deletePacksById: "2025-07-31T13:41:19Z"
+  updatePacksById: "2025-07-31T13:41:19Z"
