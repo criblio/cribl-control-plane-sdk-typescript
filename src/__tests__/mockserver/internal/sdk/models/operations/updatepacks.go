@@ -3,12 +3,15 @@
 package operations
 
 import (
+	"io"
 	"mockserver/internal/sdk/models/components"
 )
 
 type UpdatePacksRequest struct {
 	// the file to upload
 	Filename *string `queryParam:"style=form,explode=true,name=filename"`
+	// Gzip-compressed payload of the pack file
+	RequestBody io.Reader `request:"mediaType=application/gzip"`
 }
 
 func (o *UpdatePacksRequest) GetFilename() *string {
@@ -16,6 +19,13 @@ func (o *UpdatePacksRequest) GetFilename() *string {
 		return nil
 	}
 	return o.Filename
+}
+
+func (o *UpdatePacksRequest) GetRequestBody() io.Reader {
+	if o == nil {
+		return nil
+	}
+	return o.RequestBody
 }
 
 // UpdatePacksResponseBody - a list of any objects

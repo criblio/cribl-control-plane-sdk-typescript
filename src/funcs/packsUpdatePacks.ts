@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function packsUpdatePacks(
   client: CriblControlPlaneCore,
-  request?: operations.UpdatePacksRequest | undefined,
+  request: operations.UpdatePacksRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -58,7 +58,7 @@ export function packsUpdatePacks(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.UpdatePacksRequest | undefined,
+  request: operations.UpdatePacksRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -79,23 +79,23 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.UpdatePacksRequest$outboundSchema.optional().parse(value),
+    (value) => operations.UpdatePacksRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = payload.RequestBody;
 
   const path = pathToFunc("/packs")();
 
   const query = encodeFormQuery({
-    "filename": payload?.filename,
+    "filename": payload.filename,
   });
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/gzip",
     Accept: "application/json",
   }));
 

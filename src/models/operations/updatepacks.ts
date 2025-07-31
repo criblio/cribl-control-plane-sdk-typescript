@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,10 @@ export type UpdatePacksRequest = {
    * the file to upload
    */
   filename?: string | undefined;
+  /**
+   * Gzip-compressed payload of the pack file
+   */
+  requestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 /**
@@ -32,11 +37,22 @@ export const UpdatePacksRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   filename: z.string().optional(),
+  RequestBody: z.union([
+    z.instanceof(ReadableStream<Uint8Array>),
+    z.instanceof(Blob),
+    z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    "RequestBody": "requestBody",
+  });
 });
 
 /** @internal */
 export type UpdatePacksRequest$Outbound = {
   filename?: string | undefined;
+  RequestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 /** @internal */
@@ -46,6 +62,16 @@ export const UpdatePacksRequest$outboundSchema: z.ZodType<
   UpdatePacksRequest
 > = z.object({
   filename: z.string().optional(),
+  requestBody: z.union([
+    z.instanceof(ReadableStream<Uint8Array>),
+    z.instanceof(Blob),
+    z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    requestBody: "RequestBody",
+  });
 });
 
 /**
