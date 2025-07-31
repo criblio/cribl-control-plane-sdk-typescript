@@ -4,6 +4,7 @@
 
 import { expect, test } from "vitest";
 import { CriblControlPlane } from "../index.js";
+import { filesToStream } from "./files.js";
 import { createTestHTTPClient } from "./testclient.js";
 
 test("Packs Create Packs", async () => {
@@ -52,7 +53,9 @@ test("Packs Update Packs", async () => {
     },
   });
 
-  const result = await criblControlPlane.packs.updatePacks();
+  const result = await criblControlPlane.packs.updatePacks({
+    requestBody: filesToStream(".speakeasy/testfiles/example.file"),
+  });
   expect(result).toBeDefined();
   expect(result).toEqual({});
 });

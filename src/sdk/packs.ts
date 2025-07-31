@@ -54,7 +54,7 @@ export class Packs extends ClientSDK {
    * Upload Pack
    */
   async updatePacks(
-    request?: operations.UpdatePacksRequest | undefined,
+    request: operations.UpdatePacksRequest,
     options?: RequestOptions,
   ): Promise<operations.UpdatePacksResponse> {
     return unwrapAsync(packsUpdatePacks(

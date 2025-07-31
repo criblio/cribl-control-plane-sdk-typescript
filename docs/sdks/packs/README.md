@@ -177,6 +177,7 @@ Upload Pack
 
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
+import { openAsBlob } from "node:fs";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
@@ -186,7 +187,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.updatePacks();
+  const result = await criblControlPlane.packs.updatePacks({
+    requestBody: await openAsBlob("example.file"),
+  });
 
   console.log(result);
 }
@@ -201,6 +204,7 @@ The standalone function version of this method:
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
 import { packsUpdatePacks } from "cribl-control-plane/funcs/packsUpdatePacks.js";
+import { openAsBlob } from "node:fs";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -212,7 +216,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await packsUpdatePacks(criblControlPlane);
+  const res = await packsUpdatePacks(criblControlPlane, {
+    requestBody: await openAsBlob("example.file"),
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
