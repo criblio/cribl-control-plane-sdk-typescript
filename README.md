@@ -166,8 +166,10 @@ run();
 * [getGroupsConfigVersionById](docs/sdks/groups/README.md#getgroupsconfigversionbyid) - Get effective bundle version for given Group
 * [createProductsGroupsByProduct](docs/sdks/groups/README.md#createproductsgroupsbyproduct) - Create a Fleet or Worker Group
 * [getProductsGroupsByProduct](docs/sdks/groups/README.md#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
-* [updateGroupsDeployById](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
+* [deleteGroupsById](docs/sdks/groups/README.md#deletegroupsbyid) - Delete a Fleet or Worker Group
 * [getGroupsById](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
+* [updateGroupsById](docs/sdks/groups/README.md#updategroupsbyid) - Update a Fleet or Worker Group
+* [updateGroupsDeployById](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
 * [getGroupsAclById](docs/sdks/groups/README.md#getgroupsaclbyid) - ACL of members with permissions for resources in this Group
 
 ### [health](docs/sdks/health/README.md)
@@ -271,10 +273,12 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`destinationsUpdateDestinationById`](docs/sdks/destinations/README.md#updatedestinationbyid) - Update Destination
 - [`distributedGetSummary`](docs/sdks/distributed/README.md#getsummary) - Get summary of Distributed deployment
 - [`groupsCreateProductsGroupsByProduct`](docs/sdks/groups/README.md#createproductsgroupsbyproduct) - Create a Fleet or Worker Group
+- [`groupsDeleteGroupsById`](docs/sdks/groups/README.md#deletegroupsbyid) - Delete a Fleet or Worker Group
 - [`groupsGetGroupsAclById`](docs/sdks/groups/README.md#getgroupsaclbyid) - ACL of members with permissions for resources in this Group
 - [`groupsGetGroupsById`](docs/sdks/groups/README.md#getgroupsbyid) - Get a specific ConfigGroup object
 - [`groupsGetGroupsConfigVersionById`](docs/sdks/groups/README.md#getgroupsconfigversionbyid) - Get effective bundle version for given Group
 - [`groupsGetProductsGroupsByProduct`](docs/sdks/groups/README.md#getproductsgroupsbyproduct) - Get a list of ConfigGroup objects
+- [`groupsUpdateGroupsById`](docs/sdks/groups/README.md#updategroupsbyid) - Update a Fleet or Worker Group
 - [`groupsUpdateGroupsDeployById`](docs/sdks/groups/README.md#updategroupsdeploybyid) - Deploy commits for a Fleet or Worker Group
 - [`healthGetHealthInfo`](docs/sdks/health/README.md#gethealthinfo) - Provides health info for REST server
 - [`lakeCreateCriblLakeDatasetByLakeId`](docs/sdks/lake/README.md#createcribllakedatasetbylakeid) - Create a Dataset in the specified Lake
@@ -477,7 +481,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 61 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 63 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

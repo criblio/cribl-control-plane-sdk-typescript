@@ -120,3 +120,43 @@ test("Groups Get Groups Acl By Id", async () => {
   expect(result).toBeDefined();
   expect(result).toEqual({});
 });
+
+test("Groups Delete Groups By Id", async () => {
+  const testHttpClient = createTestHTTPClient("deleteGroupsById");
+
+  const criblControlPlane = new CriblControlPlane({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: testHttpClient,
+    security: {
+      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
+    },
+  });
+
+  const result = await criblControlPlane.groups.deleteGroupsById({
+    id: "<id>",
+  });
+  expect(result).toBeDefined();
+  expect(result).toEqual({});
+});
+
+test("Groups Update Groups By Id", async () => {
+  const testHttpClient = createTestHTTPClient("updateGroupsById");
+
+  const criblControlPlane = new CriblControlPlane({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: testHttpClient,
+    security: {
+      bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "value",
+    },
+  });
+
+  const result = await criblControlPlane.groups.updateGroupsById({
+    id: "<id>",
+    configGroup: {
+      configVersion: "<value>",
+      id: "<id>",
+    },
+  });
+  expect(result).toBeDefined();
+  expect(result).toEqual({});
+});

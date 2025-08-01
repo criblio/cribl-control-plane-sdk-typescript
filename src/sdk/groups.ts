@@ -3,10 +3,12 @@
  */
 
 import { groupsCreateProductsGroupsByProduct } from "../funcs/groupsCreateProductsGroupsByProduct.js";
+import { groupsDeleteGroupsById } from "../funcs/groupsDeleteGroupsById.js";
 import { groupsGetGroupsAclById } from "../funcs/groupsGetGroupsAclById.js";
 import { groupsGetGroupsById } from "../funcs/groupsGetGroupsById.js";
 import { groupsGetGroupsConfigVersionById } from "../funcs/groupsGetGroupsConfigVersionById.js";
 import { groupsGetProductsGroupsByProduct } from "../funcs/groupsGetProductsGroupsByProduct.js";
+import { groupsUpdateGroupsById } from "../funcs/groupsUpdateGroupsById.js";
 import { groupsUpdateGroupsDeployById } from "../funcs/groupsUpdateGroupsDeployById.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -65,16 +67,16 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Deploy commits for a Fleet or Worker Group
+   * Delete a Fleet or Worker Group
    *
    * @remarks
-   * Deploy commits for a Fleet or Worker Group
+   * Delete a Fleet or Worker Group
    */
-  async updateGroupsDeployById(
-    request: operations.UpdateGroupsDeployByIdRequest,
+  async deleteGroupsById(
+    request: operations.DeleteGroupsByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateGroupsDeployByIdResponse> {
-    return unwrapAsync(groupsUpdateGroupsDeployById(
+  ): Promise<operations.DeleteGroupsByIdResponse> {
+    return unwrapAsync(groupsDeleteGroupsById(
       this,
       request,
       options,
@@ -92,6 +94,40 @@ export class Groups extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GetGroupsByIdResponse> {
     return unwrapAsync(groupsGetGroupsById(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update a Fleet or Worker Group
+   *
+   * @remarks
+   * Update a Fleet or Worker Group
+   */
+  async updateGroupsById(
+    request: operations.UpdateGroupsByIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateGroupsByIdResponse> {
+    return unwrapAsync(groupsUpdateGroupsById(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Deploy commits for a Fleet or Worker Group
+   *
+   * @remarks
+   * Deploy commits for a Fleet or Worker Group
+   */
+  async updateGroupsDeployById(
+    request: operations.UpdateGroupsDeployByIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateGroupsDeployByIdResponse> {
+    return unwrapAsync(groupsUpdateGroupsDeployById(
       this,
       request,
       options,
