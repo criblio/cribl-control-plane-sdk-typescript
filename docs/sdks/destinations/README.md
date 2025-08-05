@@ -21,6 +21,7 @@ Get a list of Destination objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listOutput" method="get" path="/system/outputs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -95,6 +96,7 @@ Create Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createOutput" method="post" path="/system/outputs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -306,6 +308,7 @@ Get Destination by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOutputById" method="get" path="/system/outputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -385,6 +388,7 @@ Update Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -582,6 +586,7 @@ Delete Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -661,6 +666,7 @@ Clears destination persistent queue
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteOutputPqById" method="delete" path="/system/outputs/{id}/pq" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -740,6 +746,7 @@ Retrieves status of latest clear PQ job for a destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOutputPqById" method="get" path="/system/outputs/{id}/pq" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -819,6 +826,7 @@ Retrieve samples data for the specified destination. Used to get sample data for
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOutputSamplesById" method="get" path="/system/outputs/{id}/samples" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -898,6 +906,7 @@ Send sample data to a destination to validate configuration or test connectivity
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

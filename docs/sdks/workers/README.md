@@ -17,6 +17,7 @@ get worker and edge nodes count
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getSummaryWorkers" method="get" path="/master/summary/workers" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -96,6 +97,7 @@ get worker and edge nodes
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWorkers" method="get" path="/master/workers" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -185,6 +187,7 @@ restarts worker nodes
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateWorkersRestart" method="patch" path="/master/workers/restart" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

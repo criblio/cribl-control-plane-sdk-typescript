@@ -19,6 +19,7 @@ Get a list of Pipeline objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listPipeline" method="get" path="/pipelines" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -93,6 +94,7 @@ Create Pipeline
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -220,6 +222,7 @@ Get Pipeline by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getPipelineById" method="get" path="/pipelines/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -299,6 +302,7 @@ Update Pipeline
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -432,6 +436,7 @@ Delete Pipeline
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deletePipelineById" method="delete" path="/pipelines/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

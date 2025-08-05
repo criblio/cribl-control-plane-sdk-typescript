@@ -19,6 +19,7 @@ Create a Dataset in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -192,6 +193,7 @@ Get the list of Dataset contained in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getCriblLakeDatasetByLakeId" method="get" path="/products/lake/lakes/{lakeId}/datasets" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -271,6 +273,7 @@ Delete a Dataset in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteCriblLakeDatasetByLakeIdAndId" method="delete" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -352,6 +355,7 @@ Get a Dataset in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getCriblLakeDatasetByLakeIdAndId" method="get" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -433,6 +437,7 @@ Update a Dataset in the specified Lake
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

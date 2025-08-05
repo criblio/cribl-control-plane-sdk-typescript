@@ -3,10 +3,10 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: f2b376df0371a9bb0936bc5735927626
   docVersion: 4.14.0-alpha.1754075358312-9b381cdf
-  speakeasyVersion: 1.585.0
-  generationVersion: 2.660.0
-  releaseVersion: 0.0.27
-  configChecksum: b51beca8aac143f43dd1f9ff543db718
+  speakeasyVersion: 1.596.1
+  generationVersion: 2.672.0
+  releaseVersion: 0.0.28
+  configChecksum: b4cc165ecf11421b2d3ba9e2e275391d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.12
-    core: 3.21.14
+    core: 3.21.19
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.0
     enumUnions: 0.1.0
@@ -3152,6 +3152,7 @@ generatedFiles:
   - src/funcs/workersGetSummaryWorkers.ts
   - src/funcs/workersGetWorkers.ts
   - src/funcs/workersUpdateWorkersRestart.ts
+  - src/hooks/clientcredentials.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts

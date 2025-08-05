@@ -27,6 +27,7 @@ get the list of branches
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionBranch" method="get" path="/version/branch" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -101,6 +102,7 @@ create a new commit containing the current configs the given log message describ
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -190,6 +192,7 @@ get the count of files of changed
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionCount" method="get" path="/version/count" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -271,6 +274,7 @@ returns git branch that the config is checked out to, if any
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionCurrentBranch" method="get" path="/version/current-branch" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -345,6 +349,7 @@ get the textual diff for given commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionDiff" method="get" path="/version/diff" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -430,6 +435,7 @@ get the files changed
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionFiles" method="get" path="/version/files" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -511,6 +517,7 @@ Get info about versioning availability
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionInfo" method="get" path="/version/info" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -585,6 +592,7 @@ push the current configs to the remote repository.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionPush" method="post" path="/version/push" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -659,6 +667,7 @@ revert a commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionRevert" method="post" path="/version/revert" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -748,6 +757,7 @@ get the log message and textual diff for given commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionShow" method="get" path="/version/show" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -833,6 +843,7 @@ get the the working tree status
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionStatus" method="get" path="/version/status" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -912,6 +923,7 @@ syncs with remote repo via POST requests
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionSync" method="post" path="/version/sync" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -986,6 +998,7 @@ undo the last commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionUndo" method="post" path="/version/undo" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

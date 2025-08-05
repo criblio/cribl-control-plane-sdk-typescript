@@ -11,6 +11,7 @@ export interface Env {
   CRIBLCONTROLPLANE_CLIENT_ID?: string | undefined;
   CRIBLCONTROLPLANE_CLIENT_SECRET?: string | undefined;
   CRIBLCONTROLPLANE_TOKEN_URL: string;
+  CRIBLCONTROLPLANE_AUDIENCE?: string | undefined;
 
   CRIBLCONTROLPLANE_DEBUG?: boolean | undefined;
 }
@@ -22,6 +23,7 @@ export const envSchema: z.ZodType<Env, z.ZodTypeDef, unknown> = z.object({
   CRIBLCONTROLPLANE_TOKEN_URL: z.string().default(
     "https://login.cribl.cloud/oauth/token",
   ),
+  CRIBLCONTROLPLANE_AUDIENCE: z.string().optional(),
 
   CRIBLCONTROLPLANE_DEBUG: z.coerce.boolean().optional(),
 });

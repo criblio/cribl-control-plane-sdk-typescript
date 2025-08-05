@@ -255,6 +255,8 @@ export function resolveGlobalSecurity(
             ?? env().CRIBLCONTROLPLANE_CLIENT_ID,
           clientSecret: security?.clientOauth?.clientSecret
             ?? env().CRIBLCONTROLPLANE_CLIENT_SECRET,
+          audience: security?.clientOauth?.audience
+            ?? env().CRIBLCONTROLPLANE_AUDIENCE,
         },
       },
     ],
