@@ -6,9 +6,40 @@
 import { InputWiz } from "cribl-control-plane/models";
 
 let value: InputWiz = {
-  authUrl: "https://lone-cinder.name/",
+  id: "<id>",
+  type: "wiz",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  authUrl: "https://criminal-offset.info/",
+  authAudienceOverride: "<value>",
   clientId: "<id>",
   contentConfig: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      5668.03,
+      2663.29,
+      2735.91,
+    ],
+  },
+  description: "psst parsnip schlep cluttered off next",
+  clientSecret: "<value>",
+  textSecret: "<value>",
 };
 ```
 

@@ -5,7 +5,20 @@
 ```typescript
 import { Git } from "cribl-control-plane/models";
 
-let value: Git = {};
+let value: Git = {
+  commit: "<value>",
+  localChanges: 5693.65,
+  log: [
+    {
+      authorEmail: "<value>",
+      authorName: "<value>",
+      date: "2024-11-14",
+      hash: "<value>",
+      message: "<value>",
+      short: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

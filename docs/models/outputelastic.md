@@ -6,8 +6,51 @@
 import { OutputElastic } from "cribl-control-plane/models";
 
 let value: OutputElastic = {
+  id: "<id>",
   type: "elastic",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   index: "<value>",
+  docType: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 6978.08,
+    },
+  ],
+  timeoutRetrySettings: {},
+  extraParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  auth: {},
+  elasticPipeline: "<value>",
+  description: "wing gosh attest catalyze waist eek jaggedly woot",
+  url: "https://brisk-marathon.biz",
+  urls: [
+    {
+      url: "https://triangular-vista.net/",
+    },
+  ],
+  pqControls: {},
 };
 ```
 

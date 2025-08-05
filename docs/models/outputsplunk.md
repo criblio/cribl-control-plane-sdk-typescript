@@ -6,7 +6,32 @@
 import { OutputSplunk } from "cribl-control-plane/models";
 
 let value: OutputSplunk = {
-  host: "blushing-plastic.biz",
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  host: "elastic-custody.com",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  description: "colon nor tightly pants now devil fooey verbally till",
+  pqControls: {},
+  textSecret: "<value>",
 };
 ```
 

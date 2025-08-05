@@ -6,8 +6,9 @@
 import { HealthStatus } from "cribl-control-plane/models";
 
 let value: HealthStatus = {
+  role: "primary",
   status: "shutting down",
-  startTime: 4418.38,
+  startTime: 3159.13,
 };
 ```
 

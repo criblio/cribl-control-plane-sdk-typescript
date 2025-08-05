@@ -6,7 +6,20 @@
 import { InputSplunkHecAuthToken } from "cribl-control-plane/models";
 
 let value: InputSplunkHecAuthToken = {
+  tokenSecret: "<value>",
   token: "<value>",
+  description: "stock gadzooks bah reach lava oddball",
+  allowedIndexesAtToken: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

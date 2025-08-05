@@ -7,6 +7,40 @@ import { OutputHumioHec } from "cribl-control-plane/models/operations";
 
 let value: OutputHumioHec = {
   id: "<id>",
+  type: "humio_hec",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 8676.06,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "wildly against athwart apropos aircraft scoff catalyze passport",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

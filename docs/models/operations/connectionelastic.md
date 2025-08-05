@@ -6,6 +6,7 @@
 import { ConnectionElastic } from "cribl-control-plane/models/operations";
 
 let value: ConnectionElastic = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

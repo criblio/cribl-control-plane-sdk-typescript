@@ -6,6 +6,7 @@
 import { ConnectionFirehose } from "cribl-control-plane/models/operations";
 
 let value: ConnectionFirehose = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

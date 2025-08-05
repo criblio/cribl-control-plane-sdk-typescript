@@ -26,7 +26,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.distributed.getSummary();
+  const result = await criblControlPlane.distributed.getSummary({
+    mode: "worker",
+  });
 
   console.log(result);
 }
@@ -52,7 +54,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await distributedGetSummary(criblControlPlane);
+  const res = await distributedGetSummary(criblControlPlane, {
+    mode: "worker",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

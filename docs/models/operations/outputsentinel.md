@@ -7,9 +7,48 @@ import { OutputSentinel } from "cribl-control-plane/models/operations";
 
 let value: OutputSentinel = {
   id: "<id>",
-  loginUrl: "https://inexperienced-hydrolyze.com",
+  type: "sentinel",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 1162.62,
+    },
+  ],
+  timeoutRetrySettings: {},
+  authType: "oauth",
+  loginUrl: "https://urban-electronics.biz",
   secret: "<value>",
   clientId: "<id>",
+  totalMemoryLimitKB: 1001.02,
+  description: "continually commonly declaration trusty dimly between wisely",
+  format: "ndjson",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  url: "https://sneaky-version.biz",
+  dcrID: "<id>",
+  dceEndpoint: "<value>",
+  streamName: "<value>",
 };
 ```
 

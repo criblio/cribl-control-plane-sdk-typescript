@@ -5,7 +5,51 @@
 ```typescript
 import { InputOffice365MsgTrace } from "cribl-control-plane/models";
 
-let value: InputOffice365MsgTrace = {};
+let value: InputOffice365MsgTrace = {
+  id: "<id>",
+  type: "office365_msg_trace",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  startDate: "<value>",
+  endDate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      6130.25,
+      1608.52,
+    ],
+  },
+  description: "helpfully stage microblog ill-fated ha",
+  username: "Penelope29",
+  password: "2zUumt8MSApxEG0",
+  credentialsSecret: "<value>",
+  clientSecret: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  textSecret: "<value>",
+  certOptions: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+  },
+};
 ```
 
 ## Fields

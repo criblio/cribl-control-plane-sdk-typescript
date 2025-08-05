@@ -7,7 +7,10 @@ Maximum time to wait before sending a batch (when batch size limit is not reache
 ```typescript
 import { FlushPeriodSec } from "cribl-control-plane/models";
 
-let value: FlushPeriodSec = {};
+let value: FlushPeriodSec = {
+  type: "number",
+  default: 1903.67,
+};
 ```
 
 ## Fields

@@ -8,7 +8,56 @@ import { OutputPrometheus } from "cribl-control-plane/models/operations";
 let value: OutputPrometheus = {
   id: "<id>",
   type: "prometheus",
-  url: "https://eminent-colon.name",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://mixed-omelet.name/",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 7362.23,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "since how the drat",
+  pqControls: {},
+  username: "Stan.Thompson",
+  password: "foL5dxPkbIfCvm2",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://urban-innovation.org/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

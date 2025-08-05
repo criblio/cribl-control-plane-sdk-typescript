@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderHumioHec } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderHumioHec = {
+  name: "<value>",
   value: "<value>",
 };
 ```

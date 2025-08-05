@@ -6,6 +6,7 @@
 import { OutputInfluxdbExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputInfluxdbExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

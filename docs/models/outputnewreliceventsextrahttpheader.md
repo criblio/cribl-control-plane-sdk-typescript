@@ -6,6 +6,7 @@
 import { OutputNewrelicEventsExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputNewrelicEventsExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

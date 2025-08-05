@@ -6,6 +6,7 @@
 import { OutputElasticExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputElasticExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

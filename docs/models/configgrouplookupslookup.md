@@ -6,7 +6,9 @@
 import { ConfigGroupLookupsLookup } from "cribl-control-plane/models";
 
 let value: ConfigGroupLookupsLookup = {
+  deployedVersion: "<value>",
   file: "<value>",
+  version: "<value>",
 };
 ```
 

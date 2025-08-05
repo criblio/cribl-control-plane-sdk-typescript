@@ -6,6 +6,7 @@
 import { OutputServiceNowExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputServiceNowExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

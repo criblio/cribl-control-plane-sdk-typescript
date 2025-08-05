@@ -7,6 +7,9 @@ import { RoutesGroups } from "cribl-control-plane/models";
 
 let value: RoutesGroups = {
   name: "<value>",
+  description:
+    "meanwhile past cardboard hydrocarbon celebrated oh inwardly gah poorly",
+  disabled: false,
 };
 ```
 

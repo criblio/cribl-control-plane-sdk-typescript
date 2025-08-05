@@ -7,6 +7,7 @@ import { ResourcePolicy } from "cribl-control-plane/models";
 
 let value: ResourcePolicy = {
   gid: "<id>",
+  id: "<id>",
   policy: "<value>",
   type: "macros",
 };

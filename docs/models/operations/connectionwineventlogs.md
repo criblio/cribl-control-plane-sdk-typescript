@@ -6,6 +6,7 @@
 import { ConnectionWinEventLogs } from "cribl-control-plane/models/operations";
 
 let value: ConnectionWinEventLogs = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

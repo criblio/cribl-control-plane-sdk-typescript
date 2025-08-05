@@ -7,6 +7,7 @@ import { GitRevertParams } from "cribl-control-plane/models";
 
 let value: GitRevertParams = {
   commit: "<value>",
+  force: false,
   message: "<value>",
 };
 ```

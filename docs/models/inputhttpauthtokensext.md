@@ -7,6 +7,13 @@ import { InputHttpAuthTokensExt } from "cribl-control-plane/models";
 
 let value: InputHttpAuthTokensExt = {
   token: "<value>",
+  description: "deflate zowie barracks fiercely insistent",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

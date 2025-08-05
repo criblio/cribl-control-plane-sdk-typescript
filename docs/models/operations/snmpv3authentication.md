@@ -7,7 +7,14 @@ Authentication parameters for SNMPv3 trap. Set the log level to debug if you are
 ```typescript
 import { SNMPv3Authentication } from "cribl-control-plane/models/operations";
 
-let value: SNMPv3Authentication = {};
+let value: SNMPv3Authentication = {
+  v3Users: [
+    {
+      name: "<value>",
+      authKey: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

@@ -8,6 +8,31 @@ import { InputKubeEvents } from "cribl-control-plane/models";
 let value: InputKubeEvents = {
   id: "<id>",
   type: "kube_events",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "which incline beautifully",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "convection any mmm whereas major so regularly",
 };
 ```
 

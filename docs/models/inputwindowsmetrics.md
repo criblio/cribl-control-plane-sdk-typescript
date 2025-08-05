@@ -8,6 +8,54 @@ import { InputWindowsMetrics } from "cribl-control-plane/models";
 let value: InputWindowsMetrics = {
   id: "<id>",
   type: "windows_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+      disk: {
+        volumes: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "printer toaster forenenst over safe between",
 };
 ```
 

@@ -6,6 +6,17 @@
 import { DeployRequest } from "cribl-control-plane/models";
 
 let value: DeployRequest = {
+  lookups: [
+    {
+      context: "<value>",
+      lookups: [
+        {
+          file: "<value>",
+          version: "<value>",
+        },
+      ],
+    },
+  ],
   version: "<value>",
 };
 ```

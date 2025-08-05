@@ -7,7 +7,14 @@ a list of any objects
 ```typescript
 import { GetVersionShowResponse } from "cribl-control-plane/models/operations";
 
-let value: GetVersionShowResponse = {};
+let value: GetVersionShowResponse = {
+  count: 961642,
+  items: [
+    {
+      "key": "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

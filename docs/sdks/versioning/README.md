@@ -113,6 +113,11 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versioning.createVersionCommit({
+    effective: false,
+    files: [
+      "<value 1>",
+    ],
+    group: "<value>",
     message: "<value>",
   });
 
@@ -141,6 +146,11 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versioningCreateVersionCommit(criblControlPlane, {
+    effective: false,
+    files: [
+      "<value 1>",
+    ],
+    group: "<value>",
     message: "<value>",
   });
   if (res.ok) {
@@ -191,7 +201,10 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionCount();
+  const result = await criblControlPlane.versioning.getVersionCount({
+    group: "<value>",
+    id: "<id>",
+  });
 
   console.log(result);
 }
@@ -217,7 +230,10 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionCount(criblControlPlane);
+  const res = await versioningGetVersionCount(criblControlPlane, {
+    group: "<value>",
+    id: "<id>",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -340,7 +356,12 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionDiff();
+  const result = await criblControlPlane.versioning.getVersionDiff({
+    commit: "<value>",
+    group: "<value>",
+    filename: "example.file",
+    diffLineLimit: 6362,
+  });
 
   console.log(result);
 }
@@ -366,7 +387,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionDiff(criblControlPlane);
+  const res = await versioningGetVersionDiff(criblControlPlane, {
+    commit: "<value>",
+    group: "<value>",
+    filename: "example.file",
+    diffLineLimit: 6362,
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -415,7 +441,10 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionFiles();
+  const result = await criblControlPlane.versioning.getVersionFiles({
+    group: "<value>",
+    id: "<id>",
+  });
 
   console.log(result);
 }
@@ -441,7 +470,10 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionFiles(criblControlPlane);
+  const res = await versioningGetVersionFiles(criblControlPlane, {
+    group: "<value>",
+    id: "<id>",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -639,8 +671,10 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versioning.createVersionRevert({
+    group: "<value>",
     gitRevertParams: {
       commit: "<value>",
+      force: false,
       message: "<value>",
     },
   });
@@ -670,8 +704,10 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versioningCreateVersionRevert(criblControlPlane, {
+    group: "<value>",
     gitRevertParams: {
       commit: "<value>",
+      force: false,
       message: "<value>",
     },
   });
@@ -723,7 +759,12 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionShow();
+  const result = await criblControlPlane.versioning.getVersionShow({
+    commit: "<value>",
+    group: "<value>",
+    filename: "example.file",
+    diffLineLimit: 7771.94,
+  });
 
   console.log(result);
 }
@@ -749,7 +790,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionShow(criblControlPlane);
+  const res = await versioningGetVersionShow(criblControlPlane, {
+    commit: "<value>",
+    group: "<value>",
+    filename: "example.file",
+    diffLineLimit: 7771.94,
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -798,7 +844,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionStatus();
+  const result = await criblControlPlane.versioning.getVersionStatus({
+    group: "<value>",
+  });
 
   console.log(result);
 }
@@ -824,7 +872,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionStatus(criblControlPlane);
+  const res = await versioningGetVersionStatus(criblControlPlane, {
+    group: "<value>",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -947,7 +997,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.createVersionUndo();
+  const result = await criblControlPlane.versioning.createVersionUndo({
+    group: "<value>",
+  });
 
   console.log(result);
 }
@@ -973,7 +1025,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningCreateVersionUndo(criblControlPlane);
+  const res = await versioningCreateVersionUndo(criblControlPlane, {
+    group: "<value>",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

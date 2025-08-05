@@ -7,7 +7,19 @@ a list of any objects
 ```typescript
 import { CreateRoutesAppendByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: CreateRoutesAppendByIdResponse = {};
+let value: CreateRoutesAppendByIdResponse = {
+  count: 445099,
+  items: [
+    {
+      "key": "<value>",
+      "key1": "<value>",
+    },
+    {
+      "key": "<value>",
+      "key1": "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

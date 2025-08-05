@@ -6,6 +6,7 @@
 import { OutputGrafanaCloudExtraHttpHeader2 } from "cribl-control-plane/models";
 
 let value: OutputGrafanaCloudExtraHttpHeader2 = {
+  name: "<value>",
   value: "<value>",
 };
 ```

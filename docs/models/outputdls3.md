@@ -6,7 +6,41 @@
 import { OutputDlS3 } from "cribl-control-plane/models";
 
 let value: OutputDlS3 = {
+  id: "<id>",
+  type: "dl_s3",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "DEEP_ARCHIVE",
+  serverSideEncryption: "aws:kms",
+  kmsKeyId: "<id>",
+  partitioningFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description:
+    "upside-down incidentally even microblog bleakly triumphantly modulo",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 

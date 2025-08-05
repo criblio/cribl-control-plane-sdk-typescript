@@ -6,8 +6,13 @@
 import { RoutesRoute } from "cribl-control-plane/models";
 
 let value: RoutesRoute = {
+  id: "<id>",
   name: "<value>",
+  disabled: true,
   pipeline: "<value>",
+  output: "<value>",
+  outputExpression: "<value>",
+  description: "and self-confidence toward normal",
 };
 ```
 

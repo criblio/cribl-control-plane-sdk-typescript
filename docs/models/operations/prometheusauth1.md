@@ -5,7 +5,29 @@
 ```typescript
 import { PrometheusAuth1 } from "cribl-control-plane/models/operations";
 
-let value: PrometheusAuth1 = {};
+let value: PrometheusAuth1 = {
+  username: "Alexzander_Turner24",
+  password: "K57nI_f5thpTDEG",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://soft-curl.biz",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

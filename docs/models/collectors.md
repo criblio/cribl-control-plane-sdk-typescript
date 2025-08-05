@@ -5,7 +5,19 @@
 ```typescript
 import { Collectors } from "cribl-control-plane/models";
 
-let value: Collectors = {};
+let value: Collectors = {
+  hostsfile: {},
+  interfaces: {},
+  disk: {},
+  metadata: {},
+  routes: {},
+  dns: {},
+  user: {},
+  firewall: {},
+  services: {},
+  ports: {},
+  loginUsers: {},
+};
 ```
 
 ## Fields

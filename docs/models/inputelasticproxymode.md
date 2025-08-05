@@ -5,7 +5,12 @@
 ```typescript
 import { InputElasticProxyMode } from "cribl-control-plane/models";
 
-let value: InputElasticProxyMode = {};
+let value: InputElasticProxyMode = {
+  url: "https://steep-tackle.name/",
+  removeHeaders: [
+    "<value 1>",
+  ],
+};
 ```
 
 ## Fields

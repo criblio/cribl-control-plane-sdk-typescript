@@ -5,7 +5,12 @@
 ```typescript
 import { InputOffice365MsgTraceRetryRules } from "cribl-control-plane/models";
 
-let value: InputOffice365MsgTraceRetryRules = {};
+let value: InputOffice365MsgTraceRetryRules = {
+  codes: [
+    1137.53,
+    1372.67,
+  ],
+};
 ```
 
 ## Fields

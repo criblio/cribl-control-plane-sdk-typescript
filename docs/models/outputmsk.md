@@ -6,9 +6,60 @@
 import { OutputMsk } from "cribl-control-plane/models";
 
 let value: OutputMsk = {
-  brokers: [],
+  id: "<id>",
+  type: "msk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   topic: "<value>",
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
+    },
+    defaultKeySchemaId: 8697.38,
+    defaultValueSchemaId: 537.56,
+  },
+  awsSecretKey: "<value>",
   region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.3",
+  },
+  description: "taro across than boo mmm motor",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  protobufLibraryId: "<id>",
+  pqControls: {},
 };
 ```
 

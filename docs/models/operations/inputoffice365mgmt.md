@@ -7,8 +7,46 @@ import { InputOffice365Mgmt } from "cribl-control-plane/models/operations";
 
 let value: InputOffice365Mgmt = {
   id: "<id>",
+  type: "office365_mgmt",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   tenantId: "<id>",
   appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  publisherIdentifier: "<value>",
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "frantically ugh pish muddy that huzzah intently rosemary",
+      interval: 1108.98,
+      logLevel: "info",
+      enabled: true,
+    },
+  ],
+  retryRules: {
+    codes: [
+      9712.62,
+    ],
+  },
+  description: "upright wide quarterly diligently sympathetically hunt",
+  clientSecret: "<value>",
+  textSecret: "<value>",
 };
 ```
 

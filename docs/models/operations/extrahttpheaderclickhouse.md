@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderClickHouse } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderClickHouse = {
+  name: "<value>",
   value: "<value>",
 };
 ```

@@ -6,8 +6,26 @@
 import { OutputKinesis } from "cribl-control-plane/models";
 
 let value: OutputKinesis = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   streamName: "<value>",
+  awsSecretKey: "<value>",
   region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  description: "amidst hm bony",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  pqControls: {},
 };
 ```
 

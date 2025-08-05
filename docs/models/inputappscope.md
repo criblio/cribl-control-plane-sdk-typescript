@@ -8,6 +8,54 @@ import { InputAppscope } from "cribl-control-plane/models";
 let value: InputAppscope = {
   id: "<id>",
   type: "appscope",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  filter: {
+    allow: [
+      {
+        procname: "<value>",
+        arg: "<value>",
+        config: "<value>",
+      },
+    ],
+    transportURL: "https://lawful-impact.net",
+  },
+  persistence: {},
+  description: "inspection adventurously gnash if scheme ew wrongly",
+  host: "twin-reporter.name",
+  port: 3370.32,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  },
+  unixSocketPerms: "<value>",
+  textSecret: "<value>",
 };
 ```
 

@@ -5,7 +5,13 @@
 ```typescript
 import { OutputGrafanaCloudLokiAuth1 } from "cribl-control-plane/models";
 
-let value: OutputGrafanaCloudLokiAuth1 = {};
+let value: OutputGrafanaCloudLokiAuth1 = {
+  token: "<value>",
+  textSecret: "<value>",
+  username: "Elouise41",
+  password: "70Q1ZPtBnYB_H6n",
+  credentialsSecret: "<value>",
+};
 ```
 
 ## Fields

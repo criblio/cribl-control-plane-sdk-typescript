@@ -8,6 +8,35 @@ import { InputFile } from "cribl-control-plane/models";
 let value: InputFile = {
   id: "<id>",
   type: "file",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  filenames: [
+    "<value 1>",
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "completion viability bleak behind shyly plus finally whoa odd",
+  path: "/System",
+  depth: 849.91,
 };
 ```
 

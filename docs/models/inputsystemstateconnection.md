@@ -6,6 +6,7 @@
 import { InputSystemStateConnection } from "cribl-control-plane/models";
 
 let value: InputSystemStateConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

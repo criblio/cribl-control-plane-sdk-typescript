@@ -6,6 +6,14 @@
 import { AddHecTokenRequest } from "cribl-control-plane/models";
 
 let value: AddHecTokenRequest = {
+  description: "soupy zesty ack overstay amongst the",
+  enabled: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
   token: "<value>",
 };
 ```

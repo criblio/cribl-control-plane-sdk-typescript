@@ -5,7 +5,14 @@
 ```typescript
 import { InputOffice365ServiceContentConfig } from "cribl-control-plane/models";
 
-let value: InputOffice365ServiceContentConfig = {};
+let value: InputOffice365ServiceContentConfig = {
+  contentType: "<value>",
+  description:
+    "before yippee forenenst fuss hence tightly too meh than reproachfully",
+  interval: 8674.66,
+  logLevel: "info",
+  enabled: true,
+};
 ```
 
 ## Fields

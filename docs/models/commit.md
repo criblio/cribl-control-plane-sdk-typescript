@@ -6,6 +6,8 @@
 import { Commit } from "cribl-control-plane/models";
 
 let value: Commit = {
+  authorEmail: "<value>",
+  authorName: "<value>",
   date: "2024-06-13",
   hash: "<value>",
   message: "<value>",

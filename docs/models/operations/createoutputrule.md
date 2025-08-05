@@ -8,6 +8,8 @@ import { CreateOutputRule } from "cribl-control-plane/models/operations";
 let value: CreateOutputRule = {
   filter: "<value>",
   output: "<value>",
+  description:
+    "yieldingly fibre unwilling frantically mostly who aw dutiful worth uh-huh",
 };
 ```
 

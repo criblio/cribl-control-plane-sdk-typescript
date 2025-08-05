@@ -5,7 +5,13 @@
 ```typescript
 import { RetryRulesOffice365Mgmt } from "cribl-control-plane/models/operations";
 
-let value: RetryRulesOffice365Mgmt = {};
+let value: RetryRulesOffice365Mgmt = {
+  codes: [
+    9915.71,
+    1320.76,
+    4196.25,
+  ],
+};
 ```
 
 ## Fields

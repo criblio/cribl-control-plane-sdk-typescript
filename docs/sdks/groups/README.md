@@ -115,8 +115,59 @@ async function run() {
   const result = await criblControlPlane.groups.createProductsGroupsByProduct({
     product: "stream",
     configGroup: {
+      cloud: {
+        provider: "aws",
+        region: "<value>",
+      },
       configVersion: "<value>",
+      deployingWorkerCount: 1848.32,
+      description: "director um why forgery apud once er though off",
+      estimatedIngestRate: 6663.53,
+      git: {
+        commit: "<value>",
+        localChanges: 2079.21,
+        log: [
+          {
+            authorEmail: "<value>",
+            authorName: "<value>",
+            date: "2024-08-24",
+            hash: "<value>",
+            message: "<value>",
+            short: "<value>",
+          },
+        ],
+      },
       id: "<id>",
+      incompatibleWorkerCount: 5487.26,
+      inherits: "<value>",
+      isFleet: false,
+      isSearch: false,
+      lookupDeployments: [
+        {
+          context: "<value>",
+          lookups: [
+            {
+              deployedVersion: "<value>",
+              file: "<value>",
+              version: "<value>",
+            },
+          ],
+        },
+      ],
+      maxWorkerAge: "<value>",
+      name: "<value>",
+      onPrem: true,
+      provisioned: true,
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      tags: "<value>",
+      type: "lake_access",
+      upgradeVersion: "<value>",
+      workerCount: 851.73,
+      workerRemoteAccess: false,
     },
   });
 
@@ -147,8 +198,59 @@ async function run() {
   const res = await groupsCreateProductsGroupsByProduct(criblControlPlane, {
     product: "stream",
     configGroup: {
+      cloud: {
+        provider: "aws",
+        region: "<value>",
+      },
       configVersion: "<value>",
+      deployingWorkerCount: 1848.32,
+      description: "director um why forgery apud once er though off",
+      estimatedIngestRate: 6663.53,
+      git: {
+        commit: "<value>",
+        localChanges: 2079.21,
+        log: [
+          {
+            authorEmail: "<value>",
+            authorName: "<value>",
+            date: "2024-08-24",
+            hash: "<value>",
+            message: "<value>",
+            short: "<value>",
+          },
+        ],
+      },
       id: "<id>",
+      incompatibleWorkerCount: 5487.26,
+      inherits: "<value>",
+      isFleet: false,
+      isSearch: false,
+      lookupDeployments: [
+        {
+          context: "<value>",
+          lookups: [
+            {
+              deployedVersion: "<value>",
+              file: "<value>",
+              version: "<value>",
+            },
+          ],
+        },
+      ],
+      maxWorkerAge: "<value>",
+      name: "<value>",
+      onPrem: true,
+      provisioned: true,
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      tags: "<value>",
+      type: "lake_access",
+      upgradeVersion: "<value>",
+      workerCount: 851.73,
+      workerRemoteAccess: false,
     },
   });
   if (res.ok) {
@@ -200,6 +302,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.getProductsGroupsByProduct({
+    fields: "<value>",
     product: "stream",
   });
 
@@ -228,6 +331,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsGetProductsGroupsByProduct(criblControlPlane, {
+    fields: "<value>",
     product: "stream",
   });
   if (res.ok) {
@@ -359,6 +463,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.groups.getGroupsById({
     id: "<id>",
+    fields: "<value>",
   });
 
   console.log(result);
@@ -387,6 +492,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await groupsGetGroupsById(criblControlPlane, {
     id: "<id>",
+    fields: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -439,8 +545,57 @@ async function run() {
   const result = await criblControlPlane.groups.updateGroupsById({
     id: "<id>",
     configGroup: {
+      cloud: {
+        provider: "aws",
+        region: "<value>",
+      },
       configVersion: "<value>",
+      deployingWorkerCount: 19.89,
+      description: "jaywalk wrathful truly indeed definitive reflecting almost massive",
+      estimatedIngestRate: 7133.74,
+      git: {
+        commit: "<value>",
+        localChanges: 370.43,
+        log: [
+          {
+            authorEmail: "<value>",
+            authorName: "<value>",
+            date: "2024-08-29",
+            hash: "<value>",
+            message: "<value>",
+            short: "<value>",
+          },
+        ],
+      },
       id: "<id>",
+      incompatibleWorkerCount: 7081.95,
+      inherits: "<value>",
+      isFleet: true,
+      isSearch: true,
+      lookupDeployments: [
+        {
+          context: "<value>",
+          lookups: [
+            {
+              deployedVersion: "<value>",
+              file: "<value>",
+              version: "<value>",
+            },
+          ],
+        },
+      ],
+      maxWorkerAge: "<value>",
+      name: "<value>",
+      onPrem: true,
+      provisioned: true,
+      streamtags: [
+        "<value 1>",
+      ],
+      tags: "<value>",
+      type: "lake_access",
+      upgradeVersion: "<value>",
+      workerCount: 9020.63,
+      workerRemoteAccess: true,
     },
   });
 
@@ -471,8 +626,57 @@ async function run() {
   const res = await groupsUpdateGroupsById(criblControlPlane, {
     id: "<id>",
     configGroup: {
+      cloud: {
+        provider: "aws",
+        region: "<value>",
+      },
       configVersion: "<value>",
+      deployingWorkerCount: 19.89,
+      description: "jaywalk wrathful truly indeed definitive reflecting almost massive",
+      estimatedIngestRate: 7133.74,
+      git: {
+        commit: "<value>",
+        localChanges: 370.43,
+        log: [
+          {
+            authorEmail: "<value>",
+            authorName: "<value>",
+            date: "2024-08-29",
+            hash: "<value>",
+            message: "<value>",
+            short: "<value>",
+          },
+        ],
+      },
       id: "<id>",
+      incompatibleWorkerCount: 7081.95,
+      inherits: "<value>",
+      isFleet: true,
+      isSearch: true,
+      lookupDeployments: [
+        {
+          context: "<value>",
+          lookups: [
+            {
+              deployedVersion: "<value>",
+              file: "<value>",
+              version: "<value>",
+            },
+          ],
+        },
+      ],
+      maxWorkerAge: "<value>",
+      name: "<value>",
+      onPrem: true,
+      provisioned: true,
+      streamtags: [
+        "<value 1>",
+      ],
+      tags: "<value>",
+      type: "lake_access",
+      upgradeVersion: "<value>",
+      workerCount: 9020.63,
+      workerRemoteAccess: true,
     },
   });
   if (res.ok) {
@@ -526,6 +730,17 @@ async function run() {
   const result = await criblControlPlane.groups.updateGroupsDeployById({
     id: "<id>",
     deployRequest: {
+      lookups: [
+        {
+          context: "<value>",
+          lookups: [
+            {
+              file: "<value>",
+              version: "<value>",
+            },
+          ],
+        },
+      ],
       version: "<value>",
     },
   });
@@ -557,6 +772,17 @@ async function run() {
   const res = await groupsUpdateGroupsDeployById(criblControlPlane, {
     id: "<id>",
     deployRequest: {
+      lookups: [
+        {
+          context: "<value>",
+          lookups: [
+            {
+              file: "<value>",
+              version: "<value>",
+            },
+          ],
+        },
+      ],
       version: "<value>",
     },
   });
@@ -610,6 +836,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.groups.getGroupsAclById({
     id: "<id>",
+    type: "insights",
   });
 
   console.log(result);
@@ -638,6 +865,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await groupsGetGroupsAclById(criblControlPlane, {
     id: "<id>",
+    type: "insights",
   });
   if (res.ok) {
     const { value: result } = res;

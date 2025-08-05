@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderSentinel } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderSentinel = {
+  name: "<value>",
   value: "<value>",
 };
 ```

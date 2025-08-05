@@ -7,6 +7,39 @@ import { OutputSentinelOneAiSiem } from "cribl-control-plane/models/operations";
 
 let value: OutputSentinelOneAiSiem = {
   id: "<id>",
+  type: "sentinel_one_ai_siem",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5114.15,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "croon kissingly whether what abaft woot qualified although",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

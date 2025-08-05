@@ -5,7 +5,9 @@
 ```typescript
 import { CreateVersionUndoRequest } from "cribl-control-plane/models/operations";
 
-let value: CreateVersionUndoRequest = {};
+let value: CreateVersionUndoRequest = {
+  group: "<value>",
+};
 ```
 
 ## Fields

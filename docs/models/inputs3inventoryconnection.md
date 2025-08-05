@@ -6,6 +6,7 @@
 import { InputS3InventoryConnection } from "cribl-control-plane/models";
 
 let value: InputS3InventoryConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

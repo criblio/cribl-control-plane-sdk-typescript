@@ -7,7 +7,21 @@ import { OutputStatsdExt } from "cribl-control-plane/models/operations";
 
 let value: OutputStatsdExt = {
   id: "<id>",
-  host: "honorable-kick.org",
+  type: "statsd_ext",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  host: "wilted-cosset.org",
+  description:
+    "whose blaspheme towards geez qua gee strange by above mockingly",
+  pqControls: {},
 };
 ```
 

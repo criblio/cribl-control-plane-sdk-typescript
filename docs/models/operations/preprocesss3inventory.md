@@ -5,7 +5,14 @@
 ```typescript
 import { PreprocessS3Inventory } from "cribl-control-plane/models/operations";
 
-let value: PreprocessS3Inventory = {};
+let value: PreprocessS3Inventory = {
+  command: "<value>",
+  args: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
 ```
 
 ## Fields

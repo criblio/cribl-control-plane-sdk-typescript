@@ -6,6 +6,7 @@
 import { InputKubeEventsConnection } from "cribl-control-plane/models";
 
 let value: InputKubeEventsConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

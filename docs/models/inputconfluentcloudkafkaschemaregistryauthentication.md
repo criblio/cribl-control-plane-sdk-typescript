@@ -5,7 +5,21 @@
 ```typescript
 import { InputConfluentCloudKafkaSchemaRegistryAuthentication } from "cribl-control-plane/models";
 
-let value: InputConfluentCloudKafkaSchemaRegistryAuthentication = {};
+let value: InputConfluentCloudKafkaSchemaRegistryAuthentication = {
+  auth: {
+    credentialsSecret: "<value>",
+  },
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
+  },
+};
 ```
 
 ## Fields

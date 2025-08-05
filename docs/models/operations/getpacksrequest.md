@@ -5,7 +5,9 @@
 ```typescript
 import { GetPacksRequest } from "cribl-control-plane/models/operations";
 
-let value: GetPacksRequest = {};
+let value: GetPacksRequest = {
+  with: "<value>",
+};
 ```
 
 ## Fields

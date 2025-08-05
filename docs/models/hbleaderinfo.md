@@ -8,6 +8,8 @@ import { HBLeaderInfo } from "cribl-control-plane/models";
 let value: HBLeaderInfo = {
   host: "urban-sandbar.biz",
   port: 204.97,
+  servername: "<value>",
+  tls: true,
 };
 ```
 

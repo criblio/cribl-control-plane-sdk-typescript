@@ -8,6 +8,45 @@ import { OutputNewrelic } from "cribl-control-plane/models";
 let value: OutputNewrelic = {
   id: "<id>",
   type: "newrelic",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  metadata: [
+    {
+      name: "hostname",
+      value: "<value>",
+    },
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 1243.99,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 7293.26,
+  description: "rapidly fooey now mooch superior sleepily boohoo repeatedly",
+  customUrl: "https://dirty-tinderbox.info/",
+  pqControls: {},
+  apiKey: "<value>",
+  textSecret: "<value>",
 };
 ```
 

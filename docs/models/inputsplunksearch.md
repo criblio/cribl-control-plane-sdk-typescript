@@ -6,7 +6,73 @@
 import { InputSplunkSearch } from "cribl-control-plane/models";
 
 let value: InputSplunkSearch = {
+  id: "<id>",
+  type: "splunk_search",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   search: "<value>",
+  endpointParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  endpointHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  logLevel: "debug",
+  encoding: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      321.5,
+    ],
+  },
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "blah yum glittering oh overheard hungry finally upsell",
+  username: "Abner.Mayer46",
+  password: "IdyB7lUGpeaNdPL",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://sturdy-reporter.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

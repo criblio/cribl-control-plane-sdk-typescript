@@ -7,6 +7,7 @@ import { InputJournalFilesRule } from "cribl-control-plane/models";
 
 let value: InputJournalFilesRule = {
   filter: "<value>",
+  description: "gosh cumbersome thyme whoever fess gee pish",
 };
 ```
 

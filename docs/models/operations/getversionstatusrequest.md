@@ -5,7 +5,9 @@
 ```typescript
 import { GetVersionStatusRequest } from "cribl-control-plane/models/operations";
 
-let value: GetVersionStatusRequest = {};
+let value: GetVersionStatusRequest = {
+  group: "<value>",
+};
 ```
 
 ## Fields

@@ -6,6 +6,7 @@
 import { OutputSignalfxExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputSignalfxExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

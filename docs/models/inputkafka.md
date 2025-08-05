@@ -6,13 +6,63 @@
 import { InputKafka } from "cribl-control-plane/models";
 
 let value: InputKafka = {
-  brokers: [
+  id: "<id>",
+  type: "kafka",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [
+    "<value 1>",
   ],
   topics: [
     "<value 1>",
   ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+  },
+  sasl: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
+  },
+  autoCommitInterval: 3310.55,
+  autoCommitThreshold: 1236.53,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "mediocre per ponder ceramic by vice ceramic upset",
 };
 ```
 

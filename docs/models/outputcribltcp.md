@@ -8,6 +8,39 @@ import { OutputCriblTcp } from "cribl-control-plane/models";
 let value: OutputCriblTcp = {
   id: "<id>",
   type: "cribl_tcp",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.3",
+  },
+  excludeFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "zany hydrocarbon government",
+  host: "imaginative-amendment.org",
+  hosts: [
+    {
+      host: "musty-meander.org",
+      servername: "<value>",
+    },
+  ],
+  pqControls: {},
 };
 ```
 

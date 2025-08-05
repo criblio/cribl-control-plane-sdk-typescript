@@ -6,6 +6,7 @@
 import { ConnectionCrowdstrike } from "cribl-control-plane/models/operations";
 
 let value: ConnectionCrowdstrike = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

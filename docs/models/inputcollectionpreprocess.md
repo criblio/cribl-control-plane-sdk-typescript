@@ -5,7 +5,12 @@
 ```typescript
 import { InputCollectionPreprocess } from "cribl-control-plane/models";
 
-let value: InputCollectionPreprocess = {};
+let value: InputCollectionPreprocess = {
+  command: "<value>",
+  args: [
+    "<value 1>",
+  ],
+};
 ```
 
 ## Fields

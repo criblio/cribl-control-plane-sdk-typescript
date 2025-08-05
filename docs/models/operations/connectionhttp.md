@@ -6,6 +6,7 @@
 import { ConnectionHTTP } from "cribl-control-plane/models/operations";
 
 let value: ConnectionHTTP = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

@@ -6,8 +6,33 @@
 import { PackInfo } from "cribl-control-plane/models";
 
 let value: PackInfo = {
+  author: "<value>",
+  description: "disconnection celebrate gosh once officially free yet",
+  displayName: "Deontae_Kulas",
+  exports: [
+    "<value 1>",
+  ],
   id: "<id>",
+  inputs: 3590.16,
+  isDisabled: false,
+  minLogStreamVersion: "<value>",
+  outputs: 381.62,
+  settings: {
+    "key": "<value>",
+  },
   source: "<value>",
+  spec: "<value>",
+  tags: {
+    dataType: [],
+    domain: [],
+    streamtags: [
+      "<value 1>",
+    ],
+    technology: [
+      "<value 1>",
+    ],
+  },
+  version: "<value>",
 };
 ```
 

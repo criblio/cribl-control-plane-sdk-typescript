@@ -108,6 +108,16 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.destinations.createDestination({
     id: "<id>",
+    type: "elastic_cloud",
+    pipeline: "<value>",
+    systemFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
     url: "https://probable-rationale.com/",
     index: "<value>",
     concurrency: 5,
@@ -117,16 +127,53 @@ async function run() {
     rejectUnauthorized: true,
     timeoutSec: 30,
     flushPeriodSec: 1,
+    extraHttpHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
     failedRequestLoggingMode: "none",
+    safeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    extraParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    auth: {
+      disabled: false,
+      authType: "manual",
+    },
+    elasticPipeline: "<value>",
     includeDocId: true,
+    responseRetrySettings: [
+      {
+        httpStatus: 7295.73,
+        initialBackoff: 1000,
+        backoffRate: 2,
+        maxBackoff: 10000,
+      },
+    ],
+    timeoutRetrySettings: {
+      timeoutRetry: false,
+      initialBackoff: 1000,
+      backoffRate: 2,
+      maxBackoff: 10000,
+    },
     responseHonorRetryAfterHeader: false,
     onBackpressure: "block",
+    description: "hourly about into",
     pqMaxFileSize: "1 MB",
     pqMaxSize: "5GB",
     pqPath: "$CRIBL_HOME/state/queues",
     pqCompress: "none",
     pqOnBackpressure: "block",
     pqMode: "error",
+    pqControls: {},
   });
 
   console.log(result);
@@ -155,6 +202,16 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await destinationsCreateDestination(criblControlPlane, {
     id: "<id>",
+    type: "elastic_cloud",
+    pipeline: "<value>",
+    systemFields: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    environment: "<value>",
+    streamtags: [
+      "<value 1>",
+    ],
     url: "https://probable-rationale.com/",
     index: "<value>",
     concurrency: 5,
@@ -164,16 +221,53 @@ async function run() {
     rejectUnauthorized: true,
     timeoutSec: 30,
     flushPeriodSec: 1,
+    extraHttpHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
     failedRequestLoggingMode: "none",
+    safeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    extraParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    auth: {
+      disabled: false,
+      authType: "manual",
+    },
+    elasticPipeline: "<value>",
     includeDocId: true,
+    responseRetrySettings: [
+      {
+        httpStatus: 7295.73,
+        initialBackoff: 1000,
+        backoffRate: 2,
+        maxBackoff: 10000,
+      },
+    ],
+    timeoutRetrySettings: {
+      timeoutRetry: false,
+      initialBackoff: 1000,
+      backoffRate: 2,
+      maxBackoff: 10000,
+    },
     responseHonorRetryAfterHeader: false,
     onBackpressure: "block",
+    description: "hourly about into",
     pqMaxFileSize: "1 MB",
     pqMaxSize: "5GB",
     pqPath: "$CRIBL_HOME/state/queues",
     pqCompress: "none",
     pqOnBackpressure: "block",
     pqMode: "error",
+    pqControls: {},
   });
   if (res.ok) {
     const { value: result } = res;
@@ -305,7 +399,17 @@ async function run() {
   const result = await criblControlPlane.destinations.updateDestinationById({
     id: "<id>",
     output: {
+      id: "<id>",
       type: "signalfx",
+      pipeline: "<value>",
+      systemFields: [
+        "<value 1>",
+      ],
+      environment: "<value>",
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
       authType: "manual",
       realm: "us0",
       concurrency: 5,
@@ -315,16 +419,43 @@ async function run() {
       rejectUnauthorized: true,
       timeoutSec: 30,
       flushPeriodSec: 1,
+      extraHttpHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
       useRoundRobinDns: false,
       failedRequestLoggingMode: "none",
+      safeHeaders: [
+        "<value 1>",
+      ],
+      responseRetrySettings: [
+        {
+          httpStatus: 2924.72,
+          initialBackoff: 1000,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+      ],
+      timeoutRetrySettings: {
+        timeoutRetry: false,
+        initialBackoff: 1000,
+        backoffRate: 2,
+        maxBackoff: 10000,
+      },
       responseHonorRetryAfterHeader: false,
       onBackpressure: "block",
+      description: "phooey positively a consequently meh until",
+      token: "<value>",
+      textSecret: "<value>",
       pqMaxFileSize: "1 MB",
       pqMaxSize: "5GB",
       pqPath: "$CRIBL_HOME/state/queues",
       pqCompress: "none",
       pqOnBackpressure: "block",
       pqMode: "error",
+      pqControls: {},
     },
   });
 
@@ -355,7 +486,17 @@ async function run() {
   const res = await destinationsUpdateDestinationById(criblControlPlane, {
     id: "<id>",
     output: {
+      id: "<id>",
       type: "signalfx",
+      pipeline: "<value>",
+      systemFields: [
+        "<value 1>",
+      ],
+      environment: "<value>",
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
       authType: "manual",
       realm: "us0",
       concurrency: 5,
@@ -365,16 +506,43 @@ async function run() {
       rejectUnauthorized: true,
       timeoutSec: 30,
       flushPeriodSec: 1,
+      extraHttpHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
       useRoundRobinDns: false,
       failedRequestLoggingMode: "none",
+      safeHeaders: [
+        "<value 1>",
+      ],
+      responseRetrySettings: [
+        {
+          httpStatus: 2924.72,
+          initialBackoff: 1000,
+          backoffRate: 2,
+          maxBackoff: 10000,
+        },
+      ],
+      timeoutRetrySettings: {
+        timeoutRetry: false,
+        initialBackoff: 1000,
+        backoffRate: 2,
+        maxBackoff: 10000,
+      },
       responseHonorRetryAfterHeader: false,
       onBackpressure: "block",
+      description: "phooey positively a consequently meh until",
+      token: "<value>",
+      textSecret: "<value>",
       pqMaxFileSize: "1 MB",
       pqMaxSize: "5GB",
       pqPath: "$CRIBL_HOME/state/queues",
       pqCompress: "none",
       pqOnBackpressure: "block",
       pqMode: "error",
+      pqControls: {},
     },
   });
   if (res.ok) {

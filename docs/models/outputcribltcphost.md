@@ -7,6 +7,7 @@ import { OutputCriblTcpHost } from "cribl-control-plane/models";
 
 let value: OutputCriblTcpHost = {
   host: "delicious-pliers.name",
+  servername: "<value>",
 };
 ```
 

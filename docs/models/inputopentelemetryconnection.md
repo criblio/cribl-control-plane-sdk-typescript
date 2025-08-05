@@ -6,6 +6,7 @@
 import { InputOpenTelemetryConnection } from "cribl-control-plane/models";
 
 let value: InputOpenTelemetryConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

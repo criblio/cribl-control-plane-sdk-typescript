@@ -6,8 +6,59 @@
 import { OutputPrometheus } from "cribl-control-plane/models";
 
 let value: OutputPrometheus = {
+  id: "<id>",
   type: "prometheus",
-  url: "https://regal-expense.com/",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://appropriate-atrium.name/",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 6711.09,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "spear jealously along oof ah by secondary amongst symbolise upbeat",
+  pqControls: {},
+  username: "Irwin_Yundt3",
+  password: "mjqyShc60BORjFC",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://direct-smoke.info/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

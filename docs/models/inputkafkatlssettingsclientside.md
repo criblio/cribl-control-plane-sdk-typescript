@@ -5,7 +5,16 @@
 ```typescript
 import { InputKafkaTLSSettingsClientSide } from "cribl-control-plane/models";
 
-let value: InputKafkaTLSSettingsClientSide = {};
+let value: InputKafkaTLSSettingsClientSide = {
+  servername: "<value>",
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.3",
+  maxVersion: "TLSv1",
+};
 ```
 
 ## Fields

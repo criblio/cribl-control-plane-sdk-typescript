@@ -6,10 +6,56 @@
 import { OutputKafka } from "cribl-control-plane/models";
 
 let value: OutputKafka = {
+  id: "<id>",
+  type: "kafka",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   brokers: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   topic: "<value>",
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.1",
+    },
+    defaultKeySchemaId: 8894.16,
+    defaultValueSchemaId: 4585.31,
+  },
+  sasl: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
+  },
+  description: "disappointment provider bah",
+  protobufLibraryId: "<id>",
+  pqControls: {},
 };
 ```
 

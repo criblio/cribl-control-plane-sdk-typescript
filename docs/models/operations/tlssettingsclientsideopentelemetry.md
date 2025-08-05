@@ -5,7 +5,15 @@
 ```typescript
 import { TLSSettingsClientSideOpenTelemetry } from "cribl-control-plane/models/operations";
 
-let value: TLSSettingsClientSideOpenTelemetry = {};
+let value: TLSSettingsClientSideOpenTelemetry = {
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.2",
+  maxVersion: "TLSv1.3",
+};
 ```
 
 ## Fields

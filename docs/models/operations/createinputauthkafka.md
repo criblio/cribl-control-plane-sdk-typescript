@@ -7,7 +7,9 @@ Credentials to use when authenticating with the schema registry using basic HTTP
 ```typescript
 import { CreateInputAuthKafka } from "cribl-control-plane/models/operations";
 
-let value: CreateInputAuthKafka = {};
+let value: CreateInputAuthKafka = {
+  credentialsSecret: "<value>",
+};
 ```
 
 ## Fields

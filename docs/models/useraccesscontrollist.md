@@ -9,11 +9,12 @@ let value: UserAccessControlList = {
   perms: [
     {
       gid: "<id>",
+      id: "<id>",
       policy: "<value>",
-      type: "groups",
+      type: "dashboards",
     },
   ],
-  user: "Adolphus_Hayes",
+  user: "Brionna.Kuhic50",
 };
 ```
 

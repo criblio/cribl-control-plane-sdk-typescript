@@ -7,6 +7,7 @@ import { GetGroupsByIdRequest } from "cribl-control-plane/models/operations";
 
 let value: GetGroupsByIdRequest = {
   id: "<id>",
+  fields: "<value>",
 };
 ```
 

@@ -5,7 +5,13 @@
 ```typescript
 import { PreprocessSecurityLake } from "cribl-control-plane/models/operations";
 
-let value: PreprocessSecurityLake = {};
+let value: PreprocessSecurityLake = {
+  command: "<value>",
+  args: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
 ```
 
 ## Fields

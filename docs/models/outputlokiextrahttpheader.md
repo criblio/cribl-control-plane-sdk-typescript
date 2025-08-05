@@ -6,6 +6,7 @@
 import { OutputLokiExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputLokiExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

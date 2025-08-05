@@ -7,6 +7,42 @@ import { OutputDynatraceHttp } from "cribl-control-plane/models/operations";
 
 let value: OutputDynatraceHttp = {
   id: "<id>",
+  type: "dynatrace_http",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 6531.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 7977.2,
+  description: "mobilize yowza pfft er whose unless",
+  pqControls: {},
+  token: "<value>",
+  textSecret: "<value>",
+  environmentId: "<id>",
+  activeGateDomain: "<value>",
+  url: "https://confused-produce.net/",
 };
 ```
 

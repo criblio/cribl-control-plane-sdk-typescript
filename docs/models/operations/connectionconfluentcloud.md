@@ -6,6 +6,7 @@
 import { ConnectionConfluentCloud } from "cribl-control-plane/models/operations";
 
 let value: ConnectionConfluentCloud = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

@@ -6,8 +6,31 @@
 import { OutputGoogleCloudStorage } from "cribl-control-plane/models";
 
 let value: OutputGoogleCloudStorage = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   bucket: "<value>",
   region: "<value>",
+  storageClass: "ARCHIVE",
+  description: "piglet unnaturally near reassuringly since",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 

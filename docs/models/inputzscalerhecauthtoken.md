@@ -6,7 +6,18 @@
 import { InputZscalerHecAuthToken } from "cribl-control-plane/models";
 
 let value: InputZscalerHecAuthToken = {
+  tokenSecret: "<value>",
   token: "<value>",
+  description: "beside delightfully angrily belabor woot rot",
+  allowedIndexesAtToken: [
+    "<value 1>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

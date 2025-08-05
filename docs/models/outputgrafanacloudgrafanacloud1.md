@@ -8,7 +8,56 @@ import { OutputGrafanaCloudGrafanaCloud1 } from "cribl-control-plane/models";
 let value: OutputGrafanaCloudGrafanaCloud1 = {
   id: "<id>",
   type: "grafana_cloud",
-  lokiUrl: "https://dental-shark.biz/",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  lokiUrl: "https://fruitful-maestro.info",
+  prometheusUrl: "https://meaty-remark.org",
+  message: "<value>",
+  labels: [
+    {
+      value: "<value>",
+    },
+  ],
+  prometheusAuth: {
+    token: "<value>",
+    textSecret: "<value>",
+    username: "Shakira_Wisozk",
+    password: "B0RWaZFIYeYi4FE",
+    credentialsSecret: "<value>",
+  },
+  lokiAuth: {
+    token: "<value>",
+    textSecret: "<value>",
+    username: "Myles.Durgan",
+    password: "2zPSMZhEVhRBQno",
+    credentialsSecret: "<value>",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 2643.26,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "ignorant who where iterate eek keenly frantically gadzooks",
+  pqControls: {},
 };
 ```
 

@@ -8,6 +8,26 @@ import { OutputCriblLake } from "cribl-control-plane/models";
 let value: OutputCriblLake = {
   id: "<id>",
   type: "cribl_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  destPath: "<value>",
+  storageClass: "STANDARD_IA",
+  serverSideEncryption: "AES256",
+  kmsKeyId: "<id>",
+  format: "json",
+  description: "hence phooey gut gadzooks next",
 };
 ```
 

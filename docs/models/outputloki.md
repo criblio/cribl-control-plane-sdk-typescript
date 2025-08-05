@@ -6,8 +6,47 @@
 import { OutputLoki } from "cribl-control-plane/models";
 
 let value: OutputLoki = {
+  id: "<id>",
   type: "loki",
-  url: "https://pushy-spring.biz/",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://excitable-entry.org",
+  message: "<value>",
+  labels: [
+    {
+      value: "<value>",
+    },
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5801.8,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 9131.85,
+  description: "as sleepily down carefully",
+  token: "<value>",
+  textSecret: "<value>",
+  username: "John0",
+  password: "r5YSF47hEINSgrN",
+  credentialsSecret: "<value>",
+  pqControls: {},
 };
 ```
 

@@ -5,7 +5,16 @@
 ```typescript
 import { OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide } from "cribl-control-plane/models";
 
-let value: OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide = {};
+let value: OutputKafkaKafkaSchemaRegistryTLSSettingsClientSide = {
+  servername: "<value>",
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.1",
+  maxVersion: "TLSv1",
+};
 ```
 
 ## Fields

@@ -6,8 +6,24 @@
 import { OutputSnmp } from "cribl-control-plane/models";
 
 let value: OutputSnmp = {
+  id: "<id>",
   type: "snmp",
-  hosts: [],
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  hosts: [
+    {
+      host: "gray-godparent.net",
+    },
+  ],
+  description: "corral stark er however maestro bonnet",
 };
 ```
 

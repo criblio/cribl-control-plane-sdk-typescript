@@ -7,9 +7,42 @@ import { InputWiz } from "cribl-control-plane/models/operations";
 
 let value: InputWiz = {
   id: "<id>",
-  authUrl: "https://sturdy-desk.info",
+  type: "wiz",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  authUrl: "https://excellent-hubris.info",
+  authAudienceOverride: "<value>",
   clientId: "<id>",
   contentConfig: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      3197.12,
+      9347.83,
+      4274.91,
+    ],
+  },
+  description:
+    "ravage indeed self-reliant abnormally miscalculate hm in quaintly inborn separately",
+  clientSecret: "<value>",
+  textSecret: "<value>",
 };
 ```
 

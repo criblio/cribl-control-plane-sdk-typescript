@@ -6,6 +6,7 @@
 import { ConnectionOffice365Service } from "cribl-control-plane/models/operations";
 
 let value: ConnectionOffice365Service = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

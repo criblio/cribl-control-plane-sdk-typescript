@@ -7,9 +7,29 @@ import { OutputExabeam } from "cribl-control-plane/models/operations";
 
 let value: OutputExabeam = {
   id: "<id>",
+  type: "exabeam",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   bucket: "<value>",
   region: "<value>",
+  storageClass: "NEARLINE",
+  encodedConfiguration: "<value>",
   collectorInstanceId: "<id>",
+  siteName: "<value>",
+  siteId: "<id>",
+  timezoneOffset: "<value>",
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  description:
+    "which against extricate tenderly why medium wetly crooked lobotomise",
 };
 ```
 

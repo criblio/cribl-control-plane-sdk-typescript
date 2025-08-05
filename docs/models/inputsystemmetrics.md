@@ -8,6 +8,72 @@ import { InputSystemMetrics } from "cribl-control-plane/models";
 let value: InputSystemMetrics = {
   id: "<id>",
   type: "system_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+        ],
+      },
+      disk: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        mountpoints: [
+          "<value 1>",
+        ],
+        fstypes: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  container: {
+    dockerSocket: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    filters: [
+      {
+        expr: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description:
+    "per airbus supposing joint while apropos powerfully that instantly",
 };
 ```
 

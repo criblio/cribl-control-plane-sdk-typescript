@@ -5,7 +5,16 @@
 ```typescript
 import { InputAppscopeFilter } from "cribl-control-plane/models";
 
-let value: InputAppscopeFilter = {};
+let value: InputAppscopeFilter = {
+  allow: [
+    {
+      procname: "<value>",
+      arg: "<value>",
+      config: "<value>",
+    },
+  ],
+  transportURL: "https://prickly-coliseum.biz/",
+};
 ```
 
 ## Fields

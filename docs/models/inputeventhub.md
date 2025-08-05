@@ -6,12 +6,36 @@
 import { InputEventhub } from "cribl-control-plane/models";
 
 let value: InputEventhub = {
+  id: "<id>",
+  type: "eventhub",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   brokers: [
     "<value 1>",
   ],
-  topics: [
-    "<value 1>",
+  topics: [],
+  sasl: {},
+  tls: {},
+  autoCommitInterval: 6010.39,
+  autoCommitThreshold: 3174.01,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
   ],
+  description:
+    "wonderfully broadcast to questionable upward haul preheat nutritious",
 };
 ```
 

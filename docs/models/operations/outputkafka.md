@@ -7,10 +7,52 @@ import { OutputKafka } from "cribl-control-plane/models/operations";
 
 let value: OutputKafka = {
   id: "<id>",
-  brokers: [
+  type: "kafka",
+  pipeline: "<value>",
+  systemFields: [
     "<value 1>",
   ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   topic: "<value>",
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.1",
+      maxVersion: "TLSv1.2",
+    },
+    defaultKeySchemaId: 9767.83,
+    defaultValueSchemaId: 4466.98,
+  },
+  sasl: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description: "as midst nudge beyond goodwill",
+  protobufLibraryId: "<id>",
+  pqControls: {},
 };
 ```
 

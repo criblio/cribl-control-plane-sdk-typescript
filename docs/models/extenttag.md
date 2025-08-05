@@ -6,6 +6,7 @@
 import { ExtentTag } from "cribl-control-plane/models";
 
 let value: ExtentTag = {
+  prefix: "dropBy",
   value: "<value>",
 };
 ```

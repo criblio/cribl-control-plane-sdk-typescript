@@ -5,7 +5,29 @@
 ```typescript
 import { InputGrafanaPrometheusAuth2 } from "cribl-control-plane/models";
 
-let value: InputGrafanaPrometheusAuth2 = {};
+let value: InputGrafanaPrometheusAuth2 = {
+  username: "Darrion_Rogahn26",
+  password: "OzNG3jdTGV6Z7Tr",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://cool-hello.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

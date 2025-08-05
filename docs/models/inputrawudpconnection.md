@@ -6,6 +6,7 @@
 import { InputRawUdpConnection } from "cribl-control-plane/models";
 
 let value: InputRawUdpConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

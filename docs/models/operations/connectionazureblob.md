@@ -6,6 +6,7 @@
 import { ConnectionAzureBlob } from "cribl-control-plane/models/operations";
 
 let value: ConnectionAzureBlob = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

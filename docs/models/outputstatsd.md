@@ -6,7 +6,19 @@
 import { OutputStatsd } from "cribl-control-plane/models";
 
 let value: OutputStatsd = {
-  host: "caring-bidet.org",
+  id: "<id>",
+  type: "statsd",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  host: "tidy-awareness.net",
+  description: "woot provided upset unscramble pace",
+  pqControls: {},
 };
 ```
 

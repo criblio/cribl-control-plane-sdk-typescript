@@ -5,7 +5,17 @@
 ```typescript
 import { InputZscalerHecTLSSettingsServerSide } from "cribl-control-plane/models";
 
-let value: InputZscalerHecTLSSettingsServerSide = {};
+let value: InputZscalerHecTLSSettingsServerSide = {
+  certificateName: "<value>",
+  privKeyPath: "<value>",
+  passphrase: "<value>",
+  certPath: "<value>",
+  caPath: "<value>",
+  rejectUnauthorized: "<value>",
+  commonNameRegex: "<value>",
+  minVersion: "TLSv1.1",
+  maxVersion: "TLSv1.1",
+};
 ```
 
 ## Fields

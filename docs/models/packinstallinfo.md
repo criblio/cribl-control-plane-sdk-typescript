@@ -6,8 +6,44 @@
 import { PackInstallInfo } from "cribl-control-plane/models";
 
 let value: PackInstallInfo = {
+  author: "<value>",
+  description: "celebrated supposing underneath",
+  displayName: "Julie.Larson43",
+  exports: [
+    "<value 1>",
+  ],
   id: "<id>",
+  inputs: 1173.85,
+  isDisabled: true,
+  minLogStreamVersion: "<value>",
+  outputs: 4525.11,
+  settings: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
   source: "<value>",
+  spec: "<value>",
+  tags: {
+    dataType: [
+      "decimal",
+      "boolean",
+    ],
+    domain: [
+      "hungry-scaffold.name",
+      "unfit-hovercraft.info",
+    ],
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    technology: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  version: "<value>",
   warnings: "<value>",
 };
 ```

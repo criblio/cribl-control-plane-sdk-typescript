@@ -7,8 +7,28 @@ import { OutputSns } from "cribl-control-plane/models/operations";
 
 let value: OutputSns = {
   id: "<id>",
+  type: "sns",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   topicArn: "<value>",
   messageGroupId: "<id>",
+  maxRetries: 6.97,
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  description:
+    "disadvantage like monumental blond fooey minister cope weatherize",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  pqControls: {},
 };
 ```
 

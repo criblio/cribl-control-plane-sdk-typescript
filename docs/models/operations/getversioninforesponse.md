@@ -7,7 +7,15 @@ a list of GitInfo objects
 ```typescript
 import { GetVersionInfoResponse } from "cribl-control-plane/models/operations";
 
-let value: GetVersionInfoResponse = {};
+let value: GetVersionInfoResponse = {
+  count: 512749,
+  items: [
+    {
+      remote: "<value>",
+      versioning: false,
+    },
+  ],
+};
 ```
 
 ## Fields

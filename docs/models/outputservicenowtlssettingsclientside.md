@@ -5,7 +5,15 @@
 ```typescript
 import { OutputServiceNowTLSSettingsClientSide } from "cribl-control-plane/models";
 
-let value: OutputServiceNowTLSSettingsClientSide = {};
+let value: OutputServiceNowTLSSettingsClientSide = {
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.1",
+  maxVersion: "TLSv1.1",
+};
 ```
 
 ## Fields

@@ -6,6 +6,7 @@
 import { InputCriblHttpConnection } from "cribl-control-plane/models";
 
 let value: InputCriblHttpConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

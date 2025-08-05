@@ -6,6 +6,7 @@
 import { ConnectionLoki } from "cribl-control-plane/models/operations";
 
 let value: ConnectionLoki = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

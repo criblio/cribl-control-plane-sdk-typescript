@@ -7,7 +7,45 @@ import { OutputDynatraceOtlp } from "cribl-control-plane/models/operations";
 
 let value: OutputDynatraceOtlp = {
   id: "<id>",
+  type: "dynatrace_otlp",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  httpTracesEndpointOverride: "<value>",
+  httpMetricsEndpointOverride: "<value>",
+  httpLogsEndpointOverride: "<value>",
+  metadata: [
+    {
+      value: "<value>",
+    },
+  ],
   tokenSecret: "<value>",
+  description: "secret excellent surface fooey nauseate ha to absent nor",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 1470.64,
+    },
+  ],
+  timeoutRetrySettings: {},
+  pqControls: {},
 };
 ```
 

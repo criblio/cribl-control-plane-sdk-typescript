@@ -6,10 +6,39 @@
 import { InputJournalFiles } from "cribl-control-plane/models";
 
 let value: InputJournalFiles = {
-  path: "/bin",
-  journals: [
+  id: "<id>",
+  type: "journal_files",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  path: "/private/var",
+  journals: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  rules: [
+    {
+      filter: "<value>",
+      description: "yahoo uh-huh dirty behind manner",
+    },
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "honored given shoulder why cheerful",
 };
 ```
 

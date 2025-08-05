@@ -8,6 +8,45 @@ import { OutputDatadog } from "cribl-control-plane/models";
 let value: OutputDatadog = {
   id: "<id>",
   type: "datadog",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  message: "<value>",
+  source: "<value>",
+  host: "artistic-charlatan.org",
+  service: "<value>",
+  tags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  severity: "emergency",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 3606.81,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 4553.79,
+  description: "intently fit engage solder whether neglected ouch bleach",
+  customUrl: "https://average-synergy.info",
+  pqControls: {},
+  apiKey: "<value>",
+  textSecret: "<value>",
 };
 ```
 

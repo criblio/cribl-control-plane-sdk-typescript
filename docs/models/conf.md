@@ -5,7 +5,30 @@
 ```typescript
 import { Conf } from "cribl-control-plane/models";
 
-let value: Conf = {};
+let value: Conf = {
+  asyncFuncTimeout: 645963,
+  description: "against with birth when",
+  streamtags: [
+    "<value 1>",
+  ],
+  functions: [
+    {
+      id: "<id>",
+      description: "regarding structure but squiggly soupy equally",
+      disabled: false,
+      final: true,
+      conf: {},
+      groupId: "<id>",
+    },
+  ],
+  groups: {
+    "key": {
+      name: "<value>",
+      description: "dream wildly but rag boohoo fondly huff",
+      disabled: false,
+    },
+  },
+};
 ```
 
 ## Fields

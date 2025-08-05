@@ -5,7 +5,14 @@
 ```typescript
 import { InputSystemMetricsProcess } from "cribl-control-plane/models";
 
-let value: InputSystemMetricsProcess = {};
+let value: InputSystemMetricsProcess = {
+  sets: [
+    {
+      name: "<value>",
+      filter: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

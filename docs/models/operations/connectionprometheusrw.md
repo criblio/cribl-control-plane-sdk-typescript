@@ -6,6 +6,7 @@
 import { ConnectionPrometheusRw } from "cribl-control-plane/models/operations";
 
 let value: ConnectionPrometheusRw = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

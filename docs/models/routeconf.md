@@ -6,9 +6,20 @@
 import { RouteConf } from "cribl-control-plane/models";
 
 let value: RouteConf = {
+  clones: [
+    {},
+  ],
+  context: "<value>",
+  description: "scare now unless vet highly sway longingly",
+  disabled: true,
+  enableOutputExpression: true,
+  filter: "<value>",
   final: false,
+  groupId: "<id>",
   id: "<id>",
   name: "<value>",
+  output: "<value>",
+  outputExpression: "<value>",
   pipeline: "<value>",
 };
 ```

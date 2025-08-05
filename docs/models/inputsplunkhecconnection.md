@@ -6,6 +6,7 @@
 import { InputSplunkHecConnection } from "cribl-control-plane/models";
 
 let value: InputSplunkHecConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

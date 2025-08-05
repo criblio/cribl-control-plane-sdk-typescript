@@ -7,7 +7,9 @@ Credentials to use when authenticating with the schema registry using basic HTTP
 ```typescript
 import { OutputMskAuth } from "cribl-control-plane/models";
 
-let value: OutputMskAuth = {};
+let value: OutputMskAuth = {
+  credentialsSecret: "<value>",
+};
 ```
 
 ## Fields

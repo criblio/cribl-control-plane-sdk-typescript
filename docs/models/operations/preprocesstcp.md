@@ -5,7 +5,14 @@
 ```typescript
 import { PreprocessTCP } from "cribl-control-plane/models/operations";
 
-let value: PreprocessTCP = {};
+let value: PreprocessTCP = {
+  command: "<value>",
+  args: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
 ```
 
 ## Fields

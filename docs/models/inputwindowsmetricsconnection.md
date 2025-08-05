@@ -6,6 +6,7 @@
 import { InputWindowsMetricsConnection } from "cribl-control-plane/models";
 
 let value: InputWindowsMetricsConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

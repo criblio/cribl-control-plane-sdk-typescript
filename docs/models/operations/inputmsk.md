@@ -7,16 +7,67 @@ import { InputMsk } from "cribl-control-plane/models/operations";
 
 let value: InputMsk = {
   id: "<id>",
-  brokers: [
+  type: "msk",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  topics: [
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [
     "<value 1>",
     "<value 2>",
   ],
+  topics: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
+    },
+  },
+  awsSecretKey: "<value>",
   region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
+  },
+  autoCommitInterval: 5919.43,
+  autoCommitThreshold: 6602.75,
+  description: "puzzled kettledrum goat",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 

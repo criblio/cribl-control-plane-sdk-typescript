@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderElasticCloud } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderElasticCloud = {
+  name: "<value>",
   value: "<value>",
 };
 ```

@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderSignalfx } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderSignalfx = {
+  name: "<value>",
   value: "<value>",
 };
 ```

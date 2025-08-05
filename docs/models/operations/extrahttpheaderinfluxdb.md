@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderInfluxdb } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderInfluxdb = {
+  name: "<value>",
   value: "<value>",
 };
 ```

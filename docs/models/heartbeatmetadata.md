@@ -5,7 +5,42 @@
 ```typescript
 import { HeartbeatMetadata } from "cribl-control-plane/models";
 
-let value: HeartbeatMetadata = {};
+let value: HeartbeatMetadata = {
+  aws: {
+    enabled: true,
+    region: "<value>",
+    tags: {},
+    type: "<value>",
+    zone: "<value>",
+  },
+  hostOs: {
+    addresses: [],
+    enabled: true,
+    id: "<id>",
+    version: "<value>",
+  },
+  kube: {
+    enabled: false,
+    namespace: "<value>",
+    node: "<value>",
+    owner: {
+      kind: "<value>",
+      name: "<value>",
+    },
+    pod: "<value>",
+    source: "<value>",
+  },
+  os: {
+    addresses: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    enabled: false,
+    id: "<id>",
+    version: "<value>",
+  },
+};
 ```
 
 ## Fields

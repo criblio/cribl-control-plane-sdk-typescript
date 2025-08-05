@@ -6,8 +6,11 @@
 import { NodeUpgradeStatus } from "cribl-control-plane/models";
 
 let value: NodeUpgradeStatus = {
-  state: 3,
-  timestamp: 423.4,
+  active: 2,
+  failed: 0,
+  skipped: 1,
+  state: 1,
+  timestamp: 5255.11,
 };
 ```
 

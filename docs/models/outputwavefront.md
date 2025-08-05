@@ -6,7 +6,39 @@
 import { OutputWavefront } from "cribl-control-plane/models";
 
 let value: OutputWavefront = {
+  id: "<id>",
   type: "wavefront",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 8813.46,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "huzzah than that neatly frail unblinking wrongly",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

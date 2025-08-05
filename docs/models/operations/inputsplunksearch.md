@@ -7,7 +7,71 @@ import { InputSplunkSearch } from "cribl-control-plane/models/operations";
 
 let value: InputSplunkSearch = {
   id: "<id>",
+  type: "splunk_search",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   search: "<value>",
+  endpointParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  endpointHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  logLevel: "warn",
+  encoding: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      9296.25,
+      8411.56,
+    ],
+  },
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "behind aboard keenly",
+  username: "Hettie.Dooley11",
+  password: "p27HSB4JAXr1In_",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://frank-joy.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

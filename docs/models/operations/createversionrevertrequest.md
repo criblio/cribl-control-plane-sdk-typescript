@@ -6,8 +6,10 @@
 import { CreateVersionRevertRequest } from "cribl-control-plane/models/operations";
 
 let value: CreateVersionRevertRequest = {
+  group: "<value>",
   gitRevertParams: {
     commit: "<value>",
+    force: false,
     message: "<value>",
   },
 };

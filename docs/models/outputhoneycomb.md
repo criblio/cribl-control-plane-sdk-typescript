@@ -6,8 +6,40 @@
 import { OutputHoneycomb } from "cribl-control-plane/models";
 
 let value: OutputHoneycomb = {
+  id: "<id>",
   type: "honeycomb",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
   dataset: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 7606.51,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "unique but loudly irresponsible what healthily",
+  pqControls: {},
+  team: "<value>",
+  textSecret: "<value>",
 };
 ```
 

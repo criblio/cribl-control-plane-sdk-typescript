@@ -9,9 +9,21 @@ let value: CreateRoutesAppendByIdRequest = {
   id: "<id>",
   requestBody: [
     {
+      clones: [
+        {},
+      ],
+      context: "<value>",
+      description:
+        "pro uh-huh yet phooey galvanize overwork final marvelous greedy opera",
+      disabled: false,
+      enableOutputExpression: false,
+      filter: "<value>",
       final: false,
+      groupId: "<id>",
       id: "<id>",
       name: "<value>",
+      output: "<value>",
+      outputExpression: "<value>",
       pipeline: "<value>",
     },
   ],

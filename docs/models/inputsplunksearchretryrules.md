@@ -5,7 +5,13 @@
 ```typescript
 import { InputSplunkSearchRetryRules } from "cribl-control-plane/models";
 
-let value: InputSplunkSearchRetryRules = {};
+let value: InputSplunkSearchRetryRules = {
+  codes: [
+    4163.84,
+    5918.46,
+    7223.51,
+  ],
+};
 ```
 
 ## Fields

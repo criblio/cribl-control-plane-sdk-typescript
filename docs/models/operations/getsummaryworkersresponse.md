@@ -7,7 +7,13 @@ a list of number objects
 ```typescript
 import { GetSummaryWorkersResponse } from "cribl-control-plane/models/operations";
 
-let value: GetSummaryWorkersResponse = {};
+let value: GetSummaryWorkersResponse = {
+  count: 59672,
+  items: [
+    5631.85,
+    4467.19,
+  ],
+};
 ```
 
 ## Fields

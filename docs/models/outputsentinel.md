@@ -6,9 +6,48 @@
 import { OutputSentinel } from "cribl-control-plane/models";
 
 let value: OutputSentinel = {
-  loginUrl: "https://extra-large-obesity.name",
+  id: "<id>",
+  type: "sentinel",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5626.04,
+    },
+  ],
+  timeoutRetrySettings: {},
+  authType: "oauth",
+  loginUrl: "https://perky-nightlife.com",
   secret: "<value>",
   clientId: "<id>",
+  totalMemoryLimitKB: 9560.32,
+  description: "armoire strident gloss rationalise",
+  format: "advanced",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  url: "https://common-analogy.org/",
+  dcrID: "<id>",
+  dceEndpoint: "<value>",
+  streamName: "<value>",
 };
 ```
 

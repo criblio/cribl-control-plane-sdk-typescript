@@ -8,6 +8,40 @@ import { InputMetrics } from "cribl-control-plane/models/operations";
 let value: InputMetrics = {
   id: "<id>",
   type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpPort: 4174.17,
+  tcpPort: 1396.61,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 4811.96,
+  description:
+    "beyond kindheartedly lest viciously unfortunate miserably whether contrail convection",
 };
 ```
 

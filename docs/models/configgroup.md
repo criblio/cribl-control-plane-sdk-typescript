@@ -6,8 +6,51 @@
 import { ConfigGroup } from "cribl-control-plane/models";
 
 let value: ConfigGroup = {
+  cloud: {
+    provider: "aws",
+    region: "<value>",
+  },
   configVersion: "<value>",
+  deployingWorkerCount: 8637.12,
+  description: "toe grandiose on",
+  estimatedIngestRate: 5282.1,
+  git: {
+    commit: "<value>",
+    localChanges: 5529.58,
+    log: [
+      {
+        authorEmail: "<value>",
+        authorName: "<value>",
+        date: "2024-11-14",
+        hash: "<value>",
+        message: "<value>",
+        short: "<value>",
+      },
+    ],
+  },
   id: "<id>",
+  incompatibleWorkerCount: 508.39,
+  inherits: "<value>",
+  isFleet: true,
+  isSearch: true,
+  lookupDeployments: [
+    {
+      context: "<value>",
+      lookups: [],
+    },
+  ],
+  maxWorkerAge: "<value>",
+  name: "<value>",
+  onPrem: false,
+  provisioned: true,
+  streamtags: [
+    "<value 1>",
+  ],
+  tags: "<value>",
+  type: "lake_access",
+  upgradeVersion: "<value>",
+  workerCount: 6622.93,
+  workerRemoteAccess: false,
 };
 ```
 

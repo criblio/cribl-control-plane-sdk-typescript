@@ -5,7 +5,12 @@
 ```typescript
 import { InputWindowsMetricsDisk } from "cribl-control-plane/models";
 
-let value: InputWindowsMetricsDisk = {};
+let value: InputWindowsMetricsDisk = {
+  volumes: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
 ```
 
 ## Fields

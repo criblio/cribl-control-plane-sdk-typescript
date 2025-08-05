@@ -5,7 +5,14 @@
 ```typescript
 import { ContentConfigOffice365Mgmt } from "cribl-control-plane/models/operations";
 
-let value: ContentConfigOffice365Mgmt = {};
+let value: ContentConfigOffice365Mgmt = {
+  contentType: "<value>",
+  description:
+    "but ugh yearly furthermore focalise meanwhile yum belabor frankly because",
+  interval: 8282.71,
+  logLevel: "info",
+  enabled: false,
+};
 ```
 
 ## Fields

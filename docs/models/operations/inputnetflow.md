@@ -7,6 +7,29 @@ import { InputNetflow } from "cribl-control-plane/models/operations";
 
 let value: InputNetflow = {
   id: "<id>",
+  type: "netflow",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpSocketRxBufSize: 7496.42,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "wherever amnesty apud underpants why blah viciously geez",
 };
 ```
 

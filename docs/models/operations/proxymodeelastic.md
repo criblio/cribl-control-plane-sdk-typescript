@@ -5,7 +5,14 @@
 ```typescript
 import { ProxyModeElastic } from "cribl-control-plane/models/operations";
 
-let value: ProxyModeElastic = {};
+let value: ProxyModeElastic = {
+  url: "https://stormy-tenant.biz",
+  removeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
 ```
 
 ## Fields

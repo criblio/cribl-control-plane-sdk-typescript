@@ -9,6 +9,10 @@ import { IndexerDiscoveryConfigs } from "cribl-control-plane/models";
 
 let value: IndexerDiscoveryConfigs = {
   masterUri: "https://sorrowful-hawk.info/",
+  authTokens: [
+    {},
+  ],
+  textSecret: "<value>",
 };
 ```
 

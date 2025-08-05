@@ -8,6 +8,18 @@ import { OutputRing } from "cribl-control-plane/models";
 let value: OutputRing = {
   id: "<id>",
   type: "ring",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  partitionExpr: "<value>",
+  destPath: "<value>",
+  description: "pace anneal yum phooey even archaeology onto",
 };
 ```
 

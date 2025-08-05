@@ -6,6 +6,7 @@
 import { OutputDatasetExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputDatasetExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

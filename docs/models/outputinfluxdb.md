@@ -6,8 +6,59 @@
 import { OutputInfluxdb } from "cribl-control-plane/models";
 
 let value: OutputInfluxdb = {
+  id: "<id>",
   type: "influxdb",
-  url: "https://next-strategy.org/",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://wasteful-forage.org",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 4425.56,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "now whose economise although trolley whoa",
+  database: "<value>",
+  bucket: "<value>",
+  org: "<value>",
+  pqControls: {},
+  username: "Sylvester_Lehner12",
+  password: "5R6fKcQgj2pTkJE",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://trusty-final.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

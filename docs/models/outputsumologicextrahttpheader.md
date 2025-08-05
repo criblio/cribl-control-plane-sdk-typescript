@@ -6,6 +6,7 @@
 import { OutputSumoLogicExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputSumoLogicExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

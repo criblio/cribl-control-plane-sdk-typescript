@@ -6,10 +6,28 @@
 import { RoutesInput } from "cribl-control-plane/models";
 
 let value: RoutesInput = {
+  id: "<id>",
   routes: [
     {
       name: "<value>",
+      disabled: false,
       pipeline: "<value>",
+      output: "<value>",
+      outputExpression: "<value>",
+      description: "symbolise ack brr babyish congregate save supposing",
+    },
+  ],
+  groups: {
+    "key": {
+      name: "<value>",
+      description: "athwart joshingly whether inspection how highly",
+      disabled: false,
+    },
+  },
+  comments: [
+    {
+      comment:
+        "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
     },
   ],
 };

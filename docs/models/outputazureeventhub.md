@@ -6,11 +6,25 @@
 import { OutputAzureEventhub } from "cribl-control-plane/models";
 
 let value: OutputAzureEventhub = {
-  brokers: [
+  id: "<id>",
+  type: "azure_eventhub",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
     "<value 2>",
   ],
+  brokers: [],
   topic: "<value>",
+  sasl: {},
+  tls: {},
+  description: "per inquisitively with but",
+  pqControls: {},
 };
 ```
 

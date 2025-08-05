@@ -6,8 +6,34 @@
 import { InputGooglePubsub } from "cribl-control-plane/models";
 
 let value: InputGooglePubsub = {
+  id: "<id>",
+  type: "google_pubsub",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   topicName: "<value>",
   subscriptionName: "<value>",
+  region: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "focused consequently tomatillo ridge whoa",
 };
 ```
 

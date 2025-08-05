@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderGoogleChronicle } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderGoogleChronicle = {
+  name: "<value>",
   value: "<value>",
 };
 ```

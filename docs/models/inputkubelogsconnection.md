@@ -6,6 +6,7 @@
 import { InputKubeLogsConnection } from "cribl-control-plane/models";
 
 let value: InputKubeLogsConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

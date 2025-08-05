@@ -6,9 +6,29 @@
 import { OutputCloudwatch } from "cribl-control-plane/models";
 
 let value: OutputCloudwatch = {
+  id: "<id>",
+  type: "cloudwatch",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   logGroupName: "<value>",
   logStreamName: "<value>",
+  awsSecretKey: "<value>",
   region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  description: "pfft jogging whereas yet",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  pqControls: {},
 };
 ```
 

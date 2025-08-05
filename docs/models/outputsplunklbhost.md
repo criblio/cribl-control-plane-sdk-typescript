@@ -7,6 +7,7 @@ import { OutputSplunkLbHost } from "cribl-control-plane/models";
 
 let value: OutputSplunkLbHost = {
   host: "whispered-velocity.net",
+  servername: "<value>",
 };
 ```
 

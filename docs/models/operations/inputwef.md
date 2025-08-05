@@ -7,12 +7,43 @@ import { InputWef } from "cribl-control-plane/models/operations";
 
 let value: InputWef = {
   id: "<id>",
-  subscriptions: [
+  type: "wef",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
     {
-      subscriptionName: "<value>",
-      targets: [],
+      pipeline: "<value>",
+      output: "<value>",
     },
   ],
+  pq: {},
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+    keytab: "<value>",
+    principal: "<value>",
+  },
+  caFingerprint: "<value>",
+  keytab: "<value>",
+  principal: "<value>",
+  subscriptions: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "per absent fill weighty firsthand wing",
 };
 ```
 

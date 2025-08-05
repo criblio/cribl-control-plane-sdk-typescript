@@ -7,7 +7,14 @@ import { Subscription } from "cribl-control-plane/models";
 
 let value: Subscription = {
   subscriptionName: "<value>",
+  version: "<value>",
   targets: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

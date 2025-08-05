@@ -6,6 +6,7 @@
 import { ConnectionModelDrivenTelemetry } from "cribl-control-plane/models/operations";
 
 let value: ConnectionModelDrivenTelemetry = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

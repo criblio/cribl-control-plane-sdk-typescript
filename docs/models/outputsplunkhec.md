@@ -8,6 +8,41 @@ import { OutputSplunkHec } from "cribl-control-plane/models";
 let value: OutputSplunkHec = {
   id: "<id>",
   type: "splunk_hec",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 33.58,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "majority wasteful absent demob wilt",
+  urls: [
+    {},
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

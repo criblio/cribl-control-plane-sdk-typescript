@@ -6,6 +6,7 @@
 import { InputDatadogAgentConnection } from "cribl-control-plane/models";
 
 let value: InputDatadogAgentConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

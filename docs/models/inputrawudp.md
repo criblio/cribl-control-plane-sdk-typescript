@@ -6,7 +6,30 @@
 import { InputRawUdp } from "cribl-control-plane/models";
 
 let value: InputRawUdp = {
-  port: 5524.24,
+  id: "<id>",
+  type: "raw_udp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 4339.08,
+  udpSocketRxBufSize: 7664.5,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "athwart opera sour neglected happy pish widow hmph into",
 };
 ```
 

@@ -8,6 +8,34 @@ import { InputKubeMetrics } from "cribl-control-plane/models";
 let value: InputKubeMetrics = {
   id: "<id>",
   type: "kube_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "boggle catalog chip ew",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description:
+    "gratefully pish whose till hydrocarbon boo eek next uh-huh signature",
 };
 ```
 

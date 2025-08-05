@@ -8,11 +8,28 @@ import { InputDatagen } from "cribl-control-plane/models/operations";
 let value: InputDatagen = {
   id: "<id>",
   type: "datagen",
-  samples: [
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
     {
-      sample: "<value>",
+      pipeline: "<value>",
+      output: "<value>",
     },
   ],
+  pq: {},
+  samples: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "reorient down but toward sore incidentally fond",
 };
 ```
 

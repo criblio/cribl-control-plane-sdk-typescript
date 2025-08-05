@@ -5,7 +5,14 @@
 ```typescript
 import { InputWindowsMetricsProcess } from "cribl-control-plane/models";
 
-let value: InputWindowsMetricsProcess = {};
+let value: InputWindowsMetricsProcess = {
+  sets: [
+    {
+      name: "<value>",
+      filter: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

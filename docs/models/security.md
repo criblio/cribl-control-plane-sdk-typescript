@@ -5,7 +5,13 @@
 ```typescript
 import { Security } from "cribl-control-plane/models";
 
-let value: Security = {};
+let value: Security = {
+  bearerAuth: "<value>",
+  clientOauth: {
+    clientID: "<id>",
+    clientSecret: "<value>",
+  },
+};
 ```
 
 ## Fields

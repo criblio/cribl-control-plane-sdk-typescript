@@ -6,6 +6,7 @@
 import { ExtraHTTPHeaderDynatraceHTTP } from "cribl-control-plane/models/operations";
 
 let value: ExtraHTTPHeaderDynatraceHTTP = {
+  name: "<value>",
   value: "<value>",
 };
 ```

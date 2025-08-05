@@ -7,6 +7,13 @@ import { AuthTokensExtHTTP } from "cribl-control-plane/models/operations";
 
 let value: AuthTokensExtHTTP = {
   token: "<value>",
+  description: "on times colorless deeply lay once cute verbally whoa",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

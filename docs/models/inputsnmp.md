@@ -5,7 +5,41 @@
 ```typescript
 import { InputSnmp } from "cribl-control-plane/models";
 
-let value: InputSnmp = {};
+let value: InputSnmp = {
+  id: "<id>",
+  type: "snmp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  snmpV3Auth: {
+    v3Users: [
+      {
+        name: "<value>",
+        authKey: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 3956.33,
+  description:
+    "yuck idolized possible merrily along below geez horse over zowie",
+};
 ```
 
 ## Fields

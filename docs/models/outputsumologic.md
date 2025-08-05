@@ -6,8 +6,37 @@
 import { OutputSumoLogic } from "cribl-control-plane/models";
 
 let value: OutputSumoLogic = {
+  id: "<id>",
   type: "sumo_logic",
-  url: "https://dazzling-swing.biz/",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://discrete-cod.net",
+  customSource: "<value>",
+  customCategory: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 7298.15,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 8659.35,
+  description: "pastel mammoth gadzooks key yieldingly that edge how sushi",
+  pqControls: {},
 };
 ```
 

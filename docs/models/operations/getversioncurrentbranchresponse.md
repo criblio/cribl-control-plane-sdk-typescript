@@ -7,7 +7,20 @@ a list of any objects
 ```typescript
 import { GetVersionCurrentBranchResponse } from "cribl-control-plane/models/operations";
 
-let value: GetVersionCurrentBranchResponse = {};
+let value: GetVersionCurrentBranchResponse = {
+  count: 275861,
+  items: [
+    {
+      "key": "<value>",
+    },
+    {
+      "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
+    },
+    {},
+  ],
+};
 ```
 
 ## Fields

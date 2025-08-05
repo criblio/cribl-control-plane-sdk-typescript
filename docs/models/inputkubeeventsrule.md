@@ -7,6 +7,7 @@ import { InputKubeEventsRule } from "cribl-control-plane/models";
 
 let value: InputKubeEventsRule = {
   filter: "<value>",
+  description: "via unpleasant whether excepting when redesign",
 };
 ```
 

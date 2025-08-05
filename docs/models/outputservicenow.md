@@ -6,7 +6,54 @@
 import { OutputServiceNow } from "cribl-control-plane/models";
 
 let value: OutputServiceNow = {
+  id: "<id>",
+  type: "service_now",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   tokenSecret: "<value>",
+  httpTracesEndpointOverride: "<value>",
+  httpMetricsEndpointOverride: "<value>",
+  httpLogsEndpointOverride: "<value>",
+  metadata: [
+    {
+      value: "<value>",
+    },
+  ],
+  description:
+    "until notwithstanding boohoo anti arrogantly apud quaintly ferociously independence eek",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5528.15,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.2",
+  },
+  pqControls: {},
 };
 ```
 
