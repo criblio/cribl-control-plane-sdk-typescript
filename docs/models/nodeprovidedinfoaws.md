@@ -8,6 +8,7 @@ import { NodeProvidedInfoAws } from "cribl-control-plane/models";
 let value: NodeProvidedInfoAws = {
   enabled: true,
   region: "<value>",
+  tags: {},
   type: "<value>",
   zone: "<value>",
 };

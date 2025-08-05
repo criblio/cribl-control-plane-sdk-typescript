@@ -7,7 +7,22 @@ import { GitRevertResult } from "cribl-control-plane/models";
 
 let value: GitRevertResult = {
   audit: {
-    files: {},
+    files: {
+      created: [
+        "<value 1>",
+      ],
+      deleted: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      modified: [
+        "<value 1>",
+      ],
+      renamed: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
     group: "<value>",
     id: "<id>",
   },

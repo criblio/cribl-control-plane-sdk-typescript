@@ -6,12 +6,54 @@
 import { OutputAzureDataExplorer } from "cribl-control-plane/models";
 
 let value: OutputAzureDataExplorer = {
-  clusterUrl: "https://ample-making.net/",
+  id: "<id>",
+  type: "azure_data_explorer",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  clusterUrl: "https://royal-duffel.biz",
   database: "<value>",
   table: "<value>",
   tenantId: "<id>",
   clientId: "<id>",
   scope: "<value>",
+  description: "certainly madly shyly tragic made-up happy gee",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+  ingestUrl: "https://alienated-contrail.info/",
+  extentTags: [
+    {
+      prefix: "dropBy",
+      value: "<value>",
+    },
+  ],
+  ingestIfNotExists: [
+    {
+      value: "<value>",
+    },
+  ],
+  additionalProperties: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 8928.41,
+    },
+  ],
+  timeoutRetrySettings: {},
+  mappingRef: "<value>",
+  pqControls: {},
 };
 ```
 

@@ -8,6 +8,27 @@ import { InputCriblmetrics } from "cribl-control-plane/models";
 let value: InputCriblmetrics = {
   id: "<id>",
   type: "criblmetrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "playfully growing curl blight cone likely innocently amongst",
 };
 ```
 

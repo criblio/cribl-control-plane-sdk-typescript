@@ -6,12 +6,45 @@
 import { OutputSplunkLb } from "cribl-control-plane/models";
 
 let value: OutputSplunkLb = {
+  id: "<id>",
   type: "splunk_lb",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description:
+    "conversation avow kissingly thankfully role scale happily excluding likewise",
+  indexerDiscoveryConfigs: {
+    masterUri: "https://striking-ghost.info",
+    authTokens: [
+      {},
+    ],
+    textSecret: "<value>",
+  },
   hosts: [
     {
-      host: "apprehensive-cleaner.info",
+      host: "elliptical-e-mail.net",
+      servername: "<value>",
     },
   ],
+  pqControls: {},
+  textSecret: "<value>",
 };
 ```
 

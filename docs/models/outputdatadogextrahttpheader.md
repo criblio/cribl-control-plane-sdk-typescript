@@ -6,6 +6,7 @@
 import { OutputDatadogExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputDatadogExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

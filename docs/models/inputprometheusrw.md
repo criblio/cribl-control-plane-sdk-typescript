@@ -6,7 +6,60 @@
 import { InputPrometheusRw } from "cribl-control-plane/models";
 
 let value: InputPrometheusRw = {
-  port: 253.9,
+  id: "<id>",
+  type: "prometheus_rw",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 6798.56,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "sheepishly upon arcade soybean onto yahoo hydrolyze gee rapid",
+  username: "Verlie.Rosenbaum",
+  password: "_EdB5gTx4wsWVVh",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://negative-ceramics.name/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

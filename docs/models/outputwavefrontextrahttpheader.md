@@ -6,6 +6,7 @@
 import { OutputWavefrontExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputWavefrontExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

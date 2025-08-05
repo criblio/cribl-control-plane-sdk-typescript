@@ -8,7 +8,52 @@ import { OutputElastic } from "cribl-control-plane/models/operations";
 let value: OutputElastic = {
   id: "<id>",
   type: "elastic",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   index: "<value>",
+  docType: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5898.49,
+    },
+  ],
+  timeoutRetrySettings: {},
+  extraParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  auth: {},
+  elasticPipeline: "<value>",
+  description:
+    "hunger affectionate incidentally knowingly claw ew pacemaker failing wherever",
+  url: "https://sparse-hamburger.biz/",
+  urls: [
+    {
+      url: "https://tattered-shore.biz",
+    },
+  ],
+  pqControls: {},
 };
 ```
 

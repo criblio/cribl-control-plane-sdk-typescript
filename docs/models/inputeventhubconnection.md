@@ -6,6 +6,7 @@
 import { InputEventhubConnection } from "cribl-control-plane/models";
 
 let value: InputEventhubConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

@@ -6,6 +6,7 @@
 import { ConnectionDatagen } from "cribl-control-plane/models/operations";
 
 let value: ConnectionDatagen = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

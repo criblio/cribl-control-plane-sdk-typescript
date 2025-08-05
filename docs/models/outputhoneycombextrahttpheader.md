@@ -6,6 +6,7 @@
 import { OutputHoneycombExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputHoneycombExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

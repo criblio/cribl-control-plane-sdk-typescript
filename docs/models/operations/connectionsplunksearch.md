@@ -6,6 +6,7 @@
 import { ConnectionSplunkSearch } from "cribl-control-plane/models/operations";
 
 let value: ConnectionSplunkSearch = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

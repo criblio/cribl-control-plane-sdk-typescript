@@ -7,7 +7,49 @@ import { InputTcp } from "cribl-control-plane/models/operations";
 
 let value: InputTcp = {
   id: "<id>",
-  port: 1116.24,
+  type: "tcp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 9276.01,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  description: "handle fork because neatly kiddingly nervous upbeat indeed yum",
 };
 ```
 

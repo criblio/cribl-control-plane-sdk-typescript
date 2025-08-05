@@ -7,6 +7,8 @@ import { CreateInputRule } from "cribl-control-plane/models/operations";
 
 let value: CreateInputRule = {
   filter: "<value>",
+  description:
+    "or quick optimistic merry notarize finally gladly whether sadly writhing",
 };
 ```
 

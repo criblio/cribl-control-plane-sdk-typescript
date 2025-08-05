@@ -7,7 +7,12 @@ import { RoutesRouteInput } from "cribl-control-plane/models";
 
 let value: RoutesRouteInput = {
   name: "<value>",
+  disabled: true,
   pipeline: "<value>",
+  output: "<value>",
+  outputExpression: "<value>",
+  description:
+    "whenever kindheartedly married inject beneath oof optimal whoever",
 };
 ```
 

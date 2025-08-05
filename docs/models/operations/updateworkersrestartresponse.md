@@ -7,7 +7,16 @@ a list of RestartResponse objects
 ```typescript
 import { UpdateWorkersRestartResponse } from "cribl-control-plane/models/operations";
 
-let value: UpdateWorkersRestartResponse = {};
+let value: UpdateWorkersRestartResponse = {
+  count: 901807,
+  items: [
+    {
+      id: "<id>",
+      message: "<value>",
+      status: "Error",
+    },
+  ],
+};
 ```
 
 ## Fields

@@ -7,7 +7,14 @@ a list of any objects
 ```typescript
 import { CreateVersionPushResponse } from "cribl-control-plane/models/operations";
 
-let value: CreateVersionPushResponse = {};
+let value: CreateVersionPushResponse = {
+  count: 803133,
+  items: [
+    {
+      "key": "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

@@ -6,6 +6,7 @@
 import { ConnectionNetflow } from "cribl-control-plane/models/operations";
 
 let value: ConnectionNetflow = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

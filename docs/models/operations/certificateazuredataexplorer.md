@@ -5,7 +5,9 @@
 ```typescript
 import { CertificateAzureDataExplorer } from "cribl-control-plane/models/operations";
 
-let value: CertificateAzureDataExplorer = {};
+let value: CertificateAzureDataExplorer = {
+  certificateName: "<value>",
+};
 ```
 
 ## Fields

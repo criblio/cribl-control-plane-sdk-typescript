@@ -8,6 +8,18 @@ import { OutputDiskSpool } from "cribl-control-plane/models";
 let value: OutputDiskSpool = {
   id: "<id>",
   type: "disk_spool",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  partitionExpr: "<value>",
+  description: "seemingly moisten best searchingly damaged clone",
 };
 ```
 

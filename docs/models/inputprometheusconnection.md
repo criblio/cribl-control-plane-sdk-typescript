@@ -6,6 +6,7 @@
 import { InputPrometheusConnection } from "cribl-control-plane/models";
 
 let value: InputPrometheusConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

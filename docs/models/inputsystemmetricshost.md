@@ -5,7 +5,31 @@
 ```typescript
 import { InputSystemMetricsHost } from "cribl-control-plane/models";
 
-let value: InputSystemMetricsHost = {};
+let value: InputSystemMetricsHost = {
+  custom: {
+    system: {},
+    cpu: {},
+    memory: {},
+    network: {
+      devices: [
+        "<value 1>",
+      ],
+    },
+    disk: {
+      devices: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      mountpoints: [
+        "<value 1>",
+      ],
+      fstypes: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
+  },
+};
 ```
 
 ## Fields

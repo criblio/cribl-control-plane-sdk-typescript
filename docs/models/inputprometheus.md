@@ -5,7 +5,59 @@
 ```typescript
 import { InputPrometheus } from "cribl-control-plane/models";
 
-let value: InputPrometheus = {};
+let value: InputPrometheus = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "with proselytise mockingly yum arraign",
+  targetList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  username: "Abner.Beahan",
+  password: "WRNYKm_4ZcnFhsM",
+  credentialsSecret: "<value>",
+};
 ```
 
 ## Fields

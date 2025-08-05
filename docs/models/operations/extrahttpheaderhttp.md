@@ -6,6 +6,7 @@
 import { ExtraHTTPHeaderHTTP } from "cribl-control-plane/models/operations";
 
 let value: ExtraHTTPHeaderHTTP = {
+  name: "<value>",
   value: "<value>",
 };
 ```

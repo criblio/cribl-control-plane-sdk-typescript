@@ -6,12 +6,22 @@
 import { OutputNetflow } from "cribl-control-plane/models";
 
 let value: OutputNetflow = {
+  id: "<id>",
   type: "netflow",
-  hosts: [
-    {
-      host: "well-worn-conservative.name",
-    },
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  hosts: [],
+  description: "middle fraudster slight breakable furthermore rigid break",
 };
 ```
 

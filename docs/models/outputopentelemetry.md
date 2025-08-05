@@ -6,8 +6,72 @@
 import { OutputOpenTelemetry } from "cribl-control-plane/models";
 
 let value: OutputOpenTelemetry = {
+  id: "<id>",
   type: "open_telemetry",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   endpoint: "<value>",
+  httpTracesEndpointOverride: "<value>",
+  httpMetricsEndpointOverride: "<value>",
+  httpLogsEndpointOverride: "<value>",
+  metadata: [
+    {
+      value: "<value>",
+    },
+  ],
+  description: "row perfection sternly",
+  username: "Carmelo.Turner67",
+  password: "dscYfe2QByIiEHF",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://lustrous-provider.com",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 6166.72,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
+  },
+  pqControls: {},
 };
 ```
 

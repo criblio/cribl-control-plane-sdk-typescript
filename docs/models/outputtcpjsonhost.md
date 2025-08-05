@@ -8,6 +8,7 @@ import { OutputTcpjsonHost } from "cribl-control-plane/models";
 let value: OutputTcpjsonHost = {
   host: "honored-import.info",
   port: 5372.87,
+  servername: "<value>",
 };
 ```
 

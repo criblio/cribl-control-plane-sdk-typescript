@@ -6,13 +6,70 @@
 import { InputMsk } from "cribl-control-plane/models";
 
 let value: InputMsk = {
+  id: "<id>",
+  type: "msk",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   brokers: [
     "<value 1>",
   ],
   topics: [
     "<value 1>",
+    "<value 2>",
   ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
+    },
+  },
+  awsSecretKey: "<value>",
   region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+  },
+  autoCommitInterval: 5538.49,
+  autoCommitThreshold: 2610.43,
+  description:
+    "selfishly unnaturally when if and along whether for beside behind",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 

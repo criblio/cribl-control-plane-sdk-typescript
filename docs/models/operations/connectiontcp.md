@@ -6,6 +6,7 @@
 import { ConnectionTCP } from "cribl-control-plane/models/operations";
 
 let value: ConnectionTCP = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

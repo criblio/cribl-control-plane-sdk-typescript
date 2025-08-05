@@ -8,7 +8,58 @@ import { OutputInfluxdb } from "cribl-control-plane/models/operations";
 let value: OutputInfluxdb = {
   id: "<id>",
   type: "influxdb",
-  url: "https://noteworthy-sediment.com/",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://competent-sauerkraut.name",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 4536.83,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "extract yet brr scorpion unto ignite geez deflate",
+  database: "<value>",
+  bucket: "<value>",
+  org: "<value>",
+  pqControls: {},
+  username: "Travis.Hagenes",
+  password: "OuaogWr6Xu_VAWv",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://sandy-laughter.com",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

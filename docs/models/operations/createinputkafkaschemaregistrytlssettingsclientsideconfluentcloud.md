@@ -5,8 +5,16 @@
 ```typescript
 import { CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud } from "cribl-control-plane/models/operations";
 
-let value: CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud =
-  {};
+let value: CreateInputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud = {
+  servername: "<value>",
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.3",
+  maxVersion: "TLSv1",
+};
 ```
 
 ## Fields

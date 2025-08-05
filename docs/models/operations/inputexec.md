@@ -8,7 +8,32 @@ import { InputExec } from "cribl-control-plane/models/operations";
 let value: InputExec = {
   id: "<id>",
   type: "exec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   command: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "as amidst stupendous since",
 };
 ```
 

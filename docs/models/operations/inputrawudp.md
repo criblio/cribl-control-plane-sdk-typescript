@@ -7,7 +7,30 @@ import { InputRawUdp } from "cribl-control-plane/models/operations";
 
 let value: InputRawUdp = {
   id: "<id>",
-  port: 9058.83,
+  type: "raw_udp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 4663.95,
+  udpSocketRxBufSize: 8690.82,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "of revoke descriptive down accountability",
 };
 ```
 

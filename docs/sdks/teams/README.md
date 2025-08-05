@@ -29,6 +29,7 @@ async function run() {
   const result = await criblControlPlane.teams.getProductsGroupsAclTeamsByProductAndId({
     product: "stream",
     id: "<id>",
+    type: "datasets",
   });
 
   console.log(result);
@@ -58,6 +59,7 @@ async function run() {
   const res = await teamsGetProductsGroupsAclTeamsByProductAndId(criblControlPlane, {
     product: "stream",
     id: "<id>",
+    type: "datasets",
   });
   if (res.ok) {
     const { value: result } = res;

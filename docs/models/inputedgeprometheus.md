@@ -5,7 +5,63 @@
 ```typescript
 import { InputEdgePrometheus } from "cribl-control-plane/models";
 
-let value: InputEdgePrometheus = {};
+let value: InputEdgePrometheus = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  dimensionList: [
+    "<value 1>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "suffocate indolent sticker especially",
+  targets: [
+    {
+      host: "immense-forager.name",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "oof wherever circa",
+    },
+  ],
+  username: "Adriel_Murray86",
+  password: "GsqPbiOp5J7DY2j",
+  credentialsSecret: "<value>",
+};
 ```
 
 ## Fields

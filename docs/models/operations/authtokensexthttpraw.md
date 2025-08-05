@@ -7,6 +7,13 @@ import { AuthTokensExtHTTPRaw } from "cribl-control-plane/models/operations";
 
 let value: AuthTokensExtHTTPRaw = {
   token: "<value>",
+  description: "once yawningly out vacantly loaf although yum hm",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

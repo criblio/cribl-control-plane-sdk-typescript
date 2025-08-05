@@ -7,7 +7,22 @@ a list of TeamAccessControlList objects
 ```typescript
 import { GetProductsGroupsAclTeamsByProductAndIdResponse } from "cribl-control-plane/models/operations";
 
-let value: GetProductsGroupsAclTeamsByProductAndIdResponse = {};
+let value: GetProductsGroupsAclTeamsByProductAndIdResponse = {
+  count: 273098,
+  items: [
+    {
+      perms: [
+        {
+          gid: "<id>",
+          id: "<id>",
+          policy: "<value>",
+          type: "dashboards",
+        },
+      ],
+      team: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

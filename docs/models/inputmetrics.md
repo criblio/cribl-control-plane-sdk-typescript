@@ -6,7 +6,43 @@
 import { InputMetrics } from "cribl-control-plane/models";
 
 let value: InputMetrics = {
+  id: "<id>",
   type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpPort: 1525.54,
+  tcpPort: 6373.18,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 6579.9,
+  description: "cautiously woot similar wretched",
 };
 ```
 

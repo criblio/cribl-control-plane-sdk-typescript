@@ -6,6 +6,7 @@
 import { InputAppscopeConnection } from "cribl-control-plane/models";
 
 let value: InputAppscopeConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

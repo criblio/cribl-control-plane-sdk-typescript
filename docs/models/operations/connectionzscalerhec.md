@@ -6,6 +6,7 @@
 import { ConnectionZscalerHec } from "cribl-control-plane/models/operations";
 
 let value: ConnectionZscalerHec = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

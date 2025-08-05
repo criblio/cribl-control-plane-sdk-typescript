@@ -6,7 +6,28 @@
 import { OutputSqs } from "cribl-control-plane/models";
 
 let value: OutputSqs = {
+  id: "<id>",
+  type: "sqs",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  description: "versus gracefully cornet",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  pqControls: {},
 };
 ```
 

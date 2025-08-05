@@ -5,7 +5,13 @@
 ```typescript
 import { OutputGrafanaCloudPrometheusAuth2 } from "cribl-control-plane/models";
 
-let value: OutputGrafanaCloudPrometheusAuth2 = {};
+let value: OutputGrafanaCloudPrometheusAuth2 = {
+  token: "<value>",
+  textSecret: "<value>",
+  username: "Mandy.Reichel",
+  password: "UMbkBaYvNyZu2hS",
+  credentialsSecret: "<value>",
+};
 ```
 
 ## Fields

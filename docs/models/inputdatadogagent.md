@@ -6,7 +6,42 @@
 import { InputDatadogAgent } from "cribl-control-plane/models";
 
 let value: InputDatadogAgent = {
-  port: 7967.97,
+  id: "<id>",
+  type: "datadog_agent",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 3937.07,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {},
+  description: "great than while mobility how vastly straight menacing granny",
 };
 ```
 

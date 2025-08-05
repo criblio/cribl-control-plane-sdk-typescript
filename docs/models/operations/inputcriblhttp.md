@@ -7,7 +7,45 @@ import { InputCriblHttp } from "cribl-control-plane/models/operations";
 
 let value: InputCriblHttp = {
   id: "<id>",
-  port: 6394.59,
+  type: "cribl_http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 4612.09,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "forearm proud defrag punctually steel unless treasure doubtfully where but",
 };
 ```
 

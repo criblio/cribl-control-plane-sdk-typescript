@@ -6,6 +6,7 @@
 import { OutputAzureLogsExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputAzureLogsExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

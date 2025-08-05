@@ -7,7 +7,38 @@ import { InputCriblTcp } from "cribl-control-plane/models/operations";
 
 let value: InputCriblTcp = {
   id: "<id>",
-  port: 374.03,
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 5951.43,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "limply instead at hmph slow as whose",
 };
 ```
 

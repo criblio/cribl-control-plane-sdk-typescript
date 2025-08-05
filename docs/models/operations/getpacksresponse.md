@@ -7,7 +7,42 @@ a list of PackInfo objects
 ```typescript
 import { GetPacksResponse } from "cribl-control-plane/models/operations";
 
-let value: GetPacksResponse = {};
+let value: GetPacksResponse = {
+  count: 226169,
+  items: [
+    {
+      author: "<value>",
+      description:
+        "yet reassemble provided after fat executor given factorise before",
+      displayName: "Octavia75",
+      exports: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      id: "<id>",
+      inputs: 2362.89,
+      isDisabled: false,
+      minLogStreamVersion: "<value>",
+      outputs: 8360.48,
+      settings: {
+        "key": "<value>",
+      },
+      source: "<value>",
+      spec: "<value>",
+      tags: {
+        dataType: [],
+        domain: [],
+        streamtags: [
+          "<value 1>",
+        ],
+        technology: [
+          "<value 1>",
+        ],
+      },
+      version: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

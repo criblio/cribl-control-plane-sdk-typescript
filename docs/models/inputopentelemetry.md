@@ -5,7 +5,66 @@
 ```typescript
 import { InputOpenTelemetry } from "cribl-control-plane/models";
 
-let value: InputOpenTelemetry = {};
+let value: InputOpenTelemetry = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "rewrite cow warmly clearly vamoose",
+  username: "Leonard84",
+  password: "0Rl6tiFKwlIZ_hs",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://quarterly-flame.org/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

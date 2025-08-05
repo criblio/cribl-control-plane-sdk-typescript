@@ -7,7 +7,22 @@ a list of any objects
 ```typescript
 import { CreateInputHecTokenByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: CreateInputHecTokenByIdResponse = {};
+let value: CreateInputHecTokenByIdResponse = {
+  count: 311908,
+  items: [
+    {
+      "key": "<value>",
+    },
+    {
+      "key": "<value>",
+    },
+    {
+      "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

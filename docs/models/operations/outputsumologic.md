@@ -8,7 +8,35 @@ import { OutputSumoLogic } from "cribl-control-plane/models/operations";
 let value: OutputSumoLogic = {
   id: "<id>",
   type: "sumo_logic",
-  url: "https://expensive-disconnection.name/",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://obedient-hutch.info/",
+  customSource: "<value>",
+  customCategory: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5053.29,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 9976.28,
+  description: "nor modulo unbearably celsius",
+  pqControls: {},
 };
 ```
 

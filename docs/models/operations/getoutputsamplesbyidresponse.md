@@ -7,7 +7,28 @@ a list of OutputSamplesResponse objects
 ```typescript
 import { GetOutputSamplesByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: GetOutputSamplesByIdResponse = {};
+let value: GetOutputSamplesByIdResponse = {
+  count: 911527,
+  items: [
+    {
+      events: [
+        {
+          "key": "<value>",
+        },
+        {
+          "key": "<value>",
+          "key1": "<value>",
+          "key2": "<value>",
+        },
+        {
+          "key": "<value>",
+          "key1": "<value>",
+          "key2": "<value>",
+        },
+      ],
+    },
+  ],
+};
 ```
 
 ## Fields

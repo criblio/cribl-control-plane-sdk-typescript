@@ -5,7 +5,40 @@
 ```typescript
 import { OutputHumioHec } from "cribl-control-plane/models";
 
-let value: OutputHumioHec = {};
+let value: OutputHumioHec = {
+  id: "<id>",
+  type: "humio_hec",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 8921.2,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "considering midst failing",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
+};
 ```
 
 ## Fields

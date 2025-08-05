@@ -6,7 +6,44 @@
 import { OutputAzureLogs } from "cribl-control-plane/models";
 
 let value: OutputAzureLogs = {
+  id: "<id>",
   type: "azure_logs",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  resourceId: "<id>",
+  compress: false,
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 6609.99,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "whoa through broadly aside fooey triumphantly tarry ghost",
+  pqControls: {},
+  workspaceId: "<id>",
+  workspaceKey: "<value>",
+  keypairSecret: "<value>",
 };
 ```
 

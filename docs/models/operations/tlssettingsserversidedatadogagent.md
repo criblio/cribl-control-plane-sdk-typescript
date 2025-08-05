@@ -5,7 +5,17 @@
 ```typescript
 import { TLSSettingsServerSideDatadogAgent } from "cribl-control-plane/models/operations";
 
-let value: TLSSettingsServerSideDatadogAgent = {};
+let value: TLSSettingsServerSideDatadogAgent = {
+  certificateName: "<value>",
+  privKeyPath: "<value>",
+  passphrase: "<value>",
+  certPath: "<value>",
+  caPath: "<value>",
+  rejectUnauthorized: "<value>",
+  commonNameRegex: "<value>",
+  minVersion: "TLSv1.2",
+  maxVersion: "TLSv1.1",
+};
 ```
 
 ## Fields

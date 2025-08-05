@@ -7,6 +7,36 @@ import { InputSnmp } from "cribl-control-plane/models/operations";
 
 let value: InputSnmp = {
   id: "<id>",
+  type: "snmp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  snmpV3Auth: {
+    v3Users: [
+      {
+        name: "<value>",
+        authKey: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 6334.83,
+  description: "navigate draft fooey",
 };
 ```
 

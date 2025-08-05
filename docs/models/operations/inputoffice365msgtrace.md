@@ -7,6 +7,49 @@ import { InputOffice365MsgTrace } from "cribl-control-plane/models/operations";
 
 let value: InputOffice365MsgTrace = {
   id: "<id>",
+  type: "office365_msg_trace",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  startDate: "<value>",
+  endDate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      4575.54,
+      6824.2,
+      4579.88,
+    ],
+  },
+  description:
+    "opposite crystallize blissfully unto until consequently seriously jagged forenenst qua",
+  username: "Kamron.Wolf72",
+  password: "hRl1wgzkZUnsJd7",
+  credentialsSecret: "<value>",
+  clientSecret: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  textSecret: "<value>",
+  certOptions: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+  },
 };
 ```
 

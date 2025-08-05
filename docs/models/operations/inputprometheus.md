@@ -7,6 +7,56 @@ import { InputPrometheus } from "cribl-control-plane/models/operations";
 
 let value: InputPrometheus = {
   id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "rule annual corner when toward front and refute hmph times",
+  targetList: [
+    "<value 1>",
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  username: "Orion_Senger",
+  password: "DNsHPUxEKSAbzVy",
+  credentialsSecret: "<value>",
 };
 ```
 

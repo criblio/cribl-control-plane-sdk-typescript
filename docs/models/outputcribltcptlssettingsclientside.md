@@ -5,7 +5,16 @@
 ```typescript
 import { OutputCriblTcpTLSSettingsClientSide } from "cribl-control-plane/models";
 
-let value: OutputCriblTcpTLSSettingsClientSide = {};
+let value: OutputCriblTcpTLSSettingsClientSide = {
+  servername: "<value>",
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.2",
+  maxVersion: "TLSv1.3",
+};
 ```
 
 ## Fields

@@ -7,7 +7,31 @@ import { OutputSplunk } from "cribl-control-plane/models/operations";
 
 let value: OutputSplunk = {
   id: "<id>",
-  host: "shiny-dime.org",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  host: "wry-hippodrome.net",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.3",
+  },
+  description: "unaccountably rebuff instead hutch um",
+  pqControls: {},
+  textSecret: "<value>",
 };
 ```
 

@@ -6,6 +6,7 @@
 import { InputSyslogConnection2 } from "cribl-control-plane/models/operations";
 
 let value: InputSyslogConnection2 = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

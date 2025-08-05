@@ -8,7 +8,51 @@ import { InputSecurityLake } from "cribl-control-plane/models/operations";
 let value: InputSecurityLake = {
   id: "<id>",
   type: "security_lake",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  encoding: "<value>",
+  description: "deafening stormy absent knowingly unfortunately eek",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "false",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
 };
 ```
 

@@ -6,8 +6,54 @@
 import { InputS3Inventory } from "cribl-control-plane/models";
 
 let value: InputS3Inventory = {
+  id: "<id>",
   type: "s3_inventory",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  description:
+    "though insert inasmuch likely bah ew gadzooks anenst powerfully",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "true",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
 };
 ```
 

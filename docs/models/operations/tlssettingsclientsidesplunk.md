@@ -5,7 +5,16 @@
 ```typescript
 import { TLSSettingsClientSideSplunk } from "cribl-control-plane/models/operations";
 
-let value: TLSSettingsClientSideSplunk = {};
+let value: TLSSettingsClientSideSplunk = {
+  servername: "<value>",
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.2",
+  maxVersion: "TLSv1.1",
+};
 ```
 
 ## Fields

@@ -6,6 +6,7 @@
 import { GetProductsGroupsByProductRequest } from "cribl-control-plane/models/operations";
 
 let value: GetProductsGroupsByProductRequest = {
+  fields: "<value>",
   product: "stream",
 };
 ```

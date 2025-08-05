@@ -6,6 +6,7 @@
 import { ConnectionKafka } from "cribl-control-plane/models/operations";
 
 let value: ConnectionKafka = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

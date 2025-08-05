@@ -185,7 +185,20 @@ async function run() {
   const result = await criblControlPlane.routes.updateRoutesById({
     id: "<id>",
     routes: {
+      id: "<id>",
       routes: [],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "where internationalize yesterday woefully tank underneath",
+          disabled: true,
+        },
+      },
+      comments: [
+        {
+          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+        },
+      ],
     },
   });
 
@@ -216,7 +229,20 @@ async function run() {
   const res = await routesUpdateRoutesById(criblControlPlane, {
     id: "<id>",
     routes: {
+      id: "<id>",
       routes: [],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "where internationalize yesterday woefully tank underneath",
+          disabled: true,
+        },
+      },
+      comments: [
+        {
+          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+        },
+      ],
     },
   });
   if (res.ok) {

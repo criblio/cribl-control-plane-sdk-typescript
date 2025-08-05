@@ -5,7 +5,47 @@
 ```typescript
 import { OutputDynatraceHttp } from "cribl-control-plane/models";
 
-let value: OutputDynatraceHttp = {};
+let value: OutputDynatraceHttp = {
+  id: "<id>",
+  type: "dynatrace_http",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 6045.54,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 4158.6,
+  description: "ew after oh for lieu whether though ick",
+  pqControls: {},
+  token: "<value>",
+  textSecret: "<value>",
+  environmentId: "<id>",
+  activeGateDomain: "<value>",
+  url: "https://drab-humidity.name/",
+};
 ```
 
 ## Fields

@@ -6,9 +6,83 @@
 import { OutputClickHouse } from "cribl-control-plane/models";
 
 let value: OutputClickHouse = {
-  url: "https://lucky-ignorance.name/",
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://miserable-pillow.biz/",
   database: "<value>",
   tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 7494.57,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "without tragic deserted after uh-huh provided",
+  username: "Eino.Mante",
+  password: "PBWEf8PIjl05JJf",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://profuse-pocket-watch.biz/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
 };
 ```
 

@@ -6,8 +6,36 @@
 import { InputKinesis } from "cribl-control-plane/models";
 
 let value: InputKinesis = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   streamName: "<value>",
+  awsSecretKey: "<value>",
   region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "hamburger partially elegantly quietly whether perfectly",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 

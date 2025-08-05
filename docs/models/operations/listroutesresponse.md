@@ -7,7 +7,28 @@ a list of Routes objects
 ```typescript
 import { ListRoutesResponse } from "cribl-control-plane/models/operations";
 
-let value: ListRoutesResponse = {};
+let value: ListRoutesResponse = {
+  count: 807677,
+  items: [
+    {
+      id: "<id>",
+      routes: [],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "athwart joshingly whether inspection how highly",
+          disabled: false,
+        },
+      },
+      comments: [
+        {
+          comment:
+            "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+        },
+      ],
+    },
+  ],
+};
 ```
 
 ## Fields

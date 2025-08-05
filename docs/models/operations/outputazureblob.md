@@ -7,7 +7,38 @@ import { OutputAzureBlob } from "cribl-control-plane/models/operations";
 
 let value: OutputAzureBlob = {
   id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
   containerName: "<value>",
+  destPath: "<value>",
+  description:
+    "crooked ew till likewise tuba gadzooks speedily um busily however",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
 };
 ```
 

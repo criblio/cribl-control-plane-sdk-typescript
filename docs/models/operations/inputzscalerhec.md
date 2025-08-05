@@ -7,7 +7,69 @@ import { InputZscalerHec } from "cribl-control-plane/models/operations";
 
 let value: InputZscalerHec = {
   id: "<id>",
-  port: 976.35,
+  type: "zscaler_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 5282.2,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description:
+        "free delightfully sometimes closely crystallize frantically",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+  },
+  enableHealthCheck: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "sternly during when configuration tackle",
 };
 ```
 

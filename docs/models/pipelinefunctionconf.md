@@ -7,7 +7,11 @@ import { PipelineFunctionConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionConf = {
   id: "<id>",
+  description: "where aha aged pace",
+  disabled: false,
+  final: true,
   conf: {},
+  groupId: "<id>",
 };
 ```
 

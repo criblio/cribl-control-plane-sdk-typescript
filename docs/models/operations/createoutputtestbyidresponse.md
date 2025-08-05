@@ -7,7 +7,22 @@ a list of OutputTestResponse objects
 ```typescript
 import { CreateOutputTestByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: CreateOutputTestByIdResponse = {};
+let value: CreateOutputTestByIdResponse = {
+  count: 709424,
+  items: [
+    {
+      details: {
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
+      },
+      error: "<value>",
+      outputId: "<id>",
+      success: false,
+      successDetail: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

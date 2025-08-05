@@ -8,6 +8,57 @@ import { OutputGoogleChronicle } from "cribl-control-plane/models/operations";
 let value: OutputGoogleChronicle = {
   id: "<id>",
   type: "google_chronicle",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 7082.3,
+    },
+  ],
+  timeoutRetrySettings: {},
+  region: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  totalMemoryLimitKB: 2398.98,
+  description:
+    "querulous minus irresponsible bandwidth teeming aw meanwhile for huzzah",
+  extraLogTypes: [
+    {
+      logType: "<value>",
+      description: "hastily beside unbalance dismal",
+    },
+  ],
+  logType: "<value>",
+  logTextField: "<value>",
+  customerId: "<id>",
+  namespace: "<value>",
+  customLabels: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  apiKey: "<value>",
+  apiKeySecret: "<value>",
+  serviceAccountCredentials: "<value>",
+  serviceAccountCredentialsSecret: "<value>",
+  pqControls: {},
 };
 ```
 

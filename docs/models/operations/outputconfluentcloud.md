@@ -7,12 +7,54 @@ import { OutputConfluentCloud } from "cribl-control-plane/models/operations";
 
 let value: OutputConfluentCloud = {
   id: "<id>",
-  brokers: [
+  type: "confluent_cloud",
+  pipeline: "<value>",
+  systemFields: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
+  },
   topic: "<value>",
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.3",
+      maxVersion: "TLSv1.3",
+    },
+    defaultKeySchemaId: 3056.85,
+    defaultValueSchemaId: 6142.6,
+  },
+  sasl: {},
+  description: "dreamily hastily papa keenly as range",
+  protobufLibraryId: "<id>",
+  pqControls: {},
 };
 ```
 

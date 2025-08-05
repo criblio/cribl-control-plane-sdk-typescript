@@ -7,7 +7,50 @@ import { InputSplunk } from "cribl-control-plane/models/operations";
 
 let value: InputSplunk = {
   id: "<id>",
-  port: 3685.58,
+  type: "splunk",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 9904.57,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  authTokens: [
+    {
+      token: "<value>",
+      description: "dwell earnest inspection little overspend generally",
+    },
+  ],
+  description: "teeming prestigious though",
 };
 ```
 

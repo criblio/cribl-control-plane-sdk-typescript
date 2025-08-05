@@ -8,7 +8,50 @@ import { InputCrowdstrike } from "cribl-control-plane/models/operations";
 let value: InputCrowdstrike = {
   id: "<id>",
   type: "crowdstrike",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  encoding: "<value>",
+  description: "finally frightfully upwardly",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "false",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
 };
 ```
 

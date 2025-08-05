@@ -28,7 +28,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.workers.getSummaryWorkers();
+  const result = await criblControlPlane.workers.getSummaryWorkers({
+    filterExp: "<value>",
+  });
 
   console.log(result);
 }
@@ -54,7 +56,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await workersGetSummaryWorkers(criblControlPlane);
+  const res = await workersGetSummaryWorkers(criblControlPlane, {
+    filterExp: "<value>",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -103,7 +107,14 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.workers.getWorkers();
+  const result = await criblControlPlane.workers.getWorkers({
+    filterExp: "<value>",
+    sort: "<value>",
+    sortExp: "<value>",
+    limit: 402753,
+    offset: 848752,
+    filter: "<value>",
+  });
 
   console.log(result);
 }
@@ -129,7 +140,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await workersGetWorkers(criblControlPlane);
+  const res = await workersGetWorkers(criblControlPlane, {
+    filterExp: "<value>",
+    sort: "<value>",
+    sortExp: "<value>",
+    limit: 402753,
+    offset: 848752,
+    filter: "<value>",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

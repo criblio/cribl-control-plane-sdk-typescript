@@ -5,7 +5,32 @@
 ```typescript
 import { InputNetflow } from "cribl-control-plane/models";
 
-let value: InputNetflow = {};
+let value: InputNetflow = {
+  id: "<id>",
+  type: "netflow",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpSocketRxBufSize: 2121.68,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "gleefully famously sequester crest zowie divert",
+};
 ```
 
 ## Fields

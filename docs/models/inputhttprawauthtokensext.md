@@ -7,6 +7,13 @@ import { InputHttpRawAuthTokensExt } from "cribl-control-plane/models";
 
 let value: InputHttpRawAuthTokensExt = {
   token: "<value>",
+  description: "yum homely redound circa where until hmph as cleaner rundown",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 

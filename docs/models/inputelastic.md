@@ -6,7 +6,60 @@
 import { InputElastic } from "cribl-control-plane/models";
 
 let value: InputElastic = {
-  port: 4251.06,
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 8327.88,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    url: "https://stale-discourse.name/",
+    removeHeaders: [
+      "<value 1>",
+    ],
+  },
+  description: "tall well yearly qua coordinated mad wholly outlying ugh pfft",
+  username: "Ayden99",
+  password: "N6vFmVRDEkfXqSU",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
 };
 ```
 

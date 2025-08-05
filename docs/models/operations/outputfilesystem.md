@@ -8,7 +8,23 @@ import { OutputFilesystem } from "cribl-control-plane/models/operations";
 let value: OutputFilesystem = {
   id: "<id>",
   type: "filesystem",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   destPath: "<value>",
+  stagePath: "<value>",
+  description: "narrate mid cripple boldly yum while gadzooks among on poorly",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 

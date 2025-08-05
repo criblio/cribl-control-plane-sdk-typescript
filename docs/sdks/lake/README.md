@@ -33,7 +33,51 @@ async function run() {
   const result = await criblControlPlane.lake.createCriblLakeDatasetByLakeId({
     lakeId: "<id>",
     criblLakeDataset: {
+      acceleratedFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      bucketName: "<value>",
+      cacheConnection: {
+        acceleratedFields: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        backfillStatus: "pending",
+        cacheRef: "<value>",
+        createdAt: 7795.06,
+        lakehouseConnectionType: "cache",
+        migrationQueryId: "<id>",
+        retentionInDays: 1466.58,
+      },
+      deletionStartedAt: 8310.58,
+      description: "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
+      format: "ddss",
+      httpDAUsed: true,
       id: "<id>",
+      retentionPeriodInDays: 456.37,
+      searchConfig: {
+        datatypes: [
+          "<value 1>",
+        ],
+        metadata: {
+          earliest: "<value>",
+          enableAcceleration: true,
+          fieldList: [
+            "<value 1>",
+            "<value 2>",
+          ],
+          latestRunInfo: {
+            earliestScannedTime: 4334.7,
+            finishedAt: 6811.22,
+            latestScannedTime: 5303.3,
+            objectCount: 9489.04,
+          },
+          scanMode: "detailed",
+        },
+      },
+      storageLocationId: "<id>",
+      viewName: "<value>",
     },
   });
 
@@ -64,7 +108,51 @@ async function run() {
   const res = await lakeCreateCriblLakeDatasetByLakeId(criblControlPlane, {
     lakeId: "<id>",
     criblLakeDataset: {
+      acceleratedFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      bucketName: "<value>",
+      cacheConnection: {
+        acceleratedFields: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        backfillStatus: "pending",
+        cacheRef: "<value>",
+        createdAt: 7795.06,
+        lakehouseConnectionType: "cache",
+        migrationQueryId: "<id>",
+        retentionInDays: 1466.58,
+      },
+      deletionStartedAt: 8310.58,
+      description: "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
+      format: "ddss",
+      httpDAUsed: true,
       id: "<id>",
+      retentionPeriodInDays: 456.37,
+      searchConfig: {
+        datatypes: [
+          "<value 1>",
+        ],
+        metadata: {
+          earliest: "<value>",
+          enableAcceleration: true,
+          fieldList: [
+            "<value 1>",
+            "<value 2>",
+          ],
+          latestRunInfo: {
+            earliestScannedTime: 4334.7,
+            finishedAt: 6811.22,
+            latestScannedTime: 5303.3,
+            objectCount: 9489.04,
+          },
+          scanMode: "detailed",
+        },
+      },
+      storageLocationId: "<id>",
+      viewName: "<value>",
     },
   });
   if (res.ok) {
@@ -360,7 +448,52 @@ async function run() {
     lakeId: "<id>",
     id: "<id>",
     criblLakeDataset: {
+      acceleratedFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      bucketName: "<value>",
+      cacheConnection: {
+        acceleratedFields: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        backfillStatus: "incomplete",
+        cacheRef: "<value>",
+        createdAt: 267.92,
+        lakehouseConnectionType: "zeroPoint",
+        migrationQueryId: "<id>",
+        retentionInDays: 3769.62,
+      },
+      deletionStartedAt: 836.59,
+      description: "highlight phew ponder but winding",
+      format: "json",
+      httpDAUsed: true,
       id: "<id>",
+      retentionPeriodInDays: 602.09,
+      searchConfig: {
+        datatypes: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        metadata: {
+          earliest: "<value>",
+          enableAcceleration: false,
+          fieldList: [
+            "<value 1>",
+          ],
+          latestRunInfo: {
+            earliestScannedTime: 7659.78,
+            finishedAt: 6404.38,
+            latestScannedTime: 4426.77,
+            objectCount: 8849.28,
+          },
+          scanMode: "detailed",
+        },
+      },
+      storageLocationId: "<id>",
+      viewName: "<value>",
     },
   });
 
@@ -392,7 +525,52 @@ async function run() {
     lakeId: "<id>",
     id: "<id>",
     criblLakeDataset: {
+      acceleratedFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      bucketName: "<value>",
+      cacheConnection: {
+        acceleratedFields: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        backfillStatus: "incomplete",
+        cacheRef: "<value>",
+        createdAt: 267.92,
+        lakehouseConnectionType: "zeroPoint",
+        migrationQueryId: "<id>",
+        retentionInDays: 3769.62,
+      },
+      deletionStartedAt: 836.59,
+      description: "highlight phew ponder but winding",
+      format: "json",
+      httpDAUsed: true,
       id: "<id>",
+      retentionPeriodInDays: 602.09,
+      searchConfig: {
+        datatypes: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        metadata: {
+          earliest: "<value>",
+          enableAcceleration: false,
+          fieldList: [
+            "<value 1>",
+          ],
+          latestRunInfo: {
+            earliestScannedTime: 7659.78,
+            finishedAt: 6404.38,
+            latestScannedTime: 4426.77,
+            objectCount: 8849.28,
+          },
+          scanMode: "detailed",
+        },
+      },
+      storageLocationId: "<id>",
+      viewName: "<value>",
     },
   });
   if (res.ok) {

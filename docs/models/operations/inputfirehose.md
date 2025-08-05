@@ -7,7 +7,43 @@ import { InputFirehose } from "cribl-control-plane/models/operations";
 
 let value: InputFirehose = {
   id: "<id>",
-  port: 6483.42,
+  type: "firehose",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 3448.68,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "knowledgeably interviewer dampen rot",
 };
 ```
 

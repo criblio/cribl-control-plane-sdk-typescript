@@ -106,19 +106,74 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.sources.createSource({
     id: "<id>",
+    type: "tcp",
     disabled: false,
+    pipeline: "<value>",
     sendToRoutes: true,
+    environment: "<value>",
     pqEnabled: false,
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    pq: {
+      mode: "always",
+      maxBufferSize: 1000,
+      commitFrequency: 42,
+      maxFileSize: "1 MB",
+      maxSize: "5GB",
+      path: "$CRIBL_HOME/state/queues",
+      compress: "none",
+    },
     host: "0.0.0.0",
     port: 301.76,
+    tls: {
+      disabled: true,
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      requestCert: false,
+      rejectUnauthorized: "<value>",
+      commonNameRegex: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
+    },
     ipWhitelistRegex: "/.*/",
     maxActiveCxn: 1000,
     socketIdleTimeout: 0,
     socketEndingMaxWait: 30,
     socketMaxLifespan: 0,
     enableProxyHeader: false,
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    breakerRulesets: [
+      "<value 1>",
+    ],
     staleChannelFlushMs: 10000,
     enableHeader: false,
+    preprocess: {
+      disabled: true,
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    description: "classic pish supposing misguided carefully fen",
     authType: "manual",
   });
 
@@ -148,19 +203,74 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await sourcesCreateSource(criblControlPlane, {
     id: "<id>",
+    type: "tcp",
     disabled: false,
+    pipeline: "<value>",
     sendToRoutes: true,
+    environment: "<value>",
     pqEnabled: false,
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    pq: {
+      mode: "always",
+      maxBufferSize: 1000,
+      commitFrequency: 42,
+      maxFileSize: "1 MB",
+      maxSize: "5GB",
+      path: "$CRIBL_HOME/state/queues",
+      compress: "none",
+    },
     host: "0.0.0.0",
     port: 301.76,
+    tls: {
+      disabled: true,
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      requestCert: false,
+      rejectUnauthorized: "<value>",
+      commonNameRegex: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
+    },
     ipWhitelistRegex: "/.*/",
     maxActiveCxn: 1000,
     socketIdleTimeout: 0,
     socketEndingMaxWait: 30,
     socketMaxLifespan: 0,
     enableProxyHeader: false,
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    breakerRulesets: [
+      "<value 1>",
+    ],
     staleChannelFlushMs: 10000,
     enableHeader: false,
+    preprocess: {
+      disabled: true,
+      command: "<value>",
+      args: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+    description: "classic pish supposing misguided carefully fen",
     authType: "manual",
   });
   if (res.ok) {
@@ -296,8 +406,42 @@ async function run() {
       id: "<id>",
       type: "kube_events",
       disabled: false,
+      pipeline: "<value>",
       sendToRoutes: true,
+      environment: "<value>",
       pqEnabled: false,
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
+      ],
+      pq: {
+        mode: "always",
+        maxBufferSize: 1000,
+        commitFrequency: 42,
+        maxFileSize: "1 MB",
+        maxSize: "5GB",
+        path: "$CRIBL_HOME/state/queues",
+        compress: "none",
+      },
+      rules: [
+        {
+          filter: "<value>",
+          description: "invite meh corny incidentally down",
+        },
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      description: "gown deployment portray gah mindless carp stabilise",
     },
   });
 
@@ -331,8 +475,42 @@ async function run() {
       id: "<id>",
       type: "kube_events",
       disabled: false,
+      pipeline: "<value>",
       sendToRoutes: true,
+      environment: "<value>",
       pqEnabled: false,
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      connections: [
+        {
+          pipeline: "<value>",
+          output: "<value>",
+        },
+      ],
+      pq: {
+        mode: "always",
+        maxBufferSize: 1000,
+        commitFrequency: 42,
+        maxFileSize: "1 MB",
+        maxSize: "5GB",
+        path: "$CRIBL_HOME/state/queues",
+        compress: "none",
+      },
+      rules: [
+        {
+          filter: "<value>",
+          description: "invite meh corny incidentally down",
+        },
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      description: "gown deployment portray gah mindless carp stabilise",
     },
   });
   if (res.ok) {
@@ -465,6 +643,14 @@ async function run() {
   const result = await criblControlPlane.sources.createSourceHecTokenById({
     id: "<id>",
     addHecTokenRequest: {
+      description: "bah ick stingy",
+      enabled: false,
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
       token: "<value>",
     },
   });
@@ -496,6 +682,14 @@ async function run() {
   const res = await sourcesCreateSourceHecTokenById(criblControlPlane, {
     id: "<id>",
     addHecTokenRequest: {
+      description: "bah ick stingy",
+      enabled: false,
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
       token: "<value>",
     },
   });
@@ -550,7 +744,16 @@ async function run() {
   const result = await criblControlPlane.sources.updateSourceHecTokenByIdAndToken({
     id: "<id>",
     token: "<value>",
-    updateHecTokenRequest: {},
+    updateHecTokenRequest: {
+      description: "by bleakly fortunately phew barring",
+      enabled: false,
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
   });
 
   console.log(result);
@@ -580,7 +783,16 @@ async function run() {
   const res = await sourcesUpdateSourceHecTokenByIdAndToken(criblControlPlane, {
     id: "<id>",
     token: "<value>",
-    updateHecTokenRequest: {},
+    updateHecTokenRequest: {
+      description: "by bleakly fortunately phew barring",
+      enabled: false,
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
   });
   if (res.ok) {
     const { value: result } = res;

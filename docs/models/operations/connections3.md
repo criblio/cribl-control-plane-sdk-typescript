@@ -6,6 +6,7 @@
 import { ConnectionS3 } from "cribl-control-plane/models/operations";
 
 let value: ConnectionS3 = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

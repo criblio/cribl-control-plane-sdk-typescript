@@ -6,7 +6,40 @@
 import { OutputCrowdstrikeNextGenSiem } from "cribl-control-plane/models";
 
 let value: OutputCrowdstrikeNextGenSiem = {
-  url: "https://shabby-hornet.biz/",
+  id: "<id>",
+  type: "crowdstrike_next_gen_siem",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://gorgeous-knickers.biz/",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 3585.6,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "cleverly cassava aha providence passport ruddy hmph",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

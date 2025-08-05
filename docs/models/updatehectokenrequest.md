@@ -5,7 +5,16 @@
 ```typescript
 import { UpdateHecTokenRequest } from "cribl-control-plane/models";
 
-let value: UpdateHecTokenRequest = {};
+let value: UpdateHecTokenRequest = {
+  description: "flickering hm now wicked tooth waltz irritably",
+  enabled: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

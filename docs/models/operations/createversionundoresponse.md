@@ -7,7 +7,14 @@ a list of object objects
 ```typescript
 import { CreateVersionUndoResponse } from "cribl-control-plane/models/operations";
 
-let value: CreateVersionUndoResponse = {};
+let value: CreateVersionUndoResponse = {
+  count: 796584,
+  items: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
 ```
 
 ## Fields

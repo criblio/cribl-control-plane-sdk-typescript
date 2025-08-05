@@ -8,7 +8,74 @@ import { OutputOpenTelemetry } from "cribl-control-plane/models/operations";
 let value: OutputOpenTelemetry = {
   id: "<id>",
   type: "open_telemetry",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
   endpoint: "<value>",
+  httpTracesEndpointOverride: "<value>",
+  httpMetricsEndpointOverride: "<value>",
+  httpLogsEndpointOverride: "<value>",
+  metadata: [
+    {
+      value: "<value>",
+    },
+  ],
+  description:
+    "emphasise exactly defrag ack uselessly gee fully oddball highly authorized",
+  username: "Vincenzo57",
+  password: "zZ2SM7au29H34sL",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://proper-sundae.info/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 8293.97,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+  },
+  pqControls: {},
 };
 ```
 

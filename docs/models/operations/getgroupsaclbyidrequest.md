@@ -7,6 +7,7 @@ import { GetGroupsAclByIdRequest } from "cribl-control-plane/models/operations";
 
 let value: GetGroupsAclByIdRequest = {
   id: "<id>",
+  type: "groups",
 };
 ```
 

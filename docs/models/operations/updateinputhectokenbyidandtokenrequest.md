@@ -8,7 +8,16 @@ import { UpdateInputHecTokenByIdAndTokenRequest } from "cribl-control-plane/mode
 let value: UpdateInputHecTokenByIdAndTokenRequest = {
   id: "<id>",
   token: "<value>",
-  updateHecTokenRequest: {},
+  updateHecTokenRequest: {
+    description: "reflate thick glimmer brand",
+    enabled: false,
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
 };
 ```
 

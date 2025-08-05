@@ -10,6 +10,36 @@ New Source object
 ```typescript
 const value: models.InputCollection = {
   id: "<id>",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  output: "<value>",
 };
 ```
 
@@ -18,11 +48,62 @@ const value: models.InputCollection = {
 ```typescript
 const value: operations.InputKafka = {
   id: "<id>",
-  brokers: [],
-  topics: [
+  type: "kafka",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [
     "<value 1>",
     "<value 2>",
   ],
+  topics: [
+    "<value 1>",
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.3",
+      maxVersion: "TLSv1.2",
+    },
+  },
+  sasl: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+  },
+  autoCommitInterval: 4876.37,
+  autoCommitThreshold: 2845.27,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "lively mousse edible gradient sheepishly amnesty whereas even newsprint french",
 };
 ```
 
@@ -31,16 +112,67 @@ const value: operations.InputKafka = {
 ```typescript
 const value: operations.InputMsk = {
   id: "<id>",
-  brokers: [
+  type: "msk",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  topics: [
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [
     "<value 1>",
     "<value 2>",
   ],
+  topics: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
+    },
+  },
+  awsSecretKey: "<value>",
   region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
+  },
+  autoCommitInterval: 5919.43,
+  autoCommitThreshold: 6602.75,
+  description: "puzzled kettledrum goat",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 
@@ -49,7 +181,54 @@ const value: operations.InputMsk = {
 ```typescript
 const value: operations.InputHttp = {
   id: "<id>",
-  port: 414.02,
+  type: "http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 1963.07,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "round defrag preregister oddly atomize why more hygienic",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description: "federate gadzooks duh",
 };
 ```
 
@@ -58,7 +237,50 @@ const value: operations.InputHttp = {
 ```typescript
 const value: operations.InputSplunk = {
   id: "<id>",
-  port: 3685.58,
+  type: "splunk",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 9904.57,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  authTokens: [
+    {
+      token: "<value>",
+      description: "dwell earnest inspection little overspend generally",
+    },
+  ],
+  description: "teeming prestigious though",
 };
 ```
 
@@ -67,7 +289,71 @@ const value: operations.InputSplunk = {
 ```typescript
 const value: operations.InputSplunkSearch = {
   id: "<id>",
+  type: "splunk_search",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   search: "<value>",
+  endpointParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  endpointHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  logLevel: "warn",
+  encoding: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      9296.25,
+      8411.56,
+    ],
+  },
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "behind aboard keenly",
+  username: "Hettie.Dooley11",
+  password: "p27HSB4JAXr1In_",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://frank-joy.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 
@@ -76,7 +362,78 @@ const value: operations.InputSplunkSearch = {
 ```typescript
 const value: operations.InputSplunkHec = {
   id: "<id>",
-  port: 6235.49,
+  type: "splunk_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 6090.96,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description:
+        "gullible lazily outdo hence oof chatter in ah loyalty urgently",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  enableHealthCheck: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "flowery amnesty round huzzah",
 };
 ```
 
@@ -86,7 +443,43 @@ const value: operations.InputSplunkHec = {
 const value: operations.InputAzureBlob = {
   id: "<id>",
   type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "geez offensively yearly and pfft",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
 };
 ```
 
@@ -95,7 +488,59 @@ const value: operations.InputAzureBlob = {
 ```typescript
 const value: operations.InputElastic = {
   id: "<id>",
-  port: 7766.75,
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 9974.96,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    url: "https://lustrous-understanding.org/",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  description: "spotless scaly parallel before",
+  username: "Devonte23",
+  password: "hV3t_QfeysWG4cX",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+  ],
 };
 ```
 
@@ -104,14 +549,64 @@ const value: operations.InputElastic = {
 ```typescript
 const value: operations.InputConfluentCloud = {
   id: "<id>",
-  brokers: [
+  type: "confluent_cloud",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  topics: [
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [
     "<value 1>",
   ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.3",
+  },
+  topics: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1",
+    },
+  },
+  sasl: {},
+  autoCommitInterval: 787.57,
+  autoCommitThreshold: 4231.91,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "intensely without per atop teriyaki considering strong",
 };
 ```
 
@@ -120,11 +615,45 @@ const value: operations.InputConfluentCloud = {
 ```typescript
 const value: operations.InputGrafana = {
   id: "<id>",
+  type: "grafana",
   disabled: false,
+  pipeline: "<value>",
   sendToRoutes: true,
+  environment: "<value>",
   pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+  },
   host: "0.0.0.0",
-  port: 1453.12,
+  port: 3829.93,
+  tls: {
+    disabled: true,
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    requestCert: false,
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  },
   maxActiveReq: 256,
   maxRequestsPerSocket: 0,
   enableProxyHeader: false,
@@ -138,6 +667,66 @@ const value: operations.InputGrafana = {
   ipDenylistRegex: "/^$/",
   prometheusAPI: "/api/prom/push",
   lokiAPI: "/loki/api/v1/push",
+  prometheusAuth: {
+    authType: "none",
+    username: "Antonietta.Stehr19",
+    password: "MqrKhTNCXTRzTJ4",
+    token: "<value>",
+    credentialsSecret: "<value>",
+    textSecret: "<value>",
+    loginUrl: "https://annual-rosemary.net/",
+    secretParamName: "<value>",
+    secret: "<value>",
+    tokenAttributeName: "<value>",
+    authHeaderExpr: "`Bearer ${token}`",
+    tokenTimeoutSecs: 3600,
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    oauthHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  lokiAuth: {
+    authType: "none",
+    username: "Kamille_Spinka14",
+    password: "j2wLP5YnNQJeNfb",
+    token: "<value>",
+    credentialsSecret: "<value>",
+    textSecret: "<value>",
+    loginUrl: "https://smug-linseed.net/",
+    secretParamName: "<value>",
+    secret: "<value>",
+    tokenAttributeName: "<value>",
+    authHeaderExpr: "`Bearer ${token}`",
+    tokenTimeoutSecs: 3600,
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    oauthHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "supposing ignorance beside capitalize on even personalise silky responsible smoke",
 };
 ```
 
@@ -146,7 +735,61 @@ const value: operations.InputGrafana = {
 ```typescript
 const value: operations.InputLoki = {
   id: "<id>",
-  port: 7867.19,
+  type: "loki",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 1755.24,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "solution putrid emphasize joshingly",
+  username: "Tyrique_Gottlieb",
+  password: "7kDXC44EtfZP4F8",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://our-reservation.biz",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 
@@ -155,7 +798,61 @@ const value: operations.InputLoki = {
 ```typescript
 const value: operations.InputPrometheusRw = {
   id: "<id>",
-  port: 7076.18,
+  type: "prometheus_rw",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 3167.27,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "ragged ew sightseeing wavy except keenly wide",
+  username: "Cara6",
+  password: "lUYYKvzYoOK8P9O",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://proper-experience.net",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 
@@ -164,6 +861,56 @@ const value: operations.InputPrometheusRw = {
 ```typescript
 const value: operations.InputPrometheus = {
   id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "rule annual corner when toward front and refute hmph times",
+  targetList: [
+    "<value 1>",
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  username: "Orion_Senger",
+  password: "DNsHPUxEKSAbzVy",
+  credentialsSecret: "<value>",
 };
 ```
 
@@ -172,6 +919,66 @@ const value: operations.InputPrometheus = {
 ```typescript
 const value: operations.InputEdgePrometheus = {
   id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "pish jut yum hm swat what",
+  targets: [
+    {
+      host: "another-valley.org",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "um which tune cease formamide whose aha general",
+    },
+  ],
+  username: "Philip15",
+  password: "2ORKHoy6eazlQYr",
+  credentialsSecret: "<value>",
 };
 ```
 
@@ -180,8 +987,46 @@ const value: operations.InputEdgePrometheus = {
 ```typescript
 const value: operations.InputOffice365Mgmt = {
   id: "<id>",
+  type: "office365_mgmt",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   tenantId: "<id>",
   appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  publisherIdentifier: "<value>",
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "frantically ugh pish muddy that huzzah intently rosemary",
+      interval: 1108.98,
+      logLevel: "info",
+      enabled: true,
+    },
+  ],
+  retryRules: {
+    codes: [
+      9712.62,
+    ],
+  },
+  description: "upright wide quarterly diligently sympathetically hunt",
+  clientSecret: "<value>",
+  textSecret: "<value>",
 };
 ```
 
@@ -190,8 +1035,46 @@ const value: operations.InputOffice365Mgmt = {
 ```typescript
 const value: operations.InputOffice365Service = {
   id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   tenantId: "<id>",
   appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "ultimate brave highly rosy sesame yippee pip list",
+      interval: 1222.84,
+      logLevel: "error",
+      enabled: true,
+    },
+  ],
+  retryRules: {
+    codes: [
+      3418.23,
+      6836.7,
+    ],
+  },
+  description: "fedora free overreact mesh afore buzzing",
+  clientSecret: "<value>",
+  textSecret: "<value>",
 };
 ```
 
@@ -200,6 +1083,49 @@ const value: operations.InputOffice365Service = {
 ```typescript
 const value: operations.InputOffice365MsgTrace = {
   id: "<id>",
+  type: "office365_msg_trace",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  startDate: "<value>",
+  endDate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      4575.54,
+      6824.2,
+      4579.88,
+    ],
+  },
+  description:
+    "opposite crystallize blissfully unto until consequently seriously jagged forenenst qua",
+  username: "Kamron.Wolf72",
+  password: "hRl1wgzkZUnsJd7",
+  credentialsSecret: "<value>",
+  clientSecret: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  textSecret: "<value>",
+  certOptions: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+  },
 };
 ```
 
@@ -208,11 +1134,33 @@ const value: operations.InputOffice365MsgTrace = {
 ```typescript
 const value: operations.InputEventhub = {
   id: "<id>",
-  brokers: [
+  type: "eventhub",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
     "<value 2>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [],
   topics: [],
+  sasl: {},
+  tls: {},
+  autoCommitInterval: 2006.82,
+  autoCommitThreshold: 6349.74,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "so rich coincide even geez like",
 };
 ```
 
@@ -222,7 +1170,32 @@ const value: operations.InputEventhub = {
 const value: operations.InputExec = {
   id: "<id>",
   type: "exec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   command: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "as amidst stupendous since",
 };
 ```
 
@@ -231,7 +1204,43 @@ const value: operations.InputExec = {
 ```typescript
 const value: operations.InputFirehose = {
   id: "<id>",
-  port: 6483.42,
+  type: "firehose",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 3448.68,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "knowledgeably interviewer dampen rot",
 };
 ```
 
@@ -240,8 +1249,31 @@ const value: operations.InputFirehose = {
 ```typescript
 const value: operations.InputGooglePubsub = {
   id: "<id>",
+  type: "google_pubsub",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   topicName: "<value>",
   subscriptionName: "<value>",
+  region: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "ruddy whether whole yuck fooey valiantly sun",
 };
 ```
 
@@ -251,6 +1283,26 @@ const value: operations.InputGooglePubsub = {
 const value: models.InputCribl = {
   id: "<id>",
   type: "cribl",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  filter: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "ugh boohoo gladly yuck well bossy what clonk",
 };
 ```
 
@@ -259,7 +1311,38 @@ const value: models.InputCribl = {
 ```typescript
 const value: operations.InputCriblTcp = {
   id: "<id>",
-  port: 374.03,
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 5951.43,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "limply instead at hmph slow as whose",
 };
 ```
 
@@ -268,7 +1351,45 @@ const value: operations.InputCriblTcp = {
 ```typescript
 const value: operations.InputCriblHttp = {
   id: "<id>",
-  port: 6394.59,
+  type: "cribl_http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 4612.09,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "forearm proud defrag punctually steel unless treasure doubtfully where but",
 };
 ```
 
@@ -277,7 +1398,42 @@ const value: operations.InputCriblHttp = {
 ```typescript
 const value: operations.InputCriblLakeHttp = {
   id: "<id>",
-  port: 3212.39,
+  type: "cribl_lake_http",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 4524.65,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "actually dreamily if acceptable",
 };
 ```
 
@@ -286,7 +1442,39 @@ const value: operations.InputCriblLakeHttp = {
 ```typescript
 const value: operations.InputTcpjson = {
   id: "<id>",
-  port: 2450.84,
+  type: "tcpjson",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 1891.29,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "since legend cheerfully unwieldy an blah pry likewise",
+  textSecret: "<value>",
 };
 ```
 
@@ -296,6 +1484,72 @@ const value: operations.InputTcpjson = {
 const value: models.InputSystemMetrics = {
   id: "<id>",
   type: "system_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+        ],
+      },
+      disk: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        mountpoints: [
+          "<value 1>",
+        ],
+        fstypes: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  container: {
+    dockerSocket: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    filters: [
+      {
+        expr: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description:
+    "per airbus supposing joint while apropos powerfully that instantly",
 };
 ```
 
@@ -305,6 +1559,39 @@ const value: models.InputSystemMetrics = {
 const value: models.InputSystemState = {
   id: "<id>",
   type: "system_state",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectors: {
+    hostsfile: {},
+    interfaces: {},
+    disk: {},
+    metadata: {},
+    routes: {},
+    dns: {},
+    user: {},
+    firewall: {},
+    services: {},
+    ports: {},
+    loginUsers: {},
+  },
+  persistence: {},
+  description: "formula an yahoo",
 };
 ```
 
@@ -314,6 +1601,34 @@ const value: models.InputSystemState = {
 const value: models.InputKubeMetrics = {
   id: "<id>",
   type: "kube_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "boggle catalog chip ew",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description:
+    "gratefully pish whose till hydrocarbon boo eek next uh-huh signature",
 };
 ```
 
@@ -323,6 +1638,35 @@ const value: models.InputKubeMetrics = {
 const value: models.InputKubeLogs = {
   id: "<id>",
   type: "kube_logs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "zowie because flu boohoo obnoxiously ew sorrowful whose aw",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "over wafer following ugh strait",
 };
 ```
 
@@ -332,6 +1676,31 @@ const value: models.InputKubeLogs = {
 const value: models.InputKubeEvents = {
   id: "<id>",
   type: "kube_events",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "which incline beautifully",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "convection any mmm whereas major so regularly",
 };
 ```
 
@@ -341,6 +1710,54 @@ const value: models.InputKubeEvents = {
 const value: models.InputWindowsMetrics = {
   id: "<id>",
   type: "windows_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+      disk: {
+        volumes: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "printer toaster forenenst over safe between",
 };
 ```
 
@@ -350,7 +1767,50 @@ const value: models.InputWindowsMetrics = {
 const value: operations.InputCrowdstrike = {
   id: "<id>",
   type: "crowdstrike",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  encoding: "<value>",
+  description: "finally frightfully upwardly",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "false",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
 };
 ```
 
@@ -359,7 +1819,39 @@ const value: operations.InputCrowdstrike = {
 ```typescript
 const value: operations.InputDatadogAgent = {
   id: "<id>",
-  port: 1619.41,
+  type: "datadog_agent",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 5741.93,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {},
+  description: "nearly hmph noteworthy",
 };
 ```
 
@@ -369,11 +1861,28 @@ const value: operations.InputDatadogAgent = {
 const value: operations.InputDatagen = {
   id: "<id>",
   type: "datagen",
-  samples: [
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
     {
-      sample: "<value>",
+      pipeline: "<value>",
+      output: "<value>",
     },
   ],
+  pq: {},
+  samples: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "reorient down but toward sore incidentally fond",
 };
 ```
 
@@ -382,7 +1891,68 @@ const value: operations.InputDatagen = {
 ```typescript
 const value: operations.InputHttpRaw = {
   id: "<id>",
-  port: 4097.53,
+  type: "http_raw",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 8183.22,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+  },
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedPaths: [
+    "<value 1>",
+  ],
+  allowedMethods: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "uh-huh rotten orientate",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description: "questionably junior crafty",
 };
 ```
 
@@ -391,8 +1961,37 @@ const value: operations.InputHttpRaw = {
 ```typescript
 const value: operations.InputKinesis = {
   id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   streamName: "<value>",
+  awsSecretKey: "<value>",
   region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "incidentally sin jovially obediently certainly besmirch amidst leading costume",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 
@@ -402,6 +2001,27 @@ const value: operations.InputKinesis = {
 const value: models.InputCriblmetrics = {
   id: "<id>",
   type: "criblmetrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "playfully growing curl blight cone likely innocently amongst",
 };
 ```
 
@@ -411,6 +2031,40 @@ const value: models.InputCriblmetrics = {
 const value: operations.InputMetrics = {
   id: "<id>",
   type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpPort: 4174.17,
+  tcpPort: 1396.61,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 4811.96,
+  description:
+    "beyond kindheartedly lest viciously unfortunate miserably whether contrail convection",
 };
 ```
 
@@ -420,7 +2074,48 @@ const value: operations.InputMetrics = {
 const value: operations.InputS3 = {
   id: "<id>",
   type: "s3",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  encoding: "<value>",
+  description: "march train tentacle besmirch zowie adaptation sate",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
 };
 ```
 
@@ -430,7 +2125,53 @@ const value: operations.InputS3 = {
 const value: operations.InputS3Inventory = {
   id: "<id>",
   type: "s3_inventory",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  description: "attraction rival as mobilize through",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "false",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
 };
 ```
 
@@ -439,6 +2180,36 @@ const value: operations.InputS3Inventory = {
 ```typescript
 const value: operations.InputSnmp = {
   id: "<id>",
+  type: "snmp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  snmpV3Auth: {
+    v3Users: [
+      {
+        name: "<value>",
+        authKey: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 6334.83,
+  description: "navigate draft fooey",
 };
 ```
 
@@ -447,6 +2218,64 @@ const value: operations.InputSnmp = {
 ```typescript
 const value: operations.InputOpenTelemetry = {
   id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "jet yippee until since inquisitively where baritone frivolous yahoo",
+  username: "Ceasar14",
+  password: "lQsmyV5PHv6hDzL",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://unlawful-overcoat.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
 };
 ```
 
@@ -455,6 +2284,38 @@ const value: operations.InputOpenTelemetry = {
 ```typescript
 const value: operations.InputModelDrivenTelemetry = {
   id: "<id>",
+  type: "model_driven_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "complete insert connect metabolise flight reconstitute converse following fumigate anenst",
 };
 ```
 
@@ -463,7 +2324,35 @@ const value: operations.InputModelDrivenTelemetry = {
 ```typescript
 const value: operations.InputSqs = {
   id: "<id>",
+  type: "sqs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "um given armchair of indeed",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 
@@ -474,15 +2363,40 @@ const value: operations.InputSyslog = {
   id: "<id>",
   type: "syslog",
   disabled: false,
+  pipeline: "<value>",
   sendToRoutes: true,
+  environment: "<value>",
   pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+  },
   host: "0.0.0.0",
-  udpPort: 4799.28,
+  udpPort: 1599.11,
+  tcpPort: 1600.07,
   maxBufferSize: 1000,
   ipWhitelistRegex: "/.*/",
   timestampTimezone: "local",
   singleMsgUdpPackets: false,
   enableProxyHeader: false,
+  keepFieldsList: [
+    "<value 1>",
+  ],
   octetCounting: false,
   inferFraming: true,
   strictlyInferOctetCounting: true,
@@ -491,7 +2405,29 @@ const value: operations.InputSyslog = {
   socketIdleTimeout: 0,
   socketEndingMaxWait: 30,
   socketMaxLifespan: 0,
+  tls: {
+    disabled: true,
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    requestCert: false,
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 5723.15,
   enableLoadBalancing: false,
+  description: "truly modulo grave cake hidden against carefully",
+  enableEnhancedProxyHeaderParsing: false,
 };
 ```
 
@@ -501,6 +2437,35 @@ const value: operations.InputSyslog = {
 const value: models.InputFile = {
   id: "<id>",
   type: "file",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  filenames: [
+    "<value 1>",
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "completion viability bleak behind shyly plus finally whoa odd",
+  path: "/System",
+  depth: 849.91,
 };
 ```
 
@@ -509,7 +2474,49 @@ const value: models.InputFile = {
 ```typescript
 const value: operations.InputTcp = {
   id: "<id>",
-  port: 1116.24,
+  type: "tcp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 9276.01,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  description: "handle fork because neatly kiddingly nervous upbeat indeed yum",
 };
 ```
 
@@ -519,6 +2526,54 @@ const value: operations.InputTcp = {
 const value: models.InputAppscope = {
   id: "<id>",
   type: "appscope",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  filter: {
+    allow: [
+      {
+        procname: "<value>",
+        arg: "<value>",
+        config: "<value>",
+      },
+    ],
+    transportURL: "https://lawful-impact.net",
+  },
+  persistence: {},
+  description: "inspection adventurously gnash if scheme ew wrongly",
+  host: "twin-reporter.name",
+  port: 3370.32,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  },
+  unixSocketPerms: "<value>",
+  textSecret: "<value>",
 };
 ```
 
@@ -527,12 +2582,43 @@ const value: models.InputAppscope = {
 ```typescript
 const value: operations.InputWef = {
   id: "<id>",
-  subscriptions: [
+  type: "wef",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
     {
-      subscriptionName: "<value>",
-      targets: [],
+      pipeline: "<value>",
+      output: "<value>",
     },
   ],
+  pq: {},
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+    keytab: "<value>",
+    principal: "<value>",
+  },
+  caFingerprint: "<value>",
+  keytab: "<value>",
+  principal: "<value>",
+  subscriptions: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "per absent fill weighty firsthand wing",
 };
 ```
 
@@ -542,10 +2628,31 @@ const value: operations.InputWef = {
 const value: operations.InputWinEventLogs = {
   id: "<id>",
   type: "win_event_logs",
-  logNames: [
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
     "<value 1>",
     "<value 2>",
   ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  logNames: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "oh forsaken far",
 };
 ```
 
@@ -554,7 +2661,30 @@ const value: operations.InputWinEventLogs = {
 ```typescript
 const value: operations.InputRawUdp = {
   id: "<id>",
-  port: 9058.83,
+  type: "raw_udp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 4663.95,
+  udpSocketRxBufSize: 8690.82,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "of revoke descriptive down accountability",
 };
 ```
 
@@ -563,8 +2693,41 @@ const value: operations.InputRawUdp = {
 ```typescript
 const value: operations.InputJournalFiles = {
   id: "<id>",
-  path: "/usr/local/bin",
-  journals: [],
+  type: "journal_files",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  path: "/etc/namedb",
+  journals: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "rigidly exactly outside questioningly around aw gleaming boo as oof",
+    },
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "eek syringe impeccable whenever extent",
 };
 ```
 
@@ -573,9 +2736,42 @@ const value: operations.InputJournalFiles = {
 ```typescript
 const value: operations.InputWiz = {
   id: "<id>",
-  authUrl: "https://sturdy-desk.info",
+  type: "wiz",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  authUrl: "https://excellent-hubris.info",
+  authAudienceOverride: "<value>",
   clientId: "<id>",
   contentConfig: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      3197.12,
+      9347.83,
+      4274.91,
+    ],
+  },
+  description:
+    "ravage indeed self-reliant abnormally miscalculate hm in quaintly inborn separately",
+  clientSecret: "<value>",
+  textSecret: "<value>",
 };
 ```
 
@@ -584,6 +2780,29 @@ const value: operations.InputWiz = {
 ```typescript
 const value: operations.InputNetflow = {
   id: "<id>",
+  type: "netflow",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpSocketRxBufSize: 7496.42,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "wherever amnesty apud underpants why blah viciously geez",
 };
 ```
 
@@ -593,7 +2812,51 @@ const value: operations.InputNetflow = {
 const value: operations.InputSecurityLake = {
   id: "<id>",
   type: "security_lake",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {},
+  encoding: "<value>",
+  description: "deafening stormy absent knowingly unfortunately eek",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "false",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
 };
 ```
 
@@ -602,7 +2865,69 @@ const value: operations.InputSecurityLake = {
 ```typescript
 const value: operations.InputZscalerHec = {
   id: "<id>",
-  port: 976.35,
+  type: "zscaler_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 5282.2,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description:
+        "free delightfully sometimes closely crystallize frantically",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+  },
+  enableHealthCheck: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "sternly during when configuration tackle",
 };
 ```
 

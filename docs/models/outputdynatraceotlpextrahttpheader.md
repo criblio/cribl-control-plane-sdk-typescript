@@ -6,6 +6,7 @@
 import { OutputDynatraceOtlpExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputDynatraceOtlpExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

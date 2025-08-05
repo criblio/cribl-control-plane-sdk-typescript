@@ -7,6 +7,7 @@ import { ContentConfigWiz } from "cribl-control-plane/models/operations";
 
 let value: ContentConfigWiz = {
   contentType: "<value>",
+  contentDescription: "<value>",
 };
 ```
 

@@ -5,7 +5,14 @@
 ```typescript
 import { GetWorkersRequest } from "cribl-control-plane/models/operations";
 
-let value: GetWorkersRequest = {};
+let value: GetWorkersRequest = {
+  filterExp: "<value>",
+  sort: "<value>",
+  sortExp: "<value>",
+  limit: 13912,
+  offset: 386093,
+  filter: "<value>",
+};
 ```
 
 ## Fields

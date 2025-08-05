@@ -6,9 +6,15 @@
 import { MTLSSettings } from "cribl-control-plane/models/operations";
 
 let value: MTLSSettings = {
+  certificateName: "<value>",
   privKeyPath: "<value>",
+  passphrase: "<value>",
   certPath: "<value>",
   caPath: "<value>",
+  minVersion: "TLSv1.1",
+  maxVersion: "TLSv1",
+  keytab: "<value>",
+  principal: "<value>",
 };
 ```
 

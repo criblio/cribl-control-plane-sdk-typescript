@@ -7,7 +7,15 @@ a list of any objects
 ```typescript
 import { GetOutputPqByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: GetOutputPqByIdResponse = {};
+let value: GetOutputPqByIdResponse = {
+  count: 48464,
+  items: [
+    {},
+    {
+      "key": "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

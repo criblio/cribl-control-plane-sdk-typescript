@@ -6,7 +6,39 @@
 import { InputSqs } from "cribl-control-plane/models";
 
 let value: InputSqs = {
+  id: "<id>",
+  type: "sqs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  awsAccountId: "<id>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "animated memorise urgently quarrelsomely out woeful whereas sauerkraut",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 

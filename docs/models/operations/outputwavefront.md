@@ -8,6 +8,36 @@ import { OutputWavefront } from "cribl-control-plane/models/operations";
 let value: OutputWavefront = {
   id: "<id>",
   type: "wavefront",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 4931.87,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "lay alongside fray winged indeed winged meh stitcher boo",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

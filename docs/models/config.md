@@ -5,7 +5,13 @@
 ```typescript
 import { Config } from "cribl-control-plane/models";
 
-let value: Config = {};
+let value: Config = {
+  featuresRev: "<value>",
+  hbPeriodSeconds: 9889.52,
+  logStreamEnv: "<value>",
+  policyRev: "<value>",
+  version: "<value>",
+};
 ```
 
 ## Fields

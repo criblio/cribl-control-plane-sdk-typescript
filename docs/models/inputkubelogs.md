@@ -8,6 +8,35 @@ import { InputKubeLogs } from "cribl-control-plane/models";
 let value: InputKubeLogs = {
   id: "<id>",
   type: "kube_logs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "zowie because flu boohoo obnoxiously ew sorrowful whose aw",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "over wafer following ugh strait",
 };
 ```
 

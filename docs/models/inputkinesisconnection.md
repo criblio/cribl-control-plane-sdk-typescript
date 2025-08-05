@@ -6,6 +6,7 @@
 import { InputKinesisConnection } from "cribl-control-plane/models";
 
 let value: InputKinesisConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

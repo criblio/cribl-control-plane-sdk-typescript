@@ -8,6 +8,37 @@ import { OutputTcpjson } from "cribl-control-plane/models";
 let value: OutputTcpjson = {
   id: "<id>",
   type: "tcpjson",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.3",
+  },
+  description: "wherever physically near mmm times impure adjudge blindly when",
+  host: "querulous-nectarine.biz",
+  port: 9212.27,
+  hosts: [
+    {
+      host: "raw-sideboard.org",
+      port: 8454.44,
+      servername: "<value>",
+    },
+  ],
+  pqControls: {},
+  textSecret: "<value>",
 };
 ```
 

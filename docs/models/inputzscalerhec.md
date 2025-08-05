@@ -6,7 +6,73 @@
 import { InputZscalerHec } from "cribl-control-plane/models";
 
 let value: InputZscalerHec = {
-  port: 4733.79,
+  id: "<id>",
+  type: "zscaler_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 8324.99,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description: "hmph hunger geez drug scented beep overproduce scrap",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+  },
+  enableHealthCheck: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "about what gallivant",
 };
 ```
 

@@ -5,7 +5,19 @@
 ```typescript
 import { InputSystemMetricsDisk } from "cribl-control-plane/models";
 
-let value: InputSystemMetricsDisk = {};
+let value: InputSystemMetricsDisk = {
+  devices: [
+    "<value 1>",
+  ],
+  mountpoints: [
+    "<value 1>",
+  ],
+  fstypes: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
 ```
 
 ## Fields

@@ -6,6 +6,7 @@
 import { OutputOpenTelemetryExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputOpenTelemetryExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

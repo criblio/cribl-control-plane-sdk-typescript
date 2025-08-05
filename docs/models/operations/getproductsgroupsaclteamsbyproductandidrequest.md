@@ -8,6 +8,7 @@ import { GetProductsGroupsAclTeamsByProductAndIdRequest } from "cribl-control-pl
 let value: GetProductsGroupsAclTeamsByProductAndIdRequest = {
   product: "stream",
   id: "<id>",
+  type: "dashboards",
 };
 ```
 

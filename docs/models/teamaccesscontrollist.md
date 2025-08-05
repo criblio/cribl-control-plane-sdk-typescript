@@ -9,8 +9,9 @@ let value: TeamAccessControlList = {
   perms: [
     {
       gid: "<id>",
+      id: "<id>",
       policy: "<value>",
-      type: "groups",
+      type: "dashboards",
     },
   ],
   team: "<value>",

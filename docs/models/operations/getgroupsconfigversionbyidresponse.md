@@ -7,7 +7,12 @@ a list of string objects
 ```typescript
 import { GetGroupsConfigVersionByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: GetGroupsConfigVersionByIdResponse = {};
+let value: GetGroupsConfigVersionByIdResponse = {
+  count: 227468,
+  items: [
+    "<value 1>",
+  ],
+};
 ```
 
 ## Fields

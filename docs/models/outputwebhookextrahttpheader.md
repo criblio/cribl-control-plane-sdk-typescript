@@ -6,6 +6,7 @@
 import { OutputWebhookExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputWebhookExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

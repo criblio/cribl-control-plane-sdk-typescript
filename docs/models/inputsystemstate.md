@@ -8,6 +8,39 @@ import { InputSystemState } from "cribl-control-plane/models";
 let value: InputSystemState = {
   id: "<id>",
   type: "system_state",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectors: {
+    hostsfile: {},
+    interfaces: {},
+    disk: {},
+    metadata: {},
+    routes: {},
+    dns: {},
+    user: {},
+    firewall: {},
+    services: {},
+    ports: {},
+    loginUsers: {},
+  },
+  persistence: {},
+  description: "formula an yahoo",
 };
 ```
 

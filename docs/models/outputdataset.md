@@ -8,6 +8,45 @@ import { OutputDataset } from "cribl-control-plane/models";
 let value: OutputDataset = {
   id: "<id>",
   type: "dataset",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  messageField: "<value>",
+  excludeFields: [
+    "<value 1>",
+  ],
+  serverHostField: "<value>",
+  timestampField: "<value>",
+  responseRetrySettings: [
+    {
+      httpStatus: 4918.16,
+    },
+  ],
+  timeoutRetrySettings: {},
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  totalMemoryLimitKB: 7951.25,
+  description:
+    "infamous reluctantly upon ethyl instead than easily powerfully er so",
+  customUrl: "https://formal-railway.net/",
+  pqControls: {},
+  apiKey: "<value>",
+  textSecret: "<value>",
 };
 ```
 

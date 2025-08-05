@@ -31,8 +31,32 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.packs.createPacks({
+    allowCustomFunctions: false,
+    author: "<value>",
+    description: "premeditation coincide although",
+    displayName: "Myah14",
+    exports: [
+      "<value 1>",
+    ],
+    force: false,
     id: "<id>",
+    inputs: 4076.64,
+    minLogStreamVersion: "<value>",
+    outputs: 2759.4,
     source: "<value>",
+    spec: "<value>",
+    tags: {
+      dataType: [],
+      domain: [],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    version: "<value>",
   });
 
   console.log(result);
@@ -60,8 +84,32 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await packsCreatePacks(criblControlPlane, {
+    allowCustomFunctions: false,
+    author: "<value>",
+    description: "premeditation coincide although",
+    displayName: "Myah14",
+    exports: [
+      "<value 1>",
+    ],
+    force: false,
     id: "<id>",
+    inputs: 4076.64,
+    minLogStreamVersion: "<value>",
+    outputs: 2759.4,
     source: "<value>",
+    spec: "<value>",
+    tags: {
+      dataType: [],
+      domain: [],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    version: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -111,7 +159,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.getPacks();
+  const result = await criblControlPlane.packs.getPacks({
+    with: "<value>",
+  });
 
   console.log(result);
 }
@@ -137,7 +187,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await packsGetPacks(criblControlPlane);
+  const res = await packsGetPacks(criblControlPlane, {
+    with: "<value>",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -186,7 +238,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.updatePacks();
+  const result = await criblControlPlane.packs.updatePacks({
+    filename: "example.file",
+  });
 
   console.log(result);
 }
@@ -212,7 +266,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await packsUpdatePacks(criblControlPlane);
+  const res = await packsUpdatePacks(criblControlPlane, {
+    filename: "example.file",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -342,6 +398,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.packs.updatePacksById({
     id: "<id>",
+    source: "<value>",
+    minor: "<value>",
+    spec: "<value>",
   });
 
   console.log(result);
@@ -370,6 +429,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await packsUpdatePacksById(criblControlPlane, {
     id: "<id>",
+    source: "<value>",
+    minor: "<value>",
+    spec: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;

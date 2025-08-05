@@ -6,14 +6,30 @@
 import { HBCriblInfo } from "cribl-control-plane/models";
 
 let value: HBCriblInfo = {
-  config: {},
+  config: {
+    featuresRev: "<value>",
+    hbPeriodSeconds: 3120.89,
+    logStreamEnv: "<value>",
+    policyRev: "<value>",
+    version: "<value>",
+  },
+  deploymentId: "<id>",
   distMode: "edge",
+  edgeNodes: 7981.9,
   group: "<value>",
   guid: "<id>",
-  startTime: 7981.9,
-  tags: [
-    "<value 1>",
-  ],
+  installType: "<value>",
+  lookupVersions: {},
+  master: {
+    host: "winding-cosset.name",
+    port: 4082.58,
+    servername: "<value>",
+    tls: true,
+  },
+  pid: 4521.05,
+  startTime: 8614.45,
+  tags: [],
+  version: "<value>",
 };
 ```
 

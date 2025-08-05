@@ -7,7 +7,15 @@ a list of UserAccessControlList objects
 ```typescript
 import { GetGroupsAclByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: GetGroupsAclByIdResponse = {};
+let value: GetGroupsAclByIdResponse = {
+  count: 273059,
+  items: [
+    {
+      perms: [],
+      user: "Carrie.Nienow35",
+    },
+  ],
+};
 ```
 
 ## Fields

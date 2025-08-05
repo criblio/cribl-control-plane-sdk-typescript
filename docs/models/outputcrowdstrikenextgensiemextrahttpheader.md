@@ -6,6 +6,7 @@
 import { OutputCrowdstrikeNextGenSiemExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputCrowdstrikeNextGenSiemExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

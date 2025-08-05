@@ -7,8 +7,41 @@ import { InputJournalFiles } from "cribl-control-plane/models/operations";
 
 let value: InputJournalFiles = {
   id: "<id>",
-  path: "/usr/local/bin",
-  journals: [],
+  type: "journal_files",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  path: "/etc/namedb",
+  journals: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "rigidly exactly outside questioningly around aw gleaming boo as oof",
+    },
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "eek syringe impeccable whenever extent",
 };
 ```
 

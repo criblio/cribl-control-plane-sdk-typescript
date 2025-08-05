@@ -7,7 +7,13 @@ a list of any objects
 ```typescript
 import { DeleteOutputPqByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: DeleteOutputPqByIdResponse = {};
+let value: DeleteOutputPqByIdResponse = {
+  count: 590323,
+  items: [
+    {},
+    {},
+  ],
+};
 ```
 
 ## Fields

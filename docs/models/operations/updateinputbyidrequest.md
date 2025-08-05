@@ -8,19 +8,41 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    type: "win_event_logs",
+    id: "<id>",
+    type: "datagen",
     disabled: false,
+    pipeline: "<value>",
     sendToRoutes: true,
+    environment: "<value>",
     pqEnabled: false,
-    logNames: [
+    streamtags: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
-    readMode: "oldest",
-    eventFormat: "json",
-    disableNativeModule: false,
-    interval: 10,
-    batchSize: 500,
-    maxEventBytes: 51200,
+    connections: [
+      {
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    ],
+    pq: {
+      mode: "always",
+      maxBufferSize: 1000,
+      commitFrequency: 42,
+      maxFileSize: "1 MB",
+      maxSize: "5GB",
+      path: "$CRIBL_HOME/state/queues",
+      compress: "none",
+    },
+    samples: [],
+    metadata: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    description: "to furthermore meh charm ack why fortunate complete",
   },
 };
 ```

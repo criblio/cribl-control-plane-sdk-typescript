@@ -8,11 +8,23 @@ import { OutputNetflow } from "cribl-control-plane/models/operations";
 let value: OutputNetflow = {
   id: "<id>",
   type: "netflow",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   hosts: [
     {
-      host: "taut-provider.org",
+      host: "wide-eyed-adult.name",
     },
   ],
+  description: "for mothball hearten",
 };
 ```
 

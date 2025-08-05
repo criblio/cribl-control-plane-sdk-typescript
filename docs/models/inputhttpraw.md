@@ -6,7 +6,71 @@
 import { InputHttpRaw } from "cribl-control-plane/models";
 
 let value: InputHttpRaw = {
-  port: 2333.1,
+  id: "<id>",
+  type: "http_raw",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 4578.26,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedPaths: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  allowedMethods: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description:
+        "quaintly concentration very incomparable stale sidetrack incidentally freight er against",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description: "know or gift why",
 };
 ```
 

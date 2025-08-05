@@ -7,7 +7,40 @@ a list of GitStatusResult objects
 ```typescript
 import { GetVersionStatusResponse } from "cribl-control-plane/models/operations";
 
-let value: GetVersionStatusResponse = {};
+let value: GetVersionStatusResponse = {
+  count: 221764,
+  items: [
+    {
+      ahead: 8427.65,
+      behind: 4677.02,
+      conflicted: [],
+      created: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      current: "<value>",
+      deleted: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      files: [],
+      modified: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      notAdded: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      renamed: [],
+      staged: [
+        "<value 1>",
+      ],
+      tracking: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

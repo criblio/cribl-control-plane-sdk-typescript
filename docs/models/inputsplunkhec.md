@@ -6,7 +6,77 @@
 import { InputSplunkHec } from "cribl-control-plane/models";
 
 let value: InputSplunkHec = {
-  port: 6978.57,
+  id: "<id>",
+  type: "splunk_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 817.1,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description: "throbbing sting sore",
+      allowedIndexesAtToken: [
+        "<value 1>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+  },
+  enableHealthCheck: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "what mockingly excluding",
 };
 ```
 

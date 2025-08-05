@@ -6,8 +6,49 @@
 import { InputOffice365Service } from "cribl-control-plane/models";
 
 let value: InputOffice365Service = {
+  id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   tenantId: "<id>",
   appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description:
+        "dowse boulevard where kindly integer mosh before yahoo consequently yuck",
+      interval: 3221.55,
+      logLevel: "debug",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      3457.75,
+      6170.34,
+    ],
+  },
+  description: "which goodwill around slip oddly after often blissfully",
+  clientSecret: "<value>",
+  textSecret: "<value>",
 };
 ```
 

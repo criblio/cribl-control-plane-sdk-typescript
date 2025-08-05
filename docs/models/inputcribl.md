@@ -8,6 +8,26 @@ import { InputCribl } from "cribl-control-plane/models";
 let value: InputCribl = {
   id: "<id>",
   type: "cribl",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  filter: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "ugh boohoo gladly yuck well bossy what clonk",
 };
 ```
 

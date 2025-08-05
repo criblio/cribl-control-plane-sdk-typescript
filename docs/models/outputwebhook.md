@@ -8,6 +8,75 @@ import { OutputWebhook } from "cribl-control-plane/models";
 let value: OutputWebhook = {
   id: "<id>",
   type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5955.24,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 470.04,
+  description:
+    "corner bookcase fedora cultivated conservation chow alongside if revere demob",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Myrtie_Smitham",
+  password: "oBYKyE0yu0PN6hG",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://deserted-lady.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://far-flung-status.name/",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
 };
 ```
 

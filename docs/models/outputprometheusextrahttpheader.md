@@ -6,6 +6,7 @@
 import { OutputPrometheusExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputPrometheusExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

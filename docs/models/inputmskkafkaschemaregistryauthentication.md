@@ -5,7 +5,21 @@
 ```typescript
 import { InputMskKafkaSchemaRegistryAuthentication } from "cribl-control-plane/models";
 
-let value: InputMskKafkaSchemaRegistryAuthentication = {};
+let value: InputMskKafkaSchemaRegistryAuthentication = {
+  auth: {
+    credentialsSecret: "<value>",
+  },
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+};
 ```
 
 ## Fields

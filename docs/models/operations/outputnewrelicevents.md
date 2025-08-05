@@ -7,8 +7,41 @@ import { OutputNewrelicEvents } from "cribl-control-plane/models/operations";
 
 let value: OutputNewrelicEvents = {
   id: "<id>",
+  type: "newrelic_events",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
   accountId: "<id>",
   eventType: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5724.32,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "outside terribly amid discontinue gee aw",
+  customUrl: "https://well-to-do-legislature.net/",
+  pqControls: {},
+  apiKey: "<value>",
+  textSecret: "<value>",
 };
 ```
 

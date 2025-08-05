@@ -7,7 +7,51 @@ a list of PackInstallInfo objects
 ```typescript
 import { DeletePacksByIdResponse } from "cribl-control-plane/models/operations";
 
-let value: DeletePacksByIdResponse = {};
+let value: DeletePacksByIdResponse = {
+  count: 95569,
+  items: [
+    {
+      author: "<value>",
+      description: "confusion unaccountably dispense hmph",
+      displayName: "Jace.OKon",
+      exports: [
+        "<value 1>",
+      ],
+      id: "<id>",
+      inputs: 2931.37,
+      isDisabled: false,
+      minLogStreamVersion: "<value>",
+      outputs: 9390.12,
+      settings: {
+        "key": "<value>",
+      },
+      source: "<value>",
+      spec: "<value>",
+      tags: {
+        dataType: [
+          "decimal",
+          "boolean",
+        ],
+        domain: [
+          "hungry-scaffold.name",
+          "unfit-hovercraft.info",
+        ],
+        streamtags: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        technology: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+      },
+      version: "<value>",
+      warnings: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

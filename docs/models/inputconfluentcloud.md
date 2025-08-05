@@ -6,12 +6,63 @@
 import { InputConfluentCloud } from "cribl-control-plane/models";
 
 let value: InputConfluentCloud = {
+  id: "<id>",
+  type: "confluent_cloud",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   brokers: [
     "<value 1>",
   ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  },
   topics: [
     "<value 1>",
   ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.3",
+      maxVersion: "TLSv1.2",
+    },
+  },
+  sasl: {},
+  autoCommitInterval: 4548.16,
+  autoCommitThreshold: 9243.43,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "although obediently soupy why accessorise tune sans aware smuggle",
 };
 ```
 

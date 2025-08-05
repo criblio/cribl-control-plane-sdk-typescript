@@ -8,7 +8,26 @@ import { OutputGooglePubsub } from "cribl-control-plane/models/operations";
 let value: OutputGooglePubsub = {
   id: "<id>",
   type: "google_pubsub",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   topicName: "<value>",
+  region: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  flushPeriodSec: {
+    type: "number",
+    default: 4799.52,
+  },
+  description: "hyphenation in hard-to-find times unless abaft unless",
+  pqControls: {},
 };
 ```
 

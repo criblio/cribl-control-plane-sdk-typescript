@@ -5,7 +5,16 @@
 ```typescript
 import { InputModelDrivenTelemetryTLSSettingsServerSide } from "cribl-control-plane/models";
 
-let value: InputModelDrivenTelemetryTLSSettingsServerSide = {};
+let value: InputModelDrivenTelemetryTLSSettingsServerSide = {
+  certificateName: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  caPath: "<value>",
+  rejectUnauthorized: "<value>",
+  commonNameRegex: "<value>",
+  minVersion: "TLSv1.1",
+  maxVersion: "TLSv1.3",
+};
 ```
 
 ## Fields

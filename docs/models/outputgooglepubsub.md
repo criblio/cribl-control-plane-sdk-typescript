@@ -6,8 +6,27 @@
 import { OutputGooglePubsub } from "cribl-control-plane/models";
 
 let value: OutputGooglePubsub = {
+  id: "<id>",
   type: "google_pubsub",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   topicName: "<value>",
+  region: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  flushPeriodSec: {
+    type: "number",
+    default: 7050.4,
+  },
+  description:
+    "although precedent separately etch pace buzzing zowie resort collaboration scrape",
+  pqControls: {},
 };
 ```
 

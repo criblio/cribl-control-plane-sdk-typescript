@@ -8,6 +8,43 @@ import { OutputXsiam } from "cribl-control-plane/models";
 let value: OutputXsiam = {
   id: "<id>",
   type: "xsiam",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 7784.84,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 847.48,
+  description: "tattered bony offset vainly blaspheme",
+  urls: [
+    {
+      url: "https://respectful-traffic.net",
+    },
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

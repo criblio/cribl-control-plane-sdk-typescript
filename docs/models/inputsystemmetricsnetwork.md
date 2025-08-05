@@ -5,7 +5,11 @@
 ```typescript
 import { InputSystemMetricsNetwork } from "cribl-control-plane/models";
 
-let value: InputSystemMetricsNetwork = {};
+let value: InputSystemMetricsNetwork = {
+  devices: [
+    "<value 1>",
+  ],
+};
 ```
 
 ## Fields

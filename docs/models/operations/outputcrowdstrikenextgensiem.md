@@ -7,7 +7,37 @@ import { OutputCrowdstrikeNextGenSiem } from "cribl-control-plane/models/operati
 
 let value: OutputCrowdstrikeNextGenSiem = {
   id: "<id>",
-  url: "https://prickly-promise.org/",
+  type: "crowdstrike_next_gen_siem",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://whispered-smog.biz",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 2049.86,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "buzzing nervously fisherman",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

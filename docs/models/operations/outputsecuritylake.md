@@ -7,11 +7,37 @@ import { OutputSecurityLake } from "cribl-control-plane/models/operations";
 
 let value: OutputSecurityLake = {
   id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
   bucket: "<value>",
   region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
   assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "ONEZONE_IA",
+  serverSideEncryption: "AES256",
+  kmsKeyId: "<id>",
   accountId: "<id>",
   customSource: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
+  description: "dramatic galvanize qua phooey quickly into tomb scuffle",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
 };
 ```
 

@@ -6,8 +6,44 @@
 import { InputAzureBlob } from "cribl-control-plane/models";
 
 let value: InputAzureBlob = {
+  id: "<id>",
   type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
   queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "nocturnal tattered widow hassle avaricious the agitated mid",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
 };
 ```
 

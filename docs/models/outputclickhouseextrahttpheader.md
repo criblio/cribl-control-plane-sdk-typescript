@@ -6,6 +6,7 @@
 import { OutputClickHouseExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputClickHouseExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

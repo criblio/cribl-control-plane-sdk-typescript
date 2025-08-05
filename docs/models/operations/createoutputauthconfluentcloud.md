@@ -7,7 +7,9 @@ Credentials to use when authenticating with the schema registry using basic HTTP
 ```typescript
 import { CreateOutputAuthConfluentCloud } from "cribl-control-plane/models/operations";
 
-let value: CreateOutputAuthConfluentCloud = {};
+let value: CreateOutputAuthConfluentCloud = {
+  credentialsSecret: "<value>",
+};
 ```
 
 ## Fields

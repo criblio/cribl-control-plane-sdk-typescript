@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderWavefront } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderWavefront = {
+  name: "<value>",
   value: "<value>",
 };
 ```

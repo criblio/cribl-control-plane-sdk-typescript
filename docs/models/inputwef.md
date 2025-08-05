@@ -6,7 +6,58 @@
 import { InputWef } from "cribl-control-plane/models";
 
 let value: InputWef = {
-  subscriptions: [],
+  id: "<id>",
+  type: "wef",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+    keytab: "<value>",
+    principal: "<value>",
+  },
+  caFingerprint: "<value>",
+  keytab: "<value>",
+  principal: "<value>",
+  subscriptions: [
+    {
+      subscriptionName: "<value>",
+      version: "<value>",
+      targets: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "bah mmm ecstatic",
 };
 ```
 

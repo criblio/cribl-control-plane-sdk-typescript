@@ -8,6 +8,38 @@ import { OutputSignalfx } from "cribl-control-plane/models/operations";
 let value: OutputSignalfx = {
   id: "<id>",
   type: "signalfx",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 6539.74,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "whoa bemuse notwithstanding boohoo safely row pinstripe bah advertisement vet",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
 };
 ```
 

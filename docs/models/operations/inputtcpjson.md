@@ -7,7 +7,39 @@ import { InputTcpjson } from "cribl-control-plane/models/operations";
 
 let value: InputTcpjson = {
   id: "<id>",
-  port: 2450.84,
+  type: "tcpjson",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 1891.29,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "since legend cheerfully unwieldy an blah pry likewise",
+  textSecret: "<value>",
 };
 ```
 

@@ -5,7 +5,12 @@
 ```typescript
 import { InputWizRetryRules } from "cribl-control-plane/models";
 
-let value: InputWizRetryRules = {};
+let value: InputWizRetryRules = {
+  codes: [
+    4027.49,
+    5723.54,
+  ],
+};
 ```
 
 ## Fields

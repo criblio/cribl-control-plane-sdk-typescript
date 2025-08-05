@@ -5,7 +5,26 @@
 ```typescript
 import { GitRevertResultFiles } from "cribl-control-plane/models";
 
-let value: GitRevertResultFiles = {};
+let value: GitRevertResultFiles = {
+  created: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  deleted: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  modified: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  renamed: [
+    "<value 1>",
+  ],
+};
 ```
 
 ## Fields

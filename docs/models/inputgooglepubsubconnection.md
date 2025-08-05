@@ -6,6 +6,7 @@
 import { InputGooglePubsubConnection } from "cribl-control-plane/models";
 
 let value: InputGooglePubsubConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

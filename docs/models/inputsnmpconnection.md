@@ -6,6 +6,7 @@
 import { InputSnmpConnection } from "cribl-control-plane/models";
 
 let value: InputSnmpConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

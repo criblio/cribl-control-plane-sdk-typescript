@@ -5,7 +5,29 @@
 ```typescript
 import { InputGrafanaLokiAuth1 } from "cribl-control-plane/models";
 
-let value: InputGrafanaLokiAuth1 = {};
+let value: InputGrafanaLokiAuth1 = {
+  username: "Art.Krajcik",
+  password: "TZ91d1Ms13_yuv_",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://grouchy-loaf.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

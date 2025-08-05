@@ -7,7 +7,19 @@ import { OutputGraphite } from "cribl-control-plane/models/operations";
 
 let value: OutputGraphite = {
   id: "<id>",
-  host: "hidden-bidet.biz",
+  type: "graphite",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  host: "golden-ribbon.name",
+  description: "why famously possible phooey ragged overdue ugh underneath",
+  pqControls: {},
 };
 ```
 

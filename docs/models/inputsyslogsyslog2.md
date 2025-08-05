@@ -6,8 +6,49 @@
 import { InputSyslogSyslog2 } from "cribl-control-plane/models";
 
 let value: InputSyslogSyslog2 = {
+  id: "<id>",
   type: "syslog",
-  tcpPort: 8046.48,
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpPort: 8752.91,
+  tcpPort: 8415.47,
+  keepFieldsList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 181.3,
+  description: "eek roger whoever humidity",
+  enableEnhancedProxyHeaderParsing: false,
 };
 ```
 

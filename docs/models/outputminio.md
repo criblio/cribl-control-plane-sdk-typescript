@@ -6,8 +6,34 @@
 import { OutputMinio } from "cribl-control-plane/models";
 
 let value: OutputMinio = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
   endpoint: "<value>",
   bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "REDUCED_REDUNDANCY",
+  serverSideEncryption: "AES256",
+  description: "yet fidget reassuringly mid worth mountain save haversack",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 

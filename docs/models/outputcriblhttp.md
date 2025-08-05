@@ -8,6 +8,54 @@ import { OutputCriblHttp } from "cribl-control-plane/models";
 let value: OutputCriblHttp = {
   id: "<id>",
   type: "cribl_http",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
+  },
+  excludeFields: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 3693.69,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "unfortunately scrutinise obtrude unethically skyline midst",
+  url: "https://biodegradable-elver.com/",
+  urls: [
+    {
+      url: "https://yummy-saloon.name/",
+    },
+  ],
+  pqControls: {},
 };
 ```
 

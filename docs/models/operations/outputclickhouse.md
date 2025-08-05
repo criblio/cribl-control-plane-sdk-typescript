@@ -7,9 +7,85 @@ import { OutputClickHouse } from "cribl-control-plane/models/operations";
 
 let value: OutputClickHouse = {
   id: "<id>",
-  url: "https://authentic-abacus.info",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://immense-place.biz/",
   database: "<value>",
   tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5553.52,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "misspend rationale sardonic until like offensively slowly coordinated orientate after",
+  username: "Mustafa.Stokes26",
+  password: "zMh6XcMrb5Fskjx",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://elementary-peony.info/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
 };
 ```
 

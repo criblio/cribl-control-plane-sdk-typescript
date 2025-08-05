@@ -7,11 +7,62 @@ import { InputKafka } from "cribl-control-plane/models/operations";
 
 let value: InputKafka = {
   id: "<id>",
-  brokers: [],
-  topics: [
+  type: "kafka",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [
     "<value 1>",
     "<value 2>",
   ],
+  topics: [
+    "<value 1>",
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.3",
+      maxVersion: "TLSv1.2",
+    },
+  },
+  sasl: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+  },
+  autoCommitInterval: 4876.37,
+  autoCommitThreshold: 2845.27,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "lively mousse edible gradient sheepishly amnesty whereas even newsprint french",
 };
 ```
 

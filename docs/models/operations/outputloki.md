@@ -8,7 +8,45 @@ import { OutputLoki } from "cribl-control-plane/models/operations";
 let value: OutputLoki = {
   id: "<id>",
   type: "loki",
-  url: "https://deficient-t-shirt.org/",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://teeming-scarification.info",
+  message: "<value>",
+  labels: [
+    {
+      value: "<value>",
+    },
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 2885.83,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 1109.68,
+  description: "trusty gradient pro",
+  token: "<value>",
+  textSecret: "<value>",
+  username: "Dorris.Aufderhar54",
+  password: "M4evjXGNLT2MGH4",
+  credentialsSecret: "<value>",
+  pqControls: {},
 };
 ```
 

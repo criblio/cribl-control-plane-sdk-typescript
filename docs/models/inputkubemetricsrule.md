@@ -7,6 +7,7 @@ import { InputKubeMetricsRule } from "cribl-control-plane/models";
 
 let value: InputKubeMetricsRule = {
   filter: "<value>",
+  description: "inveigle afore excitedly overspend train gah gee yawningly",
 };
 ```
 

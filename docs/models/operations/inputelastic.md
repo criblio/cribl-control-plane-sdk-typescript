@@ -7,7 +7,59 @@ import { InputElastic } from "cribl-control-plane/models/operations";
 
 let value: InputElastic = {
   id: "<id>",
-  port: 7766.75,
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 9974.96,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    url: "https://lustrous-understanding.org/",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  description: "spotless scaly parallel before",
+  username: "Devonte23",
+  password: "hV3t_QfeysWG4cX",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+  ],
 };
 ```
 

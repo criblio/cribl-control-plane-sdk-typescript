@@ -6,7 +6,23 @@
 import { OutputGraphite } from "cribl-control-plane/models";
 
 let value: OutputGraphite = {
-  host: "tall-sprinkles.biz",
+  id: "<id>",
+  type: "graphite",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  host: "fixed-porter.info",
+  description: "skean worriedly tank eek sparkling drat psst chatter",
+  pqControls: {},
 };
 ```
 

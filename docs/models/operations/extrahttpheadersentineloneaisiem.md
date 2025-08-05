@@ -6,6 +6,7 @@
 import { ExtraHttpHeaderSentinelOneAiSiem } from "cribl-control-plane/models/operations";
 
 let value: ExtraHttpHeaderSentinelOneAiSiem = {
+  name: "<value>",
   value: "<value>",
 };
 ```

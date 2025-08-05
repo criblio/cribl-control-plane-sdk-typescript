@@ -5,7 +5,9 @@
 ```typescript
 import { GetSummaryWorkersRequest } from "cribl-control-plane/models/operations";
 
-let value: GetSummaryWorkersRequest = {};
+let value: GetSummaryWorkersRequest = {
+  filterExp: "<value>",
+};
 ```
 
 ## Fields

@@ -5,7 +5,17 @@
 ```typescript
 import { InputHttpRawTLSSettingsServerSide } from "cribl-control-plane/models";
 
-let value: InputHttpRawTLSSettingsServerSide = {};
+let value: InputHttpRawTLSSettingsServerSide = {
+  certificateName: "<value>",
+  privKeyPath: "<value>",
+  passphrase: "<value>",
+  certPath: "<value>",
+  caPath: "<value>",
+  rejectUnauthorized: "<value>",
+  commonNameRegex: "<value>",
+  minVersion: "TLSv1.3",
+  maxVersion: "TLSv1.2",
+};
 ```
 
 ## Fields

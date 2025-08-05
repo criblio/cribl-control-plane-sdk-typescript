@@ -6,7 +6,54 @@
 import { CriblLakeDataset } from "cribl-control-plane/models";
 
 let value: CriblLakeDataset = {
+  acceleratedFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  bucketName: "<value>",
+  cacheConnection: {
+    acceleratedFields: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    backfillStatus: "started",
+    cacheRef: "<value>",
+    createdAt: 773.58,
+    lakehouseConnectionType: "cache",
+    migrationQueryId: "<id>",
+    retentionInDays: 5606.92,
+  },
+  deletionStartedAt: 4431.11,
+  description:
+    "soap positively chromakey daddy onto boldly see celsius kookily",
+  format: "json",
+  httpDAUsed: true,
   id: "<id>",
+  retentionPeriodInDays: 3012.23,
+  searchConfig: {
+    datatypes: [
+      "<value 1>",
+    ],
+    metadata: {
+      earliest: "<value>",
+      enableAcceleration: false,
+      fieldList: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      latestRunInfo: {
+        earliestScannedTime: 9246.59,
+        finishedAt: 4514.45,
+        latestScannedTime: 4750.45,
+        objectCount: 8488.95,
+      },
+      scanMode: "detailed",
+    },
+  },
+  storageLocationId: "<id>",
+  viewName: "<value>",
 };
 ```
 

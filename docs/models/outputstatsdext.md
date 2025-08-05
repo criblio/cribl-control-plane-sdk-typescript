@@ -6,7 +6,20 @@
 import { OutputStatsdExt } from "cribl-control-plane/models";
 
 let value: OutputStatsdExt = {
-  host: "immense-disconnection.org",
+  id: "<id>",
+  type: "statsd_ext",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  host: "uneven-gymnast.name",
+  description: "knavishly and deform productive pfft cutlet granny whose ew of",
+  pqControls: {},
 };
 ```
 

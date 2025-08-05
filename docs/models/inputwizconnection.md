@@ -6,6 +6,7 @@
 import { InputWizConnection } from "cribl-control-plane/models";
 
 let value: InputWizConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

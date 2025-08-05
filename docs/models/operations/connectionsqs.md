@@ -6,6 +6,7 @@
 import { ConnectionSqs } from "cribl-control-plane/models/operations";
 
 let value: ConnectionSqs = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

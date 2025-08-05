@@ -6,8 +6,47 @@
 import { OutputElasticCloud } from "cribl-control-plane/models";
 
 let value: OutputElasticCloud = {
-  url: "https://common-case.info",
+  id: "<id>",
+  type: "elastic_cloud",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://incomplete-utilization.info/",
   index: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  auth: {},
+  elasticPipeline: "<value>",
+  responseRetrySettings: [
+    {
+      httpStatus: 4806.39,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "kookily arrogantly ah phew bah blacken uncomfortable",
+  pqControls: {},
 };
 ```
 

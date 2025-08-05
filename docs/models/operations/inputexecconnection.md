@@ -6,6 +6,7 @@
 import { InputExecConnection } from "cribl-control-plane/models/operations";
 
 let value: InputExecConnection = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

@@ -5,7 +5,13 @@
 ```typescript
 import { PreprocessCrowdstrike } from "cribl-control-plane/models/operations";
 
-let value: PreprocessCrowdstrike = {};
+let value: PreprocessCrowdstrike = {
+  command: "<value>",
+  args: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
 ```
 
 ## Fields

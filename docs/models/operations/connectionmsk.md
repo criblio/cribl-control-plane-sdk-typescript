@@ -6,6 +6,7 @@
 import { ConnectionMsk } from "cribl-control-plane/models/operations";
 
 let value: ConnectionMsk = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

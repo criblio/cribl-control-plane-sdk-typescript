@@ -7,6 +7,7 @@ import { InputWizContentConfig } from "cribl-control-plane/models";
 
 let value: InputWizContentConfig = {
   contentType: "<value>",
+  contentDescription: "<value>",
 };
 ```
 

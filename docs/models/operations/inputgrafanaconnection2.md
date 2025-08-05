@@ -6,6 +6,7 @@
 import { InputGrafanaConnection2 } from "cribl-control-plane/models/operations";
 
 let value: InputGrafanaConnection2 = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

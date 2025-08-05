@@ -6,6 +6,7 @@
 import { CreateInputExtraHttpHeader } from "cribl-control-plane/models/operations";
 
 let value: CreateInputExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

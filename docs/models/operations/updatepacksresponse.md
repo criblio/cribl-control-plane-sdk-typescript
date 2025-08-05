@@ -7,7 +7,12 @@ a list of any objects
 ```typescript
 import { UpdatePacksResponse } from "cribl-control-plane/models/operations";
 
-let value: UpdatePacksResponse = {};
+let value: UpdatePacksResponse = {
+  count: 934564,
+  items: [
+    {},
+  ],
+};
 ```
 
 ## Fields

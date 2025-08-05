@@ -5,7 +5,16 @@
 ```typescript
 import { CreateInputTLSSettingsClientSideConfluentCloud } from "cribl-control-plane/models/operations";
 
-let value: CreateInputTLSSettingsClientSideConfluentCloud = {};
+let value: CreateInputTLSSettingsClientSideConfluentCloud = {
+  servername: "<value>",
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.1",
+  maxVersion: "TLSv1",
+};
 ```
 
 ## Fields

@@ -6,8 +6,42 @@
 import { OutputNewrelicEvents } from "cribl-control-plane/models";
 
 let value: OutputNewrelicEvents = {
+  id: "<id>",
+  type: "newrelic_events",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
   accountId: "<id>",
   eventType: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 1583.7,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "procurement highly alienated well-off woot considering geez optimal offend",
+  customUrl: "https://ignorant-solvency.biz",
+  pqControls: {},
+  apiKey: "<value>",
+  textSecret: "<value>",
 };
 ```
 

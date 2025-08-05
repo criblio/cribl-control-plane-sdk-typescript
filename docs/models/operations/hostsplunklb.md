@@ -7,6 +7,7 @@ import { HostSplunkLb } from "cribl-control-plane/models/operations";
 
 let value: HostSplunkLb = {
   host: "biodegradable-zen.com",
+  servername: "<value>",
 };
 ```
 

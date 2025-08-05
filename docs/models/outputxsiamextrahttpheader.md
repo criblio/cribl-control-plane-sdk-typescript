@@ -6,6 +6,7 @@
 import { OutputXsiamExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputXsiamExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

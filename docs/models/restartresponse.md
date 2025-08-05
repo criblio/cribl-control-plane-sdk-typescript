@@ -7,6 +7,7 @@ import { RestartResponse } from "cribl-control-plane/models";
 
 let value: RestartResponse = {
   id: "<id>",
+  message: "<value>",
   status: "Error",
 };
 ```

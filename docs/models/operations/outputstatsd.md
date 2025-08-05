@@ -7,7 +7,20 @@ import { OutputStatsd } from "cribl-control-plane/models/operations";
 
 let value: OutputStatsd = {
   id: "<id>",
-  host: "near-mentor.org",
+  type: "statsd",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  host: "white-resource.biz",
+  description: "consistency snarling and rout",
+  pqControls: {},
 };
 ```
 

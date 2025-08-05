@@ -8,11 +8,36 @@ import { OutputSplunkLb } from "cribl-control-plane/models/operations";
 let value: OutputSplunkLb = {
   id: "<id>",
   type: "splunk_lb",
-  hosts: [
-    {
-      host: "delectable-noon.info",
-    },
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
   ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
+  },
+  description: "hungry spectate blight which ack concerning stained infamous",
+  indexerDiscoveryConfigs: {
+    masterUri: "https://humiliating-sustenance.com",
+    authTokens: [
+      {},
+    ],
+    textSecret: "<value>",
+  },
+  hosts: [],
+  pqControls: {},
+  textSecret: "<value>",
 };
 ```
 

@@ -7,7 +7,27 @@ a list of GitFilesResponse objects
 ```typescript
 import { GetVersionFilesResponse } from "cribl-control-plane/models/operations";
 
-let value: GetVersionFilesResponse = {};
+let value: GetVersionFilesResponse = {
+  count: 955986,
+  items: [
+    {
+      commitMessage: {},
+      count: 6503.3,
+      items: [
+        {
+          children: [
+            {
+              name: "<value>",
+              state: "Minnesota",
+            },
+          ],
+          name: "<value>",
+          state: "Washington",
+        },
+      ],
+    },
+  ],
+};
 ```
 
 ## Fields

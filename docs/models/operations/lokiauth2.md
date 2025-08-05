@@ -5,7 +5,29 @@
 ```typescript
 import { LokiAuth2 } from "cribl-control-plane/models/operations";
 
-let value: LokiAuth2 = {};
+let value: LokiAuth2 = {
+  username: "Otto_Kuhn43",
+  password: "RIONhoxj_C4cO_0",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://measly-cruelty.com",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

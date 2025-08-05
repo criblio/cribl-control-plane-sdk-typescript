@@ -5,7 +5,39 @@
 ```typescript
 import { OutputSentinelOneAiSiem } from "cribl-control-plane/models";
 
-let value: OutputSentinelOneAiSiem = {};
+let value: OutputSentinelOneAiSiem = {
+  id: "<id>",
+  type: "sentinel_one_ai_siem",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 3766.68,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "which unselfish how raw congregate drat aw",
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
+};
 ```
 
 ## Fields

@@ -6,7 +6,38 @@
 import { OutputS3 } from "cribl-control-plane/models";
 
 let value: OutputS3 = {
+  id: "<id>",
+  type: "s3",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "STANDARD_IA",
+  serverSideEncryption: "aws:kms",
+  kmsKeyId: "<id>",
+  description: "excepting under fatally until below",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 

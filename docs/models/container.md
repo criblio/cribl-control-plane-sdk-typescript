@@ -5,7 +5,16 @@
 ```typescript
 import { Container } from "cribl-control-plane/models";
 
-let value: Container = {};
+let value: Container = {
+  dockerSocket: [
+    "<value 1>",
+  ],
+  filters: [
+    {
+      expr: "<value>",
+    },
+  ],
+};
 ```
 
 ## Fields

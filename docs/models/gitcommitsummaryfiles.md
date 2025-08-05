@@ -5,7 +5,24 @@
 ```typescript
 import { GitCommitSummaryFiles } from "cribl-control-plane/models";
 
-let value: GitCommitSummaryFiles = {};
+let value: GitCommitSummaryFiles = {
+  created: [
+    "<value 1>",
+  ],
+  deleted: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  modified: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  renamed: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
 ```
 
 ## Fields

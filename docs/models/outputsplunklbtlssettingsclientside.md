@@ -5,7 +5,16 @@
 ```typescript
 import { OutputSplunkLbTLSSettingsClientSide } from "cribl-control-plane/models";
 
-let value: OutputSplunkLbTLSSettingsClientSide = {};
+let value: OutputSplunkLbTLSSettingsClientSide = {
+  servername: "<value>",
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1.2",
+  maxVersion: "TLSv1.3",
+};
 ```
 
 ## Fields

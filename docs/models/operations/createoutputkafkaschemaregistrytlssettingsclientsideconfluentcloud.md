@@ -6,7 +6,16 @@
 import { CreateOutputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputKafkaSchemaRegistryTLSSettingsClientSideConfluentCloud =
-  {};
+  {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  };
 ```
 
 ## Fields

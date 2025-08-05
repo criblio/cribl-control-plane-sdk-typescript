@@ -6,6 +6,7 @@
 import { OutputSplunkHecExtraHttpHeader } from "cribl-control-plane/models";
 
 let value: OutputSplunkHecExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```

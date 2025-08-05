@@ -6,6 +6,7 @@
 import { ConnectionWef } from "cribl-control-plane/models/operations";
 
 let value: ConnectionWef = {
+  pipeline: "<value>",
   output: "<value>",
 };
 ```

@@ -8,6 +8,17 @@ import { UpdateGroupsDeployByIdRequest } from "cribl-control-plane/models/operat
 let value: UpdateGroupsDeployByIdRequest = {
   id: "<id>",
   deployRequest: {
+    lookups: [
+      {
+        context: "<value>",
+        lookups: [
+          {
+            file: "<value>",
+            version: "<value>",
+          },
+        ],
+      },
+    ],
     version: "<value>",
   },
 };

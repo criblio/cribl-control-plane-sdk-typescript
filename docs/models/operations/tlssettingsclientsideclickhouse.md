@@ -5,7 +5,16 @@
 ```typescript
 import { TLSSettingsClientSideClickHouse } from "cribl-control-plane/models/operations";
 
-let value: TLSSettingsClientSideClickHouse = {};
+let value: TLSSettingsClientSideClickHouse = {
+  servername: "<value>",
+  certificateName: "<value>",
+  caPath: "<value>",
+  privKeyPath: "<value>",
+  certPath: "<value>",
+  passphrase: "<value>",
+  minVersion: "TLSv1",
+  maxVersion: "TLSv1",
+};
 ```
 
 ## Fields

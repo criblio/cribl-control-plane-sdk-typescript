@@ -7,8 +7,46 @@ import { OutputElasticCloud } from "cribl-control-plane/models/operations";
 
 let value: OutputElasticCloud = {
   id: "<id>",
-  url: "https://sweet-analogy.name",
+  type: "elastic_cloud",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://palatable-season.biz/",
   index: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  extraParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  auth: {},
+  elasticPipeline: "<value>",
+  responseRetrySettings: [
+    {
+      httpStatus: 615.44,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "psst yum sparkling covenant successfully excess lox debut",
+  pqControls: {},
 };
 ```
 
