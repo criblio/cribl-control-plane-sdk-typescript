@@ -12,6 +12,7 @@ import { destinationsGetDestinationSamplesById } from "../funcs/destinationsGetD
 import { destinationsListDestination } from "../funcs/destinationsListDestination.js";
 import { destinationsUpdateDestinationById } from "../funcs/destinationsUpdateDestinationById.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -38,7 +39,7 @@ export class Destinations extends ClientSDK {
    * Create Destination
    */
   async createDestination(
-    request: operations.CreateOutputRequest,
+    request: models.Output,
     options?: RequestOptions,
   ): Promise<operations.CreateOutputResponse> {
     return unwrapAsync(destinationsCreateDestination(

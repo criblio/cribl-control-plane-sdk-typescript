@@ -57,7 +57,7 @@ let value: UpdateOutputByIdRequest = {
 
 ## Fields
 
-| Field                            | Type                             | Required                         | Description                      |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `id`                             | *string*                         | :heavy_check_mark:               | Unique ID to PATCH               |
-| `output`                         | *models.Output*                  | :heavy_check_mark:               | Destination object to be updated |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `id`               | *string*           | :heavy_check_mark: | Unique ID to PATCH |
+| `output`           | *models.Output*    | :heavy_check_mark: | Output object      |

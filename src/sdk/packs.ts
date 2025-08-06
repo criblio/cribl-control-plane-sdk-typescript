@@ -5,7 +5,6 @@
 import { packsCreatePacks } from "../funcs/packsCreatePacks.js";
 import { packsDeletePacksById } from "../funcs/packsDeletePacksById.js";
 import { packsGetPacks } from "../funcs/packsGetPacks.js";
-import { packsUpdatePacks } from "../funcs/packsUpdatePacks.js";
 import { packsUpdatePacksById } from "../funcs/packsUpdatePacksById.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
@@ -41,23 +40,6 @@ export class Packs extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GetPacksResponse> {
     return unwrapAsync(packsGetPacks(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Upload Pack
-   *
-   * @remarks
-   * Upload Pack
-   */
-  async updatePacks(
-    request?: operations.UpdatePacksRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.UpdatePacksResponse> {
-    return unwrapAsync(packsUpdatePacks(
       this,
       request,
       options,

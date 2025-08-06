@@ -9,7 +9,7 @@ let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
     id: "<id>",
-    type: "datagen",
+    type: "journal_files",
     disabled: false,
     pipeline: "<value>",
     sendToRoutes: true,
@@ -35,21 +35,34 @@ let value: UpdateInputByIdRequest = {
       path: "$CRIBL_HOME/state/queues",
       compress: "none",
     },
-    samples: [],
+    path: "/home/user/dir",
+    interval: 10,
+    journals: [
+      "<value 1>",
+    ],
+    rules: [
+      {
+        filter: "<value>",
+        description:
+          "intensely whereas role painfully fooey commonly upon upbeat",
+      },
+    ],
+    currentBoot: false,
+    maxAgeDur: "<value>",
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    description: "to furthermore meh charm ack why fortunate complete",
+    description: "trash edge noon zowie and since miserly",
   },
 };
 ```
 
 ## Fields
 
-| Field                       | Type                        | Required                    | Description                 |
-| --------------------------- | --------------------------- | --------------------------- | --------------------------- |
-| `id`                        | *string*                    | :heavy_check_mark:          | Unique ID to PATCH          |
-| `input`                     | *models.Input*              | :heavy_check_mark:          | Source object to be updated |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `id`               | *string*           | :heavy_check_mark: | Unique ID to PATCH |
+| `input`            | *models.Input*     | :heavy_check_mark: | Input object       |

@@ -15,7 +15,7 @@ export type UpdateInputByIdRequest = {
    */
   id: string;
   /**
-   * Source object to be updated
+   * Input object
    */
   input: models.Input;
 };

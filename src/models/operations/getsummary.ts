@@ -12,20 +12,20 @@ import * as models from "../index.js";
 /**
  * product filter
  */
-export const GetSummaryMode = {
+export const Mode = {
   Worker: "worker",
   ManagedEdge: "managed-edge",
 } as const;
 /**
  * product filter
  */
-export type GetSummaryMode = ClosedEnum<typeof GetSummaryMode>;
+export type Mode = ClosedEnum<typeof Mode>;
 
 export type GetSummaryRequest = {
   /**
    * product filter
    */
-  mode?: GetSummaryMode | undefined;
+  mode?: Mode | undefined;
 };
 
 /**
@@ -40,24 +40,23 @@ export type GetSummaryResponse = {
 };
 
 /** @internal */
-export const GetSummaryMode$inboundSchema: z.ZodNativeEnum<
-  typeof GetSummaryMode
-> = z.nativeEnum(GetSummaryMode);
+export const Mode$inboundSchema: z.ZodNativeEnum<typeof Mode> = z.nativeEnum(
+  Mode,
+);
 
 /** @internal */
-export const GetSummaryMode$outboundSchema: z.ZodNativeEnum<
-  typeof GetSummaryMode
-> = GetSummaryMode$inboundSchema;
+export const Mode$outboundSchema: z.ZodNativeEnum<typeof Mode> =
+  Mode$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace GetSummaryMode$ {
-  /** @deprecated use `GetSummaryMode$inboundSchema` instead. */
-  export const inboundSchema = GetSummaryMode$inboundSchema;
-  /** @deprecated use `GetSummaryMode$outboundSchema` instead. */
-  export const outboundSchema = GetSummaryMode$outboundSchema;
+export namespace Mode$ {
+  /** @deprecated use `Mode$inboundSchema` instead. */
+  export const inboundSchema = Mode$inboundSchema;
+  /** @deprecated use `Mode$outboundSchema` instead. */
+  export const outboundSchema = Mode$outboundSchema;
 }
 
 /** @internal */
@@ -66,7 +65,7 @@ export const GetSummaryRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: GetSummaryMode$inboundSchema.optional(),
+  mode: Mode$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -80,7 +79,7 @@ export const GetSummaryRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSummaryRequest
 > = z.object({
-  mode: GetSummaryMode$outboundSchema.optional(),
+  mode: Mode$outboundSchema.optional(),
 });
 
 /**
