@@ -18,13 +18,16 @@ let value: InputSystemMetricsCustom = {
     devices: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     mountpoints: [
       "<value 1>",
+      "<value 2>",
     ],
     fstypes: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
 };

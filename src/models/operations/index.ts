@@ -58,7 +58,6 @@ export * from "./updategroupsdeploybyid.js";
 export * from "./updateinputbyid.js";
 export * from "./updateinputhectokenbyidandtoken.js";
 export * from "./updateoutputbyid.js";
-export * from "./updatepacks.js";
 export * from "./updatepacksbyid.js";
 export * from "./updatepipelinebyid.js";
 export * from "./updateroutesbyid.js";

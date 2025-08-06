@@ -15,7 +15,7 @@ export type UpdateOutputByIdRequest = {
    */
   id: string;
   /**
-   * Destination object to be updated
+   * Output object
    */
   output: models.Output;
 };

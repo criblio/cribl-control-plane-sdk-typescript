@@ -1510,13 +1510,16 @@ const value: models.InputSystemMetrics = {
         devices: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
         mountpoints: [
           "<value 1>",
+          "<value 2>",
         ],
         fstypes: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
     },
@@ -1532,7 +1535,6 @@ const value: models.InputSystemMetrics = {
   container: {
     dockerSocket: [
       "<value 1>",
-      "<value 2>",
     ],
     filters: [
       {
@@ -1547,8 +1549,7 @@ const value: models.InputSystemMetrics = {
     },
   ],
   persistence: {},
-  description:
-    "per airbus supposing joint while apropos powerfully that instantly",
+  description: "but greatly see thyme",
 };
 ```
 
@@ -2740,7 +2741,8 @@ const value: models.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "yahoo uh-huh dirty behind manner",
+      description:
+        "intensely whereas role painfully fooey commonly upon upbeat",
     },
   ],
   maxAgeDur: "<value>",
@@ -2750,7 +2752,7 @@ const value: models.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "honored given shoulder why cheerful",
+  description: "yahoo uh-huh dirty behind manner",
 };
 ```
 
