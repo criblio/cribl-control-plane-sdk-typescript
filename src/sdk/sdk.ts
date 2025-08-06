@@ -4,23 +4,22 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
+import { Deployments } from "./deployments.js";
 import { Destinations } from "./destinations.js";
-import { Distributed } from "./distributed.js";
 import { Groups } from "./groups.js";
-import { Health } from "./health.js";
-import { Lake } from "./lake.js";
+import { HealthInfo } from "./healthinfo.js";
+import { LakeDatasets } from "./lakedatasets.js";
+import { Nodes } from "./nodes.js";
 import { Packs } from "./packs.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
-import { Teams } from "./teams.js";
 import { Versioning } from "./versioning.js";
-import { Workers } from "./workers.js";
 
 export class CriblControlPlane extends ClientSDK {
-  private _lake?: Lake;
-  get lake(): Lake {
-    return (this._lake ??= new Lake(this._options));
+  private _lakeDatasets?: LakeDatasets;
+  get lakeDatasets(): LakeDatasets {
+    return (this._lakeDatasets ??= new LakeDatasets(this._options));
   }
 
   private _sources?: Sources;
@@ -48,19 +47,19 @@ export class CriblControlPlane extends ClientSDK {
     return (this._auth ??= new Auth(this._options));
   }
 
-  private _workers?: Workers;
-  get workers(): Workers {
-    return (this._workers ??= new Workers(this._options));
+  private _nodes?: Nodes;
+  get nodes(): Nodes {
+    return (this._nodes ??= new Nodes(this._options));
   }
 
-  private _distributed?: Distributed;
-  get distributed(): Distributed {
-    return (this._distributed ??= new Distributed(this._options));
+  private _deployments?: Deployments;
+  get deployments(): Deployments {
+    return (this._deployments ??= new Deployments(this._options));
   }
 
-  private _health?: Health;
-  get health(): Health {
-    return (this._health ??= new Health(this._options));
+  private _healthInfo?: HealthInfo;
+  get healthInfo(): HealthInfo {
+    return (this._healthInfo ??= new HealthInfo(this._options));
   }
 
   private _packs?: Packs;
@@ -76,10 +75,5 @@ export class CriblControlPlane extends ClientSDK {
   private _groups?: Groups;
   get groups(): Groups {
     return (this._groups ??= new Groups(this._options));
-  }
-
-  private _teams?: Teams;
-  get teams(): Teams {
-    return (this._teams ??= new Teams(this._options));
   }
 }

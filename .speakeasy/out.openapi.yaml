@@ -4,7 +4,7 @@ servers:
 info:
   title: Cribl API Reference
   description: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
-  version: 4.14.0-alpha.1754409810030-3ae86276
+  version: 4.14.0-alpha.1754488342078-ad2ceb5f
   contact:
     name: Support
     email: support@cribl.io
@@ -36919,6 +36919,8 @@ paths:
       operationId: createCriblLakeDatasetByLakeId
       tags:
         - lake
+      x-speakeasy-group: lakeDatasets
+      x-speakeasy-name-override: create
       summary: Create a Dataset in the specified Lake
       description: Create a Dataset in the specified Lake
       responses:
@@ -36962,6 +36964,8 @@ paths:
       operationId: getCriblLakeDatasetByLakeId
       tags:
         - lake
+      x-speakeasy-group: lakeDatasets
+      x-speakeasy-name-override: list
       summary: Get the list of Dataset contained in the specified Lake
       description: Get the list of Dataset contained in the specified Lake
       responses:
@@ -36999,6 +37003,8 @@ paths:
       operationId: deleteCriblLakeDatasetByLakeIdAndId
       tags:
         - lake
+      x-speakeasy-group: lakeDatasets
+      x-speakeasy-name-override: delete
       summary: Delete a Dataset in the specified Lake
       description: Delete a Dataset in the specified Lake
       responses:
@@ -37041,6 +37047,8 @@ paths:
       operationId: getCriblLakeDatasetByLakeIdAndId
       tags:
         - lake
+      x-speakeasy-group: lakeDatasets
+      x-speakeasy-name-override: get
       summary: Get a Dataset in the specified Lake
       description: Get a Dataset in the specified Lake
       responses:
@@ -37083,6 +37091,8 @@ paths:
       operationId: updateCriblLakeDatasetByLakeIdAndId
       tags:
         - lake
+      x-speakeasy-group: lakeDatasets
+      x-speakeasy-name-override: update
       summary: Update a Dataset in the specified Lake
       description: Update a Dataset in the specified Lake
       responses:
@@ -37132,7 +37142,7 @@ paths:
     get:
       operationId: listInput
       x-speakeasy-group: Sources
-      x-speakeasy-name-override: listSource
+      x-speakeasy-name-override: list
       tags:
         - sources
       summary: Get a list of Source objects
@@ -37163,7 +37173,7 @@ paths:
     post:
       operationId: createInput
       x-speakeasy-group: Sources
-      x-speakeasy-name-override: createSource
+      x-speakeasy-name-override: create
       tags:
         - sources
       summary: Create Source
@@ -37207,7 +37217,7 @@ paths:
     get:
       operationId: getInputById
       x-speakeasy-group: Sources
-      x-speakeasy-name-override: getSourceById
+      x-speakeasy-name-override: get
       tags:
         - sources
       summary: Get Source by ID
@@ -37245,7 +37255,7 @@ paths:
     patch:
       operationId: updateInputById
       x-speakeasy-group: Sources
-      x-speakeasy-name-override: updateSourceById
+      x-speakeasy-name-override: update
       tags:
         - sources
       summary: Update Source
@@ -37290,7 +37300,7 @@ paths:
     delete:
       operationId: deleteInputById
       x-speakeasy-group: Sources
-      x-speakeasy-name-override: deleteSourceById
+      x-speakeasy-name-override: delete
       tags:
         - sources
       summary: Delete Source
@@ -37331,7 +37341,7 @@ paths:
       tags:
         - sources
       x-speakeasy-group: Sources
-      x-speakeasy-name-override: createSourceHecTokenById
+      x-speakeasy-name-override: createHecToken
       summary: Add token and optional metadata to an existing HEC Source
       description: Add token and optional metadata to an existing HEC Source
       responses:
@@ -37378,7 +37388,7 @@ paths:
       tags:
         - sources
       x-speakeasy-group: Sources
-      x-speakeasy-name-override: updateSourceHecTokenByIdAndToken
+      x-speakeasy-name-override: updateHecTokenMetadata
       summary: Update token metadata on existing HEC Source
       description: Update token metadata on existing HEC Source
       responses:
@@ -37429,7 +37439,7 @@ paths:
     get:
       operationId: listOutput
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: listDestination
+      x-speakeasy-name-override: list
       tags:
         - destinations
       summary: Get a list of Destination objects
@@ -37460,7 +37470,7 @@ paths:
     post:
       operationId: createOutput
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: createDestination
+      x-speakeasy-name-override: create
       tags:
         - destinations
       summary: Create Destination
@@ -37504,7 +37514,7 @@ paths:
     get:
       operationId: getOutputById
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: getDestinationById
+      x-speakeasy-name-override: get
       tags:
         - destinations
       summary: Get Destination by ID
@@ -37542,7 +37552,7 @@ paths:
     patch:
       operationId: updateOutputById
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: updateDestinationById
+      x-speakeasy-name-override: update
       tags:
         - destinations
       summary: Update Destination
@@ -37587,7 +37597,7 @@ paths:
     delete:
       operationId: deleteOutputById
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: deleteDestinationById
+      x-speakeasy-name-override: delete
       tags:
         - destinations
       summary: Delete Destination
@@ -37628,7 +37638,7 @@ paths:
       tags:
         - destinations
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: deleteDestinationPqById
+      x-speakeasy-name-override: deletePersistentQueue
       summary: Clears destination persistent queue
       description: Clears destination persistent queue
       responses:
@@ -37667,7 +37677,7 @@ paths:
       tags:
         - destinations
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: getDestinationPqById
+      x-speakeasy-name-override: getPersistentQueueStatus
       summary: Retrieves status of latest clear PQ job for a destination
       description: Retrieves status of latest clear PQ job for a destination
       responses:
@@ -37707,7 +37717,7 @@ paths:
       tags:
         - destinations
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: getDestinationSamplesById
+      x-speakeasy-name-override: getSampleData
       summary: Retrieve samples data for the specified destination. Used to get sample data for the test action.
       description: Retrieve samples data for the specified destination. Used to get sample data for the test action.
       responses:
@@ -37746,7 +37756,7 @@ paths:
       tags:
         - destinations
       x-speakeasy-group: Destinations
-      x-speakeasy-name-override: createDestinationTestById
+      x-speakeasy-name-override: createSampleData
       summary: Send sample data to a destination to validate configuration or test connectivity
       description: Send sample data to a destination to validate configuration or test connectivity
       responses:
@@ -37789,6 +37799,8 @@ paths:
   /pipelines:
     get:
       operationId: listPipeline
+      x-speakeasy-group: pipelines
+      x-speakeasy-name-override: list
       tags:
         - pipelines
       summary: Get a list of Pipeline objects
@@ -37817,48 +37829,23 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
     post:
+      operationId: createPipeline
+      x-speakeasy-group: pipelines
+      x-speakeasy-name-override: create
       tags:
         - pipelines
-      responses:
-        "200":
-          description: a list of Pipeline objects
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: number of items present in the items array
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Pipeline"
-        "401":
-          description: Unauthorized
-        "500":
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-      operationId: createPipeline
       summary: Create Pipeline
       description: Create Pipeline
       requestBody:
-        description: New Pipeline object
+        description: Pipeline object
         required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/Pipeline"
-  "/pipelines/{id}":
-    get:
-      tags:
-        - pipelines
       responses:
         "200":
-          description: a list of Pipeline objects
+          description: a list of Pipelines objects
           content:
             application/json:
               schema:
@@ -37879,7 +37866,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  "/pipelines/{id}":
+    get:
       operationId: getPipelineById
+      x-speakeasy-group: pipelines
+      x-speakeasy-name-override: get
+      tags:
+        - pipelines
       summary: Get Pipeline by ID
       description: Get Pipeline by ID
       parameters:
@@ -37889,9 +37882,6 @@ paths:
           schema:
             type: string
           description: Unique ID to GET
-    patch:
-      tags:
-        - pipelines
       responses:
         "200":
           description: a list of Pipeline objects
@@ -37915,26 +37905,66 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    patch:
       operationId: updatePipelineById
+      x-speakeasy-group: pipelines
+      x-speakeasy-name-override: update
+      tags:
+        - pipelines
       summary: Update Pipeline
       description: Update Pipeline
       parameters:
-        - schema:
-            type: string
-          name: id
+        - name: id
           in: path
           required: true
+          schema:
+            type: string
           description: Unique ID to PATCH
       requestBody:
-        description: Pipeline object to be updated
+        description: Pipeline object
         required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/Pipeline"
+      responses:
+        "200":
+          description: a list of Pipelines objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pipeline"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     delete:
+      operationId: deletePipelineById
+      x-speakeasy-group: pipelines
+      x-speakeasy-name-override: delete
       tags:
         - pipelines
+      summary: Delete Pipeline
+      description: Delete Pipeline
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique ID to DELETE
       responses:
         "200":
           description: a list of Pipeline objects
@@ -37958,19 +37988,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-      operationId: deletePipelineById
-      summary: Delete Pipeline
-      description: Delete Pipeline
-      parameters:
-        - schema:
-            type: string
-          name: id
-          in: path
-          required: true
-          description: Unique ID to DELETE
   /routes:
     get:
       operationId: listRoutes
+      x-speakeasy-group: Routes
+      x-speakeasy-name-override: list
       tags:
         - routes
       summary: Get a list of Routes objects
@@ -38000,32 +38022,11 @@ paths:
                 $ref: "#/components/schemas/Error"
   "/routes/{id}":
     get:
+      operationId: getRoutesById
+      x-speakeasy-group: Routes
+      x-speakeasy-name-override: get
       tags:
         - routes
-      responses:
-        "200":
-          description: a list of Routes objects
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    description: number of items present in the items array
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Routes"
-        "401":
-          description: Unauthorized
-        "500":
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-      operationId: getRoutesById
       summary: Get Routes by ID
       description: Get Routes by ID
       parameters:
@@ -38035,9 +38036,6 @@ paths:
           schema:
             type: string
           description: Unique ID to GET
-    patch:
-      tags:
-        - routes
       responses:
         "200":
           description: a list of Routes objects
@@ -38061,28 +38059,58 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    patch:
       operationId: updateRoutesById
+      x-speakeasy-group: Routes
+      x-speakeasy-name-override: update
+      tags:
+        - routes
       summary: Update Routes
       description: Update Routes
       parameters:
-        - schema:
-            type: string
-          name: id
+        - name: id
           in: path
           required: true
+          schema:
+            type: string
           description: Unique ID to PATCH
       requestBody:
-        description: Routes object to be updated
+        description: Routes object
         required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/Routes"
+      responses:
+        "200":
+          description: a list of Routes objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Routes"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   "/routes/{id}/append":
     post:
       operationId: createRoutesAppendById
       tags:
         - routes
+      x-speakeasy-group: routes
+      x-speakeasy-name-override: append
       summary: Appends routes to the end of the routing table
       description: Appends routes to the end of the routing table
       responses:
@@ -38126,6 +38154,8 @@ paths:
   /auth/login:
     post:
       operationId: login
+      x-speakeasy-group: auth
+      x-speakeasy-name-override: fetchToken
       summary: Log in and obtain Auth token
       description: This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
       tags:
@@ -38155,6 +38185,8 @@ paths:
       operationId: getSummaryWorkers
       tags:
         - workers
+      x-speakeasy-group: nodes
+      x-speakeasy-name-override: getCount
       summary: get worker and edge nodes count
       description: get worker and edge nodes count
       responses:
@@ -38192,6 +38224,8 @@ paths:
       operationId: getWorkers
       tags:
         - workers
+      x-speakeasy-group: nodes
+      x-speakeasy-name-override: list
       summary: get worker and edge nodes
       description: get worker and edge nodes
       responses:
@@ -38259,6 +38293,8 @@ paths:
       operationId: updateWorkersRestart
       tags:
         - workers
+      x-speakeasy-group: nodes
+      x-speakeasy-name-override: restart
       summary: restarts worker nodes
       description: restarts worker nodes
       responses:
@@ -38289,6 +38325,8 @@ paths:
       operationId: getSummary
       tags:
         - distributed
+      x-speakeasy-group: deployments
+      x-speakeasy-name-override: getSummary
       summary: Get summary of Distributed deployment
       description: Get summary of Distributed deployment
       responses:
@@ -38327,6 +38365,8 @@ paths:
   /health:
     get:
       operationId: getHealthInfo
+      x-speakeasy-group: healthInfo
+      x-speakeasy-name-override: get
       summary: Provides health info for REST server
       security: []
       tags:
@@ -38349,6 +38389,8 @@ paths:
       operationId: createPacks
       tags:
         - packs
+      x-speakeasy-group: packs
+      x-speakeasy-name-override: install
       summary: Install Pack
       description: Install Pack
       responses:
@@ -38385,6 +38427,8 @@ paths:
       operationId: getPacks
       tags:
         - packs
+      x-speakeasy-group: packs
+      x-speakeasy-name-override: list
       summary: Get info on packs
       description: Get info on packs
       responses:
@@ -38422,6 +38466,8 @@ paths:
       operationId: deletePacksById
       tags:
         - packs
+      x-speakeasy-group: packs
+      x-speakeasy-name-override: delete
       summary: Uninstall Pack from the system
       description: Uninstall Pack from the system
       responses:
@@ -38458,6 +38504,8 @@ paths:
       operationId: updatePacksById
       tags:
         - packs
+      x-speakeasy-group: packs
+      x-speakeasy-name-override: update
       summary: Upgrade Pack
       description: Upgrade Pack
       responses:
@@ -38513,6 +38561,8 @@ paths:
       operationId: getVersionBranch
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: getBranch
       summary: get the list of branches
       description: get the list of branches
       responses:
@@ -38544,6 +38594,8 @@ paths:
       operationId: createVersionCommit
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: createCommit
       summary: create a new commit containing the current configs the given log message describing the changes.
       description: create a new commit containing the current configs the given log message describing the changes.
       responses:
@@ -38581,6 +38633,8 @@ paths:
       operationId: getVersionCount
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: getFileCount
       summary: get the count of files of changed
       description: get the count of files of changed
       responses:
@@ -38625,6 +38679,8 @@ paths:
       operationId: getVersionCurrentBranch
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: getBranchName
       summary: returns git branch that the config is checked out to, if any
       description: returns git branch that the config is checked out to, if any
       responses:
@@ -38656,6 +38712,8 @@ paths:
       operationId: getVersionDiff
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: getDiff
       summary: get the textual diff for given commit
       description: get the textual diff for given commit
       responses:
@@ -38712,6 +38770,8 @@ paths:
       operationId: getVersionFiles
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: getFileInfo
       summary: get the files changed
       description: get the files changed
       responses:
@@ -38755,6 +38815,8 @@ paths:
       operationId: getVersionInfo
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: getConfigStatus
       summary: Get info about versioning availability
       description: Get info about versioning availability
       responses:
@@ -38785,6 +38847,8 @@ paths:
       operationId: createVersionPush
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: pushCommit
       summary: push the current configs to the remote repository.
       description: push the current configs to the remote repository.
       responses:
@@ -38816,6 +38880,8 @@ paths:
       operationId: createVersionRevert
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: revertCommit
       summary: revert a commit
       description: revert a commit
       responses:
@@ -38860,6 +38926,8 @@ paths:
       operationId: getVersionShow
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: getDiffLogMessage
       summary: get the log message and textual diff for given commit
       description: get the log message and textual diff for given commit
       responses:
@@ -38916,6 +38984,8 @@ paths:
       operationId: getVersionStatus
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: getCurrentStatus
       summary: get the the working tree status
       description: get the the working tree status
       responses:
@@ -38953,6 +39023,8 @@ paths:
       operationId: createVersionSync
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: syncLocalRemote
       summary: syncs with remote repo via POST requests
       description: syncs with remote repo via POST requests
       responses:
@@ -38984,6 +39056,8 @@ paths:
       operationId: createVersionUndo
       tags:
         - versioning
+      x-speakeasy-group: versioning
+      x-speakeasy-name-override: restoreCommit
       summary: undo the last commit
       description: undo the last commit
       responses:
@@ -39021,6 +39095,8 @@ paths:
       operationId: getGroupsConfigVersionById
       tags:
         - groups
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: getConfigVersion
       summary: Get effective bundle version for given Group
       description: Get effective bundle version for given Group
       responses:
@@ -39058,6 +39134,8 @@ paths:
       operationId: createProductsGroupsByProduct
       tags:
         - groups
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: createByProduct
       summary: Create a Fleet or Worker Group
       description: Create a Fleet or Worker Group
       responses:
@@ -39104,6 +39182,8 @@ paths:
       operationId: getProductsGroupsByProduct
       tags:
         - groups
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: getByProduct
       summary: Get a list of ConfigGroup objects
       description: Get a list of ConfigGroup objects
       responses:
@@ -39150,6 +39230,8 @@ paths:
       operationId: deleteGroupsById
       tags:
         - groups
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: delete
       summary: Delete a Fleet or Worker Group
       description: Delete a Fleet or Worker Group
       responses:
@@ -39186,6 +39268,8 @@ paths:
       operationId: getGroupsById
       tags:
         - groups
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: get
       summary: Get a specific ConfigGroup object
       description: Get a specific ConfigGroup object
       responses:
@@ -39228,6 +39312,8 @@ paths:
       operationId: updateGroupsById
       tags:
         - groups
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: update
       summary: Update a Fleet or Worker Group
       description: Update a Fleet or Worker Group
       responses:
@@ -39272,6 +39358,8 @@ paths:
       operationId: updateGroupsDeployById
       tags:
         - groups
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: deployCommits
       summary: Deploy commits for a Fleet or Worker Group
       description: Deploy commits for a Fleet or Worker Group
       responses:
@@ -39316,6 +39404,8 @@ paths:
       operationId: getProductsGroupsAclTeamsByProductAndId
       tags:
         - teams
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: getTeamAccessControlListByProduct
       summary: ACL of team with permissions for resources in this Group
       description: ACL of team with permissions for resources in this Group
       responses:
@@ -39377,6 +39467,8 @@ paths:
       operationId: getGroupsAclById
       tags:
         - groups
+      x-speakeasy-group: groups
+      x-speakeasy-name-override: getAccessControlList
       summary: ACL of members with permissions for resources in this Group
       description: ACL of members with permissions for resources in this Group
       responses:

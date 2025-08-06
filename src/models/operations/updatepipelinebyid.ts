@@ -15,13 +15,13 @@ export type UpdatePipelineByIdRequest = {
    */
   id: string;
   /**
-   * Pipeline object to be updated
+   * Pipeline object
    */
   pipeline: models.Pipeline;
 };
 
 /**
- * a list of Pipeline objects
+ * a list of Pipelines objects
  */
 export type UpdatePipelineByIdResponse = {
   /**

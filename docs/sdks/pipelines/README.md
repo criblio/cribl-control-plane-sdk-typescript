@@ -7,13 +7,13 @@ Actions related to Pipelines
 
 ### Available Operations
 
-* [listPipeline](#listpipeline) - Get a list of Pipeline objects
-* [createPipeline](#createpipeline) - Create Pipeline
-* [getPipelineById](#getpipelinebyid) - Get Pipeline by ID
-* [updatePipelineById](#updatepipelinebyid) - Update Pipeline
-* [deletePipelineById](#deletepipelinebyid) - Delete Pipeline
+* [list](#list) - Get a list of Pipeline objects
+* [create](#create) - Create Pipeline
+* [get](#get) - Get Pipeline by ID
+* [update](#update) - Update Pipeline
+* [delete](#delete) - Delete Pipeline
 
-## listPipeline
+## list
 
 Get a list of Pipeline objects
 
@@ -30,7 +30,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.pipelines.listPipeline();
+  const result = await criblControlPlane.pipelines.list();
 
   console.log(result);
 }
@@ -44,7 +44,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { pipelinesListPipeline } from "cribl-control-plane/funcs/pipelinesListPipeline.js";
+import { pipelinesList } from "cribl-control-plane/funcs/pipelinesList.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -56,12 +56,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await pipelinesListPipeline(criblControlPlane);
+  const res = await pipelinesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("pipelinesListPipeline failed:", res.error);
+    console.log("pipelinesList failed:", res.error);
   }
 }
 
@@ -87,7 +87,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createPipeline
+## create
 
 Create Pipeline
 
@@ -104,7 +104,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.pipelines.createPipeline({
+  const result = await criblControlPlane.pipelines.create({
     id: "<id>",
     conf: {
       asyncFuncTimeout: 905091,
@@ -144,7 +144,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { pipelinesCreatePipeline } from "cribl-control-plane/funcs/pipelinesCreatePipeline.js";
+import { pipelinesCreate } from "cribl-control-plane/funcs/pipelinesCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -156,7 +156,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await pipelinesCreatePipeline(criblControlPlane, {
+  const res = await pipelinesCreate(criblControlPlane, {
     id: "<id>",
     conf: {
       asyncFuncTimeout: 905091,
@@ -187,7 +187,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("pipelinesCreatePipeline failed:", res.error);
+    console.log("pipelinesCreate failed:", res.error);
   }
 }
 
@@ -214,7 +214,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getPipelineById
+## get
 
 Get Pipeline by ID
 
@@ -231,7 +231,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.pipelines.getPipelineById({
+  const result = await criblControlPlane.pipelines.get({
     id: "<id>",
   });
 
@@ -247,7 +247,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { pipelinesGetPipelineById } from "cribl-control-plane/funcs/pipelinesGetPipelineById.js";
+import { pipelinesGet } from "cribl-control-plane/funcs/pipelinesGet.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -259,14 +259,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await pipelinesGetPipelineById(criblControlPlane, {
+  const res = await pipelinesGet(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("pipelinesGetPipelineById failed:", res.error);
+    console.log("pipelinesGet failed:", res.error);
   }
 }
 
@@ -293,7 +293,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## updatePipelineById
+## update
 
 Update Pipeline
 
@@ -310,7 +310,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.pipelines.updatePipelineById({
+  const result = await criblControlPlane.pipelines.update({
     id: "<id>",
     pipeline: {
       id: "<id>",
@@ -353,7 +353,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { pipelinesUpdatePipelineById } from "cribl-control-plane/funcs/pipelinesUpdatePipelineById.js";
+import { pipelinesUpdate } from "cribl-control-plane/funcs/pipelinesUpdate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -365,7 +365,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await pipelinesUpdatePipelineById(criblControlPlane, {
+  const res = await pipelinesUpdate(criblControlPlane, {
     id: "<id>",
     pipeline: {
       id: "<id>",
@@ -399,7 +399,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("pipelinesUpdatePipelineById failed:", res.error);
+    console.log("pipelinesUpdate failed:", res.error);
   }
 }
 
@@ -426,7 +426,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## deletePipelineById
+## delete
 
 Delete Pipeline
 
@@ -443,7 +443,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.pipelines.deletePipelineById({
+  const result = await criblControlPlane.pipelines.delete({
     id: "<id>",
   });
 
@@ -459,7 +459,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { pipelinesDeletePipelineById } from "cribl-control-plane/funcs/pipelinesDeletePipelineById.js";
+import { pipelinesDelete } from "cribl-control-plane/funcs/pipelinesDelete.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -471,14 +471,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await pipelinesDeletePipelineById(criblControlPlane, {
+  const res = await pipelinesDelete(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("pipelinesDeletePipelineById failed:", res.error);
+    console.log("pipelinesDelete failed:", res.error);
   }
 }
 

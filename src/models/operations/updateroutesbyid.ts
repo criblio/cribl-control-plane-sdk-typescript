@@ -15,7 +15,7 @@ export type UpdateRoutesByIdRequest = {
    */
   id: string;
   /**
-   * Routes object to be updated
+   * Routes object
    */
   routes: models.Routes;
 };
