@@ -10,7 +10,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lake.createCriblLakeDatasetByLakeId({
+  const result = await criblControlPlane.lakeDatasets.create({
     lakeId: "<id>",
     criblLakeDataset: {
       acceleratedFields: [

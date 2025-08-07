@@ -8,9 +8,9 @@ Actions related to Pipelines
 ### Available Operations
 
 * [listPipeline](#listpipeline) - Get a list of Pipeline objects
-* [createPipeline](#createpipeline) - Create Pipeline
+* [create](#create) - Create a Pipeline
 * [getPipelineById](#getpipelinebyid) - Get Pipeline by ID
-* [updatePipelineById](#updatepipelinebyid) - Update Pipeline
+* [updatePipelineById](#updatepipelinebyid) - Update a Pipeline
 * [deletePipelineById](#deletepipelinebyid) - Delete Pipeline
 
 ## listPipeline
@@ -87,9 +87,9 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createPipeline
+## create
 
-Create Pipeline
+Create a Pipeline
 
 ### Example Usage
 
@@ -104,7 +104,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.pipelines.createPipeline({
+  const result = await criblControlPlane.pipelines.create({
     id: "<id>",
     conf: {
       asyncFuncTimeout: 905091,
@@ -144,7 +144,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { pipelinesCreatePipeline } from "cribl-control-plane/funcs/pipelinesCreatePipeline.js";
+import { pipelinesCreate } from "cribl-control-plane/funcs/pipelinesCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -156,7 +156,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await pipelinesCreatePipeline(criblControlPlane, {
+  const res = await pipelinesCreate(criblControlPlane, {
     id: "<id>",
     conf: {
       asyncFuncTimeout: 905091,
@@ -187,7 +187,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("pipelinesCreatePipeline failed:", res.error);
+    console.log("pipelinesCreate failed:", res.error);
   }
 }
 
@@ -295,7 +295,7 @@ run();
 
 ## updatePipelineById
 
-Update Pipeline
+Update a Pipeline
 
 ### Example Usage
 

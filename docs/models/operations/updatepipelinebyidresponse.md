@@ -1,6 +1,6 @@
 # UpdatePipelineByIdResponse
 
-a list of Pipeline objects
+a list of any objects
 
 ## Example Usage
 
