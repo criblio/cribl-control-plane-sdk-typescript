@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 8c1b980920cb179a1460873d8c229f89
-  docVersion: 4.14.0-alpha.1754409810030-3ae86276
+  docChecksum: 003ffb570b46c120ea1b3dfb734f1a3b
+  docVersion: 4.14.0-alpha.1754581489015-f79f2920
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.28
-  configChecksum: b4cc165ecf11421b2d3ba9e2e275391d
+  releaseVersion: 0.0.29
+  configChecksum: 51580e1de7a9f44304fb6d6efd0f9ac6
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -1838,88 +1838,87 @@ generatedFiles:
   - docs/models/writeaction.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
+  - docs/sdks/deployments/README.md
   - docs/sdks/destinations/README.md
-  - docs/sdks/distributed/README.md
   - docs/sdks/groups/README.md
-  - docs/sdks/health/README.md
-  - docs/sdks/lake/README.md
+  - docs/sdks/healthinfo/README.md
+  - docs/sdks/lakedatasets/README.md
+  - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
-  - docs/sdks/teams/README.md
   - docs/sdks/versioning/README.md
-  - docs/sdks/workers/README.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
-  - examples/lakeCreateCriblLakeDatasetByLakeId.example.ts
+  - examples/lakeDatasetsCreate.example.ts
   - examples/package.json
   - jsr.json
   - package.json
   - src/core.ts
-  - src/funcs/authLogin.ts
-  - src/funcs/destinationsCreateDestination.ts
-  - src/funcs/destinationsCreateDestinationTestById.ts
-  - src/funcs/destinationsDeleteDestinationById.ts
-  - src/funcs/destinationsDeleteDestinationPqById.ts
-  - src/funcs/destinationsGetDestinationById.ts
-  - src/funcs/destinationsGetDestinationPqById.ts
-  - src/funcs/destinationsGetDestinationSamplesById.ts
-  - src/funcs/destinationsListDestination.ts
-  - src/funcs/destinationsUpdateDestinationById.ts
-  - src/funcs/distributedGetSummary.ts
-  - src/funcs/groupsCreateProductsGroupsByProduct.ts
-  - src/funcs/groupsDeleteGroupsById.ts
-  - src/funcs/groupsGetGroupsAclById.ts
-  - src/funcs/groupsGetGroupsById.ts
-  - src/funcs/groupsGetGroupsConfigVersionById.ts
-  - src/funcs/groupsGetProductsGroupsByProduct.ts
-  - src/funcs/groupsUpdateGroupsById.ts
-  - src/funcs/groupsUpdateGroupsDeployById.ts
-  - src/funcs/healthGetHealthInfo.ts
-  - src/funcs/lakeCreateCriblLakeDatasetByLakeId.ts
-  - src/funcs/lakeDeleteCriblLakeDatasetByLakeIdAndId.ts
-  - src/funcs/lakeGetCriblLakeDatasetByLakeId.ts
-  - src/funcs/lakeGetCriblLakeDatasetByLakeIdAndId.ts
-  - src/funcs/lakeUpdateCriblLakeDatasetByLakeIdAndId.ts
-  - src/funcs/packsCreatePacks.ts
-  - src/funcs/packsDeletePacksById.ts
-  - src/funcs/packsGetPacks.ts
-  - src/funcs/packsUpdatePacksById.ts
-  - src/funcs/pipelinesCreatePipeline.ts
+  - src/funcs/authFetchToken.ts
+  - src/funcs/deploymentsGetSummary.ts
+  - src/funcs/destinationsClearPersistentQueue.ts
+  - src/funcs/destinationsCreate.ts
+  - src/funcs/destinationsCreateSampleData.ts
+  - src/funcs/destinationsDelete.ts
+  - src/funcs/destinationsGet.ts
+  - src/funcs/destinationsGetPersistentQueueStatus.ts
+  - src/funcs/destinationsGetSampleData.ts
+  - src/funcs/destinationsList.ts
+  - src/funcs/destinationsUpdate.ts
+  - src/funcs/groupsCreateByProduct.ts
+  - src/funcs/groupsDelete.ts
+  - src/funcs/groupsDeployCommits.ts
+  - src/funcs/groupsGet.ts
+  - src/funcs/groupsGetAccessControlList.ts
+  - src/funcs/groupsGetByProduct.ts
+  - src/funcs/groupsGetConfigVersion.ts
+  - src/funcs/groupsGetTeamAccessControlListByProduct.ts
+  - src/funcs/groupsUpdate.ts
+  - src/funcs/healthInfoGet.ts
+  - src/funcs/lakeDatasetsCreate.ts
+  - src/funcs/lakeDatasetsDelete.ts
+  - src/funcs/lakeDatasetsGet.ts
+  - src/funcs/lakeDatasetsList.ts
+  - src/funcs/lakeDatasetsUpdate.ts
+  - src/funcs/nodesGetCount.ts
+  - src/funcs/nodesList.ts
+  - src/funcs/nodesRestart.ts
+  - src/funcs/packsDelete.ts
+  - src/funcs/packsInstall.ts
+  - src/funcs/packsList.ts
+  - src/funcs/packsUpdate.ts
+  - src/funcs/pipelinesCreate.ts
   - src/funcs/pipelinesDeletePipelineById.ts
   - src/funcs/pipelinesGetPipelineById.ts
   - src/funcs/pipelinesListPipeline.ts
   - src/funcs/pipelinesUpdatePipelineById.ts
-  - src/funcs/routesCreateRoutesAppendById.ts
-  - src/funcs/routesGetRoutesById.ts
-  - src/funcs/routesListRoutes.ts
-  - src/funcs/routesUpdateRoutesById.ts
-  - src/funcs/sourcesCreateSource.ts
-  - src/funcs/sourcesCreateSourceHecTokenById.ts
-  - src/funcs/sourcesDeleteSourceById.ts
-  - src/funcs/sourcesGetSourceById.ts
-  - src/funcs/sourcesListSource.ts
-  - src/funcs/sourcesUpdateSourceById.ts
-  - src/funcs/sourcesUpdateSourceHecTokenByIdAndToken.ts
-  - src/funcs/teamsGetProductsGroupsAclTeamsByProductAndId.ts
-  - src/funcs/versioningCreateVersionCommit.ts
-  - src/funcs/versioningCreateVersionPush.ts
-  - src/funcs/versioningCreateVersionRevert.ts
-  - src/funcs/versioningCreateVersionSync.ts
-  - src/funcs/versioningCreateVersionUndo.ts
-  - src/funcs/versioningGetVersionBranch.ts
-  - src/funcs/versioningGetVersionCount.ts
-  - src/funcs/versioningGetVersionCurrentBranch.ts
-  - src/funcs/versioningGetVersionDiff.ts
-  - src/funcs/versioningGetVersionFiles.ts
-  - src/funcs/versioningGetVersionInfo.ts
-  - src/funcs/versioningGetVersionShow.ts
-  - src/funcs/versioningGetVersionStatus.ts
-  - src/funcs/workersGetSummaryWorkers.ts
-  - src/funcs/workersGetWorkers.ts
-  - src/funcs/workersUpdateWorkersRestart.ts
+  - src/funcs/routesAppend.ts
+  - src/funcs/routesGet.ts
+  - src/funcs/routesList.ts
+  - src/funcs/routesUpdate.ts
+  - src/funcs/sourcesCreate.ts
+  - src/funcs/sourcesCreateHecToken.ts
+  - src/funcs/sourcesDelete.ts
+  - src/funcs/sourcesGet.ts
+  - src/funcs/sourcesList.ts
+  - src/funcs/sourcesUpdate.ts
+  - src/funcs/sourcesUpdateHecTokenMetadata.ts
+  - src/funcs/versioningCleanWorkingDir.ts
+  - src/funcs/versioningCreateCommit.ts
+  - src/funcs/versioningGetBranch.ts
+  - src/funcs/versioningGetBranchName.ts
+  - src/funcs/versioningGetConfigStatus.ts
+  - src/funcs/versioningGetCurrentStatus.ts
+  - src/funcs/versioningGetDiff.ts
+  - src/funcs/versioningGetFileCount.ts
+  - src/funcs/versioningGetFileInfo.ts
+  - src/funcs/versioningPushCommit.ts
+  - src/funcs/versioningRevertCommit.ts
+  - src/funcs/versioningShowCommit.ts
+  - src/funcs/versioningSyncLocalRemote.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -2195,20 +2194,19 @@ generatedFiles:
   - src/models/updatehectokenrequest.ts
   - src/models/useraccesscontrollist.ts
   - src/sdk/auth.ts
+  - src/sdk/deployments.ts
   - src/sdk/destinations.ts
-  - src/sdk/distributed.ts
   - src/sdk/groups.ts
-  - src/sdk/health.ts
+  - src/sdk/healthinfo.ts
   - src/sdk/index.ts
-  - src/sdk/lake.ts
+  - src/sdk/lakedatasets.ts
+  - src/sdk/nodes.ts
   - src/sdk/packs.ts
   - src/sdk/pipelines.ts
   - src/sdk/routes.ts
   - src/sdk/sdk.ts
   - src/sdk/sources.ts
-  - src/sdk/teams.ts
   - src/sdk/versioning.ts
-  - src/sdk/workers.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts

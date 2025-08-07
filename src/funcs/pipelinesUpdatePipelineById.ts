@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update Pipeline
+ * Update a Pipeline
  *
  * @remarks
- * Update Pipeline
+ * Update a Pipeline
  */
 export function pipelinesUpdatePipelineById(
   client: CriblControlPlaneCore,

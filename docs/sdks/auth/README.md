@@ -7,9 +7,9 @@ Actions related to authentication. Do not use the /auth endpoints in Cribl.Cloud
 
 ### Available Operations
 
-* [login](#login) - Log in and obtain Auth token
+* [fetchToken](#fetchtoken) - Log in and fetch an authentication token
 
-## login
+## fetchToken
 
 This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
 
@@ -23,7 +23,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.auth.login({
+  const result = await criblControlPlane.auth.fetchToken({
     username: "Nikko.Connelly",
     password: "Ljp4BunfMR9hNyM",
   });
@@ -40,7 +40,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { authLogin } from "cribl-control-plane/funcs/authLogin.js";
+import { authFetchToken } from "cribl-control-plane/funcs/authFetchToken.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -49,7 +49,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await authLogin(criblControlPlane, {
+  const res = await authFetchToken(criblControlPlane, {
     username: "Nikko.Connelly",
     password: "Ljp4BunfMR9hNyM",
   });
@@ -57,7 +57,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("authLogin failed:", res.error);
+    console.log("authFetchToken failed:", res.error);
   }
 }
 
