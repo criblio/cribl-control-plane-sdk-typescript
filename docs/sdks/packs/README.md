@@ -7,12 +7,12 @@ Actions related to Packs
 
 ### Available Operations
 
-* [createPacks](#createpacks) - Install Pack
-* [getPacks](#getpacks) - Get info on packs
-* [deletePacksById](#deletepacksbyid) - Uninstall Pack from the system
-* [updatePacksById](#updatepacksbyid) - Upgrade Pack
+* [install](#install) - Install a Pack
+* [list](#list) - List all Packs
+* [delete](#delete) - Uninstall a Pack
+* [update](#update) - Update a Pack
 
-## createPacks
+## install
 
 Install Pack
 
@@ -29,7 +29,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.createPacks({
+  const result = await criblControlPlane.packs.install({
     allowCustomFunctions: false,
     author: "<value>",
     description: "premeditation coincide although",
@@ -70,7 +70,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { packsCreatePacks } from "cribl-control-plane/funcs/packsCreatePacks.js";
+import { packsInstall } from "cribl-control-plane/funcs/packsInstall.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -82,7 +82,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await packsCreatePacks(criblControlPlane, {
+  const res = await packsInstall(criblControlPlane, {
     allowCustomFunctions: false,
     author: "<value>",
     description: "premeditation coincide although",
@@ -114,7 +114,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("packsCreatePacks failed:", res.error);
+    console.log("packsInstall failed:", res.error);
   }
 }
 
@@ -141,7 +141,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getPacks
+## list
 
 Get info on packs
 
@@ -158,7 +158,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.getPacks({
+  const result = await criblControlPlane.packs.list({
     with: "<value>",
   });
 
@@ -174,7 +174,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { packsGetPacks } from "cribl-control-plane/funcs/packsGetPacks.js";
+import { packsList } from "cribl-control-plane/funcs/packsList.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -186,14 +186,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await packsGetPacks(criblControlPlane, {
+  const res = await packsList(criblControlPlane, {
     with: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("packsGetPacks failed:", res.error);
+    console.log("packsList failed:", res.error);
   }
 }
 
@@ -220,7 +220,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## deletePacksById
+## delete
 
 Uninstall Pack from the system
 
@@ -237,7 +237,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.deletePacksById({
+  const result = await criblControlPlane.packs.delete({
     id: "<id>",
   });
 
@@ -253,7 +253,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { packsDeletePacksById } from "cribl-control-plane/funcs/packsDeletePacksById.js";
+import { packsDelete } from "cribl-control-plane/funcs/packsDelete.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -265,14 +265,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await packsDeletePacksById(criblControlPlane, {
+  const res = await packsDelete(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("packsDeletePacksById failed:", res.error);
+    console.log("packsDelete failed:", res.error);
   }
 }
 
@@ -299,7 +299,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## updatePacksById
+## update
 
 Upgrade Pack
 
@@ -316,7 +316,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.updatePacksById({
+  const result = await criblControlPlane.packs.update({
     id: "<id>",
     source: "<value>",
     minor: "<value>",
@@ -335,7 +335,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { packsUpdatePacksById } from "cribl-control-plane/funcs/packsUpdatePacksById.js";
+import { packsUpdate } from "cribl-control-plane/funcs/packsUpdate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -347,7 +347,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await packsUpdatePacksById(criblControlPlane, {
+  const res = await packsUpdate(criblControlPlane, {
     id: "<id>",
     source: "<value>",
     minor: "<value>",
@@ -357,7 +357,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("packsUpdatePacksById failed:", res.error);
+    console.log("packsUpdate failed:", res.error);
   }
 }
 

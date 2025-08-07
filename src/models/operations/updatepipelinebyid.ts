@@ -21,7 +21,7 @@ export type UpdatePipelineByIdRequest = {
 };
 
 /**
- * a list of Pipeline objects
+ * a list of any objects
  */
 export type UpdatePipelineByIdResponse = {
   /**

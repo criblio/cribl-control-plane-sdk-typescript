@@ -7,12 +7,12 @@ Actions related to Routes
 
 ### Available Operations
 
-* [listRoutes](#listroutes) - Get a list of Routes objects
-* [getRoutesById](#getroutesbyid) - Get Routes by ID
-* [updateRoutesById](#updateroutesbyid) - Update Routes
-* [createRoutesAppendById](#createroutesappendbyid) - Appends routes to the end of the routing table
+* [list](#list) - Get a list of Routes objects
+* [get](#get) - Get Routes by ID
+* [update](#update) - Update Routes
+* [append](#append) - Append Routes to the end of the Routing table
 
-## listRoutes
+## list
 
 Get a list of Routes objects
 
@@ -29,7 +29,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.routes.listRoutes();
+  const result = await criblControlPlane.routes.list();
 
   console.log(result);
 }
@@ -43,7 +43,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { routesListRoutes } from "cribl-control-plane/funcs/routesListRoutes.js";
+import { routesList } from "cribl-control-plane/funcs/routesList.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,12 +55,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await routesListRoutes(criblControlPlane);
+  const res = await routesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("routesListRoutes failed:", res.error);
+    console.log("routesList failed:", res.error);
   }
 }
 
@@ -86,7 +86,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getRoutesById
+## get
 
 Get Routes by ID
 
@@ -103,7 +103,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.routes.getRoutesById({
+  const result = await criblControlPlane.routes.get({
     id: "<id>",
   });
 
@@ -119,7 +119,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { routesGetRoutesById } from "cribl-control-plane/funcs/routesGetRoutesById.js";
+import { routesGet } from "cribl-control-plane/funcs/routesGet.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -131,14 +131,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await routesGetRoutesById(criblControlPlane, {
+  const res = await routesGet(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("routesGetRoutesById failed:", res.error);
+    console.log("routesGet failed:", res.error);
   }
 }
 
@@ -165,7 +165,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## updateRoutesById
+## update
 
 Update Routes
 
@@ -182,7 +182,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.routes.updateRoutesById({
+  const result = await criblControlPlane.routes.update({
     id: "<id>",
     routes: {
       id: "<id>",
@@ -214,7 +214,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { routesUpdateRoutesById } from "cribl-control-plane/funcs/routesUpdateRoutesById.js";
+import { routesUpdate } from "cribl-control-plane/funcs/routesUpdate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -226,7 +226,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await routesUpdateRoutesById(criblControlPlane, {
+  const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
     routes: {
       id: "<id>",
@@ -249,7 +249,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("routesUpdateRoutesById failed:", res.error);
+    console.log("routesUpdate failed:", res.error);
   }
 }
 
@@ -276,7 +276,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createRoutesAppendById
+## append
 
 Appends routes to the end of the routing table
 
@@ -293,7 +293,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.routes.createRoutesAppendById({
+  const result = await criblControlPlane.routes.append({
     id: "<id>",
     requestBody: [],
   });
@@ -310,7 +310,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { routesCreateRoutesAppendById } from "cribl-control-plane/funcs/routesCreateRoutesAppendById.js";
+import { routesAppend } from "cribl-control-plane/funcs/routesAppend.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -322,7 +322,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await routesCreateRoutesAppendById(criblControlPlane, {
+  const res = await routesAppend(criblControlPlane, {
     id: "<id>",
     requestBody: [],
   });
@@ -330,7 +330,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("routesCreateRoutesAppendById failed:", res.error);
+    console.log("routesAppend failed:", res.error);
   }
 }
 
