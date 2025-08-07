@@ -7,21 +7,21 @@ Actions related to Versioning
 
 ### Available Operations
 
-* [getVersionBranch](#getversionbranch) - get the list of branches
-* [createVersionCommit](#createversioncommit) - create a new commit containing the current configs the given log message describing the changes.
-* [getVersionCount](#getversioncount) - get the count of files of changed
-* [getVersionCurrentBranch](#getversioncurrentbranch) - returns git branch that the config is checked out to, if any
-* [getVersionDiff](#getversiondiff) - get the textual diff for given commit
-* [getVersionFiles](#getversionfiles) - get the files changed
-* [getVersionInfo](#getversioninfo) - Get info about versioning availability
-* [createVersionPush](#createversionpush) - push the current configs to the remote repository.
-* [createVersionRevert](#createversionrevert) - revert a commit
-* [getVersionShow](#getversionshow) - get the log message and textual diff for given commit
-* [getVersionStatus](#getversionstatus) - get the the working tree status
-* [createVersionSync](#createversionsync) - syncs with remote repo via POST requests
-* [createVersionUndo](#createversionundo) - undo the last commit
+* [getBranch](#getbranch) - List all branches in the Git repository used for Cribl configuration
+* [createCommit](#createcommit) - Create a new commit for pending changes to the Cribl configuration
+* [getFileCount](#getfilecount) - Retrieve a count of files that changed since a commit
+* [getBranchName](#getbranchname) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+* [getDiff](#getdiff) - Retrieve the diff for a commit
+* [getFileInfo](#getfileinfo) - Retrieve the names and statuses of files that changed since a commit
+* [getConfigStatus](#getconfigstatus) - Retrieve the configuration and status for the Git integration
+* [pushCommit](#pushcommit) - Push a commit from the local repository to the remote repository
+* [revertCommit](#revertcommit) - Revert a commit in the local repository
+* [showCommit](#showcommit) - Retrieve the diff and log message for a commit
+* [getCurrentStatus](#getcurrentstatus) - Retrieve the status of the current working tree
+* [syncLocalRemote](#synclocalremote) - Synchronize the local branch with the remote repository
+* [cleanWorkingDir](#cleanworkingdir) - Undo the most recent commit and restore the local repository to the previous commit
 
-## getVersionBranch
+## getBranch
 
 get the list of branches
 
@@ -38,7 +38,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionBranch();
+  const result = await criblControlPlane.versioning.getBranch();
 
   console.log(result);
 }
@@ -52,7 +52,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetVersionBranch } from "cribl-control-plane/funcs/versioningGetVersionBranch.js";
+import { versioningGetBranch } from "cribl-control-plane/funcs/versioningGetBranch.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -64,12 +64,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionBranch(criblControlPlane);
+  const res = await versioningGetBranch(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetVersionBranch failed:", res.error);
+    console.log("versioningGetBranch failed:", res.error);
   }
 }
 
@@ -95,7 +95,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createVersionCommit
+## createCommit
 
 create a new commit containing the current configs the given log message describing the changes.
 
@@ -112,7 +112,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.createVersionCommit({
+  const result = await criblControlPlane.versioning.createCommit({
     effective: false,
     files: [
       "<value 1>",
@@ -133,7 +133,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningCreateVersionCommit } from "cribl-control-plane/funcs/versioningCreateVersionCommit.js";
+import { versioningCreateCommit } from "cribl-control-plane/funcs/versioningCreateCommit.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -145,7 +145,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningCreateVersionCommit(criblControlPlane, {
+  const res = await versioningCreateCommit(criblControlPlane, {
     effective: false,
     files: [
       "<value 1>",
@@ -157,7 +157,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningCreateVersionCommit failed:", res.error);
+    console.log("versioningCreateCommit failed:", res.error);
   }
 }
 
@@ -184,7 +184,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getVersionCount
+## getFileCount
 
 get the count of files of changed
 
@@ -201,7 +201,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionCount({
+  const result = await criblControlPlane.versioning.getFileCount({
     group: "<value>",
     id: "<id>",
   });
@@ -218,7 +218,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetVersionCount } from "cribl-control-plane/funcs/versioningGetVersionCount.js";
+import { versioningGetFileCount } from "cribl-control-plane/funcs/versioningGetFileCount.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -230,7 +230,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionCount(criblControlPlane, {
+  const res = await versioningGetFileCount(criblControlPlane, {
     group: "<value>",
     id: "<id>",
   });
@@ -238,7 +238,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetVersionCount failed:", res.error);
+    console.log("versioningGetFileCount failed:", res.error);
   }
 }
 
@@ -265,7 +265,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getVersionCurrentBranch
+## getBranchName
 
 returns git branch that the config is checked out to, if any
 
@@ -282,7 +282,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionCurrentBranch();
+  const result = await criblControlPlane.versioning.getBranchName();
 
   console.log(result);
 }
@@ -296,7 +296,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetVersionCurrentBranch } from "cribl-control-plane/funcs/versioningGetVersionCurrentBranch.js";
+import { versioningGetBranchName } from "cribl-control-plane/funcs/versioningGetBranchName.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -308,12 +308,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionCurrentBranch(criblControlPlane);
+  const res = await versioningGetBranchName(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetVersionCurrentBranch failed:", res.error);
+    console.log("versioningGetBranchName failed:", res.error);
   }
 }
 
@@ -339,7 +339,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getVersionDiff
+## getDiff
 
 get the textual diff for given commit
 
@@ -356,7 +356,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionDiff({
+  const result = await criblControlPlane.versioning.getDiff({
     commit: "<value>",
     group: "<value>",
     filename: "example.file",
@@ -375,7 +375,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetVersionDiff } from "cribl-control-plane/funcs/versioningGetVersionDiff.js";
+import { versioningGetDiff } from "cribl-control-plane/funcs/versioningGetDiff.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -387,7 +387,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionDiff(criblControlPlane, {
+  const res = await versioningGetDiff(criblControlPlane, {
     commit: "<value>",
     group: "<value>",
     filename: "example.file",
@@ -397,7 +397,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetVersionDiff failed:", res.error);
+    console.log("versioningGetDiff failed:", res.error);
   }
 }
 
@@ -424,7 +424,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getVersionFiles
+## getFileInfo
 
 get the files changed
 
@@ -441,7 +441,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionFiles({
+  const result = await criblControlPlane.versioning.getFileInfo({
     group: "<value>",
     id: "<id>",
   });
@@ -458,7 +458,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetVersionFiles } from "cribl-control-plane/funcs/versioningGetVersionFiles.js";
+import { versioningGetFileInfo } from "cribl-control-plane/funcs/versioningGetFileInfo.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -470,7 +470,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionFiles(criblControlPlane, {
+  const res = await versioningGetFileInfo(criblControlPlane, {
     group: "<value>",
     id: "<id>",
   });
@@ -478,7 +478,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetVersionFiles failed:", res.error);
+    console.log("versioningGetFileInfo failed:", res.error);
   }
 }
 
@@ -505,7 +505,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getVersionInfo
+## getConfigStatus
 
 Get info about versioning availability
 
@@ -522,7 +522,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionInfo();
+  const result = await criblControlPlane.versioning.getConfigStatus();
 
   console.log(result);
 }
@@ -536,7 +536,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetVersionInfo } from "cribl-control-plane/funcs/versioningGetVersionInfo.js";
+import { versioningGetConfigStatus } from "cribl-control-plane/funcs/versioningGetConfigStatus.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -548,12 +548,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionInfo(criblControlPlane);
+  const res = await versioningGetConfigStatus(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetVersionInfo failed:", res.error);
+    console.log("versioningGetConfigStatus failed:", res.error);
   }
 }
 
@@ -579,7 +579,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createVersionPush
+## pushCommit
 
 push the current configs to the remote repository.
 
@@ -596,7 +596,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.createVersionPush();
+  const result = await criblControlPlane.versioning.pushCommit();
 
   console.log(result);
 }
@@ -610,7 +610,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningCreateVersionPush } from "cribl-control-plane/funcs/versioningCreateVersionPush.js";
+import { versioningPushCommit } from "cribl-control-plane/funcs/versioningPushCommit.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -622,12 +622,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningCreateVersionPush(criblControlPlane);
+  const res = await versioningPushCommit(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningCreateVersionPush failed:", res.error);
+    console.log("versioningPushCommit failed:", res.error);
   }
 }
 
@@ -653,7 +653,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createVersionRevert
+## revertCommit
 
 revert a commit
 
@@ -670,7 +670,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.createVersionRevert({
+  const result = await criblControlPlane.versioning.revertCommit({
     group: "<value>",
     gitRevertParams: {
       commit: "<value>",
@@ -691,7 +691,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningCreateVersionRevert } from "cribl-control-plane/funcs/versioningCreateVersionRevert.js";
+import { versioningRevertCommit } from "cribl-control-plane/funcs/versioningRevertCommit.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -703,7 +703,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningCreateVersionRevert(criblControlPlane, {
+  const res = await versioningRevertCommit(criblControlPlane, {
     group: "<value>",
     gitRevertParams: {
       commit: "<value>",
@@ -715,7 +715,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningCreateVersionRevert failed:", res.error);
+    console.log("versioningRevertCommit failed:", res.error);
   }
 }
 
@@ -742,7 +742,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getVersionShow
+## showCommit
 
 get the log message and textual diff for given commit
 
@@ -759,7 +759,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionShow({
+  const result = await criblControlPlane.versioning.showCommit({
     commit: "<value>",
     group: "<value>",
     filename: "example.file",
@@ -778,7 +778,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetVersionShow } from "cribl-control-plane/funcs/versioningGetVersionShow.js";
+import { versioningShowCommit } from "cribl-control-plane/funcs/versioningShowCommit.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -790,7 +790,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionShow(criblControlPlane, {
+  const res = await versioningShowCommit(criblControlPlane, {
     commit: "<value>",
     group: "<value>",
     filename: "example.file",
@@ -800,7 +800,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetVersionShow failed:", res.error);
+    console.log("versioningShowCommit failed:", res.error);
   }
 }
 
@@ -827,7 +827,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getVersionStatus
+## getCurrentStatus
 
 get the the working tree status
 
@@ -844,7 +844,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getVersionStatus({
+  const result = await criblControlPlane.versioning.getCurrentStatus({
     group: "<value>",
   });
 
@@ -860,7 +860,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetVersionStatus } from "cribl-control-plane/funcs/versioningGetVersionStatus.js";
+import { versioningGetCurrentStatus } from "cribl-control-plane/funcs/versioningGetCurrentStatus.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -872,14 +872,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetVersionStatus(criblControlPlane, {
+  const res = await versioningGetCurrentStatus(criblControlPlane, {
     group: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetVersionStatus failed:", res.error);
+    console.log("versioningGetCurrentStatus failed:", res.error);
   }
 }
 
@@ -906,7 +906,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createVersionSync
+## syncLocalRemote
 
 syncs with remote repo via POST requests
 
@@ -923,7 +923,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.createVersionSync();
+  const result = await criblControlPlane.versioning.syncLocalRemote();
 
   console.log(result);
 }
@@ -937,7 +937,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningCreateVersionSync } from "cribl-control-plane/funcs/versioningCreateVersionSync.js";
+import { versioningSyncLocalRemote } from "cribl-control-plane/funcs/versioningSyncLocalRemote.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -949,12 +949,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningCreateVersionSync(criblControlPlane);
+  const res = await versioningSyncLocalRemote(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningCreateVersionSync failed:", res.error);
+    console.log("versioningSyncLocalRemote failed:", res.error);
   }
 }
 
@@ -980,7 +980,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createVersionUndo
+## cleanWorkingDir
 
 undo the last commit
 
@@ -997,7 +997,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.createVersionUndo({
+  const result = await criblControlPlane.versioning.cleanWorkingDir({
     group: "<value>",
   });
 
@@ -1013,7 +1013,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningCreateVersionUndo } from "cribl-control-plane/funcs/versioningCreateVersionUndo.js";
+import { versioningCleanWorkingDir } from "cribl-control-plane/funcs/versioningCleanWorkingDir.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -1025,14 +1025,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningCreateVersionUndo(criblControlPlane, {
+  const res = await versioningCleanWorkingDir(criblControlPlane, {
     group: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningCreateVersionUndo failed:", res.error);
+    console.log("versioningCleanWorkingDir failed:", res.error);
   }
 }
 

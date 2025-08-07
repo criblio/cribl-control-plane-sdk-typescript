@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 /**
- * a list of Pipeline objects
+ * a list of Pipelines objects
  */
 export type CreatePipelineResponse = {
   /**
