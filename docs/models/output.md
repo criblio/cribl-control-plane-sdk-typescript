@@ -1774,6 +1774,7 @@ const value: models.OutputGrafanaCloud = {
     "<value 1>",
     "<value 2>",
   ],
+  sendStructuredMetadata: false,
   responseRetrySettings: [
     {
       httpStatus: 6825.33,

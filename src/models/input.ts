@@ -365,7 +365,6 @@ export type Input =
   | InputOffice365Service
   | InputEventhub
   | InputExec
-  | InputGooglePubsub
   | InputCribl
   | InputSystemMetrics
   | InputSystemState
@@ -393,6 +392,7 @@ export type Input =
   | InputLoki
   | InputPrometheusRw
   | InputFirehose
+  | InputGooglePubsub
   | InputCriblTcp
   | InputCriblHttp
   | InputCriblLakeHttp
@@ -427,7 +427,6 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     InputOffice365Service$inboundSchema,
     InputEventhub$inboundSchema,
     InputExec$inboundSchema,
-    InputGooglePubsub$inboundSchema,
     InputCribl$inboundSchema,
     InputSystemMetrics$inboundSchema,
     InputSystemState$inboundSchema,
@@ -455,6 +454,7 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     InputLoki$inboundSchema,
     InputPrometheusRw$inboundSchema,
     InputFirehose$inboundSchema,
+    InputGooglePubsub$inboundSchema,
     InputCriblTcp$inboundSchema,
     InputCriblHttp$inboundSchema,
     InputCriblLakeHttp$inboundSchema,
@@ -489,7 +489,6 @@ export type Input$Outbound =
   | InputOffice365Service$Outbound
   | InputEventhub$Outbound
   | InputExec$Outbound
-  | InputGooglePubsub$Outbound
   | InputCribl$Outbound
   | InputSystemMetrics$Outbound
   | InputSystemState$Outbound
@@ -517,6 +516,7 @@ export type Input$Outbound =
   | InputLoki$Outbound
   | InputPrometheusRw$Outbound
   | InputFirehose$Outbound
+  | InputGooglePubsub$Outbound
   | InputCriblTcp$Outbound
   | InputCriblHttp$Outbound
   | InputCriblLakeHttp$Outbound
@@ -554,7 +554,6 @@ export const Input$outboundSchema: z.ZodType<
   InputOffice365Service$outboundSchema,
   InputEventhub$outboundSchema,
   InputExec$outboundSchema,
-  InputGooglePubsub$outboundSchema,
   InputCribl$outboundSchema,
   InputSystemMetrics$outboundSchema,
   InputSystemState$outboundSchema,
@@ -582,6 +581,7 @@ export const Input$outboundSchema: z.ZodType<
   InputLoki$outboundSchema,
   InputPrometheusRw$outboundSchema,
   InputFirehose$outboundSchema,
+  InputGooglePubsub$outboundSchema,
   InputCriblTcp$outboundSchema,
   InputCriblHttp$outboundSchema,
   InputCriblLakeHttp$outboundSchema,
