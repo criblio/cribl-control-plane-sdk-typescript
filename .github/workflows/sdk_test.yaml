@@ -17,7 +17,7 @@ permissions:
         type: string
 jobs:
   test:
-    uses: michalbiesek/sdk-generation-action/.github/workflows/sdk-publish.yaml@feat-fix-npm-read
+    uses: michalbiesek/sdk-generation-action/.github/workflows/sdk-test.yaml@feat-fix-npm-read
     with:
       target: ${{ github.event.inputs.target || 'cribl-control-plane' }}
     secrets:
