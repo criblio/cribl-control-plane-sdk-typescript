@@ -22,7 +22,7 @@ permissions:
       - unlabeled
 jobs:
   generate:
-    uses: michalbiesek/sdk-generation-action/.github/workflows/sdk-publish.yaml@feat-fix-npm-read
+    uses: michalbiesek/sdk-generation-action/.github/workflows/workflow-executor.yaml@feat-fix-npm-read
     with:
       force: ${{ github.event.inputs.force }}
       mode: pr
