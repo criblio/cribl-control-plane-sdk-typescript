@@ -669,6 +669,7 @@ const value: models.InputGrafana = {
   ipDenylistRegex: "/^$/",
   prometheusAPI: "/api/prom/push",
   lokiAPI: "/loki/api/v1/push",
+  extractStructuredMetadata: false,
   prometheusAuth: {
     authType: "none",
     username: "Evalyn_Gislason15",
@@ -1259,7 +1260,6 @@ const value: models.InputGooglePubsub = {
     },
   ],
   pq: {},
-  topicName: "<value>",
   subscriptionName: "<value>",
   region: "<value>",
   serviceAccountCredentials: "<value>",

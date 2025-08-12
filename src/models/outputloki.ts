@@ -247,6 +247,14 @@ export type OutputLoki = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * Add structured metadata fields from __structuredMetadata to each log. Key-value pairs must be strings.
+   */
+  sendStructuredMetadata?: boolean | undefined;
+  /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: OutputLokiBackpressureBehavior | undefined;
@@ -802,6 +810,8 @@ export const OutputLoki$inboundSchema: z.ZodType<
     OutputLokiTimeoutRetrySettings$inboundSchema
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  sendStructuredMetadata: z.boolean().default(false),
   onBackpressure: OutputLokiBackpressureBehavior$inboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
@@ -848,6 +858,8 @@ export type OutputLoki$Outbound = {
     | undefined;
   timeoutRetrySettings?: OutputLokiTimeoutRetrySettings$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  sendStructuredMetadata: boolean;
   onBackpressure: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
@@ -903,6 +915,8 @@ export const OutputLoki$outboundSchema: z.ZodType<
     OutputLokiTimeoutRetrySettings$outboundSchema
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  sendStructuredMetadata: z.boolean().default(false),
   onBackpressure: OutputLokiBackpressureBehavior$outboundSchema.default(
     "block",
   ),

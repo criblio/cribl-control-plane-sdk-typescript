@@ -19,7 +19,7 @@ Actions related to Versioning
 * [showCommit](#showcommit) - Retrieve the diff and log message for a commit
 * [getCurrentStatus](#getcurrentstatus) - Retrieve the status of the current working tree
 * [syncLocalRemote](#synclocalremote) - Synchronize the local branch with the remote repository
-* [cleanWorkingDir](#cleanworkingdir) - Undo the most recent commit and restore the local repository to the previous commit
+* [cleanWorkingDir](#cleanworkingdir) - Discard uncommitted (staged) changes
 
 ## getBranch
 
@@ -982,7 +982,7 @@ run();
 
 ## cleanWorkingDir
 
-undo the last commit
+Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
 
 ### Example Usage
 

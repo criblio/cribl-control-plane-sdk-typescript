@@ -15,6 +15,7 @@ import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
 import { Versioning } from "./versioning.js";
+import { Workers } from "./workers.js";
 
 export class CriblControlPlane extends ClientSDK {
   private _lakeDatasets?: LakeDatasets;
@@ -47,11 +48,6 @@ export class CriblControlPlane extends ClientSDK {
     return (this._auth ??= new Auth(this._options));
   }
 
-  private _nodes?: Nodes;
-  get nodes(): Nodes {
-    return (this._nodes ??= new Nodes(this._options));
-  }
-
   private _deployments?: Deployments;
   get deployments(): Deployments {
     return (this._deployments ??= new Deployments(this._options));
@@ -70,6 +66,16 @@ export class CriblControlPlane extends ClientSDK {
   private _versioning?: Versioning;
   get versioning(): Versioning {
     return (this._versioning ??= new Versioning(this._options));
+  }
+
+  private _workers?: Workers;
+  get workers(): Workers {
+    return (this._workers ??= new Workers(this._options));
+  }
+
+  private _nodes?: Nodes;
+  get nodes(): Nodes {
+    return (this._nodes ??= new Nodes(this._options));
   }
 
   private _groups?: Groups;

@@ -277,7 +277,6 @@ run();
 
 ### [nodes](docs/sdks/nodes/README.md)
 
-* [getCount](docs/sdks/nodes/README.md#getcount) - Retrieve a count of Worker and Edge Nodes
 * [list](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
 * [restart](docs/sdks/nodes/README.md#restart) - Restart Worker and Edge Nodes
 
@@ -290,11 +289,11 @@ run();
 
 ### [pipelines](docs/sdks/pipelines/README.md)
 
-* [listPipeline](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
+* [list](docs/sdks/pipelines/README.md#list) - List all Pipelines
 * [create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
-* [getPipelineById](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
-* [updatePipelineById](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update a Pipeline
-* [deletePipelineById](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
+* [get](docs/sdks/pipelines/README.md#get) - Retrieve a Pipeline
+* [update](docs/sdks/pipelines/README.md#update) - Update a Pipeline
+* [delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 
 ### [routes](docs/sdks/routes/README.md)
 
@@ -327,7 +326,11 @@ run();
 * [showCommit](docs/sdks/versioning/README.md#showcommit) - Retrieve the diff and log message for a commit
 * [getCurrentStatus](docs/sdks/versioning/README.md#getcurrentstatus) - Retrieve the status of the current working tree
 * [syncLocalRemote](docs/sdks/versioning/README.md#synclocalremote) - Synchronize the local branch with the remote repository
-* [cleanWorkingDir](docs/sdks/versioning/README.md#cleanworkingdir) - Undo the most recent commit and restore the local repository to the previous commit
+* [cleanWorkingDir](docs/sdks/versioning/README.md#cleanworkingdir) - Discard uncommitted (staged) changes
+
+### [workers](docs/sdks/workers/README.md)
+
+* [getSummaryWorkers](docs/sdks/workers/README.md#getsummaryworkers) - Retrieve a count of Worker and Edge Nodes
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -373,7 +376,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`lakeDatasetsGet`](docs/sdks/lakedatasets/README.md#get) - Retrieve a Lake Dataset in the specified Lake
 - [`lakeDatasetsList`](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets in the specified Lake
 - [`lakeDatasetsUpdate`](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset in the specified Lake
-- [`nodesGetCount`](docs/sdks/nodes/README.md#getcount) - Retrieve a count of Worker and Edge Nodes
 - [`nodesList`](docs/sdks/nodes/README.md#list) - Retrieve detailed metadata for Worker and Edge Nodes
 - [`nodesRestart`](docs/sdks/nodes/README.md#restart) - Restart Worker and Edge Nodes
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
@@ -381,10 +383,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Update a Pack
 - [`pipelinesCreate`](docs/sdks/pipelines/README.md#create) - Create a Pipeline
-- [`pipelinesDeletePipelineById`](docs/sdks/pipelines/README.md#deletepipelinebyid) - Delete Pipeline
-- [`pipelinesGetPipelineById`](docs/sdks/pipelines/README.md#getpipelinebyid) - Get Pipeline by ID
-- [`pipelinesListPipeline`](docs/sdks/pipelines/README.md#listpipeline) - Get a list of Pipeline objects
-- [`pipelinesUpdatePipelineById`](docs/sdks/pipelines/README.md#updatepipelinebyid) - Update a Pipeline
+- [`pipelinesDelete`](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
+- [`pipelinesGet`](docs/sdks/pipelines/README.md#get) - Retrieve a Pipeline
+- [`pipelinesList`](docs/sdks/pipelines/README.md#list) - List all Pipelines
+- [`pipelinesUpdate`](docs/sdks/pipelines/README.md#update) - Update a Pipeline
 - [`routesAppend`](docs/sdks/routes/README.md#append) - Append Routes to the end of the Routing table
 - [`routesGet`](docs/sdks/routes/README.md#get) - Get Routes by ID
 - [`routesList`](docs/sdks/routes/README.md#list) - Get a list of Routes objects
@@ -396,7 +398,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesList`](docs/sdks/sources/README.md#list) - List all Sources
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
 - [`sourcesUpdateHecTokenMetadata`](docs/sdks/sources/README.md#updatehectokenmetadata) - Update metadata for an HEC token for a Splunk HEC Source
-- [`versioningCleanWorkingDir`](docs/sdks/versioning/README.md#cleanworkingdir) - Undo the most recent commit and restore the local repository to the previous commit
+- [`versioningCleanWorkingDir`](docs/sdks/versioning/README.md#cleanworkingdir) - Discard uncommitted (staged) changes
 - [`versioningCreateCommit`](docs/sdks/versioning/README.md#createcommit) - Create a new commit for pending changes to the Cribl configuration
 - [`versioningGetBranch`](docs/sdks/versioning/README.md#getbranch) - List all branches in the Git repository used for Cribl configuration
 - [`versioningGetBranchName`](docs/sdks/versioning/README.md#getbranchname) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
@@ -409,6 +411,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versioningRevertCommit`](docs/sdks/versioning/README.md#revertcommit) - Revert a commit in the local repository
 - [`versioningShowCommit`](docs/sdks/versioning/README.md#showcommit) - Retrieve the diff and log message for a commit
 - [`versioningSyncLocalRemote`](docs/sdks/versioning/README.md#synclocalremote) - Synchronize the local branch with the remote repository
+- [`workersGetSummaryWorkers`](docs/sdks/workers/README.md#getsummaryworkers) - Retrieve a count of Worker and Edge Nodes
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

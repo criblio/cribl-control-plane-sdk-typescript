@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Update a Pipeline
  */
-export function pipelinesUpdatePipelineById(
+export function pipelinesUpdate(
   client: CriblControlPlaneCore,
   request: operations.UpdatePipelineByIdRequest,
   options?: RequestOptions,

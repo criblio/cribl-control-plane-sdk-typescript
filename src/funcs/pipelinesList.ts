@@ -3,10 +3,8 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -26,18 +24,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete Pipeline
+ * List all Pipelines
  *
  * @remarks
- * Delete Pipeline
+ * List all Pipelines
  */
-export function pipelinesDeletePipelineById(
+export function pipelinesList(
   client: CriblControlPlaneCore,
-  request: operations.DeletePipelineByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeletePipelineByIdResponse,
+    operations.ListPipelineResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -51,19 +48,17 @@ export function pipelinesDeletePipelineById(
 > {
   return new APIPromise($do(
     client,
-    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.DeletePipelineByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeletePipelineByIdResponse,
+      operations.ListPipelineResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -77,25 +72,7 @@ async function $do(
     APICall,
   ]
 > {
-  const parsed = safeParse(
-    request,
-    (value) => operations.DeletePipelineByIdRequest$outboundSchema.parse(value),
-    "Input validation failed",
-  );
-  if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
-  }
-  const payload = parsed.value;
-  const body = null;
-
-  const pathParams = {
-    id: encodeSimple("id", payload.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc("/pipelines/{id}")(pathParams);
+  const path = pathToFunc("/pipelines")();
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -107,7 +84,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "deletePipelineById",
+    operationID: "listPipeline",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -121,11 +98,10 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "DELETE",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -150,7 +126,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeletePipelineByIdResponse,
+    operations.ListPipelineResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -161,7 +137,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DeletePipelineByIdResponse$inboundSchema),
+    M.json(200, operations.ListPipelineResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),
