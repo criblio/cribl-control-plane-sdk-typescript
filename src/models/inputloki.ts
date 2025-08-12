@@ -263,6 +263,10 @@ export type InputLoki = {
    */
   lokiAPI?: string | undefined;
   /**
+   * Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
+   */
+  extractStructuredMetadata?: boolean | undefined;
+  /**
    * Loki logs authentication type
    */
   authType?: InputLokiAuthenticationType | undefined;
@@ -859,6 +863,7 @@ export const InputLoki$inboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
+  extractStructuredMetadata: z.boolean().default(false),
   authType: InputLokiAuthenticationType$inboundSchema.default("none"),
   metadata: z.array(z.lazy(() => InputLokiMetadatum$inboundSchema)).optional(),
   description: z.string().optional(),
@@ -906,6 +911,7 @@ export type InputLoki$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   lokiAPI: string;
+  extractStructuredMetadata: boolean;
   authType: string;
   metadata?: Array<InputLokiMetadatum$Outbound> | undefined;
   description?: string | undefined;
@@ -956,6 +962,7 @@ export const InputLoki$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
+  extractStructuredMetadata: z.boolean().default(false),
   authType: InputLokiAuthenticationType$outboundSchema.default("none"),
   metadata: z.array(z.lazy(() => InputLokiMetadatum$outboundSchema)).optional(),
   description: z.string().optional(),

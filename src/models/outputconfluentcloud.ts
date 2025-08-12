@@ -119,6 +119,20 @@ export type OutputConfluentCloudCompression = ClosedEnum<
 >;
 
 /**
+ * The schema format used to encode and decode event data
+ */
+export const OutputConfluentCloudSchemaType = {
+  Avro: "avro",
+  Json: "json",
+} as const;
+/**
+ * The schema format used to encode and decode event data
+ */
+export type OutputConfluentCloudSchemaType = ClosedEnum<
+  typeof OutputConfluentCloudSchemaType
+>;
+
+/**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
  */
 export type OutputConfluentCloudAuth = {
@@ -194,6 +208,10 @@ export type OutputConfluentCloudKafkaSchemaRegistryAuthentication = {
    * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
    */
   schemaRegistryURL?: string | undefined;
+  /**
+   * The schema format used to encode and decode event data
+   */
+  schemaType?: OutputConfluentCloudSchemaType | undefined;
   /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
@@ -662,6 +680,27 @@ export namespace OutputConfluentCloudCompression$ {
 }
 
 /** @internal */
+export const OutputConfluentCloudSchemaType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudSchemaType
+> = z.nativeEnum(OutputConfluentCloudSchemaType);
+
+/** @internal */
+export const OutputConfluentCloudSchemaType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputConfluentCloudSchemaType
+> = OutputConfluentCloudSchemaType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputConfluentCloudSchemaType$ {
+  /** @deprecated use `OutputConfluentCloudSchemaType$inboundSchema` instead. */
+  export const inboundSchema = OutputConfluentCloudSchemaType$inboundSchema;
+  /** @deprecated use `OutputConfluentCloudSchemaType$outboundSchema` instead. */
+  export const outboundSchema = OutputConfluentCloudSchemaType$outboundSchema;
+}
+
+/** @internal */
 export const OutputConfluentCloudAuth$inboundSchema: z.ZodType<
   OutputConfluentCloudAuth,
   z.ZodTypeDef,
@@ -879,6 +918,7 @@ export const OutputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
+    schemaType: OutputConfluentCloudSchemaType$inboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
@@ -894,6 +934,7 @@ export const OutputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema
 export type OutputConfluentCloudKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
+  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -914,6 +955,7 @@ export const OutputConfluentCloudKafkaSchemaRegistryAuthentication$outboundSchem
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
+    schemaType: OutputConfluentCloudSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),

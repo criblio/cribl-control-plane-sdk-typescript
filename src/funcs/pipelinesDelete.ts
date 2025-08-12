@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Pipeline by ID
+ * Delete a Pipeline
  *
  * @remarks
- * Get Pipeline by ID
+ * Delete a Pipeline
  */
-export function pipelinesGetPipelineById(
+export function pipelinesDelete(
   client: CriblControlPlaneCore,
-  request: operations.GetPipelineByIdRequest,
+  request: operations.DeletePipelineByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetPipelineByIdResponse,
+    operations.DeletePipelineByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function pipelinesGetPipelineById(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetPipelineByIdRequest,
+  request: operations.DeletePipelineByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetPipelineByIdResponse,
+      operations.DeletePipelineByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,7 +79,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.GetPipelineByIdRequest$outboundSchema.parse(value),
+    (value) => operations.DeletePipelineByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -107,7 +107,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getPipelineById",
+    operationID: "deletePipelineById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -121,7 +121,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "DELETE",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -150,7 +150,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetPipelineByIdResponse,
+    operations.DeletePipelineByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -161,7 +161,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetPipelineByIdResponse$inboundSchema),
+    M.json(200, operations.DeletePipelineByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

@@ -131,13 +131,17 @@ export type InputGooglePubsub = {
   connections?: Array<InputGooglePubsubConnection> | undefined;
   pq?: InputGooglePubsubPq | undefined;
   /**
-   * ID of the topic to receive events from
+   * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
    */
-  topicName: string;
+  topicName?: string | undefined;
   /**
-   * ID of the subscription to use when receiving events
+   * ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
    */
   subscriptionName: string;
+  /**
+   * Use when the subscription is not created by this Source and topic is not known
+   */
+  monitorSubscription?: boolean | undefined;
   /**
    * Create topic if it does not exist
    */
@@ -476,8 +480,9 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   connections: z.array(z.lazy(() => InputGooglePubsubConnection$inboundSchema))
     .optional(),
   pq: z.lazy(() => InputGooglePubsubPq$inboundSchema).optional(),
-  topicName: z.string(),
+  topicName: z.string().default("cribl"),
   subscriptionName: z.string(),
+  monitorSubscription: z.boolean().default(false),
   createTopic: z.boolean().default(false),
   createSubscription: z.boolean().default(true),
   region: z.string().optional(),
@@ -508,6 +513,7 @@ export type InputGooglePubsub$Outbound = {
   pq?: InputGooglePubsubPq$Outbound | undefined;
   topicName: string;
   subscriptionName: string;
+  monitorSubscription: boolean;
   createTopic: boolean;
   createSubscription: boolean;
   region?: string | undefined;
@@ -539,8 +545,9 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   connections: z.array(z.lazy(() => InputGooglePubsubConnection$outboundSchema))
     .optional(),
   pq: z.lazy(() => InputGooglePubsubPq$outboundSchema).optional(),
-  topicName: z.string(),
+  topicName: z.string().default("cribl"),
   subscriptionName: z.string(),
+  monitorSubscription: z.boolean().default(false),
   createTopic: z.boolean().default(false),
   createSubscription: z.boolean().default(true),
   region: z.string().optional(),
