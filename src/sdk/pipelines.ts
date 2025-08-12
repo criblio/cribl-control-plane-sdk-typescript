@@ -3,10 +3,10 @@
  */
 
 import { pipelinesCreate } from "../funcs/pipelinesCreate.js";
-import { pipelinesDeletePipelineById } from "../funcs/pipelinesDeletePipelineById.js";
-import { pipelinesGetPipelineById } from "../funcs/pipelinesGetPipelineById.js";
-import { pipelinesListPipeline } from "../funcs/pipelinesListPipeline.js";
-import { pipelinesUpdatePipelineById } from "../funcs/pipelinesUpdatePipelineById.js";
+import { pipelinesDelete } from "../funcs/pipelinesDelete.js";
+import { pipelinesGet } from "../funcs/pipelinesGet.js";
+import { pipelinesList } from "../funcs/pipelinesList.js";
+import { pipelinesUpdate } from "../funcs/pipelinesUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -14,15 +14,15 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Pipelines extends ClientSDK {
   /**
-   * Get a list of Pipeline objects
+   * List all Pipelines
    *
    * @remarks
-   * Get a list of Pipeline objects
+   * List all Pipelines
    */
-  async listPipeline(
+  async list(
     options?: RequestOptions,
   ): Promise<operations.ListPipelineResponse> {
-    return unwrapAsync(pipelinesListPipeline(
+    return unwrapAsync(pipelinesList(
       this,
       options,
     ));
@@ -46,16 +46,16 @@ export class Pipelines extends ClientSDK {
   }
 
   /**
-   * Get Pipeline by ID
+   * Retrieve a Pipeline
    *
    * @remarks
-   * Get Pipeline by ID
+   * Retrieve a Pipeline
    */
-  async getPipelineById(
+  async get(
     request: operations.GetPipelineByIdRequest,
     options?: RequestOptions,
   ): Promise<operations.GetPipelineByIdResponse> {
-    return unwrapAsync(pipelinesGetPipelineById(
+    return unwrapAsync(pipelinesGet(
       this,
       request,
       options,
@@ -68,11 +68,11 @@ export class Pipelines extends ClientSDK {
    * @remarks
    * Update a Pipeline
    */
-  async updatePipelineById(
+  async update(
     request: operations.UpdatePipelineByIdRequest,
     options?: RequestOptions,
   ): Promise<operations.UpdatePipelineByIdResponse> {
-    return unwrapAsync(pipelinesUpdatePipelineById(
+    return unwrapAsync(pipelinesUpdate(
       this,
       request,
       options,
@@ -80,16 +80,16 @@ export class Pipelines extends ClientSDK {
   }
 
   /**
-   * Delete Pipeline
+   * Delete a Pipeline
    *
    * @remarks
-   * Delete Pipeline
+   * Delete a Pipeline
    */
-  async deletePipelineById(
+  async delete(
     request: operations.DeletePipelineByIdRequest,
     options?: RequestOptions,
   ): Promise<operations.DeletePipelineByIdResponse> {
-    return unwrapAsync(pipelinesDeletePipelineById(
+    return unwrapAsync(pipelinesDelete(
       this,
       request,
       options,

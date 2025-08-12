@@ -74,6 +74,18 @@ export type InputKafkaPq = {
 };
 
 /**
+ * The schema format used to encode and decode event data
+ */
+export const InputKafkaSchemaType = {
+  Avro: "avro",
+  Json: "json",
+} as const;
+/**
+ * The schema format used to encode and decode event data
+ */
+export type InputKafkaSchemaType = ClosedEnum<typeof InputKafkaSchemaType>;
+
+/**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
  */
 export type InputKafkaAuth = {
@@ -147,6 +159,10 @@ export type InputKafkaKafkaSchemaRegistryAuthentication = {
    * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
    */
   schemaRegistryURL?: string | undefined;
+  /**
+   * The schema format used to encode and decode event data
+   */
+  schemaType?: InputKafkaSchemaType | undefined;
   /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
@@ -577,6 +593,27 @@ export function inputKafkaPqFromJSON(
 }
 
 /** @internal */
+export const InputKafkaSchemaType$inboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaSchemaType
+> = z.nativeEnum(InputKafkaSchemaType);
+
+/** @internal */
+export const InputKafkaSchemaType$outboundSchema: z.ZodNativeEnum<
+  typeof InputKafkaSchemaType
+> = InputKafkaSchemaType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputKafkaSchemaType$ {
+  /** @deprecated use `InputKafkaSchemaType$inboundSchema` instead. */
+  export const inboundSchema = InputKafkaSchemaType$inboundSchema;
+  /** @deprecated use `InputKafkaSchemaType$outboundSchema` instead. */
+  export const outboundSchema = InputKafkaSchemaType$outboundSchema;
+}
+
+/** @internal */
 export const InputKafkaAuth$inboundSchema: z.ZodType<
   InputKafkaAuth,
   z.ZodTypeDef,
@@ -783,6 +820,7 @@ export const InputKafkaKafkaSchemaRegistryAuthentication$inboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
+    schemaType: InputKafkaSchemaType$inboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
@@ -796,6 +834,7 @@ export const InputKafkaKafkaSchemaRegistryAuthentication$inboundSchema:
 export type InputKafkaKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
+  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -812,6 +851,7 @@ export const InputKafkaKafkaSchemaRegistryAuthentication$outboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
+    schemaType: InputKafkaSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),

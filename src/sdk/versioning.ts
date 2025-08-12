@@ -216,10 +216,10 @@ export class Versioning extends ClientSDK {
   }
 
   /**
-   * Undo the most recent commit and restore the local repository to the previous commit
+   * Discard uncommitted (staged) changes
    *
    * @remarks
-   * undo the last commit
+   * Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
    */
   async cleanWorkingDir(
     request?: operations.CreateVersionUndoRequest | undefined,

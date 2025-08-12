@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Undo the most recent commit and restore the local repository to the previous commit
+ * Discard uncommitted (staged) changes
  *
  * @remarks
- * undo the last commit
+ * Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
  */
 export function versioningCleanWorkingDir(
   client: CriblControlPlaneCore,

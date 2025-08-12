@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * get worker and edge nodes count
  */
-export function nodesGetCount(
+export function workersGetSummaryWorkers(
   client: CriblControlPlaneCore,
   request?: operations.GetSummaryWorkersRequest | undefined,
   options?: RequestOptions,

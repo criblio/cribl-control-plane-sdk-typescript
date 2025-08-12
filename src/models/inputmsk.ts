@@ -82,6 +82,18 @@ export type InputMskMetadatum = {
 };
 
 /**
+ * The schema format used to encode and decode event data
+ */
+export const InputMskSchemaType = {
+  Avro: "avro",
+  Json: "json",
+} as const;
+/**
+ * The schema format used to encode and decode event data
+ */
+export type InputMskSchemaType = ClosedEnum<typeof InputMskSchemaType>;
+
+/**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
  */
 export type InputMskAuth = {
@@ -155,6 +167,10 @@ export type InputMskKafkaSchemaRegistryAuthentication = {
    * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
    */
   schemaRegistryURL?: string | undefined;
+  /**
+   * The schema format used to encode and decode event data
+   */
+  schemaType?: InputMskSchemaType | undefined;
   /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
@@ -683,6 +699,27 @@ export function inputMskMetadatumFromJSON(
 }
 
 /** @internal */
+export const InputMskSchemaType$inboundSchema: z.ZodNativeEnum<
+  typeof InputMskSchemaType
+> = z.nativeEnum(InputMskSchemaType);
+
+/** @internal */
+export const InputMskSchemaType$outboundSchema: z.ZodNativeEnum<
+  typeof InputMskSchemaType
+> = InputMskSchemaType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputMskSchemaType$ {
+  /** @deprecated use `InputMskSchemaType$inboundSchema` instead. */
+  export const inboundSchema = InputMskSchemaType$inboundSchema;
+  /** @deprecated use `InputMskSchemaType$outboundSchema` instead. */
+  export const outboundSchema = InputMskSchemaType$outboundSchema;
+}
+
+/** @internal */
 export const InputMskAuth$inboundSchema: z.ZodType<
   InputMskAuth,
   z.ZodTypeDef,
@@ -888,6 +925,7 @@ export const InputMskKafkaSchemaRegistryAuthentication$inboundSchema: z.ZodType<
 > = z.object({
   disabled: z.boolean().default(true),
   schemaRegistryURL: z.string().default("http://localhost:8081"),
+  schemaType: InputMskSchemaType$inboundSchema.default("avro"),
   connectionTimeout: z.number().default(30000),
   requestTimeout: z.number().default(30000),
   maxRetries: z.number().default(1),
@@ -901,6 +939,7 @@ export const InputMskKafkaSchemaRegistryAuthentication$inboundSchema: z.ZodType<
 export type InputMskKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
+  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -917,6 +956,7 @@ export const InputMskKafkaSchemaRegistryAuthentication$outboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
+    schemaType: InputMskSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),

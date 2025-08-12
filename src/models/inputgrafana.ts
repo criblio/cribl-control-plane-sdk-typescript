@@ -414,6 +414,10 @@ export type InputGrafanaGrafana2 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
+  /**
+   * Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
+   */
+  extractStructuredMetadata?: boolean | undefined;
   prometheusAuth?: InputGrafanaPrometheusAuth2 | undefined;
   lokiAuth?: InputGrafanaLokiAuth2 | undefined;
   /**
@@ -829,6 +833,10 @@ export type InputGrafanaGrafana1 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
+  /**
+   * Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
+   */
+  extractStructuredMetadata?: boolean | undefined;
   prometheusAuth?: InputGrafanaPrometheusAuth1 | undefined;
   lokiAuth?: InputGrafanaLokiAuth1 | undefined;
   /**
@@ -1728,6 +1736,7 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
+  extractStructuredMetadata: z.boolean().default(false),
   prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth2$inboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => InputGrafanaLokiAuth2$inboundSchema).optional(),
@@ -1764,6 +1773,7 @@ export type InputGrafanaGrafana2$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
+  extractStructuredMetadata: boolean;
   prometheusAuth?: InputGrafanaPrometheusAuth2$Outbound | undefined;
   lokiAuth?: InputGrafanaLokiAuth2$Outbound | undefined;
   metadata?: Array<InputGrafanaMetadatum2$Outbound> | undefined;
@@ -1804,6 +1814,7 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
+  extractStructuredMetadata: z.boolean().default(false),
   prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth2$outboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => InputGrafanaLokiAuth2$outboundSchema).optional(),
@@ -2731,6 +2742,7 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
+  extractStructuredMetadata: z.boolean().default(false),
   prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth1$inboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => InputGrafanaLokiAuth1$inboundSchema).optional(),
@@ -2767,6 +2779,7 @@ export type InputGrafanaGrafana1$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
+  extractStructuredMetadata: boolean;
   prometheusAuth?: InputGrafanaPrometheusAuth1$Outbound | undefined;
   lokiAuth?: InputGrafanaLokiAuth1$Outbound | undefined;
   metadata?: Array<InputGrafanaMetadatum1$Outbound> | undefined;
@@ -2807,6 +2820,7 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
+  extractStructuredMetadata: z.boolean().default(false),
   prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth1$outboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => InputGrafanaLokiAuth1$outboundSchema).optional(),
