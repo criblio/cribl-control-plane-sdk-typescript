@@ -185,7 +185,7 @@ export type OutputDynatraceHttp = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputDynatraceHttpType | undefined;
+  type: OutputDynatraceHttpType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -839,7 +839,7 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDynatraceHttpType$inboundSchema.optional(),
+  type: OutputDynatraceHttpType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -898,7 +898,7 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDynatraceHttp$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -953,7 +953,7 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   OutputDynatraceHttp
 > = z.object({
   id: z.string().optional(),
-  type: OutputDynatraceHttpType$outboundSchema.optional(),
+  type: OutputDynatraceHttpType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

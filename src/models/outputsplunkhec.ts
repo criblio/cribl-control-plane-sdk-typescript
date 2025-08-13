@@ -155,7 +155,7 @@ export type OutputSplunkHec = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputSplunkHecType;
   /**
    * Pipeline to process data before sending out to this output
@@ -770,7 +770,7 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputSplunkHecType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -826,7 +826,7 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputSplunkHec$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -879,7 +879,7 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputSplunkHec
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputSplunkHecType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

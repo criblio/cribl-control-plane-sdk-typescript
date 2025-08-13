@@ -3,9 +3,12 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { CriblControlPlaneError } from "../models/errors/criblcontrolplaneerror.js";
 import {
@@ -18,20 +21,24 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve health status of the server
+ * Retrieve the names and statuses of files that changed since a commit
+ *
+ * @remarks
+ * get the files changed
  */
-export function healthInfoGet(
+export function versioningListFiles(
   client: CriblControlPlaneCore,
+  request?: operations.GetVersionFilesRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.HealthStatus,
-    | errors.HealthStatusError
+    operations.GetVersionFilesResponse,
+    | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
     | ConnectionError
@@ -44,18 +51,20 @@ export function healthInfoGet(
 > {
   return new APIPromise($do(
     client,
+    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
+  request?: operations.GetVersionFilesRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      models.HealthStatus,
-      | errors.HealthStatusError
+      operations.GetVersionFilesResponse,
+      | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
       | ConnectionError
@@ -68,21 +77,41 @@ async function $do(
     APICall,
   ]
 > {
-  const path = pathToFunc("/health")();
+  const parsed = safeParse(
+    request,
+    (value) =>
+      operations.GetVersionFilesRequest$outboundSchema.optional().parse(value),
+    "Input validation failed",
+  );
+  if (!parsed.ok) {
+    return [parsed, { status: "invalid" }];
+  }
+  const payload = parsed.value;
+  const body = null;
+
+  const path = pathToFunc("/version/files")();
+
+  const query = encodeFormQuery({
+    "group": payload?.group,
+    "ID": payload?.ID,
+  });
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
   }));
 
+  const securityInput = await extractSecurity(client._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getHealthInfo",
+    operationID: "getVersionFiles",
     oAuth2Scopes: [],
 
-    resolvedSecurity: null,
+    resolvedSecurity: requestSecurity,
 
-    securitySource: null,
+    securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
       || { strategy: "none" },
@@ -90,10 +119,13 @@ async function $do(
   };
 
   const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
+    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -104,7 +136,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["420", "4XX", "5XX"],
+    errorCodes: ["401", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -118,8 +150,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.HealthStatus,
-    | errors.HealthStatusError
+    operations.GetVersionFilesResponse,
+    | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
     | ConnectionError
@@ -129,9 +161,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.HealthStatus$inboundSchema),
-    M.jsonErr(420, errors.HealthStatusError$inboundSchema),
-    M.fail("4XX"),
+    M.json(200, operations.GetVersionFilesResponse$inboundSchema),
+    M.jsonErr(500, errors.ErrorT$inboundSchema),
+    M.fail([401, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

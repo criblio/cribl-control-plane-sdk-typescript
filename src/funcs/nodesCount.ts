@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the diff and log message for a commit
+ * Retrieve a count of Worker and Edge Nodes
  *
  * @remarks
- * get the log message and textual diff for given commit
+ * get worker and edge nodes count
  */
-export function versioningShowCommit(
+export function nodesCount(
   client: CriblControlPlaneCore,
-  request?: operations.GetVersionShowRequest | undefined,
+  request?: operations.GetSummaryWorkersRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetVersionShowResponse,
+    operations.GetSummaryWorkersResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function versioningShowCommit(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.GetVersionShowRequest | undefined,
+  request?: operations.GetSummaryWorkersRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetVersionShowResponse,
+      operations.GetSummaryWorkersResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,9 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetVersionShowRequest$outboundSchema.optional().parse(value),
+      operations.GetSummaryWorkersRequest$outboundSchema.optional().parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -89,13 +91,10 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/version/show")();
+  const path = pathToFunc("/master/summary/workers")();
 
   const query = encodeFormQuery({
-    "commit": payload?.commit,
-    "diffLineLimit": payload?.diffLineLimit,
-    "filename": payload?.filename,
-    "group": payload?.group,
+    "filterExp": payload?.filterExp,
   });
 
   const headers = new Headers(compactMap({
@@ -108,7 +107,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getVersionShow",
+    operationID: "getSummaryWorkers",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -152,7 +151,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetVersionShowResponse,
+    operations.GetSummaryWorkersResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -163,7 +162,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetVersionShowResponse$inboundSchema),
+    M.json(200, operations.GetSummaryWorkersResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

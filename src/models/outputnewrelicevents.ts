@@ -164,7 +164,7 @@ export type OutputNewrelicEvents = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputNewrelicEventsType | undefined;
+  type: OutputNewrelicEventsType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -743,7 +743,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputNewrelicEventsType$inboundSchema.optional(),
+  type: OutputNewrelicEventsType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -796,7 +796,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputNewrelicEvents$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -846,7 +846,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   OutputNewrelicEvents
 > = z.object({
   id: z.string().optional(),
-  type: OutputNewrelicEventsType$outboundSchema.optional(),
+  type: OutputNewrelicEventsType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

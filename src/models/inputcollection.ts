@@ -99,7 +99,7 @@ export type InputCollection = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type?: InputCollectionType | undefined;
   disabled?: boolean | undefined;
   /**
@@ -465,7 +465,7 @@ export const InputCollection$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputCollectionType$inboundSchema.default("collection"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -487,7 +487,7 @@ export const InputCollection$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputCollection$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -511,7 +511,7 @@ export const InputCollection$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCollection
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputCollectionType$outboundSchema.default("collection"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

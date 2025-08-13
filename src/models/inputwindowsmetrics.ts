@@ -323,7 +323,7 @@ export type InputWindowsMetrics = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputWindowsMetricsType;
   disabled?: boolean | undefined;
   /**
@@ -1389,7 +1389,7 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputWindowsMetricsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -1414,7 +1414,7 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputWindowsMetrics$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -1439,7 +1439,7 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWindowsMetrics
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputWindowsMetricsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

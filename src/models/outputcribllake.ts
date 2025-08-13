@@ -122,7 +122,7 @@ export type OutputCriblLake = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputCriblLakeType;
   /**
    * Pipeline to process data before sending out to this output
@@ -490,7 +490,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputCriblLakeType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -548,7 +548,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputCriblLake$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -601,7 +601,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputCriblLake
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputCriblLakeType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

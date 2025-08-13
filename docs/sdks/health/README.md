@@ -1,17 +1,17 @@
-# Workers
-(*workers*)
+# Health
+(*health*)
 
 ## Overview
 
-Actions related to Workers
+Actions related to REST server health
 
 ### Available Operations
 
-* [getSummaryWorkers](#getsummaryworkers) - Retrieve a count of Worker and Edge Nodes
+* [get](#get) - Retrieve health status of the server
 
-## getSummaryWorkers
+## get
 
-get worker and edge nodes count
+Retrieve health status of the server
 
 ### Example Usage
 
@@ -20,15 +20,10 @@ import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
 });
 
 async function run() {
-  const result = await criblControlPlane.workers.getSummaryWorkers({
-    filterExp: "<value>",
-  });
+  const result = await criblControlPlane.health.get();
 
   console.log(result);
 }
@@ -42,26 +37,21 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { workersGetSummaryWorkers } from "cribl-control-plane/funcs/workersGetSummaryWorkers.js";
+import { healthGet } from "cribl-control-plane/funcs/healthGet.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
   serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
 });
 
 async function run() {
-  const res = await workersGetSummaryWorkers(criblControlPlane, {
-    filterExp: "<value>",
-  });
+  const res = await healthGet(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("workersGetSummaryWorkers failed:", res.error);
+    console.log("healthGet failed:", res.error);
   }
 }
 
@@ -72,18 +62,17 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetSummaryWorkersRequest](../../models/operations/getsummaryworkersrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetSummaryWorkersResponse](../../models/operations/getsummaryworkersresponse.md)\>**
+**Promise\<[models.HealthStatus](../../models/healthstatus.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.HealthStatusError             | 420                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

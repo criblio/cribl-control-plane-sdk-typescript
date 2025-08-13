@@ -51,7 +51,7 @@ export type OutputRing = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputRingType;
   /**
    * Pipeline to process data before sending out to this output
@@ -187,7 +187,7 @@ export const OutputRing$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputRingType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -205,7 +205,7 @@ export const OutputRing$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputRing$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -227,7 +227,7 @@ export const OutputRing$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputRing
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputRingType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+ * Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
  *
  * @remarks
- * ACL of team with permissions for resources in this Group
+ * ACL of members with permissions for resources in this Group
  */
-export function groupsGetTeamAccessControlListByProduct(
+export function groupsGetACL(
   client: CriblControlPlaneCore,
-  request: operations.GetProductsGroupsAclTeamsByProductAndIdRequest,
+  request: operations.GetGroupsAclByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetProductsGroupsAclTeamsByProductAndIdResponse,
+    operations.GetGroupsAclByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsGetTeamAccessControlListByProduct(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetProductsGroupsAclTeamsByProductAndIdRequest,
+  request: operations.GetGroupsAclByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetProductsGroupsAclTeamsByProductAndIdResponse,
+      operations.GetGroupsAclByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,9 +79,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.GetProductsGroupsAclTeamsByProductAndIdRequest$outboundSchema
-        .parse(value),
+    (value) => operations.GetGroupsAclByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -95,15 +93,9 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    product: encodeSimple("product", payload.product, {
-      explode: false,
-      charEncoding: "percent",
-    }),
   };
 
-  const path = pathToFunc("/products/{product}/groups/{id}/acl/teams")(
-    pathParams,
-  );
+  const path = pathToFunc("/master/groups/{id}/acl")(pathParams);
 
   const query = encodeFormQuery({
     "type": payload.type,
@@ -119,7 +111,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getProductsGroupsAclTeamsByProductAndId",
+    operationID: "getGroupsAclById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -163,7 +155,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetProductsGroupsAclTeamsByProductAndIdResponse,
+    operations.GetGroupsAclByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -174,10 +166,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.GetProductsGroupsAclTeamsByProductAndIdResponse$inboundSchema,
-    ),
+    M.json(200, operations.GetGroupsAclByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),
