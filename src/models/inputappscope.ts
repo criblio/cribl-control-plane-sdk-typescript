@@ -211,7 +211,7 @@ export type InputAppscope = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputAppscopeType;
   disabled?: boolean | undefined;
   /**
@@ -919,7 +919,7 @@ export const InputAppscope$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputAppscopeType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -957,7 +957,7 @@ export const InputAppscope$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputAppscope$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -996,7 +996,7 @@ export const InputAppscope$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAppscope
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputAppscopeType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

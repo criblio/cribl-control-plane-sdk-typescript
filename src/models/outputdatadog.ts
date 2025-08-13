@@ -191,7 +191,7 @@ export type OutputDatadog = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputDatadogType;
   /**
    * Pipeline to process data before sending out to this output
@@ -815,7 +815,7 @@ export const OutputDatadog$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputDatadogType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -875,7 +875,7 @@ export const OutputDatadog$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputDatadog$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -930,7 +930,7 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputDatadog
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputDatadogType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

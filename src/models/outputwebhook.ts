@@ -258,7 +258,7 @@ export type OutputWebhook = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputWebhookType;
   /**
    * Pipeline to process data before sending out to this output
@@ -1218,7 +1218,7 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputWebhookType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -1298,7 +1298,7 @@ export const OutputWebhook$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputWebhook$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -1370,7 +1370,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputWebhook
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputWebhookType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

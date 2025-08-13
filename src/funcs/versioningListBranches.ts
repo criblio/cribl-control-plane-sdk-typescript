@@ -3,10 +3,8 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -26,18 +24,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Send sample event data to a Destination
+ * List all branches in the Git repository used for Cribl configuration
  *
  * @remarks
- * Send sample data to a destination to validate configuration or test connectivity
+ * get the list of branches
  */
-export function destinationsCreateSampleData(
+export function versioningListBranches(
   client: CriblControlPlaneCore,
-  request: operations.CreateOutputTestByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateOutputTestByIdResponse,
+    operations.GetVersionBranchResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -51,19 +48,17 @@ export function destinationsCreateSampleData(
 > {
   return new APIPromise($do(
     client,
-    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.CreateOutputTestByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateOutputTestByIdResponse,
+      operations.GetVersionBranchResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -77,29 +72,9 @@ async function $do(
     APICall,
   ]
 > {
-  const parsed = safeParse(
-    request,
-    (value) =>
-      operations.CreateOutputTestByIdRequest$outboundSchema.parse(value),
-    "Input validation failed",
-  );
-  if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
-  }
-  const payload = parsed.value;
-  const body = encodeJSON("body", payload.OutputTestRequest, { explode: true });
-
-  const pathParams = {
-    id: encodeSimple("id", payload.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc("/system/outputs/{id}/test")(pathParams);
+  const path = pathToFunc("/version/branch")();
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -109,7 +84,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createOutputTestById",
+    operationID: "getVersionBranch",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -123,11 +98,10 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -152,7 +126,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateOutputTestByIdResponse,
+    operations.GetVersionBranchResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -163,7 +137,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateOutputTestByIdResponse$inboundSchema),
+    M.json(200, operations.GetVersionBranchResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

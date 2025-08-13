@@ -220,7 +220,7 @@ export type OutputSyslog = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputSyslogType;
   /**
    * Pipeline to process data before sending out to this output
@@ -723,7 +723,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputSyslogType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -763,7 +763,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputSyslog$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -803,7 +803,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputSyslog
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputSyslogType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

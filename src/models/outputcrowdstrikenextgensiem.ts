@@ -163,7 +163,7 @@ export type OutputCrowdstrikeNextGenSiem = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputCrowdstrikeNextGenSiemType | undefined;
+  type: OutputCrowdstrikeNextGenSiemType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -762,7 +762,7 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCrowdstrikeNextGenSiemType$inboundSchema.optional(),
+  type: OutputCrowdstrikeNextGenSiemType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -819,7 +819,7 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCrowdstrikeNextGenSiem$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -867,7 +867,7 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   OutputCrowdstrikeNextGenSiem
 > = z.object({
   id: z.string().optional(),
-  type: OutputCrowdstrikeNextGenSiemType$outboundSchema.optional(),
+  type: OutputCrowdstrikeNextGenSiemType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

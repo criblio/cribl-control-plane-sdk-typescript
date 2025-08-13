@@ -180,7 +180,7 @@ export type OutputSentinelOneAiSiem = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputSentinelOneAiSiemType | undefined;
+  type: OutputSentinelOneAiSiemType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -839,7 +839,7 @@ export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSentinelOneAiSiemType$inboundSchema.optional(),
+  type: OutputSentinelOneAiSiemType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -913,7 +913,7 @@ export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSentinelOneAiSiem$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -975,7 +975,7 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   OutputSentinelOneAiSiem
 > = z.object({
   id: z.string().optional(),
-  type: OutputSentinelOneAiSiemType$outboundSchema.optional(),
+  type: OutputSentinelOneAiSiemType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

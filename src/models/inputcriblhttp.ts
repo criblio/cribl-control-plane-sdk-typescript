@@ -140,7 +140,7 @@ export type InputCriblHttp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputCriblHttpType | undefined;
+  type: InputCriblHttpType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -618,7 +618,7 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblHttpType$inboundSchema.optional(),
+  type: InputCriblHttpType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -652,7 +652,7 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCriblHttp$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -687,7 +687,7 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   InputCriblHttp
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblHttpType$outboundSchema.optional(),
+  type: InputCriblHttpType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

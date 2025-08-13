@@ -160,7 +160,7 @@ export type OutputElasticCloud = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputElasticCloudType | undefined;
+  type: OutputElasticCloudType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -819,7 +819,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticCloudType$inboundSchema.optional(),
+  type: OutputElasticCloudType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -870,7 +870,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputElasticCloud$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -918,7 +918,7 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   OutputElasticCloud
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticCloudType$outboundSchema.optional(),
+  type: OutputElasticCloudType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

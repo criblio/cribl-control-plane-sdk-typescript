@@ -324,7 +324,7 @@ export type OutputConfluentCloud = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputConfluentCloudType | undefined;
+  type: OutputConfluentCloudType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -1241,7 +1241,7 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputConfluentCloudType$inboundSchema.optional(),
+  type: OutputConfluentCloudType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1290,7 +1290,7 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputConfluentCloud$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1335,7 +1335,7 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   OutputConfluentCloud
 > = z.object({
   id: z.string().optional(),
-  type: OutputConfluentCloudType$outboundSchema.optional(),
+  type: OutputConfluentCloudType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

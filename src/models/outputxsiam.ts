@@ -150,7 +150,7 @@ export type OutputXsiam = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputXsiamType;
   /**
    * Pipeline to process data before sending out to this output
@@ -737,7 +737,7 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputXsiamType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -789,7 +789,7 @@ export const OutputXsiam$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputXsiam$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -838,7 +838,7 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputXsiam
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputXsiamType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

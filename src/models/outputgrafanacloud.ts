@@ -223,7 +223,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputGrafanaCloudType2;
   /**
    * Pipeline to process data before sending out to this output
@@ -579,7 +579,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputGrafanaCloudType1;
   /**
    * Pipeline to process data before sending out to this output
@@ -1394,7 +1394,7 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputGrafanaCloudType2$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -1452,7 +1452,7 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -1504,7 +1504,7 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputGrafanaCloudGrafanaCloud2
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputGrafanaCloudType2$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -2262,7 +2262,7 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputGrafanaCloudType1$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -2320,7 +2320,7 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -2372,7 +2372,7 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputGrafanaCloudGrafanaCloud1
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputGrafanaCloudType1$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

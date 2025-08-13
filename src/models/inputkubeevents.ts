@@ -98,7 +98,7 @@ export type InputKubeEvents = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputKubeEventsType;
   disabled?: boolean | undefined;
   /**
@@ -449,7 +449,7 @@ export const InputKubeEvents$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputKubeEventsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -468,7 +468,7 @@ export const InputKubeEvents$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputKubeEvents$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -489,7 +489,7 @@ export const InputKubeEvents$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKubeEvents
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputKubeEventsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
