@@ -211,7 +211,7 @@ export type InputOffice365MsgTrace = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputOffice365MsgTraceType | undefined;
+  type: InputOffice365MsgTraceType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -829,7 +829,7 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MsgTraceType$inboundSchema.optional(),
+  type: InputOffice365MsgTraceType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -881,7 +881,7 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOffice365MsgTrace$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -927,7 +927,7 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   InputOffice365MsgTrace
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MsgTraceType$outboundSchema.optional(),
+  type: InputOffice365MsgTraceType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

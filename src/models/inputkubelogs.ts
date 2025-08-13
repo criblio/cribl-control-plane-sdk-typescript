@@ -135,7 +135,7 @@ export type InputKubeLogs = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputKubeLogsType;
   disabled?: boolean | undefined;
   /**
@@ -594,7 +594,7 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputKubeLogsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -619,7 +619,7 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputKubeLogs$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -646,7 +646,7 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKubeLogs
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputKubeLogsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

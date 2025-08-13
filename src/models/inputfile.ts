@@ -97,7 +97,7 @@ export type InputFile = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputFileType;
   disabled?: boolean | undefined;
   /**
@@ -465,7 +465,7 @@ export const InputFile$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputFileType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -498,7 +498,7 @@ export const InputFile$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputFile$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -534,7 +534,7 @@ export const InputFile$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputFile
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputFileType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

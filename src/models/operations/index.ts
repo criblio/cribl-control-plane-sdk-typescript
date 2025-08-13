@@ -61,4 +61,3 @@ export * from "./updateoutputbyid.js";
 export * from "./updatepacksbyid.js";
 export * from "./updatepipelinebyid.js";
 export * from "./updateroutesbyid.js";
-export * from "./updateworkersrestart.js";

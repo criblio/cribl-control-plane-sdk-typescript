@@ -245,7 +245,7 @@ export type OutputServiceNow = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputServiceNowType | undefined;
+  type: OutputServiceNowType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -1058,7 +1058,7 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputServiceNowType$inboundSchema.optional(),
+  type: OutputServiceNowType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1121,7 +1121,7 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputServiceNow$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1177,7 +1177,7 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   OutputServiceNow
 > = z.object({
   id: z.string().optional(),
-  type: OutputServiceNowType$outboundSchema.optional(),
+  type: OutputServiceNowType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

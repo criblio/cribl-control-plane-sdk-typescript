@@ -270,7 +270,7 @@ export type InputKafka = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputKafkaType | undefined;
+  type: InputKafkaType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1170,7 +1170,7 @@ export const InputKafka$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputKafkaType$inboundSchema.optional(),
+  type: InputKafkaType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1212,7 +1212,7 @@ export const InputKafka$inboundSchema: z.ZodType<
 /** @internal */
 export type InputKafka$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1257,7 +1257,7 @@ export const InputKafka$outboundSchema: z.ZodType<
   InputKafka
 > = z.object({
   id: z.string().optional(),
-  type: InputKafkaType$outboundSchema.optional(),
+  type: InputKafkaType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve information about the latest job to clear the persistent queue for a Destination
+ * Discard uncommitted (staged) changes
  *
  * @remarks
- * Retrieves status of latest clear PQ job for a destination
+ * Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
  */
-export function destinationsGetPersistentQueueStatus(
+export function versioningUndo(
   client: CriblControlPlaneCore,
-  request: operations.GetOutputPqByIdRequest,
+  request?: operations.CreateVersionUndoRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetOutputPqByIdResponse,
+    operations.CreateVersionUndoResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function destinationsGetPersistentQueueStatus(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetOutputPqByIdRequest,
+  request?: operations.CreateVersionUndoRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetOutputPqByIdResponse,
+      operations.CreateVersionUndoResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,7 +79,10 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.GetOutputPqByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.CreateVersionUndoRequest$outboundSchema.optional().parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -88,14 +91,11 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const pathParams = {
-    id: encodeSimple("id", payload.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
+  const path = pathToFunc("/version/undo")();
 
-  const path = pathToFunc("/system/outputs/{id}/pq")(pathParams);
+  const query = encodeFormQuery({
+    "group": payload?.group,
+  });
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -107,7 +107,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getOutputPqById",
+    operationID: "createVersionUndo",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -121,10 +121,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -150,7 +151,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetOutputPqByIdResponse,
+    operations.CreateVersionUndoResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -161,7 +162,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetOutputPqByIdResponse$inboundSchema),
+    M.json(200, operations.CreateVersionUndoResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

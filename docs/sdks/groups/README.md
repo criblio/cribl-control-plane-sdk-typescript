@@ -8,14 +8,14 @@ Actions related to Groups
 ### Available Operations
 
 * [getConfigVersion](#getconfigversion) - Retrieve the configuration version for a Worker Group or Edge Fleet
-* [createByProduct](#createbyproduct) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [getByProduct](#getbyproduct) - List all Worker Groups or Edge Fleets for the specified Cribl product
+* [create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
+* [list](#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
 * [delete](#delete) - Delete a Worker Group or Edge Fleet
 * [get](#get) - Retrieve a Worker Group or Edge Fleet
 * [update](#update) - Update a Worker Group or Edge Fleet
-* [deployCommits](#deploycommits) - Deploy commits to a Worker Group or Edge Fleet
-* [getTeamAccessControlListByProduct](#getteamaccesscontrollistbyproduct) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-* [getAccessControlList](#getaccesscontrollist) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+* [deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
+* [getTeamACL](#getteamacl) - Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [getACL](#getacl) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
 
 ## getConfigVersion
 
@@ -96,7 +96,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createByProduct
+## create
 
 Create a Fleet or Worker Group
 
@@ -113,7 +113,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.groups.createByProduct({
+  const result = await criblControlPlane.groups.create({
     product: "stream",
     configGroup: {
       cloud: {
@@ -184,7 +184,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { groupsCreateByProduct } from "cribl-control-plane/funcs/groupsCreateByProduct.js";
+import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -196,7 +196,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await groupsCreateByProduct(criblControlPlane, {
+  const res = await groupsCreate(criblControlPlane, {
     product: "stream",
     configGroup: {
       cloud: {
@@ -258,7 +258,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("groupsCreateByProduct failed:", res.error);
+    console.log("groupsCreate failed:", res.error);
   }
 }
 
@@ -285,7 +285,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getByProduct
+## list
 
 Get a list of ConfigGroup objects
 
@@ -302,7 +302,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.groups.getByProduct({
+  const result = await criblControlPlane.groups.list({
     fields: "<value>",
     product: "stream",
   });
@@ -319,7 +319,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { groupsGetByProduct } from "cribl-control-plane/funcs/groupsGetByProduct.js";
+import { groupsList } from "cribl-control-plane/funcs/groupsList.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -331,7 +331,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await groupsGetByProduct(criblControlPlane, {
+  const res = await groupsList(criblControlPlane, {
     fields: "<value>",
     product: "stream",
   });
@@ -339,7 +339,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("groupsGetByProduct failed:", res.error);
+    console.log("groupsList failed:", res.error);
   }
 }
 
@@ -711,7 +711,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## deployCommits
+## deploy
 
 Deploy commits for a Fleet or Worker Group
 
@@ -728,7 +728,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.groups.deployCommits({
+  const result = await criblControlPlane.groups.deploy({
     id: "<id>",
     deployRequest: {
       lookups: [
@@ -758,7 +758,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { groupsDeployCommits } from "cribl-control-plane/funcs/groupsDeployCommits.js";
+import { groupsDeploy } from "cribl-control-plane/funcs/groupsDeploy.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -770,7 +770,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await groupsDeployCommits(criblControlPlane, {
+  const res = await groupsDeploy(criblControlPlane, {
     id: "<id>",
     deployRequest: {
       lookups: [
@@ -791,7 +791,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("groupsDeployCommits failed:", res.error);
+    console.log("groupsDeploy failed:", res.error);
   }
 }
 
@@ -818,7 +818,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getTeamAccessControlListByProduct
+## getTeamACL
 
 ACL of team with permissions for resources in this Group
 
@@ -835,7 +835,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.groups.getTeamAccessControlListByProduct({
+  const result = await criblControlPlane.groups.getTeamACL({
     product: "stream",
     id: "<id>",
     type: "datasets",
@@ -853,7 +853,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { groupsGetTeamAccessControlListByProduct } from "cribl-control-plane/funcs/groupsGetTeamAccessControlListByProduct.js";
+import { groupsGetTeamACL } from "cribl-control-plane/funcs/groupsGetTeamACL.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -865,7 +865,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await groupsGetTeamAccessControlListByProduct(criblControlPlane, {
+  const res = await groupsGetTeamACL(criblControlPlane, {
     product: "stream",
     id: "<id>",
     type: "datasets",
@@ -874,7 +874,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("groupsGetTeamAccessControlListByProduct failed:", res.error);
+    console.log("groupsGetTeamACL failed:", res.error);
   }
 }
 
@@ -901,7 +901,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getAccessControlList
+## getACL
 
 ACL of members with permissions for resources in this Group
 
@@ -918,7 +918,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.groups.getAccessControlList({
+  const result = await criblControlPlane.groups.getACL({
     id: "<id>",
     type: "insights",
   });
@@ -935,7 +935,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { groupsGetAccessControlList } from "cribl-control-plane/funcs/groupsGetAccessControlList.js";
+import { groupsGetACL } from "cribl-control-plane/funcs/groupsGetACL.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -947,7 +947,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await groupsGetAccessControlList(criblControlPlane, {
+  const res = await groupsGetACL(criblControlPlane, {
     id: "<id>",
     type: "insights",
   });
@@ -955,7 +955,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("groupsGetAccessControlList failed:", res.error);
+    console.log("groupsGetACL failed:", res.error);
   }
 }
 

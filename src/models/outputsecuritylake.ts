@@ -155,7 +155,7 @@ export type OutputSecurityLake = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputSecurityLakeType | undefined;
+  type: OutputSecurityLakeType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -665,7 +665,7 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSecurityLakeType$inboundSchema.optional(),
+  type: OutputSecurityLakeType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -739,7 +739,7 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSecurityLake$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -806,7 +806,7 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   OutputSecurityLake
 > = z.object({
   id: z.string().optional(),
-  type: OutputSecurityLakeType$outboundSchema.optional(),
+  type: OutputSecurityLakeType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

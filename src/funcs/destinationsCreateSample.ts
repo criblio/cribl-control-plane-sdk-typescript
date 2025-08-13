@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Clear the persistent queue for a Destination
+ * Send sample event data to a Destination
  *
  * @remarks
- * Clears destination persistent queue
+ * Send sample data to a destination to validate configuration or test connectivity
  */
-export function destinationsClearPersistentQueue(
+export function destinationsCreateSample(
   client: CriblControlPlaneCore,
-  request: operations.DeleteOutputPqByIdRequest,
+  request: operations.CreateOutputTestByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteOutputPqByIdResponse,
+    operations.CreateOutputTestByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function destinationsClearPersistentQueue(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.DeleteOutputPqByIdRequest,
+  request: operations.CreateOutputTestByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteOutputPqByIdResponse,
+      operations.CreateOutputTestByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,14 +79,15 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.DeleteOutputPqByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.CreateOutputTestByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload.OutputTestRequest, { explode: true });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
@@ -95,9 +96,10 @@ async function $do(
     }),
   };
 
-  const path = pathToFunc("/system/outputs/{id}/pq")(pathParams);
+  const path = pathToFunc("/system/outputs/{id}/test")(pathParams);
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -107,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "deleteOutputPqById",
+    operationID: "createOutputTestById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -121,7 +123,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "DELETE",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -150,7 +152,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteOutputPqByIdResponse,
+    operations.CreateOutputTestByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -161,7 +163,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DeleteOutputPqByIdResponse$inboundSchema),
+    M.json(200, operations.CreateOutputTestByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

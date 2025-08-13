@@ -195,7 +195,7 @@ export type OutputTcpjson = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputTcpjsonType;
   /**
    * Pipeline to process data before sending out to this output
@@ -736,7 +736,7 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputTcpjsonType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -779,7 +779,7 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputTcpjson$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -821,7 +821,7 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputTcpjson
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputTcpjsonType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

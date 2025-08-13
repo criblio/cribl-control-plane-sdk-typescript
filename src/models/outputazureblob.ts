@@ -150,7 +150,7 @@ export type OutputAzureBlob = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputAzureBlobType | undefined;
+  type: OutputAzureBlobType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -680,7 +680,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureBlobType$inboundSchema.optional(),
+  type: OutputAzureBlobType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -753,7 +753,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputAzureBlob$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -816,7 +816,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   OutputAzureBlob
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureBlobType$outboundSchema.optional(),
+  type: OutputAzureBlobType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

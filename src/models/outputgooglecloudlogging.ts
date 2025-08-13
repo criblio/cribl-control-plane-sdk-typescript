@@ -137,7 +137,7 @@ export type OutputGoogleCloudLogging = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputGoogleCloudLoggingType | undefined;
+  type: OutputGoogleCloudLoggingType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -726,7 +726,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleCloudLoggingType$inboundSchema.optional(),
+  type: OutputGoogleCloudLoggingType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -801,7 +801,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputGoogleCloudLogging$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -873,7 +873,7 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   OutputGoogleCloudLogging
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleCloudLoggingType$outboundSchema.optional(),
+  type: OutputGoogleCloudLoggingType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

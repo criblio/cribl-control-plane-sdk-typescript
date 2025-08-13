@@ -184,7 +184,7 @@ export type InputSplunkHec = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputSplunkHecType | undefined;
+  type: InputSplunkHecType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -860,7 +860,7 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkHecType$inboundSchema.optional(),
+  type: InputSplunkHecType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -906,7 +906,7 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSplunkHec$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -952,7 +952,7 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   InputSplunkHec
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkHecType$outboundSchema.optional(),
+  type: InputSplunkHecType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -99,7 +99,7 @@ export type InputJournalFiles = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputJournalFilesType | undefined;
+  type: InputJournalFilesType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -472,7 +472,7 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputJournalFilesType$inboundSchema.optional(),
+  type: InputJournalFilesType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -496,7 +496,7 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
 /** @internal */
 export type InputJournalFiles$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -522,7 +522,7 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   InputJournalFiles
 > = z.object({
   id: z.string().optional(),
-  type: InputJournalFilesType$outboundSchema.optional(),
+  type: InputJournalFilesType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
