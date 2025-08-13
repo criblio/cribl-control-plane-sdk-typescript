@@ -174,7 +174,7 @@ export type OutputDataset = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputDatasetType;
   /**
    * Pipeline to process data before sending out to this output
@@ -759,7 +759,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputDatasetType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -814,7 +814,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputDataset$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -864,7 +864,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputDataset
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputDatasetType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

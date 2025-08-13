@@ -205,7 +205,7 @@ export type InputOffice365Service = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputOffice365ServiceType | undefined;
+  type: InputOffice365ServiceType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -788,7 +788,7 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365ServiceType$inboundSchema.optional(),
+  type: InputOffice365ServiceType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -828,7 +828,7 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOffice365Service$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -864,7 +864,7 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   InputOffice365Service
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365ServiceType$outboundSchema.optional(),
+  type: InputOffice365ServiceType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

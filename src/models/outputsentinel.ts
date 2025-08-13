@@ -157,7 +157,7 @@ export type OutputSentinel = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputSentinelType | undefined;
+  type: OutputSentinelType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -780,7 +780,7 @@ export const OutputSentinel$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSentinelType$inboundSchema.optional(),
+  type: OutputSentinelType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -849,7 +849,7 @@ export const OutputSentinel$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSentinel$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -911,7 +911,7 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   OutputSentinel
 > = z.object({
   id: z.string().optional(),
-  type: OutputSentinelType$outboundSchema.optional(),
+  type: OutputSentinelType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

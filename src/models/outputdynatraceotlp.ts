@@ -207,7 +207,7 @@ export type OutputDynatraceOtlp = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputDynatraceOtlpType | undefined;
+  type: OutputDynatraceOtlpType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -934,7 +934,7 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDynatraceOtlpType$inboundSchema.optional(),
+  type: OutputDynatraceOtlpType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1000,7 +1000,7 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDynatraceOtlp$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1056,7 +1056,7 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   OutputDynatraceOtlp
 > = z.object({
   id: z.string().optional(),
-  type: OutputDynatraceOtlpType$outboundSchema.optional(),
+  type: OutputDynatraceOtlpType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

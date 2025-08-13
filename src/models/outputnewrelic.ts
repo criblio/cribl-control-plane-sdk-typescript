@@ -173,7 +173,7 @@ export type OutputNewrelic = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputNewrelicType;
   /**
    * Pipeline to process data before sending out to this output
@@ -809,7 +809,7 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputNewrelicType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -863,7 +863,7 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputNewrelic$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -913,7 +913,7 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputNewrelic
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputNewrelicType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

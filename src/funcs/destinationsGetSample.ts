@@ -3,8 +3,10 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -24,17 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the name of the Git branch that the Cribl configuration is checked out to
+ * Retrieve sample event data for a Destination
  *
  * @remarks
- * returns git branch that the config is checked out to, if any
+ * Retrieve samples data for the specified destination. Used to get sample data for the test action.
  */
-export function versioningGetBranchName(
+export function destinationsGetSample(
   client: CriblControlPlaneCore,
+  request: operations.GetOutputSamplesByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetVersionCurrentBranchResponse,
+    operations.GetOutputSamplesByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -48,17 +51,19 @@ export function versioningGetBranchName(
 > {
   return new APIPromise($do(
     client,
+    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
+  request: operations.GetOutputSamplesByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetVersionCurrentBranchResponse,
+      operations.GetOutputSamplesByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -72,7 +77,26 @@ async function $do(
     APICall,
   ]
 > {
-  const path = pathToFunc("/version/current-branch")();
+  const parsed = safeParse(
+    request,
+    (value) =>
+      operations.GetOutputSamplesByIdRequest$outboundSchema.parse(value),
+    "Input validation failed",
+  );
+  if (!parsed.ok) {
+    return [parsed, { status: "invalid" }];
+  }
+  const payload = parsed.value;
+  const body = null;
+
+  const pathParams = {
+    id: encodeSimple("id", payload.id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/system/outputs/{id}/samples")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -84,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getVersionCurrentBranch",
+    operationID: "getOutputSamplesById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -102,6 +126,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -126,7 +151,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetVersionCurrentBranchResponse,
+    operations.GetOutputSamplesByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -137,7 +162,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetVersionCurrentBranchResponse$inboundSchema),
+    M.json(200, operations.GetOutputSamplesByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

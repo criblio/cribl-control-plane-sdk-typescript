@@ -133,7 +133,7 @@ export type OutputAzureEventhub = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputAzureEventhubType | undefined;
+  type: OutputAzureEventhubType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -608,7 +608,7 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureEventhubType$inboundSchema.optional(),
+  type: OutputAzureEventhubType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -651,7 +651,7 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputAzureEventhub$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -691,7 +691,7 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   OutputAzureEventhub
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureEventhubType$outboundSchema.optional(),
+  type: OutputAzureEventhubType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

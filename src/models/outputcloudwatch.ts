@@ -91,7 +91,7 @@ export type OutputCloudwatch = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputCloudwatchType | undefined;
+  type: OutputCloudwatchType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -390,7 +390,7 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCloudwatchType$inboundSchema.optional(),
+  type: OutputCloudwatchType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -431,7 +431,7 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCloudwatch$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -471,7 +471,7 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   OutputCloudwatch
 > = z.object({
   id: z.string().optional(),
-  type: OutputCloudwatchType$outboundSchema.optional(),
+  type: OutputCloudwatchType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

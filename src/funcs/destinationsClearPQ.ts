@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create a Worker Group or Edge Fleet for the specified Cribl product
+ * Clear the persistent queue for a Destination
  *
  * @remarks
- * Create a Fleet or Worker Group
+ * Clears destination persistent queue
  */
-export function groupsCreateByProduct(
+export function destinationsClearPQ(
   client: CriblControlPlaneCore,
-  request: operations.CreateProductsGroupsByProductRequest,
+  request: operations.DeleteOutputPqByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateProductsGroupsByProductResponse,
+    operations.DeleteOutputPqByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsCreateByProduct(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.CreateProductsGroupsByProductRequest,
+  request: operations.DeleteOutputPqByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateProductsGroupsByProductResponse,
+      operations.DeleteOutputPqByIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,29 +79,25 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.CreateProductsGroupsByProductRequest$outboundSchema.parse(
-        value,
-      ),
+    (value) => operations.DeleteOutputPqByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.ConfigGroup, { explode: true });
+  const body = null;
 
   const pathParams = {
-    product: encodeSimple("product", payload.product, {
+    id: encodeSimple("id", payload.id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/products/{product}/groups")(pathParams);
+  const path = pathToFunc("/system/outputs/{id}/pq")(pathParams);
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -111,7 +107,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createProductsGroupsByProduct",
+    operationID: "deleteOutputPqById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -125,7 +121,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "DELETE",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -154,7 +150,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateProductsGroupsByProductResponse,
+    operations.DeleteOutputPqByIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -165,7 +161,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateProductsGroupsByProductResponse$inboundSchema),
+    M.json(200, operations.DeleteOutputPqByIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

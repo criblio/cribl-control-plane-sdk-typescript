@@ -192,7 +192,7 @@ export type OutputDlS3 = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputDlS3Type | undefined;
+  type: OutputDlS3Type;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -764,7 +764,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDlS3Type$inboundSchema.optional(),
+  type: OutputDlS3Type$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -841,7 +841,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDlS3$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -909,7 +909,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   OutputDlS3
 > = z.object({
   id: z.string().optional(),
-  type: OutputDlS3Type$outboundSchema.optional(),
+  type: OutputDlS3Type$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

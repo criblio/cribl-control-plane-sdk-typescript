@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List all Worker Groups or Edge Fleets for the specified Cribl product
+ * Retrieve the diff and log message for a commit
  *
  * @remarks
- * Get a list of ConfigGroup objects
+ * get the log message and textual diff for given commit
  */
-export function groupsGetByProduct(
+export function versioningGetCommit(
   client: CriblControlPlaneCore,
-  request: operations.GetProductsGroupsByProductRequest,
+  request?: operations.GetVersionShowRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetProductsGroupsByProductResponse,
+    operations.GetVersionShowResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsGetByProduct(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetProductsGroupsByProductRequest,
+  request?: operations.GetVersionShowRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetProductsGroupsByProductResponse,
+      operations.GetVersionShowResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetProductsGroupsByProductRequest$outboundSchema.parse(value),
+      operations.GetVersionShowRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -89,17 +89,13 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const pathParams = {
-    product: encodeSimple("product", payload.product, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc("/products/{product}/groups")(pathParams);
+  const path = pathToFunc("/version/show")();
 
   const query = encodeFormQuery({
-    "fields": payload.fields,
+    "commit": payload?.commit,
+    "diffLineLimit": payload?.diffLineLimit,
+    "filename": payload?.filename,
+    "group": payload?.group,
   });
 
   const headers = new Headers(compactMap({
@@ -112,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getProductsGroupsByProduct",
+    operationID: "getVersionShow",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -156,7 +152,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetProductsGroupsByProductResponse,
+    operations.GetVersionShowResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -167,7 +163,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetProductsGroupsByProductResponse$inboundSchema),
+    M.json(200, operations.GetVersionShowResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

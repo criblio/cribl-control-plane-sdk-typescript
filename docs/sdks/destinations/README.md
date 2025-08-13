@@ -3,6 +3,8 @@
 
 ## Overview
 
+Actions related to Destinations
+
 ### Available Operations
 
 * [list](#list) - List all Destinations
@@ -10,10 +12,10 @@
 * [get](#get) - Retrieve a Destination
 * [update](#update) - Update a Destination
 * [delete](#delete) - Delete a Destination
-* [clearPersistentQueue](#clearpersistentqueue) - Clear the persistent queue for a Destination
-* [getPersistentQueueStatus](#getpersistentqueuestatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
-* [getSampleData](#getsampledata) - Retrieve sample event data for a Destination
-* [createSampleData](#createsampledata) - Send sample event data to a Destination
+* [clearPQ](#clearpq) - Clear the persistent queue for a Destination
+* [getPQStatus](#getpqstatus) - Retrieve information about the latest job to clear the persistent queue for a Destination
+* [getSample](#getsample) - Retrieve sample event data for a Destination
+* [createSample](#createsample) - Send sample event data to a Destination
 
 ## list
 
@@ -655,7 +657,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## clearPersistentQueue
+## clearPQ
 
 Clears destination persistent queue
 
@@ -672,7 +674,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.destinations.clearPersistentQueue({
+  const result = await criblControlPlane.destinations.clearPQ({
     id: "<id>",
   });
 
@@ -688,7 +690,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { destinationsClearPersistentQueue } from "cribl-control-plane/funcs/destinationsClearPersistentQueue.js";
+import { destinationsClearPQ } from "cribl-control-plane/funcs/destinationsClearPQ.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -700,14 +702,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await destinationsClearPersistentQueue(criblControlPlane, {
+  const res = await destinationsClearPQ(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("destinationsClearPersistentQueue failed:", res.error);
+    console.log("destinationsClearPQ failed:", res.error);
   }
 }
 
@@ -734,7 +736,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getPersistentQueueStatus
+## getPQStatus
 
 Retrieves status of latest clear PQ job for a destination
 
@@ -751,7 +753,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.destinations.getPersistentQueueStatus({
+  const result = await criblControlPlane.destinations.getPQStatus({
     id: "<id>",
   });
 
@@ -767,7 +769,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { destinationsGetPersistentQueueStatus } from "cribl-control-plane/funcs/destinationsGetPersistentQueueStatus.js";
+import { destinationsGetPQStatus } from "cribl-control-plane/funcs/destinationsGetPQStatus.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -779,14 +781,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await destinationsGetPersistentQueueStatus(criblControlPlane, {
+  const res = await destinationsGetPQStatus(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("destinationsGetPersistentQueueStatus failed:", res.error);
+    console.log("destinationsGetPQStatus failed:", res.error);
   }
 }
 
@@ -813,7 +815,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getSampleData
+## getSample
 
 Retrieve samples data for the specified destination. Used to get sample data for the test action.
 
@@ -830,7 +832,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.destinations.getSampleData({
+  const result = await criblControlPlane.destinations.getSample({
     id: "<id>",
   });
 
@@ -846,7 +848,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { destinationsGetSampleData } from "cribl-control-plane/funcs/destinationsGetSampleData.js";
+import { destinationsGetSample } from "cribl-control-plane/funcs/destinationsGetSample.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -858,14 +860,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await destinationsGetSampleData(criblControlPlane, {
+  const res = await destinationsGetSample(criblControlPlane, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("destinationsGetSampleData failed:", res.error);
+    console.log("destinationsGetSample failed:", res.error);
   }
 }
 
@@ -892,7 +894,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## createSampleData
+## createSample
 
 Send sample data to a destination to validate configuration or test connectivity
 
@@ -909,7 +911,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.destinations.createSampleData({
+  const result = await criblControlPlane.destinations.createSample({
     id: "<id>",
     outputTestRequest: {
       events: [
@@ -932,7 +934,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { destinationsCreateSampleData } from "cribl-control-plane/funcs/destinationsCreateSampleData.js";
+import { destinationsCreateSample } from "cribl-control-plane/funcs/destinationsCreateSample.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -944,7 +946,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await destinationsCreateSampleData(criblControlPlane, {
+  const res = await destinationsCreateSample(criblControlPlane, {
     id: "<id>",
     outputTestRequest: {
       events: [
@@ -958,7 +960,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("destinationsCreateSampleData failed:", res.error);
+    console.log("destinationsCreateSample failed:", res.error);
   }
 }
 

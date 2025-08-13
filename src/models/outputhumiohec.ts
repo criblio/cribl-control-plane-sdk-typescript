@@ -159,7 +159,7 @@ export type OutputHumioHec = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputHumioHecType | undefined;
+  type: OutputHumioHecType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -706,7 +706,7 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputHumioHecType$inboundSchema.optional(),
+  type: OutputHumioHecType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -755,7 +755,7 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputHumioHec$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -801,7 +801,7 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   OutputHumioHec
 > = z.object({
   id: z.string().optional(),
-  type: OutputHumioHecType$outboundSchema.optional(),
+  type: OutputHumioHecType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

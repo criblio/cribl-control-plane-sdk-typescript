@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Discard uncommitted (staged) changes
+ * List all Worker Groups or Edge Fleets for the specified Cribl product
  *
  * @remarks
- * Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
+ * Get a list of ConfigGroup objects
  */
-export function versioningCleanWorkingDir(
+export function groupsList(
   client: CriblControlPlaneCore,
-  request?: operations.CreateVersionUndoRequest | undefined,
+  request: operations.GetProductsGroupsByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateVersionUndoResponse,
+    operations.GetProductsGroupsByProductResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function versioningCleanWorkingDir(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.CreateVersionUndoRequest | undefined,
+  request: operations.GetProductsGroupsByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateVersionUndoResponse,
+      operations.GetProductsGroupsByProductResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,9 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.CreateVersionUndoRequest$outboundSchema.optional().parse(
-        value,
-      ),
+      operations.GetProductsGroupsByProductRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -91,10 +89,17 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/version/undo")();
+  const pathParams = {
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/products/{product}/groups")(pathParams);
 
   const query = encodeFormQuery({
-    "group": payload?.group,
+    "fields": payload.fields,
   });
 
   const headers = new Headers(compactMap({
@@ -107,7 +112,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createVersionUndo",
+    operationID: "getProductsGroupsByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -121,7 +126,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -151,7 +156,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateVersionUndoResponse,
+    operations.GetProductsGroupsByProductResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -162,7 +167,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateVersionUndoResponse$inboundSchema),
+    M.json(200, operations.GetProductsGroupsByProductResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

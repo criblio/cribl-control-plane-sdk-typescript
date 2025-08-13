@@ -140,7 +140,7 @@ export type InputModelDrivenTelemetry = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputModelDrivenTelemetryType | undefined;
+  type: InputModelDrivenTelemetryType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -606,7 +606,7 @@ export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputModelDrivenTelemetryType$inboundSchema.optional(),
+  type: InputModelDrivenTelemetryType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -633,7 +633,7 @@ export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
 /** @internal */
 export type InputModelDrivenTelemetry$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -658,7 +658,7 @@ export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   InputModelDrivenTelemetry
 > = z.object({
   id: z.string().optional(),
-  type: InputModelDrivenTelemetryType$outboundSchema.optional(),
+  type: InputModelDrivenTelemetryType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

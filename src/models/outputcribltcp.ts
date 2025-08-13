@@ -181,7 +181,7 @@ export type OutputCriblTcp = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputCriblTcpType;
   /**
    * Pipeline to process data before sending out to this output
@@ -690,7 +690,7 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputCriblTcpType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -730,7 +730,7 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputCriblTcp$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -769,7 +769,7 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputCriblTcp
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputCriblTcpType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

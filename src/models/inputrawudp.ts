@@ -86,7 +86,7 @@ export type InputRawUdp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputRawUdpType | undefined;
+  type: InputRawUdpType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -400,7 +400,7 @@ export const InputRawUdp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputRawUdpType$inboundSchema.optional(),
+  type: InputRawUdpType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -425,7 +425,7 @@ export const InputRawUdp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputRawUdp$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -452,7 +452,7 @@ export const InputRawUdp$outboundSchema: z.ZodType<
   InputRawUdp
 > = z.object({
   id: z.string().optional(),
-  type: InputRawUdpType$outboundSchema.optional(),
+  type: InputRawUdpType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

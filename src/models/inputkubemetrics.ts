@@ -130,7 +130,7 @@ export type InputKubeMetrics = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputKubeMetricsType;
   disabled?: boolean | undefined;
   /**
@@ -583,7 +583,7 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputKubeMetricsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -605,7 +605,7 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputKubeMetrics$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -628,7 +628,7 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputKubeMetrics
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputKubeMetricsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

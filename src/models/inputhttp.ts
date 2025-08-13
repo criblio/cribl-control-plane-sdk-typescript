@@ -158,7 +158,7 @@ export type InputHttp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputHttpType | undefined;
+  type: InputHttpType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -768,7 +768,7 @@ export const InputHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputHttpType$inboundSchema.optional(),
+  type: InputHttpType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -806,7 +806,7 @@ export const InputHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputHttp$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -846,7 +846,7 @@ export const InputHttp$outboundSchema: z.ZodType<
   InputHttp
 > = z.object({
   id: z.string().optional(),
-  type: InputHttpType$outboundSchema.optional(),
+  type: InputHttpType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

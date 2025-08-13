@@ -382,7 +382,7 @@ export type InputSystemMetrics = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputSystemMetricsType;
   disabled?: boolean | undefined;
   /**
@@ -1599,7 +1599,7 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputSystemMetricsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -1623,7 +1623,7 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputSystemMetrics$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -1648,7 +1648,7 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSystemMetrics
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputSystemMetricsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

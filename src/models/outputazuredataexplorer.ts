@@ -248,7 +248,7 @@ export type OutputAzureDataExplorer = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputAzureDataExplorerType | undefined;
+  type: OutputAzureDataExplorerType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -1224,7 +1224,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureDataExplorerType$inboundSchema.optional(),
+  type: OutputAzureDataExplorerType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1310,7 +1310,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputAzureDataExplorer$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1384,7 +1384,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   OutputAzureDataExplorer
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureDataExplorerType$outboundSchema.optional(),
+  type: OutputAzureDataExplorerType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

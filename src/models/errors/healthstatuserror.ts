@@ -8,13 +8,13 @@ import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
 
 export type HealthStatusErrorData = {
   role?: models.Role | undefined;
-  status: models.HealthStatusStatus;
+  status: models.Status;
   startTime: number;
 };
 
 export class HealthStatusError extends CriblControlPlaneError {
   role?: models.Role | undefined;
-  status: models.HealthStatusStatus;
+  status: models.Status;
   startTime: number;
 
   /** The original data that was passed to this error instance. */
@@ -44,7 +44,7 @@ export const HealthStatusError$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   role: models.Role$inboundSchema.optional(),
-  status: models.HealthStatusStatus$inboundSchema,
+  status: models.Status$inboundSchema,
   startTime: z.number(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
@@ -74,7 +74,7 @@ export const HealthStatusError$outboundSchema: z.ZodType<
   .transform(v => v.data$)
   .pipe(z.object({
     role: models.Role$outboundSchema.optional(),
-    status: models.HealthStatusStatus$outboundSchema,
+    status: models.Status$outboundSchema,
     startTime: z.number(),
   }));
 

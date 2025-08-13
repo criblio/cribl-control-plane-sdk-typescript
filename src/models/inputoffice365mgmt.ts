@@ -201,7 +201,7 @@ export type InputOffice365Mgmt = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputOffice365MgmtType | undefined;
+  type: InputOffice365MgmtType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -789,7 +789,7 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MgmtType$inboundSchema.optional(),
+  type: InputOffice365MgmtType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -830,7 +830,7 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOffice365Mgmt$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -866,7 +866,7 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   InputOffice365Mgmt
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MgmtType$outboundSchema.optional(),
+  type: InputOffice365MgmtType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

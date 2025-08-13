@@ -400,59 +400,59 @@ export type Output =
   | OutputMsk
   | OutputCloudwatch
   | OutputClickHouse
-  | OutputDefault
-  | OutputWebhook
-  | OutputDevnull
-  | OutputSyslog
-  | OutputSplunkLb
-  | OutputSplunkHec
-  | OutputTcpjson
-  | OutputFilesystem
   | OutputKinesis
-  | OutputHoneycomb
   | OutputAzureEventhub
   | OutputGoogleCloudStorage
-  | OutputGooglePubsub
   | OutputKafka
   | OutputConfluentCloud
-  | OutputElastic
   | OutputElasticCloud
-  | OutputNewrelic
   | OutputNewrelicEvents
-  | OutputInfluxdb
   | OutputMinio
-  | OutputRouter
   | OutputSns
-  | OutputSnmp
-  | OutputSumoLogic
-  | OutputDatadog
-  | OutputLoki
-  | OutputPrometheus
-  | OutputRing
-  | OutputOpenTelemetry
-  | OutputDataset
-  | OutputCriblTcp
-  | OutputCriblHttp
-  | OutputCriblLake
-  | OutputDiskSpool
-  | OutputXsiam
-  | OutputNetflow
+  | OutputDefault
   | OutputSplunk
-  | OutputWavefront
-  | OutputSignalfx
+  | OutputSplunkLb
+  | OutputFilesystem
   | OutputS3
   | OutputAzureBlob
-  | OutputAzureLogs
-  | OutputGoogleChronicle
+  | OutputHoneycomb
+  | OutputGooglePubsub
+  | OutputElastic
+  | OutputInfluxdb
   | OutputStatsd
   | OutputStatsdExt
   | OutputGraphite
+  | OutputRouter
   | OutputSqs
+  | OutputSnmp
+  | OutputSumoLogic
+  | OutputLoki
+  | OutputPrometheus
+  | OutputOpenTelemetry
   | OutputServiceNow
   | OutputCrowdstrikeNextGenSiem
   | OutputDlS3
+  | OutputNetflow
   | OutputDynatraceOtlp
+  | OutputWebhook
+  | OutputDevnull
+  | OutputSyslog
+  | OutputSplunkHec
+  | OutputTcpjson
+  | OutputWavefront
+  | OutputSignalfx
+  | OutputAzureLogs
+  | OutputGoogleChronicle
+  | OutputNewrelic
+  | OutputDatadog
+  | OutputRing
+  | OutputDataset
+  | OutputCriblTcp
+  | OutputCriblHttp
   | OutputHumioHec
+  | OutputCriblLake
+  | OutputDiskSpool
+  | OutputXsiam
   | OutputDynatraceHttp
   | OutputSentinelOneAiSiem
   | OutputGrafanaCloud;
@@ -468,59 +468,59 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputMsk$inboundSchema,
     OutputCloudwatch$inboundSchema,
     OutputClickHouse$inboundSchema,
-    OutputDefault$inboundSchema,
-    OutputWebhook$inboundSchema,
-    OutputDevnull$inboundSchema,
-    OutputSyslog$inboundSchema,
-    OutputSplunkLb$inboundSchema,
-    OutputSplunkHec$inboundSchema,
-    OutputTcpjson$inboundSchema,
-    OutputFilesystem$inboundSchema,
     OutputKinesis$inboundSchema,
-    OutputHoneycomb$inboundSchema,
     OutputAzureEventhub$inboundSchema,
     OutputGoogleCloudStorage$inboundSchema,
-    OutputGooglePubsub$inboundSchema,
     OutputKafka$inboundSchema,
     OutputConfluentCloud$inboundSchema,
-    OutputElastic$inboundSchema,
     OutputElasticCloud$inboundSchema,
-    OutputNewrelic$inboundSchema,
     OutputNewrelicEvents$inboundSchema,
-    OutputInfluxdb$inboundSchema,
     OutputMinio$inboundSchema,
-    OutputRouter$inboundSchema,
     OutputSns$inboundSchema,
-    OutputSnmp$inboundSchema,
-    OutputSumoLogic$inboundSchema,
-    OutputDatadog$inboundSchema,
-    OutputLoki$inboundSchema,
-    OutputPrometheus$inboundSchema,
-    OutputRing$inboundSchema,
-    OutputOpenTelemetry$inboundSchema,
-    OutputDataset$inboundSchema,
-    OutputCriblTcp$inboundSchema,
-    OutputCriblHttp$inboundSchema,
-    OutputCriblLake$inboundSchema,
-    OutputDiskSpool$inboundSchema,
-    OutputXsiam$inboundSchema,
-    OutputNetflow$inboundSchema,
+    OutputDefault$inboundSchema,
     OutputSplunk$inboundSchema,
-    OutputWavefront$inboundSchema,
-    OutputSignalfx$inboundSchema,
+    OutputSplunkLb$inboundSchema,
+    OutputFilesystem$inboundSchema,
     OutputS3$inboundSchema,
     OutputAzureBlob$inboundSchema,
-    OutputAzureLogs$inboundSchema,
-    OutputGoogleChronicle$inboundSchema,
+    OutputHoneycomb$inboundSchema,
+    OutputGooglePubsub$inboundSchema,
+    OutputElastic$inboundSchema,
+    OutputInfluxdb$inboundSchema,
     OutputStatsd$inboundSchema,
     OutputStatsdExt$inboundSchema,
     OutputGraphite$inboundSchema,
+    OutputRouter$inboundSchema,
     OutputSqs$inboundSchema,
+    OutputSnmp$inboundSchema,
+    OutputSumoLogic$inboundSchema,
+    OutputLoki$inboundSchema,
+    OutputPrometheus$inboundSchema,
+    OutputOpenTelemetry$inboundSchema,
     OutputServiceNow$inboundSchema,
     OutputCrowdstrikeNextGenSiem$inboundSchema,
     OutputDlS3$inboundSchema,
+    OutputNetflow$inboundSchema,
     OutputDynatraceOtlp$inboundSchema,
+    OutputWebhook$inboundSchema,
+    OutputDevnull$inboundSchema,
+    OutputSyslog$inboundSchema,
+    OutputSplunkHec$inboundSchema,
+    OutputTcpjson$inboundSchema,
+    OutputWavefront$inboundSchema,
+    OutputSignalfx$inboundSchema,
+    OutputAzureLogs$inboundSchema,
+    OutputGoogleChronicle$inboundSchema,
+    OutputNewrelic$inboundSchema,
+    OutputDatadog$inboundSchema,
+    OutputRing$inboundSchema,
+    OutputDataset$inboundSchema,
+    OutputCriblTcp$inboundSchema,
+    OutputCriblHttp$inboundSchema,
     OutputHumioHec$inboundSchema,
+    OutputCriblLake$inboundSchema,
+    OutputDiskSpool$inboundSchema,
+    OutputXsiam$inboundSchema,
     OutputDynatraceHttp$inboundSchema,
     OutputSentinelOneAiSiem$inboundSchema,
     OutputGrafanaCloud$inboundSchema,
@@ -536,59 +536,59 @@ export type Output$Outbound =
   | OutputMsk$Outbound
   | OutputCloudwatch$Outbound
   | OutputClickHouse$Outbound
-  | OutputDefault$Outbound
-  | OutputWebhook$Outbound
-  | OutputDevnull$Outbound
-  | OutputSyslog$Outbound
-  | OutputSplunkLb$Outbound
-  | OutputSplunkHec$Outbound
-  | OutputTcpjson$Outbound
-  | OutputFilesystem$Outbound
   | OutputKinesis$Outbound
-  | OutputHoneycomb$Outbound
   | OutputAzureEventhub$Outbound
   | OutputGoogleCloudStorage$Outbound
-  | OutputGooglePubsub$Outbound
   | OutputKafka$Outbound
   | OutputConfluentCloud$Outbound
-  | OutputElastic$Outbound
   | OutputElasticCloud$Outbound
-  | OutputNewrelic$Outbound
   | OutputNewrelicEvents$Outbound
-  | OutputInfluxdb$Outbound
   | OutputMinio$Outbound
-  | OutputRouter$Outbound
   | OutputSns$Outbound
-  | OutputSnmp$Outbound
-  | OutputSumoLogic$Outbound
-  | OutputDatadog$Outbound
-  | OutputLoki$Outbound
-  | OutputPrometheus$Outbound
-  | OutputRing$Outbound
-  | OutputOpenTelemetry$Outbound
-  | OutputDataset$Outbound
-  | OutputCriblTcp$Outbound
-  | OutputCriblHttp$Outbound
-  | OutputCriblLake$Outbound
-  | OutputDiskSpool$Outbound
-  | OutputXsiam$Outbound
-  | OutputNetflow$Outbound
+  | OutputDefault$Outbound
   | OutputSplunk$Outbound
-  | OutputWavefront$Outbound
-  | OutputSignalfx$Outbound
+  | OutputSplunkLb$Outbound
+  | OutputFilesystem$Outbound
   | OutputS3$Outbound
   | OutputAzureBlob$Outbound
-  | OutputAzureLogs$Outbound
-  | OutputGoogleChronicle$Outbound
+  | OutputHoneycomb$Outbound
+  | OutputGooglePubsub$Outbound
+  | OutputElastic$Outbound
+  | OutputInfluxdb$Outbound
   | OutputStatsd$Outbound
   | OutputStatsdExt$Outbound
   | OutputGraphite$Outbound
+  | OutputRouter$Outbound
   | OutputSqs$Outbound
+  | OutputSnmp$Outbound
+  | OutputSumoLogic$Outbound
+  | OutputLoki$Outbound
+  | OutputPrometheus$Outbound
+  | OutputOpenTelemetry$Outbound
   | OutputServiceNow$Outbound
   | OutputCrowdstrikeNextGenSiem$Outbound
   | OutputDlS3$Outbound
+  | OutputNetflow$Outbound
   | OutputDynatraceOtlp$Outbound
+  | OutputWebhook$Outbound
+  | OutputDevnull$Outbound
+  | OutputSyslog$Outbound
+  | OutputSplunkHec$Outbound
+  | OutputTcpjson$Outbound
+  | OutputWavefront$Outbound
+  | OutputSignalfx$Outbound
+  | OutputAzureLogs$Outbound
+  | OutputGoogleChronicle$Outbound
+  | OutputNewrelic$Outbound
+  | OutputDatadog$Outbound
+  | OutputRing$Outbound
+  | OutputDataset$Outbound
+  | OutputCriblTcp$Outbound
+  | OutputCriblHttp$Outbound
   | OutputHumioHec$Outbound
+  | OutputCriblLake$Outbound
+  | OutputDiskSpool$Outbound
+  | OutputXsiam$Outbound
   | OutputDynatraceHttp$Outbound
   | OutputSentinelOneAiSiem$Outbound
   | OutputGrafanaCloud$Outbound;
@@ -607,59 +607,59 @@ export const Output$outboundSchema: z.ZodType<
   OutputMsk$outboundSchema,
   OutputCloudwatch$outboundSchema,
   OutputClickHouse$outboundSchema,
-  OutputDefault$outboundSchema,
-  OutputWebhook$outboundSchema,
-  OutputDevnull$outboundSchema,
-  OutputSyslog$outboundSchema,
-  OutputSplunkLb$outboundSchema,
-  OutputSplunkHec$outboundSchema,
-  OutputTcpjson$outboundSchema,
-  OutputFilesystem$outboundSchema,
   OutputKinesis$outboundSchema,
-  OutputHoneycomb$outboundSchema,
   OutputAzureEventhub$outboundSchema,
   OutputGoogleCloudStorage$outboundSchema,
-  OutputGooglePubsub$outboundSchema,
   OutputKafka$outboundSchema,
   OutputConfluentCloud$outboundSchema,
-  OutputElastic$outboundSchema,
   OutputElasticCloud$outboundSchema,
-  OutputNewrelic$outboundSchema,
   OutputNewrelicEvents$outboundSchema,
-  OutputInfluxdb$outboundSchema,
   OutputMinio$outboundSchema,
-  OutputRouter$outboundSchema,
   OutputSns$outboundSchema,
-  OutputSnmp$outboundSchema,
-  OutputSumoLogic$outboundSchema,
-  OutputDatadog$outboundSchema,
-  OutputLoki$outboundSchema,
-  OutputPrometheus$outboundSchema,
-  OutputRing$outboundSchema,
-  OutputOpenTelemetry$outboundSchema,
-  OutputDataset$outboundSchema,
-  OutputCriblTcp$outboundSchema,
-  OutputCriblHttp$outboundSchema,
-  OutputCriblLake$outboundSchema,
-  OutputDiskSpool$outboundSchema,
-  OutputXsiam$outboundSchema,
-  OutputNetflow$outboundSchema,
+  OutputDefault$outboundSchema,
   OutputSplunk$outboundSchema,
-  OutputWavefront$outboundSchema,
-  OutputSignalfx$outboundSchema,
+  OutputSplunkLb$outboundSchema,
+  OutputFilesystem$outboundSchema,
   OutputS3$outboundSchema,
   OutputAzureBlob$outboundSchema,
-  OutputAzureLogs$outboundSchema,
-  OutputGoogleChronicle$outboundSchema,
+  OutputHoneycomb$outboundSchema,
+  OutputGooglePubsub$outboundSchema,
+  OutputElastic$outboundSchema,
+  OutputInfluxdb$outboundSchema,
   OutputStatsd$outboundSchema,
   OutputStatsdExt$outboundSchema,
   OutputGraphite$outboundSchema,
+  OutputRouter$outboundSchema,
   OutputSqs$outboundSchema,
+  OutputSnmp$outboundSchema,
+  OutputSumoLogic$outboundSchema,
+  OutputLoki$outboundSchema,
+  OutputPrometheus$outboundSchema,
+  OutputOpenTelemetry$outboundSchema,
   OutputServiceNow$outboundSchema,
   OutputCrowdstrikeNextGenSiem$outboundSchema,
   OutputDlS3$outboundSchema,
+  OutputNetflow$outboundSchema,
   OutputDynatraceOtlp$outboundSchema,
+  OutputWebhook$outboundSchema,
+  OutputDevnull$outboundSchema,
+  OutputSyslog$outboundSchema,
+  OutputSplunkHec$outboundSchema,
+  OutputTcpjson$outboundSchema,
+  OutputWavefront$outboundSchema,
+  OutputSignalfx$outboundSchema,
+  OutputAzureLogs$outboundSchema,
+  OutputGoogleChronicle$outboundSchema,
+  OutputNewrelic$outboundSchema,
+  OutputDatadog$outboundSchema,
+  OutputRing$outboundSchema,
+  OutputDataset$outboundSchema,
+  OutputCriblTcp$outboundSchema,
+  OutputCriblHttp$outboundSchema,
   OutputHumioHec$outboundSchema,
+  OutputCriblLake$outboundSchema,
+  OutputDiskSpool$outboundSchema,
+  OutputXsiam$outboundSchema,
   OutputDynatraceHttp$outboundSchema,
   OutputSentinelOneAiSiem$outboundSchema,
   OutputGrafanaCloud$outboundSchema,

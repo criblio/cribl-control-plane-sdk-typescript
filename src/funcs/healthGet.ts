@@ -6,7 +6,6 @@ import { CriblControlPlaneCore } from "../core.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { CriblControlPlaneError } from "../models/errors/criblcontrolplaneerror.js";
 import {
@@ -19,23 +18,20 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Restart Worker and Edge Nodes
- *
- * @remarks
- * restarts worker nodes
+ * Retrieve health status of the server
  */
-export function nodesRestart(
+export function healthGet(
   client: CriblControlPlaneCore,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdateWorkersRestartResponse,
-    | errors.ErrorT
+    models.HealthStatus,
+    | errors.HealthStatusError
     | CriblControlPlaneError
     | ResponseValidationError
     | ConnectionError
@@ -58,8 +54,8 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.UpdateWorkersRestartResponse,
-      | errors.ErrorT
+      models.HealthStatus,
+      | errors.HealthStatusError
       | CriblControlPlaneError
       | ResponseValidationError
       | ConnectionError
@@ -72,24 +68,21 @@ async function $do(
     APICall,
   ]
 > {
-  const path = pathToFunc("/master/workers/restart")();
+  const path = pathToFunc("/health")();
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
   }));
 
-  const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
-
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "updateWorkersRestart",
+    operationID: "getHealthInfo",
     oAuth2Scopes: [],
 
-    resolvedSecurity: requestSecurity,
+    resolvedSecurity: null,
 
-    securitySource: client._options.security,
+    securitySource: null,
     retryConfig: options?.retries
       || client._options.retryConfig
       || { strategy: "none" },
@@ -97,8 +90,7 @@ async function $do(
   };
 
   const requestRes = client._createRequest(context, {
-    security: requestSecurity,
-    method: "PATCH",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -112,7 +104,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["420", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -126,8 +118,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdateWorkersRestartResponse,
-    | errors.ErrorT
+    models.HealthStatus,
+    | errors.HealthStatusError
     | CriblControlPlaneError
     | ResponseValidationError
     | ConnectionError
@@ -137,9 +129,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.UpdateWorkersRestartResponse$inboundSchema),
-    M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.json(200, models.HealthStatus$inboundSchema),
+    M.jsonErr(420, errors.HealthStatusError$inboundSchema),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

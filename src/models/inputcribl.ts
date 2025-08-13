@@ -85,7 +85,7 @@ export type InputCribl = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputCriblType;
   disabled?: boolean | undefined;
   /**
@@ -372,7 +372,7 @@ export const InputCribl$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputCriblType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -390,7 +390,7 @@ export const InputCribl$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputCribl$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -411,7 +411,7 @@ export const InputCribl$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCribl
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputCriblType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 4a717d8691b3667b3a195dc9ca370eff
-  docVersion: 4.14.0-alpha.1754945439857-0a86c294
+  docChecksum: a3648302114f4f5a98e6e988376a1911
+  docVersion: 4.14.0-alpha.1755082027273-8cf9b57a
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.33-alpha.1
-  configChecksum: c9a09db74bd060e73c0e4d834e4ced62
+  releaseVersion: 0.0.33
+  configChecksum: 4d021ee6cb17d18f6429f4cc3d1adb0e
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -120,7 +120,6 @@ generatedFiles:
   - docs/models/hbcriblinfo.md
   - docs/models/hbleaderinfo.md
   - docs/models/healthstatus.md
-  - docs/models/healthstatusstatus.md
   - docs/models/heartbeatmetadata.md
   - docs/models/heartbeatmetadataaws.md
   - docs/models/heartbeatmetadatahostos.md
@@ -974,7 +973,6 @@ generatedFiles:
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
-  - docs/models/operations/updateworkersrestartresponse.md
   - docs/models/os.md
   - docs/models/output.md
   - docs/models/outputazureblob.md
@@ -1806,8 +1804,6 @@ generatedFiles:
   - docs/models/reportmethod.md
   - docs/models/resourcepolicy.md
   - docs/models/resourcetypelabel.md
-  - docs/models/restartresponse.md
-  - docs/models/restartresponsestatus.md
   - docs/models/role.md
   - docs/models/routecloneconf.md
   - docs/models/routeconf.md
@@ -1827,6 +1823,7 @@ generatedFiles:
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
   - docs/models/snmpv3authentication.md
+  - docs/models/status.md
   - docs/models/subscription.md
   - docs/models/subscriptionmetadatum.md
   - docs/models/summary.md
@@ -1844,10 +1841,9 @@ generatedFiles:
   - docs/models/writeaction.md
   - docs/sdks/auth/README.md
   - docs/sdks/criblcontrolplane/README.md
-  - docs/sdks/deployments/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/groups/README.md
-  - docs/sdks/healthinfo/README.md
+  - docs/sdks/health/README.md
   - docs/sdks/lakedatasets/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
@@ -1855,7 +1851,6 @@ generatedFiles:
   - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
   - docs/sdks/versioning/README.md
-  - docs/sdks/workers/README.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
@@ -1865,33 +1860,33 @@ generatedFiles:
   - package.json
   - src/core.ts
   - src/funcs/authFetchToken.ts
-  - src/funcs/deploymentsGetSummary.ts
-  - src/funcs/destinationsClearPersistentQueue.ts
+  - src/funcs/destinationsClearPQ.ts
   - src/funcs/destinationsCreate.ts
-  - src/funcs/destinationsCreateSampleData.ts
+  - src/funcs/destinationsCreateSample.ts
   - src/funcs/destinationsDelete.ts
   - src/funcs/destinationsGet.ts
-  - src/funcs/destinationsGetPersistentQueueStatus.ts
-  - src/funcs/destinationsGetSampleData.ts
+  - src/funcs/destinationsGetPQStatus.ts
+  - src/funcs/destinationsGetSample.ts
   - src/funcs/destinationsList.ts
   - src/funcs/destinationsUpdate.ts
-  - src/funcs/groupsCreateByProduct.ts
+  - src/funcs/groupsCreate.ts
   - src/funcs/groupsDelete.ts
-  - src/funcs/groupsDeployCommits.ts
+  - src/funcs/groupsDeploy.ts
   - src/funcs/groupsGet.ts
-  - src/funcs/groupsGetAccessControlList.ts
-  - src/funcs/groupsGetByProduct.ts
+  - src/funcs/groupsGetACL.ts
   - src/funcs/groupsGetConfigVersion.ts
-  - src/funcs/groupsGetTeamAccessControlListByProduct.ts
+  - src/funcs/groupsGetTeamACL.ts
+  - src/funcs/groupsList.ts
   - src/funcs/groupsUpdate.ts
-  - src/funcs/healthInfoGet.ts
+  - src/funcs/healthGet.ts
   - src/funcs/lakeDatasetsCreate.ts
   - src/funcs/lakeDatasetsDelete.ts
   - src/funcs/lakeDatasetsGet.ts
   - src/funcs/lakeDatasetsList.ts
   - src/funcs/lakeDatasetsUpdate.ts
+  - src/funcs/nodesCount.ts
+  - src/funcs/nodesGetSummary.ts
   - src/funcs/nodesList.ts
-  - src/funcs/nodesRestart.ts
   - src/funcs/packsDelete.ts
   - src/funcs/packsInstall.ts
   - src/funcs/packsList.ts
@@ -1912,20 +1907,19 @@ generatedFiles:
   - src/funcs/sourcesList.ts
   - src/funcs/sourcesUpdate.ts
   - src/funcs/sourcesUpdateHecTokenMetadata.ts
-  - src/funcs/versioningCleanWorkingDir.ts
   - src/funcs/versioningCreateCommit.ts
   - src/funcs/versioningGetBranch.ts
-  - src/funcs/versioningGetBranchName.ts
+  - src/funcs/versioningGetCommit.ts
   - src/funcs/versioningGetConfigStatus.ts
   - src/funcs/versioningGetCurrentStatus.ts
   - src/funcs/versioningGetDiff.ts
   - src/funcs/versioningGetFileCount.ts
-  - src/funcs/versioningGetFileInfo.ts
+  - src/funcs/versioningListBranches.ts
+  - src/funcs/versioningListFiles.ts
   - src/funcs/versioningPushCommit.ts
   - src/funcs/versioningRevertCommit.ts
-  - src/funcs/versioningShowCommit.ts
   - src/funcs/versioningSyncLocalRemote.ts
-  - src/funcs/workersGetSummaryWorkers.ts
+  - src/funcs/versioningUndo.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -2114,7 +2108,6 @@ generatedFiles:
   - src/models/operations/updatepacksbyid.ts
   - src/models/operations/updatepipelinebyid.ts
   - src/models/operations/updateroutesbyid.ts
-  - src/models/operations/updateworkersrestart.ts
   - src/models/output.ts
   - src/models/outputazureblob.ts
   - src/models/outputazuredataexplorer.ts
@@ -2190,7 +2183,6 @@ generatedFiles:
   - src/models/pipelinefunctionconf.ts
   - src/models/rbacresource.ts
   - src/models/resourcepolicy.ts
-  - src/models/restartresponse.ts
   - src/models/routecloneconf.ts
   - src/models/routeconf.ts
   - src/models/routes.ts
@@ -2201,10 +2193,9 @@ generatedFiles:
   - src/models/updatehectokenrequest.ts
   - src/models/useraccesscontrollist.ts
   - src/sdk/auth.ts
-  - src/sdk/deployments.ts
   - src/sdk/destinations.ts
   - src/sdk/groups.ts
-  - src/sdk/healthinfo.ts
+  - src/sdk/health.ts
   - src/sdk/index.ts
   - src/sdk/lakedatasets.ts
   - src/sdk/nodes.ts
@@ -2214,7 +2205,6 @@ generatedFiles:
   - src/sdk/sdk.ts
   - src/sdk/sources.ts
   - src/sdk/versioning.ts
-  - src/sdk/workers.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts

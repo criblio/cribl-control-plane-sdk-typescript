@@ -191,7 +191,7 @@ export type OutputMinio = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputMinioType | undefined;
+  type: OutputMinioType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -738,7 +738,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputMinioType$inboundSchema.optional(),
+  type: OutputMinioType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -813,7 +813,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputMinio$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -875,7 +875,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   OutputMinio
 > = z.object({
   id: z.string().optional(),
-  type: OutputMinioType$outboundSchema.optional(),
+  type: OutputMinioType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

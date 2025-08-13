@@ -119,7 +119,7 @@ export type OutputKinesis = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputKinesisType | undefined;
+  type: OutputKinesisType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -468,7 +468,7 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputKinesisType$inboundSchema.optional(),
+  type: OutputKinesisType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -512,7 +512,7 @@ export const OutputKinesis$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputKinesis$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -555,7 +555,7 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   OutputKinesis
 > = z.object({
   id: z.string().optional(),
-  type: OutputKinesisType$outboundSchema.optional(),
+  type: OutputKinesisType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

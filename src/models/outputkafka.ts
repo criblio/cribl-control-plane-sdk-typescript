@@ -312,7 +312,7 @@ export type OutputKafka = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputKafkaType | undefined;
+  type: OutputKafkaType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -1184,7 +1184,7 @@ export const OutputKafka$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputKafkaType$inboundSchema.optional(),
+  type: OutputKafkaType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1227,7 +1227,7 @@ export const OutputKafka$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputKafka$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1272,7 +1272,7 @@ export const OutputKafka$outboundSchema: z.ZodType<
   OutputKafka
 > = z.object({
   id: z.string().optional(),
-  type: OutputKafkaType$outboundSchema.optional(),
+  type: OutputKafkaType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

@@ -176,7 +176,6 @@ export * from "./pipeline.js";
 export * from "./pipelinefunctionconf.js";
 export * from "./rbacresource.js";
 export * from "./resourcepolicy.js";
-export * from "./restartresponse.js";
 export * from "./routecloneconf.js";
 export * from "./routeconf.js";
 export * from "./routes.js";

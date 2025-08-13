@@ -212,7 +212,7 @@ export type OutputCriblHttp = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputCriblHttpType;
   /**
    * Pipeline to process data before sending out to this output
@@ -941,7 +941,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputCriblHttpType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -997,7 +997,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputCriblHttp$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -1047,7 +1047,7 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputCriblHttp
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputCriblHttpType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

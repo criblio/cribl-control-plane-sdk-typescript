@@ -190,7 +190,7 @@ export type OutputSplunk = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputSplunkType | undefined;
+  type: OutputSplunkType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -674,7 +674,7 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkType$inboundSchema.optional(),
+  type: OutputSplunkType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -715,7 +715,7 @@ export const OutputSplunk$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSplunk$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -754,7 +754,7 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   OutputSplunk
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkType$outboundSchema.optional(),
+  type: OutputSplunkType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

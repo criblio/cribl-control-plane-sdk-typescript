@@ -87,7 +87,7 @@ export type InputCriblmetrics = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputCriblmetricsType;
   disabled?: boolean | undefined;
   /**
@@ -387,7 +387,7 @@ export const InputCriblmetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputCriblmetricsType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -407,7 +407,7 @@ export const InputCriblmetrics$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputCriblmetrics$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -429,7 +429,7 @@ export const InputCriblmetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCriblmetrics
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputCriblmetricsType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

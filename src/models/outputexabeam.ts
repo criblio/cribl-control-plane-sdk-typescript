@@ -92,7 +92,7 @@ export type OutputExabeam = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputExabeamType | undefined;
+  type: OutputExabeamType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -357,7 +357,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputExabeamType$inboundSchema.optional(),
+  type: OutputExabeamType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -399,7 +399,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputExabeam$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -442,7 +442,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   OutputExabeam
 > = z.object({
   id: z.string().optional(),
-  type: OutputExabeamType$outboundSchema.optional(),
+  type: OutputExabeamType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

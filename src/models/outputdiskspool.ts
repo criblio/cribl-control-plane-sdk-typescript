@@ -31,7 +31,7 @@ export type OutputDiskSpool = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputDiskSpoolType;
   /**
    * Pipeline to process data before sending out to this output
@@ -120,7 +120,7 @@ export const OutputDiskSpool$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputDiskSpoolType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -136,7 +136,7 @@ export const OutputDiskSpool$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputDiskSpool$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -156,7 +156,7 @@ export const OutputDiskSpool$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputDiskSpool
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputDiskSpoolType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),

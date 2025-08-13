@@ -243,7 +243,7 @@ export type InputSystemState = {
   /**
    * Unique ID for this input
    */
-  id: string;
+  id?: string | undefined;
   type: InputSystemStateType;
   disabled?: boolean | undefined;
   /**
@@ -1272,7 +1272,7 @@ export const InputSystemState$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputSystemStateType$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
@@ -1295,7 +1295,7 @@ export const InputSystemState$inboundSchema: z.ZodType<
 
 /** @internal */
 export type InputSystemState$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
@@ -1319,7 +1319,7 @@ export const InputSystemState$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSystemState
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: InputSystemStateType$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),

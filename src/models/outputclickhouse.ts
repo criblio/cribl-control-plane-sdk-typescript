@@ -255,7 +255,7 @@ export type OutputClickHouse = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type?: OutputClickHouseType | undefined;
+  type: OutputClickHouseType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -1198,7 +1198,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputClickHouseType$inboundSchema.optional(),
+  type: OutputClickHouseType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1274,7 +1274,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputClickHouse$Outbound = {
   id?: string | undefined;
-  type?: string | undefined;
+  type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1344,7 +1344,7 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   OutputClickHouse
 > = z.object({
   id: z.string().optional(),
-  type: OutputClickHouseType$outboundSchema.optional(),
+  type: OutputClickHouseType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

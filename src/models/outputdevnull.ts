@@ -17,7 +17,7 @@ export type OutputDevnull = {
   /**
    * Unique ID for this output
    */
-  id: string;
+  id?: string | undefined;
   type: OutputDevnullType;
   /**
    * Pipeline to process data before sending out to this output
@@ -64,7 +64,7 @@ export const OutputDevnull$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputDevnullType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
@@ -74,7 +74,7 @@ export const OutputDevnull$inboundSchema: z.ZodType<
 
 /** @internal */
 export type OutputDevnull$Outbound = {
-  id: string;
+  id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
@@ -88,7 +88,7 @@ export const OutputDevnull$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputDevnull
 > = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: OutputDevnullType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
