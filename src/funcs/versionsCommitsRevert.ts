@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * revert a commit
  */
-export function versioningRevertCommit(
+export function versionsCommitsRevert(
   client: CriblControlPlaneCore,
   request: operations.CreateVersionRevertRequest,
   options?: RequestOptions,

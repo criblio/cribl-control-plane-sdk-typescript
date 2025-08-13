@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
  */
-export function versioningUndo(
+export function versionsCommitsUndo(
   client: CriblControlPlaneCore,
   request?: operations.CreateVersionUndoRequest | undefined,
   options?: RequestOptions,

@@ -24,17 +24,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Synchronize the local branch with the remote repository
+ * Retrieve the name of the Git branch that the Cribl configuration is checked out to
  *
  * @remarks
- * syncs with remote repo via POST requests
+ * returns git branch that the config is checked out to, if any
  */
-export function versioningSyncLocalRemote(
+export function versionsBranchesGet(
   client: CriblControlPlaneCore,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateVersionSyncResponse,
+    operations.GetVersionCurrentBranchResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,7 +58,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.CreateVersionSyncResponse,
+      operations.GetVersionCurrentBranchResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -72,7 +72,7 @@ async function $do(
     APICall,
   ]
 > {
-  const path = pathToFunc("/version/sync")();
+  const path = pathToFunc("/version/current-branch")();
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -84,7 +84,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createVersionSync",
+    operationID: "getVersionCurrentBranch",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -98,7 +98,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -126,7 +126,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateVersionSyncResponse,
+    operations.GetVersionCurrentBranchResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -137,7 +137,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateVersionSyncResponse$inboundSchema),
+    M.json(200, operations.GetVersionCurrentBranchResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

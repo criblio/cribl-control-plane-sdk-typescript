@@ -24,17 +24,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the configuration and status for the Git integration
+ * List all branches in the Git repository used for Cribl configuration
  *
  * @remarks
- * Get info about versioning availability
+ * get the list of branches
  */
-export function versioningGetConfigStatus(
+export function versionsBranchesList(
   client: CriblControlPlaneCore,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetVersionInfoResponse,
+    operations.GetVersionBranchResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,7 +58,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.GetVersionInfoResponse,
+      operations.GetVersionBranchResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -72,7 +72,7 @@ async function $do(
     APICall,
   ]
 > {
-  const path = pathToFunc("/version/info")();
+  const path = pathToFunc("/version/branch")();
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -84,7 +84,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getVersionInfo",
+    operationID: "getVersionBranch",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -126,7 +126,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetVersionInfoResponse,
+    operations.GetVersionBranchResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -137,7 +137,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetVersionInfoResponse$inboundSchema),
+    M.json(200, operations.GetVersionBranchResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

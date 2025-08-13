@@ -3,8 +3,10 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
+import { encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -19,22 +21,24 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the name of the Git branch that the Cribl configuration is checked out to
+ * Create a new commit for pending changes to the Cribl configuration
  *
  * @remarks
- * returns git branch that the config is checked out to, if any
+ * create a new commit containing the current configs the given log message describing the changes.
  */
-export function versioningGetBranch(
+export function versionsCommitsCreate(
   client: CriblControlPlaneCore,
+  request: models.GitCommitParams,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetVersionCurrentBranchResponse,
+    operations.CreateVersionCommitResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -48,17 +52,19 @@ export function versioningGetBranch(
 > {
   return new APIPromise($do(
     client,
+    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
+  request: models.GitCommitParams,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetVersionCurrentBranchResponse,
+      operations.CreateVersionCommitResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -72,9 +78,21 @@ async function $do(
     APICall,
   ]
 > {
-  const path = pathToFunc("/version/current-branch")();
+  const parsed = safeParse(
+    request,
+    (value) => models.GitCommitParams$outboundSchema.parse(value),
+    "Input validation failed",
+  );
+  if (!parsed.ok) {
+    return [parsed, { status: "invalid" }];
+  }
+  const payload = parsed.value;
+  const body = encodeJSON("body", payload, { explode: true });
+
+  const path = pathToFunc("/version/commit")();
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -84,7 +102,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getVersionCurrentBranch",
+    operationID: "createVersionCommit",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -98,10 +116,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -126,7 +145,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetVersionCurrentBranchResponse,
+    operations.CreateVersionCommitResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -137,7 +156,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetVersionCurrentBranchResponse$inboundSchema),
+    M.json(200, operations.CreateVersionCommitResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

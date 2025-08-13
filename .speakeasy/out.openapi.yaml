@@ -4,7 +4,7 @@ servers:
 info:
   title: Cribl API Reference
   description: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
-  version: 4.14.0-alpha.1755082027273-8cf9b57a
+  version: 4.14.0-alpha.1755107805709-19364781
   contact:
     name: Support
     email: support@cribl.io
@@ -38532,8 +38532,8 @@ paths:
       operationId: getVersionBranch
       tags:
         - versioning
-      x-speakeasy-group: versioning
-      x-speakeasy-name-override: listBranches
+      x-speakeasy-group: versions.branches
+      x-speakeasy-name-override: list
       summary: List all branches in the Git repository used for Cribl configuration
       description: get the list of branches
       responses:
@@ -38565,8 +38565,8 @@ paths:
       operationId: createVersionCommit
       tags:
         - versioning
-      x-speakeasy-group: versioning
-      x-speakeasy-name-override: createCommit
+      x-speakeasy-group: versions.commits
+      x-speakeasy-name-override: create
       summary: Create a new commit for pending changes to the Cribl configuration
       description: create a new commit containing the current configs the given log message describing the changes.
       responses:
@@ -38604,8 +38604,8 @@ paths:
       operationId: getVersionCount
       tags:
         - versioning
-      x-speakeasy-group: versioning
-      x-speakeasy-name-override: getFileCount
+      x-speakeasy-group: versions.commits
+      x-speakeasy-name-override: countFiles
       summary: Retrieve a count of files that changed since a commit
       description: get the count of files of changed
       responses:
@@ -38650,8 +38650,8 @@ paths:
       operationId: getVersionCurrentBranch
       tags:
         - versioning
-      x-speakeasy-group: versioning
-      x-speakeasy-name-override: getBranch
+      x-speakeasy-group: versions.branches
+      x-speakeasy-name-override: get
       summary: Retrieve the name of the Git branch that the Cribl configuration is checked out to
       description: returns git branch that the config is checked out to, if any
       responses:
@@ -38683,8 +38683,8 @@ paths:
       operationId: getVersionDiff
       tags:
         - versioning
-      x-speakeasy-group: versioning
-      x-speakeasy-name-override: getDiff
+      x-speakeasy-group: versions.commits
+      x-speakeasy-name-override: diff
       summary: Retrieve the diff for a commit
       description: get the textual diff for given commit
       responses:
@@ -38741,7 +38741,7 @@ paths:
       operationId: getVersionFiles
       tags:
         - versioning
-      x-speakeasy-group: versioning
+      x-speakeasy-group: versions.commits
       x-speakeasy-name-override: listFiles
       summary: Retrieve the names and statuses of files that changed since a commit
       description: get the files changed
@@ -38786,7 +38786,7 @@ paths:
       operationId: getVersionInfo
       tags:
         - versioning
-      x-speakeasy-group: versioning
+      x-speakeasy-group: versions
       x-speakeasy-name-override: getConfigStatus
       summary: Retrieve the configuration and status for the Git integration
       description: Get info about versioning availability
@@ -38818,8 +38818,8 @@ paths:
       operationId: createVersionPush
       tags:
         - versioning
-      x-speakeasy-group: versioning
-      x-speakeasy-name-override: pushCommit
+      x-speakeasy-group: versions.commits
+      x-speakeasy-name-override: push
       summary: Push a commit from the local repository to the remote repository
       description: push the current configs to the remote repository.
       responses:
@@ -38851,8 +38851,8 @@ paths:
       operationId: createVersionRevert
       tags:
         - versioning
-      x-speakeasy-group: versioning
-      x-speakeasy-name-override: revertCommit
+      x-speakeasy-group: versions.commits
+      x-speakeasy-name-override: revert
       summary: Revert a commit in the local repository
       description: revert a commit
       responses:
@@ -38897,8 +38897,8 @@ paths:
       operationId: getVersionShow
       tags:
         - versioning
-      x-speakeasy-group: versioning
-      x-speakeasy-name-override: getCommit
+      x-speakeasy-group: versions.commits
+      x-speakeasy-name-override: get
       summary: Retrieve the diff and log message for a commit
       description: get the log message and textual diff for given commit
       responses:
@@ -38955,7 +38955,7 @@ paths:
       operationId: getVersionStatus
       tags:
         - versioning
-      x-speakeasy-group: versioning
+      x-speakeasy-group: versions
       x-speakeasy-name-override: getCurrentStatus
       summary: Retrieve the status of the current working tree
       description: get the the working tree status
@@ -38994,7 +38994,7 @@ paths:
       operationId: createVersionSync
       tags:
         - versioning
-      x-speakeasy-group: versioning
+      x-speakeasy-group: versions
       x-speakeasy-name-override: syncLocalRemote
       summary: Synchronize the local branch with the remote repository
       description: syncs with remote repo via POST requests
@@ -39027,7 +39027,7 @@ paths:
       operationId: createVersionUndo
       tags:
         - versioning
-      x-speakeasy-group: versioning
+      x-speakeasy-group: versions.commits
       x-speakeasy-name-override: undo
       summary: Discard uncommitted (staged) changes
       description: Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.

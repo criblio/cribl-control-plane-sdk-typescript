@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the diff and log message for a commit
+ * Retrieve a count of files that changed since a commit
  *
  * @remarks
- * get the log message and textual diff for given commit
+ * get the count of files of changed
  */
-export function versioningGetCommit(
+export function versionsCommitsCountFiles(
   client: CriblControlPlaneCore,
-  request?: operations.GetVersionShowRequest | undefined,
+  request?: operations.GetVersionCountRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetVersionShowResponse,
+    operations.GetVersionCountResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function versioningGetCommit(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.GetVersionShowRequest | undefined,
+  request?: operations.GetVersionCountRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetVersionShowResponse,
+      operations.GetVersionCountResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetVersionShowRequest$outboundSchema.optional().parse(value),
+      operations.GetVersionCountRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -89,13 +89,11 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/version/show")();
+  const path = pathToFunc("/version/count")();
 
   const query = encodeFormQuery({
-    "commit": payload?.commit,
-    "diffLineLimit": payload?.diffLineLimit,
-    "filename": payload?.filename,
     "group": payload?.group,
+    "ID": payload?.ID,
   });
 
   const headers = new Headers(compactMap({
@@ -108,7 +106,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getVersionShow",
+    operationID: "getVersionCount",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -152,7 +150,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetVersionShowResponse,
+    operations.GetVersionCountResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -163,7 +161,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetVersionShowResponse$inboundSchema),
+    M.json(200, operations.GetVersionCountResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

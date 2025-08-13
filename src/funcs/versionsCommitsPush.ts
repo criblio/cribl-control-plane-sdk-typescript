@@ -3,10 +3,8 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -26,18 +24,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the names and statuses of files that changed since a commit
+ * Push a commit from the local repository to the remote repository
  *
  * @remarks
- * get the files changed
+ * push the current configs to the remote repository.
  */
-export function versioningListFiles(
+export function versionsCommitsPush(
   client: CriblControlPlaneCore,
-  request?: operations.GetVersionFilesRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetVersionFilesResponse,
+    operations.CreateVersionPushResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -51,19 +48,17 @@ export function versioningListFiles(
 > {
   return new APIPromise($do(
     client,
-    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.GetVersionFilesRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetVersionFilesResponse,
+      operations.CreateVersionPushResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -77,24 +72,7 @@ async function $do(
     APICall,
   ]
 > {
-  const parsed = safeParse(
-    request,
-    (value) =>
-      operations.GetVersionFilesRequest$outboundSchema.optional().parse(value),
-    "Input validation failed",
-  );
-  if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
-  }
-  const payload = parsed.value;
-  const body = null;
-
-  const path = pathToFunc("/version/files")();
-
-  const query = encodeFormQuery({
-    "group": payload?.group,
-    "ID": payload?.ID,
-  });
+  const path = pathToFunc("/version/push")();
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -106,7 +84,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getVersionFiles",
+    operationID: "createVersionPush",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -120,12 +98,10 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
-    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -150,7 +126,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetVersionFilesResponse,
+    operations.CreateVersionPushResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -161,7 +137,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetVersionFilesResponse$inboundSchema),
+    M.json(200, operations.CreateVersionPushResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: a3648302114f4f5a98e6e988376a1911
-  docVersion: 4.14.0-alpha.1755082027273-8cf9b57a
+  docChecksum: f1e2e5c3d187fb8f27e628ec278b765a
+  docVersion: 4.14.0-alpha.1755107805709-19364781
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.33
-  configChecksum: 4d021ee6cb17d18f6429f4cc3d1adb0e
+  releaseVersion: 0.0.34
+  configChecksum: 36c71cbd8a97563e2a03d4ff5f2a5cb5
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -1840,6 +1840,8 @@ generatedFiles:
   - docs/models/v3user.md
   - docs/models/writeaction.md
   - docs/sdks/auth/README.md
+  - docs/sdks/branches/README.md
+  - docs/sdks/commits/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/groups/README.md
@@ -1850,7 +1852,7 @@ generatedFiles:
   - docs/sdks/pipelines/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/sources/README.md
-  - docs/sdks/versioning/README.md
+  - docs/sdks/versions/README.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
@@ -1907,19 +1909,19 @@ generatedFiles:
   - src/funcs/sourcesList.ts
   - src/funcs/sourcesUpdate.ts
   - src/funcs/sourcesUpdateHecTokenMetadata.ts
-  - src/funcs/versioningCreateCommit.ts
-  - src/funcs/versioningGetBranch.ts
-  - src/funcs/versioningGetCommit.ts
-  - src/funcs/versioningGetConfigStatus.ts
-  - src/funcs/versioningGetCurrentStatus.ts
-  - src/funcs/versioningGetDiff.ts
-  - src/funcs/versioningGetFileCount.ts
-  - src/funcs/versioningListBranches.ts
-  - src/funcs/versioningListFiles.ts
-  - src/funcs/versioningPushCommit.ts
-  - src/funcs/versioningRevertCommit.ts
-  - src/funcs/versioningSyncLocalRemote.ts
-  - src/funcs/versioningUndo.ts
+  - src/funcs/versionsBranchesGet.ts
+  - src/funcs/versionsBranchesList.ts
+  - src/funcs/versionsCommitsCountFiles.ts
+  - src/funcs/versionsCommitsCreate.ts
+  - src/funcs/versionsCommitsDiff.ts
+  - src/funcs/versionsCommitsGet.ts
+  - src/funcs/versionsCommitsListFiles.ts
+  - src/funcs/versionsCommitsPush.ts
+  - src/funcs/versionsCommitsRevert.ts
+  - src/funcs/versionsCommitsUndo.ts
+  - src/funcs/versionsGetConfigStatus.ts
+  - src/funcs/versionsGetCurrentStatus.ts
+  - src/funcs/versionsSyncLocalRemote.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -2193,6 +2195,8 @@ generatedFiles:
   - src/models/updatehectokenrequest.ts
   - src/models/useraccesscontrollist.ts
   - src/sdk/auth.ts
+  - src/sdk/branches.ts
+  - src/sdk/commits.ts
   - src/sdk/destinations.ts
   - src/sdk/groups.ts
   - src/sdk/health.ts
@@ -2204,7 +2208,7 @@ generatedFiles:
   - src/sdk/routes.ts
   - src/sdk/sdk.ts
   - src/sdk/sources.ts
-  - src/sdk/versioning.ts
+  - src/sdk/versions.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts

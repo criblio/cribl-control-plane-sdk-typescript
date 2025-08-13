@@ -309,21 +309,27 @@ run();
 * [createHecToken](docs/sdks/sources/README.md#createhectoken) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [updateHecTokenMetadata](docs/sdks/sources/README.md#updatehectokenmetadata) - Update metadata for an HEC token for a Splunk HEC Source
 
-### [versioning](docs/sdks/versioning/README.md)
+### [versions](docs/sdks/versions/README.md)
 
-* [listBranches](docs/sdks/versioning/README.md#listbranches) - List all branches in the Git repository used for Cribl configuration
-* [createCommit](docs/sdks/versioning/README.md#createcommit) - Create a new commit for pending changes to the Cribl configuration
-* [getFileCount](docs/sdks/versioning/README.md#getfilecount) - Retrieve a count of files that changed since a commit
-* [getBranch](docs/sdks/versioning/README.md#getbranch) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
-* [getDiff](docs/sdks/versioning/README.md#getdiff) - Retrieve the diff for a commit
-* [listFiles](docs/sdks/versioning/README.md#listfiles) - Retrieve the names and statuses of files that changed since a commit
-* [getConfigStatus](docs/sdks/versioning/README.md#getconfigstatus) - Retrieve the configuration and status for the Git integration
-* [pushCommit](docs/sdks/versioning/README.md#pushcommit) - Push a commit from the local repository to the remote repository
-* [revertCommit](docs/sdks/versioning/README.md#revertcommit) - Revert a commit in the local repository
-* [getCommit](docs/sdks/versioning/README.md#getcommit) - Retrieve the diff and log message for a commit
-* [getCurrentStatus](docs/sdks/versioning/README.md#getcurrentstatus) - Retrieve the status of the current working tree
-* [syncLocalRemote](docs/sdks/versioning/README.md#synclocalremote) - Synchronize the local branch with the remote repository
-* [undo](docs/sdks/versioning/README.md#undo) - Discard uncommitted (staged) changes
+* [getConfigStatus](docs/sdks/versions/README.md#getconfigstatus) - Retrieve the configuration and status for the Git integration
+* [getCurrentStatus](docs/sdks/versions/README.md#getcurrentstatus) - Retrieve the status of the current working tree
+* [syncLocalRemote](docs/sdks/versions/README.md#synclocalremote) - Synchronize the local branch with the remote repository
+
+#### [versions.branches](docs/sdks/branches/README.md)
+
+* [list](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
+* [get](docs/sdks/branches/README.md#get) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+
+#### [versions.commits](docs/sdks/commits/README.md)
+
+* [create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
+* [countFiles](docs/sdks/commits/README.md#countfiles) - Retrieve a count of files that changed since a commit
+* [diff](docs/sdks/commits/README.md#diff) - Retrieve the diff for a commit
+* [listFiles](docs/sdks/commits/README.md#listfiles) - Retrieve the names and statuses of files that changed since a commit
+* [push](docs/sdks/commits/README.md#push) - Push a commit from the local repository to the remote repository
+* [revert](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
+* [get](docs/sdks/commits/README.md#get) - Retrieve the diff and log message for a commit
+* [undo](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -391,19 +397,19 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesList`](docs/sdks/sources/README.md#list) - List all Sources
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
 - [`sourcesUpdateHecTokenMetadata`](docs/sdks/sources/README.md#updatehectokenmetadata) - Update metadata for an HEC token for a Splunk HEC Source
-- [`versioningCreateCommit`](docs/sdks/versioning/README.md#createcommit) - Create a new commit for pending changes to the Cribl configuration
-- [`versioningGetBranch`](docs/sdks/versioning/README.md#getbranch) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
-- [`versioningGetCommit`](docs/sdks/versioning/README.md#getcommit) - Retrieve the diff and log message for a commit
-- [`versioningGetConfigStatus`](docs/sdks/versioning/README.md#getconfigstatus) - Retrieve the configuration and status for the Git integration
-- [`versioningGetCurrentStatus`](docs/sdks/versioning/README.md#getcurrentstatus) - Retrieve the status of the current working tree
-- [`versioningGetDiff`](docs/sdks/versioning/README.md#getdiff) - Retrieve the diff for a commit
-- [`versioningGetFileCount`](docs/sdks/versioning/README.md#getfilecount) - Retrieve a count of files that changed since a commit
-- [`versioningListBranches`](docs/sdks/versioning/README.md#listbranches) - List all branches in the Git repository used for Cribl configuration
-- [`versioningListFiles`](docs/sdks/versioning/README.md#listfiles) - Retrieve the names and statuses of files that changed since a commit
-- [`versioningPushCommit`](docs/sdks/versioning/README.md#pushcommit) - Push a commit from the local repository to the remote repository
-- [`versioningRevertCommit`](docs/sdks/versioning/README.md#revertcommit) - Revert a commit in the local repository
-- [`versioningSyncLocalRemote`](docs/sdks/versioning/README.md#synclocalremote) - Synchronize the local branch with the remote repository
-- [`versioningUndo`](docs/sdks/versioning/README.md#undo) - Discard uncommitted (staged) changes
+- [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
+- [`versionsBranchesList`](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
+- [`versionsCommitsCountFiles`](docs/sdks/commits/README.md#countfiles) - Retrieve a count of files that changed since a commit
+- [`versionsCommitsCreate`](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
+- [`versionsCommitsDiff`](docs/sdks/commits/README.md#diff) - Retrieve the diff for a commit
+- [`versionsCommitsGet`](docs/sdks/commits/README.md#get) - Retrieve the diff and log message for a commit
+- [`versionsCommitsListFiles`](docs/sdks/commits/README.md#listfiles) - Retrieve the names and statuses of files that changed since a commit
+- [`versionsCommitsPush`](docs/sdks/commits/README.md#push) - Push a commit from the local repository to the remote repository
+- [`versionsCommitsRevert`](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
+- [`versionsCommitsUndo`](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
+- [`versionsGetConfigStatus`](docs/sdks/versions/README.md#getconfigstatus) - Retrieve the configuration and status for the Git integration
+- [`versionsGetCurrentStatus`](docs/sdks/versions/README.md#getcurrentstatus) - Retrieve the status of the current working tree
+- [`versionsSyncLocalRemote`](docs/sdks/versions/README.md#synclocalremote) - Synchronize the local branch with the remote repository
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

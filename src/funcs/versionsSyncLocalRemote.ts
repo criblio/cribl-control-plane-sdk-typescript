@@ -3,10 +3,8 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -21,24 +19,22 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create a new commit for pending changes to the Cribl configuration
+ * Synchronize the local branch with the remote repository
  *
  * @remarks
- * create a new commit containing the current configs the given log message describing the changes.
+ * syncs with remote repo via POST requests
  */
-export function versioningCreateCommit(
+export function versionsSyncLocalRemote(
   client: CriblControlPlaneCore,
-  request: models.GitCommitParams,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateVersionCommitResponse,
+    operations.CreateVersionSyncResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -52,19 +48,17 @@ export function versioningCreateCommit(
 > {
   return new APIPromise($do(
     client,
-    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.GitCommitParams,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateVersionCommitResponse,
+      operations.CreateVersionSyncResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -78,21 +72,9 @@ async function $do(
     APICall,
   ]
 > {
-  const parsed = safeParse(
-    request,
-    (value) => models.GitCommitParams$outboundSchema.parse(value),
-    "Input validation failed",
-  );
-  if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
-  }
-  const payload = parsed.value;
-  const body = encodeJSON("body", payload, { explode: true });
-
-  const path = pathToFunc("/version/commit")();
+  const path = pathToFunc("/version/sync")();
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -102,7 +84,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createVersionCommit",
+    operationID: "createVersionSync",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -120,7 +102,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -145,7 +126,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateVersionCommitResponse,
+    operations.CreateVersionSyncResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -156,7 +137,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateVersionCommitResponse$inboundSchema),
+    M.json(200, operations.CreateVersionSyncResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

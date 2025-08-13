@@ -1,101 +1,20 @@
-# Versioning
-(*versioning*)
+# Commits
+(*versions.commits*)
 
 ## Overview
 
-Actions related to Versioning
-
 ### Available Operations
 
-* [listBranches](#listbranches) - List all branches in the Git repository used for Cribl configuration
-* [createCommit](#createcommit) - Create a new commit for pending changes to the Cribl configuration
-* [getFileCount](#getfilecount) - Retrieve a count of files that changed since a commit
-* [getBranch](#getbranch) - Retrieve the name of the Git branch that the Cribl configuration is checked out to
-* [getDiff](#getdiff) - Retrieve the diff for a commit
+* [create](#create) - Create a new commit for pending changes to the Cribl configuration
+* [countFiles](#countfiles) - Retrieve a count of files that changed since a commit
+* [diff](#diff) - Retrieve the diff for a commit
 * [listFiles](#listfiles) - Retrieve the names and statuses of files that changed since a commit
-* [getConfigStatus](#getconfigstatus) - Retrieve the configuration and status for the Git integration
-* [pushCommit](#pushcommit) - Push a commit from the local repository to the remote repository
-* [revertCommit](#revertcommit) - Revert a commit in the local repository
-* [getCommit](#getcommit) - Retrieve the diff and log message for a commit
-* [getCurrentStatus](#getcurrentstatus) - Retrieve the status of the current working tree
-* [syncLocalRemote](#synclocalremote) - Synchronize the local branch with the remote repository
+* [push](#push) - Push a commit from the local repository to the remote repository
+* [revert](#revert) - Revert a commit in the local repository
+* [get](#get) - Retrieve the diff and log message for a commit
 * [undo](#undo) - Discard uncommitted (staged) changes
 
-## listBranches
-
-get the list of branches
-
-### Example Usage
-
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.versioning.listBranches();
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningListBranches } from "cribl-control-plane/funcs/versioningListBranches.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await versioningListBranches(criblControlPlane);
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("versioningListBranches failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GetVersionBranchResponse](../../models/operations/getversionbranchresponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## createCommit
+## create
 
 create a new commit containing the current configs the given log message describing the changes.
 
@@ -112,7 +31,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.createCommit({
+  const result = await criblControlPlane.versions.commits.create({
     effective: false,
     files: [
       "<value 1>",
@@ -133,7 +52,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningCreateCommit } from "cribl-control-plane/funcs/versioningCreateCommit.js";
+import { versionsCommitsCreate } from "cribl-control-plane/funcs/versionsCommitsCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -145,7 +64,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningCreateCommit(criblControlPlane, {
+  const res = await versionsCommitsCreate(criblControlPlane, {
     effective: false,
     files: [
       "<value 1>",
@@ -157,7 +76,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningCreateCommit failed:", res.error);
+    console.log("versionsCommitsCreate failed:", res.error);
   }
 }
 
@@ -184,7 +103,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getFileCount
+## countFiles
 
 get the count of files of changed
 
@@ -201,7 +120,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getFileCount({
+  const result = await criblControlPlane.versions.commits.countFiles({
     group: "<value>",
     id: "<id>",
   });
@@ -218,7 +137,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetFileCount } from "cribl-control-plane/funcs/versioningGetFileCount.js";
+import { versionsCommitsCountFiles } from "cribl-control-plane/funcs/versionsCommitsCountFiles.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -230,7 +149,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetFileCount(criblControlPlane, {
+  const res = await versionsCommitsCountFiles(criblControlPlane, {
     group: "<value>",
     id: "<id>",
   });
@@ -238,7 +157,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetFileCount failed:", res.error);
+    console.log("versionsCommitsCountFiles failed:", res.error);
   }
 }
 
@@ -265,81 +184,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getBranch
-
-returns git branch that the config is checked out to, if any
-
-### Example Usage
-
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.versioning.getBranch();
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetBranch } from "cribl-control-plane/funcs/versioningGetBranch.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await versioningGetBranch(criblControlPlane);
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("versioningGetBranch failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GetVersionCurrentBranchResponse](../../models/operations/getversioncurrentbranchresponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## getDiff
+## diff
 
 get the textual diff for given commit
 
@@ -356,7 +201,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getDiff({
+  const result = await criblControlPlane.versions.commits.diff({
     commit: "<value>",
     group: "<value>",
     filename: "example.file",
@@ -375,7 +220,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetDiff } from "cribl-control-plane/funcs/versioningGetDiff.js";
+import { versionsCommitsDiff } from "cribl-control-plane/funcs/versionsCommitsDiff.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -387,7 +232,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetDiff(criblControlPlane, {
+  const res = await versionsCommitsDiff(criblControlPlane, {
     commit: "<value>",
     group: "<value>",
     filename: "example.file",
@@ -397,7 +242,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetDiff failed:", res.error);
+    console.log("versionsCommitsDiff failed:", res.error);
   }
 }
 
@@ -441,7 +286,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.listFiles({
+  const result = await criblControlPlane.versions.commits.listFiles({
     group: "<value>",
     id: "<id>",
   });
@@ -458,7 +303,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningListFiles } from "cribl-control-plane/funcs/versioningListFiles.js";
+import { versionsCommitsListFiles } from "cribl-control-plane/funcs/versionsCommitsListFiles.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -470,7 +315,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningListFiles(criblControlPlane, {
+  const res = await versionsCommitsListFiles(criblControlPlane, {
     group: "<value>",
     id: "<id>",
   });
@@ -478,7 +323,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningListFiles failed:", res.error);
+    console.log("versionsCommitsListFiles failed:", res.error);
   }
 }
 
@@ -505,81 +350,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getConfigStatus
-
-Get info about versioning availability
-
-### Example Usage
-
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.versioning.getConfigStatus();
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetConfigStatus } from "cribl-control-plane/funcs/versioningGetConfigStatus.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await versioningGetConfigStatus(criblControlPlane);
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("versioningGetConfigStatus failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GetVersionInfoResponse](../../models/operations/getversioninforesponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## pushCommit
+## push
 
 push the current configs to the remote repository.
 
@@ -596,7 +367,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.pushCommit();
+  const result = await criblControlPlane.versions.commits.push();
 
   console.log(result);
 }
@@ -610,7 +381,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningPushCommit } from "cribl-control-plane/funcs/versioningPushCommit.js";
+import { versionsCommitsPush } from "cribl-control-plane/funcs/versionsCommitsPush.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -622,12 +393,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningPushCommit(criblControlPlane);
+  const res = await versionsCommitsPush(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningPushCommit failed:", res.error);
+    console.log("versionsCommitsPush failed:", res.error);
   }
 }
 
@@ -653,7 +424,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## revertCommit
+## revert
 
 revert a commit
 
@@ -670,7 +441,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.revertCommit({
+  const result = await criblControlPlane.versions.commits.revert({
     group: "<value>",
     gitRevertParams: {
       commit: "<value>",
@@ -691,7 +462,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningRevertCommit } from "cribl-control-plane/funcs/versioningRevertCommit.js";
+import { versionsCommitsRevert } from "cribl-control-plane/funcs/versionsCommitsRevert.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -703,7 +474,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningRevertCommit(criblControlPlane, {
+  const res = await versionsCommitsRevert(criblControlPlane, {
     group: "<value>",
     gitRevertParams: {
       commit: "<value>",
@@ -715,7 +486,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningRevertCommit failed:", res.error);
+    console.log("versionsCommitsRevert failed:", res.error);
   }
 }
 
@@ -742,7 +513,7 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getCommit
+## get
 
 get the log message and textual diff for given commit
 
@@ -759,7 +530,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.getCommit({
+  const result = await criblControlPlane.versions.commits.get({
     commit: "<value>",
     group: "<value>",
     filename: "example.file",
@@ -778,7 +549,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetCommit } from "cribl-control-plane/funcs/versioningGetCommit.js";
+import { versionsCommitsGet } from "cribl-control-plane/funcs/versionsCommitsGet.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -790,7 +561,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningGetCommit(criblControlPlane, {
+  const res = await versionsCommitsGet(criblControlPlane, {
     commit: "<value>",
     group: "<value>",
     filename: "example.file",
@@ -800,7 +571,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningGetCommit failed:", res.error);
+    console.log("versionsCommitsGet failed:", res.error);
   }
 }
 
@@ -827,159 +598,6 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
-## getCurrentStatus
-
-get the the working tree status
-
-### Example Usage
-
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.versioning.getCurrentStatus({
-    group: "<value>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningGetCurrentStatus } from "cribl-control-plane/funcs/versioningGetCurrentStatus.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await versioningGetCurrentStatus(criblControlPlane, {
-    group: "<value>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("versioningGetCurrentStatus failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetVersionStatusRequest](../../models/operations/getversionstatusrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GetVersionStatusResponse](../../models/operations/getversionstatusresponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## syncLocalRemote
-
-syncs with remote repo via POST requests
-
-### Example Usage
-
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.versioning.syncLocalRemote();
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningSyncLocalRemote } from "cribl-control-plane/funcs/versioningSyncLocalRemote.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await versioningSyncLocalRemote(criblControlPlane);
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("versioningSyncLocalRemote failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.CreateVersionSyncResponse](../../models/operations/createversionsyncresponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
 ## undo
 
 Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
@@ -997,7 +615,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.versioning.undo({
+  const result = await criblControlPlane.versions.commits.undo({
     group: "<value>",
   });
 
@@ -1013,7 +631,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { versioningUndo } from "cribl-control-plane/funcs/versioningUndo.js";
+import { versionsCommitsUndo } from "cribl-control-plane/funcs/versionsCommitsUndo.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -1025,14 +643,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await versioningUndo(criblControlPlane, {
+  const res = await versionsCommitsUndo(criblControlPlane, {
     group: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("versioningUndo failed:", res.error);
+    console.log("versionsCommitsUndo failed:", res.error);
   }
 }
 

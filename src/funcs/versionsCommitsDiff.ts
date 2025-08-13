@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * get the textual diff for given commit
  */
-export function versioningGetDiff(
+export function versionsCommitsDiff(
   client: CriblControlPlaneCore,
   request?: operations.GetVersionDiffRequest | undefined,
   options?: RequestOptions,
