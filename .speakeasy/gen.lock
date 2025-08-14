@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: a3648302114f4f5a98e6e988376a1911
-  docVersion: 4.14.0-alpha.1755082027273-8cf9b57a
+  docChecksum: 776d906845341fa77614583a04735310
+  docVersion: 4.14.0-alpha.1755179421376-c4612cd3
   speakeasyVersion: 1.585.0
   generationVersion: 2.660.0
-  releaseVersion: 0.0.33
-  configChecksum: 4d021ee6cb17d18f6429f4cc3d1adb0e
+  releaseVersion: 0.0.34
+  configChecksum: 36c71cbd8a97563e2a03d4ff5f2a5cb5
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -882,7 +882,6 @@ generatedFiles:
   - docs/models/operations/createversionpushresponse.md
   - docs/models/operations/createversionrevertrequest.md
   - docs/models/operations/createversionrevertresponse.md
-  - docs/models/operations/createversionsyncresponse.md
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
@@ -1839,18 +1838,31 @@ generatedFiles:
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
   - docs/models/writeaction.md
+  - docs/sdks/acl/README.md
   - docs/sdks/auth/README.md
+  - docs/sdks/branches/README.md
+  - docs/sdks/commits/README.md
+  - docs/sdks/configsversions/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
+  - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
   - docs/sdks/health/README.md
+  - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
+  - docs/sdks/pq/README.md
   - docs/sdks/routes/README.md
+  - docs/sdks/samples/README.md
   - docs/sdks/sources/README.md
-  - docs/sdks/versioning/README.md
+  - docs/sdks/statuses/README.md
+  - docs/sdks/summaries/README.md
+  - docs/sdks/teams/README.md
+  - docs/sdks/tokens/README.md
+  - docs/sdks/versions/README.md
+  - docs/sdks/versionsconfigs/README.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
@@ -1859,23 +1871,23 @@ generatedFiles:
   - jsr.json
   - package.json
   - src/core.ts
-  - src/funcs/authFetchToken.ts
-  - src/funcs/destinationsClearPQ.ts
+  - src/funcs/authTokensGet.ts
   - src/funcs/destinationsCreate.ts
-  - src/funcs/destinationsCreateSample.ts
   - src/funcs/destinationsDelete.ts
   - src/funcs/destinationsGet.ts
-  - src/funcs/destinationsGetPQStatus.ts
-  - src/funcs/destinationsGetSample.ts
   - src/funcs/destinationsList.ts
+  - src/funcs/destinationsPqClear.ts
+  - src/funcs/destinationsPqGet.ts
+  - src/funcs/destinationsSamplesCreate.ts
+  - src/funcs/destinationsSamplesGet.ts
   - src/funcs/destinationsUpdate.ts
+  - src/funcs/groupsAclGet.ts
+  - src/funcs/groupsAclTeamsGet.ts
+  - src/funcs/groupsConfigsVersionsGet.ts
   - src/funcs/groupsCreate.ts
   - src/funcs/groupsDelete.ts
   - src/funcs/groupsDeploy.ts
   - src/funcs/groupsGet.ts
-  - src/funcs/groupsGetACL.ts
-  - src/funcs/groupsGetConfigVersion.ts
-  - src/funcs/groupsGetTeamACL.ts
   - src/funcs/groupsList.ts
   - src/funcs/groupsUpdate.ts
   - src/funcs/healthGet.ts
@@ -1885,8 +1897,8 @@ generatedFiles:
   - src/funcs/lakeDatasetsList.ts
   - src/funcs/lakeDatasetsUpdate.ts
   - src/funcs/nodesCount.ts
-  - src/funcs/nodesGetSummary.ts
   - src/funcs/nodesList.ts
+  - src/funcs/nodesSummariesGet.ts
   - src/funcs/packsDelete.ts
   - src/funcs/packsInstall.ts
   - src/funcs/packsList.ts
@@ -1901,25 +1913,24 @@ generatedFiles:
   - src/funcs/routesList.ts
   - src/funcs/routesUpdate.ts
   - src/funcs/sourcesCreate.ts
-  - src/funcs/sourcesCreateHecToken.ts
   - src/funcs/sourcesDelete.ts
   - src/funcs/sourcesGet.ts
+  - src/funcs/sourcesHecTokensCreate.ts
+  - src/funcs/sourcesHecTokensUpdate.ts
   - src/funcs/sourcesList.ts
   - src/funcs/sourcesUpdate.ts
-  - src/funcs/sourcesUpdateHecTokenMetadata.ts
-  - src/funcs/versioningCreateCommit.ts
-  - src/funcs/versioningGetBranch.ts
-  - src/funcs/versioningGetCommit.ts
-  - src/funcs/versioningGetConfigStatus.ts
-  - src/funcs/versioningGetCurrentStatus.ts
-  - src/funcs/versioningGetDiff.ts
-  - src/funcs/versioningGetFileCount.ts
-  - src/funcs/versioningListBranches.ts
-  - src/funcs/versioningListFiles.ts
-  - src/funcs/versioningPushCommit.ts
-  - src/funcs/versioningRevertCommit.ts
-  - src/funcs/versioningSyncLocalRemote.ts
-  - src/funcs/versioningUndo.ts
+  - src/funcs/versionsBranchesGet.ts
+  - src/funcs/versionsBranchesList.ts
+  - src/funcs/versionsCommitsCreate.ts
+  - src/funcs/versionsCommitsDiff.ts
+  - src/funcs/versionsCommitsFilesCount.ts
+  - src/funcs/versionsCommitsFilesList.ts
+  - src/funcs/versionsCommitsGet.ts
+  - src/funcs/versionsCommitsPush.ts
+  - src/funcs/versionsCommitsRevert.ts
+  - src/funcs/versionsCommitsUndo.ts
+  - src/funcs/versionsConfigsGet.ts
+  - src/funcs/versionsStatusesGet.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -2060,7 +2071,6 @@ generatedFiles:
   - src/models/operations/createversioncommit.ts
   - src/models/operations/createversionpush.ts
   - src/models/operations/createversionrevert.ts
-  - src/models/operations/createversionsync.ts
   - src/models/operations/createversionundo.ts
   - src/models/operations/deletecribllakedatasetbylakeidandid.ts
   - src/models/operations/deletegroupsbyid.ts
@@ -2192,19 +2202,33 @@ generatedFiles:
   - src/models/teamaccesscontrollist.ts
   - src/models/updatehectokenrequest.ts
   - src/models/useraccesscontrollist.ts
+  - src/sdk/acl.ts
   - src/sdk/auth.ts
+  - src/sdk/branches.ts
+  - src/sdk/commits.ts
+  - src/sdk/configsversions.ts
   - src/sdk/destinations.ts
+  - src/sdk/files.ts
   - src/sdk/groups.ts
+  - src/sdk/groupsconfigs.ts
   - src/sdk/health.ts
+  - src/sdk/hectokens.ts
   - src/sdk/index.ts
   - src/sdk/lakedatasets.ts
   - src/sdk/nodes.ts
   - src/sdk/packs.ts
   - src/sdk/pipelines.ts
+  - src/sdk/pq.ts
   - src/sdk/routes.ts
+  - src/sdk/samples.ts
   - src/sdk/sdk.ts
   - src/sdk/sources.ts
-  - src/sdk/versioning.ts
+  - src/sdk/statuses.ts
+  - src/sdk/summaries.ts
+  - src/sdk/teams.ts
+  - src/sdk/tokens.ts
+  - src/sdk/versions.ts
+  - src/sdk/versionsconfigs.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts

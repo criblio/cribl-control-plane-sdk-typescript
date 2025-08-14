@@ -6,31 +6,23 @@ import { groupsCreate } from "../funcs/groupsCreate.js";
 import { groupsDelete } from "../funcs/groupsDelete.js";
 import { groupsDeploy } from "../funcs/groupsDeploy.js";
 import { groupsGet } from "../funcs/groupsGet.js";
-import { groupsGetACL } from "../funcs/groupsGetACL.js";
-import { groupsGetConfigVersion } from "../funcs/groupsGetConfigVersion.js";
-import { groupsGetTeamACL } from "../funcs/groupsGetTeamACL.js";
 import { groupsList } from "../funcs/groupsList.js";
 import { groupsUpdate } from "../funcs/groupsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { Acl } from "./acl.js";
+import { GroupsConfigs } from "./groupsconfigs.js";
 
 export class Groups extends ClientSDK {
-  /**
-   * Retrieve the configuration version for a Worker Group or Edge Fleet
-   *
-   * @remarks
-   * Get effective bundle version for given Group
-   */
-  async getConfigVersion(
-    request: operations.GetGroupsConfigVersionByIdRequest,
-    options?: RequestOptions,
-  ): Promise<operations.GetGroupsConfigVersionByIdResponse> {
-    return unwrapAsync(groupsGetConfigVersion(
-      this,
-      request,
-      options,
-    ));
+  private _configs?: GroupsConfigs;
+  get configs(): GroupsConfigs {
+    return (this._configs ??= new GroupsConfigs(this._options));
+  }
+
+  private _acl?: Acl;
+  get acl(): Acl {
+    return (this._acl ??= new Acl(this._options));
   }
 
   /**
@@ -129,40 +121,6 @@ export class Groups extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.UpdateGroupsDeployByIdResponse> {
     return unwrapAsync(groupsDeploy(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-   *
-   * @remarks
-   * ACL of team with permissions for resources in this Group
-   */
-  async getTeamACL(
-    request: operations.GetProductsGroupsAclTeamsByProductAndIdRequest,
-    options?: RequestOptions,
-  ): Promise<operations.GetProductsGroupsAclTeamsByProductAndIdResponse> {
-    return unwrapAsync(groupsGetTeamACL(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
-   *
-   * @remarks
-   * ACL of members with permissions for resources in this Group
-   */
-  async getACL(
-    request: operations.GetGroupsAclByIdRequest,
-    options?: RequestOptions,
-  ): Promise<operations.GetGroupsAclByIdResponse> {
-    return unwrapAsync(groupsGetACL(
       this,
       request,
       options,
