@@ -13,7 +13,7 @@ import { Packs } from "./packs.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
-import { Versioning } from "./versioning.js";
+import { Versions } from "./versions.js";
 
 export class CriblControlPlane extends ClientSDK {
   private _lakeDatasets?: LakeDatasets;
@@ -61,9 +61,9 @@ export class CriblControlPlane extends ClientSDK {
     return (this._packs ??= new Packs(this._options));
   }
 
-  private _versioning?: Versioning;
-  get versioning(): Versioning {
-    return (this._versioning ??= new Versioning(this._options));
+  private _versions?: Versions;
+  get versions(): Versions {
+    return (this._versions ??= new Versions(this._options));
   }
 
   private _groups?: Groups;
