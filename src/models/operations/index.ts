@@ -14,7 +14,6 @@ export * from "./createroutesappendbyid.js";
 export * from "./createversioncommit.js";
 export * from "./createversionpush.js";
 export * from "./createversionrevert.js";
-export * from "./createversionsync.js";
 export * from "./createversionundo.js";
 export * from "./deletecribllakedatasetbylakeidandid.js";
 export * from "./deletegroupsbyid.js";

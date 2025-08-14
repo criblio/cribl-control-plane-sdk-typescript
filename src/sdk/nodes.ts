@@ -3,28 +3,16 @@
  */
 
 import { nodesCount } from "../funcs/nodesCount.js";
-import { nodesGetSummary } from "../funcs/nodesGetSummary.js";
 import { nodesList } from "../funcs/nodesList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { Summaries } from "./summaries.js";
 
 export class Nodes extends ClientSDK {
-  /**
-   * Retrieve a summary of the Distributed deployment
-   *
-   * @remarks
-   * Get summary of Distributed deployment
-   */
-  async getSummary(
-    request?: operations.GetSummaryRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.GetSummaryResponse> {
-    return unwrapAsync(nodesGetSummary(
-      this,
-      request,
-      options,
-    ));
+  private _summaries?: Summaries;
+  get summaries(): Summaries {
+    return (this._summaries ??= new Summaries(this._options));
   }
 
   /**

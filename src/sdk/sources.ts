@@ -3,18 +3,22 @@
  */
 
 import { sourcesCreate } from "../funcs/sourcesCreate.js";
-import { sourcesCreateHecToken } from "../funcs/sourcesCreateHecToken.js";
 import { sourcesDelete } from "../funcs/sourcesDelete.js";
 import { sourcesGet } from "../funcs/sourcesGet.js";
 import { sourcesList } from "../funcs/sourcesList.js";
 import { sourcesUpdate } from "../funcs/sourcesUpdate.js";
-import { sourcesUpdateHecTokenMetadata } from "../funcs/sourcesUpdateHecTokenMetadata.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { HecTokens } from "./hectokens.js";
 
 export class Sources extends ClientSDK {
+  private _hecTokens?: HecTokens;
+  get hecTokens(): HecTokens {
+    return (this._hecTokens ??= new HecTokens(this._options));
+  }
+
   /**
    * List all Sources
    *
@@ -92,40 +96,6 @@ export class Sources extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeleteInputByIdResponse> {
     return unwrapAsync(sourcesDelete(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Add an HEC token and optional metadata to a Splunk HEC Source
-   *
-   * @remarks
-   * Add token and optional metadata to an existing HEC Source
-   */
-  async createHecToken(
-    request: operations.CreateInputHecTokenByIdRequest,
-    options?: RequestOptions,
-  ): Promise<operations.CreateInputHecTokenByIdResponse> {
-    return unwrapAsync(sourcesCreateHecToken(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Update metadata for an HEC token for a Splunk HEC Source
-   *
-   * @remarks
-   * Update token metadata on existing HEC Source
-   */
-  async updateHecTokenMetadata(
-    request: operations.UpdateInputHecTokenByIdAndTokenRequest,
-    options?: RequestOptions,
-  ): Promise<operations.UpdateInputHecTokenByIdAndTokenResponse> {
-    return unwrapAsync(sourcesUpdateHecTokenMetadata(
       this,
       request,
       options,
