@@ -5,6 +5,7 @@
 import { versionsBranchesGet } from "../funcs/versionsBranchesGet.js";
 import { versionsBranchesList } from "../funcs/versionsBranchesList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -32,7 +33,7 @@ export class Branches extends ClientSDK {
    */
   async get(
     options?: RequestOptions,
-  ): Promise<operations.GetVersionCurrentBranchResponse> {
+  ): Promise<models.CurrentBranchResult> {
     return unwrapAsync(versionsBranchesGet(
       this,
       options,

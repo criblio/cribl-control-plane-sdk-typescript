@@ -241,6 +241,10 @@ export type InputCrowdstrike = {
    */
   skipOnError?: boolean | undefined;
   /**
+   * Include metadata from SQS notifications on outgoing events
+   */
+  includeSqsMetadata?: boolean | undefined;
+  /**
    * Use Assume Role credentials to access Amazon S3
    */
   enableAssumeRole?: boolean | undefined;
@@ -763,6 +767,7 @@ export const InputCrowdstrike$inboundSchema: z.ZodType<
   numReceivers: z.number().default(1),
   socketTimeout: z.number().default(300),
   skipOnError: z.boolean().default(false),
+  includeSqsMetadata: z.boolean().default(false),
   enableAssumeRole: z.boolean().default(true),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -813,6 +818,7 @@ export type InputCrowdstrike$Outbound = {
   numReceivers: number;
   socketTimeout: number;
   skipOnError: boolean;
+  includeSqsMetadata: boolean;
   enableAssumeRole: boolean;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
@@ -868,6 +874,7 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   numReceivers: z.number().default(1),
   socketTimeout: z.number().default(300),
   skipOnError: z.boolean().default(false),
+  includeSqsMetadata: z.boolean().default(false),
   enableAssumeRole: z.boolean().default(true),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),

@@ -29,7 +29,6 @@ let value: GitStatusResult = {
     "<value 2>",
     "<value 3>",
   ],
-  tracking: "<value>",
 };
 ```
 
@@ -48,4 +47,3 @@ let value: GitStatusResult = {
 | `notAdded`                               | *string*[]                               | :heavy_check_mark:                       | N/A                                      |
 | `renamed`                                | [models.Renamed](../models/renamed.md)[] | :heavy_check_mark:                       | N/A                                      |
 | `staged`                                 | *string*[]                               | :heavy_check_mark:                       | N/A                                      |
-| `tracking`                               | *string*                                 | :heavy_check_mark:                       | N/A                                      |
