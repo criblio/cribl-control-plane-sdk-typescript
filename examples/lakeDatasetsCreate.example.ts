@@ -8,7 +8,7 @@ dotenv.config();
  * Example usage of the cribl-control-plane SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx lakeDatasetsCreate.ts
+ * npm run build && npx tsx lakeDatasetsCreate.example.ts
  */
 
 import { CriblControlPlane } from "cribl-control-plane";

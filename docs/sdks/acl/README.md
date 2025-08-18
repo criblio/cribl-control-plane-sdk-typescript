@@ -13,6 +13,7 @@ ACL of members with permissions for resources in this Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getGroupsAclById" method="get" path="/master/groups/{id}/acl" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

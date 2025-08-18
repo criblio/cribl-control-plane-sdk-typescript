@@ -18,6 +18,7 @@ create a new commit containing the current configs the given log message describ
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -107,6 +108,7 @@ get the textual diff for given commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionDiff" method="get" path="/version/diff" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -192,6 +194,7 @@ push the current configs to the remote repository.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionPush" method="post" path="/version/push" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -266,6 +269,7 @@ revert a commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionRevert" method="post" path="/version/revert" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -355,6 +359,7 @@ get the log message and textual diff for given commit
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionShow" method="get" path="/version/show" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -440,6 +445,7 @@ Discards all uncommitted (staged) configuration changes, resetting the working d
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createVersionUndo" method="post" path="/version/undo" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

@@ -10,6 +10,7 @@ let value: Security = {
   clientOauth: {
     clientID: "<id>",
     clientSecret: "<value>",
+    audience: "https://api.cribl.cloud",
   },
 };
 ```

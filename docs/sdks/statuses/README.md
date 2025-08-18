@@ -13,6 +13,7 @@ get the the working tree status
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionStatus" method="get" path="/version/status" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
