@@ -14,6 +14,7 @@ Clears destination persistent queue
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteOutputPqById" method="delete" path="/system/outputs/{id}/pq" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -93,6 +94,7 @@ Retrieves status of latest clear PQ job for a destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOutputPqById" method="get" path="/system/outputs/{id}/pq" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

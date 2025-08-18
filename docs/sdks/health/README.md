@@ -15,6 +15,7 @@ Retrieve health status of the server
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getHealthInfo" method="get" path="/health" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

@@ -13,6 +13,7 @@ Get summary of Distributed deployment
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getSummary" method="get" path="/master/summary" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

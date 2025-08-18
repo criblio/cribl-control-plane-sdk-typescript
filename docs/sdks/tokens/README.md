@@ -13,6 +13,7 @@ This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="login" method="post" path="/auth/login" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

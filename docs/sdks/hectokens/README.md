@@ -14,6 +14,7 @@ Add token and optional metadata to an existing HEC Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createInputHecTokenById" method="post" path="/system/inputs/{id}/hectoken" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -115,6 +116,7 @@ Update token metadata on existing HEC Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

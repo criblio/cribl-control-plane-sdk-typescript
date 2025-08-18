@@ -14,6 +14,7 @@ get the count of files of changed
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionCount" method="get" path="/version/count" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -95,6 +96,7 @@ get the files changed
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionFiles" method="get" path="/version/files" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

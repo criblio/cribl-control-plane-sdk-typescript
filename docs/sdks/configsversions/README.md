@@ -13,6 +13,7 @@ Get effective bundle version for given Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getGroupsConfigVersionById" method="get" path="/master/groups/{id}/configVersion" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

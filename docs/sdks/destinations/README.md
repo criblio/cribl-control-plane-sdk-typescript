@@ -19,6 +19,7 @@ Get a list of Destination objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listOutput" method="get" path="/system/outputs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -93,6 +94,7 @@ Create Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createOutput" method="post" path="/system/outputs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -304,6 +306,7 @@ Get Destination by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOutputById" method="get" path="/system/outputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -383,6 +386,7 @@ Update Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -580,6 +584,7 @@ Delete Destination
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
