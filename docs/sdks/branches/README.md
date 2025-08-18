@@ -149,7 +149,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionCurrentBranchResponse](../../models/operations/getversioncurrentbranchresponse.md)\>**
+**Promise\<[models.CurrentBranchResult](../../models/currentbranchresult.md)\>**
 
 ### Errors
 

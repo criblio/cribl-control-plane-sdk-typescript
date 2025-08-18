@@ -1431,6 +1431,19 @@ const value: models.InputCriblLakeHttp = {
       value: "<value>",
     },
   ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description:
+        "even athwart after lively creator apud hold pish whenever woot",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
   description:
     "after whoever castanet gosh bludgeon fabricate gee incidentally",
 };
