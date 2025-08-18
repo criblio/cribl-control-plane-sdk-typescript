@@ -37,7 +37,6 @@ let value: GetVersionStatusResponse = {
       staged: [
         "<value 1>",
       ],
-      tracking: "<value>",
     },
   ],
 };

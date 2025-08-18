@@ -40,7 +40,6 @@ export * from "./getsummary.js";
 export * from "./getsummaryworkers.js";
 export * from "./getversionbranch.js";
 export * from "./getversioncount.js";
-export * from "./getversioncurrentbranch.js";
 export * from "./getversiondiff.js";
 export * from "./getversionfiles.js";
 export * from "./getversioninfo.js";
