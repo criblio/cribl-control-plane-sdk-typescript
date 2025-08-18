@@ -8,7 +8,7 @@ import { HBCriblInfo } from "cribl-control-plane/models";
 let value: HBCriblInfo = {
   config: {
     featuresRev: "<value>",
-    hbPeriodSeconds: 3120.89,
+    hbPeriodSeconds: 3261.24,
     logStreamEnv: "<value>",
     policyRev: "<value>",
     version: "<value>",
@@ -21,10 +21,10 @@ let value: HBCriblInfo = {
   installType: "<value>",
   lookupVersions: {},
   master: {
-    host: "winding-cosset.name",
-    port: 4082.58,
+    host: "petty-entry.com",
+    port: 3592.48,
     servername: "<value>",
-    tls: true,
+    tls: false,
   },
   pid: 4521.05,
   startTime: 8614.45,

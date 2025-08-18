@@ -9,15 +9,15 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Teams extends ClientSDK {
   /**
-   * Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+   * Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
    *
    * @remarks
-   * ACL of team with permissions for resources in this Group
+   * Get the Access Control List (ACL) for teams that have permissions on a Worker Group or Edge Fleet for the specified Cribl product.
    */
   async get(
-    request: operations.GetProductsGroupsAclTeamsByProductAndIdRequest,
+    request: operations.GetConfigGroupAclTeamsByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetProductsGroupsAclTeamsByProductAndIdResponse> {
+  ): Promise<operations.GetConfigGroupAclTeamsByProductAndIdResponse> {
     return unwrapAsync(groupsAclTeamsGet(
       this,
       request,

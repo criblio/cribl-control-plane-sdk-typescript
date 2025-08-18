@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a Worker Group or Edge Fleet
+ * Get a Worker Group or Edge Fleet
  *
  * @remarks
- * Get a specific ConfigGroup object
+ * Get the specified Worker Group or Edge Fleet.
  */
 export function groupsGet(
   client: CriblControlPlaneCore,
-  request: operations.GetGroupsByIdRequest,
+  request: operations.GetConfigGroupByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetGroupsByIdResponse,
+    operations.GetConfigGroupByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetGroupsByIdRequest,
+  request: operations.GetConfigGroupByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetGroupsByIdResponse,
+      operations.GetConfigGroupByProductAndIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,7 +79,10 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.GetGroupsByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.GetConfigGroupByProductAndIdRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -93,9 +96,13 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/master/groups/{id}")(pathParams);
+  const path = pathToFunc("/products/{product}/groups/{id}")(pathParams);
 
   const query = encodeFormQuery({
     "fields": payload.fields,
@@ -111,7 +118,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getGroupsById",
+    operationID: "getConfigGroupByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -155,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetGroupsByIdResponse,
+    operations.GetConfigGroupByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -166,7 +173,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetGroupsByIdResponse$inboundSchema),
+    M.json(200, operations.GetConfigGroupByProductAndIdResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

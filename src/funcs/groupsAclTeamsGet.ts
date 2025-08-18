@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the Access Control List (ACL) for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+ * Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
  *
  * @remarks
- * ACL of team with permissions for resources in this Group
+ * Get the Access Control List (ACL) for teams that have permissions on a Worker Group or Edge Fleet for the specified Cribl product.
  */
 export function groupsAclTeamsGet(
   client: CriblControlPlaneCore,
-  request: operations.GetProductsGroupsAclTeamsByProductAndIdRequest,
+  request: operations.GetConfigGroupAclTeamsByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetProductsGroupsAclTeamsByProductAndIdResponse,
+    operations.GetConfigGroupAclTeamsByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsAclTeamsGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetProductsGroupsAclTeamsByProductAndIdRequest,
+  request: operations.GetConfigGroupAclTeamsByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetProductsGroupsAclTeamsByProductAndIdResponse,
+      operations.GetConfigGroupAclTeamsByProductAndIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetProductsGroupsAclTeamsByProductAndIdRequest$outboundSchema
+      operations.GetConfigGroupAclTeamsByProductAndIdRequest$outboundSchema
         .parse(value),
     "Input validation failed",
   );
@@ -119,7 +119,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getProductsGroupsAclTeamsByProductAndId",
+    operationID: "getConfigGroupAclTeamsByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -163,7 +163,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetProductsGroupsAclTeamsByProductAndIdResponse,
+    operations.GetConfigGroupAclTeamsByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -176,7 +176,7 @@ async function $do(
   >(
     M.json(
       200,
-      operations.GetProductsGroupsAclTeamsByProductAndIdResponse$inboundSchema,
+      operations.GetConfigGroupAclTeamsByProductAndIdResponse$inboundSchema,
     ),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),

@@ -7,20 +7,102 @@ Actions related to Groups
 
 ### Available Operations
 
-* [create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
 * [list](#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [delete](#delete) - Delete a Worker Group or Edge Fleet
-* [get](#get) - Retrieve a Worker Group or Edge Fleet
+* [create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
+* [get](#get) - Get a Worker Group or Edge Fleet
 * [update](#update) - Update a Worker Group or Edge Fleet
+* [delete](#delete) - Delete a Worker Group or Edge Fleet
 * [deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
-## create
+## list
 
-Create a Fleet or Worker Group
+Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" -->
+<!-- UsageSnippet language="typescript" operationID="listConfigGroupByProduct" method="get" path="/products/{product}/groups" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.list({
+    fields: "<value>",
+    product: "edge",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsList } from "cribl-control-plane/funcs/groupsList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsList(criblControlPlane, {
+    fields: "<value>",
+    product: "edge",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsList failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ListConfigGroupByProductRequest](../../models/operations/listconfiggroupbyproductrequest.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.ListConfigGroupByProductResponse](../../models/operations/listconfiggroupbyproductresponse.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
+
+## create
+
+Create a new Worker Group or Edge Fleet for the specified Cribl product.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -33,24 +115,24 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.create({
-    product: "stream",
+    product: "edge",
     configGroup: {
       cloud: {
         provider: "aws",
         region: "<value>",
       },
       configVersion: "<value>",
-      deployingWorkerCount: 1848.32,
-      description: "director um why forgery apud once er though off",
-      estimatedIngestRate: 6663.53,
+      deployingWorkerCount: 393.49,
+      description: "ack before fondly scent because gee without where exactly",
+      estimatedIngestRate: 346.37,
       git: {
         commit: "<value>",
-        localChanges: 2079.21,
+        localChanges: 5255.51,
         log: [
           {
             authorEmail: "<value>",
             authorName: "<value>",
-            date: "2024-08-24",
+            date: "2024-06-13",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
@@ -58,25 +140,19 @@ async function run() {
         ],
       },
       id: "<id>",
-      incompatibleWorkerCount: 5487.26,
+      incompatibleWorkerCount: 5613.31,
       inherits: "<value>",
-      isFleet: false,
+      isFleet: true,
       isSearch: false,
       lookupDeployments: [
         {
           context: "<value>",
-          lookups: [
-            {
-              deployedVersion: "<value>",
-              file: "<value>",
-              version: "<value>",
-            },
-          ],
+          lookups: [],
         },
       ],
       maxWorkerAge: "<value>",
       name: "<value>",
-      onPrem: true,
+      onPrem: false,
       provisioned: true,
       streamtags: [
         "<value 1>",
@@ -86,7 +162,7 @@ async function run() {
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 851.73,
+      workerCount: 3050.1,
       workerRemoteAccess: false,
     },
   });
@@ -116,24 +192,24 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsCreate(criblControlPlane, {
-    product: "stream",
+    product: "edge",
     configGroup: {
       cloud: {
         provider: "aws",
         region: "<value>",
       },
       configVersion: "<value>",
-      deployingWorkerCount: 1848.32,
-      description: "director um why forgery apud once er though off",
-      estimatedIngestRate: 6663.53,
+      deployingWorkerCount: 393.49,
+      description: "ack before fondly scent because gee without where exactly",
+      estimatedIngestRate: 346.37,
       git: {
         commit: "<value>",
-        localChanges: 2079.21,
+        localChanges: 5255.51,
         log: [
           {
             authorEmail: "<value>",
             authorName: "<value>",
-            date: "2024-08-24",
+            date: "2024-06-13",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
@@ -141,25 +217,19 @@ async function run() {
         ],
       },
       id: "<id>",
-      incompatibleWorkerCount: 5487.26,
+      incompatibleWorkerCount: 5613.31,
       inherits: "<value>",
-      isFleet: false,
+      isFleet: true,
       isSearch: false,
       lookupDeployments: [
         {
           context: "<value>",
-          lookups: [
-            {
-              deployedVersion: "<value>",
-              file: "<value>",
-              version: "<value>",
-            },
-          ],
+          lookups: [],
         },
       ],
       maxWorkerAge: "<value>",
       name: "<value>",
-      onPrem: true,
+      onPrem: false,
       provisioned: true,
       streamtags: [
         "<value 1>",
@@ -169,7 +239,7 @@ async function run() {
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 851.73,
+      workerCount: 3050.1,
       workerRemoteAccess: false,
     },
   });
@@ -188,176 +258,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateProductsGroupsByProductRequest](../../models/operations/createproductsgroupsbyproductrequest.md)                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateConfigGroupByProductRequest](../../models/operations/createconfiggroupbyproductrequest.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.CreateProductsGroupsByProductResponse](../../models/operations/createproductsgroupsbyproductresponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## list
-
-Get a list of ConfigGroup objects
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="getProductsGroupsByProduct" method="get" path="/products/{product}/groups" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.groups.list({
-    fields: "<value>",
-    product: "stream",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { groupsList } from "cribl-control-plane/funcs/groupsList.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await groupsList(criblControlPlane, {
-    fields: "<value>",
-    product: "stream",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("groupsList failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetProductsGroupsByProductRequest](../../models/operations/getproductsgroupsbyproductrequest.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GetProductsGroupsByProductResponse](../../models/operations/getproductsgroupsbyproductresponse.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## delete
-
-Delete a Fleet or Worker Group
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="deleteGroupsById" method="delete" path="/master/groups/{id}" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.groups.delete({
-    id: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { groupsDelete } from "cribl-control-plane/funcs/groupsDelete.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await groupsDelete(criblControlPlane, {
-    id: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("groupsDelete failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteGroupsByIdRequest](../../models/operations/deletegroupsbyidrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.DeleteGroupsByIdResponse](../../models/operations/deletegroupsbyidresponse.md)\>**
+**Promise\<[operations.CreateConfigGroupByProductResponse](../../models/operations/createconfiggroupbyproductresponse.md)\>**
 
 ### Errors
 
@@ -368,11 +276,11 @@ run();
 
 ## get
 
-Get a specific ConfigGroup object
+Get the specified Worker Group or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getGroupsById" method="get" path="/master/groups/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getConfigGroupByProductAndId" method="get" path="/products/{product}/groups/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -385,6 +293,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.get({
+    product: "edge",
     id: "<id>",
     fields: "<value>",
   });
@@ -414,6 +323,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsGet(criblControlPlane, {
+    product: "edge",
     id: "<id>",
     fields: "<value>",
   });
@@ -432,14 +342,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetGroupsByIdRequest](../../models/operations/getgroupsbyidrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetConfigGroupByProductAndIdRequest](../../models/operations/getconfiggroupbyproductandidrequest.md)                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetGroupsByIdResponse](../../models/operations/getgroupsbyidresponse.md)\>**
+**Promise\<[operations.GetConfigGroupByProductAndIdResponse](../../models/operations/getconfiggroupbyproductandidresponse.md)\>**
 
 ### Errors
 
@@ -450,11 +360,11 @@ run();
 
 ## update
 
-Update a Fleet or Worker Group
+Update the specified Worker Group or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updateGroupsById" method="patch" path="/master/groups/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -467,6 +377,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.update({
+    product: "stream",
     id: "<id>",
     configGroup: {
       cloud: {
@@ -474,17 +385,17 @@ async function run() {
         region: "<value>",
       },
       configVersion: "<value>",
-      deployingWorkerCount: 19.89,
-      description: "jaywalk wrathful truly indeed definitive reflecting almost massive",
-      estimatedIngestRate: 7133.74,
+      deployingWorkerCount: 7451.49,
+      description: "verbally feminize harmful prance really",
+      estimatedIngestRate: 6748.35,
       git: {
         commit: "<value>",
-        localChanges: 370.43,
+        localChanges: 4475.22,
         log: [
           {
             authorEmail: "<value>",
             authorName: "<value>",
-            date: "2024-08-29",
+            date: "2024-01-27",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
@@ -492,10 +403,10 @@ async function run() {
         ],
       },
       id: "<id>",
-      incompatibleWorkerCount: 7081.95,
+      incompatibleWorkerCount: 2043.29,
       inherits: "<value>",
-      isFleet: true,
-      isSearch: true,
+      isFleet: false,
+      isSearch: false,
       lookupDeployments: [
         {
           context: "<value>",
@@ -510,16 +421,17 @@ async function run() {
       ],
       maxWorkerAge: "<value>",
       name: "<value>",
-      onPrem: true,
+      onPrem: false,
       provisioned: true,
       streamtags: [
         "<value 1>",
+        "<value 2>",
       ],
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 9020.63,
-      workerRemoteAccess: true,
+      workerCount: 1557.82,
+      workerRemoteAccess: false,
     },
   });
 
@@ -548,6 +460,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsUpdate(criblControlPlane, {
+    product: "stream",
     id: "<id>",
     configGroup: {
       cloud: {
@@ -555,17 +468,17 @@ async function run() {
         region: "<value>",
       },
       configVersion: "<value>",
-      deployingWorkerCount: 19.89,
-      description: "jaywalk wrathful truly indeed definitive reflecting almost massive",
-      estimatedIngestRate: 7133.74,
+      deployingWorkerCount: 7451.49,
+      description: "verbally feminize harmful prance really",
+      estimatedIngestRate: 6748.35,
       git: {
         commit: "<value>",
-        localChanges: 370.43,
+        localChanges: 4475.22,
         log: [
           {
             authorEmail: "<value>",
             authorName: "<value>",
-            date: "2024-08-29",
+            date: "2024-01-27",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
@@ -573,10 +486,10 @@ async function run() {
         ],
       },
       id: "<id>",
-      incompatibleWorkerCount: 7081.95,
+      incompatibleWorkerCount: 2043.29,
       inherits: "<value>",
-      isFleet: true,
-      isSearch: true,
+      isFleet: false,
+      isSearch: false,
       lookupDeployments: [
         {
           context: "<value>",
@@ -591,16 +504,17 @@ async function run() {
       ],
       maxWorkerAge: "<value>",
       name: "<value>",
-      onPrem: true,
+      onPrem: false,
       provisioned: true,
       streamtags: [
         "<value 1>",
+        "<value 2>",
       ],
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 9020.63,
-      workerRemoteAccess: true,
+      workerCount: 1557.82,
+      workerRemoteAccess: false,
     },
   });
   if (res.ok) {
@@ -618,14 +532,96 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UpdateGroupsByIdRequest](../../models/operations/updategroupsbyidrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateConfigGroupByProductAndIdRequest](../../models/operations/updateconfiggroupbyproductandidrequest.md)                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.UpdateGroupsByIdResponse](../../models/operations/updategroupsbyidresponse.md)\>**
+**Promise\<[operations.UpdateConfigGroupByProductAndIdResponse](../../models/operations/updateconfiggroupbyproductandidresponse.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
+
+## delete
+
+Delete the specified Worker Group or Edge Fleet.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deleteConfigGroupByProductAndId" method="delete" path="/products/{product}/groups/{id}" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.delete({
+    product: "edge",
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsDelete } from "cribl-control-plane/funcs/groupsDelete.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsDelete(criblControlPlane, {
+    product: "edge",
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsDelete failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteConfigGroupByProductAndIdRequest](../../models/operations/deleteconfiggroupbyproductandidrequest.md)                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.DeleteConfigGroupByProductAndIdResponse](../../models/operations/deleteconfiggroupbyproductandidresponse.md)\>**
 
 ### Errors
 
@@ -636,11 +632,11 @@ run();
 
 ## deploy
 
-Deploy commits for a Fleet or Worker Group
+Deploy commits to the specified Worker Group or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updateGroupsDeployById" method="patch" path="/master/groups/{id}/deploy" -->
+<!-- UsageSnippet language="typescript" operationID="updateConfigGroupDeployByProductAndId" method="patch" path="/products/{product}/groups/{id}/deploy" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -653,17 +649,13 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.deploy({
+    product: "stream",
     id: "<id>",
     deployRequest: {
       lookups: [
         {
           context: "<value>",
-          lookups: [
-            {
-              file: "<value>",
-              version: "<value>",
-            },
-          ],
+          lookups: [],
         },
       ],
       version: "<value>",
@@ -695,17 +687,13 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsDeploy(criblControlPlane, {
+    product: "stream",
     id: "<id>",
     deployRequest: {
       lookups: [
         {
           context: "<value>",
-          lookups: [
-            {
-              file: "<value>",
-              version: "<value>",
-            },
-          ],
+          lookups: [],
         },
       ],
       version: "<value>",
@@ -726,14 +714,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UpdateGroupsDeployByIdRequest](../../models/operations/updategroupsdeploybyidrequest.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateConfigGroupDeployByProductAndIdRequest](../../models/operations/updateconfiggroupdeploybyproductandidrequest.md)                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.UpdateGroupsDeployByIdResponse](../../models/operations/updategroupsdeploybyidresponse.md)\>**
+**Promise\<[operations.UpdateConfigGroupDeployByProductAndIdResponse](../../models/operations/updateconfiggroupdeploybyproductandidresponse.md)\>**
 
 ### Errors
 

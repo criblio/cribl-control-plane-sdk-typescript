@@ -26,7 +26,7 @@ export type Summary = {
 };
 
 export type GitCommitSummary = {
-  author: Author;
+  author?: Author | undefined;
   branch: string;
   commit: string;
   files: GitCommitSummaryFiles;
@@ -205,7 +205,7 @@ export const GitCommitSummary$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  author: z.lazy(() => Author$inboundSchema),
+  author: z.lazy(() => Author$inboundSchema).optional(),
   branch: z.string(),
   commit: z.string(),
   files: z.lazy(() => GitCommitSummaryFiles$inboundSchema),
@@ -214,7 +214,7 @@ export const GitCommitSummary$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GitCommitSummary$Outbound = {
-  author: Author$Outbound;
+  author?: Author$Outbound | undefined;
   branch: string;
   commit: string;
   files: GitCommitSummaryFiles$Outbound;
@@ -227,7 +227,7 @@ export const GitCommitSummary$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitCommitSummary
 > = z.object({
-  author: z.lazy(() => Author$outboundSchema),
+  author: z.lazy(() => Author$outboundSchema).optional(),
   branch: z.string(),
   commit: z.string(),
   files: z.lazy(() => GitCommitSummaryFiles$outboundSchema),
