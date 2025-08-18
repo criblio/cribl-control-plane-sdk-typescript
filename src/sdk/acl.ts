@@ -15,15 +15,15 @@ export class Acl extends ClientSDK {
   }
 
   /**
-   * Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+   * Get the Access Control List for a Worker Group or Edge Fleet
    *
    * @remarks
-   * ACL of members with permissions for resources in this Group
+   * Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
    */
   async get(
-    request: operations.GetGroupsAclByIdRequest,
+    request: operations.GetConfigGroupAclByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetGroupsAclByIdResponse> {
+  ): Promise<operations.GetConfigGroupAclByProductAndIdResponse> {
     return unwrapAsync(groupsAclGet(
       this,
       request,

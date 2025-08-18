@@ -29,15 +29,15 @@ import { Result } from "../types/fp.js";
  * List all Worker Groups or Edge Fleets for the specified Cribl product
  *
  * @remarks
- * Get a list of ConfigGroup objects
+ * Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
  */
 export function groupsList(
   client: CriblControlPlaneCore,
-  request: operations.GetProductsGroupsByProductRequest,
+  request: operations.ListConfigGroupByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetProductsGroupsByProductResponse,
+    operations.ListConfigGroupByProductResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsList(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetProductsGroupsByProductRequest,
+  request: operations.ListConfigGroupByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetProductsGroupsByProductResponse,
+      operations.ListConfigGroupByProductResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetProductsGroupsByProductRequest$outboundSchema.parse(value),
+      operations.ListConfigGroupByProductRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -112,7 +112,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getProductsGroupsByProduct",
+    operationID: "listConfigGroupByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -156,7 +156,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetProductsGroupsByProductResponse,
+    operations.ListConfigGroupByProductResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -167,7 +167,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetProductsGroupsByProductResponse$inboundSchema),
+    M.json(200, operations.ListConfigGroupByProductResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

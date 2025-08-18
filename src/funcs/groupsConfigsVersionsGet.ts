@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the configuration version for a Worker Group or Edge Fleet
+ * Get the configuration version for a Worker Group or Edge Fleet
  *
  * @remarks
- * Get effective bundle version for given Group
+ * Get the configuration version for the specified Worker Group or Edge Fleet.
  */
 export function groupsConfigsVersionsGet(
   client: CriblControlPlaneCore,
-  request: operations.GetGroupsConfigVersionByIdRequest,
+  request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetGroupsConfigVersionByIdResponse,
+    operations.GetConfigGroupConfigVersionByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsConfigsVersionsGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetGroupsConfigVersionByIdRequest,
+  request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetGroupsConfigVersionByIdResponse,
+      operations.GetConfigGroupConfigVersionByProductAndIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,8 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetGroupsConfigVersionByIdRequest$outboundSchema.parse(value),
+      operations.GetConfigGroupConfigVersionByProductAndIdRequest$outboundSchema
+        .parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -94,9 +95,15 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/master/groups/{id}/configVersion")(pathParams);
+  const path = pathToFunc("/products/{product}/groups/{id}/configVersion")(
+    pathParams,
+  );
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -108,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getGroupsConfigVersionById",
+    operationID: "getConfigGroupConfigVersionByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -151,7 +158,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetGroupsConfigVersionByIdResponse,
+    operations.GetConfigGroupConfigVersionByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -162,7 +169,11 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetGroupsConfigVersionByIdResponse$inboundSchema),
+    M.json(
+      200,
+      operations
+        .GetConfigGroupConfigVersionByProductAndIdResponse$inboundSchema,
+    ),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

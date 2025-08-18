@@ -29,15 +29,15 @@ import { Result } from "../types/fp.js";
  * Deploy commits to a Worker Group or Edge Fleet
  *
  * @remarks
- * Deploy commits for a Fleet or Worker Group
+ * Deploy commits to the specified Worker Group or Edge Fleet.
  */
 export function groupsDeploy(
   client: CriblControlPlaneCore,
-  request: operations.UpdateGroupsDeployByIdRequest,
+  request: operations.UpdateConfigGroupDeployByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdateGroupsDeployByIdResponse,
+    operations.UpdateConfigGroupDeployByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsDeploy(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.UpdateGroupsDeployByIdRequest,
+  request: operations.UpdateConfigGroupDeployByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.UpdateGroupsDeployByIdResponse,
+      operations.UpdateConfigGroupDeployByProductAndIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,8 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.UpdateGroupsDeployByIdRequest$outboundSchema.parse(value),
+      operations.UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema
+        .parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -94,9 +95,13 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/master/groups/{id}/deploy")(pathParams);
+  const path = pathToFunc("/products/{product}/groups/{id}/deploy")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -109,7 +114,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "updateGroupsDeployById",
+    operationID: "updateConfigGroupDeployByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -152,7 +157,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdateGroupsDeployByIdResponse,
+    operations.UpdateConfigGroupDeployByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -163,7 +168,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.UpdateGroupsDeployByIdResponse$inboundSchema),
+    M.json(
+      200,
+      operations.UpdateConfigGroupDeployByProductAndIdResponse$inboundSchema,
+    ),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

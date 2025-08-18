@@ -16,16 +16,16 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Retrieve a count of Worker and Edge Nodes
+   * Retrieve detailed metadata for Worker and Edge Nodes
    *
    * @remarks
-   * get worker and edge nodes count
+   * get worker and edge nodes
    */
-  async count(
-    request?: operations.GetSummaryWorkersRequest | undefined,
+  async list(
+    request?: operations.ListMasterWorkerEntryRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetSummaryWorkersResponse> {
-    return unwrapAsync(nodesCount(
+  ): Promise<operations.ListMasterWorkerEntryResponse> {
+    return unwrapAsync(nodesList(
       this,
       request,
       options,
@@ -33,16 +33,16 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Retrieve detailed metadata for Worker and Edge Nodes
+   * Retrieve a count of Worker and Edge Nodes
    *
    * @remarks
-   * get worker and edge nodes
+   * get worker and edge nodes count
    */
-  async list(
-    request?: operations.GetWorkersRequest | undefined,
+  async count(
+    request?: operations.GetMasterWorkerEntryRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetWorkersResponse> {
-    return unwrapAsync(nodesList(
+  ): Promise<operations.GetMasterWorkerEntryResponse> {
+    return unwrapAsync(nodesCount(
       this,
       request,
       options,

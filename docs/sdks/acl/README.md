@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [get](#get) - Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+* [get](#get) - Get the Access Control List for a Worker Group or Edge Fleet
 
 ## get
 
-ACL of members with permissions for resources in this Group
+Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getGroupsAclById" method="get" path="/master/groups/{id}/acl" -->
+<!-- UsageSnippet language="typescript" operationID="getConfigGroupAclByProductAndId" method="get" path="/products/{product}/groups/{id}/acl" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -26,8 +26,9 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.acl.get({
+    product: "edge",
     id: "<id>",
-    type: "insights",
+    type: "macros",
   });
 
   console.log(result);
@@ -55,8 +56,9 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsAclGet(criblControlPlane, {
+    product: "edge",
     id: "<id>",
-    type: "insights",
+    type: "macros",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -73,14 +75,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetGroupsAclByIdRequest](../../models/operations/getgroupsaclbyidrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetConfigGroupAclByProductAndIdRequest](../../models/operations/getconfiggroupaclbyproductandidrequest.md)                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetGroupsAclByIdResponse](../../models/operations/getgroupsaclbyidresponse.md)\>**
+**Promise\<[operations.GetConfigGroupAclByProductAndIdResponse](../../models/operations/getconfiggroupaclbyproductandidresponse.md)\>**
 
 ### Errors
 

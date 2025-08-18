@@ -9,15 +9,15 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class ConfigsVersions extends ClientSDK {
   /**
-   * Retrieve the configuration version for a Worker Group or Edge Fleet
+   * Get the configuration version for a Worker Group or Edge Fleet
    *
    * @remarks
-   * Get effective bundle version for given Group
+   * Get the configuration version for the specified Worker Group or Edge Fleet.
    */
   async get(
-    request: operations.GetGroupsConfigVersionByIdRequest,
+    request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetGroupsConfigVersionByIdResponse> {
+  ): Promise<operations.GetConfigGroupConfigVersionByProductAndIdResponse> {
     return unwrapAsync(groupsConfigsVersionsGet(
       this,
       request,
