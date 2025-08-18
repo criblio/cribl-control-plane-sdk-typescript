@@ -4,7 +4,7 @@ servers:
 info:
   title: Cribl API Reference
   description: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
-  version: 4.14.0-alpha.1755531143050-e422dabd
+  version: 4.14.0-alpha.1755534725327-91834ab0
   contact:
     name: Support
     email: support@cribl.io
@@ -39377,12 +39377,75 @@ paths:
           schema:
             type: string
           description: body string optional Specify a branch, tag or a semver spec
+  /system/settings/auth:
+    get:
+      operationId: getSystemSettingsAuth
+      tags:
+        - system
+      x-speakeasy-group: system.settings.auth
+      x-speakeasy-name-override: get
+      summary: Get authentication settings
+      description: Get authentication settings
+      responses:
+        "200":
+          description: a list of AuthConfig objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AuthConfig"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      operationId: updateSystemSettingsAuth
+      tags:
+        - system
+      x-speakeasy-group: system.settings.auth
+      x-speakeasy-name-override: update
+      summary: Update authentication settings
+      description: Update authentication settings
+      responses:
+        "200":
+          description: a list of AuthConfig objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AuthConfig"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /system/settings/conf:
     get:
       operationId: getSystemSettingsConf
       tags:
         - system
-      x-speakeasy-group: system.settings.conf
+      x-speakeasy-group: system.settings.cribl
       x-speakeasy-name-override: get
       summary: Get Cribl system settings
       description: Get Cribl system settings
@@ -39413,7 +39476,7 @@ paths:
       operationId: updateSystemSettingsConf
       tags:
         - system
-      x-speakeasy-group: system.settings.conf
+      x-speakeasy-group: system.settings.cribl
       x-speakeasy-name-override: update
       summary: Update Cribl system settings
       description: Update Cribl system settings
@@ -39447,6 +39510,69 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/SystemSettingsConf"
+  /system/settings/git-settings:
+    get:
+      operationId: getSystemSettingsGitSettings
+      tags:
+        - git
+      x-speakeasy-group: system.settings.git
+      x-speakeasy-name-override: get
+      summary: Get git settings
+      description: Get git settings
+      responses:
+        "200":
+          description: a list of GitSettings objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/GitSettings"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      operationId: updateSystemSettingsGitSettings
+      tags:
+        - git
+      x-speakeasy-group: system.settings.git
+      x-speakeasy-name-override: update
+      summary: Update git settings
+      description: Update git settings
+      responses:
+        "200":
+          description: a list of GitSettings objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/GitSettings"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /version/branch:
     get:
       operationId: getVersionBranch
