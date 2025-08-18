@@ -13,6 +13,7 @@ ACL of team with permissions for resources in this Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getProductsGroupsAclTeamsByProductAndId" method="get" path="/products/{product}/groups/{id}/acl/teams" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

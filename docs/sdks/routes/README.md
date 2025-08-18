@@ -18,6 +18,7 @@ Get a list of Routes objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listRoutes" method="get" path="/routes" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -92,6 +93,7 @@ Get Routes by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getRoutesById" method="get" path="/routes/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -171,6 +173,7 @@ Update Routes
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -282,6 +285,7 @@ Appends routes to the end of the routing table
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

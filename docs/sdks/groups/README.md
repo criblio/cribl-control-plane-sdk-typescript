@@ -20,6 +20,7 @@ Create a Fleet or Worker Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -209,6 +210,7 @@ Get a list of ConfigGroup objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getProductsGroupsByProduct" method="get" path="/products/{product}/groups" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -290,6 +292,7 @@ Delete a Fleet or Worker Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteGroupsById" method="delete" path="/master/groups/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -369,6 +372,7 @@ Get a specific ConfigGroup object
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getGroupsById" method="get" path="/master/groups/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -450,6 +454,7 @@ Update a Fleet or Worker Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateGroupsById" method="patch" path="/master/groups/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -635,6 +640,7 @@ Deploy commits for a Fleet or Worker Group
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateGroupsDeployById" method="patch" path="/master/groups/{id}/deploy" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

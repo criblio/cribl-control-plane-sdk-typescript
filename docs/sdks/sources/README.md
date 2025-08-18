@@ -19,6 +19,7 @@ Get a list of Source objects
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listInput" method="get" path="/system/inputs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -93,6 +94,7 @@ Create Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -310,6 +312,7 @@ Get Source by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getInputById" method="get" path="/system/inputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -389,6 +392,7 @@ Update Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -550,6 +554,7 @@ Delete Source
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

@@ -14,6 +14,7 @@ get the list of branches
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionBranch" method="get" path="/version/branch" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -88,6 +89,7 @@ returns git branch that the config is checked out to, if any
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionCurrentBranch" method="get" path="/version/current-branch" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

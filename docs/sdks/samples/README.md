@@ -14,6 +14,7 @@ Retrieve samples data for the specified destination. Used to get sample data for
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getOutputSamplesById" method="get" path="/system/outputs/{id}/samples" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -93,6 +94,7 @@ Send sample data to a destination to validate configuration or test connectivity
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

@@ -13,6 +13,7 @@ Get info about versioning availability
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getVersionInfo" method="get" path="/version/info" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

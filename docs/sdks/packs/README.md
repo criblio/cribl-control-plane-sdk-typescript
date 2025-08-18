@@ -18,6 +18,7 @@ Install Pack
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -147,6 +148,7 @@ Get info on packs
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getPacks" method="get" path="/packs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -226,6 +228,7 @@ Uninstall Pack from the system
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deletePacksById" method="delete" path="/packs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -305,6 +308,7 @@ Upgrade Pack
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updatePacksById" method="patch" path="/packs/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
