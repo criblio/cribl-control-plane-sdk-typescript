@@ -14,6 +14,7 @@ export * from "./configgroupcloud.js";
 export * from "./configgrouplookups.js";
 export * from "./criblevent.js";
 export * from "./cribllakedataset.js";
+export * from "./currentbranchresult.js";
 export * from "./datasetmetadata.js";
 export * from "./datasetmetadataruninfo.js";
 export * from "./deployrequest.js";

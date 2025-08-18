@@ -65,14 +65,30 @@ let value: DeleteInputByIdResponse = {
       enableHealthCheck: false,
       ipAllowlistRegex: "/.*/",
       ipDenylistRegex: "/^$/",
+      criblAPI: "/cribl",
+      elasticAPI: "/elastic",
+      splunkHecAPI: "/services/collector",
+      splunkHecAcks: false,
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      description:
-        "even athwart after lively creator apud hold pish whenever woot",
+      authTokensExt: [
+        {
+          token: "<value>",
+          description:
+            "even athwart after lively creator apud hold pish whenever woot",
+          metadata: [
+            {
+              name: "<value>",
+              value: "<value>",
+            },
+          ],
+        },
+      ],
+      description: "gape on convalesce incinerate",
     },
   ],
 };
