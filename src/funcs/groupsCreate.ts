@@ -29,15 +29,15 @@ import { Result } from "../types/fp.js";
  * Create a Worker Group or Edge Fleet for the specified Cribl product
  *
  * @remarks
- * Create a Fleet or Worker Group
+ * Create a new Worker Group or Edge Fleet for the specified Cribl product.
  */
 export function groupsCreate(
   client: CriblControlPlaneCore,
-  request: operations.CreateProductsGroupsByProductRequest,
+  request: operations.CreateConfigGroupByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateProductsGroupsByProductResponse,
+    operations.CreateConfigGroupByProductResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.CreateProductsGroupsByProductRequest,
+  request: operations.CreateConfigGroupByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateProductsGroupsByProductResponse,
+      operations.CreateConfigGroupByProductResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,9 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.CreateProductsGroupsByProductRequest$outboundSchema.parse(
-        value,
-      ),
+      operations.CreateConfigGroupByProductRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -111,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createProductsGroupsByProduct",
+    operationID: "createConfigGroupByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -154,7 +152,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateProductsGroupsByProductResponse,
+    operations.CreateConfigGroupByProductResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -165,7 +163,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateProductsGroupsByProductResponse$inboundSchema),
+    M.json(200, operations.CreateConfigGroupByProductResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

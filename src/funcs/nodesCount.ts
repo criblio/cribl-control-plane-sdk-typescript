@@ -33,11 +33,11 @@ import { Result } from "../types/fp.js";
  */
 export function nodesCount(
   client: CriblControlPlaneCore,
-  request?: operations.GetSummaryWorkersRequest | undefined,
+  request?: operations.GetMasterWorkerEntryRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetSummaryWorkersResponse,
+    operations.GetMasterWorkerEntryResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function nodesCount(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.GetSummaryWorkersRequest | undefined,
+  request?: operations.GetMasterWorkerEntryRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetSummaryWorkersResponse,
+      operations.GetMasterWorkerEntryResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetSummaryWorkersRequest$outboundSchema.optional().parse(
+      operations.GetMasterWorkerEntryRequest$outboundSchema.optional().parse(
         value,
       ),
     "Input validation failed",
@@ -107,7 +107,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getSummaryWorkers",
+    operationID: "getMasterWorkerEntry",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -151,7 +151,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetSummaryWorkersResponse,
+    operations.GetMasterWorkerEntryResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -162,7 +162,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetSummaryWorkersResponse$inboundSchema),
+    M.json(200, operations.GetMasterWorkerEntryResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

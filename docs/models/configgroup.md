@@ -16,12 +16,12 @@ let value: ConfigGroup = {
   estimatedIngestRate: 5282.1,
   git: {
     commit: "<value>",
-    localChanges: 5529.58,
+    localChanges: 470.66,
     log: [
       {
         authorEmail: "<value>",
         authorName: "<value>",
-        date: "2024-11-14",
+        date: "2024-12-24",
         hash: "<value>",
         message: "<value>",
         short: "<value>",
@@ -36,7 +36,13 @@ let value: ConfigGroup = {
   lookupDeployments: [
     {
       context: "<value>",
-      lookups: [],
+      lookups: [
+        {
+          deployedVersion: "<value>",
+          file: "<value>",
+          version: "<value>",
+        },
+      ],
     },
   ],
   maxWorkerAge: "<value>",

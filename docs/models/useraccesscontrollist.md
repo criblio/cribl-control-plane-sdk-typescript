@@ -11,10 +11,10 @@ let value: UserAccessControlList = {
       gid: "<id>",
       id: "<id>",
       policy: "<value>",
-      type: "dashboards",
+      type: "groups",
     },
   ],
-  user: "Brionna.Kuhic50",
+  user: "Adolphus_Hayes",
 };
 ```
 

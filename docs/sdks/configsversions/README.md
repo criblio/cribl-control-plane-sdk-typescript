@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [get](#get) - Retrieve the configuration version for a Worker Group or Edge Fleet
+* [get](#get) - Get the configuration version for a Worker Group or Edge Fleet
 
 ## get
 
-Get effective bundle version for given Group
+Get the configuration version for the specified Worker Group or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getGroupsConfigVersionById" method="get" path="/master/groups/{id}/configVersion" -->
+<!-- UsageSnippet language="typescript" operationID="getConfigGroupConfigVersionByProductAndId" method="get" path="/products/{product}/groups/{id}/configVersion" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -26,6 +26,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.configs.versions.get({
+    product: "stream",
     id: "<id>",
   });
 
@@ -54,6 +55,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsConfigsVersionsGet(criblControlPlane, {
+    product: "stream",
     id: "<id>",
   });
   if (res.ok) {
@@ -71,14 +73,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetGroupsConfigVersionByIdRequest](../../models/operations/getgroupsconfigversionbyidrequest.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetConfigGroupConfigVersionByProductAndIdRequest](../../models/operations/getconfiggroupconfigversionbyproductandidrequest.md)                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.GetGroupsConfigVersionByIdResponse](../../models/operations/getgroupsconfigversionbyidresponse.md)\>**
+**Promise\<[operations.GetConfigGroupConfigVersionByProductAndIdResponse](../../models/operations/getconfiggroupconfigversionbyproductandidresponse.md)\>**
 
 ### Errors
 

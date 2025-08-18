@@ -29,15 +29,15 @@ import { Result } from "../types/fp.js";
  * Delete a Worker Group or Edge Fleet
  *
  * @remarks
- * Delete a Fleet or Worker Group
+ * Delete the specified Worker Group or Edge Fleet.
  */
 export function groupsDelete(
   client: CriblControlPlaneCore,
-  request: operations.DeleteGroupsByIdRequest,
+  request: operations.DeleteConfigGroupByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.DeleteGroupsByIdResponse,
+    operations.DeleteConfigGroupByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsDelete(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.DeleteGroupsByIdRequest,
+  request: operations.DeleteConfigGroupByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.DeleteGroupsByIdResponse,
+      operations.DeleteConfigGroupByProductAndIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,7 +79,10 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.DeleteGroupsByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.DeleteConfigGroupByProductAndIdRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -93,9 +96,13 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/master/groups/{id}")(pathParams);
+  const path = pathToFunc("/products/{product}/groups/{id}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -107,7 +114,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "deleteGroupsById",
+    operationID: "deleteConfigGroupByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -150,7 +157,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.DeleteGroupsByIdResponse,
+    operations.DeleteConfigGroupByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -161,7 +168,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.DeleteGroupsByIdResponse$inboundSchema),
+    M.json(
+      200,
+      operations.DeleteConfigGroupByProductAndIdResponse$inboundSchema,
+    ),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

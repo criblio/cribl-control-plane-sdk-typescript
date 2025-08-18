@@ -12,7 +12,7 @@ let value: Git = {
     {
       authorEmail: "<value>",
       authorName: "<value>",
-      date: "2024-11-14",
+      date: "2024-12-24",
       hash: "<value>",
       message: "<value>",
       short: "<value>",

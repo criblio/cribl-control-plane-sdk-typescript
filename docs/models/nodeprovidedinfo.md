@@ -19,26 +19,26 @@ let value: NodeProvidedInfo = {
   cribl: {
     config: {
       featuresRev: "<value>",
-      hbPeriodSeconds: 3120.89,
+      hbPeriodSeconds: 3261.24,
       logStreamEnv: "<value>",
       policyRev: "<value>",
       version: "<value>",
     },
     deploymentId: "<id>",
-    distMode: "master",
-    edgeNodes: 2993.17,
+    distMode: "edge",
+    edgeNodes: 6455.76,
     group: "<value>",
     guid: "<id>",
     installType: "<value>",
     lookupVersions: {},
     master: {
-      host: "winding-cosset.name",
-      port: 4082.58,
+      host: "petty-entry.com",
+      port: 3592.48,
       servername: "<value>",
-      tls: true,
+      tls: false,
     },
-    pid: 4514.09,
-    startTime: 8913.2,
+    pid: 2492.02,
+    startTime: 5354.01,
     tags: [
       "<value 1>",
       "<value 2>",
@@ -56,7 +56,7 @@ let value: NodeProvidedInfo = {
   hostname: "round-squid.org",
   isSaasWorker: true,
   kube: {
-    enabled: false,
+    enabled: true,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -69,15 +69,18 @@ let value: NodeProvidedInfo = {
   localTime: 1451.52,
   metadata: {
     aws: {
-      enabled: true,
+      enabled: false,
       region: "<value>",
       tags: {},
       type: "<value>",
       zone: "<value>",
     },
     hostOs: {
-      addresses: [],
-      enabled: true,
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
@@ -98,7 +101,7 @@ let value: NodeProvidedInfo = {
         "<value 2>",
         "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
@@ -108,6 +111,7 @@ let value: NodeProvidedInfo = {
     addresses: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     enabled: true,
     id: "<id>",
@@ -115,8 +119,8 @@ let value: NodeProvidedInfo = {
   },
   platform: "<value>",
   release: "<value>",
-  totalDiskSpace: 7682.09,
-  totalmem: 4145.33,
+  totalDiskSpace: 5590.59,
+  totalmem: 5398.99,
 };
 ```
 

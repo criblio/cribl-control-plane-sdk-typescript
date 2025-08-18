@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the Access Control List (ACL) for a Worker Group or Edge Fleet
+ * Get the Access Control List for a Worker Group or Edge Fleet
  *
  * @remarks
- * ACL of members with permissions for resources in this Group
+ * Get the Access Control List (ACL) for the specified Worker Group or Edge Fleet.
  */
 export function groupsAclGet(
   client: CriblControlPlaneCore,
-  request: operations.GetGroupsAclByIdRequest,
+  request: operations.GetConfigGroupAclByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetGroupsAclByIdResponse,
+    operations.GetConfigGroupAclByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,12 +58,12 @@ export function groupsAclGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetGroupsAclByIdRequest,
+  request: operations.GetConfigGroupAclByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetGroupsAclByIdResponse,
+      operations.GetConfigGroupAclByProductAndIdResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -79,7 +79,10 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.GetGroupsAclByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.GetConfigGroupAclByProductAndIdRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -93,9 +96,13 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/master/groups/{id}/acl")(pathParams);
+  const path = pathToFunc("/products/{product}/groups/{id}/acl")(pathParams);
 
   const query = encodeFormQuery({
     "type": payload.type,
@@ -111,7 +118,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getGroupsAclById",
+    operationID: "getConfigGroupAclByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -155,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetGroupsAclByIdResponse,
+    operations.GetConfigGroupAclByProductAndIdResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -166,7 +173,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetGroupsAclByIdResponse$inboundSchema),
+    M.json(
+      200,
+      operations.GetConfigGroupAclByProductAndIdResponse$inboundSchema,
+    ),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

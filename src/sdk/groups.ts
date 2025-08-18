@@ -26,32 +26,15 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Create a Worker Group or Edge Fleet for the specified Cribl product
-   *
-   * @remarks
-   * Create a Fleet or Worker Group
-   */
-  async create(
-    request: operations.CreateProductsGroupsByProductRequest,
-    options?: RequestOptions,
-  ): Promise<operations.CreateProductsGroupsByProductResponse> {
-    return unwrapAsync(groupsCreate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * List all Worker Groups or Edge Fleets for the specified Cribl product
    *
    * @remarks
-   * Get a list of ConfigGroup objects
+   * Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
    */
   async list(
-    request: operations.GetProductsGroupsByProductRequest,
+    request: operations.ListConfigGroupByProductRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetProductsGroupsByProductResponse> {
+  ): Promise<operations.ListConfigGroupByProductResponse> {
     return unwrapAsync(groupsList(
       this,
       request,
@@ -60,16 +43,16 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Delete a Worker Group or Edge Fleet
+   * Create a Worker Group or Edge Fleet for the specified Cribl product
    *
    * @remarks
-   * Delete a Fleet or Worker Group
+   * Create a new Worker Group or Edge Fleet for the specified Cribl product.
    */
-  async delete(
-    request: operations.DeleteGroupsByIdRequest,
+  async create(
+    request: operations.CreateConfigGroupByProductRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteGroupsByIdResponse> {
-    return unwrapAsync(groupsDelete(
+  ): Promise<operations.CreateConfigGroupByProductResponse> {
+    return unwrapAsync(groupsCreate(
       this,
       request,
       options,
@@ -77,15 +60,15 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Retrieve a Worker Group or Edge Fleet
+   * Get a Worker Group or Edge Fleet
    *
    * @remarks
-   * Get a specific ConfigGroup object
+   * Get the specified Worker Group or Edge Fleet.
    */
   async get(
-    request: operations.GetGroupsByIdRequest,
+    request: operations.GetConfigGroupByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetGroupsByIdResponse> {
+  ): Promise<operations.GetConfigGroupByProductAndIdResponse> {
     return unwrapAsync(groupsGet(
       this,
       request,
@@ -97,13 +80,30 @@ export class Groups extends ClientSDK {
    * Update a Worker Group or Edge Fleet
    *
    * @remarks
-   * Update a Fleet or Worker Group
+   * Update the specified Worker Group or Edge Fleet.
    */
   async update(
-    request: operations.UpdateGroupsByIdRequest,
+    request: operations.UpdateConfigGroupByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateGroupsByIdResponse> {
+  ): Promise<operations.UpdateConfigGroupByProductAndIdResponse> {
     return unwrapAsync(groupsUpdate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Worker Group or Edge Fleet
+   *
+   * @remarks
+   * Delete the specified Worker Group or Edge Fleet.
+   */
+  async delete(
+    request: operations.DeleteConfigGroupByProductAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteConfigGroupByProductAndIdResponse> {
+    return unwrapAsync(groupsDelete(
       this,
       request,
       options,
@@ -114,12 +114,12 @@ export class Groups extends ClientSDK {
    * Deploy commits to a Worker Group or Edge Fleet
    *
    * @remarks
-   * Deploy commits for a Fleet or Worker Group
+   * Deploy commits to the specified Worker Group or Edge Fleet.
    */
   async deploy(
-    request: operations.UpdateGroupsDeployByIdRequest,
+    request: operations.UpdateConfigGroupDeployByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateGroupsDeployByIdResponse> {
+  ): Promise<operations.UpdateConfigGroupDeployByProductAndIdResponse> {
     return unwrapAsync(groupsDeploy(
       this,
       request,
