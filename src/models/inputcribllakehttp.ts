@@ -135,6 +135,26 @@ export type InputCriblLakeHttpMetadatum = {
   value: string;
 };
 
+export type InputCriblLakeHttpAuthTokensExtMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type InputCriblLakeHttpAuthTokensExt = {
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<InputCriblLakeHttpAuthTokensExtMetadatum> | undefined;
+};
+
 export type InputCriblLakeHttp = {
   /**
    * Unique ID for this input
@@ -225,9 +245,26 @@ export type InputCriblLakeHttp = {
    */
   ipDenylistRegex?: string | undefined;
   /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
    * Fields to add to events from this input
    */
   metadata?: Array<InputCriblLakeHttpMetadatum> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<InputCriblLakeHttpAuthTokensExt> | undefined;
   description?: string | undefined;
 };
 
@@ -626,6 +663,142 @@ export function inputCriblLakeHttpMetadatumFromJSON(
 }
 
 /** @internal */
+export const InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema: z.ZodType<
+  InputCriblLakeHttpAuthTokensExtMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/** @internal */
+export type InputCriblLakeHttpAuthTokensExtMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema: z.ZodType<
+  InputCriblLakeHttpAuthTokensExtMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttpAuthTokensExtMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputCriblLakeHttpAuthTokensExtMetadatum$ {
+  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema` instead. */
+  export const inboundSchema =
+    InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema;
+  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema` instead. */
+  export const outboundSchema =
+    InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema;
+  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$Outbound` instead. */
+  export type Outbound = InputCriblLakeHttpAuthTokensExtMetadatum$Outbound;
+}
+
+export function inputCriblLakeHttpAuthTokensExtMetadatumToJSON(
+  inputCriblLakeHttpAuthTokensExtMetadatum:
+    InputCriblLakeHttpAuthTokensExtMetadatum,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema.parse(
+      inputCriblLakeHttpAuthTokensExtMetadatum,
+    ),
+  );
+}
+
+export function inputCriblLakeHttpAuthTokensExtMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputCriblLakeHttpAuthTokensExtMetadatum,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputCriblLakeHttpAuthTokensExtMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttpAuthTokensExt$inboundSchema: z.ZodType<
+  InputCriblLakeHttpAuthTokensExt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(
+    z.lazy(() => InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema),
+  ).optional(),
+});
+
+/** @internal */
+export type InputCriblLakeHttpAuthTokensExt$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?:
+    | Array<InputCriblLakeHttpAuthTokensExtMetadatum$Outbound>
+    | undefined;
+};
+
+/** @internal */
+export const InputCriblLakeHttpAuthTokensExt$outboundSchema: z.ZodType<
+  InputCriblLakeHttpAuthTokensExt$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttpAuthTokensExt
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(
+    z.lazy(() => InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema),
+  ).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputCriblLakeHttpAuthTokensExt$ {
+  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$inboundSchema` instead. */
+  export const inboundSchema = InputCriblLakeHttpAuthTokensExt$inboundSchema;
+  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$outboundSchema` instead. */
+  export const outboundSchema = InputCriblLakeHttpAuthTokensExt$outboundSchema;
+  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$Outbound` instead. */
+  export type Outbound = InputCriblLakeHttpAuthTokensExt$Outbound;
+}
+
+export function inputCriblLakeHttpAuthTokensExtToJSON(
+  inputCriblLakeHttpAuthTokensExt: InputCriblLakeHttpAuthTokensExt,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpAuthTokensExt$outboundSchema.parse(
+      inputCriblLakeHttpAuthTokensExt,
+    ),
+  );
+}
+
+export function inputCriblLakeHttpAuthTokensExtFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHttpAuthTokensExt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHttpAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHttpAuthTokensExt' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   InputCriblLakeHttp,
   z.ZodTypeDef,
@@ -658,8 +831,15 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
   metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum$inboundSchema))
     .optional(),
+  authTokensExt: z.array(
+    z.lazy(() => InputCriblLakeHttpAuthTokensExt$inboundSchema),
+  ).optional(),
   description: z.string().optional(),
 });
 
@@ -690,7 +870,12 @@ export type InputCriblLakeHttp$Outbound = {
   enableHealthCheck: boolean;
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
   metadata?: Array<InputCriblLakeHttpMetadatum$Outbound> | undefined;
+  authTokensExt?: Array<InputCriblLakeHttpAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -728,8 +913,15 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
   metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum$outboundSchema))
     .optional(),
+  authTokensExt: z.array(
+    z.lazy(() => InputCriblLakeHttpAuthTokensExt$outboundSchema),
+  ).optional(),
   description: z.string().optional(),
 });
 

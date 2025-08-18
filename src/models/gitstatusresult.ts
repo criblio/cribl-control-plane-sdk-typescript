@@ -31,7 +31,6 @@ export type GitStatusResult = {
   notAdded: Array<string>;
   renamed: Array<Renamed>;
   staged: Array<string>;
-  tracking: string;
 };
 
 /** @internal */
@@ -162,7 +161,6 @@ export const GitStatusResult$inboundSchema: z.ZodType<
   not_added: z.array(z.string()),
   renamed: z.array(z.lazy(() => Renamed$inboundSchema)),
   staged: z.array(z.string()),
-  tracking: z.string(),
 }).transform((v) => {
   return remap$(v, {
     "not_added": "notAdded",
@@ -182,7 +180,6 @@ export type GitStatusResult$Outbound = {
   not_added: Array<string>;
   renamed: Array<Renamed$Outbound>;
   staged: Array<string>;
-  tracking: string;
 };
 
 /** @internal */
@@ -202,7 +199,6 @@ export const GitStatusResult$outboundSchema: z.ZodType<
   notAdded: z.array(z.string()),
   renamed: z.array(z.lazy(() => Renamed$outboundSchema)),
   staged: z.array(z.string()),
-  tracking: z.string(),
 }).transform((v) => {
   return remap$(v, {
     notAdded: "not_added",
