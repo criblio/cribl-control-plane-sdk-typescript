@@ -37,6 +37,7 @@ export * from "./getpacks.js";
 export * from "./getpipelinebyid.js";
 export * from "./getroutesbyid.js";
 export * from "./getsummary.js";
+export * from "./getversion.js";
 export * from "./getversionbranch.js";
 export * from "./getversioncount.js";
 export * from "./getversiondiff.js";
