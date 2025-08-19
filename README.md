@@ -345,6 +345,7 @@ run();
 
 * [create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
 * [diff](docs/sdks/commits/README.md#diff) - Retrieve the diff for a commit
+* [list](docs/sdks/commits/README.md#list) - Get the commit history
 * [push](docs/sdks/commits/README.md#push) - Push a commit from the local repository to the remote repository
 * [revert](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 * [get](docs/sdks/commits/README.md#get) - Retrieve the diff and log message for a commit
@@ -436,6 +437,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versionsCommitsFilesCount`](docs/sdks/files/README.md#count) - Retrieve a count of files that changed since a commit
 - [`versionsCommitsFilesList`](docs/sdks/files/README.md#list) - Retrieve the names and statuses of files that changed since a commit
 - [`versionsCommitsGet`](docs/sdks/commits/README.md#get) - Retrieve the diff and log message for a commit
+- [`versionsCommitsList`](docs/sdks/commits/README.md#list) - Get the commit history
 - [`versionsCommitsPush`](docs/sdks/commits/README.md#push) - Push a commit from the local repository to the remote repository
 - [`versionsCommitsRevert`](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 - [`versionsCommitsUndo`](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
@@ -733,7 +735,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 60 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 61 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

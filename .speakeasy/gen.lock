@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: fa2aec240b6e1c35e6bb718a089a1389
-  docVersion: 4.14.0-alpha.1755543348575-fc1d9ba2
+  docChecksum: 9fbfb42073570ae001cb27afb297c961
+  docVersion: 4.14.0-alpha.1755612836485-d6687b64
   speakeasyVersion: 1.605.1
   generationVersion: 2.684.0
-  releaseVersion: 0.0.37
-  configChecksum: 684770aa75283b8501d27c66e4359447
+  releaseVersion: 0.0.38-alpha.1
+  configChecksum: 44659c17c9af20f80918402541c0710e
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -114,6 +114,7 @@ generatedFiles:
   - docs/models/gitfile.md
   - docs/models/gitfilesresponse.md
   - docs/models/gitinfo.md
+  - docs/models/gitlogresult.md
   - docs/models/gitrevertparams.md
   - docs/models/gitrevertresult.md
   - docs/models/gitrevertresultfiles.md
@@ -946,6 +947,8 @@ generatedFiles:
   - docs/models/operations/getversionfilesrequest.md
   - docs/models/operations/getversionfilesresponse.md
   - docs/models/operations/getversioninforesponse.md
+  - docs/models/operations/getversionrequest.md
+  - docs/models/operations/getversionresponse.md
   - docs/models/operations/getversionshowrequest.md
   - docs/models/operations/getversionshowresponse.md
   - docs/models/operations/getversionstatusrequest.md
@@ -1934,6 +1937,7 @@ generatedFiles:
   - src/funcs/versionsCommitsFilesCount.ts
   - src/funcs/versionsCommitsFilesList.ts
   - src/funcs/versionsCommitsGet.ts
+  - src/funcs/versionsCommitsList.ts
   - src/funcs/versionsCommitsPush.ts
   - src/funcs/versionsCommitsRevert.ts
   - src/funcs/versionsCommitsUndo.ts
@@ -1991,6 +1995,7 @@ generatedFiles:
   - src/models/gitfile.ts
   - src/models/gitfilesresponse.ts
   - src/models/gitinfo.ts
+  - src/models/gitlogresult.ts
   - src/models/gitrevertparams.ts
   - src/models/gitrevertresult.ts
   - src/models/gitstatusresult.ts
@@ -2104,6 +2109,7 @@ generatedFiles:
   - src/models/operations/getpipelinebyid.ts
   - src/models/operations/getroutesbyid.ts
   - src/models/operations/getsummary.ts
+  - src/models/operations/getversion.ts
   - src/models/operations/getversionbranch.ts
   - src/models/operations/getversioncount.ts
   - src/models/operations/getversiondiff.ts
@@ -3030,6 +3036,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 729189, "items": [{"perms": [{"gid": "<id>", "id": "<id>", "policy": "<value>", "type": "notebooks"}], "team": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getVersion:
+    speakeasy-default-get-version:
+      parameters:
+        query:
+          group: "<value>"
+          count: 893.58
+      responses:
+        "200":
+          application/json: {"count": 384008, "items": [{"author_email": "<value>", "author_name": "<value>", "body": "<value>", "date": "2024-03-31", "hash": "<value>", "message": "<value>", "refs": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
