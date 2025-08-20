@@ -56,10 +56,10 @@ export class Commits extends ClientSDK {
   }
 
   /**
-   * Get the commit history
+   * List the commit history
    *
    * @remarks
-   * Get the commit history
+   * List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
    */
   async list(
     request?: operations.GetVersionRequest | undefined,

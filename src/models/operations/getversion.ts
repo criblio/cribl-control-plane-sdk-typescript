@@ -10,11 +10,11 @@ import * as models from "../index.js";
 
 export type GetVersionRequest = {
   /**
-   * Group ID
+   * The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for.
    */
   group?: string | undefined;
   /**
-   * Maximum number of commits to return
+   * Maximum number of commits to return in the response for this request.
    */
   count?: number | undefined;
 };

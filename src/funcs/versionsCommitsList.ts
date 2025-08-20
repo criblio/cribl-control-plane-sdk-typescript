@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get the commit history
+ * List the commit history
  *
  * @remarks
- * Get the commit history
+ * List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
  */
 export function versionsCommitsList(
   client: CriblControlPlaneCore,
