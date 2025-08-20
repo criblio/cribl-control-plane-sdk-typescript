@@ -1,6 +1,6 @@
 # CreateRoutesAppendByIdResponse
 
-a list of any objects
+a list of Routes objects
 
 ## Example Usage
 
@@ -11,12 +11,21 @@ let value: CreateRoutesAppendByIdResponse = {
   count: 445099,
   items: [
     {
-      "key": "<value>",
-      "key1": "<value>",
-    },
-    {
-      "key": "<value>",
-      "key1": "<value>",
+      id: "<id>",
+      routes: [],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "athwart joshingly whether inspection how highly",
+          disabled: false,
+        },
+      },
+      comments: [
+        {
+          comment:
+            "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+        },
+      ],
     },
   ],
 };
@@ -27,4 +36,4 @@ let value: CreateRoutesAppendByIdResponse = {
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | Record<string, *any*>[]                    | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | [models.Routes](../../models/routes.md)[]  | :heavy_minus_sign:                         | N/A                                        |
