@@ -25,6 +25,7 @@ export * from "./gitcommitsummary.js";
 export * from "./gitfile.js";
 export * from "./gitfilesresponse.js";
 export * from "./gitinfo.js";
+export * from "./gitlogresult.js";
 export * from "./gitrevertparams.js";
 export * from "./gitrevertresult.js";
 export * from "./gitstatusresult.js";
