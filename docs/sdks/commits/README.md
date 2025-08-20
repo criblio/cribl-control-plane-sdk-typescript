@@ -7,7 +7,7 @@
 
 * [create](#create) - Create a new commit for pending changes to the Cribl configuration
 * [diff](#diff) - Get the diff for a commit
-* [list](#list) - Get the commit history
+* [list](#list) - List the commit history
 * [push](#push) - Push local commits to the remote repository
 * [revert](#revert) - Revert a commit in the local repository
 * [get](#get) - Get the diff and log message for a commit
@@ -191,7 +191,7 @@ run();
 
 ## list
 
-Get the commit history
+List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
 
 ### Example Usage
 
