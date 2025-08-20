@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type GetOutputSamplesByIdRequest = {
   /**
-   * Destination Id
+   * The <code>id</code> of the Destination to get sample event data for.
    */
   id: string;
 };

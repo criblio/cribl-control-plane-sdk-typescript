@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the status of the current working tree
+ * Get the status of the current working tree
  *
  * @remarks
- * get the the working tree status
+ * Get the status of the current working tree of the Git repository used for Cribl configuration. The response includes details about modified, staged, untracked, and conflicted files, as well as branch and remote tracking information.
  */
 export function versionsStatusesGet(
   client: CriblControlPlaneCore,

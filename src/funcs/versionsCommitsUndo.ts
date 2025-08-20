@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Discard uncommitted (staged) changes
  *
  * @remarks
- * Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
+ * Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
  */
 export function versionsCommitsUndo(
   client: CriblControlPlaneCore,

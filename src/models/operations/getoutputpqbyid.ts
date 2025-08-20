@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetOutputPqByIdRequest = {
   /**
-   * Destination Id
+   * The <code>id</code> of the Destination to get PQ job information for.
    */
   id: string;
 };

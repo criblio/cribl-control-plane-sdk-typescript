@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type DeletePacksByIdRequest = {
   /**
-   * Pack name
+   * The <code>id</code> of the Pack to uninstall.
    */
   id: string;
 };

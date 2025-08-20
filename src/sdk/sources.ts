@@ -23,7 +23,7 @@ export class Sources extends ClientSDK {
    * List all Sources
    *
    * @remarks
-   * Get a list of Source objects
+   * Get a list of all Sources.
    */
   async list(
     options?: RequestOptions,
@@ -38,7 +38,7 @@ export class Sources extends ClientSDK {
    * Create a Source
    *
    * @remarks
-   * Create Source
+   * Create a new Source.
    */
   async create(
     request: models.Input,
@@ -52,10 +52,10 @@ export class Sources extends ClientSDK {
   }
 
   /**
-   * Retrieve a Source
+   * Get a Source
    *
    * @remarks
-   * Get Source by ID
+   * Get the specified Source.
    */
   async get(
     request: operations.GetInputByIdRequest,
@@ -72,7 +72,7 @@ export class Sources extends ClientSDK {
    * Update a Source
    *
    * @remarks
-   * Update Source
+   * Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
    */
   async update(
     request: operations.UpdateInputByIdRequest,
@@ -89,7 +89,7 @@ export class Sources extends ClientSDK {
    * Delete a Source
    *
    * @remarks
-   * Delete Source
+   * Delete the specified Source.
    */
   async delete(
     request: operations.DeleteInputByIdRequest,

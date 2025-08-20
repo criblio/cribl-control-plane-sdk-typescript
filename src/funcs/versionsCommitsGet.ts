@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the diff and log message for a commit
+ * Get the diff and log message for a commit
  *
  * @remarks
- * get the log message and textual diff for given commit
+ * Get the diff and log message for a commit. Default is the latest commit (HEAD).
  */
 export function versionsCommitsGet(
   client: CriblControlPlaneCore,

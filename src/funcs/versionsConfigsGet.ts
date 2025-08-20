@@ -24,10 +24,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the configuration and status for the Git integration
+ * Get the configuration and status for the Git integration
  *
  * @remarks
- * Get info about versioning availability
+ * Get the configuration and versioning status for the Git integration for the Cribl configuration.
  */
 export function versionsConfigsGet(
   client: CriblControlPlaneCore,

@@ -24,10 +24,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Push a commit from the local repository to the remote repository
+ * Push local commits to the remote repository
  *
  * @remarks
- * push the current configs to the remote repository.
+ * Push all local commits from the local repository to the remote repository.
  */
 export function versionsCommitsPush(
   client: CriblControlPlaneCore,

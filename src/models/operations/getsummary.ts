@@ -10,20 +10,20 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 /**
- * product filter
+ * Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
  */
 export const Mode = {
   Worker: "worker",
   ManagedEdge: "managed-edge",
 } as const;
 /**
- * product filter
+ * Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
  */
 export type Mode = ClosedEnum<typeof Mode>;
 
 export type GetSummaryRequest = {
   /**
-   * product filter
+   * Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
    */
   mode?: Mode | undefined;
 };

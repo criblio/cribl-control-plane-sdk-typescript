@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a count of files that changed since a commit
+ * Get a count of files that changed since a commit
  *
  * @remarks
- * get the count of files of changed
+ * Get a count of the files that changed since a commit. Default is the latest commit (HEAD).
  */
 export function versionsCommitsFilesCount(
   client: CriblControlPlaneCore,

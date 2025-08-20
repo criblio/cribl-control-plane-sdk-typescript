@@ -5,11 +5,11 @@
 
 ### Available Operations
 
-* [get](#get) - Retrieve the status of the current working tree
+* [get](#get) - Get the status of the current working tree
 
 ## get
 
-get the the working tree status
+Get the status of the current working tree of the Git repository used for Cribl configuration. The response includes details about modified, staged, untracked, and conflicted files, as well as branch and remote tracking information.
 
 ### Example Usage
 

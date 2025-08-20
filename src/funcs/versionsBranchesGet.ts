@@ -24,10 +24,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the name of the Git branch that the Cribl configuration is checked out to
+ * Get the name of the Git branch that the Cribl configuration is checked out to
  *
  * @remarks
- * returns git branch that the config is checked out to, if any
+ * Get the name of the Git branch that the Cribl configuration is checked out to. Useful for verifying the active configuration branch.
  */
 export function versionsBranchesGet(
   client: CriblControlPlaneCore,

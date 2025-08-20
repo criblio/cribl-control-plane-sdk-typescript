@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [create](#create) - Create a Lake Dataset in the specified Lake
-* [list](#list) - List all Lake Datasets in the specified Lake
-* [delete](#delete) - Delete a Lake Dataset in the specified Lake
-* [get](#get) - Retrieve a Lake Dataset in the specified Lake
-* [update](#update) - Update a Lake Dataset in the specified Lake
+* [create](#create) - Create a Lake Dataset
+* [list](#list) - List all Lake Datasets
+* [delete](#delete) - Delete a Lake Dataset
+* [get](#get) - Get a Lake Dataset
+* [update](#update) - Update a Lake Dataset
 
 ## create
 
-Create a Dataset in the specified Lake
+Create a new Lake Dataset in the specified Lake.
 
 ### Example Usage
 
@@ -187,7 +187,7 @@ run();
 
 ## list
 
-Get the list of Dataset contained in the specified Lake
+Get a list of all Lake Datasets in the specified Lake.
 
 ### Example Usage
 
@@ -267,7 +267,7 @@ run();
 
 ## delete
 
-Delete a Dataset in the specified Lake
+Delete the specified Lake Dataset in the specified Lake
 
 ### Example Usage
 
@@ -349,7 +349,7 @@ run();
 
 ## get
 
-Get a Dataset in the specified Lake
+Get the specified Lake Dataset in the specified Lake.
 
 ### Example Usage
 
@@ -431,7 +431,7 @@ run();
 
 ## update
 
-Update a Dataset in the specified Lake
+Update the specified Lake Dataset in the specified Lake.
 
 ### Example Usage
 

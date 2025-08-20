@@ -6,16 +6,16 @@
 ### Available Operations
 
 * [create](#create) - Create a new commit for pending changes to the Cribl configuration
-* [diff](#diff) - Retrieve the diff for a commit
+* [diff](#diff) - Get the diff for a commit
 * [list](#list) - Get the commit history
-* [push](#push) - Push a commit from the local repository to the remote repository
+* [push](#push) - Push local commits to the remote repository
 * [revert](#revert) - Revert a commit in the local repository
-* [get](#get) - Retrieve the diff and log message for a commit
+* [get](#get) - Get the diff and log message for a commit
 * [undo](#undo) - Discard uncommitted (staged) changes
 
 ## create
 
-create a new commit containing the current configs the given log message describing the changes.
+Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 
 ### Example Usage
 
@@ -105,7 +105,7 @@ run();
 
 ## diff
 
-get the textual diff for given commit
+Get the diff for a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
@@ -273,7 +273,7 @@ run();
 
 ## push
 
-push the current configs to the remote repository.
+Push all local commits from the local repository to the remote repository.
 
 ### Example Usage
 
@@ -348,7 +348,7 @@ run();
 
 ## revert
 
-revert a commit
+Revert a commit in the local repository.
 
 ### Example Usage
 
@@ -438,7 +438,7 @@ run();
 
 ## get
 
-get the log message and textual diff for given commit
+Get the diff and log message for a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
@@ -524,7 +524,7 @@ run();
 
 ## undo
 
-Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
+Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
 
 ### Example Usage
 

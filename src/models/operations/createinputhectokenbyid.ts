@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type CreateInputHecTokenByIdRequest = {
   /**
-   * HEC Source id
+   * The <code>id</code> of the Splunk HEC Source.
    */
   id: string;
   /**

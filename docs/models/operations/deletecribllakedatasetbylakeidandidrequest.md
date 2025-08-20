@@ -13,7 +13,7 @@ let value: DeleteCriblLakeDatasetByLakeIdAndIdRequest = {
 
 ## Fields
 
-| Field                              | Type                               | Required                           | Description                        |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| `lakeId`                           | *string*                           | :heavy_check_mark:                 | lake id that contains the Datasets |
-| `id`                               | *string*                           | :heavy_check_mark:                 | dataset id to delete               |
+| Field                                                                     | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `lakeId`                                                                  | *string*                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake that contains the Lake Dataset to delete. |
+| `id`                                                                      | *string*                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake Dataset to delete.                        |

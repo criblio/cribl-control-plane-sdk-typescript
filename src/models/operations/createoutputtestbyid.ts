@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type CreateOutputTestByIdRequest = {
   /**
-   * Destination Id
+   * The <code>id</code> of the Destination to send sample event data to.
    */
   id: string;
   /**

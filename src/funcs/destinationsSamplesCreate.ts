@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Send sample event data to a Destination
  *
  * @remarks
- * Send sample data to a destination to validate configuration or test connectivity
+ * Send sample event data to the specified Destination to validate the configuration or test connectivity.
  */
 export function destinationsSamplesCreate(
   client: CriblControlPlaneCore,

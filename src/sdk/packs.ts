@@ -16,7 +16,7 @@ export class Packs extends ClientSDK {
    * Install a Pack
    *
    * @remarks
-   * Install Pack
+   * Install a Pack.
    */
   async install(
     request: models.PackRequestBody,
@@ -33,7 +33,7 @@ export class Packs extends ClientSDK {
    * List all Packs
    *
    * @remarks
-   * Get info on packs
+   * Get a list of all Packs.
    */
   async list(
     request?: operations.GetPacksRequest | undefined,
@@ -50,7 +50,7 @@ export class Packs extends ClientSDK {
    * Uninstall a Pack
    *
    * @remarks
-   * Uninstall Pack from the system
+   * Uninstall the specified Pack.
    */
   async delete(
     request: operations.DeletePacksByIdRequest,
@@ -64,10 +64,10 @@ export class Packs extends ClientSDK {
   }
 
   /**
-   * Update a Pack
+   * Upgrade a Pack
    *
    * @remarks
-   * Upgrade Pack
+   * Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack. Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
    */
   async update(
     request: operations.UpdatePacksByIdRequest,

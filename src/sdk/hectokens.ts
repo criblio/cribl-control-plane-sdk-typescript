@@ -13,7 +13,7 @@ export class HecTokens extends ClientSDK {
    * Add an HEC token and optional metadata to a Splunk HEC Source
    *
    * @remarks
-   * Add token and optional metadata to an existing HEC Source
+   * Add an HEC token and optional metadata to the specified Splunk HEC Source.
    */
   async create(
     request: operations.CreateInputHecTokenByIdRequest,
@@ -30,7 +30,7 @@ export class HecTokens extends ClientSDK {
    * Update metadata for an HEC token for a Splunk HEC Source
    *
    * @remarks
-   * Update token metadata on existing HEC Source
+   * Update the metadata for the specified HEC token for the specified Splunk HEC Source.
    */
   async update(
     request: operations.UpdateInputHecTokenByIdAndTokenRequest,

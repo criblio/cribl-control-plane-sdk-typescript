@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateVersionUndoRequest = {
   /**
-   * Group ID
+   * The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for.
    */
   group?: string | undefined;
 };

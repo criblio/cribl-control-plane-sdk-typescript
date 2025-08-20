@@ -9,10 +9,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class VersionsConfigs extends ClientSDK {
   /**
-   * Retrieve the configuration and status for the Git integration
+   * Get the configuration and status for the Git integration
    *
    * @remarks
-   * Get info about versioning availability
+   * Get the configuration and versioning status for the Git integration for the Cribl configuration.
    */
   async get(
     options?: RequestOptions,

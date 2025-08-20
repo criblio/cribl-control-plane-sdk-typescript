@@ -10,11 +10,11 @@ import * as models from "../index.js";
 
 export type DeleteCriblLakeDatasetByLakeIdAndIdRequest = {
   /**
-   * lake id that contains the Datasets
+   * The <code>id</code> of the Lake that contains the Lake Dataset to delete.
    */
   lakeId: string;
   /**
-   * dataset id to delete
+   * The <code>id</code> of the Lake Dataset to delete.
    */
   id: string;
 };

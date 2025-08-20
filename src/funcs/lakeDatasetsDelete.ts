@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete a Lake Dataset in the specified Lake
+ * Delete a Lake Dataset
  *
  * @remarks
- * Delete a Dataset in the specified Lake
+ * Delete the specified Lake Dataset in the specified Lake
  */
 export function lakeDatasetsDelete(
   client: CriblControlPlaneCore,

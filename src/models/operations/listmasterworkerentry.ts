@@ -10,29 +10,29 @@ import * as models from "../index.js";
 
 export type ListMasterWorkerEntryRequest = {
   /**
-   * Filter expression evaluated against nodes
+   * Filter expression to evaluate against Nodes for inclusion in the response.
    */
   filterExp?: string | undefined;
   /**
-   * Sorting object (JSON stringified) expression evaluated against nodes
-   */
-  sort?: string | undefined;
-  /**
-   * Sorting expression evaluated against nodes
+   * Sorting expression to evaluate against Nodes to specify the sort order for the response.
    */
   sortExp?: string | undefined;
   /**
-   * Maximum number of nodes to return
+   * JSON-stringified filter object to evaluate against Nodes for inclusion in the response.
+   */
+  filter?: string | undefined;
+  /**
+   * JSON-stringified sorting object to evaluate against Nodes to specify the sort order for the response.
+   */
+  sort?: string | undefined;
+  /**
+   * Maximum number of Nodes to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
    */
   limit?: number | undefined;
   /**
-   * Pagination offset
+   * Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
    */
   offset?: number | undefined;
-  /**
-   * Filter object (JSON stringified) to select nodes
-   */
-  filter?: string | undefined;
 };
 
 /**
@@ -53,21 +53,21 @@ export const ListMasterWorkerEntryRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   filterExp: z.string().optional(),
-  sort: z.string().optional(),
   sortExp: z.string().optional(),
+  filter: z.string().optional(),
+  sort: z.string().optional(),
   limit: z.number().int().optional(),
   offset: z.number().int().optional(),
-  filter: z.string().optional(),
 });
 
 /** @internal */
 export type ListMasterWorkerEntryRequest$Outbound = {
   filterExp?: string | undefined;
-  sort?: string | undefined;
   sortExp?: string | undefined;
+  filter?: string | undefined;
+  sort?: string | undefined;
   limit?: number | undefined;
   offset?: number | undefined;
-  filter?: string | undefined;
 };
 
 /** @internal */
@@ -77,11 +77,11 @@ export const ListMasterWorkerEntryRequest$outboundSchema: z.ZodType<
   ListMasterWorkerEntryRequest
 > = z.object({
   filterExp: z.string().optional(),
-  sort: z.string().optional(),
   sortExp: z.string().optional(),
+  filter: z.string().optional(),
+  sort: z.string().optional(),
   limit: z.number().int().optional(),
   offset: z.number().int().optional(),
-  filter: z.string().optional(),
 });
 
 /**

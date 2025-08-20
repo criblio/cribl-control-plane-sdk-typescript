@@ -10,10 +10,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Samples extends ClientSDK {
   /**
-   * Retrieve sample event data for a Destination
+   * Get sample event data for a Destination
    *
    * @remarks
-   * Retrieve samples data for the specified destination. Used to get sample data for the test action.
+   * Get sample event data for the specified Destination to validate the configuration or test connectivity.
    */
   async get(
     request: operations.GetOutputSamplesByIdRequest,
@@ -30,7 +30,7 @@ export class Samples extends ClientSDK {
    * Send sample event data to a Destination
    *
    * @remarks
-   * Send sample data to a destination to validate configuration or test connectivity
+   * Send sample event data to the specified Destination to validate the configuration or test connectivity.
    */
   async create(
     request: operations.CreateOutputTestByIdRequest,
