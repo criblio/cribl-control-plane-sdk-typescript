@@ -333,22 +333,6 @@ run();
 * [create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
-
-#### [system.settings.auth](docs/sdks/settingsauth/README.md)
-
-* [list](docs/sdks/settingsauth/README.md#list) - Get authentication settings
-* [update](docs/sdks/settingsauth/README.md#update) - Update authentication settings
-
-#### [system.settings.cribl](docs/sdks/cribl/README.md)
-
-* [list](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-* [update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
-
-#### [system.settings.git](docs/sdks/git/README.md)
-
-* [list](docs/sdks/git/README.md#list) - Get git settings
-* [update](docs/sdks/git/README.md#update) - Update git settings
-
 ### [versions](docs/sdks/versions/README.md)
 
 
@@ -361,7 +345,7 @@ run();
 
 * [create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
 * [diff](docs/sdks/commits/README.md#diff) - Get the diff for a commit
-* [list](docs/sdks/commits/README.md#list) - Get the commit history
+* [list](docs/sdks/commits/README.md#list) - List the commit history
 * [push](docs/sdks/commits/README.md#push) - Push local commits to the remote repository
 * [revert](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 * [get](docs/sdks/commits/README.md#get) - Get the diff and log message for a commit
@@ -446,12 +430,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesHecTokensUpdate`](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 - [`sourcesList`](docs/sdks/sources/README.md#list) - List all Sources
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
-- [`systemSettingsAuthList`](docs/sdks/settingsauth/README.md#list) - Get authentication settings
-- [`systemSettingsAuthUpdate`](docs/sdks/settingsauth/README.md#update) - Update authentication settings
-- [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-- [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update Cribl system settings
-- [`systemSettingsGitList`](docs/sdks/git/README.md#list) - Get git settings
-- [`systemSettingsGitUpdate`](docs/sdks/git/README.md#update) - Update git settings
 - [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 - [`versionsBranchesList`](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
 - [`versionsCommitsCreate`](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
@@ -459,7 +437,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versionsCommitsFilesCount`](docs/sdks/files/README.md#count) - Get a count of files that changed since a commit
 - [`versionsCommitsFilesList`](docs/sdks/files/README.md#list) - Get the names and statuses of files that changed since a commit
 - [`versionsCommitsGet`](docs/sdks/commits/README.md#get) - Get the diff and log message for a commit
-- [`versionsCommitsList`](docs/sdks/commits/README.md#list) - Get the commit history
+- [`versionsCommitsList`](docs/sdks/commits/README.md#list) - List the commit history
 - [`versionsCommitsPush`](docs/sdks/commits/README.md#push) - Push local commits to the remote repository
 - [`versionsCommitsRevert`](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 - [`versionsCommitsUndo`](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
@@ -757,7 +735,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 67 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 61 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

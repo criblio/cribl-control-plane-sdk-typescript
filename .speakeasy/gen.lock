@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 58f01e7fae667166f412047d957da237
-  docVersion: 4.14.0-alpha.1755694175565-e2e7bfb9
+  docChecksum: d4e60eaf202d77136dfcb246180859e0
+  docVersion: 4.14.0-alpha.1755708210976-a566b731
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.39
-  configChecksum: 49c848c1895685311431bc9eb1d84ea3
+  releaseVersion: 0.0.40
+  configChecksum: 873503929782d48d6964c427ff1fa87a
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -49,8 +49,6 @@ generatedFiles:
   - docs/models/allow.md
   - docs/models/appmode.md
   - docs/models/audit.md
-  - docs/models/authconfig.md
-  - docs/models/authconfigtype.md
   - docs/models/authenticationprotocol.md
   - docs/models/author.md
   - docs/models/authtoken.md
@@ -65,7 +63,6 @@ generatedFiles:
   - docs/models/columnmapping.md
   - docs/models/comment.md
   - docs/models/commit.md
-  - docs/models/commonservicelimitconfigs.md
   - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
@@ -88,12 +85,10 @@ generatedFiles:
   - docs/models/deployrequestlookups.md
   - docs/models/deployrequestlookupslookup.md
   - docs/models/disksandfilesystems.md
-  - docs/models/distributed.md
   - docs/models/distributedsummary.md
   - docs/models/distributedsummarygroups.md
   - docs/models/distributedsummaryworkers.md
   - docs/models/dns.md
-  - docs/models/edgeheartbeatmetricsmode.md
   - docs/models/elasticversion.md
   - docs/models/endpoint.md
   - docs/models/endpointconfiguration.md
@@ -120,11 +115,9 @@ generatedFiles:
   - docs/models/gitfilesresponse.md
   - docs/models/gitinfo.md
   - docs/models/gitlogresult.md
-  - docs/models/gitopstype.md
   - docs/models/gitrevertparams.md
   - docs/models/gitrevertresult.md
   - docs/models/gitrevertresultfiles.md
-  - docs/models/gitsettings.md
   - docs/models/gitstatusresult.md
   - docs/models/hbcriblinfo.md
   - docs/models/hbleaderinfo.md
@@ -841,11 +834,9 @@ generatedFiles:
   - docs/models/inputzscalerhectlssettingsserverside.md
   - docs/models/inputzscalerhectype.md
   - docs/models/interfaces.md
-  - docs/models/jobsettings.md
   - docs/models/lakedatasetsearchconfig.md
   - docs/models/lakehouseconnectiontype.md
   - docs/models/lastmetrics.md
-  - docs/models/limits.md
   - docs/models/listeningports.md
   - docs/models/loggedinusers.md
   - docs/models/logininfo.md
@@ -948,9 +939,6 @@ generatedFiles:
   - docs/models/operations/getroutesbyidresponse.md
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
-  - docs/models/operations/getsystemsettingsauthresponse.md
-  - docs/models/operations/getsystemsettingsconfresponse.md
-  - docs/models/operations/getsystemsettingsgitsettingsresponse.md
   - docs/models/operations/getversionbranchresponse.md
   - docs/models/operations/getversioncountrequest.md
   - docs/models/operations/getversioncountresponse.md
@@ -995,9 +983,6 @@ generatedFiles:
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
-  - docs/models/operations/updatesystemsettingsauthresponse.md
-  - docs/models/operations/updatesystemsettingsconfresponse.md
-  - docs/models/operations/updatesystemsettingsgitsettingsresponse.md
   - docs/models/os.md
   - docs/models/output.md
   - docs/models/outputazureblob.md
@@ -1823,9 +1808,6 @@ generatedFiles:
   - docs/models/querybuildermode.md
   - docs/models/rbacresource.md
   - docs/models/readmode.md
-  - docs/models/rediscachelimits.md
-  - docs/models/redisconnectionlimits.md
-  - docs/models/redislimits.md
   - docs/models/remote.md
   - docs/models/renamed.md
   - docs/models/reportlevel.md
@@ -1839,18 +1821,15 @@ generatedFiles:
   - docs/models/routesgroups.md
   - docs/models/routesroute.md
   - docs/models/sample.md
-  - docs/models/samples.md
   - docs/models/scanmode.md
   - docs/models/scheduletype.md
   - docs/models/schemeclientoauth.md
   - docs/models/scrapeprotocolprotocol.md
-  - docs/models/searchsettings.md
   - docs/models/security.md
   - docs/models/sendeventsas.md
   - docs/models/sendlogsas.md
   - docs/models/serversideencryption.md
   - docs/models/services.md
-  - docs/models/serviceslimits.md
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
   - docs/models/snmpv3authentication.md
@@ -1858,38 +1837,6 @@ generatedFiles:
   - docs/models/subscription.md
   - docs/models/subscriptionmetadatum.md
   - docs/models/summary.md
-  - docs/models/systemsettings.md
-  - docs/models/systemsettingsapi.md
-  - docs/models/systemsettingsbackups.md
-  - docs/models/systemsettingsconf.md
-  - docs/models/systemsettingsconfapi.md
-  - docs/models/systemsettingsconfbackups.md
-  - docs/models/systemsettingsconfcustomlogo.md
-  - docs/models/systemsettingsconfheaders.md
-  - docs/models/systemsettingsconfpii.md
-  - docs/models/systemsettingsconfproxy.md
-  - docs/models/systemsettingsconfrollback.md
-  - docs/models/systemsettingsconfshutdown.md
-  - docs/models/systemsettingsconfsni.md
-  - docs/models/systemsettingsconfsockets.md
-  - docs/models/systemsettingsconfssl.md
-  - docs/models/systemsettingsconfsystem.md
-  - docs/models/systemsettingsconftls.md
-  - docs/models/systemsettingsconfupgrade.md
-  - docs/models/systemsettingsconfworkers.md
-  - docs/models/systemsettingscustomlogo.md
-  - docs/models/systemsettingsheaders.md
-  - docs/models/systemsettingspii.md
-  - docs/models/systemsettingsproxy.md
-  - docs/models/systemsettingsrollback.md
-  - docs/models/systemsettingsshutdown.md
-  - docs/models/systemsettingssni.md
-  - docs/models/systemsettingssockets.md
-  - docs/models/systemsettingsssl.md
-  - docs/models/systemsettingssystem.md
-  - docs/models/systemsettingstls.md
-  - docs/models/systemsettingsupgrade.md
-  - docs/models/systemsettingsworkers.md
   - docs/models/target.md
   - docs/models/targetprotocol.md
   - docs/models/teamaccesscontrollist.md
@@ -1898,25 +1845,18 @@ generatedFiles:
   - docs/models/timestampprecision.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
-  - docs/models/upgradegroupsettings.md
-  - docs/models/upgradepackageurls.md
-  - docs/models/upgradesettings.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
-  - docs/models/warmpoolsize.md
-  - docs/models/warmpoolsizeenum.md
   - docs/models/writeaction.md
   - docs/sdks/acl/README.md
   - docs/sdks/auth/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
-  - docs/sdks/cribl/README.md
   - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
-  - docs/sdks/git/README.md
   - docs/sdks/groups/README.md
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
@@ -1927,11 +1867,9 @@ generatedFiles:
   - docs/sdks/pq/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/samples/README.md
-  - docs/sdks/settingsauth/README.md
   - docs/sdks/sources/README.md
   - docs/sdks/statuses/README.md
   - docs/sdks/summaries/README.md
-  - docs/sdks/system/README.md
   - docs/sdks/teams/README.md
   - docs/sdks/tokens/README.md
   - docs/sdks/versions/README.md
@@ -1992,12 +1930,6 @@ generatedFiles:
   - src/funcs/sourcesHecTokensUpdate.ts
   - src/funcs/sourcesList.ts
   - src/funcs/sourcesUpdate.ts
-  - src/funcs/systemSettingsAuthList.ts
-  - src/funcs/systemSettingsAuthUpdate.ts
-  - src/funcs/systemSettingsCriblList.ts
-  - src/funcs/systemSettingsCriblUpdate.ts
-  - src/funcs/systemSettingsGitList.ts
-  - src/funcs/systemSettingsGitUpdate.ts
   - src/funcs/versionsBranchesGet.ts
   - src/funcs/versionsBranchesList.ts
   - src/funcs/versionsCommitsCreate.ts
@@ -2034,13 +1966,11 @@ generatedFiles:
   - src/lib/url.ts
   - src/models/addhectokenrequest.ts
   - src/models/appmode.ts
-  - src/models/authconfig.ts
   - src/models/authtoken.ts
   - src/models/cacheconnection.ts
   - src/models/cacheconnectionbackfillstatus.ts
   - src/models/cloudprovider.ts
   - src/models/commit.ts
-  - src/models/commonservicelimitconfigs.ts
   - src/models/configgroup.ts
   - src/models/configgroupcloud.ts
   - src/models/configgrouplookups.ts
@@ -2052,7 +1982,6 @@ generatedFiles:
   - src/models/deployrequest.ts
   - src/models/deployrequestlookups.ts
   - src/models/distributedsummary.ts
-  - src/models/edgeheartbeatmetricsmode.ts
   - src/models/errors/criblcontrolplanedefaulterror.ts
   - src/models/errors/criblcontrolplaneerror.ts
   - src/models/errors/error.ts
@@ -2067,10 +1996,8 @@ generatedFiles:
   - src/models/gitfilesresponse.ts
   - src/models/gitinfo.ts
   - src/models/gitlogresult.ts
-  - src/models/gitopstype.ts
   - src/models/gitrevertparams.ts
   - src/models/gitrevertresult.ts
-  - src/models/gitsettings.ts
   - src/models/gitstatusresult.ts
   - src/models/hbcriblinfo.ts
   - src/models/hbleaderinfo.ts
@@ -2136,10 +2063,8 @@ generatedFiles:
   - src/models/inputwineventlogs.ts
   - src/models/inputwiz.ts
   - src/models/inputzscalerhec.ts
-  - src/models/jobsettings.ts
   - src/models/lakedatasetsearchconfig.ts
   - src/models/lakehouseconnectiontype.ts
-  - src/models/limits.ts
   - src/models/logininfo.ts
   - src/models/lookupversions.ts
   - src/models/masterworkerentry.ts
@@ -2184,9 +2109,6 @@ generatedFiles:
   - src/models/operations/getpipelinebyid.ts
   - src/models/operations/getroutesbyid.ts
   - src/models/operations/getsummary.ts
-  - src/models/operations/getsystemsettingsauth.ts
-  - src/models/operations/getsystemsettingsconf.ts
-  - src/models/operations/getsystemsettingsgitsettings.ts
   - src/models/operations/getversion.ts
   - src/models/operations/getversionbranch.ts
   - src/models/operations/getversioncount.ts
@@ -2211,9 +2133,6 @@ generatedFiles:
   - src/models/operations/updatepacksbyid.ts
   - src/models/operations/updatepipelinebyid.ts
   - src/models/operations/updateroutesbyid.ts
-  - src/models/operations/updatesystemsettingsauth.ts
-  - src/models/operations/updatesystemsettingsconf.ts
-  - src/models/operations/updatesystemsettingsgitsettings.ts
   - src/models/output.ts
   - src/models/outputazureblob.ts
   - src/models/outputazuredataexplorer.ts
@@ -2288,35 +2207,23 @@ generatedFiles:
   - src/models/pipeline.ts
   - src/models/pipelinefunctionconf.ts
   - src/models/rbacresource.ts
-  - src/models/rediscachelimits.ts
-  - src/models/redisconnectionlimits.ts
-  - src/models/redislimits.ts
   - src/models/resourcepolicy.ts
   - src/models/routecloneconf.ts
   - src/models/routeconf.ts
   - src/models/routes.ts
   - src/models/routesroute.ts
   - src/models/schemeclientoauth.ts
-  - src/models/searchsettings.ts
   - src/models/security.ts
-  - src/models/serviceslimits.ts
-  - src/models/systemsettings.ts
-  - src/models/systemsettingsconf.ts
   - src/models/teamaccesscontrollist.ts
   - src/models/updatehectokenrequest.ts
-  - src/models/upgradegroupsettings.ts
-  - src/models/upgradepackageurls.ts
-  - src/models/upgradesettings.ts
   - src/models/useraccesscontrollist.ts
   - src/sdk/acl.ts
   - src/sdk/auth.ts
   - src/sdk/branches.ts
   - src/sdk/commits.ts
   - src/sdk/configsversions.ts
-  - src/sdk/cribl.ts
   - src/sdk/destinations.ts
   - src/sdk/files.ts
-  - src/sdk/git.ts
   - src/sdk/groups.ts
   - src/sdk/groupsconfigs.ts
   - src/sdk/health.ts
@@ -2330,12 +2237,9 @@ generatedFiles:
   - src/sdk/routes.ts
   - src/sdk/samples.ts
   - src/sdk/sdk.ts
-  - src/sdk/settings.ts
-  - src/sdk/settingsauth.ts
   - src/sdk/sources.ts
   - src/sdk/statuses.ts
   - src/sdk/summaries.ts
-  - src/sdk/system.ts
   - src/sdk/teams.ts
   - src/sdk/tokens.ts
   - src/sdk/versions.ts
@@ -3256,9 +3160,9 @@ generatedTests:
   updateGroupsById: "2025-08-01T20:03:31Z"
 releaseNotes: |
   ## SDK Changes Detected:
-  * `criblcontrolplane.system.settings.auth.list()`: **Added**
-  * `criblcontrolplane.system.settings.auth.update()`: **Added**
-  * `criblcontrolplane.system.settings.cribl.list()`: **Added**
-  * `criblcontrolplane.system.settings.cribl.update()`: **Added**
-  * `criblcontrolplane.system.settings.git.list()`: **Added**
-  * `criblcontrolplane.system.settings.git.update()`: **Added**
+  * `criblcontrolplane.system.settings.auth.list()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.system.settings.auth.update()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.system.settings.cribl.list()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.system.settings.cribl.update()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.system.settings.git.list()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.system.settings.git.update()`: **Deleted** **Breaking** :warning:
