@@ -5,6 +5,7 @@
 import { versionsCommitsCreate } from "../funcs/versionsCommitsCreate.js";
 import { versionsCommitsDiff } from "../funcs/versionsCommitsDiff.js";
 import { versionsCommitsGet } from "../funcs/versionsCommitsGet.js";
+import { versionsCommitsList } from "../funcs/versionsCommitsList.js";
 import { versionsCommitsPush } from "../funcs/versionsCommitsPush.js";
 import { versionsCommitsRevert } from "../funcs/versionsCommitsRevert.js";
 import { versionsCommitsUndo } from "../funcs/versionsCommitsUndo.js";
@@ -48,6 +49,23 @@ export class Commits extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GetVersionDiffResponse> {
     return unwrapAsync(versionsCommitsDiff(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get the commit history
+   *
+   * @remarks
+   * Get the commit history
+   */
+  async list(
+    request?: operations.GetVersionRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.GetVersionResponse> {
+    return unwrapAsync(versionsCommitsList(
       this,
       request,
       options,

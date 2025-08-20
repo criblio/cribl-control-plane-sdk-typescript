@@ -21,14 +21,14 @@ export type CreateRoutesAppendByIdRequest = {
 };
 
 /**
- * a list of any objects
+ * a list of Routes objects
  */
 export type CreateRoutesAppendByIdResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.Routes> | undefined;
 };
 
 /** @internal */
@@ -105,13 +105,13 @@ export const CreateRoutesAppendByIdResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.Routes$inboundSchema).optional(),
 });
 
 /** @internal */
 export type CreateRoutesAppendByIdResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.Routes$Outbound> | undefined;
 };
 
 /** @internal */
@@ -121,7 +121,7 @@ export const CreateRoutesAppendByIdResponse$outboundSchema: z.ZodType<
   CreateRoutesAppendByIdResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.Routes$outboundSchema).optional(),
 });
 
 /**
