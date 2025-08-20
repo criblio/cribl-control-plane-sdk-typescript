@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Create a new commit for pending changes to the Cribl configuration
  *
  * @remarks
- * create a new commit containing the current configs the given log message describing the changes.
+ * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
  */
 export function versionsCommitsCreate(
   client: CriblControlPlaneCore,

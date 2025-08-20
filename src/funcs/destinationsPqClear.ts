@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Clear the persistent queue for a Destination
  *
  * @remarks
- * Clears destination persistent queue
+ * Clear the persistent queue (PQ) for the specified Destination.
  */
 export function destinationsPqClear(
   client: CriblControlPlaneCore,

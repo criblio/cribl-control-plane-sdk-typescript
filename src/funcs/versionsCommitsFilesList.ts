@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve the names and statuses of files that changed since a commit
+ * Get the names and statuses of files that changed since a commit
  *
  * @remarks
- * get the files changed
+ * Get the names and statuses of files that changed since a commit. Default is the latest commit (HEAD).
  */
 export function versionsCommitsFilesList(
   client: CriblControlPlaneCore,

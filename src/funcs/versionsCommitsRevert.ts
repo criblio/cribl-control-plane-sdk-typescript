@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Revert a commit in the local repository
  *
  * @remarks
- * revert a commit
+ * Revert a commit in the local repository.
  */
 export function versionsCommitsRevert(
   client: CriblControlPlaneCore,

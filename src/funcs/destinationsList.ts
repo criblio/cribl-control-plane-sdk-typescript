@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * List all Destinations
  *
  * @remarks
- * Get a list of Destination objects
+ * Get a list of all Destinations.
  */
 export function destinationsList(
   client: CriblControlPlaneCore,

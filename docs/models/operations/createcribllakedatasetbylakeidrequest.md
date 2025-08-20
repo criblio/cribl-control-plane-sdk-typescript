@@ -59,7 +59,7 @@ let value: CreateCriblLakeDatasetByLakeIdRequest = {
 
 ## Fields
 
-| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `lakeId`                                                    | *string*                                                    | :heavy_check_mark:                                          | lake id that contains the Datasets                          |
-| `criblLakeDataset`                                          | [models.CriblLakeDataset](../../models/cribllakedataset.md) | :heavy_check_mark:                                          | CriblLakeDataset object                                     |
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `lakeId`                                                       | *string*                                                       | :heavy_check_mark:                                             | The <code>id</code> of the Lake to create the Lake Dataset in. |
+| `criblLakeDataset`                                             | [models.CriblLakeDataset](../../models/cribllakedataset.md)    | :heavy_check_mark:                                             | CriblLakeDataset object                                        |

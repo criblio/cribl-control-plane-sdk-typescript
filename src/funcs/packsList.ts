@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * List all Packs
  *
  * @remarks
- * Get info on packs
+ * Get a list of all Packs.
  */
 export function packsList(
   client: CriblControlPlaneCore,

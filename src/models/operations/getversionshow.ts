@@ -9,19 +9,19 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetVersionShowRequest = {
   /**
-   * Commit hash (default is HEAD)
+   * The Git commit hash to retrieve the diff and log message for.
    */
   commit?: string | undefined;
   /**
-   * Group ID
+   * The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.
    */
   group?: string | undefined;
   /**
-   * Filename
+   * The relative path of the file to get the diff and log message for.
    */
   filename?: string | undefined;
   /**
-   * Limit maximum lines in the diff
+   * Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines.
    */
   diffLineLimit?: number | undefined;
 };

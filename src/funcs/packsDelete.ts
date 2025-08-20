@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Uninstall a Pack
  *
  * @remarks
- * Uninstall Pack from the system
+ * Uninstall the specified Pack.
  */
 export function packsDelete(
   client: CriblControlPlaneCore,

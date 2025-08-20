@@ -12,6 +12,6 @@ let value: GetCriblLakeDatasetByLakeIdRequest = {
 
 ## Fields
 
-| Field                              | Type                               | Required                           | Description                        |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| `lakeId`                           | *string*                           | :heavy_check_mark:                 | lake id that contains the Datasets |
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `lakeId`                                                                 | *string*                                                                 | :heavy_check_mark:                                                       | The <code>id</code> of the Lake that contains the Lake Datasets to list. |

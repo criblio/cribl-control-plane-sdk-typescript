@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Update a Destination
  *
  * @remarks
- * Update Destination
+ * Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
  */
 export function destinationsUpdate(
   client: CriblControlPlaneCore,

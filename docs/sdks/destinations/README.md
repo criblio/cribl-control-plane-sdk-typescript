@@ -9,13 +9,13 @@ Actions related to Destinations
 
 * [list](#list) - List all Destinations
 * [create](#create) - Create a Destination
-* [get](#get) - Retrieve a Destination
+* [get](#get) - Get a Destination
 * [update](#update) - Update a Destination
 * [delete](#delete) - Delete a Destination
 
 ## list
 
-Get a list of Destination objects
+Get a list of all Destinations.
 
 ### Example Usage
 
@@ -90,7 +90,7 @@ run();
 
 ## create
 
-Create Destination
+Create a new Destination.
 
 ### Example Usage
 
@@ -302,7 +302,7 @@ run();
 
 ## get
 
-Get Destination by ID
+Get the specified Destination.
 
 ### Example Usage
 
@@ -382,7 +382,7 @@ run();
 
 ## update
 
-Update Destination
+Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
 
 ### Example Usage
 
@@ -580,7 +580,7 @@ run();
 
 ## delete
 
-Delete Destination
+Delete the specified Destination.
 
 ### Example Usage
 

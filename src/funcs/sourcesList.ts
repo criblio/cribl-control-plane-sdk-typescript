@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * List all Sources
  *
  * @remarks
- * Get a list of Source objects
+ * Get a list of all Sources.
  */
 export function sourcesList(
   client: CriblControlPlaneCore,

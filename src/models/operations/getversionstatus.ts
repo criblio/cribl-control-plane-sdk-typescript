@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type GetVersionStatusRequest = {
   /**
-   * Group ID
+   * The <code>id</code> of the Worker Group or Edge Fleet to get the status for.
    */
   group?: string | undefined;
 };

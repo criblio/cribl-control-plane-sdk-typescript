@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Delete a Source
  *
  * @remarks
- * Delete Source
+ * Delete the specified Source.
  */
 export function sourcesDelete(
   client: CriblControlPlaneCore,

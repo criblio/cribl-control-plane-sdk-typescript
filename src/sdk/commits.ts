@@ -25,7 +25,7 @@ export class Commits extends ClientSDK {
    * Create a new commit for pending changes to the Cribl configuration
    *
    * @remarks
-   * create a new commit containing the current configs the given log message describing the changes.
+   * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
    */
   async create(
     request: models.GitCommitParams,
@@ -39,10 +39,10 @@ export class Commits extends ClientSDK {
   }
 
   /**
-   * Retrieve the diff for a commit
+   * Get the diff for a commit
    *
    * @remarks
-   * get the textual diff for given commit
+   * Get the diff for a commit. Default is the latest commit (HEAD).
    */
   async diff(
     request?: operations.GetVersionDiffRequest | undefined,
@@ -73,10 +73,10 @@ export class Commits extends ClientSDK {
   }
 
   /**
-   * Push a commit from the local repository to the remote repository
+   * Push local commits to the remote repository
    *
    * @remarks
-   * push the current configs to the remote repository.
+   * Push all local commits from the local repository to the remote repository.
    */
   async push(
     options?: RequestOptions,
@@ -91,7 +91,7 @@ export class Commits extends ClientSDK {
    * Revert a commit in the local repository
    *
    * @remarks
-   * revert a commit
+   * Revert a commit in the local repository.
    */
   async revert(
     request: operations.CreateVersionRevertRequest,
@@ -105,10 +105,10 @@ export class Commits extends ClientSDK {
   }
 
   /**
-   * Retrieve the diff and log message for a commit
+   * Get the diff and log message for a commit
    *
    * @remarks
-   * get the log message and textual diff for given commit
+   * Get the diff and log message for a commit. Default is the latest commit (HEAD).
    */
   async get(
     request?: operations.GetVersionShowRequest | undefined,
@@ -125,7 +125,7 @@ export class Commits extends ClientSDK {
    * Discard uncommitted (staged) changes
    *
    * @remarks
-   * Discards all uncommitted (staged) configuration changes, resetting the working directory to the last committed state.
+   * Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
    */
   async undo(
     request?: operations.CreateVersionUndoRequest | undefined,

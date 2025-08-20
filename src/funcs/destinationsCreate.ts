@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Create a Destination
  *
  * @remarks
- * Create Destination
+ * Create a new Destination.
  */
 export function destinationsCreate(
   client: CriblControlPlaneCore,

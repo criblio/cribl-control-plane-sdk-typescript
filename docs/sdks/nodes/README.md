@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [list](#list) - Retrieve detailed metadata for Worker and Edge Nodes
-* [count](#count) - Retrieve a count of Worker and Edge Nodes
+* [list](#list) - Get detailed metadata for Worker and Edge Nodes
+* [count](#count) - Get a count of Worker and Edge Nodes
 
 ## list
 
-get worker and edge nodes
+Get detailed metadata for Worker and Edge Nodes.
 
 ### Example Usage
 
@@ -28,11 +28,11 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.nodes.list({
     filterExp: "<value>",
-    sort: "<value>",
     sortExp: "<value>",
+    filter: "<value>",
+    sort: "<value>",
     limit: 554169,
     offset: 426660,
-    filter: "<value>",
   });
 
   console.log(result);
@@ -61,11 +61,11 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await nodesList(criblControlPlane, {
     filterExp: "<value>",
-    sort: "<value>",
     sortExp: "<value>",
+    filter: "<value>",
+    sort: "<value>",
     limit: 554169,
     offset: 426660,
-    filter: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -100,7 +100,7 @@ run();
 
 ## count
 
-get worker and edge nodes count
+Get a count of all Worker and Edge Nodes.
 
 ### Example Usage
 

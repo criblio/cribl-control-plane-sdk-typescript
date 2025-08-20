@@ -10,11 +10,11 @@ import * as models from "../index.js";
 
 export type GetCriblLakeDatasetByLakeIdAndIdRequest = {
   /**
-   * lake id that contains the Datasets
+   * The <code>id</code> of the Lake that contains the Lake Dataset to get.
    */
   lakeId: string;
   /**
-   * dataset id to get
+   * The <code>id</code> of the Lake Dataset to get.
    */
   id: string;
 };

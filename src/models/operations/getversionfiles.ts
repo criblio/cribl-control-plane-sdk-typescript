@@ -11,11 +11,11 @@ import * as models from "../index.js";
 
 export type GetVersionFilesRequest = {
   /**
-   * Group ID
+   * The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for.
    */
   group?: string | undefined;
   /**
-   * Commit ID
+   * The Git commit hash to use as the starting point for the request.
    */
   id?: string | undefined;
 };

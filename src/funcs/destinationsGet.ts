@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a Destination
+ * Get a Destination
  *
  * @remarks
- * Get Destination by ID
+ * Get the specified Destination.
  */
 export function destinationsGet(
   client: CriblControlPlaneCore,

@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Install a Pack
  *
  * @remarks
- * Install Pack
+ * Install a Pack.
  */
 export function packsInstall(
   client: CriblControlPlaneCore,
