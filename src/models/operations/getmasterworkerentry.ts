@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetMasterWorkerEntryRequest = {
   /**
-   * Filter expression evaluated against nodes
+   * Filter expression to evaluate against Nodes for inclusion in the response.
    */
   filterExp?: string | undefined;
 };

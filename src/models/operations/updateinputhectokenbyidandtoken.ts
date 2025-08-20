@@ -11,11 +11,11 @@ import * as models from "../index.js";
 
 export type UpdateInputHecTokenByIdAndTokenRequest = {
   /**
-   * HEC Source id
+   * The <code>id</code> of the Splunk HEC Source.
    */
   id: string;
   /**
-   * token to update
+   * The <code>id</code> of the HEC token to update.
    */
   token: string;
   /**

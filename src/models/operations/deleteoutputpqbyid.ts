@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteOutputPqByIdRequest = {
   /**
-   * Destination Id
+   * The <code>id</code> of the Destination to clear the PQ for.
    */
   id: string;
 };

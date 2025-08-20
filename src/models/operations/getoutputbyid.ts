@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type GetOutputByIdRequest = {
   /**
-   * Unique ID to GET
+   * The <code>id</code> of the Destination to get.
    */
   id: string;
 };

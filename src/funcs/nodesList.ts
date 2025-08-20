@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve detailed metadata for Worker and Edge Nodes
+ * Get detailed metadata for Worker and Edge Nodes
  *
  * @remarks
- * get worker and edge nodes
+ * Get detailed metadata for Worker and Edge Nodes.
  */
 export function nodesList(
   client: CriblControlPlaneCore,

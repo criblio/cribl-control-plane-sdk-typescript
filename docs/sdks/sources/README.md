@@ -9,13 +9,13 @@ Actions related to Sources
 
 * [list](#list) - List all Sources
 * [create](#create) - Create a Source
-* [get](#get) - Retrieve a Source
+* [get](#get) - Get a Source
 * [update](#update) - Update a Source
 * [delete](#delete) - Delete a Source
 
 ## list
 
-Get a list of Source objects
+Get a list of all Sources.
 
 ### Example Usage
 
@@ -90,7 +90,7 @@ run();
 
 ## create
 
-Create Source
+Create a new Source.
 
 ### Example Usage
 
@@ -308,7 +308,7 @@ run();
 
 ## get
 
-Get Source by ID
+Get the specified Source.
 
 ### Example Usage
 
@@ -388,7 +388,7 @@ run();
 
 ## update
 
-Update Source
+Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 
 ### Example Usage
 
@@ -550,7 +550,7 @@ run();
 
 ## delete
 
-Delete Source
+Delete the specified Source.
 
 ### Example Usage
 

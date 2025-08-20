@@ -24,7 +24,7 @@ export type GetConfigGroupAclTeamsByProductAndIdProduct = ClosedEnum<
 >;
 
 /**
- * resource type by which to filter access levels
+ * Filter for limiting the response to ACL entries for the specified RBAC resource type.
  */
 export const GetConfigGroupAclTeamsByProductAndIdType = {
   Groups: "groups",
@@ -37,7 +37,7 @@ export const GetConfigGroupAclTeamsByProductAndIdType = {
   Insights: "insights",
 } as const;
 /**
- * resource type by which to filter access levels
+ * Filter for limiting the response to ACL entries for the specified RBAC resource type.
  */
 export type GetConfigGroupAclTeamsByProductAndIdType = ClosedEnum<
   typeof GetConfigGroupAclTeamsByProductAndIdType
@@ -53,7 +53,7 @@ export type GetConfigGroupAclTeamsByProductAndIdRequest = {
    */
   id: string;
   /**
-   * resource type by which to filter access levels
+   * Filter for limiting the response to ACL entries for the specified RBAC resource type.
    */
   type?: GetConfigGroupAclTeamsByProductAndIdType | undefined;
 };

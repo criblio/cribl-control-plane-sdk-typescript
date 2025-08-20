@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [count](#count) - Retrieve a count of files that changed since a commit
-* [list](#list) - Retrieve the names and statuses of files that changed since a commit
+* [count](#count) - Get a count of files that changed since a commit
+* [list](#list) - Get the names and statuses of files that changed since a commit
 
 ## count
 
-get the count of files of changed
+Get a count of the files that changed since a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 
@@ -92,7 +92,7 @@ run();
 
 ## list
 
-get the files changed
+Get the names and statuses of files that changed since a commit. Default is the latest commit (HEAD).
 
 ### Example Usage
 

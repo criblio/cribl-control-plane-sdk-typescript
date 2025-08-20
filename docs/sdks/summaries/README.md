@@ -5,11 +5,11 @@
 
 ### Available Operations
 
-* [get](#get) - Retrieve a summary of the Distributed deployment
+* [get](#get) - Get a summary of the Distributed deployment
 
 ## get
 
-Get summary of Distributed deployment
+Get a summary of the Distributed deployment. The response includes counts of Worker Groups, Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker and Edge Nodes, as well as statistics for the Worker and Edge Nodes.
 
 ### Example Usage
 

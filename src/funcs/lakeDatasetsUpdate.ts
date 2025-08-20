@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a Lake Dataset in the specified Lake
+ * Update a Lake Dataset
  *
  * @remarks
- * Update a Dataset in the specified Lake
+ * Update the specified Lake Dataset in the specified Lake.
  */
 export function lakeDatasetsUpdate(
   client: CriblControlPlaneCore,

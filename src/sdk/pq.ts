@@ -13,7 +13,7 @@ export class Pq extends ClientSDK {
    * Clear the persistent queue for a Destination
    *
    * @remarks
-   * Clears destination persistent queue
+   * Clear the persistent queue (PQ) for the specified Destination.
    */
   async clear(
     request: operations.DeleteOutputPqByIdRequest,
@@ -27,10 +27,10 @@ export class Pq extends ClientSDK {
   }
 
   /**
-   * Retrieve information about the latest job to clear the persistent queue for a Destination
+   * Get information about the latest job to clear the persistent queue for a Destination
    *
    * @remarks
-   * Retrieves status of latest clear PQ job for a destination
+   * Get information about the latest job to clear the persistent queue (PQ) for the specified Destination.
    */
   async get(
     request: operations.GetOutputPqByIdRequest,

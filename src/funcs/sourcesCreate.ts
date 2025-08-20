@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Create a Source
  *
  * @remarks
- * Create Source
+ * Create a new Source.
  */
 export function sourcesCreate(
   client: CriblControlPlaneCore,

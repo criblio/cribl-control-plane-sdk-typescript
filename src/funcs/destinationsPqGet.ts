@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve information about the latest job to clear the persistent queue for a Destination
+ * Get information about the latest job to clear the persistent queue for a Destination
  *
  * @remarks
- * Retrieves status of latest clear PQ job for a destination
+ * Get information about the latest job to clear the persistent queue (PQ) for the specified Destination.
  */
 export function destinationsPqGet(
   client: CriblControlPlaneCore,

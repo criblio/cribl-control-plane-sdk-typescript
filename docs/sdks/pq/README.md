@@ -6,11 +6,11 @@
 ### Available Operations
 
 * [clear](#clear) - Clear the persistent queue for a Destination
-* [get](#get) - Retrieve information about the latest job to clear the persistent queue for a Destination
+* [get](#get) - Get information about the latest job to clear the persistent queue for a Destination
 
 ## clear
 
-Clears destination persistent queue
+Clear the persistent queue (PQ) for the specified Destination.
 
 ### Example Usage
 
@@ -90,7 +90,7 @@ run();
 
 ## get
 
-Retrieves status of latest clear PQ job for a destination
+Get information about the latest job to clear the persistent queue (PQ) for the specified Destination.
 
 ### Example Usage
 

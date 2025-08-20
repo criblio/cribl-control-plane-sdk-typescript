@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * List all branches in the Git repository used for Cribl configuration
  *
  * @remarks
- * get the list of branches
+ * Get a list of all branches in the Git repository used for Cribl configuration.
  */
 export function versionsBranchesList(
   client: CriblControlPlaneCore,

@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type UpdateInputByIdRequest = {
   /**
-   * Unique ID to PATCH
+   * The <code>id</code> of the Source to update.
    */
   id: string;
   /**

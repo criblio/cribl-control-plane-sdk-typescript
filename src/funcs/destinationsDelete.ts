@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Delete a Destination
  *
  * @remarks
- * Delete Destination
+ * Delete the specified Destination.
  */
 export function destinationsDelete(
   client: CriblControlPlaneCore,

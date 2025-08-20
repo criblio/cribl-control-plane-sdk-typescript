@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Update metadata for an HEC token for a Splunk HEC Source
  *
  * @remarks
- * Update token metadata on existing HEC Source
+ * Update the metadata for the specified HEC token for the specified Splunk HEC Source.
  */
 export function sourcesHecTokensUpdate(
   client: CriblControlPlaneCore,

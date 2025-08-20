@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve sample event data for a Destination
+ * Get sample event data for a Destination
  *
  * @remarks
- * Retrieve samples data for the specified destination. Used to get sample data for the test action.
+ * Get sample event data for the specified Destination to validate the configuration or test connectivity.
  */
 export function destinationsSamplesGet(
   client: CriblControlPlaneCore,

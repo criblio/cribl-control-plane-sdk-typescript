@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Add an HEC token and optional metadata to a Splunk HEC Source
  *
  * @remarks
- * Add token and optional metadata to an existing HEC Source
+ * Add an HEC token and optional metadata to the specified Splunk HEC Source.
  */
 export function sourcesHecTokensCreate(
   client: CriblControlPlaneCore,

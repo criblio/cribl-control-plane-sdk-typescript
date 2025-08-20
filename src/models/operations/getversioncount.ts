@@ -10,11 +10,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetVersionCountRequest = {
   /**
-   * Group ID
+   * The <code>id</code> of the Worker Group or Edge Fleet to get the count for.
    */
   group?: string | undefined;
   /**
-   * Commit ID
+   * The Git commit hash to use as the starting point for the count.
    */
   id?: string | undefined;
 };

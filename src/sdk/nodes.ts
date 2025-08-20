@@ -16,10 +16,10 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Retrieve detailed metadata for Worker and Edge Nodes
+   * Get detailed metadata for Worker and Edge Nodes
    *
    * @remarks
-   * get worker and edge nodes
+   * Get detailed metadata for Worker and Edge Nodes.
    */
   async list(
     request?: operations.ListMasterWorkerEntryRequest | undefined,
@@ -33,10 +33,10 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Retrieve a count of Worker and Edge Nodes
+   * Get a count of Worker and Edge Nodes
    *
    * @remarks
-   * get worker and edge nodes count
+   * Get a count of all Worker and Edge Nodes.
    */
   async count(
     request?: operations.GetMasterWorkerEntryRequest | undefined,

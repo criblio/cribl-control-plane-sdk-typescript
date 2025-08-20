@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type DeleteOutputByIdRequest = {
   /**
-   * Unique ID to DELETE
+   * The <code>id</code> of the Destination to delete.
    */
   id: string;
 };

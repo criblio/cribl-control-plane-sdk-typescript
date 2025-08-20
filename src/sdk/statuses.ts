@@ -9,10 +9,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Statuses extends ClientSDK {
   /**
-   * Retrieve the status of the current working tree
+   * Get the status of the current working tree
    *
    * @remarks
-   * get the the working tree status
+   * Get the status of the current working tree of the Git repository used for Cribl configuration. The response includes details about modified, staged, untracked, and conflicted files, as well as branch and remote tracking information.
    */
   async get(
     request?: operations.GetVersionStatusRequest | undefined,

@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type CreateCriblLakeDatasetByLakeIdRequest = {
   /**
-   * lake id that contains the Datasets
+   * The <code>id</code> of the Lake to create the Lake Dataset in.
    */
   lakeId: string;
   /**

@@ -10,10 +10,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Files extends ClientSDK {
   /**
-   * Retrieve a count of files that changed since a commit
+   * Get a count of files that changed since a commit
    *
    * @remarks
-   * get the count of files of changed
+   * Get a count of the files that changed since a commit. Default is the latest commit (HEAD).
    */
   async count(
     request?: operations.GetVersionCountRequest | undefined,
@@ -27,10 +27,10 @@ export class Files extends ClientSDK {
   }
 
   /**
-   * Retrieve the names and statuses of files that changed since a commit
+   * Get the names and statuses of files that changed since a commit
    *
    * @remarks
-   * get the files changed
+   * Get the names and statuses of files that changed since a commit. Default is the latest commit (HEAD).
    */
   async list(
     request?: operations.GetVersionFilesRequest | undefined,

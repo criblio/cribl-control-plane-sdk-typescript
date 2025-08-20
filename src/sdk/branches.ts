@@ -14,7 +14,7 @@ export class Branches extends ClientSDK {
    * List all branches in the Git repository used for Cribl configuration
    *
    * @remarks
-   * get the list of branches
+   * Get a list of all branches in the Git repository used for Cribl configuration.
    */
   async list(
     options?: RequestOptions,
@@ -26,10 +26,10 @@ export class Branches extends ClientSDK {
   }
 
   /**
-   * Retrieve the name of the Git branch that the Cribl configuration is checked out to
+   * Get the name of the Git branch that the Cribl configuration is checked out to
    *
    * @remarks
-   * returns git branch that the config is checked out to, if any
+   * Get the name of the Git branch that the Cribl configuration is checked out to. Useful for verifying the active configuration branch.
    */
   async get(
     options?: RequestOptions,

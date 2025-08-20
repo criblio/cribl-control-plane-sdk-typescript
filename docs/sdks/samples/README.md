@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [get](#get) - Retrieve sample event data for a Destination
+* [get](#get) - Get sample event data for a Destination
 * [create](#create) - Send sample event data to a Destination
 
 ## get
 
-Retrieve samples data for the specified destination. Used to get sample data for the test action.
+Get sample event data for the specified Destination to validate the configuration or test connectivity.
 
 ### Example Usage
 
@@ -90,7 +90,7 @@ run();
 
 ## create
 
-Send sample data to a destination to validate configuration or test connectivity
+Send sample event data to the specified Destination to validate the configuration or test connectivity.
 
 ### Example Usage
 

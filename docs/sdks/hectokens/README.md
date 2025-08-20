@@ -10,7 +10,7 @@
 
 ## create
 
-Add token and optional metadata to an existing HEC Source
+Add an HEC token and optional metadata to the specified Splunk HEC Source.
 
 ### Example Usage
 
@@ -112,7 +112,7 @@ run();
 
 ## update
 
-Update token metadata on existing HEC Source
+Update the metadata for the specified HEC token for the specified Splunk HEC Source.
 
 ### Example Usage
 

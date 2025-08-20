@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a summary of the Distributed deployment
+ * Get a summary of the Distributed deployment
  *
  * @remarks
- * Get summary of Distributed deployment
+ * Get a summary of the Distributed deployment. The response includes counts of Worker Groups, Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker and Edge Nodes, as well as statistics for the Worker and Edge Nodes.
  */
 export function nodesSummariesGet(
   client: CriblControlPlaneCore,

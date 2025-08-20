@@ -13,10 +13,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class LakeDatasets extends ClientSDK {
   /**
-   * Create a Lake Dataset in the specified Lake
+   * Create a Lake Dataset
    *
    * @remarks
-   * Create a Dataset in the specified Lake
+   * Create a new Lake Dataset in the specified Lake.
    */
   async create(
     request: operations.CreateCriblLakeDatasetByLakeIdRequest,
@@ -30,10 +30,10 @@ export class LakeDatasets extends ClientSDK {
   }
 
   /**
-   * List all Lake Datasets in the specified Lake
+   * List all Lake Datasets
    *
    * @remarks
-   * Get the list of Dataset contained in the specified Lake
+   * Get a list of all Lake Datasets in the specified Lake.
    */
   async list(
     request: operations.GetCriblLakeDatasetByLakeIdRequest,
@@ -47,10 +47,10 @@ export class LakeDatasets extends ClientSDK {
   }
 
   /**
-   * Delete a Lake Dataset in the specified Lake
+   * Delete a Lake Dataset
    *
    * @remarks
-   * Delete a Dataset in the specified Lake
+   * Delete the specified Lake Dataset in the specified Lake
    */
   async delete(
     request: operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest,
@@ -64,10 +64,10 @@ export class LakeDatasets extends ClientSDK {
   }
 
   /**
-   * Retrieve a Lake Dataset in the specified Lake
+   * Get a Lake Dataset
    *
    * @remarks
-   * Get a Dataset in the specified Lake
+   * Get the specified Lake Dataset in the specified Lake.
    */
   async get(
     request: operations.GetCriblLakeDatasetByLakeIdAndIdRequest,
@@ -81,10 +81,10 @@ export class LakeDatasets extends ClientSDK {
   }
 
   /**
-   * Update a Lake Dataset in the specified Lake
+   * Update a Lake Dataset
    *
    * @remarks
-   * Update a Dataset in the specified Lake
+   * Update the specified Lake Dataset in the specified Lake.
    */
   async update(
     request: operations.UpdateCriblLakeDatasetByLakeIdAndIdRequest,
