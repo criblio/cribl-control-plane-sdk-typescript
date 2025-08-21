@@ -4,50 +4,15 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export const GetConfigGroupAclByProductAndIdProduct = {
-  Stream: "stream",
-  Edge: "edge",
-} as const;
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export type GetConfigGroupAclByProductAndIdProduct = ClosedEnum<
-  typeof GetConfigGroupAclByProductAndIdProduct
->;
-
-/**
- * Filter for limiting the response to ACL entries for the specified RBAC resource type.
- */
-export const GetConfigGroupAclByProductAndIdType = {
-  Groups: "groups",
-  Datasets: "datasets",
-  DatasetProviders: "dataset-providers",
-  Projects: "projects",
-  Dashboards: "dashboards",
-  Macros: "macros",
-  Notebooks: "notebooks",
-  Insights: "insights",
-} as const;
-/**
- * Filter for limiting the response to ACL entries for the specified RBAC resource type.
- */
-export type GetConfigGroupAclByProductAndIdType = ClosedEnum<
-  typeof GetConfigGroupAclByProductAndIdType
->;
 
 export type GetConfigGroupAclByProductAndIdRequest = {
   /**
    * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
    */
-  product: GetConfigGroupAclByProductAndIdProduct;
+  product: models.ProductsCore;
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to get the ACL for.
    */
@@ -55,7 +20,7 @@ export type GetConfigGroupAclByProductAndIdRequest = {
   /**
    * Filter for limiting the response to ACL entries for the specified RBAC resource type.
    */
-  type?: GetConfigGroupAclByProductAndIdType | undefined;
+  type?: models.RbacResource | undefined;
 };
 
 /**
@@ -70,61 +35,14 @@ export type GetConfigGroupAclByProductAndIdResponse = {
 };
 
 /** @internal */
-export const GetConfigGroupAclByProductAndIdProduct$inboundSchema:
-  z.ZodNativeEnum<typeof GetConfigGroupAclByProductAndIdProduct> = z.nativeEnum(
-    GetConfigGroupAclByProductAndIdProduct,
-  );
-
-/** @internal */
-export const GetConfigGroupAclByProductAndIdProduct$outboundSchema:
-  z.ZodNativeEnum<typeof GetConfigGroupAclByProductAndIdProduct> =
-    GetConfigGroupAclByProductAndIdProduct$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupAclByProductAndIdProduct$ {
-  /** @deprecated use `GetConfigGroupAclByProductAndIdProduct$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupAclByProductAndIdProduct$inboundSchema;
-  /** @deprecated use `GetConfigGroupAclByProductAndIdProduct$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupAclByProductAndIdProduct$outboundSchema;
-}
-
-/** @internal */
-export const GetConfigGroupAclByProductAndIdType$inboundSchema: z.ZodNativeEnum<
-  typeof GetConfigGroupAclByProductAndIdType
-> = z.nativeEnum(GetConfigGroupAclByProductAndIdType);
-
-/** @internal */
-export const GetConfigGroupAclByProductAndIdType$outboundSchema:
-  z.ZodNativeEnum<typeof GetConfigGroupAclByProductAndIdType> =
-    GetConfigGroupAclByProductAndIdType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupAclByProductAndIdType$ {
-  /** @deprecated use `GetConfigGroupAclByProductAndIdType$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupAclByProductAndIdType$inboundSchema;
-  /** @deprecated use `GetConfigGroupAclByProductAndIdType$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupAclByProductAndIdType$outboundSchema;
-}
-
-/** @internal */
 export const GetConfigGroupAclByProductAndIdRequest$inboundSchema: z.ZodType<
   GetConfigGroupAclByProductAndIdRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  product: GetConfigGroupAclByProductAndIdProduct$inboundSchema,
+  product: models.ProductsCore$inboundSchema,
   id: z.string(),
-  type: GetConfigGroupAclByProductAndIdType$inboundSchema.optional(),
+  type: models.RbacResource$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -140,9 +58,9 @@ export const GetConfigGroupAclByProductAndIdRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetConfigGroupAclByProductAndIdRequest
 > = z.object({
-  product: GetConfigGroupAclByProductAndIdProduct$outboundSchema,
+  product: models.ProductsCore$outboundSchema,
   id: z.string(),
-  type: GetConfigGroupAclByProductAndIdType$outboundSchema.optional(),
+  type: models.RbacResource$outboundSchema.optional(),
 });
 
 /**

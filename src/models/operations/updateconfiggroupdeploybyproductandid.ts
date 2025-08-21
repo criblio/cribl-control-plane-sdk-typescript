@@ -5,30 +5,15 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export const UpdateConfigGroupDeployByProductAndIdProduct = {
-  Stream: "stream",
-  Edge: "edge",
-} as const;
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export type UpdateConfigGroupDeployByProductAndIdProduct = ClosedEnum<
-  typeof UpdateConfigGroupDeployByProductAndIdProduct
->;
 
 export type UpdateConfigGroupDeployByProductAndIdRequest = {
   /**
    * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
    */
-  product: UpdateConfigGroupDeployByProductAndIdProduct;
+  product: models.ProductsCore;
   /**
    * The <code>id</code> of the target Worker Group or Edge Fleet for commit deployment.
    */
@@ -51,36 +36,13 @@ export type UpdateConfigGroupDeployByProductAndIdResponse = {
 };
 
 /** @internal */
-export const UpdateConfigGroupDeployByProductAndIdProduct$inboundSchema:
-  z.ZodNativeEnum<typeof UpdateConfigGroupDeployByProductAndIdProduct> = z
-    .nativeEnum(UpdateConfigGroupDeployByProductAndIdProduct);
-
-/** @internal */
-export const UpdateConfigGroupDeployByProductAndIdProduct$outboundSchema:
-  z.ZodNativeEnum<typeof UpdateConfigGroupDeployByProductAndIdProduct> =
-    UpdateConfigGroupDeployByProductAndIdProduct$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateConfigGroupDeployByProductAndIdProduct$ {
-  /** @deprecated use `UpdateConfigGroupDeployByProductAndIdProduct$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateConfigGroupDeployByProductAndIdProduct$inboundSchema;
-  /** @deprecated use `UpdateConfigGroupDeployByProductAndIdProduct$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateConfigGroupDeployByProductAndIdProduct$outboundSchema;
-}
-
-/** @internal */
 export const UpdateConfigGroupDeployByProductAndIdRequest$inboundSchema:
   z.ZodType<
     UpdateConfigGroupDeployByProductAndIdRequest,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    product: UpdateConfigGroupDeployByProductAndIdProduct$inboundSchema,
+    product: models.ProductsCore$inboundSchema,
     id: z.string(),
     DeployRequest: models.DeployRequest$inboundSchema,
   }).transform((v) => {
@@ -103,7 +65,7 @@ export const UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema:
     z.ZodTypeDef,
     UpdateConfigGroupDeployByProductAndIdRequest
   > = z.object({
-    product: UpdateConfigGroupDeployByProductAndIdProduct$outboundSchema,
+    product: models.ProductsCore$outboundSchema,
     id: z.string(),
     deployRequest: models.DeployRequest$outboundSchema,
   }).transform((v) => {

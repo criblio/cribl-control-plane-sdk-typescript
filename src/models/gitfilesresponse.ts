@@ -14,7 +14,7 @@ import {
 } from "./gitfile.js";
 
 export type GitFilesResponse = {
-  commitMessage: { [k: string]: any };
+  commitMessage?: { [k: string]: any } | undefined;
   count: number;
   items: Array<GitFile>;
 };
@@ -25,14 +25,14 @@ export const GitFilesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  commitMessage: z.record(z.any()),
+  commitMessage: z.record(z.any()).optional(),
   count: z.number(),
   items: z.array(GitFile$inboundSchema),
 });
 
 /** @internal */
 export type GitFilesResponse$Outbound = {
-  commitMessage: { [k: string]: any };
+  commitMessage?: { [k: string]: any } | undefined;
   count: number;
   items: Array<GitFile$Outbound>;
 };
@@ -43,7 +43,7 @@ export const GitFilesResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GitFilesResponse
 > = z.object({
-  commitMessage: z.record(z.any()),
+  commitMessage: z.record(z.any()).optional(),
   count: z.number(),
   items: z.array(GitFile$outboundSchema),
 });

@@ -4,24 +4,9 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export const ListConfigGroupByProductProduct = {
-  Stream: "stream",
-  Edge: "edge",
-} as const;
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export type ListConfigGroupByProductProduct = ClosedEnum<
-  typeof ListConfigGroupByProductProduct
->;
 
 export type ListConfigGroupByProductRequest = {
   /**
@@ -31,7 +16,7 @@ export type ListConfigGroupByProductRequest = {
   /**
    * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
    */
-  product: ListConfigGroupByProductProduct;
+  product: models.ProductsCore;
 };
 
 /**
@@ -46,34 +31,13 @@ export type ListConfigGroupByProductResponse = {
 };
 
 /** @internal */
-export const ListConfigGroupByProductProduct$inboundSchema: z.ZodNativeEnum<
-  typeof ListConfigGroupByProductProduct
-> = z.nativeEnum(ListConfigGroupByProductProduct);
-
-/** @internal */
-export const ListConfigGroupByProductProduct$outboundSchema: z.ZodNativeEnum<
-  typeof ListConfigGroupByProductProduct
-> = ListConfigGroupByProductProduct$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListConfigGroupByProductProduct$ {
-  /** @deprecated use `ListConfigGroupByProductProduct$inboundSchema` instead. */
-  export const inboundSchema = ListConfigGroupByProductProduct$inboundSchema;
-  /** @deprecated use `ListConfigGroupByProductProduct$outboundSchema` instead. */
-  export const outboundSchema = ListConfigGroupByProductProduct$outboundSchema;
-}
-
-/** @internal */
 export const ListConfigGroupByProductRequest$inboundSchema: z.ZodType<
   ListConfigGroupByProductRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   fields: z.string().optional(),
-  product: ListConfigGroupByProductProduct$inboundSchema,
+  product: models.ProductsCore$inboundSchema,
 });
 
 /** @internal */
@@ -89,7 +53,7 @@ export const ListConfigGroupByProductRequest$outboundSchema: z.ZodType<
   ListConfigGroupByProductRequest
 > = z.object({
   fields: z.string().optional(),
-  product: ListConfigGroupByProductProduct$outboundSchema,
+  product: models.ProductsCore$outboundSchema,
 });
 
 /**
