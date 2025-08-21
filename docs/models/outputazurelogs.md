@@ -35,11 +35,11 @@ let value: OutputAzureLogs = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6609.99,
+      httpStatus: 6704.51,
     },
   ],
   timeoutRetrySettings: {},
-  description: "whoa through broadly aside fooey triumphantly tarry ghost",
+  description: "elver growing aha gallery monthly jot",
   pqControls: {},
   workspaceId: "<id>",
   workspaceKey: "<value>",

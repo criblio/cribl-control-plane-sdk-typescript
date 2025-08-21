@@ -12,7 +12,7 @@ let value: ListInputResponse = {
   items: [
     {
       id: "<id>",
-      type: "file",
+      type: "windows_metrics",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -38,35 +38,68 @@ let value: ListInputResponse = {
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
       },
-      mode: "auto",
       interval: 10,
-      filenames: [
-        "<value 1>",
-      ],
-      tailOnly: false,
-      idleTimeout: 300,
-      maxAgeDur: "<value>",
-      checkFileModTime: false,
-      forceText: false,
-      hashLen: 256,
+      host: {
+        mode: "basic",
+        custom: {
+          system: {
+            mode: "basic",
+            detail: false,
+          },
+          cpu: {
+            mode: "basic",
+            perCpu: false,
+            detail: false,
+            time: false,
+          },
+          memory: {
+            mode: "basic",
+            detail: false,
+          },
+          network: {
+            mode: "basic",
+            devices: [
+              "<value 1>",
+            ],
+            perInterface: false,
+            detail: false,
+          },
+          disk: {
+            mode: "basic",
+            volumes: [
+              "<value 1>",
+              "<value 2>",
+              "<value 3>",
+            ],
+            perVolume: false,
+          },
+        },
+      },
+      process: {
+        sets: [
+          {
+            name: "<value>",
+            filter: "<value>",
+            includeChildren: false,
+          },
+        ],
+      },
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      breakerRulesets: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      staleChannelFlushMs: 10000,
+      persistence: {
+        enable: false,
+        timeWindow: "10m",
+        maxDataSize: "1GB",
+        maxDataTime: "24h",
+        compress: "gzip",
+        destPath: "$CRIBL_HOME/state/windows_metrics",
+      },
+      disableNativeModule: false,
       description: "corny luck unruly evince carp competent antique",
-      path: "/var/mail",
-      depth: 5476.75,
-      suppressMissingPathErrors: false,
-      deleteFiles: false,
-      includeUnidentifiableBinary: false,
     },
   ],
 };

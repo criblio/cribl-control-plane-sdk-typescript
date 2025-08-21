@@ -33,18 +33,18 @@ let value: OutputDynatraceHttp = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6045.54,
+      httpStatus: 3993.7,
     },
   ],
   timeoutRetrySettings: {},
-  totalMemoryLimitKB: 4158.6,
-  description: "ew after oh for lieu whether though ick",
+  totalMemoryLimitKB: 6045.54,
+  description: "which morning why dress distorted battle",
   pqControls: {},
   token: "<value>",
   textSecret: "<value>",
   environmentId: "<id>",
   activeGateDomain: "<value>",
-  url: "https://drab-humidity.name/",
+  url: "https://knowledgeable-nectarine.net",
 };
 ```
 

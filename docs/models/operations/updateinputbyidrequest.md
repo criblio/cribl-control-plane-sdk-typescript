@@ -9,7 +9,7 @@ let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
     id: "<id>",
-    type: "journal_files",
+    type: "exec",
     disabled: false,
     pipeline: "<value>",
     sendToRoutes: true,
@@ -17,8 +17,6 @@ let value: UpdateInputByIdRequest = {
     pqEnabled: false,
     streamtags: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     connections: [
       {
@@ -35,27 +33,23 @@ let value: UpdateInputByIdRequest = {
       path: "$CRIBL_HOME/state/queues",
       compress: "none",
     },
-    path: "/home/user/dir",
-    interval: 10,
-    journals: [
+    command: "<value>",
+    retries: 10,
+    scheduleType: "interval",
+    breakerRulesets: [
       "<value 1>",
+      "<value 2>",
     ],
-    rules: [
-      {
-        filter: "<value>",
-        description:
-          "intensely whereas role painfully fooey commonly upon upbeat",
-      },
-    ],
-    currentBoot: false,
-    maxAgeDur: "<value>",
+    staleChannelFlushMs: 10000,
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    description: "trash edge noon zowie and since miserly",
+    description: "but metallic overfeed",
+    interval: 60,
+    cronSchedule: "* * * * *",
   },
 };
 ```

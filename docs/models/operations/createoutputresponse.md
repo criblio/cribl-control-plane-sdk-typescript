@@ -12,7 +12,7 @@ let value: CreateOutputResponse = {
   items: [
     {
       id: "<id>",
-      type: "elastic",
+      type: "statsd",
       pipeline: "<value>",
       systemFields: [
         "<value 1>",
@@ -22,69 +22,18 @@ let value: CreateOutputResponse = {
         "<value 1>",
         "<value 2>",
       ],
-      loadBalanced: true,
-      index: "<value>",
-      docType: "<value>",
-      concurrency: 5,
-      maxPayloadSizeKB: 4096,
-      maxPayloadEvents: 0,
-      compress: true,
-      rejectUnauthorized: true,
-      timeoutSec: 30,
+      protocol: "udp",
+      host: "frail-postbox.biz",
+      port: 8125,
+      mtu: 512,
       flushPeriodSec: 1,
-      extraHttpHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      failedRequestLoggingMode: "none",
-      safeHeaders: [
-        "<value 1>",
-      ],
-      responseRetrySettings: [
-        {
-          httpStatus: 6978.08,
-          initialBackoff: 1000,
-          backoffRate: 2,
-          maxBackoff: 10000,
-        },
-      ],
-      timeoutRetrySettings: {
-        timeoutRetry: false,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
-      },
-      responseHonorRetryAfterHeader: false,
-      extraParams: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      auth: {
-        disabled: true,
-        authType: "manual",
-      },
-      elasticVersion: "auto",
-      elasticPipeline: "<value>",
-      includeDocId: false,
-      writeAction: "create",
-      retryPartialErrors: false,
+      dnsResolvePeriodSec: 0,
+      description:
+        "abaft whose strident violently remark aged during forgo cute",
+      throttleRatePerSec: "0",
+      connectionTimeout: 10000,
+      writeTimeout: 60000,
       onBackpressure: "block",
-      description: "climb that miserly mechanically",
-      url: "https://likable-tomatillo.name",
-      useRoundRobinDns: false,
-      excludeSelf: false,
-      urls: [
-        {
-          url: "https://triangular-vista.net/",
-          weight: 1,
-        },
-      ],
-      dnsResolvePeriodSec: 600,
-      loadBalanceStatsPeriodSec: 300,
       pqMaxFileSize: "1 MB",
       pqMaxSize: "5GB",
       pqPath: "$CRIBL_HOME/state/queues",

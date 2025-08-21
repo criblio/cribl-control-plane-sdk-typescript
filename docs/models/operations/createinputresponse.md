@@ -12,7 +12,7 @@ let value: CreateInputResponse = {
   items: [
     {
       id: "<id>",
-      type: "model_driven_telemetry",
+      type: "kube_metrics",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -36,30 +36,28 @@ let value: CreateInputResponse = {
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
       },
-      host: "0.0.0.0",
-      port: 57000,
-      tls: {
-        disabled: true,
-        certificateName: "<value>",
-        privKeyPath: "<value>",
-        certPath: "<value>",
-        caPath: "<value>",
-        requestCert: false,
-        rejectUnauthorized: "<value>",
-        commonNameRegex: "<value>",
-        minVersion: "TLSv1.2",
-        maxVersion: "TLSv1.1",
-      },
+      interval: 15,
+      rules: [
+        {
+          filter: "<value>",
+          description: "onto dimly dimly including larva rusty yawningly",
+        },
+      ],
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      maxActiveCxn: 1000,
-      shutdownTimeoutMs: 5000,
-      description:
-        "certification er madly preside excluding cheerfully blah pace",
+      persistence: {
+        enable: false,
+        timeWindow: "10m",
+        maxDataSize: "1GB",
+        maxDataTime: "24h",
+        compress: "gzip",
+        destPath: "$CRIBL_HOME/state/kube_metrics",
+      },
+      description: "before institute triumphantly break unless",
     },
   ],
 };

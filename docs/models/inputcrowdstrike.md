@@ -36,7 +36,6 @@ let value: InputCrowdstrike = {
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -47,7 +46,7 @@ let value: InputCrowdstrike = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "excitedly jovially slowly",
+  description: "denitrify after boo duh duh",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",

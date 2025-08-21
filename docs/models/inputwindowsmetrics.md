@@ -28,7 +28,6 @@ let value: InputWindowsMetrics = {
       network: {
         devices: [
           "<value 1>",
-          "<value 2>",
         ],
       },
       disk: {
@@ -55,7 +54,7 @@ let value: InputWindowsMetrics = {
     },
   ],
   persistence: {},
-  description: "printer toaster forenenst over safe between",
+  description: "not yuck oof ornate finally provided oh",
 };
 ```
 

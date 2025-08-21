@@ -30,12 +30,12 @@ let value: OutputSumoLogic = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 7298.15,
+      httpStatus: 7722.29,
     },
   ],
   timeoutRetrySettings: {},
-  totalMemoryLimitKB: 8659.35,
-  description: "pastel mammoth gadzooks key yieldingly that edge how sushi",
+  totalMemoryLimitKB: 7298.15,
+  description: "ornery pace however ragged king woot blah daddy yippee",
   pqControls: {},
 };
 ```
