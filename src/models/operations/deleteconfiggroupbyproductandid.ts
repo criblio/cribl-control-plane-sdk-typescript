@@ -4,30 +4,15 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export const DeleteConfigGroupByProductAndIdProduct = {
-  Stream: "stream",
-  Edge: "edge",
-} as const;
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export type DeleteConfigGroupByProductAndIdProduct = ClosedEnum<
-  typeof DeleteConfigGroupByProductAndIdProduct
->;
 
 export type DeleteConfigGroupByProductAndIdRequest = {
   /**
    * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
    */
-  product: DeleteConfigGroupByProductAndIdProduct;
+  product: models.ProductsCore;
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to delete.
    */
@@ -46,36 +31,12 @@ export type DeleteConfigGroupByProductAndIdResponse = {
 };
 
 /** @internal */
-export const DeleteConfigGroupByProductAndIdProduct$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteConfigGroupByProductAndIdProduct> = z.nativeEnum(
-    DeleteConfigGroupByProductAndIdProduct,
-  );
-
-/** @internal */
-export const DeleteConfigGroupByProductAndIdProduct$outboundSchema:
-  z.ZodNativeEnum<typeof DeleteConfigGroupByProductAndIdProduct> =
-    DeleteConfigGroupByProductAndIdProduct$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteConfigGroupByProductAndIdProduct$ {
-  /** @deprecated use `DeleteConfigGroupByProductAndIdProduct$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteConfigGroupByProductAndIdProduct$inboundSchema;
-  /** @deprecated use `DeleteConfigGroupByProductAndIdProduct$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteConfigGroupByProductAndIdProduct$outboundSchema;
-}
-
-/** @internal */
 export const DeleteConfigGroupByProductAndIdRequest$inboundSchema: z.ZodType<
   DeleteConfigGroupByProductAndIdRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  product: DeleteConfigGroupByProductAndIdProduct$inboundSchema,
+  product: models.ProductsCore$inboundSchema,
   id: z.string(),
 });
 
@@ -91,7 +52,7 @@ export const DeleteConfigGroupByProductAndIdRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DeleteConfigGroupByProductAndIdRequest
 > = z.object({
-  product: DeleteConfigGroupByProductAndIdProduct$outboundSchema,
+  product: models.ProductsCore$outboundSchema,
   id: z.string(),
 });
 

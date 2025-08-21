@@ -4,30 +4,15 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export const GetConfigGroupByProductAndIdProduct = {
-  Stream: "stream",
-  Edge: "edge",
-} as const;
-/**
- * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
- */
-export type GetConfigGroupByProductAndIdProduct = ClosedEnum<
-  typeof GetConfigGroupByProductAndIdProduct
->;
 
 export type GetConfigGroupByProductAndIdRequest = {
   /**
    * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
    */
-  product: GetConfigGroupByProductAndIdProduct;
+  product: models.ProductsCore;
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to get.
    */
@@ -50,35 +35,12 @@ export type GetConfigGroupByProductAndIdResponse = {
 };
 
 /** @internal */
-export const GetConfigGroupByProductAndIdProduct$inboundSchema: z.ZodNativeEnum<
-  typeof GetConfigGroupByProductAndIdProduct
-> = z.nativeEnum(GetConfigGroupByProductAndIdProduct);
-
-/** @internal */
-export const GetConfigGroupByProductAndIdProduct$outboundSchema:
-  z.ZodNativeEnum<typeof GetConfigGroupByProductAndIdProduct> =
-    GetConfigGroupByProductAndIdProduct$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupByProductAndIdProduct$ {
-  /** @deprecated use `GetConfigGroupByProductAndIdProduct$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupByProductAndIdProduct$inboundSchema;
-  /** @deprecated use `GetConfigGroupByProductAndIdProduct$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupByProductAndIdProduct$outboundSchema;
-}
-
-/** @internal */
 export const GetConfigGroupByProductAndIdRequest$inboundSchema: z.ZodType<
   GetConfigGroupByProductAndIdRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  product: GetConfigGroupByProductAndIdProduct$inboundSchema,
+  product: models.ProductsCore$inboundSchema,
   id: z.string(),
   fields: z.string().optional(),
 });
@@ -96,7 +58,7 @@ export const GetConfigGroupByProductAndIdRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetConfigGroupByProductAndIdRequest
 > = z.object({
-  product: GetConfigGroupByProductAndIdProduct$outboundSchema,
+  product: models.ProductsCore$outboundSchema,
   id: z.string(),
   fields: z.string().optional(),
 });

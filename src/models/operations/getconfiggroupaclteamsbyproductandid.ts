@@ -4,50 +4,15 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Name of the Cribl product that contains the Worker Group or Edge Fleet.
- */
-export const GetConfigGroupAclTeamsByProductAndIdProduct = {
-  Stream: "stream",
-  Edge: "edge",
-} as const;
-/**
- * Name of the Cribl product that contains the Worker Group or Edge Fleet.
- */
-export type GetConfigGroupAclTeamsByProductAndIdProduct = ClosedEnum<
-  typeof GetConfigGroupAclTeamsByProductAndIdProduct
->;
-
-/**
- * Filter for limiting the response to ACL entries for the specified RBAC resource type.
- */
-export const GetConfigGroupAclTeamsByProductAndIdType = {
-  Groups: "groups",
-  Datasets: "datasets",
-  DatasetProviders: "dataset-providers",
-  Projects: "projects",
-  Dashboards: "dashboards",
-  Macros: "macros",
-  Notebooks: "notebooks",
-  Insights: "insights",
-} as const;
-/**
- * Filter for limiting the response to ACL entries for the specified RBAC resource type.
- */
-export type GetConfigGroupAclTeamsByProductAndIdType = ClosedEnum<
-  typeof GetConfigGroupAclTeamsByProductAndIdType
->;
 
 export type GetConfigGroupAclTeamsByProductAndIdRequest = {
   /**
    * Name of the Cribl product that contains the Worker Group or Edge Fleet.
    */
-  product: GetConfigGroupAclTeamsByProductAndIdProduct;
+  product: models.ProductsCore;
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to get the team ACL for.
    */
@@ -55,7 +20,7 @@ export type GetConfigGroupAclTeamsByProductAndIdRequest = {
   /**
    * Filter for limiting the response to ACL entries for the specified RBAC resource type.
    */
-  type?: GetConfigGroupAclTeamsByProductAndIdType | undefined;
+  type?: models.RbacResource | undefined;
 };
 
 /**
@@ -70,61 +35,15 @@ export type GetConfigGroupAclTeamsByProductAndIdResponse = {
 };
 
 /** @internal */
-export const GetConfigGroupAclTeamsByProductAndIdProduct$inboundSchema:
-  z.ZodNativeEnum<typeof GetConfigGroupAclTeamsByProductAndIdProduct> = z
-    .nativeEnum(GetConfigGroupAclTeamsByProductAndIdProduct);
-
-/** @internal */
-export const GetConfigGroupAclTeamsByProductAndIdProduct$outboundSchema:
-  z.ZodNativeEnum<typeof GetConfigGroupAclTeamsByProductAndIdProduct> =
-    GetConfigGroupAclTeamsByProductAndIdProduct$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupAclTeamsByProductAndIdProduct$ {
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdProduct$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupAclTeamsByProductAndIdProduct$inboundSchema;
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdProduct$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupAclTeamsByProductAndIdProduct$outboundSchema;
-}
-
-/** @internal */
-export const GetConfigGroupAclTeamsByProductAndIdType$inboundSchema:
-  z.ZodNativeEnum<typeof GetConfigGroupAclTeamsByProductAndIdType> = z
-    .nativeEnum(GetConfigGroupAclTeamsByProductAndIdType);
-
-/** @internal */
-export const GetConfigGroupAclTeamsByProductAndIdType$outboundSchema:
-  z.ZodNativeEnum<typeof GetConfigGroupAclTeamsByProductAndIdType> =
-    GetConfigGroupAclTeamsByProductAndIdType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupAclTeamsByProductAndIdType$ {
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdType$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupAclTeamsByProductAndIdType$inboundSchema;
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdType$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupAclTeamsByProductAndIdType$outboundSchema;
-}
-
-/** @internal */
 export const GetConfigGroupAclTeamsByProductAndIdRequest$inboundSchema:
   z.ZodType<
     GetConfigGroupAclTeamsByProductAndIdRequest,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    product: GetConfigGroupAclTeamsByProductAndIdProduct$inboundSchema,
+    product: models.ProductsCore$inboundSchema,
     id: z.string(),
-    type: GetConfigGroupAclTeamsByProductAndIdType$inboundSchema.optional(),
+    type: models.RbacResource$inboundSchema.optional(),
   });
 
 /** @internal */
@@ -141,9 +60,9 @@ export const GetConfigGroupAclTeamsByProductAndIdRequest$outboundSchema:
     z.ZodTypeDef,
     GetConfigGroupAclTeamsByProductAndIdRequest
   > = z.object({
-    product: GetConfigGroupAclTeamsByProductAndIdProduct$outboundSchema,
+    product: models.ProductsCore$outboundSchema,
     id: z.string(),
-    type: GetConfigGroupAclTeamsByProductAndIdType$outboundSchema.optional(),
+    type: models.RbacResource$outboundSchema.optional(),
   });
 
 /**

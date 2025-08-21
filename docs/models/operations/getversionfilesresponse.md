@@ -11,7 +11,9 @@ let value: GetVersionFilesResponse = {
   count: 955986,
   items: [
     {
-      commitMessage: {},
+      commitMessage: {
+        "key": "<value>",
+      },
       count: 6503.3,
       items: [
         {

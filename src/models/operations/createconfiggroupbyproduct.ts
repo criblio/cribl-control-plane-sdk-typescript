@@ -5,30 +5,15 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Name of the Cribl product to add the Worker Group or Edge Fleet to.
- */
-export const CreateConfigGroupByProductProduct = {
-  Stream: "stream",
-  Edge: "edge",
-} as const;
-/**
- * Name of the Cribl product to add the Worker Group or Edge Fleet to.
- */
-export type CreateConfigGroupByProductProduct = ClosedEnum<
-  typeof CreateConfigGroupByProductProduct
->;
 
 export type CreateConfigGroupByProductRequest = {
   /**
    * Name of the Cribl product to add the Worker Group or Edge Fleet to.
    */
-  product: CreateConfigGroupByProductProduct;
+  product: models.ProductsCore;
   /**
    * ConfigGroup object
    */
@@ -47,34 +32,12 @@ export type CreateConfigGroupByProductResponse = {
 };
 
 /** @internal */
-export const CreateConfigGroupByProductProduct$inboundSchema: z.ZodNativeEnum<
-  typeof CreateConfigGroupByProductProduct
-> = z.nativeEnum(CreateConfigGroupByProductProduct);
-
-/** @internal */
-export const CreateConfigGroupByProductProduct$outboundSchema: z.ZodNativeEnum<
-  typeof CreateConfigGroupByProductProduct
-> = CreateConfigGroupByProductProduct$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateConfigGroupByProductProduct$ {
-  /** @deprecated use `CreateConfigGroupByProductProduct$inboundSchema` instead. */
-  export const inboundSchema = CreateConfigGroupByProductProduct$inboundSchema;
-  /** @deprecated use `CreateConfigGroupByProductProduct$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateConfigGroupByProductProduct$outboundSchema;
-}
-
-/** @internal */
 export const CreateConfigGroupByProductRequest$inboundSchema: z.ZodType<
   CreateConfigGroupByProductRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  product: CreateConfigGroupByProductProduct$inboundSchema,
+  product: models.ProductsCore$inboundSchema,
   ConfigGroup: models.ConfigGroup$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
@@ -94,7 +57,7 @@ export const CreateConfigGroupByProductRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateConfigGroupByProductRequest
 > = z.object({
-  product: CreateConfigGroupByProductProduct$outboundSchema,
+  product: models.ProductsCore$outboundSchema,
   configGroup: models.ConfigGroup$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

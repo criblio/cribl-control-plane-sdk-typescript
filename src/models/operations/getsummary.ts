@@ -4,28 +4,15 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
-
-/**
- * Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
- */
-export const Mode = {
-  Worker: "worker",
-  ManagedEdge: "managed-edge",
-} as const;
-/**
- * Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
- */
-export type Mode = ClosedEnum<typeof Mode>;
 
 export type GetSummaryRequest = {
   /**
    * Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
    */
-  mode?: Mode | undefined;
+  mode?: models.WorkerTypes | undefined;
 };
 
 /**
@@ -40,32 +27,12 @@ export type GetSummaryResponse = {
 };
 
 /** @internal */
-export const Mode$inboundSchema: z.ZodNativeEnum<typeof Mode> = z.nativeEnum(
-  Mode,
-);
-
-/** @internal */
-export const Mode$outboundSchema: z.ZodNativeEnum<typeof Mode> =
-  Mode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Mode$ {
-  /** @deprecated use `Mode$inboundSchema` instead. */
-  export const inboundSchema = Mode$inboundSchema;
-  /** @deprecated use `Mode$outboundSchema` instead. */
-  export const outboundSchema = Mode$outboundSchema;
-}
-
-/** @internal */
 export const GetSummaryRequest$inboundSchema: z.ZodType<
   GetSummaryRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: Mode$inboundSchema.optional(),
+  mode: models.WorkerTypes$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -79,7 +46,7 @@ export const GetSummaryRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetSummaryRequest
 > = z.object({
-  mode: Mode$outboundSchema.optional(),
+  mode: models.WorkerTypes$outboundSchema.optional(),
 });
 
 /**
