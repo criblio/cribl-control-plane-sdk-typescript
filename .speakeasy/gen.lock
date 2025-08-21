@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: d4e60eaf202d77136dfcb246180859e0
-  docVersion: 4.14.0-alpha.1755708210976-a566b731
+  docChecksum: dfb5e34bdb9205f7f222f10c8554a537
+  docVersion: 4.14.0-alpha.1755764858399-d5c9979b
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.40
-  configChecksum: 873503929782d48d6964c427ff1fa87a
+  releaseVersion: 0.0.41
+  configChecksum: 4900cebfa967a91830a8514e6928cd11
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -867,7 +867,6 @@ generatedFiles:
   - docs/models/nodeskippedupgradestatus.md
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
-  - docs/models/operations/createconfiggroupbyproductproduct.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
@@ -888,7 +887,6 @@ generatedFiles:
   - docs/models/operations/createversionrevertresponse.md
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
-  - docs/models/operations/deleteconfiggroupbyproductandidproduct.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
@@ -903,18 +901,12 @@ generatedFiles:
   - docs/models/operations/deletepacksbyidresponse.md
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
-  - docs/models/operations/getconfiggroupaclbyproductandidproduct.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupaclbyproductandidtype.md
-  - docs/models/operations/getconfiggroupaclteamsbyproductandidproduct.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupaclteamsbyproductandidtype.md
-  - docs/models/operations/getconfiggroupbyproductandidproduct.md
   - docs/models/operations/getconfiggroupbyproductandidrequest.md
   - docs/models/operations/getconfiggroupbyproductandidresponse.md
-  - docs/models/operations/getconfiggroupconfigversionbyproductandidproduct.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidrequest.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidandidrequest.md
@@ -953,7 +945,6 @@ generatedFiles:
   - docs/models/operations/getversionshowresponse.md
   - docs/models/operations/getversionstatusrequest.md
   - docs/models/operations/getversionstatusresponse.md
-  - docs/models/operations/listconfiggroupbyproductproduct.md
   - docs/models/operations/listconfiggroupbyproductrequest.md
   - docs/models/operations/listconfiggroupbyproductresponse.md
   - docs/models/operations/listinputresponse.md
@@ -962,11 +953,8 @@ generatedFiles:
   - docs/models/operations/listoutputresponse.md
   - docs/models/operations/listpipelineresponse.md
   - docs/models/operations/listroutesresponse.md
-  - docs/models/operations/mode.md
-  - docs/models/operations/updateconfiggroupbyproductandidproduct.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
-  - docs/models/operations/updateconfiggroupdeploybyproductandidproduct.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidresponse.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidrequest.md
@@ -1801,6 +1789,7 @@ generatedFiles:
   - docs/models/pipelinegroups.md
   - docs/models/podfilter.md
   - docs/models/prefixoptional.md
+  - docs/models/productscore.md
   - docs/models/prometheusauthoauthheader1.md
   - docs/models/prometheusauthoauthheader2.md
   - docs/models/prometheusauthoauthparam1.md
@@ -1848,6 +1837,7 @@ generatedFiles:
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
+  - docs/models/workertypes.md
   - docs/models/writeaction.md
   - docs/sdks/acl/README.md
   - docs/sdks/auth/README.md
@@ -2206,6 +2196,7 @@ generatedFiles:
   - src/models/packrequestbody.ts
   - src/models/pipeline.ts
   - src/models/pipelinefunctionconf.ts
+  - src/models/productscore.ts
   - src/models/rbacresource.ts
   - src/models/resourcepolicy.ts
   - src/models/routecloneconf.ts
@@ -2217,6 +2208,7 @@ generatedFiles:
   - src/models/teamaccesscontrollist.ts
   - src/models/updatehectokenrequest.ts
   - src/models/useraccesscontrollist.ts
+  - src/models/workertypes.ts
   - src/sdk/acl.ts
   - src/sdk/auth.ts
   - src/sdk/branches.ts
@@ -3158,11 +3150,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: |
-  ## SDK Changes Detected:
-  * `criblcontrolplane.system.settings.auth.list()`: **Deleted** **Breaking** :warning:
-  * `criblcontrolplane.system.settings.auth.update()`: **Deleted** **Breaking** :warning:
-  * `criblcontrolplane.system.settings.cribl.list()`: **Deleted** **Breaking** :warning:
-  * `criblcontrolplane.system.settings.cribl.update()`: **Deleted** **Breaking** :warning:
-  * `criblcontrolplane.system.settings.git.list()`: **Deleted** **Breaking** :warning:
-  * `criblcontrolplane.system.settings.git.update()`: **Deleted** **Breaking** :warning:
+releaseNotes: "## SDK Changes Detected:\n* `criblcontrolplane.nodes.summaries.get()`: \n  *  `request.mode` **Changed**\n* `criblcontrolplane.versions.commits.revert()`:  `response.items.[].audit` **Changed**\n* `criblcontrolplane.versions.commits.files.list()`:  `response.items.[].commitMessage` **Changed**\n* `criblcontrolplane.groups.list()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.create()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.get()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.update()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.delete()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.deploy()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.configs.versions.get()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.acl.get()`:  `request` **Changed**\n* `criblcontrolplane.groups.acl.teams.get()`:  `request` **Changed**\n"

@@ -15,8 +15,8 @@ export type GitRevertResultFiles = {
 };
 
 export type Audit = {
-  files: GitRevertResultFiles;
-  group: string;
+  files?: GitRevertResultFiles | undefined;
+  group?: string | undefined;
   id: string;
 };
 
@@ -91,15 +91,15 @@ export function gitRevertResultFilesFromJSON(
 /** @internal */
 export const Audit$inboundSchema: z.ZodType<Audit, z.ZodTypeDef, unknown> = z
   .object({
-    files: z.lazy(() => GitRevertResultFiles$inboundSchema),
-    group: z.string(),
+    files: z.lazy(() => GitRevertResultFiles$inboundSchema).optional(),
+    group: z.string().optional(),
     id: z.string(),
   });
 
 /** @internal */
 export type Audit$Outbound = {
-  files: GitRevertResultFiles$Outbound;
-  group: string;
+  files?: GitRevertResultFiles$Outbound | undefined;
+  group?: string | undefined;
   id: string;
 };
 
@@ -109,8 +109,8 @@ export const Audit$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Audit
 > = z.object({
-  files: z.lazy(() => GitRevertResultFiles$outboundSchema),
-  group: z.string(),
+  files: z.lazy(() => GitRevertResultFiles$outboundSchema).optional(),
+  group: z.string().optional(),
   id: z.string(),
 });
 
