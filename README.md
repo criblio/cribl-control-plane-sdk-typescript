@@ -303,6 +303,7 @@ run();
 * [install](docs/sdks/packs/README.md#install) - Install a Pack
 * [list](docs/sdks/packs/README.md#list) - List all Packs
 * [delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
+* [get](docs/sdks/packs/README.md#get) - Get a Pack
 * [update](docs/sdks/packs/README.md#update) - Upgrade a Pack
 
 ### [pipelines](docs/sdks/pipelines/README.md)
@@ -411,6 +412,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
+- [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
 - [`packsInstall`](docs/sdks/packs/README.md#install) - Install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
@@ -735,7 +737,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 61 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 62 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

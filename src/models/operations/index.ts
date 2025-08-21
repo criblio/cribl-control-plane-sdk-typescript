@@ -34,6 +34,7 @@ export * from "./getoutputbyid.js";
 export * from "./getoutputpqbyid.js";
 export * from "./getoutputsamplesbyid.js";
 export * from "./getpacks.js";
+export * from "./getpacksbyid.js";
 export * from "./getpipelinebyid.js";
 export * from "./getroutesbyid.js";
 export * from "./getsummary.js";
