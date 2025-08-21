@@ -101,13 +101,3 @@ jobs:
             git commit -m "chore(sdk): generate prerelease ${{ steps.ver.outputs.version }}"
             git push origin HEAD:dev-remote
           fi
-
-  publish:
-    needs: generate-and-push
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@57452fc95969792de6734a91400a24aeb409964c
-    with:
-      target: cribl-control-plane
-    secrets:
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      npm_token: ${{ secrets.NPM_TOKEN }}
-      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
