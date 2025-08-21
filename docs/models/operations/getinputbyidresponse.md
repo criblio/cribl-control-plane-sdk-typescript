@@ -12,7 +12,7 @@ let value: GetInputByIdResponse = {
   items: [
     {
       id: "<id>",
-      type: "win_event_logs",
+      type: "raw_udp",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -38,24 +38,20 @@ let value: GetInputByIdResponse = {
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
       },
-      logNames: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      readMode: "oldest",
-      eventFormat: "json",
-      disableNativeModule: false,
-      interval: 10,
-      batchSize: 500,
+      host: "0.0.0.0",
+      port: 7967.25,
+      maxBufferSize: 1000,
+      ipWhitelistRegex: "/.*/",
+      singleMsgUdpPackets: false,
+      ingestRawBytes: false,
+      udpSocketRxBufSize: 5580.42,
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      maxEventBytes: 51200,
-      description: "from charlatan and ouch longingly unsung dwell",
+      description: "knowingly about scarily leading stealthily strict",
     },
   ],
 };

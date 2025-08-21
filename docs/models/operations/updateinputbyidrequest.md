@@ -9,7 +9,7 @@ let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
     id: "<id>",
-    type: "journal_files",
+    type: "wiz",
     disabled: false,
     pipeline: "<value>",
     sendToRoutes: true,
@@ -35,27 +35,46 @@ let value: UpdateInputByIdRequest = {
       path: "$CRIBL_HOME/state/queues",
       compress: "none",
     },
-    path: "/home/user/dir",
-    interval: 10,
-    journals: [
-      "<value 1>",
-    ],
-    rules: [
+    endpoint: "https://api.<region>.app.wiz.io/graphql",
+    authUrl: "https://lost-republican.net/",
+    authAudienceOverride: "<value>",
+    clientId: "<id>",
+    contentConfig: [
       {
-        filter: "<value>",
-        description:
-          "intensely whereas role painfully fooey commonly upon upbeat",
+        contentType: "<value>",
+        contentDescription: "<value>",
+        enabled: false,
       },
     ],
-    currentBoot: false,
-    maxAgeDur: "<value>",
+    requestTimeout: 300,
+    keepAliveTime: 30,
+    maxMissedKeepAlives: 3,
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    description: "trash edge noon zowie and since miserly",
+    retryRules: {
+      type: "backoff",
+      interval: 1000,
+      limit: 5,
+      multiplier: 2,
+      codes: [
+        718.38,
+        8167.55,
+        3424.31,
+      ],
+      enableHeader: true,
+      retryConnectTimeout: false,
+      retryConnectReset: false,
+    },
+    authType: "manual",
+    description: "whereas role painfully fooey commonly",
+    clientSecret: "<value>",
+    textSecret: "<value>",
   },
 };
 ```

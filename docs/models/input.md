@@ -2327,8 +2327,8 @@ const value: models.InputModelDrivenTelemetry = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.3",
   },
   metadata: [
     {
@@ -2336,7 +2336,8 @@ const value: models.InputModelDrivenTelemetry = {
       value: "<value>",
     },
   ],
-  description: "boohoo carpool so chunder",
+  description:
+    "toothbrush suddenly while pace now bleak huzzah psst forenenst yet",
 };
 ```
 
@@ -2524,8 +2525,8 @@ const value: models.InputTcp = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
   },
   metadata: [
     {
@@ -2535,15 +2536,17 @@ const value: models.InputTcp = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   preprocess: {
     command: "<value>",
     args: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
-  description: "cheerful daily knowledgeably likewise everlasting",
+  description: "license abseil zowie er insignificant",
 };
 ```
 
@@ -2754,8 +2757,7 @@ const value: models.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description:
-        "intensely whereas role painfully fooey commonly upon upbeat",
+      description: "yahoo uh-huh dirty behind manner",
     },
   ],
   maxAgeDur: "<value>",
@@ -2765,7 +2767,7 @@ const value: models.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "yahoo uh-huh dirty behind manner",
+  description: "honored given shoulder why cheerful",
 };
 ```
 
@@ -2799,14 +2801,88 @@ const value: models.InputWiz = {
   ],
   retryRules: {
     codes: [
-      5668.03,
-      2663.29,
-      2735.91,
+      718.38,
+      8167.55,
+      3424.31,
     ],
   },
-  description: "psst parsnip schlep cluttered off next",
+  description:
+    "masquerade overcook thump pro towards rawhide aha forearm irritably",
   clientSecret: "<value>",
   textSecret: "<value>",
+};
+```
+
+### `models.InputWizWebhook`
+
+```typescript
+const value: models.InputWizWebhook = {
+  id: "<id>",
+  type: "wiz_webhook",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 6799.14,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedPaths: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  allowedMethods: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "irritably medium reckless acceptable pish and",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description:
+    "instead yet rudely oh bracelet after miserably hunger optimal possible",
 };
 ```
 
