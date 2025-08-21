@@ -3,6 +3,7 @@
  */
 
 import { packsDelete } from "../funcs/packsDelete.js";
+import { packsGet } from "../funcs/packsGet.js";
 import { packsInstall } from "../funcs/packsInstall.js";
 import { packsList } from "../funcs/packsList.js";
 import { packsUpdate } from "../funcs/packsUpdate.js";
@@ -57,6 +58,23 @@ export class Packs extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeletePacksByIdResponse> {
     return unwrapAsync(packsDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get a Pack
+   *
+   * @remarks
+   * Get the specified Pack.
+   */
+  async get(
+    request: operations.GetPacksByIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetPacksByIdResponse> {
+    return unwrapAsync(packsGet(
       this,
       request,
       options,

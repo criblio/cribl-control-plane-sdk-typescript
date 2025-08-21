@@ -349,6 +349,12 @@ import {
   InputWiz$outboundSchema,
 } from "./inputwiz.js";
 import {
+  InputWizWebhook,
+  InputWizWebhook$inboundSchema,
+  InputWizWebhook$Outbound,
+  InputWizWebhook$outboundSchema,
+} from "./inputwizwebhook.js";
+import {
   InputZscalerHec,
   InputZscalerHec$inboundSchema,
   InputZscalerHec$Outbound,
@@ -391,6 +397,7 @@ export type Input =
   | InputWef
   | InputWinEventLogs
   | InputRawUdp
+  | InputWizWebhook
   | InputSecurityLake
   | InputZscalerHec
   | InputPrometheus
@@ -453,6 +460,7 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     InputWef$inboundSchema,
     InputWinEventLogs$inboundSchema,
     InputRawUdp$inboundSchema,
+    InputWizWebhook$inboundSchema,
     InputSecurityLake$inboundSchema,
     InputZscalerHec$inboundSchema,
     InputPrometheus$inboundSchema,
@@ -515,6 +523,7 @@ export type Input$Outbound =
   | InputWef$Outbound
   | InputWinEventLogs$Outbound
   | InputRawUdp$Outbound
+  | InputWizWebhook$Outbound
   | InputSecurityLake$Outbound
   | InputZscalerHec$Outbound
   | InputPrometheus$Outbound
@@ -580,6 +589,7 @@ export const Input$outboundSchema: z.ZodType<
   InputWef$outboundSchema,
   InputWinEventLogs$outboundSchema,
   InputRawUdp$outboundSchema,
+  InputWizWebhook$outboundSchema,
   InputSecurityLake$outboundSchema,
   InputZscalerHec$outboundSchema,
   InputPrometheus$outboundSchema,
