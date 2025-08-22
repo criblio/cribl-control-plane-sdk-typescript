@@ -28,8 +28,8 @@ let value: InputModelDrivenTelemetry = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -37,8 +37,7 @@ let value: InputModelDrivenTelemetry = {
       value: "<value>",
     },
   ],
-  description:
-    "toothbrush suddenly while pace now bleak huzzah psst forenenst yet",
+  description: "boohoo carpool so chunder",
 };
 ```
 

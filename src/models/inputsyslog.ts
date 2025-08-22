@@ -8,12 +8,12 @@ import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const InputSyslogType2 = {
+export const InputSyslogType = {
   Syslog: "syslog",
 } as const;
-export type InputSyslogType2 = ClosedEnum<typeof InputSyslogType2>;
+export type InputSyslogType = ClosedEnum<typeof InputSyslogType>;
 
-export type InputSyslogConnection2 = {
+export type InputSyslogConnection = {
   pipeline?: string | undefined;
   output: string;
 };
@@ -21,34 +21,32 @@ export type InputSyslogConnection2 = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export const InputSyslogMode2 = {
+export const InputSyslogMode = {
   Smart: "smart",
   Always: "always",
 } as const;
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSyslogMode2 = ClosedEnum<typeof InputSyslogMode2>;
+export type InputSyslogMode = ClosedEnum<typeof InputSyslogMode>;
 
 /**
  * Codec to use to compress the persisted data
  */
-export const InputSyslogCompression2 = {
+export const InputSyslogCompression = {
   None: "none",
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSyslogCompression2 = ClosedEnum<
-  typeof InputSyslogCompression2
->;
+export type InputSyslogCompression = ClosedEnum<typeof InputSyslogCompression>;
 
-export type InputSyslogPq2 = {
+export type InputSyslogPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
    */
-  mode?: InputSyslogMode2 | undefined;
+  mode?: InputSyslogMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -72,30 +70,30 @@ export type InputSyslogPq2 = {
   /**
    * Codec to use to compress the persisted data
    */
-  compress?: InputSyslogCompression2 | undefined;
+  compress?: InputSyslogCompression | undefined;
 };
 
-export const InputSyslogMinimumTLSVersion2 = {
+export const InputSyslogMinimumTLSVersion = {
   TLSv1: "TLSv1",
   TLSv11: "TLSv1.1",
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputSyslogMinimumTLSVersion2 = ClosedEnum<
-  typeof InputSyslogMinimumTLSVersion2
+export type InputSyslogMinimumTLSVersion = ClosedEnum<
+  typeof InputSyslogMinimumTLSVersion
 >;
 
-export const InputSyslogMaximumTLSVersion2 = {
+export const InputSyslogMaximumTLSVersion = {
   TLSv1: "TLSv1",
   TLSv11: "TLSv1.1",
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputSyslogMaximumTLSVersion2 = ClosedEnum<
-  typeof InputSyslogMaximumTLSVersion2
+export type InputSyslogMaximumTLSVersion = ClosedEnum<
+  typeof InputSyslogMaximumTLSVersion
 >;
 
-export type InputSyslogTLSSettingsServerSide2 = {
+export type InputSyslogTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
    * The name of the predefined certificate
@@ -123,11 +121,11 @@ export type InputSyslogTLSSettingsServerSide2 = {
   requestCert?: boolean | undefined;
   rejectUnauthorized?: any | undefined;
   commonNameRegex?: any | undefined;
-  minVersion?: InputSyslogMinimumTLSVersion2 | undefined;
-  maxVersion?: InputSyslogMaximumTLSVersion2 | undefined;
+  minVersion?: InputSyslogMinimumTLSVersion | undefined;
+  maxVersion?: InputSyslogMaximumTLSVersion | undefined;
 };
 
-export type InputSyslogMetadatum2 = {
+export type InputSyslogMetadatum = {
   name: string;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -135,12 +133,12 @@ export type InputSyslogMetadatum2 = {
   value: string;
 };
 
-export type InputSyslogSyslog2 = {
+export type InputSyslog = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSyslogType2;
+  type: InputSyslogType;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -165,8 +163,8 @@ export type InputSyslogSyslog2 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSyslogConnection2> | undefined;
-  pq?: InputSyslogPq2 | undefined;
+  connections?: Array<InputSyslogConnection> | undefined;
+  pq?: InputSyslogPq | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -175,253 +173,6 @@ export type InputSyslogSyslog2 = {
    * Enter UDP port number to listen on. Not required if listening on TCP.
    */
   udpPort?: number | undefined;
-  /**
-   * Enter TCP port number to listen on. Not required if listening on UDP.
-   */
-  tcpPort: number;
-  /**
-   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * Regex matching IP addresses that are allowed to send data
-   */
-  ipWhitelistRegex?: string | undefined;
-  /**
-   * Timezone to assign to timestamps without timezone info
-   */
-  timestampTimezone?: string | undefined;
-  /**
-   * Treat UDP packet data received as full syslog message
-   */
-  singleMsgUdpPackets?: boolean | undefined;
-  /**
-   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Wildcard list of fields to keep from source data; * = ALL (default)
-   */
-  keepFieldsList?: Array<string> | undefined;
-  /**
-   * Enable if incoming messages use octet counting per RFC 6587.
-   */
-  octetCounting?: boolean | undefined;
-  /**
-   * Enable if we should infer the syslog framing of the incoming messages.
-   */
-  inferFraming?: boolean | undefined;
-  /**
-   * Enable if we should infer octet counting only if the messages comply with RFC 5424.
-   */
-  strictlyInferOctetCounting?: boolean | undefined;
-  /**
-   * Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
-   */
-  allowNonStandardAppName?: boolean | undefined;
-  /**
-   * Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
-   */
-  maxActiveCxn?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-   */
-  socketIdleTimeout?: number | undefined;
-  /**
-   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-   */
-  socketEndingMaxWait?: number | undefined;
-  /**
-   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-   */
-  socketMaxLifespan?: number | undefined;
-  tls?: InputSyslogTLSSettingsServerSide2 | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<InputSyslogMetadatum2> | undefined;
-  /**
-   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-   */
-  udpSocketRxBufSize?: number | undefined;
-  /**
-   * Load balance traffic across all Worker Processes
-   */
-  enableLoadBalancing?: boolean | undefined;
-  description?: string | undefined;
-  /**
-   * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
-   */
-  enableEnhancedProxyHeaderParsing?: boolean | undefined;
-};
-
-export const InputSyslogType1 = {
-  Syslog: "syslog",
-} as const;
-export type InputSyslogType1 = ClosedEnum<typeof InputSyslogType1>;
-
-export type InputSyslogConnection1 = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSyslogMode1 = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSyslogMode1 = ClosedEnum<typeof InputSyslogMode1>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSyslogCompression1 = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSyslogCompression1 = ClosedEnum<
-  typeof InputSyslogCompression1
->;
-
-export type InputSyslogPq1 = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSyslogMode1 | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSyslogCompression1 | undefined;
-};
-
-export const InputSyslogMinimumTLSVersion1 = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputSyslogMinimumTLSVersion1 = ClosedEnum<
-  typeof InputSyslogMinimumTLSVersion1
->;
-
-export const InputSyslogMaximumTLSVersion1 = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputSyslogMaximumTLSVersion1 = ClosedEnum<
-  typeof InputSyslogMaximumTLSVersion1
->;
-
-export type InputSyslogTLSSettingsServerSide1 = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputSyslogMinimumTLSVersion1 | undefined;
-  maxVersion?: InputSyslogMaximumTLSVersion1 | undefined;
-};
-
-export type InputSyslogMetadatum1 = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputSyslogSyslog1 = {
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputSyslogType1;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<InputSyslogConnection1> | undefined;
-  pq?: InputSyslogPq1 | undefined;
-  /**
-   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-   */
-  host?: string | undefined;
-  /**
-   * Enter UDP port number to listen on. Not required if listening on TCP.
-   */
-  udpPort: number;
   /**
    * Enter TCP port number to listen on. Not required if listening on UDP.
    */
@@ -482,11 +233,11 @@ export type InputSyslogSyslog1 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
-  tls?: InputSyslogTLSSettingsServerSide1 | undefined;
+  tls?: InputSyslogTLSSettingsServerSide | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSyslogMetadatum1> | undefined;
+  metadata?: Array<InputSyslogMetadatum> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -502,32 +253,30 @@ export type InputSyslogSyslog1 = {
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
 };
 
-export type InputSyslog = InputSyslogSyslog1 | InputSyslogSyslog2;
+/** @internal */
+export const InputSyslogType$inboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogType
+> = z.nativeEnum(InputSyslogType);
 
 /** @internal */
-export const InputSyslogType2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType2
-> = z.nativeEnum(InputSyslogType2);
-
-/** @internal */
-export const InputSyslogType2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType2
-> = InputSyslogType2$inboundSchema;
+export const InputSyslogType$outboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogType
+> = InputSyslogType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogType2$ {
-  /** @deprecated use `InputSyslogType2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogType2$inboundSchema;
-  /** @deprecated use `InputSyslogType2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogType2$outboundSchema;
+export namespace InputSyslogType$ {
+  /** @deprecated use `InputSyslogType$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogType$inboundSchema;
+  /** @deprecated use `InputSyslogType$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogType$outboundSchema;
 }
 
 /** @internal */
-export const InputSyslogConnection2$inboundSchema: z.ZodType<
-  InputSyslogConnection2,
+export const InputSyslogConnection$inboundSchema: z.ZodType<
+  InputSyslogConnection,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -536,16 +285,16 @@ export const InputSyslogConnection2$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type InputSyslogConnection2$Outbound = {
+export type InputSyslogConnection$Outbound = {
   pipeline?: string | undefined;
   output: string;
 };
 
 /** @internal */
-export const InputSyslogConnection2$outboundSchema: z.ZodType<
-  InputSyslogConnection2$Outbound,
+export const InputSyslogConnection$outboundSchema: z.ZodType<
+  InputSyslogConnection$Outbound,
   z.ZodTypeDef,
-  InputSyslogConnection2
+  InputSyslogConnection
 > = z.object({
   pipeline: z.string().optional(),
   output: z.string(),
@@ -555,92 +304,92 @@ export const InputSyslogConnection2$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogConnection2$ {
-  /** @deprecated use `InputSyslogConnection2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogConnection2$inboundSchema;
-  /** @deprecated use `InputSyslogConnection2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogConnection2$outboundSchema;
-  /** @deprecated use `InputSyslogConnection2$Outbound` instead. */
-  export type Outbound = InputSyslogConnection2$Outbound;
+export namespace InputSyslogConnection$ {
+  /** @deprecated use `InputSyslogConnection$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogConnection$inboundSchema;
+  /** @deprecated use `InputSyslogConnection$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogConnection$outboundSchema;
+  /** @deprecated use `InputSyslogConnection$Outbound` instead. */
+  export type Outbound = InputSyslogConnection$Outbound;
 }
 
-export function inputSyslogConnection2ToJSON(
-  inputSyslogConnection2: InputSyslogConnection2,
+export function inputSyslogConnectionToJSON(
+  inputSyslogConnection: InputSyslogConnection,
 ): string {
   return JSON.stringify(
-    InputSyslogConnection2$outboundSchema.parse(inputSyslogConnection2),
+    InputSyslogConnection$outboundSchema.parse(inputSyslogConnection),
   );
 }
 
-export function inputSyslogConnection2FromJSON(
+export function inputSyslogConnectionFromJSON(
   jsonString: string,
-): SafeParseResult<InputSyslogConnection2, SDKValidationError> {
+): SafeParseResult<InputSyslogConnection, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSyslogConnection2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogConnection2' from JSON`,
+    (x) => InputSyslogConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogConnection' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSyslogMode2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMode2
-> = z.nativeEnum(InputSyslogMode2);
+export const InputSyslogMode$inboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogMode
+> = z.nativeEnum(InputSyslogMode);
 
 /** @internal */
-export const InputSyslogMode2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMode2
-> = InputSyslogMode2$inboundSchema;
+export const InputSyslogMode$outboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogMode
+> = InputSyslogMode$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogMode2$ {
-  /** @deprecated use `InputSyslogMode2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogMode2$inboundSchema;
-  /** @deprecated use `InputSyslogMode2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogMode2$outboundSchema;
+export namespace InputSyslogMode$ {
+  /** @deprecated use `InputSyslogMode$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogMode$inboundSchema;
+  /** @deprecated use `InputSyslogMode$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogMode$outboundSchema;
 }
 
 /** @internal */
-export const InputSyslogCompression2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogCompression2
-> = z.nativeEnum(InputSyslogCompression2);
+export const InputSyslogCompression$inboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogCompression
+> = z.nativeEnum(InputSyslogCompression);
 
 /** @internal */
-export const InputSyslogCompression2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogCompression2
-> = InputSyslogCompression2$inboundSchema;
+export const InputSyslogCompression$outboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogCompression
+> = InputSyslogCompression$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogCompression2$ {
-  /** @deprecated use `InputSyslogCompression2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogCompression2$inboundSchema;
-  /** @deprecated use `InputSyslogCompression2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogCompression2$outboundSchema;
+export namespace InputSyslogCompression$ {
+  /** @deprecated use `InputSyslogCompression$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogCompression$inboundSchema;
+  /** @deprecated use `InputSyslogCompression$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogCompression$outboundSchema;
 }
 
 /** @internal */
-export const InputSyslogPq2$inboundSchema: z.ZodType<
-  InputSyslogPq2,
+export const InputSyslogPq$inboundSchema: z.ZodType<
+  InputSyslogPq,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSyslogMode2$inboundSchema.default("always"),
+  mode: InputSyslogMode$inboundSchema.default("always"),
   maxBufferSize: z.number().default(1000),
   commitFrequency: z.number().default(42),
   maxFileSize: z.string().default("1 MB"),
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSyslogCompression2$inboundSchema.default("none"),
+  compress: InputSyslogCompression$inboundSchema.default("none"),
 });
 
 /** @internal */
-export type InputSyslogPq2$Outbound = {
+export type InputSyslogPq$Outbound = {
   mode: string;
   maxBufferSize: number;
   commitFrequency: number;
@@ -651,92 +400,92 @@ export type InputSyslogPq2$Outbound = {
 };
 
 /** @internal */
-export const InputSyslogPq2$outboundSchema: z.ZodType<
-  InputSyslogPq2$Outbound,
+export const InputSyslogPq$outboundSchema: z.ZodType<
+  InputSyslogPq$Outbound,
   z.ZodTypeDef,
-  InputSyslogPq2
+  InputSyslogPq
 > = z.object({
-  mode: InputSyslogMode2$outboundSchema.default("always"),
+  mode: InputSyslogMode$outboundSchema.default("always"),
   maxBufferSize: z.number().default(1000),
   commitFrequency: z.number().default(42),
   maxFileSize: z.string().default("1 MB"),
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSyslogCompression2$outboundSchema.default("none"),
+  compress: InputSyslogCompression$outboundSchema.default("none"),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogPq2$ {
-  /** @deprecated use `InputSyslogPq2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogPq2$inboundSchema;
-  /** @deprecated use `InputSyslogPq2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogPq2$outboundSchema;
-  /** @deprecated use `InputSyslogPq2$Outbound` instead. */
-  export type Outbound = InputSyslogPq2$Outbound;
+export namespace InputSyslogPq$ {
+  /** @deprecated use `InputSyslogPq$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogPq$inboundSchema;
+  /** @deprecated use `InputSyslogPq$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogPq$outboundSchema;
+  /** @deprecated use `InputSyslogPq$Outbound` instead. */
+  export type Outbound = InputSyslogPq$Outbound;
 }
 
-export function inputSyslogPq2ToJSON(inputSyslogPq2: InputSyslogPq2): string {
-  return JSON.stringify(InputSyslogPq2$outboundSchema.parse(inputSyslogPq2));
+export function inputSyslogPqToJSON(inputSyslogPq: InputSyslogPq): string {
+  return JSON.stringify(InputSyslogPq$outboundSchema.parse(inputSyslogPq));
 }
 
-export function inputSyslogPq2FromJSON(
+export function inputSyslogPqFromJSON(
   jsonString: string,
-): SafeParseResult<InputSyslogPq2, SDKValidationError> {
+): SafeParseResult<InputSyslogPq, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSyslogPq2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogPq2' from JSON`,
+    (x) => InputSyslogPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogPq' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSyslogMinimumTLSVersion2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMinimumTLSVersion2
-> = z.nativeEnum(InputSyslogMinimumTLSVersion2);
+export const InputSyslogMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogMinimumTLSVersion
+> = z.nativeEnum(InputSyslogMinimumTLSVersion);
 
 /** @internal */
-export const InputSyslogMinimumTLSVersion2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMinimumTLSVersion2
-> = InputSyslogMinimumTLSVersion2$inboundSchema;
+export const InputSyslogMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogMinimumTLSVersion
+> = InputSyslogMinimumTLSVersion$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogMinimumTLSVersion2$ {
-  /** @deprecated use `InputSyslogMinimumTLSVersion2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogMinimumTLSVersion2$inboundSchema;
-  /** @deprecated use `InputSyslogMinimumTLSVersion2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogMinimumTLSVersion2$outboundSchema;
+export namespace InputSyslogMinimumTLSVersion$ {
+  /** @deprecated use `InputSyslogMinimumTLSVersion$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogMinimumTLSVersion$inboundSchema;
+  /** @deprecated use `InputSyslogMinimumTLSVersion$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogMinimumTLSVersion$outboundSchema;
 }
 
 /** @internal */
-export const InputSyslogMaximumTLSVersion2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMaximumTLSVersion2
-> = z.nativeEnum(InputSyslogMaximumTLSVersion2);
+export const InputSyslogMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogMaximumTLSVersion
+> = z.nativeEnum(InputSyslogMaximumTLSVersion);
 
 /** @internal */
-export const InputSyslogMaximumTLSVersion2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMaximumTLSVersion2
-> = InputSyslogMaximumTLSVersion2$inboundSchema;
+export const InputSyslogMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogMaximumTLSVersion
+> = InputSyslogMaximumTLSVersion$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogMaximumTLSVersion2$ {
-  /** @deprecated use `InputSyslogMaximumTLSVersion2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogMaximumTLSVersion2$inboundSchema;
-  /** @deprecated use `InputSyslogMaximumTLSVersion2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogMaximumTLSVersion2$outboundSchema;
+export namespace InputSyslogMaximumTLSVersion$ {
+  /** @deprecated use `InputSyslogMaximumTLSVersion$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogMaximumTLSVersion$inboundSchema;
+  /** @deprecated use `InputSyslogMaximumTLSVersion$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogMaximumTLSVersion$outboundSchema;
 }
 
 /** @internal */
-export const InputSyslogTLSSettingsServerSide2$inboundSchema: z.ZodType<
-  InputSyslogTLSSettingsServerSide2,
+export const InputSyslogTLSSettingsServerSide$inboundSchema: z.ZodType<
+  InputSyslogTLSSettingsServerSide,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -749,12 +498,12 @@ export const InputSyslogTLSSettingsServerSide2$inboundSchema: z.ZodType<
   requestCert: z.boolean().default(false),
   rejectUnauthorized: z.any().optional(),
   commonNameRegex: z.any().optional(),
-  minVersion: InputSyslogMinimumTLSVersion2$inboundSchema.optional(),
-  maxVersion: InputSyslogMaximumTLSVersion2$inboundSchema.optional(),
+  minVersion: InputSyslogMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: InputSyslogMaximumTLSVersion$inboundSchema.optional(),
 });
 
 /** @internal */
-export type InputSyslogTLSSettingsServerSide2$Outbound = {
+export type InputSyslogTLSSettingsServerSide$Outbound = {
   disabled: boolean;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
@@ -769,10 +518,10 @@ export type InputSyslogTLSSettingsServerSide2$Outbound = {
 };
 
 /** @internal */
-export const InputSyslogTLSSettingsServerSide2$outboundSchema: z.ZodType<
-  InputSyslogTLSSettingsServerSide2$Outbound,
+export const InputSyslogTLSSettingsServerSide$outboundSchema: z.ZodType<
+  InputSyslogTLSSettingsServerSide$Outbound,
   z.ZodTypeDef,
-  InputSyslogTLSSettingsServerSide2
+  InputSyslogTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
   certificateName: z.string().optional(),
@@ -783,47 +532,46 @@ export const InputSyslogTLSSettingsServerSide2$outboundSchema: z.ZodType<
   requestCert: z.boolean().default(false),
   rejectUnauthorized: z.any().optional(),
   commonNameRegex: z.any().optional(),
-  minVersion: InputSyslogMinimumTLSVersion2$outboundSchema.optional(),
-  maxVersion: InputSyslogMaximumTLSVersion2$outboundSchema.optional(),
+  minVersion: InputSyslogMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: InputSyslogMaximumTLSVersion$outboundSchema.optional(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogTLSSettingsServerSide2$ {
-  /** @deprecated use `InputSyslogTLSSettingsServerSide2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogTLSSettingsServerSide2$inboundSchema;
-  /** @deprecated use `InputSyslogTLSSettingsServerSide2$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSyslogTLSSettingsServerSide2$outboundSchema;
-  /** @deprecated use `InputSyslogTLSSettingsServerSide2$Outbound` instead. */
-  export type Outbound = InputSyslogTLSSettingsServerSide2$Outbound;
+export namespace InputSyslogTLSSettingsServerSide$ {
+  /** @deprecated use `InputSyslogTLSSettingsServerSide$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogTLSSettingsServerSide$inboundSchema;
+  /** @deprecated use `InputSyslogTLSSettingsServerSide$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogTLSSettingsServerSide$outboundSchema;
+  /** @deprecated use `InputSyslogTLSSettingsServerSide$Outbound` instead. */
+  export type Outbound = InputSyslogTLSSettingsServerSide$Outbound;
 }
 
-export function inputSyslogTLSSettingsServerSide2ToJSON(
-  inputSyslogTLSSettingsServerSide2: InputSyslogTLSSettingsServerSide2,
+export function inputSyslogTLSSettingsServerSideToJSON(
+  inputSyslogTLSSettingsServerSide: InputSyslogTLSSettingsServerSide,
 ): string {
   return JSON.stringify(
-    InputSyslogTLSSettingsServerSide2$outboundSchema.parse(
-      inputSyslogTLSSettingsServerSide2,
+    InputSyslogTLSSettingsServerSide$outboundSchema.parse(
+      inputSyslogTLSSettingsServerSide,
     ),
   );
 }
 
-export function inputSyslogTLSSettingsServerSide2FromJSON(
+export function inputSyslogTLSSettingsServerSideFromJSON(
   jsonString: string,
-): SafeParseResult<InputSyslogTLSSettingsServerSide2, SDKValidationError> {
+): SafeParseResult<InputSyslogTLSSettingsServerSide, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSyslogTLSSettingsServerSide2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogTLSSettingsServerSide2' from JSON`,
+    (x) => InputSyslogTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogTLSSettingsServerSide' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSyslogMetadatum2$inboundSchema: z.ZodType<
-  InputSyslogMetadatum2,
+export const InputSyslogMetadatum$inboundSchema: z.ZodType<
+  InputSyslogMetadatum,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -832,16 +580,16 @@ export const InputSyslogMetadatum2$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type InputSyslogMetadatum2$Outbound = {
+export type InputSyslogMetadatum$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const InputSyslogMetadatum2$outboundSchema: z.ZodType<
-  InputSyslogMetadatum2$Outbound,
+export const InputSyslogMetadatum$outboundSchema: z.ZodType<
+  InputSyslogMetadatum$Outbound,
   z.ZodTypeDef,
-  InputSyslogMetadatum2
+  InputSyslogMetadatum
 > = z.object({
   name: z.string(),
   value: z.string(),
@@ -851,714 +599,30 @@ export const InputSyslogMetadatum2$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputSyslogMetadatum2$ {
-  /** @deprecated use `InputSyslogMetadatum2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogMetadatum2$inboundSchema;
-  /** @deprecated use `InputSyslogMetadatum2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogMetadatum2$outboundSchema;
-  /** @deprecated use `InputSyslogMetadatum2$Outbound` instead. */
-  export type Outbound = InputSyslogMetadatum2$Outbound;
+export namespace InputSyslogMetadatum$ {
+  /** @deprecated use `InputSyslogMetadatum$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogMetadatum$inboundSchema;
+  /** @deprecated use `InputSyslogMetadatum$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogMetadatum$outboundSchema;
+  /** @deprecated use `InputSyslogMetadatum$Outbound` instead. */
+  export type Outbound = InputSyslogMetadatum$Outbound;
 }
 
-export function inputSyslogMetadatum2ToJSON(
-  inputSyslogMetadatum2: InputSyslogMetadatum2,
+export function inputSyslogMetadatumToJSON(
+  inputSyslogMetadatum: InputSyslogMetadatum,
 ): string {
   return JSON.stringify(
-    InputSyslogMetadatum2$outboundSchema.parse(inputSyslogMetadatum2),
+    InputSyslogMetadatum$outboundSchema.parse(inputSyslogMetadatum),
   );
 }
 
-export function inputSyslogMetadatum2FromJSON(
+export function inputSyslogMetadatumFromJSON(
   jsonString: string,
-): SafeParseResult<InputSyslogMetadatum2, SDKValidationError> {
+): SafeParseResult<InputSyslogMetadatum, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSyslogMetadatum2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogMetadatum2' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSyslogSyslog2$inboundSchema: z.ZodType<
-  InputSyslogSyslog2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputSyslogType2$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSyslogConnection2$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSyslogPq2$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  udpPort: z.number().optional(),
-  tcpPort: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  timestampTimezone: z.string().default("local"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  enableProxyHeader: z.boolean().default(false),
-  keepFieldsList: z.array(z.string()).optional(),
-  octetCounting: z.boolean().default(false),
-  inferFraming: z.boolean().default(true),
-  strictlyInferOctetCounting: z.boolean().default(true),
-  allowNonStandardAppName: z.boolean().default(false),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  tls: z.lazy(() => InputSyslogTLSSettingsServerSide2$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputSyslogMetadatum2$inboundSchema))
-    .optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  description: z.string().optional(),
-  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
-});
-
-/** @internal */
-export type InputSyslogSyslog2$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputSyslogConnection2$Outbound> | undefined;
-  pq?: InputSyslogPq2$Outbound | undefined;
-  host: string;
-  udpPort?: number | undefined;
-  tcpPort: number;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  timestampTimezone: string;
-  singleMsgUdpPackets: boolean;
-  enableProxyHeader: boolean;
-  keepFieldsList?: Array<string> | undefined;
-  octetCounting: boolean;
-  inferFraming: boolean;
-  strictlyInferOctetCounting: boolean;
-  allowNonStandardAppName: boolean;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  tls?: InputSyslogTLSSettingsServerSide2$Outbound | undefined;
-  metadata?: Array<InputSyslogMetadatum2$Outbound> | undefined;
-  udpSocketRxBufSize?: number | undefined;
-  enableLoadBalancing: boolean;
-  description?: string | undefined;
-  enableEnhancedProxyHeaderParsing?: boolean | undefined;
-};
-
-/** @internal */
-export const InputSyslogSyslog2$outboundSchema: z.ZodType<
-  InputSyslogSyslog2$Outbound,
-  z.ZodTypeDef,
-  InputSyslogSyslog2
-> = z.object({
-  id: z.string().optional(),
-  type: InputSyslogType2$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSyslogConnection2$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSyslogPq2$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  udpPort: z.number().optional(),
-  tcpPort: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  timestampTimezone: z.string().default("local"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  enableProxyHeader: z.boolean().default(false),
-  keepFieldsList: z.array(z.string()).optional(),
-  octetCounting: z.boolean().default(false),
-  inferFraming: z.boolean().default(true),
-  strictlyInferOctetCounting: z.boolean().default(true),
-  allowNonStandardAppName: z.boolean().default(false),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  tls: z.lazy(() => InputSyslogTLSSettingsServerSide2$outboundSchema)
-    .optional(),
-  metadata: z.array(z.lazy(() => InputSyslogMetadatum2$outboundSchema))
-    .optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  description: z.string().optional(),
-  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogSyslog2$ {
-  /** @deprecated use `InputSyslogSyslog2$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogSyslog2$inboundSchema;
-  /** @deprecated use `InputSyslogSyslog2$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogSyslog2$outboundSchema;
-  /** @deprecated use `InputSyslogSyslog2$Outbound` instead. */
-  export type Outbound = InputSyslogSyslog2$Outbound;
-}
-
-export function inputSyslogSyslog2ToJSON(
-  inputSyslogSyslog2: InputSyslogSyslog2,
-): string {
-  return JSON.stringify(
-    InputSyslogSyslog2$outboundSchema.parse(inputSyslogSyslog2),
-  );
-}
-
-export function inputSyslogSyslog2FromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslogSyslog2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslogSyslog2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogSyslog2' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSyslogType1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType1
-> = z.nativeEnum(InputSyslogType1);
-
-/** @internal */
-export const InputSyslogType1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType1
-> = InputSyslogType1$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogType1$ {
-  /** @deprecated use `InputSyslogType1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogType1$inboundSchema;
-  /** @deprecated use `InputSyslogType1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogType1$outboundSchema;
-}
-
-/** @internal */
-export const InputSyslogConnection1$inboundSchema: z.ZodType<
-  InputSyslogConnection1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputSyslogConnection1$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputSyslogConnection1$outboundSchema: z.ZodType<
-  InputSyslogConnection1$Outbound,
-  z.ZodTypeDef,
-  InputSyslogConnection1
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogConnection1$ {
-  /** @deprecated use `InputSyslogConnection1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogConnection1$inboundSchema;
-  /** @deprecated use `InputSyslogConnection1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogConnection1$outboundSchema;
-  /** @deprecated use `InputSyslogConnection1$Outbound` instead. */
-  export type Outbound = InputSyslogConnection1$Outbound;
-}
-
-export function inputSyslogConnection1ToJSON(
-  inputSyslogConnection1: InputSyslogConnection1,
-): string {
-  return JSON.stringify(
-    InputSyslogConnection1$outboundSchema.parse(inputSyslogConnection1),
-  );
-}
-
-export function inputSyslogConnection1FromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslogConnection1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslogConnection1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogConnection1' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSyslogMode1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMode1
-> = z.nativeEnum(InputSyslogMode1);
-
-/** @internal */
-export const InputSyslogMode1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMode1
-> = InputSyslogMode1$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogMode1$ {
-  /** @deprecated use `InputSyslogMode1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogMode1$inboundSchema;
-  /** @deprecated use `InputSyslogMode1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogMode1$outboundSchema;
-}
-
-/** @internal */
-export const InputSyslogCompression1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogCompression1
-> = z.nativeEnum(InputSyslogCompression1);
-
-/** @internal */
-export const InputSyslogCompression1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogCompression1
-> = InputSyslogCompression1$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogCompression1$ {
-  /** @deprecated use `InputSyslogCompression1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogCompression1$inboundSchema;
-  /** @deprecated use `InputSyslogCompression1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogCompression1$outboundSchema;
-}
-
-/** @internal */
-export const InputSyslogPq1$inboundSchema: z.ZodType<
-  InputSyslogPq1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSyslogMode1$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSyslogCompression1$inboundSchema.default("none"),
-});
-
-/** @internal */
-export type InputSyslogPq1$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-};
-
-/** @internal */
-export const InputSyslogPq1$outboundSchema: z.ZodType<
-  InputSyslogPq1$Outbound,
-  z.ZodTypeDef,
-  InputSyslogPq1
-> = z.object({
-  mode: InputSyslogMode1$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSyslogCompression1$outboundSchema.default("none"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogPq1$ {
-  /** @deprecated use `InputSyslogPq1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogPq1$inboundSchema;
-  /** @deprecated use `InputSyslogPq1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogPq1$outboundSchema;
-  /** @deprecated use `InputSyslogPq1$Outbound` instead. */
-  export type Outbound = InputSyslogPq1$Outbound;
-}
-
-export function inputSyslogPq1ToJSON(inputSyslogPq1: InputSyslogPq1): string {
-  return JSON.stringify(InputSyslogPq1$outboundSchema.parse(inputSyslogPq1));
-}
-
-export function inputSyslogPq1FromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslogPq1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslogPq1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogPq1' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSyslogMinimumTLSVersion1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMinimumTLSVersion1
-> = z.nativeEnum(InputSyslogMinimumTLSVersion1);
-
-/** @internal */
-export const InputSyslogMinimumTLSVersion1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMinimumTLSVersion1
-> = InputSyslogMinimumTLSVersion1$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogMinimumTLSVersion1$ {
-  /** @deprecated use `InputSyslogMinimumTLSVersion1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogMinimumTLSVersion1$inboundSchema;
-  /** @deprecated use `InputSyslogMinimumTLSVersion1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogMinimumTLSVersion1$outboundSchema;
-}
-
-/** @internal */
-export const InputSyslogMaximumTLSVersion1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMaximumTLSVersion1
-> = z.nativeEnum(InputSyslogMaximumTLSVersion1);
-
-/** @internal */
-export const InputSyslogMaximumTLSVersion1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMaximumTLSVersion1
-> = InputSyslogMaximumTLSVersion1$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogMaximumTLSVersion1$ {
-  /** @deprecated use `InputSyslogMaximumTLSVersion1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogMaximumTLSVersion1$inboundSchema;
-  /** @deprecated use `InputSyslogMaximumTLSVersion1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogMaximumTLSVersion1$outboundSchema;
-}
-
-/** @internal */
-export const InputSyslogTLSSettingsServerSide1$inboundSchema: z.ZodType<
-  InputSyslogTLSSettingsServerSide1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputSyslogMinimumTLSVersion1$inboundSchema.optional(),
-  maxVersion: InputSyslogMaximumTLSVersion1$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputSyslogTLSSettingsServerSide1$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputSyslogTLSSettingsServerSide1$outboundSchema: z.ZodType<
-  InputSyslogTLSSettingsServerSide1$Outbound,
-  z.ZodTypeDef,
-  InputSyslogTLSSettingsServerSide1
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputSyslogMinimumTLSVersion1$outboundSchema.optional(),
-  maxVersion: InputSyslogMaximumTLSVersion1$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogTLSSettingsServerSide1$ {
-  /** @deprecated use `InputSyslogTLSSettingsServerSide1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogTLSSettingsServerSide1$inboundSchema;
-  /** @deprecated use `InputSyslogTLSSettingsServerSide1$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSyslogTLSSettingsServerSide1$outboundSchema;
-  /** @deprecated use `InputSyslogTLSSettingsServerSide1$Outbound` instead. */
-  export type Outbound = InputSyslogTLSSettingsServerSide1$Outbound;
-}
-
-export function inputSyslogTLSSettingsServerSide1ToJSON(
-  inputSyslogTLSSettingsServerSide1: InputSyslogTLSSettingsServerSide1,
-): string {
-  return JSON.stringify(
-    InputSyslogTLSSettingsServerSide1$outboundSchema.parse(
-      inputSyslogTLSSettingsServerSide1,
-    ),
-  );
-}
-
-export function inputSyslogTLSSettingsServerSide1FromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslogTLSSettingsServerSide1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslogTLSSettingsServerSide1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogTLSSettingsServerSide1' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSyslogMetadatum1$inboundSchema: z.ZodType<
-  InputSyslogMetadatum1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputSyslogMetadatum1$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSyslogMetadatum1$outboundSchema: z.ZodType<
-  InputSyslogMetadatum1$Outbound,
-  z.ZodTypeDef,
-  InputSyslogMetadatum1
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogMetadatum1$ {
-  /** @deprecated use `InputSyslogMetadatum1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogMetadatum1$inboundSchema;
-  /** @deprecated use `InputSyslogMetadatum1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogMetadatum1$outboundSchema;
-  /** @deprecated use `InputSyslogMetadatum1$Outbound` instead. */
-  export type Outbound = InputSyslogMetadatum1$Outbound;
-}
-
-export function inputSyslogMetadatum1ToJSON(
-  inputSyslogMetadatum1: InputSyslogMetadatum1,
-): string {
-  return JSON.stringify(
-    InputSyslogMetadatum1$outboundSchema.parse(inputSyslogMetadatum1),
-  );
-}
-
-export function inputSyslogMetadatum1FromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslogMetadatum1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslogMetadatum1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogMetadatum1' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSyslogSyslog1$inboundSchema: z.ZodType<
-  InputSyslogSyslog1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputSyslogType1$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSyslogConnection1$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSyslogPq1$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  udpPort: z.number(),
-  tcpPort: z.number().optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  timestampTimezone: z.string().default("local"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  enableProxyHeader: z.boolean().default(false),
-  keepFieldsList: z.array(z.string()).optional(),
-  octetCounting: z.boolean().default(false),
-  inferFraming: z.boolean().default(true),
-  strictlyInferOctetCounting: z.boolean().default(true),
-  allowNonStandardAppName: z.boolean().default(false),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  tls: z.lazy(() => InputSyslogTLSSettingsServerSide1$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputSyslogMetadatum1$inboundSchema))
-    .optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  description: z.string().optional(),
-  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
-});
-
-/** @internal */
-export type InputSyslogSyslog1$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputSyslogConnection1$Outbound> | undefined;
-  pq?: InputSyslogPq1$Outbound | undefined;
-  host: string;
-  udpPort: number;
-  tcpPort?: number | undefined;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  timestampTimezone: string;
-  singleMsgUdpPackets: boolean;
-  enableProxyHeader: boolean;
-  keepFieldsList?: Array<string> | undefined;
-  octetCounting: boolean;
-  inferFraming: boolean;
-  strictlyInferOctetCounting: boolean;
-  allowNonStandardAppName: boolean;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  tls?: InputSyslogTLSSettingsServerSide1$Outbound | undefined;
-  metadata?: Array<InputSyslogMetadatum1$Outbound> | undefined;
-  udpSocketRxBufSize?: number | undefined;
-  enableLoadBalancing: boolean;
-  description?: string | undefined;
-  enableEnhancedProxyHeaderParsing?: boolean | undefined;
-};
-
-/** @internal */
-export const InputSyslogSyslog1$outboundSchema: z.ZodType<
-  InputSyslogSyslog1$Outbound,
-  z.ZodTypeDef,
-  InputSyslogSyslog1
-> = z.object({
-  id: z.string().optional(),
-  type: InputSyslogType1$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSyslogConnection1$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSyslogPq1$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  udpPort: z.number(),
-  tcpPort: z.number().optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  timestampTimezone: z.string().default("local"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  enableProxyHeader: z.boolean().default(false),
-  keepFieldsList: z.array(z.string()).optional(),
-  octetCounting: z.boolean().default(false),
-  inferFraming: z.boolean().default(true),
-  strictlyInferOctetCounting: z.boolean().default(true),
-  allowNonStandardAppName: z.boolean().default(false),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  tls: z.lazy(() => InputSyslogTLSSettingsServerSide1$outboundSchema)
-    .optional(),
-  metadata: z.array(z.lazy(() => InputSyslogMetadatum1$outboundSchema))
-    .optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  enableLoadBalancing: z.boolean().default(false),
-  description: z.string().optional(),
-  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSyslogSyslog1$ {
-  /** @deprecated use `InputSyslogSyslog1$inboundSchema` instead. */
-  export const inboundSchema = InputSyslogSyslog1$inboundSchema;
-  /** @deprecated use `InputSyslogSyslog1$outboundSchema` instead. */
-  export const outboundSchema = InputSyslogSyslog1$outboundSchema;
-  /** @deprecated use `InputSyslogSyslog1$Outbound` instead. */
-  export type Outbound = InputSyslogSyslog1$Outbound;
-}
-
-export function inputSyslogSyslog1ToJSON(
-  inputSyslogSyslog1: InputSyslogSyslog1,
-): string {
-  return JSON.stringify(
-    InputSyslogSyslog1$outboundSchema.parse(inputSyslogSyslog1),
-  );
-}
-
-export function inputSyslogSyslog1FromJSON(
-  jsonString: string,
-): SafeParseResult<InputSyslogSyslog1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSyslogSyslog1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSyslogSyslog1' from JSON`,
+    (x) => InputSyslogMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogMetadatum' from JSON`,
   );
 }
 
@@ -1567,25 +631,123 @@ export const InputSyslog$inboundSchema: z.ZodType<
   InputSyslog,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => InputSyslogSyslog1$inboundSchema),
-  z.lazy(() => InputSyslogSyslog2$inboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: InputSyslogType$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(z.lazy(() => InputSyslogConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSyslogPq$inboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  timestampTimezone: z.string().default("local"),
+  singleMsgUdpPackets: z.boolean().default(false),
+  enableProxyHeader: z.boolean().default(false),
+  keepFieldsList: z.array(z.string()).optional(),
+  octetCounting: z.boolean().default(false),
+  inferFraming: z.boolean().default(true),
+  strictlyInferOctetCounting: z.boolean().default(true),
+  allowNonStandardAppName: z.boolean().default(false),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  tls: z.lazy(() => InputSyslogTLSSettingsServerSide$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputSyslogMetadatum$inboundSchema))
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  enableLoadBalancing: z.boolean().default(false),
+  description: z.string().optional(),
+  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+});
 
 /** @internal */
-export type InputSyslog$Outbound =
-  | InputSyslogSyslog1$Outbound
-  | InputSyslogSyslog2$Outbound;
+export type InputSyslog$Outbound = {
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<InputSyslogConnection$Outbound> | undefined;
+  pq?: InputSyslogPq$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  timestampTimezone: string;
+  singleMsgUdpPackets: boolean;
+  enableProxyHeader: boolean;
+  keepFieldsList?: Array<string> | undefined;
+  octetCounting: boolean;
+  inferFraming: boolean;
+  strictlyInferOctetCounting: boolean;
+  allowNonStandardAppName: boolean;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  tls?: InputSyslogTLSSettingsServerSide$Outbound | undefined;
+  metadata?: Array<InputSyslogMetadatum$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  enableLoadBalancing: boolean;
+  description?: string | undefined;
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+};
 
 /** @internal */
 export const InputSyslog$outboundSchema: z.ZodType<
   InputSyslog$Outbound,
   z.ZodTypeDef,
   InputSyslog
-> = z.union([
-  z.lazy(() => InputSyslogSyslog1$outboundSchema),
-  z.lazy(() => InputSyslogSyslog2$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: InputSyslogType$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(z.lazy(() => InputSyslogConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSyslogPq$outboundSchema).optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  timestampTimezone: z.string().default("local"),
+  singleMsgUdpPackets: z.boolean().default(false),
+  enableProxyHeader: z.boolean().default(false),
+  keepFieldsList: z.array(z.string()).optional(),
+  octetCounting: z.boolean().default(false),
+  inferFraming: z.boolean().default(true),
+  strictlyInferOctetCounting: z.boolean().default(true),
+  allowNonStandardAppName: z.boolean().default(false),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  tls: z.lazy(() => InputSyslogTLSSettingsServerSide$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputSyslogMetadatum$outboundSchema))
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  enableLoadBalancing: z.boolean().default(false),
+  description: z.string().optional(),
+  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+});
 
 /**
  * @internal

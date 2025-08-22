@@ -10,7 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 export type GitRevertParams = {
   commit: string;
   force?: boolean | undefined;
-  message?: string | undefined;
+  message: string;
 };
 
 /** @internal */
@@ -21,14 +21,14 @@ export const GitRevertParams$inboundSchema: z.ZodType<
 > = z.object({
   commit: z.string(),
   force: z.boolean().optional(),
-  message: z.string().optional(),
+  message: z.string(),
 });
 
 /** @internal */
 export type GitRevertParams$Outbound = {
   commit: string;
   force?: boolean | undefined;
-  message?: string | undefined;
+  message: string;
 };
 
 /** @internal */
@@ -39,7 +39,7 @@ export const GitRevertParams$outboundSchema: z.ZodType<
 > = z.object({
   commit: z.string(),
   force: z.boolean().optional(),
-  message: z.string().optional(),
+  message: z.string(),
 });
 
 /**
