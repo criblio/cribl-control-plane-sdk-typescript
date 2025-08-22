@@ -13,6 +13,7 @@ import { Packs } from "./packs.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
+import { System } from "./system.js";
 import { Versions } from "./versions.js";
 
 export class CriblControlPlane extends ClientSDK {
@@ -59,6 +60,11 @@ export class CriblControlPlane extends ClientSDK {
   private _packs?: Packs;
   get packs(): Packs {
     return (this._packs ??= new Packs(this._options));
+  }
+
+  private _system?: System;
+  get system(): System {
+    return (this._system ??= new System(this._options));
   }
 
   private _versions?: Versions;

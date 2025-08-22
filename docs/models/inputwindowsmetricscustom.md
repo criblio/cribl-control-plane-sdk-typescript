@@ -12,6 +12,7 @@ let value: InputWindowsMetricsCustom = {
   network: {
     devices: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   disk: {

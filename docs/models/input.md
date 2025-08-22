@@ -3,6 +3,108 @@
 
 ## Supported Types
 
+### `models.InputCollection`
+
+```typescript
+const value: models.InputCollection = {
+  id: "<id>",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  output: "<value>",
+};
+```
+
+### `models.InputKafka`
+
+```typescript
+const value: models.InputKafka = {
+  id: "<id>",
+  type: "kafka",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [
+    "<value 1>",
+  ],
+  topics: [
+    "<value 1>",
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.2",
+    },
+  },
+  sasl: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
+  },
+  autoCommitInterval: 3310.55,
+  autoCommitThreshold: 1236.53,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "mediocre per ponder ceramic by vice ceramic upset",
+};
+```
+
 ### `models.InputMsk`
 
 ```typescript
@@ -71,388 +173,6 @@ const value: models.InputMsk = {
     "selfishly unnaturally when if and along whether for beside behind",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-};
-```
-
-### `models.InputWiz`
-
-```typescript
-const value: models.InputWiz = {
-  id: "<id>",
-  type: "wiz",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  authUrl: "https://criminal-offset.info/",
-  authAudienceOverride: "<value>",
-  clientId: "<id>",
-  contentConfig: [],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    codes: [
-      5668.03,
-      2663.29,
-      2735.91,
-    ],
-  },
-  description: "psst parsnip schlep cluttered off next",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputKafka`
-
-```typescript
-const value: models.InputKafka = {
-  id: "<id>",
-  type: "kafka",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  brokers: [
-    "<value 1>",
-  ],
-  topics: [
-    "<value 1>",
-  ],
-  kafkaSchemaRegistry: {
-    auth: {
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
-    },
-  },
-  sasl: {},
-  tls: {
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
-  },
-  autoCommitInterval: 3310.55,
-  autoCommitThreshold: 1236.53,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "mediocre per ponder ceramic by vice ceramic upset",
-};
-```
-
-### `models.InputConfluentCloud`
-
-```typescript
-const value: models.InputConfluentCloud = {
-  id: "<id>",
-  type: "confluent_cloud",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  brokers: [
-    "<value 1>",
-  ],
-  tls: {
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
-  },
-  topics: [
-    "<value 1>",
-  ],
-  kafkaSchemaRegistry: {
-    auth: {
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1.3",
-      maxVersion: "TLSv1.2",
-    },
-  },
-  sasl: {},
-  autoCommitInterval: 4548.16,
-  autoCommitThreshold: 9243.43,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "although obediently soupy why accessorise tune sans aware smuggle",
-};
-```
-
-### `models.InputOffice365Mgmt`
-
-```typescript
-const value: models.InputOffice365Mgmt = {
-  id: "<id>",
-  type: "office365_mgmt",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  tenantId: "<id>",
-  appId: "<id>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  publisherIdentifier: "<value>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description: "frenetically fooey mill briefly twin",
-      interval: 6466.39,
-      logLevel: "error",
-      enabled: false,
-    },
-  ],
-  retryRules: {
-    codes: [
-      3814.72,
-      1029.82,
-    ],
-  },
-  description: "as enlist despite however needily regulate likewise upon",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputOffice365Service`
-
-```typescript
-const value: models.InputOffice365Service = {
-  id: "<id>",
-  type: "office365_service",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  tenantId: "<id>",
-  appId: "<id>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description:
-        "dowse boulevard where kindly integer mosh before yahoo consequently yuck",
-      interval: 3221.55,
-      logLevel: "debug",
-      enabled: false,
-    },
-  ],
-  retryRules: {
-    codes: [
-      3457.75,
-      6170.34,
-    ],
-  },
-  description: "which goodwill around slip oddly after often blissfully",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputEventhub`
-
-```typescript
-const value: models.InputEventhub = {
-  id: "<id>",
-  type: "eventhub",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  brokers: [
-    "<value 1>",
-  ],
-  topics: [],
-  sasl: {},
-  tls: {},
-  autoCommitInterval: 6010.39,
-  autoCommitThreshold: 3174.01,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "wonderfully broadcast to questionable upward haul preheat nutritious",
-};
-```
-
-### `models.InputKinesis`
-
-```typescript
-const value: models.InputKinesis = {
-  id: "<id>",
-  type: "kinesis",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  streamName: "<value>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "hamburger partially elegantly quietly whether perfectly",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-};
-```
-
-### `models.InputJournalFiles`
-
-```typescript
-const value: models.InputJournalFiles = {
-  id: "<id>",
-  type: "journal_files",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  path: "/private/var",
-  journals: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description: "yahoo uh-huh dirty behind manner",
-    },
-  ],
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "honored given shoulder why cheerful",
 };
 ```
 
@@ -826,16 +546,17 @@ const value: models.InputElastic = {
 };
 ```
 
-### `models.InputGrafana`
+### `models.InputConfluentCloud`
 
 ```typescript
-const value: models.InputGrafana = {
+const value: models.InputConfluentCloud = {
   id: "<id>",
-  type: "grafana",
+  type: "confluent_cloud",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -844,20 +565,114 @@ const value: models.InputGrafana = {
     },
   ],
   pq: {},
-  port: 9700.46,
+  brokers: [
+    "<value 1>",
+  ],
   tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  },
+  topics: [
+    "<value 1>",
+  ],
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.3",
+      maxVersion: "TLSv1.2",
+    },
+  },
+  sasl: {},
+  autoCommitInterval: 4548.16,
+  autoCommitThreshold: 9243.43,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "although obediently soupy why accessorise tune sans aware smuggle",
+};
+```
+
+### `models.InputGrafana`
+
+```typescript
+const value: models.InputGrafana = {
+  id: "<id>",
+  type: "grafana",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+  },
+  host: "0.0.0.0",
+  port: 9330.93,
+  tls: {
+    disabled: true,
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
+    requestCert: false,
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  prometheusAPI: "/api/prom/push",
+  lokiAPI: "/loki/api/v1/push",
+  extractStructuredMetadata: false,
   prometheusAuth: {
-    username: "Johnathan.Howell59",
+    authType: "none",
+    username: "Evalyn_Gislason15",
     password: "R3S3RViAySqW5o8",
     token: "<value>",
     credentialsSecret: "<value>",
@@ -866,6 +681,8 @@ const value: models.InputGrafana = {
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
+    authHeaderExpr: "`Bearer ${token}`",
+    tokenTimeoutSecs: 3600,
     oauthParams: [
       {
         name: "<value>",
@@ -880,6 +697,7 @@ const value: models.InputGrafana = {
     ],
   },
   lokiAuth: {
+    authType: "none",
     username: "Fatima34",
     password: "fAYNLh60GmdmcY5",
     token: "<value>",
@@ -889,6 +707,8 @@ const value: models.InputGrafana = {
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
+    authHeaderExpr: "`Bearer ${token}`",
+    tokenTimeoutSecs: 3600,
     oauthParams: [
       {
         name: "<value>",
@@ -1035,6 +855,312 @@ const value: models.InputPrometheusRw = {
 };
 ```
 
+### `models.InputPrometheus`
+
+```typescript
+const value: models.InputPrometheus = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "with proselytise mockingly yum arraign",
+  targetList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  username: "Abner.Beahan",
+  password: "WRNYKm_4ZcnFhsM",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheus`
+
+```typescript
+const value: models.InputEdgePrometheus = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  dimensionList: [
+    "<value 1>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "suffocate indolent sticker especially",
+  targets: [
+    {
+      host: "immense-forager.name",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "oof wherever circa",
+    },
+  ],
+  username: "Adriel_Murray86",
+  password: "GsqPbiOp5J7DY2j",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputOffice365Mgmt`
+
+```typescript
+const value: models.InputOffice365Mgmt = {
+  id: "<id>",
+  type: "office365_mgmt",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  publisherIdentifier: "<value>",
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "frenetically fooey mill briefly twin",
+      interval: 6466.39,
+      logLevel: "error",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      3814.72,
+      1029.82,
+    ],
+  },
+  description: "as enlist despite however needily regulate likewise upon",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputOffice365Service`
+
+```typescript
+const value: models.InputOffice365Service = {
+  id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description:
+        "dowse boulevard where kindly integer mosh before yahoo consequently yuck",
+      interval: 3221.55,
+      logLevel: "debug",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      3457.75,
+      6170.34,
+    ],
+  },
+  description: "which goodwill around slip oddly after often blissfully",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputOffice365MsgTrace`
+
+```typescript
+const value: models.InputOffice365MsgTrace = {
+  id: "<id>",
+  type: "office365_msg_trace",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  startDate: "<value>",
+  endDate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      6130.25,
+      1608.52,
+    ],
+  },
+  description: "helpfully stage microblog ill-fated ha",
+  username: "Penelope29",
+  password: "2zUumt8MSApxEG0",
+  credentialsSecret: "<value>",
+  clientSecret: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  textSecret: "<value>",
+  certOptions: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+  },
+};
+```
+
+### `models.InputEventhub`
+
+```typescript
+const value: models.InputEventhub = {
+  id: "<id>",
+  type: "eventhub",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  brokers: [
+    "<value 1>",
+  ],
+  topics: [],
+  sasl: {},
+  tls: {},
+  autoCommitInterval: 6010.39,
+  autoCommitThreshold: 3174.01,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "wonderfully broadcast to questionable upward haul preheat nutritious",
+};
+```
+
 ### `models.InputExec`
 
 ```typescript
@@ -1145,6 +1271,35 @@ const value: models.InputGooglePubsub = {
     },
   ],
   description: "focused consequently tomatillo ridge whoa",
+};
+```
+
+### `models.InputCribl`
+
+```typescript
+const value: models.InputCribl = {
+  id: "<id>",
+  type: "cribl",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  filter: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "ugh boohoo gladly yuck well bossy what clonk",
 };
 ```
 
@@ -1267,8 +1422,8 @@ const value: models.InputCriblLakeHttp = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.3",
   },
   metadata: [
     {
@@ -1279,7 +1434,8 @@ const value: models.InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "swear aw angrily yearningly ferociously vet trusting yum",
+      description:
+        "even athwart after lively creator apud hold pish whenever woot",
       metadata: [
         {
           name: "<value>",
@@ -1288,7 +1444,8 @@ const value: models.InputCriblLakeHttp = {
       ],
     },
   ],
-  description: "however um unless ouch trusty excepting",
+  description:
+    "after whoever castanet gosh bludgeon fabricate gee incidentally",
 };
 ```
 
@@ -1333,6 +1490,290 @@ const value: models.InputTcpjson = {
 };
 ```
 
+### `models.InputSystemMetrics`
+
+```typescript
+const value: models.InputSystemMetrics = {
+  id: "<id>",
+  type: "system_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+        ],
+      },
+      disk: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        mountpoints: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        fstypes: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  container: {
+    dockerSocket: [
+      "<value 1>",
+    ],
+    filters: [
+      {
+        expr: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "but greatly see thyme",
+};
+```
+
+### `models.InputSystemState`
+
+```typescript
+const value: models.InputSystemState = {
+  id: "<id>",
+  type: "system_state",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectors: {
+    hostsfile: {},
+    interfaces: {},
+    disk: {},
+    metadata: {},
+    routes: {},
+    dns: {},
+    user: {},
+    firewall: {},
+    services: {},
+    ports: {},
+    loginUsers: {},
+  },
+  persistence: {},
+  description: "formula an yahoo",
+};
+```
+
+### `models.InputKubeMetrics`
+
+```typescript
+const value: models.InputKubeMetrics = {
+  id: "<id>",
+  type: "kube_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "boggle catalog chip ew",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description:
+    "gratefully pish whose till hydrocarbon boo eek next uh-huh signature",
+};
+```
+
+### `models.InputKubeLogs`
+
+```typescript
+const value: models.InputKubeLogs = {
+  id: "<id>",
+  type: "kube_logs",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "zowie because flu boohoo obnoxiously ew sorrowful whose aw",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "over wafer following ugh strait",
+};
+```
+
+### `models.InputKubeEvents`
+
+```typescript
+const value: models.InputKubeEvents = {
+  id: "<id>",
+  type: "kube_events",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  rules: [
+    {
+      filter: "<value>",
+      description: "which incline beautifully",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "convection any mmm whereas major so regularly",
+};
+```
+
+### `models.InputWindowsMetrics`
+
+```typescript
+const value: models.InputWindowsMetrics = {
+  id: "<id>",
+  type: "windows_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  host: {
+    custom: {
+      system: {},
+      cpu: {},
+      memory: {},
+      network: {
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+      disk: {
+        volumes: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "printer toaster forenenst over safe between",
+};
+```
+
 ### `models.InputCrowdstrike`
 
 ```typescript
@@ -1367,6 +1808,7 @@ const value: models.InputCrowdstrike = {
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -1377,7 +1819,7 @@ const value: models.InputCrowdstrike = {
   ],
   checkpointing: {},
   encoding: "<value>",
-  description: "denitrify after boo duh duh",
+  description: "excitedly jovially slowly",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",
@@ -1535,6 +1977,117 @@ const value: models.InputHttpRaw = {
 };
 ```
 
+### `models.InputKinesis`
+
+```typescript
+const value: models.InputKinesis = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  streamName: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "hamburger partially elegantly quietly whether perfectly",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.InputCriblmetrics`
+
+```typescript
+const value: models.InputCriblmetrics = {
+  id: "<id>",
+  type: "criblmetrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "playfully growing curl blight cone likely innocently amongst",
+};
+```
+
+### `models.InputMetrics`
+
+```typescript
+const value: models.InputMetrics = {
+  id: "<id>",
+  type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpPort: 1525.54,
+  tcpPort: 6373.18,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 6579.9,
+  description: "cautiously woot similar wretched",
+};
+```
+
 ### `models.InputS3`
 
 ```typescript
@@ -1643,6 +2196,151 @@ const value: models.InputS3Inventory = {
 };
 ```
 
+### `models.InputSnmp`
+
+```typescript
+const value: models.InputSnmp = {
+  id: "<id>",
+  type: "snmp",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  snmpV3Auth: {
+    v3Users: [
+      {
+        name: "<value>",
+        authKey: "<value>",
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 3956.33,
+  description:
+    "yuck idolized possible merrily along below geez horse over zowie",
+};
+```
+
+### `models.InputOpenTelemetry`
+
+```typescript
+const value: models.InputOpenTelemetry = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "rewrite cow warmly clearly vamoose",
+  username: "Leonard84",
+  password: "0Rl6tiFKwlIZ_hs",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://quarterly-flame.org/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputModelDrivenTelemetry`
+
+```typescript
+const value: models.InputModelDrivenTelemetry = {
+  id: "<id>",
+  type: "model_driven_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.3",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "toothbrush suddenly while pace now bleak huzzah psst forenenst yet",
+};
+```
+
 ### `models.InputSqs`
 
 ```typescript
@@ -1683,6 +2381,121 @@ const value: models.InputSqs = {
 };
 ```
 
+### `models.InputSyslog`
+
+```typescript
+const value: models.InputSyslog = {
+  id: "<id>",
+  type: "syslog",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+  },
+  host: "0.0.0.0",
+  udpPort: 1436.13,
+  tcpPort: 4731.61,
+  maxBufferSize: 1000,
+  ipWhitelistRegex: "/.*/",
+  timestampTimezone: "local",
+  singleMsgUdpPackets: false,
+  enableProxyHeader: false,
+  keepFieldsList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  octetCounting: false,
+  inferFraming: true,
+  strictlyInferOctetCounting: true,
+  allowNonStandardAppName: false,
+  maxActiveCxn: 1000,
+  socketIdleTimeout: 0,
+  socketEndingMaxWait: 30,
+  socketMaxLifespan: 0,
+  tls: {
+    disabled: true,
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    requestCert: false,
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 9849.4,
+  enableLoadBalancing: false,
+  description: "whether ouch boo",
+  enableEnhancedProxyHeaderParsing: false,
+};
+```
+
+### `models.InputFile`
+
+```typescript
+const value: models.InputFile = {
+  id: "<id>",
+  type: "file",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  filenames: [
+    "<value 1>",
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "completion viability bleak behind shyly plus finally whoa odd",
+  path: "/System",
+  depth: 849.91,
+};
+```
+
 ### `models.InputTcp`
 
 ```typescript
@@ -1712,8 +2525,8 @@ const value: models.InputTcp = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
   },
   metadata: [
     {
@@ -1723,15 +2536,74 @@ const value: models.InputTcp = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
   preprocess: {
     command: "<value>",
     args: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
-  description: "cheerful daily knowledgeably likewise everlasting",
+  description: "license abseil zowie er insignificant",
+};
+```
+
+### `models.InputAppscope`
+
+```typescript
+const value: models.InputAppscope = {
+  id: "<id>",
+  type: "appscope",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  filter: {
+    allow: [
+      {
+        procname: "<value>",
+        arg: "<value>",
+        config: "<value>",
+      },
+    ],
+    transportURL: "https://lawful-impact.net",
+  },
+  persistence: {},
+  description: "inspection adventurously gnash if scheme ew wrongly",
+  host: "twin-reporter.name",
+  port: 3370.32,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+  },
+  unixSocketPerms: "<value>",
+  textSecret: "<value>",
 };
 ```
 
@@ -1856,6 +2728,192 @@ const value: models.InputRawUdp = {
     },
   ],
   description: "athwart opera sour neglected happy pish widow hmph into",
+};
+```
+
+### `models.InputJournalFiles`
+
+```typescript
+const value: models.InputJournalFiles = {
+  id: "<id>",
+  type: "journal_files",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  path: "/private/var",
+  journals: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  rules: [
+    {
+      filter: "<value>",
+      description: "yahoo uh-huh dirty behind manner",
+    },
+  ],
+  maxAgeDur: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "honored given shoulder why cheerful",
+};
+```
+
+### `models.InputWiz`
+
+```typescript
+const value: models.InputWiz = {
+  id: "<id>",
+  type: "wiz",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  authUrl: "https://criminal-offset.info/",
+  authAudienceOverride: "<value>",
+  clientId: "<id>",
+  contentConfig: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  retryRules: {
+    codes: [
+      718.38,
+      8167.55,
+      3424.31,
+    ],
+  },
+  description:
+    "masquerade overcook thump pro towards rawhide aha forearm irritably",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputWizWebhook`
+
+```typescript
+const value: models.InputWizWebhook = {
+  id: "<id>",
+  type: "wiz_webhook",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  port: 6799.14,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedPaths: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  allowedMethods: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "irritably medium reckless acceptable pish and",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description:
+    "instead yet rudely oh bracelet after miserably hunger optimal possible",
+};
+```
+
+### `models.InputNetflow`
+
+```typescript
+const value: models.InputNetflow = {
+  id: "<id>",
+  type: "netflow",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {},
+  udpSocketRxBufSize: 2121.68,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "gleefully famously sequester crest zowie divert",
 };
 ```
 
@@ -1986,919 +3044,6 @@ const value: models.InputZscalerHec = {
     "<value 3>",
   ],
   description: "about what gallivant",
-};
-```
-
-### `models.InputPrometheus`
-
-```typescript
-const value: models.InputPrometheus = {
-  id: "<id>",
-  type: "prometheus",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  dimensionList: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "with proselytise mockingly yum arraign",
-  targetList: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  nameList: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  searchFilter: [
-    {
-      name: "<value>",
-      values: [],
-    },
-  ],
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  username: "Abner.Beahan",
-  password: "WRNYKm_4ZcnFhsM",
-  credentialsSecret: "<value>",
-};
-```
-
-### `models.InputEdgePrometheus`
-
-```typescript
-const value: models.InputEdgePrometheus = {
-  id: "<id>",
-  type: "edge_prometheus",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  dimensionList: [
-    "<value 1>",
-  ],
-  persistence: {},
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "suffocate indolent sticker especially",
-  targets: [
-    {
-      host: "immense-forager.name",
-    },
-  ],
-  nameList: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  searchFilter: [
-    {
-      name: "<value>",
-      values: [],
-    },
-  ],
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  podFilter: [
-    {
-      filter: "<value>",
-      description: "oof wherever circa",
-    },
-  ],
-  username: "Adriel_Murray86",
-  password: "GsqPbiOp5J7DY2j",
-  credentialsSecret: "<value>",
-};
-```
-
-### `models.InputOffice365MsgTrace`
-
-```typescript
-const value: models.InputOffice365MsgTrace = {
-  id: "<id>",
-  type: "office365_msg_trace",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  startDate: "<value>",
-  endDate: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    codes: [
-      6130.25,
-      1608.52,
-    ],
-  },
-  description: "helpfully stage microblog ill-fated ha",
-  username: "Penelope29",
-  password: "2zUumt8MSApxEG0",
-  credentialsSecret: "<value>",
-  clientSecret: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  textSecret: "<value>",
-  certOptions: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-  },
-};
-```
-
-### `models.InputCribl`
-
-```typescript
-const value: models.InputCribl = {
-  id: "<id>",
-  type: "cribl",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  filter: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "ugh boohoo gladly yuck well bossy what clonk",
-};
-```
-
-### `models.InputSystemMetrics`
-
-```typescript
-const value: models.InputSystemMetrics = {
-  id: "<id>",
-  type: "system_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  host: {
-    custom: {
-      system: {},
-      cpu: {},
-      memory: {},
-      network: {
-        devices: [
-          "<value 1>",
-        ],
-      },
-      disk: {
-        devices: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        mountpoints: [
-          "<value 1>",
-        ],
-        fstypes: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-      },
-    ],
-  },
-  container: {
-    dockerSocket: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    filters: [
-      {
-        expr: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description:
-    "per airbus supposing joint while apropos powerfully that instantly",
-};
-```
-
-### `models.InputSystemState`
-
-```typescript
-const value: models.InputSystemState = {
-  id: "<id>",
-  type: "system_state",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectors: {
-    hostsfile: {},
-    interfaces: {},
-    disk: {},
-    metadata: {},
-    routes: {},
-    dns: {},
-    user: {},
-    firewall: {},
-    services: {},
-    ports: {},
-    loginUsers: {},
-  },
-  persistence: {},
-  description: "formula an yahoo",
-};
-```
-
-### `models.InputKubeMetrics`
-
-```typescript
-const value: models.InputKubeMetrics = {
-  id: "<id>",
-  type: "kube_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  rules: [
-    {
-      filter: "<value>",
-      description: "onto dimly dimly including larva rusty yawningly",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "boggle catalog chip ew",
-};
-```
-
-### `models.InputKubeLogs`
-
-```typescript
-const value: models.InputKubeLogs = {
-  id: "<id>",
-  type: "kube_logs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  rules: [
-    {
-      filter: "<value>",
-      description: "zowie because flu boohoo obnoxiously ew sorrowful whose aw",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  description: "over wafer following ugh strait",
-};
-```
-
-### `models.InputKubeEvents`
-
-```typescript
-const value: models.InputKubeEvents = {
-  id: "<id>",
-  type: "kube_events",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  rules: [
-    {
-      filter: "<value>",
-      description: "which incline beautifully",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "convection any mmm whereas major so regularly",
-};
-```
-
-### `models.InputWindowsMetrics`
-
-```typescript
-const value: models.InputWindowsMetrics = {
-  id: "<id>",
-  type: "windows_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  host: {
-    custom: {
-      system: {},
-      cpu: {},
-      memory: {},
-      network: {
-        devices: [
-          "<value 1>",
-        ],
-      },
-      disk: {
-        volumes: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "not yuck oof ornate finally provided oh",
-};
-```
-
-### `models.InputCriblmetrics`
-
-```typescript
-const value: models.InputCriblmetrics = {
-  id: "<id>",
-  type: "criblmetrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "playfully growing curl blight cone likely innocently amongst",
-};
-```
-
-### `models.InputMetrics`
-
-```typescript
-const value: models.InputMetrics = {
-  id: "<id>",
-  type: "metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  udpPort: 1525.54,
-  tcpPort: 6373.18,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 6579.9,
-  description: "cautiously woot similar wretched",
-};
-```
-
-### `models.InputSnmp`
-
-```typescript
-const value: models.InputSnmp = {
-  id: "<id>",
-  type: "snmp",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  snmpV3Auth: {
-    v3Users: [
-      {
-        name: "<value>",
-        authKey: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 3956.33,
-  description:
-    "yuck idolized possible merrily along below geez horse over zowie",
-};
-```
-
-### `models.InputOpenTelemetry`
-
-```typescript
-const value: models.InputOpenTelemetry = {
-  id: "<id>",
-  type: "open_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
-  },
-  enableProxyHeader: "<value>",
-  captureHeaders: "<value>",
-  activityLogSampleRate: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "deflect er wee",
-  username: "Angel42",
-  password: "l4T9Z8qy0Rl6tiF",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://rectangular-toaster.name/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
-```
-
-### `models.InputModelDrivenTelemetry`
-
-```typescript
-const value: models.InputModelDrivenTelemetry = {
-  id: "<id>",
-  type: "model_driven_telemetry",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "toothbrush suddenly while pace now bleak huzzah psst forenenst yet",
-};
-```
-
-### `models.InputSyslog`
-
-```typescript
-const value: models.InputSyslog = {
-  id: "<id>",
-  type: "syslog",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  udpPort: 9463.57,
-  tcpPort: 1436.13,
-  keepFieldsList: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 4783.51,
-  description:
-    "huzzah wherever plastic lightly pfft upright times busy couch mmm",
-  enableEnhancedProxyHeaderParsing: true,
-};
-```
-
-### `models.InputFile`
-
-```typescript
-const value: models.InputFile = {
-  id: "<id>",
-  type: "file",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  filenames: [
-    "<value 1>",
-  ],
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  description: "completion viability bleak behind shyly plus finally whoa odd",
-  path: "/System",
-  depth: 849.91,
-};
-```
-
-### `models.InputAppscope`
-
-```typescript
-const value: models.InputAppscope = {
-  id: "<id>",
-  type: "appscope",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  filter: {
-    allow: [
-      {
-        procname: "<value>",
-        arg: "<value>",
-        config: "<value>",
-      },
-    ],
-    transportURL: "https://lawful-impact.net",
-  },
-  persistence: {},
-  description: "inspection adventurously gnash if scheme ew wrongly",
-  host: "twin-reporter.name",
-  port: 3370.32,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
-  },
-  unixSocketPerms: "<value>",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputNetflow`
-
-```typescript
-const value: models.InputNetflow = {
-  id: "<id>",
-  type: "netflow",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  udpSocketRxBufSize: 2121.68,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "gleefully famously sequester crest zowie divert",
-};
-```
-
-### `models.InputCollection`
-
-```typescript
-const value: models.InputCollection = {
-  id: "<id>",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {},
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  output: "<value>",
 };
 ```
 

@@ -9,7 +9,7 @@ let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
     id: "<id>",
-    type: "exec",
+    type: "wiz",
     disabled: false,
     pipeline: "<value>",
     sendToRoutes: true,
@@ -17,6 +17,8 @@ let value: UpdateInputByIdRequest = {
     pqEnabled: false,
     streamtags: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     connections: [
       {
@@ -33,23 +35,46 @@ let value: UpdateInputByIdRequest = {
       path: "$CRIBL_HOME/state/queues",
       compress: "none",
     },
-    command: "<value>",
-    retries: 10,
-    scheduleType: "interval",
-    breakerRulesets: [
-      "<value 1>",
-      "<value 2>",
+    endpoint: "https://api.<region>.app.wiz.io/graphql",
+    authUrl: "https://lost-republican.net/",
+    authAudienceOverride: "<value>",
+    clientId: "<id>",
+    contentConfig: [
+      {
+        contentType: "<value>",
+        contentDescription: "<value>",
+        enabled: false,
+      },
     ],
-    staleChannelFlushMs: 10000,
+    requestTimeout: 300,
+    keepAliveTime: 30,
+    maxMissedKeepAlives: 3,
+    ttl: "4h",
+    ignoreGroupJobsLimit: false,
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    description: "but metallic overfeed",
-    interval: 60,
-    cronSchedule: "* * * * *",
+    retryRules: {
+      type: "backoff",
+      interval: 1000,
+      limit: 5,
+      multiplier: 2,
+      codes: [
+        718.38,
+        8167.55,
+        3424.31,
+      ],
+      enableHeader: true,
+      retryConnectTimeout: false,
+      retryConnectReset: false,
+    },
+    authType: "manual",
+    description: "whereas role painfully fooey commonly",
+    clientSecret: "<value>",
+    textSecret: "<value>",
   },
 };
 ```

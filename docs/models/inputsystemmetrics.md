@@ -35,13 +35,16 @@ let value: InputSystemMetrics = {
         devices: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
         mountpoints: [
           "<value 1>",
+          "<value 2>",
         ],
         fstypes: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
     },
@@ -57,7 +60,6 @@ let value: InputSystemMetrics = {
   container: {
     dockerSocket: [
       "<value 1>",
-      "<value 2>",
     ],
     filters: [
       {
@@ -72,8 +74,7 @@ let value: InputSystemMetrics = {
     },
   ],
   persistence: {},
-  description:
-    "per airbus supposing joint while apropos powerfully that instantly",
+  description: "but greatly see thyme",
 };
 ```
 

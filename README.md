@@ -303,6 +303,7 @@ run();
 * [install](docs/sdks/packs/README.md#install) - Install a Pack
 * [list](docs/sdks/packs/README.md#list) - List all Packs
 * [delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
+* [get](docs/sdks/packs/README.md#get) - Get a Pack
 * [update](docs/sdks/packs/README.md#update) - Upgrade a Pack
 
 ### [pipelines](docs/sdks/pipelines/README.md)
@@ -332,6 +333,22 @@ run();
 
 * [create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
+
+
+#### [system.settings.auth](docs/sdks/settingsauth/README.md)
+
+* [list](docs/sdks/settingsauth/README.md#list) - Get authentication settings
+* [update](docs/sdks/settingsauth/README.md#update) - Update authentication settings
+
+#### [system.settings.cribl](docs/sdks/cribl/README.md)
+
+* [list](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+* [update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+
+#### [system.settings.git](docs/sdks/git/README.md)
+
+* [list](docs/sdks/git/README.md#list) - Get git settings
+* [update](docs/sdks/git/README.md#update) - Update git settings
 
 ### [versions](docs/sdks/versions/README.md)
 
@@ -411,6 +428,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
+- [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
 - [`packsInstall`](docs/sdks/packs/README.md#install) - Install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
@@ -430,6 +448,12 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesHecTokensUpdate`](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 - [`sourcesList`](docs/sdks/sources/README.md#list) - List all Sources
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
+- [`systemSettingsAuthList`](docs/sdks/settingsauth/README.md#list) - Get authentication settings
+- [`systemSettingsAuthUpdate`](docs/sdks/settingsauth/README.md#update) - Update authentication settings
+- [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+- [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+- [`systemSettingsGitList`](docs/sdks/git/README.md#list) - Get git settings
+- [`systemSettingsGitUpdate`](docs/sdks/git/README.md#update) - Update git settings
 - [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 - [`versionsBranchesList`](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
 - [`versionsCommitsCreate`](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
@@ -735,7 +759,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 61 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 68 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
