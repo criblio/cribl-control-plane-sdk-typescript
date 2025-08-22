@@ -12,7 +12,7 @@ let value: ListInputResponse = {
   items: [
     {
       id: "<id>",
-      type: "windows_metrics",
+      type: "tcp",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -38,68 +38,49 @@ let value: ListInputResponse = {
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
       },
-      interval: 10,
-      host: {
-        mode: "basic",
-        custom: {
-          system: {
-            mode: "basic",
-            detail: false,
-          },
-          cpu: {
-            mode: "basic",
-            perCpu: false,
-            detail: false,
-            time: false,
-          },
-          memory: {
-            mode: "basic",
-            detail: false,
-          },
-          network: {
-            mode: "basic",
-            devices: [
-              "<value 1>",
-            ],
-            perInterface: false,
-            detail: false,
-          },
-          disk: {
-            mode: "basic",
-            volumes: [
-              "<value 1>",
-              "<value 2>",
-              "<value 3>",
-            ],
-            perVolume: false,
-          },
-        },
+      host: "0.0.0.0",
+      port: 1585.21,
+      tls: {
+        disabled: true,
+        certificateName: "<value>",
+        privKeyPath: "<value>",
+        passphrase: "<value>",
+        certPath: "<value>",
+        caPath: "<value>",
+        requestCert: false,
+        rejectUnauthorized: "<value>",
+        commonNameRegex: "<value>",
+        minVersion: "TLSv1.3",
+        maxVersion: "TLSv1.2",
       },
-      process: {
-        sets: [
-          {
-            name: "<value>",
-            filter: "<value>",
-            includeChildren: false,
-          },
-        ],
-      },
+      ipWhitelistRegex: "/.*/",
+      maxActiveCxn: 1000,
+      socketIdleTimeout: 0,
+      socketEndingMaxWait: 30,
+      socketMaxLifespan: 0,
+      enableProxyHeader: false,
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      persistence: {
-        enable: false,
-        timeWindow: "10m",
-        maxDataSize: "1GB",
-        maxDataTime: "24h",
-        compress: "gzip",
-        destPath: "$CRIBL_HOME/state/windows_metrics",
+      breakerRulesets: [
+        "<value 1>",
+      ],
+      staleChannelFlushMs: 10000,
+      enableHeader: false,
+      preprocess: {
+        disabled: true,
+        command: "<value>",
+        args: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
       },
-      disableNativeModule: false,
-      description: "corny luck unruly evince carp competent antique",
+      description: "along within along competent fatally",
+      authType: "manual",
     },
   ],
 };

@@ -24,7 +24,7 @@ let value: InputKubeMetrics = {
   rules: [
     {
       filter: "<value>",
-      description: "onto dimly dimly including larva rusty yawningly",
+      description: "boggle catalog chip ew",
     },
   ],
   metadata: [
@@ -34,7 +34,8 @@ let value: InputKubeMetrics = {
     },
   ],
   persistence: {},
-  description: "boggle catalog chip ew",
+  description:
+    "gratefully pish whose till hydrocarbon boo eek next uh-huh signature",
 };
 ```
 
