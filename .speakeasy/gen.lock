@@ -5,8 +5,8 @@ management:
   docVersion: 4.14.0-alpha.1755792230606-47c829c2
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.42
-  configChecksum: a51d88f56c2ba181161c67025b0847c2
+  releaseVersion: 0.0.43
+  configChecksum: e3e7656ad00f48016102835951d35184
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3177,4 +3177,3 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## SDK Changes Detected:\n* `criblcontrolplane.packs.get()`: **Added**\n* `criblcontrolplane.sources.list()`:  `response.items.[].[inputWizWebhook]` **Added**\n* `criblcontrolplane.sources.create()`: \n  *  `request.[inputWizWebhook]` **Added**\n  *  `response.items.[].[inputWizWebhook]` **Added**\n* `criblcontrolplane.sources.get()`:  `response.items.[].[inputWizWebhook]` **Added**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.[inputWizWebhook]` **Added**\n  *  `response.items.[].[inputWizWebhook]` **Added**\n* `criblcontrolplane.sources.delete()`:  `response.items.[].[inputWizWebhook]` **Added**\n* `criblcontrolplane.versions.commits.revert()`: \n  *  `request.gitRevertParams.message` **Changed**\n"
