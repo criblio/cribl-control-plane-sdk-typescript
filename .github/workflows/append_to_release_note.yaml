@@ -1,0 +1,56 @@
+name: Append Cribl product version to release notes
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  append:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Install yq
+        uses: mikefarah/yq@f03c9dc599c37bfcaf533427211d05e51e6fee64
+
+      - name: Extract product version from OpenAPI
+        id: ver
+        run: |
+          FILE=".speakeasy/out.openapi.yaml"
+          if [[ ! -f "$FILE" ]]; then
+            echo "::error file=$FILE::OpenAPI file not found"
+            exit 1
+          fi
+          VERSION=$(yq -r '.info.version' "$FILE")
+          if [[ -z "$VERSION" || "$VERSION" == "null" ]]; then
+            echo "::error::Could not read .info.version from $FILE"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Append note to release body (idempotent)
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const rel = context.payload.release;
+            const current = rel.body || '';
+            const version = `${{ steps.ver.outputs.version }}`;
+            const note = `This SDK release is created for the following Cribl product version: ${version}`;
+
+            if (!current.includes(note)) {
+              const body = current + (current ? '\n\n' : '') + note;
+              await github.rest.repos.updateRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: rel.id,
+                body
+              });
+              core.info(`Appended note: ${note}`);
+            } else {
+              core.info('Note already present; skipping.');
+            }
