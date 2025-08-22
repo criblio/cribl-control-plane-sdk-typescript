@@ -1,4 +1,4 @@
-name: Publish Prod SDK
+name: Publish prod SDK
 permissions:
   checks: write
   contents: write
