@@ -91,7 +91,6 @@ export * from "./inputwef.js";
 export * from "./inputwindowsmetrics.js";
 export * from "./inputwineventlogs.js";
 export * from "./inputwiz.js";
-export * from "./inputwizwebhook.js";
 export * from "./inputzscalerhec.js";
 export * from "./lakedatasetsearchconfig.js";
 export * from "./lakehouseconnectiontype.js";
