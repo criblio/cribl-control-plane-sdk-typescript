@@ -31,8 +31,8 @@ let value: InputTcp = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -42,17 +42,15 @@ let value: InputTcp = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
   preprocess: {
     command: "<value>",
     args: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
-  description: "license abseil zowie er insignificant",
+  description: "cheerful daily knowledgeably likewise everlasting",
 };
 ```
 

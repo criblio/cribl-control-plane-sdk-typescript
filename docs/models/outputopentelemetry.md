@@ -58,7 +58,7 @@ let value: OutputOpenTelemetry = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6166.72,
+      httpStatus: 6044.98,
     },
   ],
   timeoutRetrySettings: {},
@@ -68,8 +68,8 @@ let value: OutputOpenTelemetry = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
   },
   pqControls: {},
 };
