@@ -241,7 +241,7 @@ export type InputSecurityLake = {
    */
   skipOnError?: boolean | undefined;
   /**
-   * Include metadata from SQS notifications on outgoing events
+   * Attach SQS notification metadata to a __sqsMetadata field on each event
    */
   includeSqsMetadata?: boolean | undefined;
   /**

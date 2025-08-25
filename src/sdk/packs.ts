@@ -14,13 +14,13 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Packs extends ClientSDK {
   /**
-   * Install a Pack
+   * Create or install a Pack
    *
    * @remarks
-   * Install a Pack.
+   * Create or install a Pack.
    */
   async install(
-    request: models.PackRequestBody,
+    request: models.PackRequestBodyUnion,
     options?: RequestOptions,
   ): Promise<operations.CreatePacksResponse> {
     return unwrapAsync(packsInstall(
