@@ -174,7 +174,7 @@ export * from "./outputwebhook.js";
 export * from "./outputxsiam.js";
 export * from "./packinfo.js";
 export * from "./packinstallinfo.js";
-export * from "./packrequestbody.js";
+export * from "./packrequestbodyunion.js";
 export * from "./pipeline.js";
 export * from "./pipelinefunctionconf.js";
 export * from "./productscore.js";

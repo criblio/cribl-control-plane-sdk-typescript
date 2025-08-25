@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 7117f9e73ff6b132ec81ba4366ee8712
-  docVersion: 4.14.0-alpha.1755792230606-47c829c2
+  docChecksum: 97ea285bac6d9bca4e3263346a46d09d
+  docVersion: 4.14.0-alpha.1756133891055-db064179
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.43
-  configChecksum: e3e7656ad00f48016102835951d35184
+  releaseVersion: 0.0.44
+  configChecksum: 5405b831e100f43f74a8e0ca4c057e48
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -1795,8 +1795,11 @@ generatedFiles:
   - docs/models/packinfotags.md
   - docs/models/packinstallinfo.md
   - docs/models/packinstallinfotags.md
-  - docs/models/packrequestbody.md
-  - docs/models/packrequestbodytags.md
+  - docs/models/packrequestbody1.md
+  - docs/models/packrequestbody2.md
+  - docs/models/packrequestbodytags1.md
+  - docs/models/packrequestbodytags2.md
+  - docs/models/packrequestbodyunion.md
   - docs/models/payloadformat.md
   - docs/models/pipeline.md
   - docs/models/pipelinefunctionconf.md
@@ -2210,7 +2213,7 @@ generatedFiles:
   - src/models/outputxsiam.ts
   - src/models/packinfo.ts
   - src/models/packinstallinfo.ts
-  - src/models/packrequestbody.ts
+  - src/models/packrequestbodyunion.ts
   - src/models/pipeline.ts
   - src/models/pipelinefunctionconf.ts
   - src/models/productscore.ts
@@ -2804,7 +2807,7 @@ examples:
   createPacks:
     speakeasy-default-create-packs:
       requestBody:
-        application/json: {"allowCustomFunctions": false, "author": "<value>", "description": "premeditation coincide although", "displayName": "Myah14", "exports": ["<value 1>"], "force": false, "id": "<id>", "inputs": 4076.64, "minLogStreamVersion": "<value>", "outputs": 2759.4, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": [], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}
+        application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Myah14", "author": "<value>", "description": "premeditation coincide although", "source": "<value>", "tags": {"dataType": [], "domain": [], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": false}
       responses:
         "200":
           application/json: {"count": 182030, "items": [{"author": "<value>", "description": "card fen soon inquisitively anti oddly winged", "displayName": "Leila.Nikolaus29", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 5672.33, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 8346.66, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["decimal"], "domain": ["lawful-flu.net", "royal-litter.org", "submissive-pantyhose.org"], "streamtags": [], "technology": []}, "version": "<value>", "warnings": "<value>"}]}
@@ -3177,3 +3180,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## SDK Changes Detected:
+  * `criblcontrolplane.packs.install()`:  `request` **Changed** **Breaking** :warning:
