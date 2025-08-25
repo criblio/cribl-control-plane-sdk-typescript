@@ -7,7 +7,7 @@ Actions related to Packs
 
 ### Available Operations
 
-* [install](#install) - Install a Pack
+* [install](#install) - Create or install a Pack
 * [list](#list) - List all Packs
 * [delete](#delete) - Uninstall a Pack
 * [get](#get) - Get a Pack
@@ -15,7 +15,7 @@ Actions related to Packs
 
 ## install
 
-Install a Pack.
+Create or install a Pack.
 
 ### Example Usage
 
@@ -32,32 +32,27 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.packs.install({
-    allowCustomFunctions: false,
+    id: "<id>",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Myah14",
     author: "<value>",
     description: "premeditation coincide although",
-    displayName: "Myah14",
-    exports: [
-      "<value 1>",
-    ],
-    force: false,
-    id: "<id>",
-    inputs: 4076.64,
-    minLogStreamVersion: "<value>",
-    outputs: 2759.4,
     source: "<value>",
-    spec: "<value>",
     tags: {
       dataType: [],
       domain: [],
+      technology: [
+        "<value 1>",
+      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
       ],
-      technology: [
-        "<value 1>",
-      ],
     },
-    version: "<value>",
+    allowCustomFunctions: false,
+    force: false,
   });
 
   console.log(result);
@@ -85,32 +80,27 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await packsInstall(criblControlPlane, {
-    allowCustomFunctions: false,
+    id: "<id>",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Myah14",
     author: "<value>",
     description: "premeditation coincide although",
-    displayName: "Myah14",
-    exports: [
-      "<value 1>",
-    ],
-    force: false,
-    id: "<id>",
-    inputs: 4076.64,
-    minLogStreamVersion: "<value>",
-    outputs: 2759.4,
     source: "<value>",
-    spec: "<value>",
     tags: {
       dataType: [],
       domain: [],
+      technology: [
+        "<value 1>",
+      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
       ],
-      technology: [
-        "<value 1>",
-      ],
     },
-    version: "<value>",
+    allowCustomFunctions: false,
+    force: false,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -127,7 +117,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.PackRequestBody](../../models/packrequestbody.md)                                                                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.PackRequestBodyUnion](../../models/packrequestbodyunion.md)                                                                                                            | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

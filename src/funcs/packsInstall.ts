@@ -27,14 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Install a Pack
+ * Create or install a Pack
  *
  * @remarks
- * Install a Pack.
+ * Create or install a Pack.
  */
 export function packsInstall(
   client: CriblControlPlaneCore,
-  request: models.PackRequestBody,
+  request: models.PackRequestBodyUnion,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function packsInstall(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.PackRequestBody,
+  request: models.PackRequestBodyUnion,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,7 +80,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.PackRequestBody$outboundSchema.parse(value),
+    (value) => models.PackRequestBodyUnion$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {

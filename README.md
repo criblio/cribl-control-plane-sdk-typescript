@@ -300,7 +300,7 @@ run();
 
 ### [packs](docs/sdks/packs/README.md)
 
-* [install](docs/sdks/packs/README.md#install) - Install a Pack
+* [install](docs/sdks/packs/README.md#install) - Create or install a Pack
 * [list](docs/sdks/packs/README.md#list) - List all Packs
 * [delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 * [get](docs/sdks/packs/README.md#get) - Get a Pack
@@ -413,7 +413,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
-- [`packsInstall`](docs/sdks/packs/README.md#install) - Install a Pack
+- [`packsInstall`](docs/sdks/packs/README.md#install) - Create or install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
 - [`pipelinesCreate`](docs/sdks/pipelines/README.md#create) - Create a Pipeline
