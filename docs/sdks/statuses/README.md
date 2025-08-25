@@ -26,7 +26,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.statuses.get({
-    group: "<value>",
+    groupId: "<id>",
   });
 
   console.log(result);
@@ -54,7 +54,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsStatusesGet(criblControlPlane, {
-    group: "<value>",
+    groupId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;

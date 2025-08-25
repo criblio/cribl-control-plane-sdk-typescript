@@ -393,9 +393,12 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.packs.update({
     id: "<id>",
-    source: "<value>",
-    minor: "<value>",
-    spec: "<value>",
+    packUpgradeRequest: {
+      allowCustomFunctions: true,
+      minor: "<value>",
+      source: "<value>",
+      spec: "<value>",
+    },
   });
 
   console.log(result);
@@ -424,9 +427,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await packsUpdate(criblControlPlane, {
     id: "<id>",
-    source: "<value>",
-    minor: "<value>",
-    spec: "<value>",
+    packUpgradeRequest: {
+      allowCustomFunctions: true,
+      minor: "<value>",
+      source: "<value>",
+      spec: "<value>",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
