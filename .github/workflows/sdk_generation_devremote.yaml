@@ -52,9 +52,9 @@ jobs:
           # Fetch tags
           git fetch --tags --quiet || true
 
-          # If there are alphas for BASE_STRIPPED, keep that base; otherwise bump patch
-          if git ls-remote --tags origin | awk '{print $2}' | sed 's|refs/tags/||' \
-              | grep -qE "^${BASE_STRIPPED}-alpha\.[0-9]+$"; then
+          # If there are alphas for BASE_STRIPPED (with or without leading 'v'), keep that base; otherwise bump patch
+          if git ls-remote --tags origin | awk '{print $2}' | sed 's|refs/tags/||; s|\^\{\}$||' \
+              | grep -qE "^(v)?${BASE_STRIPPED}-alpha\.[0-9]+$"; then
             BASE="${BASE_STRIPPED}"
             echo "Found existing alpha tags for ${BASE}. Will increment alpha."
           else
@@ -66,12 +66,20 @@ jobs:
 
           PREFIX="${BASE}-alpha."
 
-          # Find next available alpha number
+          # Helper to check tag existence with/without 'v'
+          tag_exists() {
+            git ls-remote --tags origin | awk '{print $2}' | sed 's|refs/tags/||; s|\^\{\}$||' \
+              | grep -qx -e "${1}" -e "v${1}"
+          }
+
+          # Find next available alpha number (with logging)
           n=1
-          while git ls-remote --tags origin "${PREFIX}${n}" >/dev/null 2>&1; do
+          while tag_exists "${PREFIX}${n}"; do
+            echo "Tag already exists: ${PREFIX}${n} (or v${PREFIX}${n}), trying next..."
             n=$((n+1))
           done
 
+          echo "First free alpha tag: ${PREFIX}${n}"
           FINAL="${PREFIX}${n}"
           echo "Computed prerelease: ${FINAL}"
           echo "version=${FINAL}" >> "$GITHUB_OUTPUT"
