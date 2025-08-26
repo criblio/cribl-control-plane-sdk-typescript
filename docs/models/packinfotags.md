@@ -9,13 +9,14 @@ let value: PackInfoTags = {
   dataType: [
     "boolean",
   ],
-  domain: [],
+  domain: [
+    "fixed-pigpen.org",
+  ],
   streamtags: [
     "<value 1>",
   ],
   technology: [
     "<value 1>",
-    "<value 2>",
   ],
 };
 ```
@@ -25,6 +26,6 @@ let value: PackInfoTags = {
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `dataType`         | *string*[]         | :heavy_check_mark: | N/A                |
-| `domain`           | *string*[]         | :heavy_check_mark: | N/A                |
-| `streamtags`       | *string*[]         | :heavy_check_mark: | N/A                |
+| `domain`           | *string*[]         | :heavy_minus_sign: | N/A                |
+| `streamtags`       | *string*[]         | :heavy_minus_sign: | N/A                |
 | `technology`       | *string*[]         | :heavy_check_mark: | N/A                |

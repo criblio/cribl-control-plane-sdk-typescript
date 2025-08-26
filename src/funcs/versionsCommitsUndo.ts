@@ -94,7 +94,7 @@ async function $do(
   const path = pathToFunc("/version/undo")();
 
   const query = encodeFormQuery({
-    "group": payload?.group,
+    "groupId": payload?.groupId,
   });
 
   const headers = new Headers(compactMap({

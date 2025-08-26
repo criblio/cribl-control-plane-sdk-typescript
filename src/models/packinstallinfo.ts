@@ -9,8 +9,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PackInstallInfoTags = {
   dataType: Array<string>;
-  domain: Array<string>;
-  streamtags: Array<string>;
+  domain?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
   technology: Array<string>;
 };
 
@@ -39,16 +39,16 @@ export const PackInstallInfoTags$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   dataType: z.array(z.string()),
-  domain: z.array(z.string()),
-  streamtags: z.array(z.string()),
+  domain: z.array(z.string()).optional(),
+  streamtags: z.array(z.string()).optional(),
   technology: z.array(z.string()),
 });
 
 /** @internal */
 export type PackInstallInfoTags$Outbound = {
   dataType: Array<string>;
-  domain: Array<string>;
-  streamtags: Array<string>;
+  domain?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
   technology: Array<string>;
 };
 
@@ -59,8 +59,8 @@ export const PackInstallInfoTags$outboundSchema: z.ZodType<
   PackInstallInfoTags
 > = z.object({
   dataType: z.array(z.string()),
-  domain: z.array(z.string()),
-  streamtags: z.array(z.string()),
+  domain: z.array(z.string()).optional(),
+  streamtags: z.array(z.string()).optional(),
   technology: z.array(z.string()),
 });
 

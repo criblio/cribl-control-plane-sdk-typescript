@@ -6,7 +6,7 @@
 import { GetVersionCountRequest } from "cribl-control-plane/models/operations";
 
 let value: GetVersionCountRequest = {
-  group: "<value>",
+  groupId: "<id>",
   id: "<id>",
 };
 ```
@@ -15,5 +15,5 @@ let value: GetVersionCountRequest = {
 
 | Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `group`                                                                     | *string*                                                                    | :heavy_minus_sign:                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the count for. |
+| `groupId`                                                                   | *string*                                                                    | :heavy_minus_sign:                                                          | The <code>id</code> of the Worker Group or Edge Fleet to get the count for. |
 | `id`                                                                        | *string*                                                                    | :heavy_minus_sign:                                                          | The Git commit hash to use as the starting point for the count.             |

@@ -32,12 +32,15 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.create({
-    effective: false,
-    files: [
-      "<value 1>",
-    ],
-    group: "<value>",
-    message: "<value>",
+    groupId: "<id>",
+    gitCommitParams: {
+      effective: false,
+      files: [
+        "<value 1>",
+      ],
+      group: "<value>",
+      message: "<value>",
+    },
   });
 
   console.log(result);
@@ -65,12 +68,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsCreate(criblControlPlane, {
-    effective: false,
-    files: [
-      "<value 1>",
-    ],
-    group: "<value>",
-    message: "<value>",
+    groupId: "<id>",
+    gitCommitParams: {
+      effective: false,
+      files: [
+        "<value 1>",
+      ],
+      group: "<value>",
+      message: "<value>",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -87,7 +93,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.GitCommitParams](../../models/gitcommitparams.md)                                                                                                                      | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateVersionCommitRequest](../../models/operations/createversioncommitrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -123,7 +129,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.versions.commits.diff({
     commit: "<value>",
-    group: "<value>",
+    groupId: "<id>",
     filename: "example.file",
     diffLineLimit: 6362,
   });
@@ -154,7 +160,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await versionsCommitsDiff(criblControlPlane, {
     commit: "<value>",
-    group: "<value>",
+    groupId: "<id>",
     filename: "example.file",
     diffLineLimit: 6362,
   });
@@ -208,7 +214,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.list({
-    group: "<value>",
+    groupId: "<id>",
     count: 893.58,
   });
 
@@ -237,7 +243,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsList(criblControlPlane, {
-    group: "<value>",
+    groupId: "<id>",
     count: 893.58,
   });
   if (res.ok) {
@@ -365,7 +371,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.revert({
-    group: "<value>",
+    groupId: "<id>",
     gitRevertParams: {
       commit: "<value>",
       force: false,
@@ -398,7 +404,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsRevert(criblControlPlane, {
-    group: "<value>",
+    groupId: "<id>",
     gitRevertParams: {
       commit: "<value>",
       force: false,
@@ -456,7 +462,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.versions.commits.get({
     commit: "<value>",
-    group: "<value>",
+    groupId: "<id>",
     filename: "example.file",
     diffLineLimit: 7771.94,
   });
@@ -487,7 +493,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await versionsCommitsGet(criblControlPlane, {
     commit: "<value>",
-    group: "<value>",
+    groupId: "<id>",
     filename: "example.file",
     diffLineLimit: 7771.94,
   });
@@ -541,7 +547,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.undo({
-    group: "<value>",
+    groupId: "<id>",
   });
 
   console.log(result);
@@ -569,7 +575,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsUndo(criblControlPlane, {
-    group: "<value>",
+    groupId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;

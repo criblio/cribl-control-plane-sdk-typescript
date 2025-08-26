@@ -13,7 +13,7 @@ export type CreateVersionRevertRequest = {
   /**
    * Group ID
    */
-  group?: string | undefined;
+  groupId?: string | undefined;
   /**
    * GitRevertParams object
    */
@@ -37,7 +37,7 @@ export const CreateVersionRevertRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
   GitRevertParams: models.GitRevertParams$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +47,7 @@ export const CreateVersionRevertRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateVersionRevertRequest$Outbound = {
-  group?: string | undefined;
+  groupId?: string | undefined;
   GitRevertParams: models.GitRevertParams$Outbound;
 };
 
@@ -57,7 +57,7 @@ export const CreateVersionRevertRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateVersionRevertRequest
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
   gitRevertParams: models.GitRevertParams$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

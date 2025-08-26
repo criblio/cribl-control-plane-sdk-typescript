@@ -13,7 +13,7 @@ export type GetVersionFilesRequest = {
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for.
    */
-  group?: string | undefined;
+  groupId?: string | undefined;
   /**
    * The Git commit hash to use as the starting point for the request.
    */
@@ -37,7 +37,7 @@ export const GetVersionFilesRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
   ID: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -47,7 +47,7 @@ export const GetVersionFilesRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetVersionFilesRequest$Outbound = {
-  group?: string | undefined;
+  groupId?: string | undefined;
   ID?: string | undefined;
 };
 
@@ -57,7 +57,7 @@ export const GetVersionFilesRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetVersionFilesRequest
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
   id: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

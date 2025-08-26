@@ -92,7 +92,7 @@ async function $do(
   const path = pathToFunc("/version/revert")();
 
   const query = encodeFormQuery({
-    "group": payload.group,
+    "groupId": payload.groupId,
   });
 
   const headers = new Headers(compactMap({

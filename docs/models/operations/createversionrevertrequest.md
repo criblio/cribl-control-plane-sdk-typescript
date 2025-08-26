@@ -6,7 +6,7 @@
 import { CreateVersionRevertRequest } from "cribl-control-plane/models/operations";
 
 let value: CreateVersionRevertRequest = {
-  group: "<value>",
+  groupId: "<id>",
   gitRevertParams: {
     commit: "<value>",
     force: false,
@@ -19,5 +19,5 @@ let value: CreateVersionRevertRequest = {
 
 | Field                                                     | Type                                                      | Required                                                  | Description                                               |
 | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
-| `group`                                                   | *string*                                                  | :heavy_minus_sign:                                        | Group ID                                                  |
+| `groupId`                                                 | *string*                                                  | :heavy_minus_sign:                                        | Group ID                                                  |
 | `gitRevertParams`                                         | [models.GitRevertParams](../../models/gitrevertparams.md) | :heavy_check_mark:                                        | GitRevertParams object                                    |

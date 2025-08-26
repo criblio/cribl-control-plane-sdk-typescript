@@ -785,7 +785,7 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
     ),
   safeHeaders: z.array(z.string()).optional(),
   format: OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema.default(
-    "raw",
+    "JSON",
   ),
   authType: OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema
     .default("manual"),
@@ -890,7 +890,7 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
     ),
   safeHeaders: z.array(z.string()).optional(),
   format: OutputCrowdstrikeNextGenSiemRequestFormat$outboundSchema.default(
-    "raw",
+    "JSON",
   ),
   authType: OutputCrowdstrikeNextGenSiemAuthenticationMethod$outboundSchema
     .default("manual"),

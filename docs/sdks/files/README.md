@@ -27,7 +27,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.files.count({
-    group: "<value>",
+    groupId: "<id>",
     id: "<id>",
   });
 
@@ -56,7 +56,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsFilesCount(criblControlPlane, {
-    group: "<value>",
+    groupId: "<id>",
     id: "<id>",
   });
   if (res.ok) {
@@ -109,7 +109,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.files.list({
-    group: "<value>",
+    groupId: "<id>",
     id: "<id>",
   });
 
@@ -138,7 +138,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsFilesList(criblControlPlane, {
-    group: "<value>",
+    groupId: "<id>",
     id: "<id>",
   });
   if (res.ok) {

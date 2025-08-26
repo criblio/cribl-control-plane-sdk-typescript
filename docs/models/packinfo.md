@@ -24,13 +24,14 @@ let value: PackInfo = {
   spec: "<value>",
   tags: {
     dataType: [],
-    domain: [],
+    domain: [
+      "grown-icebreaker.net",
+    ],
     streamtags: [
       "<value 1>",
+      "<value 2>",
     ],
-    technology: [
-      "<value 1>",
-    ],
+    technology: [],
   },
   version: "<value>",
 };

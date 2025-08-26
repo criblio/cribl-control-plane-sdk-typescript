@@ -92,7 +92,7 @@ async function $do(
   const path = pathToFunc("/version/status")();
 
   const query = encodeFormQuery({
-    "group": payload?.group,
+    "groupId": payload?.groupId,
   });
 
   const headers = new Headers(compactMap({

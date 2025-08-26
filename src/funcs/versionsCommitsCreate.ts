@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
+import { encodeFormQuery, encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -21,7 +21,6 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -34,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function versionsCommitsCreate(
   client: CriblControlPlaneCore,
-  request: models.GitCommitParams,
+  request: operations.CreateVersionCommitRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +58,7 @@ export function versionsCommitsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.GitCommitParams,
+  request: operations.CreateVersionCommitRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,16 +79,21 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.GitCommitParams$outboundSchema.parse(value),
+    (value) =>
+      operations.CreateVersionCommitRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload, { explode: true });
+  const body = encodeJSON("body", payload.GitCommitParams, { explode: true });
 
   const path = pathToFunc("/version/commit")();
+
+  const query = encodeFormQuery({
+    "groupId": payload.groupId,
+  });
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -120,6 +124,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
