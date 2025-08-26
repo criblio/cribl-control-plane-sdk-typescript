@@ -15,7 +15,7 @@ export type GetVersionShowRequest = {
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.
    */
-  group?: string | undefined;
+  groupId?: string | undefined;
   /**
    * The relative path of the file to get the diff and log message for.
    */
@@ -44,7 +44,7 @@ export const GetVersionShowRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   commit: z.string().optional(),
-  group: z.string().optional(),
+  groupId: z.string().optional(),
   filename: z.string().optional(),
   diffLineLimit: z.number().optional(),
 });
@@ -52,7 +52,7 @@ export const GetVersionShowRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type GetVersionShowRequest$Outbound = {
   commit?: string | undefined;
-  group?: string | undefined;
+  groupId?: string | undefined;
   filename?: string | undefined;
   diffLineLimit?: number | undefined;
 };
@@ -64,7 +64,7 @@ export const GetVersionShowRequest$outboundSchema: z.ZodType<
   GetVersionShowRequest
 > = z.object({
   commit: z.string().optional(),
-  group: z.string().optional(),
+  groupId: z.string().optional(),
   filename: z.string().optional(),
   diffLineLimit: z.number().optional(),
 });

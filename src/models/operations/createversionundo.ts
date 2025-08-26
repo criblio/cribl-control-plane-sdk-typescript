@@ -11,7 +11,7 @@ export type CreateVersionUndoRequest = {
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for.
    */
-  group?: string | undefined;
+  groupId?: string | undefined;
 };
 
 /**
@@ -31,12 +31,12 @@ export const CreateVersionUndoRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
 });
 
 /** @internal */
 export type CreateVersionUndoRequest$Outbound = {
-  group?: string | undefined;
+  groupId?: string | undefined;
 };
 
 /** @internal */
@@ -45,7 +45,7 @@ export const CreateVersionUndoRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateVersionUndoRequest
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
 });
 
 /**

@@ -8,12 +8,10 @@ import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const OutputGooglePubsubTypeGooglePubsub = {
+export const OutputGooglePubsubType = {
   GooglePubsub: "google_pubsub",
 } as const;
-export type OutputGooglePubsubTypeGooglePubsub = ClosedEnum<
-  typeof OutputGooglePubsubTypeGooglePubsub
->;
+export type OutputGooglePubsubType = ClosedEnum<typeof OutputGooglePubsubType>;
 
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
@@ -29,19 +27,6 @@ export const OutputGooglePubsubGoogleAuthenticationMethod = {
 export type OutputGooglePubsubGoogleAuthenticationMethod = ClosedEnum<
   typeof OutputGooglePubsubGoogleAuthenticationMethod
 >;
-
-export const FlushPeriodSecType = {
-  Number: "number",
-} as const;
-export type FlushPeriodSecType = ClosedEnum<typeof FlushPeriodSecType>;
-
-/**
- * Maximum time to wait before sending a batch (when batch size limit is not reached).
- */
-export type FlushPeriodSec = {
-  type?: FlushPeriodSecType | undefined;
-  default?: number | undefined;
-};
 
 /**
  * How to handle events when all receivers are exerting backpressure
@@ -106,7 +91,7 @@ export type OutputGooglePubsub = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGooglePubsubTypeGooglePubsub;
+  type: OutputGooglePubsubType;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -168,9 +153,9 @@ export type OutputGooglePubsub = {
    */
   maxRecordSizeKB?: number | undefined;
   /**
-   * Maximum time to wait before sending a batch (when batch size limit is not reached).
+   * Maximum time to wait before sending a batch (when batch size limit is not reached)
    */
-  flushPeriodSec?: FlushPeriodSec | undefined;
+  flushPeriod?: number | undefined;
   /**
    * The maximum number of in-progress API requests before backpressure is applied.
    */
@@ -208,25 +193,24 @@ export type OutputGooglePubsub = {
 };
 
 /** @internal */
-export const OutputGooglePubsubTypeGooglePubsub$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubTypeGooglePubsub
-> = z.nativeEnum(OutputGooglePubsubTypeGooglePubsub);
+export const OutputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubType
+> = z.nativeEnum(OutputGooglePubsubType);
 
 /** @internal */
-export const OutputGooglePubsubTypeGooglePubsub$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubTypeGooglePubsub
-> = OutputGooglePubsubTypeGooglePubsub$inboundSchema;
+export const OutputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGooglePubsubType
+> = OutputGooglePubsubType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace OutputGooglePubsubTypeGooglePubsub$ {
-  /** @deprecated use `OutputGooglePubsubTypeGooglePubsub$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubTypeGooglePubsub$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubTypeGooglePubsub$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGooglePubsubTypeGooglePubsub$outboundSchema;
+export namespace OutputGooglePubsubType$ {
+  /** @deprecated use `OutputGooglePubsubType$inboundSchema` instead. */
+  export const inboundSchema = OutputGooglePubsubType$inboundSchema;
+  /** @deprecated use `OutputGooglePubsubType$outboundSchema` instead. */
+  export const outboundSchema = OutputGooglePubsubType$outboundSchema;
 }
 
 /** @internal */
@@ -250,80 +234,6 @@ export namespace OutputGooglePubsubGoogleAuthenticationMethod$ {
   /** @deprecated use `OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema` instead. */
   export const outboundSchema =
     OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const FlushPeriodSecType$inboundSchema: z.ZodNativeEnum<
-  typeof FlushPeriodSecType
-> = z.nativeEnum(FlushPeriodSecType);
-
-/** @internal */
-export const FlushPeriodSecType$outboundSchema: z.ZodNativeEnum<
-  typeof FlushPeriodSecType
-> = FlushPeriodSecType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FlushPeriodSecType$ {
-  /** @deprecated use `FlushPeriodSecType$inboundSchema` instead. */
-  export const inboundSchema = FlushPeriodSecType$inboundSchema;
-  /** @deprecated use `FlushPeriodSecType$outboundSchema` instead. */
-  export const outboundSchema = FlushPeriodSecType$outboundSchema;
-}
-
-/** @internal */
-export const FlushPeriodSec$inboundSchema: z.ZodType<
-  FlushPeriodSec,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: FlushPeriodSecType$inboundSchema.optional(),
-  default: z.number().optional(),
-});
-
-/** @internal */
-export type FlushPeriodSec$Outbound = {
-  type?: string | undefined;
-  default?: number | undefined;
-};
-
-/** @internal */
-export const FlushPeriodSec$outboundSchema: z.ZodType<
-  FlushPeriodSec$Outbound,
-  z.ZodTypeDef,
-  FlushPeriodSec
-> = z.object({
-  type: FlushPeriodSecType$outboundSchema.optional(),
-  default: z.number().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FlushPeriodSec$ {
-  /** @deprecated use `FlushPeriodSec$inboundSchema` instead. */
-  export const inboundSchema = FlushPeriodSec$inboundSchema;
-  /** @deprecated use `FlushPeriodSec$outboundSchema` instead. */
-  export const outboundSchema = FlushPeriodSec$outboundSchema;
-  /** @deprecated use `FlushPeriodSec$Outbound` instead. */
-  export type Outbound = FlushPeriodSec$Outbound;
-}
-
-export function flushPeriodSecToJSON(flushPeriodSec: FlushPeriodSec): string {
-  return JSON.stringify(FlushPeriodSec$outboundSchema.parse(flushPeriodSec));
-}
-
-export function flushPeriodSecFromJSON(
-  jsonString: string,
-): SafeParseResult<FlushPeriodSec, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FlushPeriodSec$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FlushPeriodSec' from JSON`,
-  );
 }
 
 /** @internal */
@@ -472,7 +382,7 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGooglePubsubTypeGooglePubsub$inboundSchema,
+  type: OutputGooglePubsubType$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -489,7 +399,7 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   batchTimeout: z.number().default(100),
   maxQueueSize: z.number().default(100),
   maxRecordSizeKB: z.number().default(256),
-  flushPeriodSec: z.lazy(() => FlushPeriodSec$inboundSchema).optional(),
+  flushPeriod: z.number().default(1),
   maxInProgress: z.number().default(10),
   onBackpressure: OutputGooglePubsubBackpressureBehavior$inboundSchema.default(
     "block",
@@ -526,7 +436,7 @@ export type OutputGooglePubsub$Outbound = {
   batchTimeout: number;
   maxQueueSize: number;
   maxRecordSizeKB: number;
-  flushPeriodSec?: FlushPeriodSec$Outbound | undefined;
+  flushPeriod: number;
   maxInProgress: number;
   onBackpressure: string;
   description?: string | undefined;
@@ -546,7 +456,7 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   OutputGooglePubsub
 > = z.object({
   id: z.string().optional(),
-  type: OutputGooglePubsubTypeGooglePubsub$outboundSchema,
+  type: OutputGooglePubsubType$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -563,7 +473,7 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   batchTimeout: z.number().default(100),
   maxQueueSize: z.number().default(100),
   maxRecordSizeKB: z.number().default(256),
-  flushPeriodSec: z.lazy(() => FlushPeriodSec$outboundSchema).optional(),
+  flushPeriod: z.number().default(1),
   maxInProgress: z.number().default(10),
   onBackpressure: OutputGooglePubsubBackpressureBehavior$outboundSchema.default(
     "block",
