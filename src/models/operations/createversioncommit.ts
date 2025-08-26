@@ -3,10 +3,22 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
+
+export type CreateVersionCommitRequest = {
+  /**
+   * The <code>id</code> of the Worker Group or Edge Fleet to create a new commit for.
+   */
+  groupId?: string | undefined;
+  /**
+   * GitCommitParams object
+   */
+  gitCommitParams: models.GitCommitParams;
+};
 
 /**
  * a list of GitCommitSummary objects
@@ -18,6 +30,71 @@ export type CreateVersionCommitResponse = {
   count?: number | undefined;
   items?: Array<models.GitCommitSummary> | undefined;
 };
+
+/** @internal */
+export const CreateVersionCommitRequest$inboundSchema: z.ZodType<
+  CreateVersionCommitRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  groupId: z.string().optional(),
+  GitCommitParams: models.GitCommitParams$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "GitCommitParams": "gitCommitParams",
+  });
+});
+
+/** @internal */
+export type CreateVersionCommitRequest$Outbound = {
+  groupId?: string | undefined;
+  GitCommitParams: models.GitCommitParams$Outbound;
+};
+
+/** @internal */
+export const CreateVersionCommitRequest$outboundSchema: z.ZodType<
+  CreateVersionCommitRequest$Outbound,
+  z.ZodTypeDef,
+  CreateVersionCommitRequest
+> = z.object({
+  groupId: z.string().optional(),
+  gitCommitParams: models.GitCommitParams$outboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    gitCommitParams: "GitCommitParams",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateVersionCommitRequest$ {
+  /** @deprecated use `CreateVersionCommitRequest$inboundSchema` instead. */
+  export const inboundSchema = CreateVersionCommitRequest$inboundSchema;
+  /** @deprecated use `CreateVersionCommitRequest$outboundSchema` instead. */
+  export const outboundSchema = CreateVersionCommitRequest$outboundSchema;
+  /** @deprecated use `CreateVersionCommitRequest$Outbound` instead. */
+  export type Outbound = CreateVersionCommitRequest$Outbound;
+}
+
+export function createVersionCommitRequestToJSON(
+  createVersionCommitRequest: CreateVersionCommitRequest,
+): string {
+  return JSON.stringify(
+    CreateVersionCommitRequest$outboundSchema.parse(createVersionCommitRequest),
+  );
+}
+
+export function createVersionCommitRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateVersionCommitRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateVersionCommitRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateVersionCommitRequest' from JSON`,
+  );
+}
 
 /** @internal */
 export const CreateVersionCommitResponse$inboundSchema: z.ZodType<

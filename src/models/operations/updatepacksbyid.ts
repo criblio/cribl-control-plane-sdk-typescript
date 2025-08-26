@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -14,17 +15,9 @@ export type UpdatePacksByIdRequest = {
    */
   id: string;
   /**
-   * body string required Pack source
+   * PackUpgradeRequest object
    */
-  source?: string | undefined;
-  /**
-   * body boolean optional Only upgrade to minor/patch versions
-   */
-  minor?: string | undefined;
-  /**
-   * body string optional Specify a branch, tag or a semver spec
-   */
-  spec?: string | undefined;
+  packUpgradeRequest: models.PackUpgradeRequest;
 };
 
 /**
@@ -45,17 +38,17 @@ export const UpdatePacksByIdRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  source: z.string().optional(),
-  minor: z.string().optional(),
-  spec: z.string().optional(),
+  PackUpgradeRequest: models.PackUpgradeRequest$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "PackUpgradeRequest": "packUpgradeRequest",
+  });
 });
 
 /** @internal */
 export type UpdatePacksByIdRequest$Outbound = {
   id: string;
-  source?: string | undefined;
-  minor?: string | undefined;
-  spec?: string | undefined;
+  PackUpgradeRequest: models.PackUpgradeRequest$Outbound;
 };
 
 /** @internal */
@@ -65,9 +58,11 @@ export const UpdatePacksByIdRequest$outboundSchema: z.ZodType<
   UpdatePacksByIdRequest
 > = z.object({
   id: z.string(),
-  source: z.string().optional(),
-  minor: z.string().optional(),
-  spec: z.string().optional(),
+  packUpgradeRequest: models.PackUpgradeRequest$outboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    packUpgradeRequest: "PackUpgradeRequest",
+  });
 });
 
 /**

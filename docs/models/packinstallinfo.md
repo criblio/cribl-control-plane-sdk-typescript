@@ -31,16 +31,15 @@ let value: PackInstallInfo = {
     domain: [
       "hungry-scaffold.name",
       "unfit-hovercraft.info",
+      "yummy-signature.com",
     ],
     streamtags: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     technology: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
   version: "<value>",
