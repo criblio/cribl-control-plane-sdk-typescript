@@ -12,7 +12,7 @@ export type GetVersionRequest = {
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for.
    */
-  group?: string | undefined;
+  groupId?: string | undefined;
   /**
    * Maximum number of commits to return in the response for this request.
    */
@@ -36,13 +36,13 @@ export const GetVersionRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
   count: z.number().optional(),
 });
 
 /** @internal */
 export type GetVersionRequest$Outbound = {
-  group?: string | undefined;
+  groupId?: string | undefined;
   count?: number | undefined;
 };
 
@@ -52,7 +52,7 @@ export const GetVersionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetVersionRequest
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
   count: z.number().optional(),
 });
 

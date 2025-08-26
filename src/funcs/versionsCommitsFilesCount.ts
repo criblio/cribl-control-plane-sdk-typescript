@@ -92,7 +92,7 @@ async function $do(
   const path = pathToFunc("/version/count")();
 
   const query = encodeFormQuery({
-    "group": payload?.group,
+    "groupId": payload?.groupId,
     "ID": payload?.ID,
   });
 

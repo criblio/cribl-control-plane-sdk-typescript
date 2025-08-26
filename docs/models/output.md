@@ -928,12 +928,7 @@ const value: models.OutputGooglePubsub = {
   region: "<value>",
   serviceAccountCredentials: "<value>",
   secret: "<value>",
-  flushPeriodSec: {
-    type: "number",
-    default: 7050.4,
-  },
-  description:
-    "although precedent separately etch pace buzzing zowie resort collaboration scrape",
+  description: "ironclad ouch for graft ice-cream seldom nor between",
   pqControls: {},
 };
 ```

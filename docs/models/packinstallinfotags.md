@@ -9,14 +9,14 @@ let value: PackInstallInfoTags = {
   dataType: [],
   domain: [
     "untried-appliance.com",
+    "wiggly-hydrant.name",
   ],
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   technology: [
     "<value 1>",
+    "<value 2>",
   ],
 };
 ```
@@ -26,6 +26,6 @@ let value: PackInstallInfoTags = {
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `dataType`         | *string*[]         | :heavy_check_mark: | N/A                |
-| `domain`           | *string*[]         | :heavy_check_mark: | N/A                |
-| `streamtags`       | *string*[]         | :heavy_check_mark: | N/A                |
+| `domain`           | *string*[]         | :heavy_minus_sign: | N/A                |
+| `streamtags`       | *string*[]         | :heavy_minus_sign: | N/A                |
 | `technology`       | *string*[]         | :heavy_check_mark: | N/A                |
