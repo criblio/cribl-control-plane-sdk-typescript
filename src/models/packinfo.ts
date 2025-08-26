@@ -9,8 +9,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PackInfoTags = {
   dataType: Array<string>;
-  domain: Array<string>;
-  streamtags: Array<string>;
+  domain?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
   technology: Array<string>;
 };
 
@@ -38,16 +38,16 @@ export const PackInfoTags$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   dataType: z.array(z.string()),
-  domain: z.array(z.string()),
-  streamtags: z.array(z.string()),
+  domain: z.array(z.string()).optional(),
+  streamtags: z.array(z.string()).optional(),
   technology: z.array(z.string()),
 });
 
 /** @internal */
 export type PackInfoTags$Outbound = {
   dataType: Array<string>;
-  domain: Array<string>;
-  streamtags: Array<string>;
+  domain?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
   technology: Array<string>;
 };
 
@@ -58,8 +58,8 @@ export const PackInfoTags$outboundSchema: z.ZodType<
   PackInfoTags
 > = z.object({
   dataType: z.array(z.string()),
-  domain: z.array(z.string()),
-  streamtags: z.array(z.string()),
+  domain: z.array(z.string()).optional(),
+  streamtags: z.array(z.string()).optional(),
   technology: z.array(z.string()),
 });
 

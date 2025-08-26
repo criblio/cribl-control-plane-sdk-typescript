@@ -93,7 +93,7 @@ async function $do(
 
   const query = encodeFormQuery({
     "count": payload?.count,
-    "group": payload?.group,
+    "groupId": payload?.groupId,
   });
 
   const headers = new Headers(compactMap({

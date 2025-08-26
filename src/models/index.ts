@@ -175,6 +175,7 @@ export * from "./outputxsiam.js";
 export * from "./packinfo.js";
 export * from "./packinstallinfo.js";
 export * from "./packrequestbodyunion.js";
+export * from "./packupgraderequest.js";
 export * from "./pipeline.js";
 export * from "./pipelinefunctionconf.js";
 export * from "./productscore.js";

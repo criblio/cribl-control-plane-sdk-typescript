@@ -10,7 +10,6 @@ import { versionsCommitsPush } from "../funcs/versionsCommitsPush.js";
 import { versionsCommitsRevert } from "../funcs/versionsCommitsRevert.js";
 import { versionsCommitsUndo } from "../funcs/versionsCommitsUndo.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Files } from "./files.js";
@@ -28,7 +27,7 @@ export class Commits extends ClientSDK {
    * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
    */
   async create(
-    request: models.GitCommitParams,
+    request: operations.CreateVersionCommitRequest,
     options?: RequestOptions,
   ): Promise<operations.CreateVersionCommitResponse> {
     return unwrapAsync(versionsCommitsCreate(
