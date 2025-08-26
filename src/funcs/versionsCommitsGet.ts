@@ -95,7 +95,7 @@ async function $do(
     "commit": payload?.commit,
     "diffLineLimit": payload?.diffLineLimit,
     "filename": payload?.filename,
-    "group": payload?.group,
+    "groupId": payload?.groupId,
   });
 
   const headers = new Headers(compactMap({

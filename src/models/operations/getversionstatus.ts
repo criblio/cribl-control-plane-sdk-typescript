@@ -12,7 +12,7 @@ export type GetVersionStatusRequest = {
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to get the status for.
    */
-  group?: string | undefined;
+  groupId?: string | undefined;
 };
 
 /**
@@ -32,12 +32,12 @@ export const GetVersionStatusRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
 });
 
 /** @internal */
 export type GetVersionStatusRequest$Outbound = {
-  group?: string | undefined;
+  groupId?: string | undefined;
 };
 
 /** @internal */
@@ -46,7 +46,7 @@ export const GetVersionStatusRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetVersionStatusRequest
 > = z.object({
-  group: z.string().optional(),
+  groupId: z.string().optional(),
 });
 
 /**
