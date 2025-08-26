@@ -49,11 +49,15 @@ jobs:
           echo "Version from gen.yaml: ${BASE_GEN}"
           echo "Stripped base:         ${BASE_STRIPPED}"
 
-          # Fetch tags
+          # Fetch tags (add --refs to avoid peeled ^{} entries)
           git fetch --tags --quiet || true
 
+          # DEBUG: show last tags
+          echo "Last tags on origin:"
+          git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' | tail -n 50 || true
+
           # If there are alphas for BASE_STRIPPED (with or without leading 'v'), keep that base; otherwise bump patch
-          if git ls-remote --tags origin | awk '{print $2}' | sed 's|refs/tags/||; s|\^\{\}$||' \
+          if git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' \
               | grep -qE "^(v)?${BASE_STRIPPED}-alpha\.[0-9]+$"; then
             BASE="${BASE_STRIPPED}"
             echo "Found existing alpha tags for ${BASE}. Will increment alpha."
@@ -66,9 +70,9 @@ jobs:
 
           PREFIX="${BASE}-alpha."
 
-          # Helper to check tag existence with/without 'v'
+          # Helper to check tag existence with/without 'v' (use --refs; no sed with \^\{\})
           tag_exists() {
-            git ls-remote --tags origin | awk '{print $2}' | sed 's|refs/tags/||; s|\^\{\}$||' \
+            git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' \
               | grep -qx -e "${1}" -e "v${1}"
           }
 
