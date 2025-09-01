@@ -35,14 +35,14 @@ export type OutputSentinelOneAiSiemRegion = ClosedEnum<
 >;
 
 /**
- * Regional endpoint used to send events to, such as /services/collector/event or /services/collector/raw
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
 export const AISIEMEndpointPath = {
   RootServicesCollectorEvent: "/services/collector/event",
   RootServicesCollectorRaw: "/services/collector/raw",
 } as const;
 /**
- * Regional endpoint used to send events to, such as /services/collector/event or /services/collector/raw
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
 export type AISIEMEndpointPath = ClosedEnum<typeof AISIEMEndpointPath>;
 
@@ -202,7 +202,7 @@ export type OutputSentinelOneAiSiem = {
    */
   region?: OutputSentinelOneAiSiemRegion | undefined;
   /**
-   * Regional endpoint used to send events to, such as /services/collector/event or /services/collector/raw
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
    */
   endpoint?: AISIEMEndpointPath | undefined;
   /**

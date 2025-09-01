@@ -144,15 +144,13 @@ export type InputCriblLakeHttpAuthTokensExtMetadatum = {
 };
 
 export type InputCriblLakeHttpAuthTokensExt = {
-  /**
-   * Shared secret to be provided by any client (Authorization: <token>)
-   */
   token: string;
   description?: string | undefined;
   /**
    * Fields to add to events referencing this token
    */
   metadata?: Array<InputCriblLakeHttpAuthTokensExtMetadatum> | undefined;
+  enableSplunkHec?: boolean | undefined;
 };
 
 export type InputCriblLakeHttp = {
@@ -261,9 +259,6 @@ export type InputCriblLakeHttp = {
    * Fields to add to events from this input
    */
   metadata?: Array<InputCriblLakeHttpMetadatum> | undefined;
-  /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-   */
   authTokensExt?: Array<InputCriblLakeHttpAuthTokensExt> | undefined;
   description?: string | undefined;
 };
@@ -741,6 +736,7 @@ export const InputCriblLakeHttpAuthTokensExt$inboundSchema: z.ZodType<
   metadata: z.array(
     z.lazy(() => InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema),
   ).optional(),
+  enableSplunkHec: z.boolean().default(false),
 });
 
 /** @internal */
@@ -750,6 +746,7 @@ export type InputCriblLakeHttpAuthTokensExt$Outbound = {
   metadata?:
     | Array<InputCriblLakeHttpAuthTokensExtMetadatum$Outbound>
     | undefined;
+  enableSplunkHec: boolean;
 };
 
 /** @internal */
@@ -763,6 +760,7 @@ export const InputCriblLakeHttpAuthTokensExt$outboundSchema: z.ZodType<
   metadata: z.array(
     z.lazy(() => InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema),
   ).optional(),
+  enableSplunkHec: z.boolean().default(false),
 });
 
 /**
