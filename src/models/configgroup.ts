@@ -39,7 +39,7 @@ export type ConfigGroupType = ClosedEnum<typeof ConfigGroupType>;
 
 export type ConfigGroup = {
   cloud?: ConfigGroupCloud | undefined;
-  configVersion: string;
+  configVersion?: string | undefined;
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
@@ -140,7 +140,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   cloud: ConfigGroupCloud$inboundSchema.optional(),
-  configVersion: z.string(),
+  configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
   estimatedIngestRate: z.number().optional(),
@@ -166,7 +166,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
 /** @internal */
 export type ConfigGroup$Outbound = {
   cloud?: ConfigGroupCloud$Outbound | undefined;
-  configVersion: string;
+  configVersion?: string | undefined;
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
@@ -196,7 +196,7 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   ConfigGroup
 > = z.object({
   cloud: ConfigGroupCloud$outboundSchema.optional(),
-  configVersion: z.string(),
+  configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
   estimatedIngestRate: z.number().optional(),
