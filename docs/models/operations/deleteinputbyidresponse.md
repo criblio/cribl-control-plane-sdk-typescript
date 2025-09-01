@@ -86,6 +86,7 @@ let value: DeleteInputByIdResponse = {
               value: "<value>",
             },
           ],
+          enableSplunkHec: false,
         },
       ],
       description: "gape on convalesce incinerate",
