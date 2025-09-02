@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetVersionCountRequest = {
   /**
@@ -20,14 +21,14 @@ export type GetVersionCountRequest = {
 };
 
 /**
- * a list of any objects
+ * a list of GitCountResult objects
  */
 export type GetVersionCountResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.GitCountResult> | undefined;
 };
 
 /** @internal */
@@ -102,13 +103,13 @@ export const GetVersionCountResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.GitCountResult$inboundSchema).optional(),
 });
 
 /** @internal */
 export type GetVersionCountResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.GitCountResult$Outbound> | undefined;
 };
 
 /** @internal */
@@ -118,7 +119,7 @@ export const GetVersionCountResponse$outboundSchema: z.ZodType<
   GetVersionCountResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.GitCountResult$outboundSchema).optional(),
 });
 
 /**
