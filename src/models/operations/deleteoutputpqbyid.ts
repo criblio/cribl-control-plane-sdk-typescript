@@ -15,14 +15,14 @@ export type DeleteOutputPqByIdRequest = {
 };
 
 /**
- * a list of any objects
+ * a list of string objects
  */
 export type DeleteOutputPqByIdResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -86,13 +86,13 @@ export const DeleteOutputPqByIdResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type DeleteOutputPqByIdResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -102,7 +102,7 @@ export const DeleteOutputPqByIdResponse$outboundSchema: z.ZodType<
   DeleteOutputPqByIdResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(z.string()).optional(),
 });
 
 /**

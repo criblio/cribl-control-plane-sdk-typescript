@@ -6,6 +6,7 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetOutputPqByIdRequest = {
   /**
@@ -15,14 +16,14 @@ export type GetOutputPqByIdRequest = {
 };
 
 /**
- * a list of any objects
+ * a list of JobInfo objects
  */
 export type GetOutputPqByIdResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.JobInfo> | undefined;
 };
 
 /** @internal */
@@ -86,13 +87,13 @@ export const GetOutputPqByIdResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.JobInfo$inboundSchema).optional(),
 });
 
 /** @internal */
 export type GetOutputPqByIdResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.JobInfo$Outbound> | undefined;
 };
 
 /** @internal */
@@ -102,7 +103,7 @@ export const GetOutputPqByIdResponse$outboundSchema: z.ZodType<
   GetOutputPqByIdResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.JobInfo$outboundSchema).optional(),
 });
 
 /**

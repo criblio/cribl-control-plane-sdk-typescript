@@ -1,6 +1,6 @@
 # GetVersionCountResponse
 
-a list of any objects
+a list of GitCountResult objects
 
 ## Example Usage
 
@@ -11,12 +11,7 @@ let value: GetVersionCountResponse = {
   count: 285473,
   items: [
     {
-      "key": "<value>",
-      "key1": "<value>",
-    },
-    {
-      "key": "<value>",
-      "key1": "<value>",
+      count: 5041.25,
     },
   ],
 };
@@ -24,7 +19,7 @@ let value: GetVersionCountResponse = {
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | Record<string, *any*>[]                    | :heavy_minus_sign:                         | N/A                                        |
+| Field                                                     | Type                                                      | Required                                                  | Description                                               |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `count`                                                   | *number*                                                  | :heavy_minus_sign:                                        | number of items present in the items array                |
+| `items`                                                   | [models.GitCountResult](../../models/gitcountresult.md)[] | :heavy_minus_sign:                                        | N/A                                                       |
