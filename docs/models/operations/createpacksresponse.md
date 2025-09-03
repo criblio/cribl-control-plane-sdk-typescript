@@ -47,7 +47,11 @@ let value: CreatePacksResponse = {
         ],
       },
       version: "<value>",
-      warnings: "<value>",
+      warnings: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
     },
   ],
 };

@@ -1,6 +1,6 @@
 # DeleteOutputPqByIdResponse
 
-a list of any objects
+a list of string objects
 
 ## Example Usage
 
@@ -10,8 +10,8 @@ import { DeleteOutputPqByIdResponse } from "cribl-control-plane/models/operation
 let value: DeleteOutputPqByIdResponse = {
   count: 590323,
   items: [
-    {},
-    {},
+    "<value 1>",
+    "<value 2>",
   ],
 };
 ```
@@ -21,4 +21,4 @@ let value: DeleteOutputPqByIdResponse = {
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | Record<string, *any*>[]                    | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | *string*[]                                 | :heavy_minus_sign:                         | N/A                                        |

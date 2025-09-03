@@ -1,6 +1,6 @@
 # GetVersionBranchResponse
 
-a list of any objects
+a list of BranchInfo objects
 
 ## Example Usage
 
@@ -11,7 +11,7 @@ let value: GetVersionBranchResponse = {
   count: 800947,
   items: [
     {
-      "key": "<value>",
+      id: "<id>",
     },
   ],
 };
@@ -19,7 +19,7 @@ let value: GetVersionBranchResponse = {
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | Record<string, *any*>[]                    | :heavy_minus_sign:                         | N/A                                        |
+| Field                                             | Type                                              | Required                                          | Description                                       |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| `count`                                           | *number*                                          | :heavy_minus_sign:                                | number of items present in the items array        |
+| `items`                                           | [models.BranchInfo](../../models/branchinfo.md)[] | :heavy_minus_sign:                                | N/A                                               |
