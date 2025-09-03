@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 5b5ea4012581fc985ed8d540fde99e33
-  docVersion: 4.14.0-alpha.1756891948720-05375a0f
+  docChecksum: 707c47f89012f1a8231e12609d62d236
+  docVersion: 4.14.0-alpha.1756909436543-ef8097da
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.47
-  configChecksum: d326378a08af24e31631cc14e64158db
+  releaseVersion: 0.0.48
+  configChecksum: 881356147bfe82da7a8452aa70f3a875
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3260,10 +3260,5 @@ generatedTests:
   updateGroupsById: "2025-08-01T20:03:31Z"
 releaseNotes: |
   ## SDK Changes Detected:
-  * `criblcontrolplane.destinations.pq.clear()`:  `response` **Changed** **Breaking** :warning:
-  * `criblcontrolplane.destinations.pq.get()`:  `response.items.[]` **Changed** **Breaking** :warning:
-  * `criblcontrolplane.packs.install()`:  `response.items.[].warnings` **Changed** **Breaking** :warning:
-  * `criblcontrolplane.packs.delete()`:  `response.items.[].warnings` **Changed** **Breaking** :warning:
-  * `criblcontrolplane.versions.branches.list()`:  `response.items.[]` **Changed** **Breaking** :warning:
-  * `criblcontrolplane.versions.commits.diff()`:  `response.items.[]` **Changed** **Breaking** :warning:
-  * `criblcontrolplane.versions.commits.files.count()`:  `response.items.[]` **Changed** **Breaking** :warning:
+  * `criblcontrolplane.packs.install()`:  `response.items.[].warnings` **Changed**
+  * `criblcontrolplane.packs.delete()`:  `response.items.[].warnings` **Changed**

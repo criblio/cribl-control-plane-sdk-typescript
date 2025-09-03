@@ -29,7 +29,7 @@ export type PackInstallInfo = {
   spec?: string | undefined;
   tags?: PackInstallInfoTags | undefined;
   version?: string | undefined;
-  warnings: Array<string>;
+  warnings?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -115,7 +115,7 @@ export const PackInstallInfo$inboundSchema: z.ZodType<
   spec: z.string().optional(),
   tags: z.lazy(() => PackInstallInfoTags$inboundSchema).optional(),
   version: z.string().optional(),
-  warnings: z.array(z.string()),
+  warnings: z.array(z.string()).optional(),
 });
 
 /** @internal */
@@ -134,7 +134,7 @@ export type PackInstallInfo$Outbound = {
   spec?: string | undefined;
   tags?: PackInstallInfoTags$Outbound | undefined;
   version?: string | undefined;
-  warnings: Array<string>;
+  warnings?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -157,7 +157,7 @@ export const PackInstallInfo$outboundSchema: z.ZodType<
   spec: z.string().optional(),
   tags: z.lazy(() => PackInstallInfoTags$outboundSchema).optional(),
   version: z.string().optional(),
-  warnings: z.array(z.string()),
+  warnings: z.array(z.string()).optional(),
 });
 
 /**
