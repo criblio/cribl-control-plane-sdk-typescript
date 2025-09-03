@@ -6,6 +6,7 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetVersionDiffRequest = {
   /**
@@ -27,14 +28,14 @@ export type GetVersionDiffRequest = {
 };
 
 /**
- * a list of any objects
+ * a list of GitDiffResult objects
  */
 export type GetVersionDiffResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.GitDiffResult> | undefined;
 };
 
 /** @internal */
@@ -107,13 +108,13 @@ export const GetVersionDiffResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.GitDiffResult$inboundSchema).optional(),
 });
 
 /** @internal */
 export type GetVersionDiffResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.GitDiffResult$Outbound> | undefined;
 };
 
 /** @internal */
@@ -123,7 +124,7 @@ export const GetVersionDiffResponse$outboundSchema: z.ZodType<
   GetVersionDiffResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.GitDiffResult$outboundSchema).optional(),
 });
 
 /**

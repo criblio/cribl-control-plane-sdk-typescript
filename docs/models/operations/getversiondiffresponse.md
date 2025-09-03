@@ -1,6 +1,6 @@
 # GetVersionDiffResponse
 
-a list of any objects
+a list of GitDiffResult objects
 
 ## Example Usage
 
@@ -11,13 +11,7 @@ let value: GetVersionDiffResponse = {
   count: 374605,
   items: [
     {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    {
-      "key": "<value>",
-      "key1": "<value>",
+      diffJson: [],
     },
   ],
 };
@@ -25,7 +19,7 @@ let value: GetVersionDiffResponse = {
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | Record<string, *any*>[]                    | :heavy_minus_sign:                         | N/A                                        |
+| Field                                                   | Type                                                    | Required                                                | Description                                             |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `count`                                                 | *number*                                                | :heavy_minus_sign:                                      | number of items present in the items array              |
+| `items`                                                 | [models.GitDiffResult](../../models/gitdiffresult.md)[] | :heavy_minus_sign:                                      | N/A                                                     |
