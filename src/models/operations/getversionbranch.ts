@@ -6,16 +6,17 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 /**
- * a list of any objects
+ * a list of BranchInfo objects
  */
 export type GetVersionBranchResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.BranchInfo> | undefined;
 };
 
 /** @internal */
@@ -25,13 +26,13 @@ export const GetVersionBranchResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.BranchInfo$inboundSchema).optional(),
 });
 
 /** @internal */
 export type GetVersionBranchResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.BranchInfo$Outbound> | undefined;
 };
 
 /** @internal */
@@ -41,7 +42,7 @@ export const GetVersionBranchResponse$outboundSchema: z.ZodType<
   GetVersionBranchResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.BranchInfo$outboundSchema).optional(),
 });
 
 /**
