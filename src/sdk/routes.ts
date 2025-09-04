@@ -12,10 +12,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Routes extends ClientSDK {
   /**
-   * Get a list of Routes objects
+   * List all Routes
    *
    * @remarks
-   * Get a list of Routes objects
+   * Get a list of all Routes.
    */
   async list(
     options?: RequestOptions,
@@ -27,10 +27,10 @@ export class Routes extends ClientSDK {
   }
 
   /**
-   * Get Routes by ID
+   * Get a Routing table
    *
    * @remarks
-   * Get Routes by ID
+   * Get the specified Routing table.
    */
   async get(
     request: operations.GetRoutesByIdRequest,
@@ -44,10 +44,10 @@ export class Routes extends ClientSDK {
   }
 
   /**
-   * Update Routes
+   * Update a Route
    *
    * @remarks
-   * Update Routes
+   * Update a Route in the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
    */
   async update(
     request: operations.UpdateRoutesByIdRequest,
@@ -61,10 +61,10 @@ export class Routes extends ClientSDK {
   }
 
   /**
-   * Append Routes to the end of the Routing table
+   * Append a Route to the end of the Routing table
    *
    * @remarks
-   * Appends routes to the end of the routing table
+   * Append a Route to the end of the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to append, in the request body. Cribl removes any omitted Routes and fields in the Routing table when appending the Route.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
    */
   async append(
     request: operations.CreateRoutesAppendByIdRequest,

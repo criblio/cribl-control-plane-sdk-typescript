@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Append Routes to the end of the Routing table
+ * Append a Route to the end of the Routing table
  *
  * @remarks
- * Appends routes to the end of the routing table
+ * Append a Route to the end of the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to append, in the request body. Cribl removes any omitted Routes and fields in the Routing table when appending the Route.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
  */
 export function routesAppend(
   client: CriblControlPlaneCore,

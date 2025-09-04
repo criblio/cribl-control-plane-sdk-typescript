@@ -17,7 +17,7 @@ export class Pipelines extends ClientSDK {
    * List all Pipelines
    *
    * @remarks
-   * List all Pipelines
+   * Get a list of all Pipelines.
    */
   async list(
     options?: RequestOptions,
@@ -32,7 +32,7 @@ export class Pipelines extends ClientSDK {
    * Create a Pipeline
    *
    * @remarks
-   * Create a Pipeline
+   * Create a new Pipeline.
    */
   async create(
     request: models.Pipeline,
@@ -46,10 +46,10 @@ export class Pipelines extends ClientSDK {
   }
 
   /**
-   * Retrieve a Pipeline
+   * Get a Pipeline
    *
    * @remarks
-   * Retrieve a Pipeline
+   * Get the specified Pipeline.
    */
   async get(
     request: operations.GetPipelineByIdRequest,
@@ -66,7 +66,7 @@ export class Pipelines extends ClientSDK {
    * Update a Pipeline
    *
    * @remarks
-   * Update a Pipeline
+   * Update the specified Pipeline.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
    */
   async update(
     request: operations.UpdatePipelineByIdRequest,
@@ -83,7 +83,7 @@ export class Pipelines extends ClientSDK {
    * Delete a Pipeline
    *
    * @remarks
-   * Delete a Pipeline
+   * Delete the specified Pipeline.
    */
   async delete(
     request: operations.DeletePipelineByIdRequest,

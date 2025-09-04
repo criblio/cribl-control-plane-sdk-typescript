@@ -310,16 +310,16 @@ run();
 
 * [list](docs/sdks/pipelines/README.md#list) - List all Pipelines
 * [create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
-* [get](docs/sdks/pipelines/README.md#get) - Retrieve a Pipeline
+* [get](docs/sdks/pipelines/README.md#get) - Get a Pipeline
 * [update](docs/sdks/pipelines/README.md#update) - Update a Pipeline
 * [delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 
 ### [routes](docs/sdks/routes/README.md)
 
-* [list](docs/sdks/routes/README.md#list) - Get a list of Routes objects
-* [get](docs/sdks/routes/README.md#get) - Get Routes by ID
-* [update](docs/sdks/routes/README.md#update) - Update Routes
-* [append](docs/sdks/routes/README.md#append) - Append Routes to the end of the Routing table
+* [list](docs/sdks/routes/README.md#list) - List all Routes
+* [get](docs/sdks/routes/README.md#get) - Get a Routing table
+* [update](docs/sdks/routes/README.md#update) - Update a Route
+* [append](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
 
 ### [sources](docs/sdks/sources/README.md)
 
@@ -418,13 +418,13 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
 - [`pipelinesCreate`](docs/sdks/pipelines/README.md#create) - Create a Pipeline
 - [`pipelinesDelete`](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
-- [`pipelinesGet`](docs/sdks/pipelines/README.md#get) - Retrieve a Pipeline
+- [`pipelinesGet`](docs/sdks/pipelines/README.md#get) - Get a Pipeline
 - [`pipelinesList`](docs/sdks/pipelines/README.md#list) - List all Pipelines
 - [`pipelinesUpdate`](docs/sdks/pipelines/README.md#update) - Update a Pipeline
-- [`routesAppend`](docs/sdks/routes/README.md#append) - Append Routes to the end of the Routing table
-- [`routesGet`](docs/sdks/routes/README.md#get) - Get Routes by ID
-- [`routesList`](docs/sdks/routes/README.md#list) - Get a list of Routes objects
-- [`routesUpdate`](docs/sdks/routes/README.md#update) - Update Routes
+- [`routesAppend`](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
+- [`routesGet`](docs/sdks/routes/README.md#get) - Get a Routing table
+- [`routesList`](docs/sdks/routes/README.md#list) - List all Routes
+- [`routesUpdate`](docs/sdks/routes/README.md#update) - Update a Route
 - [`sourcesCreate`](docs/sdks/sources/README.md#create) - Create a Source
 - [`sourcesDelete`](docs/sdks/sources/README.md#delete) - Delete a Source
 - [`sourcesGet`](docs/sdks/sources/README.md#get) - Get a Source

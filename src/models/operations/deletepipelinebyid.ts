@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type DeletePipelineByIdRequest = {
   /**
-   * Unique ID to DELETE
+   * The <code>id</code> of the Pipeline to delete.
    */
   id: string;
 };

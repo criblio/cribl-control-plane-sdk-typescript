@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type UpdateRoutesByIdRequest = {
   /**
-   * Unique ID to PATCH
+   * The <code>id</code> of the Routing table that contains the Route to update. The supported value is <code>default</code>.
    */
   id: string;
   /**
