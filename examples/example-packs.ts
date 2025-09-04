@@ -132,4 +132,7 @@ async function main() {
   console.log(`ℹ️ This example does not commit / deploy the configuration to the worker group.`);
 }
 
-main();
+main().catch(error => {
+  console.error("❌ Something went wrong: ", error);
+});
+  
