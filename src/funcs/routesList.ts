@@ -24,10 +24,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a list of Routes objects
+ * List all Routes
  *
  * @remarks
- * Get a list of Routes objects
+ * Get a list of all Routes.
  */
 export function routesList(
   client: CriblControlPlaneCore,

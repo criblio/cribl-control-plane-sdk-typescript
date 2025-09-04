@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * List all Pipelines
  *
  * @remarks
- * List all Pipelines
+ * Get a list of all Pipelines.
  */
 export function pipelinesList(
   client: CriblControlPlaneCore,

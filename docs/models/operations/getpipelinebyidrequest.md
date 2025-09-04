@@ -12,6 +12,6 @@ let value: GetPipelineByIdRequest = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *string*           | :heavy_check_mark: | Unique ID to GET   |
+| Field                                       | Type                                        | Required                                    | Description                                 |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| `id`                                        | *string*                                    | :heavy_check_mark:                          | The <code>id</code> of the Pipeline to get. |

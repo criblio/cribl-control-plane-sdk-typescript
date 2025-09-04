@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type GetRoutesByIdRequest = {
   /**
-   * Unique ID to GET
+   * The <code>id</code> of the Routing table to get. The supported value is <code>default</code>.
    */
   id: string;
 };

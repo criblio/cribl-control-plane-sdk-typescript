@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Retrieve a Pipeline
+ * Get a Pipeline
  *
  * @remarks
- * Retrieve a Pipeline
+ * Get the specified Pipeline.
  */
 export function pipelinesGet(
   client: CriblControlPlaneCore,

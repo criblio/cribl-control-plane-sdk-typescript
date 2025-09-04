@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Routes by ID
+ * Get a Routing table
  *
  * @remarks
- * Get Routes by ID
+ * Get the specified Routing table.
  */
 export function routesGet(
   client: CriblControlPlaneCore,

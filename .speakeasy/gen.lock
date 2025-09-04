@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 707c47f89012f1a8231e12609d62d236
-  docVersion: 4.14.0-alpha.1756909436543-ef8097da
+  docChecksum: f680cfcda3c33a1accdc761c4bc0134c
+  docVersion: 4.14.0-alpha.1757000684650-0bcbd7ed
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.48
-  configChecksum: 881356147bfe82da7a8452aa70f3a875
+  releaseVersion: 0.0.49
+  configChecksum: c2b0e912958e9b0a66313a78d0b6d728
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3258,7 +3258,3 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: |
-  ## SDK Changes Detected:
-  * `criblcontrolplane.packs.install()`:  `response.items.[].warnings` **Changed**
-  * `criblcontrolplane.packs.delete()`:  `response.items.[].warnings` **Changed**

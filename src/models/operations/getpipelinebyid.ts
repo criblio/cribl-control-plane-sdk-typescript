@@ -10,7 +10,7 @@ import * as models from "../index.js";
 
 export type GetPipelineByIdRequest = {
   /**
-   * Unique ID to GET
+   * The <code>id</code> of the Pipeline to get.
    */
   id: string;
 };
