@@ -30,6 +30,11 @@ Running Cribl Edge example
 npm run build && npx tsx example-edge.ts
 ```
 
+Running Cribl Packs example
+```bash
+npm run build && npx tsx example-packs.ts
+```
+
 ## Creating new examples
 
 Duplicate an existing example file, they won't be overwritten by the generation process.
