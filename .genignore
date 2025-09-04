@@ -1,0 +1,2 @@
+/examples/.env.template
+/examples/lakeDatasetsCreate.example.ts
