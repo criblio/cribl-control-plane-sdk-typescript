@@ -1,2 +1,3 @@
 /examples/.env.template
 /examples/lakeDatasetsCreate.example.ts
+/examples/README.md

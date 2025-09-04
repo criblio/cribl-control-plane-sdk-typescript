@@ -15,18 +15,18 @@
 
 import { CriblControlPlane } from "../dist/esm";
 
-const ONPREM_SERVER_URL = "http://localhost:9000";
-const ONPREM_USERNAME="admin"
-const ONPREM_PASSWORD="admin"
+const ONPREM_SERVER_URL: string = "http://localhost:9000";
+const ONPREM_USERNAME: string = "admin"
+const ONPREM_PASSWORD: string = "admin"
 
-const BASE_URL = `${ONPREM_SERVER_URL}/api/v1`;
+const BASE_URL: string = `${ONPREM_SERVER_URL}/api/v1`;
 
 async function main() {
   // Retrieve authentication token
   let client = new CriblControlPlane({ serverURL: BASE_URL });
   const { token } = await client.auth.tokens.get({
-    username: ONPREM_USERNAME as string,
-    password: ONPREM_PASSWORD as string,
+    username: ONPREM_USERNAME,
+    password: ONPREM_PASSWORD,
   });
   console.log(`✅ Authenticated with on-premises server, token: ${token}`);
 
