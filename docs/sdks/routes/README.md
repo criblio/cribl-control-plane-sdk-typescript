@@ -7,14 +7,14 @@ Actions related to Routes
 
 ### Available Operations
 
-* [list](#list) - Get a list of Routes objects
-* [get](#get) - Get Routes by ID
-* [update](#update) - Update Routes
-* [append](#append) - Append Routes to the end of the Routing table
+* [list](#list) - List all Routes
+* [get](#get) - Get a Routing table
+* [update](#update) - Update a Route
+* [append](#append) - Append a Route to the end of the Routing table
 
 ## list
 
-Get a list of Routes objects
+Get a list of all Routes.
 
 ### Example Usage
 
@@ -89,7 +89,7 @@ run();
 
 ## get
 
-Get Routes by ID
+Get the specified Routing table.
 
 ### Example Usage
 
@@ -169,7 +169,7 @@ run();
 
 ## update
 
-Update Routes
+Update a Route in the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
 
 ### Example Usage
 
@@ -281,7 +281,7 @@ run();
 
 ## append
 
-Appends routes to the end of the routing table
+Append a Route to the end of the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to append, in the request body. Cribl removes any omitted Routes and fields in the Routing table when appending the Route.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
 
 ### Example Usage
 

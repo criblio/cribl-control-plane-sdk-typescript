@@ -11,17 +11,17 @@ import * as models from "../index.js";
 
 export type UpdatePipelineByIdRequest = {
   /**
-   * Unique ID to PATCH
+   * The <code>id</code> of the Pipeline to update.
    */
   id: string;
   /**
-   * Pipeline object to be updated
+   * Pipeline object
    */
   pipeline: models.Pipeline;
 };
 
 /**
- * a list of any objects
+ * a list of Pipeline objects
  */
 export type UpdatePipelineByIdResponse = {
   /**

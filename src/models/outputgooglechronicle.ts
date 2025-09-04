@@ -276,7 +276,7 @@ export type OutputGoogleChronicle = {
    */
   logTextField?: string | undefined;
   /**
-   * Unique identifier (UUID) corresponding to a particular SecOps instance. Provided by your SecOps representative.
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
    */
   customerId?: string | undefined;
   /**

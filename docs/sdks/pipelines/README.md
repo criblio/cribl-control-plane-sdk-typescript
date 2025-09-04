@@ -9,13 +9,13 @@ Actions related to Pipelines
 
 * [list](#list) - List all Pipelines
 * [create](#create) - Create a Pipeline
-* [get](#get) - Retrieve a Pipeline
+* [get](#get) - Get a Pipeline
 * [update](#update) - Update a Pipeline
 * [delete](#delete) - Delete a Pipeline
 
 ## list
 
-List all Pipelines
+Get a list of all Pipelines.
 
 ### Example Usage
 
@@ -90,7 +90,7 @@ run();
 
 ## create
 
-Create a Pipeline
+Create a new Pipeline.
 
 ### Example Usage
 
@@ -218,7 +218,7 @@ run();
 
 ## get
 
-Retrieve a Pipeline
+Get the specified Pipeline.
 
 ### Example Usage
 
@@ -298,7 +298,7 @@ run();
 
 ## update
 
-Update a Pipeline
+Update the specified Pipeline.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
 
 ### Example Usage
 
@@ -432,7 +432,7 @@ run();
 
 ## delete
 
-Delete a Pipeline
+Delete the specified Pipeline.
 
 ### Example Usage
 

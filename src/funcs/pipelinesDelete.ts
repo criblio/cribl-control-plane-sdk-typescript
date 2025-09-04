@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Delete a Pipeline
  *
  * @remarks
- * Delete a Pipeline
+ * Delete the specified Pipeline.
  */
 export function pipelinesDelete(
   client: CriblControlPlaneCore,

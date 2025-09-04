@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Create a Pipeline
  *
  * @remarks
- * Create a Pipeline
+ * Create a new Pipeline.
  */
 export function pipelinesCreate(
   client: CriblControlPlaneCore,
