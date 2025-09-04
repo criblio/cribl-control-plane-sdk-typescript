@@ -2,7 +2,6 @@
 .env
 .env.local
 .env.*.local
-!examples/.env.template
 /models
 /models/errors
 /types
