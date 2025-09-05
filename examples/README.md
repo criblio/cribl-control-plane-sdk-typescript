@@ -21,7 +21,7 @@ This directory contains example scripts demonstrating how to use the cribl-contr
 To run an example file from the examples directory:
 
 ```bash
-npm run build && npx tsx example-auth-onprem.ts
+npm run build && npx tsx example-onprem-auth.ts
 ```
 
 
