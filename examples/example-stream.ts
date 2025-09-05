@@ -10,7 +10,8 @@
  * 3. A filesystem destination to output processed data
  * 4. A pipeline that filters events to keep only the "name" field
  * 5. A route that connects the source to the pipeline and destination
- *
+ * 6. Deploys the configuration to the worker group to make it active
+ * 
  * Data flow: TCP JSON Source → Route → Pipeline → File Destination
  *
  * The example includes proper error handling, checks for existing resources,
