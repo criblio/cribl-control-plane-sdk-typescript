@@ -44,6 +44,8 @@ export type InputSecurityLakeCompression = ClosedEnum<
   typeof InputSecurityLakeCompression
 >;
 
+export type InputSecurityLakePqControls = {};
+
 export type InputSecurityLakePq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputSecurityLakePq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputSecurityLakeCompression | undefined;
+  pqControls?: InputSecurityLakePqControls | undefined;
 };
 
 /**
@@ -426,6 +429,56 @@ export namespace InputSecurityLakeCompression$ {
 }
 
 /** @internal */
+export const InputSecurityLakePqControls$inboundSchema: z.ZodType<
+  InputSecurityLakePqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputSecurityLakePqControls$Outbound = {};
+
+/** @internal */
+export const InputSecurityLakePqControls$outboundSchema: z.ZodType<
+  InputSecurityLakePqControls$Outbound,
+  z.ZodTypeDef,
+  InputSecurityLakePqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputSecurityLakePqControls$ {
+  /** @deprecated use `InputSecurityLakePqControls$inboundSchema` instead. */
+  export const inboundSchema = InputSecurityLakePqControls$inboundSchema;
+  /** @deprecated use `InputSecurityLakePqControls$outboundSchema` instead. */
+  export const outboundSchema = InputSecurityLakePqControls$outboundSchema;
+  /** @deprecated use `InputSecurityLakePqControls$Outbound` instead. */
+  export type Outbound = InputSecurityLakePqControls$Outbound;
+}
+
+export function inputSecurityLakePqControlsToJSON(
+  inputSecurityLakePqControls: InputSecurityLakePqControls,
+): string {
+  return JSON.stringify(
+    InputSecurityLakePqControls$outboundSchema.parse(
+      inputSecurityLakePqControls,
+    ),
+  );
+}
+
+export function inputSecurityLakePqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSecurityLakePqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSecurityLakePqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSecurityLakePqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSecurityLakePq$inboundSchema: z.ZodType<
   InputSecurityLakePq,
   z.ZodTypeDef,
@@ -438,6 +491,8 @@ export const InputSecurityLakePq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSecurityLakeCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSecurityLakePqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -449,6 +504,7 @@ export type InputSecurityLakePq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputSecurityLakePqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -464,6 +520,8 @@ export const InputSecurityLakePq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSecurityLakeCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSecurityLakePqControls$outboundSchema)
+    .optional(),
 });
 
 /**

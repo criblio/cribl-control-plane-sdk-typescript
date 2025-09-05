@@ -19,7 +19,9 @@ let value: InputTcpjson = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 6709.35,
   tls: {
     certificateName: "<value>",

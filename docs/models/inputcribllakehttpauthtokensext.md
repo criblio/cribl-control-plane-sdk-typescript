@@ -14,6 +14,12 @@ let value: InputCriblLakeHttpAuthTokensExt = {
       value: "<value>",
     },
   ],
+  splunkHecMetadata: {
+    enabled: true,
+  },
+  elasticsearchMetadata: {
+    enabled: true,
+  },
 };
 ```
 
@@ -24,4 +30,5 @@ let value: InputCriblLakeHttpAuthTokensExt = {
 | `token`                                                                                                    | *string*                                                                                                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
 | `description`                                                                                              | *string*                                                                                                   | :heavy_minus_sign:                                                                                         | N/A                                                                                                        |
 | `metadata`                                                                                                 | [models.InputCriblLakeHttpAuthTokensExtMetadatum](../models/inputcribllakehttpauthtokensextmetadatum.md)[] | :heavy_minus_sign:                                                                                         | Fields to add to events referencing this token                                                             |
-| `enableSplunkHec`                                                                                          | *boolean*                                                                                                  | :heavy_minus_sign:                                                                                         | N/A                                                                                                        |
+| `splunkHecMetadata`                                                                                        | [models.SplunkHecMetadata](../models/splunkhecmetadata.md)                                                 | :heavy_minus_sign:                                                                                         | N/A                                                                                                        |
+| `elasticsearchMetadata`                                                                                    | [models.ElasticsearchMetadata](../models/elasticsearchmetadata.md)                                         | :heavy_minus_sign:                                                                                         | N/A                                                                                                        |

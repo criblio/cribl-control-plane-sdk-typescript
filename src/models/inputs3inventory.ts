@@ -44,6 +44,8 @@ export type InputS3InventoryCompression = ClosedEnum<
   typeof InputS3InventoryCompression
 >;
 
+export type InputS3InventoryPqControls = {};
+
 export type InputS3InventoryPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputS3InventoryPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputS3InventoryCompression | undefined;
+  pqControls?: InputS3InventoryPqControls | undefined;
 };
 
 /**
@@ -432,6 +435,54 @@ export namespace InputS3InventoryCompression$ {
 }
 
 /** @internal */
+export const InputS3InventoryPqControls$inboundSchema: z.ZodType<
+  InputS3InventoryPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputS3InventoryPqControls$Outbound = {};
+
+/** @internal */
+export const InputS3InventoryPqControls$outboundSchema: z.ZodType<
+  InputS3InventoryPqControls$Outbound,
+  z.ZodTypeDef,
+  InputS3InventoryPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputS3InventoryPqControls$ {
+  /** @deprecated use `InputS3InventoryPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputS3InventoryPqControls$inboundSchema;
+  /** @deprecated use `InputS3InventoryPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputS3InventoryPqControls$outboundSchema;
+  /** @deprecated use `InputS3InventoryPqControls$Outbound` instead. */
+  export type Outbound = InputS3InventoryPqControls$Outbound;
+}
+
+export function inputS3InventoryPqControlsToJSON(
+  inputS3InventoryPqControls: InputS3InventoryPqControls,
+): string {
+  return JSON.stringify(
+    InputS3InventoryPqControls$outboundSchema.parse(inputS3InventoryPqControls),
+  );
+}
+
+export function inputS3InventoryPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputS3InventoryPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputS3InventoryPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputS3InventoryPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputS3InventoryPq$inboundSchema: z.ZodType<
   InputS3InventoryPq,
   z.ZodTypeDef,
@@ -444,6 +495,7 @@ export const InputS3InventoryPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputS3InventoryCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputS3InventoryPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -455,6 +507,7 @@ export type InputS3InventoryPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputS3InventoryPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -470,6 +523,8 @@ export const InputS3InventoryPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputS3InventoryCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputS3InventoryPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

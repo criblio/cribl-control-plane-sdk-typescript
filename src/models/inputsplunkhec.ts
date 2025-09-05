@@ -44,6 +44,8 @@ export type InputSplunkHecCompression = ClosedEnum<
   typeof InputSplunkHecCompression
 >;
 
+export type InputSplunkHecPqControls = {};
+
 export type InputSplunkHecPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputSplunkHecPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputSplunkHecCompression | undefined;
+  pqControls?: InputSplunkHecPqControls | undefined;
 };
 
 /**
@@ -437,6 +440,54 @@ export namespace InputSplunkHecCompression$ {
 }
 
 /** @internal */
+export const InputSplunkHecPqControls$inboundSchema: z.ZodType<
+  InputSplunkHecPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputSplunkHecPqControls$Outbound = {};
+
+/** @internal */
+export const InputSplunkHecPqControls$outboundSchema: z.ZodType<
+  InputSplunkHecPqControls$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHecPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputSplunkHecPqControls$ {
+  /** @deprecated use `InputSplunkHecPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputSplunkHecPqControls$inboundSchema;
+  /** @deprecated use `InputSplunkHecPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputSplunkHecPqControls$outboundSchema;
+  /** @deprecated use `InputSplunkHecPqControls$Outbound` instead. */
+  export type Outbound = InputSplunkHecPqControls$Outbound;
+}
+
+export function inputSplunkHecPqControlsToJSON(
+  inputSplunkHecPqControls: InputSplunkHecPqControls,
+): string {
+  return JSON.stringify(
+    InputSplunkHecPqControls$outboundSchema.parse(inputSplunkHecPqControls),
+  );
+}
+
+export function inputSplunkHecPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkHecPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkHecPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkHecPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSplunkHecPq$inboundSchema: z.ZodType<
   InputSplunkHecPq,
   z.ZodTypeDef,
@@ -449,6 +500,7 @@ export const InputSplunkHecPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSplunkHecCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSplunkHecPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -460,6 +512,7 @@ export type InputSplunkHecPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputSplunkHecPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -475,6 +528,7 @@ export const InputSplunkHecPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSplunkHecCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSplunkHecPqControls$outboundSchema).optional(),
 });
 
 /**

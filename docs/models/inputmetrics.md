@@ -21,7 +21,9 @@ let value: InputMetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   udpPort: 1525.54,
   tcpPort: 6373.18,
   tls: {

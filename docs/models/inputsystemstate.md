@@ -19,7 +19,9 @@ let value: InputSystemState = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",

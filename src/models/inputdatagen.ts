@@ -44,6 +44,8 @@ export type InputDatagenCompression = ClosedEnum<
   typeof InputDatagenCompression
 >;
 
+export type InputDatagenPqControls = {};
+
 export type InputDatagenPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputDatagenPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputDatagenCompression | undefined;
+  pqControls?: InputDatagenPqControls | undefined;
 };
 
 export type Sample = {
@@ -252,6 +255,54 @@ export namespace InputDatagenCompression$ {
 }
 
 /** @internal */
+export const InputDatagenPqControls$inboundSchema: z.ZodType<
+  InputDatagenPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputDatagenPqControls$Outbound = {};
+
+/** @internal */
+export const InputDatagenPqControls$outboundSchema: z.ZodType<
+  InputDatagenPqControls$Outbound,
+  z.ZodTypeDef,
+  InputDatagenPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputDatagenPqControls$ {
+  /** @deprecated use `InputDatagenPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputDatagenPqControls$inboundSchema;
+  /** @deprecated use `InputDatagenPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputDatagenPqControls$outboundSchema;
+  /** @deprecated use `InputDatagenPqControls$Outbound` instead. */
+  export type Outbound = InputDatagenPqControls$Outbound;
+}
+
+export function inputDatagenPqControlsToJSON(
+  inputDatagenPqControls: InputDatagenPqControls,
+): string {
+  return JSON.stringify(
+    InputDatagenPqControls$outboundSchema.parse(inputDatagenPqControls),
+  );
+}
+
+export function inputDatagenPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatagenPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatagenPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatagenPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputDatagenPq$inboundSchema: z.ZodType<
   InputDatagenPq,
   z.ZodTypeDef,
@@ -264,6 +315,7 @@ export const InputDatagenPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputDatagenCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputDatagenPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -275,6 +327,7 @@ export type InputDatagenPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputDatagenPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -290,6 +343,7 @@ export const InputDatagenPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputDatagenCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputDatagenPqControls$outboundSchema).optional(),
 });
 
 /**

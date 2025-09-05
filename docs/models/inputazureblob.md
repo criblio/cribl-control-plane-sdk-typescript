@@ -20,7 +20,9 @@ let value: InputAzureBlob = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   metadata: [
     {

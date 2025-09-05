@@ -133,6 +133,7 @@ async function run() {
       maxSize: "5GB",
       path: "$CRIBL_HOME/state/queues",
       compress: "none",
+      pqControls: {},
     },
     host: "0.0.0.0",
     port: 301.76,
@@ -230,6 +231,7 @@ async function run() {
       maxSize: "5GB",
       path: "$CRIBL_HOME/state/queues",
       compress: "none",
+      pqControls: {},
     },
     host: "0.0.0.0",
     port: 301.76,
@@ -432,6 +434,7 @@ async function run() {
         maxSize: "5GB",
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
+        pqControls: {},
       },
       rules: [
         {
@@ -501,6 +504,7 @@ async function run() {
         maxSize: "5GB",
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
+        pqControls: {},
       },
       rules: [
         {

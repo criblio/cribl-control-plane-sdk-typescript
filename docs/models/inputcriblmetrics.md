@@ -21,7 +21,9 @@ let value: InputCriblmetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",

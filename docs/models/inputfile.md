@@ -19,7 +19,9 @@ let value: InputFile = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   filenames: [
     "<value 1>",
   ],

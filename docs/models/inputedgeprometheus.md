@@ -20,7 +20,9 @@ let value: InputEdgePrometheus = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   dimensionList: [
     "<value 1>",
   ],

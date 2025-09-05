@@ -19,7 +19,9 @@ let value: InputEventhub = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   brokers: [
     "<value 1>",
   ],

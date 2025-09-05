@@ -44,6 +44,8 @@ export type InputEventhubCompression = ClosedEnum<
   typeof InputEventhubCompression
 >;
 
+export type InputEventhubPqControls = {};
+
 export type InputEventhubPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputEventhubPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputEventhubCompression | undefined;
+  pqControls?: InputEventhubPqControls | undefined;
 };
 
 export const InputEventhubSASLMechanism = {
@@ -369,6 +372,54 @@ export namespace InputEventhubCompression$ {
 }
 
 /** @internal */
+export const InputEventhubPqControls$inboundSchema: z.ZodType<
+  InputEventhubPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputEventhubPqControls$Outbound = {};
+
+/** @internal */
+export const InputEventhubPqControls$outboundSchema: z.ZodType<
+  InputEventhubPqControls$Outbound,
+  z.ZodTypeDef,
+  InputEventhubPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputEventhubPqControls$ {
+  /** @deprecated use `InputEventhubPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputEventhubPqControls$inboundSchema;
+  /** @deprecated use `InputEventhubPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputEventhubPqControls$outboundSchema;
+  /** @deprecated use `InputEventhubPqControls$Outbound` instead. */
+  export type Outbound = InputEventhubPqControls$Outbound;
+}
+
+export function inputEventhubPqControlsToJSON(
+  inputEventhubPqControls: InputEventhubPqControls,
+): string {
+  return JSON.stringify(
+    InputEventhubPqControls$outboundSchema.parse(inputEventhubPqControls),
+  );
+}
+
+export function inputEventhubPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputEventhubPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputEventhubPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputEventhubPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputEventhubPq$inboundSchema: z.ZodType<
   InputEventhubPq,
   z.ZodTypeDef,
@@ -381,6 +432,7 @@ export const InputEventhubPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputEventhubCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputEventhubPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -392,6 +444,7 @@ export type InputEventhubPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputEventhubPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -407,6 +460,7 @@ export const InputEventhubPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputEventhubCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputEventhubPqControls$outboundSchema).optional(),
 });
 
 /**

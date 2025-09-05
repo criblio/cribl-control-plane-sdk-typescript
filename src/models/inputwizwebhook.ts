@@ -44,6 +44,8 @@ export type InputWizWebhookCompression = ClosedEnum<
   typeof InputWizWebhookCompression
 >;
 
+export type InputWizWebhookPqControls = {};
+
 export type InputWizWebhookPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputWizWebhookPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputWizWebhookCompression | undefined;
+  pqControls?: InputWizWebhookPqControls | undefined;
 };
 
 export const InputWizWebhookMinimumTLSVersion = {
@@ -392,6 +395,54 @@ export namespace InputWizWebhookCompression$ {
 }
 
 /** @internal */
+export const InputWizWebhookPqControls$inboundSchema: z.ZodType<
+  InputWizWebhookPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputWizWebhookPqControls$Outbound = {};
+
+/** @internal */
+export const InputWizWebhookPqControls$outboundSchema: z.ZodType<
+  InputWizWebhookPqControls$Outbound,
+  z.ZodTypeDef,
+  InputWizWebhookPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputWizWebhookPqControls$ {
+  /** @deprecated use `InputWizWebhookPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputWizWebhookPqControls$inboundSchema;
+  /** @deprecated use `InputWizWebhookPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputWizWebhookPqControls$outboundSchema;
+  /** @deprecated use `InputWizWebhookPqControls$Outbound` instead. */
+  export type Outbound = InputWizWebhookPqControls$Outbound;
+}
+
+export function inputWizWebhookPqControlsToJSON(
+  inputWizWebhookPqControls: InputWizWebhookPqControls,
+): string {
+  return JSON.stringify(
+    InputWizWebhookPqControls$outboundSchema.parse(inputWizWebhookPqControls),
+  );
+}
+
+export function inputWizWebhookPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizWebhookPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWizWebhookPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizWebhookPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputWizWebhookPq$inboundSchema: z.ZodType<
   InputWizWebhookPq,
   z.ZodTypeDef,
@@ -404,6 +455,7 @@ export const InputWizWebhookPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWizWebhookCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWizWebhookPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -415,6 +467,7 @@ export type InputWizWebhookPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputWizWebhookPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -430,6 +483,7 @@ export const InputWizWebhookPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWizWebhookCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWizWebhookPqControls$outboundSchema).optional(),
 });
 
 /**

@@ -44,6 +44,8 @@ export type InputSplunkPqCompression = ClosedEnum<
   typeof InputSplunkPqCompression
 >;
 
+export type InputSplunkPqControls = {};
+
 export type InputSplunkPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputSplunkPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputSplunkPqCompression | undefined;
+  pqControls?: InputSplunkPqControls | undefined;
 };
 
 export const InputSplunkMinimumTLSVersion = {
@@ -395,6 +398,54 @@ export namespace InputSplunkPqCompression$ {
 }
 
 /** @internal */
+export const InputSplunkPqControls$inboundSchema: z.ZodType<
+  InputSplunkPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputSplunkPqControls$Outbound = {};
+
+/** @internal */
+export const InputSplunkPqControls$outboundSchema: z.ZodType<
+  InputSplunkPqControls$Outbound,
+  z.ZodTypeDef,
+  InputSplunkPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputSplunkPqControls$ {
+  /** @deprecated use `InputSplunkPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputSplunkPqControls$inboundSchema;
+  /** @deprecated use `InputSplunkPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputSplunkPqControls$outboundSchema;
+  /** @deprecated use `InputSplunkPqControls$Outbound` instead. */
+  export type Outbound = InputSplunkPqControls$Outbound;
+}
+
+export function inputSplunkPqControlsToJSON(
+  inputSplunkPqControls: InputSplunkPqControls,
+): string {
+  return JSON.stringify(
+    InputSplunkPqControls$outboundSchema.parse(inputSplunkPqControls),
+  );
+}
+
+export function inputSplunkPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSplunkPq$inboundSchema: z.ZodType<
   InputSplunkPq,
   z.ZodTypeDef,
@@ -407,6 +458,7 @@ export const InputSplunkPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSplunkPqCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSplunkPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -418,6 +470,7 @@ export type InputSplunkPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputSplunkPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -433,6 +486,7 @@ export const InputSplunkPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSplunkPqCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSplunkPqControls$outboundSchema).optional(),
 });
 
 /**

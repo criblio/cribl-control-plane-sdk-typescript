@@ -42,6 +42,8 @@ export const InputMskCompression = {
  */
 export type InputMskCompression = ClosedEnum<typeof InputMskCompression>;
 
+export type InputMskPqControls = {};
+
 export type InputMskPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputMskPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputMskCompression | undefined;
+  pqControls?: InputMskPqControls | undefined;
 };
 
 export type InputMskMetadatum = {
@@ -574,6 +577,54 @@ export namespace InputMskCompression$ {
 }
 
 /** @internal */
+export const InputMskPqControls$inboundSchema: z.ZodType<
+  InputMskPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputMskPqControls$Outbound = {};
+
+/** @internal */
+export const InputMskPqControls$outboundSchema: z.ZodType<
+  InputMskPqControls$Outbound,
+  z.ZodTypeDef,
+  InputMskPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputMskPqControls$ {
+  /** @deprecated use `InputMskPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputMskPqControls$inboundSchema;
+  /** @deprecated use `InputMskPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputMskPqControls$outboundSchema;
+  /** @deprecated use `InputMskPqControls$Outbound` instead. */
+  export type Outbound = InputMskPqControls$Outbound;
+}
+
+export function inputMskPqControlsToJSON(
+  inputMskPqControls: InputMskPqControls,
+): string {
+  return JSON.stringify(
+    InputMskPqControls$outboundSchema.parse(inputMskPqControls),
+  );
+}
+
+export function inputMskPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputMskPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputMskPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMskPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputMskPq$inboundSchema: z.ZodType<
   InputMskPq,
   z.ZodTypeDef,
@@ -586,6 +637,7 @@ export const InputMskPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputMskCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputMskPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -597,6 +649,7 @@ export type InputMskPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputMskPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -612,6 +665,7 @@ export const InputMskPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputMskCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputMskPqControls$outboundSchema).optional(),
 });
 
 /**

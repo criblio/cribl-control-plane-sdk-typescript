@@ -44,6 +44,8 @@ export type InputGrafanaCompression2 = ClosedEnum<
   typeof InputGrafanaCompression2
 >;
 
+export type InputGrafanaPqControls2 = {};
+
 export type InputGrafanaPq2 = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputGrafanaPq2 = {
    * Codec to use to compress the persisted data
    */
   compress?: InputGrafanaCompression2 | undefined;
+  pqControls?: InputGrafanaPqControls2 | undefined;
 };
 
 export const InputGrafanaMinimumTLSVersion2 = {
@@ -414,10 +417,6 @@ export type InputGrafanaGrafana2 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  /**
-   * Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
-   */
-  extractStructuredMetadata?: boolean | undefined;
   prometheusAuth?: InputGrafanaPrometheusAuth2 | undefined;
   lokiAuth?: InputGrafanaLokiAuth2 | undefined;
   /**
@@ -463,6 +462,8 @@ export type InputGrafanaCompression1 = ClosedEnum<
   typeof InputGrafanaCompression1
 >;
 
+export type InputGrafanaPqControls1 = {};
+
 export type InputGrafanaPq1 = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -492,6 +493,7 @@ export type InputGrafanaPq1 = {
    * Codec to use to compress the persisted data
    */
   compress?: InputGrafanaCompression1 | undefined;
+  pqControls?: InputGrafanaPqControls1 | undefined;
 };
 
 export const InputGrafanaMinimumTLSVersion1 = {
@@ -833,10 +835,6 @@ export type InputGrafanaGrafana1 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  /**
-   * Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
-   */
-  extractStructuredMetadata?: boolean | undefined;
   prometheusAuth?: InputGrafanaPrometheusAuth1 | undefined;
   lokiAuth?: InputGrafanaLokiAuth1 | undefined;
   /**
@@ -969,6 +967,54 @@ export namespace InputGrafanaCompression2$ {
 }
 
 /** @internal */
+export const InputGrafanaPqControls2$inboundSchema: z.ZodType<
+  InputGrafanaPqControls2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputGrafanaPqControls2$Outbound = {};
+
+/** @internal */
+export const InputGrafanaPqControls2$outboundSchema: z.ZodType<
+  InputGrafanaPqControls2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPqControls2
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputGrafanaPqControls2$ {
+  /** @deprecated use `InputGrafanaPqControls2$inboundSchema` instead. */
+  export const inboundSchema = InputGrafanaPqControls2$inboundSchema;
+  /** @deprecated use `InputGrafanaPqControls2$outboundSchema` instead. */
+  export const outboundSchema = InputGrafanaPqControls2$outboundSchema;
+  /** @deprecated use `InputGrafanaPqControls2$Outbound` instead. */
+  export type Outbound = InputGrafanaPqControls2$Outbound;
+}
+
+export function inputGrafanaPqControls2ToJSON(
+  inputGrafanaPqControls2: InputGrafanaPqControls2,
+): string {
+  return JSON.stringify(
+    InputGrafanaPqControls2$outboundSchema.parse(inputGrafanaPqControls2),
+  );
+}
+
+export function inputGrafanaPqControls2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaPqControls2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaPqControls2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPqControls2' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputGrafanaPq2$inboundSchema: z.ZodType<
   InputGrafanaPq2,
   z.ZodTypeDef,
@@ -981,6 +1027,7 @@ export const InputGrafanaPq2$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputGrafanaCompression2$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls2$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -992,6 +1039,7 @@ export type InputGrafanaPq2$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputGrafanaPqControls2$Outbound | undefined;
 };
 
 /** @internal */
@@ -1007,6 +1055,7 @@ export const InputGrafanaPq2$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputGrafanaCompression2$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls2$outboundSchema).optional(),
 });
 
 /**
@@ -1736,7 +1785,6 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  extractStructuredMetadata: z.boolean().default(false),
   prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth2$inboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => InputGrafanaLokiAuth2$inboundSchema).optional(),
@@ -1773,7 +1821,6 @@ export type InputGrafanaGrafana2$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
-  extractStructuredMetadata: boolean;
   prometheusAuth?: InputGrafanaPrometheusAuth2$Outbound | undefined;
   lokiAuth?: InputGrafanaLokiAuth2$Outbound | undefined;
   metadata?: Array<InputGrafanaMetadatum2$Outbound> | undefined;
@@ -1814,7 +1861,6 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  extractStructuredMetadata: z.boolean().default(false),
   prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth2$outboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => InputGrafanaLokiAuth2$outboundSchema).optional(),
@@ -1975,6 +2021,54 @@ export namespace InputGrafanaCompression1$ {
 }
 
 /** @internal */
+export const InputGrafanaPqControls1$inboundSchema: z.ZodType<
+  InputGrafanaPqControls1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputGrafanaPqControls1$Outbound = {};
+
+/** @internal */
+export const InputGrafanaPqControls1$outboundSchema: z.ZodType<
+  InputGrafanaPqControls1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPqControls1
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputGrafanaPqControls1$ {
+  /** @deprecated use `InputGrafanaPqControls1$inboundSchema` instead. */
+  export const inboundSchema = InputGrafanaPqControls1$inboundSchema;
+  /** @deprecated use `InputGrafanaPqControls1$outboundSchema` instead. */
+  export const outboundSchema = InputGrafanaPqControls1$outboundSchema;
+  /** @deprecated use `InputGrafanaPqControls1$Outbound` instead. */
+  export type Outbound = InputGrafanaPqControls1$Outbound;
+}
+
+export function inputGrafanaPqControls1ToJSON(
+  inputGrafanaPqControls1: InputGrafanaPqControls1,
+): string {
+  return JSON.stringify(
+    InputGrafanaPqControls1$outboundSchema.parse(inputGrafanaPqControls1),
+  );
+}
+
+export function inputGrafanaPqControls1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaPqControls1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaPqControls1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPqControls1' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputGrafanaPq1$inboundSchema: z.ZodType<
   InputGrafanaPq1,
   z.ZodTypeDef,
@@ -1987,6 +2081,7 @@ export const InputGrafanaPq1$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputGrafanaCompression1$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls1$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -1998,6 +2093,7 @@ export type InputGrafanaPq1$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputGrafanaPqControls1$Outbound | undefined;
 };
 
 /** @internal */
@@ -2013,6 +2109,7 @@ export const InputGrafanaPq1$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputGrafanaCompression1$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls1$outboundSchema).optional(),
 });
 
 /**
@@ -2742,7 +2839,6 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  extractStructuredMetadata: z.boolean().default(false),
   prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth1$inboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => InputGrafanaLokiAuth1$inboundSchema).optional(),
@@ -2779,7 +2875,6 @@ export type InputGrafanaGrafana1$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
-  extractStructuredMetadata: boolean;
   prometheusAuth?: InputGrafanaPrometheusAuth1$Outbound | undefined;
   lokiAuth?: InputGrafanaLokiAuth1$Outbound | undefined;
   metadata?: Array<InputGrafanaMetadatum1$Outbound> | undefined;
@@ -2820,7 +2915,6 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  extractStructuredMetadata: z.boolean().default(false),
   prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth1$outboundSchema)
     .optional(),
   lokiAuth: z.lazy(() => InputGrafanaLokiAuth1$outboundSchema).optional(),

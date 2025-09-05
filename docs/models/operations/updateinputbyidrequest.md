@@ -34,6 +34,7 @@ let value: UpdateInputByIdRequest = {
       maxSize: "5GB",
       path: "$CRIBL_HOME/state/queues",
       compress: "none",
+      pqControls: {},
     },
     endpoint: "https://api.<region>.app.wiz.io/graphql",
     authUrl: "https://lost-republican.net/",

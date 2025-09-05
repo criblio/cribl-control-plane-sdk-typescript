@@ -42,6 +42,8 @@ export const InputWefCompression = {
  */
 export type InputWefCompression = ClosedEnum<typeof InputWefCompression>;
 
+export type InputWefPqControls = {};
+
 export type InputWefPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputWefPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputWefCompression | undefined;
+  pqControls?: InputWefPqControls | undefined;
 };
 
 /**
@@ -466,6 +469,54 @@ export namespace InputWefCompression$ {
 }
 
 /** @internal */
+export const InputWefPqControls$inboundSchema: z.ZodType<
+  InputWefPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputWefPqControls$Outbound = {};
+
+/** @internal */
+export const InputWefPqControls$outboundSchema: z.ZodType<
+  InputWefPqControls$Outbound,
+  z.ZodTypeDef,
+  InputWefPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputWefPqControls$ {
+  /** @deprecated use `InputWefPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputWefPqControls$inboundSchema;
+  /** @deprecated use `InputWefPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputWefPqControls$outboundSchema;
+  /** @deprecated use `InputWefPqControls$Outbound` instead. */
+  export type Outbound = InputWefPqControls$Outbound;
+}
+
+export function inputWefPqControlsToJSON(
+  inputWefPqControls: InputWefPqControls,
+): string {
+  return JSON.stringify(
+    InputWefPqControls$outboundSchema.parse(inputWefPqControls),
+  );
+}
+
+export function inputWefPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputWefPq$inboundSchema: z.ZodType<
   InputWefPq,
   z.ZodTypeDef,
@@ -478,6 +529,7 @@ export const InputWefPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWefCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWefPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -489,6 +541,7 @@ export type InputWefPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputWefPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -504,6 +557,7 @@ export const InputWefPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWefCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWefPqControls$outboundSchema).optional(),
 });
 
 /**

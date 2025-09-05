@@ -20,7 +20,9 @@ let value: InputOffice365MsgTrace = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   startDate: "<value>",
   endDate: "<value>",
   metadata: [

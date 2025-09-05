@@ -48,6 +48,8 @@ export type InputOffice365MsgTraceCompression = ClosedEnum<
   typeof InputOffice365MsgTraceCompression
 >;
 
+export type InputOffice365MsgTracePqControls = {};
+
 export type InputOffice365MsgTracePq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -77,6 +79,7 @@ export type InputOffice365MsgTracePq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputOffice365MsgTraceCompression | undefined;
+  pqControls?: InputOffice365MsgTracePqControls | undefined;
 };
 
 /**
@@ -467,6 +470,56 @@ export namespace InputOffice365MsgTraceCompression$ {
 }
 
 /** @internal */
+export const InputOffice365MsgTracePqControls$inboundSchema: z.ZodType<
+  InputOffice365MsgTracePqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputOffice365MsgTracePqControls$Outbound = {};
+
+/** @internal */
+export const InputOffice365MsgTracePqControls$outboundSchema: z.ZodType<
+  InputOffice365MsgTracePqControls$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTracePqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputOffice365MsgTracePqControls$ {
+  /** @deprecated use `InputOffice365MsgTracePqControls$inboundSchema` instead. */
+  export const inboundSchema = InputOffice365MsgTracePqControls$inboundSchema;
+  /** @deprecated use `InputOffice365MsgTracePqControls$outboundSchema` instead. */
+  export const outboundSchema = InputOffice365MsgTracePqControls$outboundSchema;
+  /** @deprecated use `InputOffice365MsgTracePqControls$Outbound` instead. */
+  export type Outbound = InputOffice365MsgTracePqControls$Outbound;
+}
+
+export function inputOffice365MsgTracePqControlsToJSON(
+  inputOffice365MsgTracePqControls: InputOffice365MsgTracePqControls,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTracePqControls$outboundSchema.parse(
+      inputOffice365MsgTracePqControls,
+    ),
+  );
+}
+
+export function inputOffice365MsgTracePqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MsgTracePqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MsgTracePqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MsgTracePqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputOffice365MsgTracePq$inboundSchema: z.ZodType<
   InputOffice365MsgTracePq,
   z.ZodTypeDef,
@@ -479,6 +532,8 @@ export const InputOffice365MsgTracePq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputOffice365MsgTraceCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputOffice365MsgTracePqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -490,6 +545,7 @@ export type InputOffice365MsgTracePq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputOffice365MsgTracePqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -505,6 +561,8 @@ export const InputOffice365MsgTracePq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputOffice365MsgTraceCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputOffice365MsgTracePqControls$outboundSchema)
+    .optional(),
 });
 
 /**

@@ -44,6 +44,8 @@ export type InputCriblLakeHttpCompression = ClosedEnum<
   typeof InputCriblLakeHttpCompression
 >;
 
+export type InputCriblLakeHttpPqControls = {};
+
 export type InputCriblLakeHttpPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputCriblLakeHttpPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputCriblLakeHttpCompression | undefined;
+  pqControls?: InputCriblLakeHttpPqControls | undefined;
 };
 
 export const InputCriblLakeHttpMinimumTLSVersion = {
@@ -143,6 +146,14 @@ export type InputCriblLakeHttpAuthTokensExtMetadatum = {
   value: string;
 };
 
+export type SplunkHecMetadata = {
+  enabled?: boolean | undefined;
+};
+
+export type ElasticsearchMetadata = {
+  enabled?: boolean | undefined;
+};
+
 export type InputCriblLakeHttpAuthTokensExt = {
   token: string;
   description?: string | undefined;
@@ -150,7 +161,8 @@ export type InputCriblLakeHttpAuthTokensExt = {
    * Fields to add to events referencing this token
    */
   metadata?: Array<InputCriblLakeHttpAuthTokensExtMetadatum> | undefined;
-  enableSplunkHec?: boolean | undefined;
+  splunkHecMetadata?: SplunkHecMetadata | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata | undefined;
 };
 
 export type InputCriblLakeHttp = {
@@ -386,6 +398,56 @@ export namespace InputCriblLakeHttpCompression$ {
 }
 
 /** @internal */
+export const InputCriblLakeHttpPqControls$inboundSchema: z.ZodType<
+  InputCriblLakeHttpPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputCriblLakeHttpPqControls$Outbound = {};
+
+/** @internal */
+export const InputCriblLakeHttpPqControls$outboundSchema: z.ZodType<
+  InputCriblLakeHttpPqControls$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttpPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputCriblLakeHttpPqControls$ {
+  /** @deprecated use `InputCriblLakeHttpPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputCriblLakeHttpPqControls$inboundSchema;
+  /** @deprecated use `InputCriblLakeHttpPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputCriblLakeHttpPqControls$outboundSchema;
+  /** @deprecated use `InputCriblLakeHttpPqControls$Outbound` instead. */
+  export type Outbound = InputCriblLakeHttpPqControls$Outbound;
+}
+
+export function inputCriblLakeHttpPqControlsToJSON(
+  inputCriblLakeHttpPqControls: InputCriblLakeHttpPqControls,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpPqControls$outboundSchema.parse(
+      inputCriblLakeHttpPqControls,
+    ),
+  );
+}
+
+export function inputCriblLakeHttpPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHttpPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHttpPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHttpPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputCriblLakeHttpPq$inboundSchema: z.ZodType<
   InputCriblLakeHttpPq,
   z.ZodTypeDef,
@@ -398,6 +460,8 @@ export const InputCriblLakeHttpPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputCriblLakeHttpCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputCriblLakeHttpPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -409,6 +473,7 @@ export type InputCriblLakeHttpPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputCriblLakeHttpPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -424,6 +489,8 @@ export const InputCriblLakeHttpPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputCriblLakeHttpCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputCriblLakeHttpPqControls$outboundSchema)
+    .optional(),
 });
 
 /**
@@ -726,6 +793,114 @@ export function inputCriblLakeHttpAuthTokensExtMetadatumFromJSON(
 }
 
 /** @internal */
+export const SplunkHecMetadata$inboundSchema: z.ZodType<
+  SplunkHecMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+/** @internal */
+export type SplunkHecMetadata$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const SplunkHecMetadata$outboundSchema: z.ZodType<
+  SplunkHecMetadata$Outbound,
+  z.ZodTypeDef,
+  SplunkHecMetadata
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace SplunkHecMetadata$ {
+  /** @deprecated use `SplunkHecMetadata$inboundSchema` instead. */
+  export const inboundSchema = SplunkHecMetadata$inboundSchema;
+  /** @deprecated use `SplunkHecMetadata$outboundSchema` instead. */
+  export const outboundSchema = SplunkHecMetadata$outboundSchema;
+  /** @deprecated use `SplunkHecMetadata$Outbound` instead. */
+  export type Outbound = SplunkHecMetadata$Outbound;
+}
+
+export function splunkHecMetadataToJSON(
+  splunkHecMetadata: SplunkHecMetadata,
+): string {
+  return JSON.stringify(
+    SplunkHecMetadata$outboundSchema.parse(splunkHecMetadata),
+  );
+}
+
+export function splunkHecMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<SplunkHecMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SplunkHecMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SplunkHecMetadata' from JSON`,
+  );
+}
+
+/** @internal */
+export const ElasticsearchMetadata$inboundSchema: z.ZodType<
+  ElasticsearchMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+/** @internal */
+export type ElasticsearchMetadata$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const ElasticsearchMetadata$outboundSchema: z.ZodType<
+  ElasticsearchMetadata$Outbound,
+  z.ZodTypeDef,
+  ElasticsearchMetadata
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ElasticsearchMetadata$ {
+  /** @deprecated use `ElasticsearchMetadata$inboundSchema` instead. */
+  export const inboundSchema = ElasticsearchMetadata$inboundSchema;
+  /** @deprecated use `ElasticsearchMetadata$outboundSchema` instead. */
+  export const outboundSchema = ElasticsearchMetadata$outboundSchema;
+  /** @deprecated use `ElasticsearchMetadata$Outbound` instead. */
+  export type Outbound = ElasticsearchMetadata$Outbound;
+}
+
+export function elasticsearchMetadataToJSON(
+  elasticsearchMetadata: ElasticsearchMetadata,
+): string {
+  return JSON.stringify(
+    ElasticsearchMetadata$outboundSchema.parse(elasticsearchMetadata),
+  );
+}
+
+export function elasticsearchMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<ElasticsearchMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ElasticsearchMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ElasticsearchMetadata' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputCriblLakeHttpAuthTokensExt$inboundSchema: z.ZodType<
   InputCriblLakeHttpAuthTokensExt,
   z.ZodTypeDef,
@@ -736,7 +911,9 @@ export const InputCriblLakeHttpAuthTokensExt$inboundSchema: z.ZodType<
   metadata: z.array(
     z.lazy(() => InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema),
   ).optional(),
-  enableSplunkHec: z.boolean().default(false),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata$inboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -746,7 +923,8 @@ export type InputCriblLakeHttpAuthTokensExt$Outbound = {
   metadata?:
     | Array<InputCriblLakeHttpAuthTokensExtMetadatum$Outbound>
     | undefined;
-  enableSplunkHec: boolean;
+  splunkHecMetadata?: SplunkHecMetadata$Outbound | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata$Outbound | undefined;
 };
 
 /** @internal */
@@ -760,7 +938,9 @@ export const InputCriblLakeHttpAuthTokensExt$outboundSchema: z.ZodType<
   metadata: z.array(
     z.lazy(() => InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema),
   ).optional(),
-  enableSplunkHec: z.boolean().default(false),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata$outboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$outboundSchema)
+    .optional(),
 });
 
 /**

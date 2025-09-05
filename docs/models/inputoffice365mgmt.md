@@ -20,7 +20,9 @@ let value: InputOffice365Mgmt = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tenantId: "<id>",
   appId: "<id>",
   metadata: [

@@ -37,6 +37,7 @@ let value: UpdateInputByIdResponse = {
         maxSize: "5GB",
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
+        pqControls: {},
       },
       brokers: [],
       topics: [

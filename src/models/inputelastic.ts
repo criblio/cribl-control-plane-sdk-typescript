@@ -44,6 +44,8 @@ export type InputElasticCompression = ClosedEnum<
   typeof InputElasticCompression
 >;
 
+export type InputElasticPqControls = {};
+
 export type InputElasticPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputElasticPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputElasticCompression | undefined;
+  pqControls?: InputElasticPqControls | undefined;
 };
 
 export const InputElasticMinimumTLSVersion = {
@@ -446,6 +449,54 @@ export namespace InputElasticCompression$ {
 }
 
 /** @internal */
+export const InputElasticPqControls$inboundSchema: z.ZodType<
+  InputElasticPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputElasticPqControls$Outbound = {};
+
+/** @internal */
+export const InputElasticPqControls$outboundSchema: z.ZodType<
+  InputElasticPqControls$Outbound,
+  z.ZodTypeDef,
+  InputElasticPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputElasticPqControls$ {
+  /** @deprecated use `InputElasticPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputElasticPqControls$inboundSchema;
+  /** @deprecated use `InputElasticPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputElasticPqControls$outboundSchema;
+  /** @deprecated use `InputElasticPqControls$Outbound` instead. */
+  export type Outbound = InputElasticPqControls$Outbound;
+}
+
+export function inputElasticPqControlsToJSON(
+  inputElasticPqControls: InputElasticPqControls,
+): string {
+  return JSON.stringify(
+    InputElasticPqControls$outboundSchema.parse(inputElasticPqControls),
+  );
+}
+
+export function inputElasticPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputElasticPq$inboundSchema: z.ZodType<
   InputElasticPq,
   z.ZodTypeDef,
@@ -458,6 +509,7 @@ export const InputElasticPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputElasticCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputElasticPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -469,6 +521,7 @@ export type InputElasticPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputElasticPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -484,6 +537,7 @@ export const InputElasticPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputElasticCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputElasticPqControls$outboundSchema).optional(),
 });
 
 /**

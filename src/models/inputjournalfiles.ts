@@ -44,6 +44,8 @@ export type InputJournalFilesCompression = ClosedEnum<
   typeof InputJournalFilesCompression
 >;
 
+export type InputJournalFilesPqControls = {};
+
 export type InputJournalFilesPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputJournalFilesPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputJournalFilesCompression | undefined;
+  pqControls?: InputJournalFilesPqControls | undefined;
 };
 
 export type InputJournalFilesRule = {
@@ -280,6 +283,56 @@ export namespace InputJournalFilesCompression$ {
 }
 
 /** @internal */
+export const InputJournalFilesPqControls$inboundSchema: z.ZodType<
+  InputJournalFilesPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputJournalFilesPqControls$Outbound = {};
+
+/** @internal */
+export const InputJournalFilesPqControls$outboundSchema: z.ZodType<
+  InputJournalFilesPqControls$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputJournalFilesPqControls$ {
+  /** @deprecated use `InputJournalFilesPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputJournalFilesPqControls$inboundSchema;
+  /** @deprecated use `InputJournalFilesPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputJournalFilesPqControls$outboundSchema;
+  /** @deprecated use `InputJournalFilesPqControls$Outbound` instead. */
+  export type Outbound = InputJournalFilesPqControls$Outbound;
+}
+
+export function inputJournalFilesPqControlsToJSON(
+  inputJournalFilesPqControls: InputJournalFilesPqControls,
+): string {
+  return JSON.stringify(
+    InputJournalFilesPqControls$outboundSchema.parse(
+      inputJournalFilesPqControls,
+    ),
+  );
+}
+
+export function inputJournalFilesPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputJournalFilesPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputJournalFilesPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputJournalFilesPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputJournalFilesPq$inboundSchema: z.ZodType<
   InputJournalFilesPq,
   z.ZodTypeDef,
@@ -292,6 +345,8 @@ export const InputJournalFilesPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputJournalFilesCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputJournalFilesPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -303,6 +358,7 @@ export type InputJournalFilesPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputJournalFilesPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -318,6 +374,8 @@ export const InputJournalFilesPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputJournalFilesCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputJournalFilesPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

@@ -45,6 +45,8 @@ export type InputPrometheusCompression = ClosedEnum<
   typeof InputPrometheusCompression
 >;
 
+export type InputPrometheusPqControls = {};
+
 export type InputPrometheusPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -74,6 +76,7 @@ export type InputPrometheusPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputPrometheusCompression | undefined;
+  pqControls?: InputPrometheusPqControls | undefined;
 };
 
 /**
@@ -482,6 +485,54 @@ export namespace InputPrometheusCompression$ {
 }
 
 /** @internal */
+export const InputPrometheusPqControls$inboundSchema: z.ZodType<
+  InputPrometheusPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputPrometheusPqControls$Outbound = {};
+
+/** @internal */
+export const InputPrometheusPqControls$outboundSchema: z.ZodType<
+  InputPrometheusPqControls$Outbound,
+  z.ZodTypeDef,
+  InputPrometheusPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputPrometheusPqControls$ {
+  /** @deprecated use `InputPrometheusPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputPrometheusPqControls$inboundSchema;
+  /** @deprecated use `InputPrometheusPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputPrometheusPqControls$outboundSchema;
+  /** @deprecated use `InputPrometheusPqControls$Outbound` instead. */
+  export type Outbound = InputPrometheusPqControls$Outbound;
+}
+
+export function inputPrometheusPqControlsToJSON(
+  inputPrometheusPqControls: InputPrometheusPqControls,
+): string {
+  return JSON.stringify(
+    InputPrometheusPqControls$outboundSchema.parse(inputPrometheusPqControls),
+  );
+}
+
+export function inputPrometheusPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputPrometheusPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputPrometheusPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputPrometheusPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputPrometheusPq$inboundSchema: z.ZodType<
   InputPrometheusPq,
   z.ZodTypeDef,
@@ -494,6 +545,7 @@ export const InputPrometheusPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputPrometheusCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputPrometheusPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -505,6 +557,7 @@ export type InputPrometheusPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputPrometheusPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -520,6 +573,7 @@ export const InputPrometheusPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputPrometheusCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputPrometheusPqControls$outboundSchema).optional(),
 });
 
 /**

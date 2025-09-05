@@ -21,7 +21,9 @@ let value: InputWizWebhook = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 6799.14,
   authTokens: [
     "<value 1>",

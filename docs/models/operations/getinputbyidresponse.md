@@ -37,6 +37,7 @@ let value: GetInputByIdResponse = {
         maxSize: "5GB",
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
+        pqControls: {},
       },
       host: "0.0.0.0",
       port: 7967.25,

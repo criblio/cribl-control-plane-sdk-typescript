@@ -21,7 +21,9 @@ let value: InputWinEventLogs = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   logNames: [
     "<value 1>",
     "<value 2>",

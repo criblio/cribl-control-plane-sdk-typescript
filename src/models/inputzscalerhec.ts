@@ -44,6 +44,8 @@ export type InputZscalerHecCompression = ClosedEnum<
   typeof InputZscalerHecCompression
 >;
 
+export type InputZscalerHecPqControls = {};
+
 export type InputZscalerHecPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputZscalerHecPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputZscalerHecCompression | undefined;
+  pqControls?: InputZscalerHecPqControls | undefined;
 };
 
 /**
@@ -414,6 +417,54 @@ export namespace InputZscalerHecCompression$ {
 }
 
 /** @internal */
+export const InputZscalerHecPqControls$inboundSchema: z.ZodType<
+  InputZscalerHecPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputZscalerHecPqControls$Outbound = {};
+
+/** @internal */
+export const InputZscalerHecPqControls$outboundSchema: z.ZodType<
+  InputZscalerHecPqControls$Outbound,
+  z.ZodTypeDef,
+  InputZscalerHecPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputZscalerHecPqControls$ {
+  /** @deprecated use `InputZscalerHecPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputZscalerHecPqControls$inboundSchema;
+  /** @deprecated use `InputZscalerHecPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputZscalerHecPqControls$outboundSchema;
+  /** @deprecated use `InputZscalerHecPqControls$Outbound` instead. */
+  export type Outbound = InputZscalerHecPqControls$Outbound;
+}
+
+export function inputZscalerHecPqControlsToJSON(
+  inputZscalerHecPqControls: InputZscalerHecPqControls,
+): string {
+  return JSON.stringify(
+    InputZscalerHecPqControls$outboundSchema.parse(inputZscalerHecPqControls),
+  );
+}
+
+export function inputZscalerHecPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputZscalerHecPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputZscalerHecPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputZscalerHecPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputZscalerHecPq$inboundSchema: z.ZodType<
   InputZscalerHecPq,
   z.ZodTypeDef,
@@ -426,6 +477,7 @@ export const InputZscalerHecPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputZscalerHecCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputZscalerHecPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -437,6 +489,7 @@ export type InputZscalerHecPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputZscalerHecPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -452,6 +505,7 @@ export const InputZscalerHecPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputZscalerHecCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputZscalerHecPqControls$outboundSchema).optional(),
 });
 
 /**

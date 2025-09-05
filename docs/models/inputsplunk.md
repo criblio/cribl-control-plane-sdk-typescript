@@ -21,7 +21,9 @@ let value: InputSplunk = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 3317.72,
   tls: {
     certificateName: "<value>",

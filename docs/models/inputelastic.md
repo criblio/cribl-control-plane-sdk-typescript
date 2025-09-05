@@ -20,7 +20,9 @@ let value: InputElastic = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 8327.88,
   tls: {
     certificateName: "<value>",

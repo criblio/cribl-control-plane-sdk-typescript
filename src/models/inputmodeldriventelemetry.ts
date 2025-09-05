@@ -48,6 +48,8 @@ export type InputModelDrivenTelemetryCompression = ClosedEnum<
   typeof InputModelDrivenTelemetryCompression
 >;
 
+export type InputModelDrivenTelemetryPqControls = {};
+
 export type InputModelDrivenTelemetryPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -77,6 +79,7 @@ export type InputModelDrivenTelemetryPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputModelDrivenTelemetryCompression | undefined;
+  pqControls?: InputModelDrivenTelemetryPqControls | undefined;
 };
 
 export const InputModelDrivenTelemetryMinimumTLSVersion = {
@@ -320,6 +323,59 @@ export namespace InputModelDrivenTelemetryCompression$ {
 }
 
 /** @internal */
+export const InputModelDrivenTelemetryPqControls$inboundSchema: z.ZodType<
+  InputModelDrivenTelemetryPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputModelDrivenTelemetryPqControls$Outbound = {};
+
+/** @internal */
+export const InputModelDrivenTelemetryPqControls$outboundSchema: z.ZodType<
+  InputModelDrivenTelemetryPqControls$Outbound,
+  z.ZodTypeDef,
+  InputModelDrivenTelemetryPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputModelDrivenTelemetryPqControls$ {
+  /** @deprecated use `InputModelDrivenTelemetryPqControls$inboundSchema` instead. */
+  export const inboundSchema =
+    InputModelDrivenTelemetryPqControls$inboundSchema;
+  /** @deprecated use `InputModelDrivenTelemetryPqControls$outboundSchema` instead. */
+  export const outboundSchema =
+    InputModelDrivenTelemetryPqControls$outboundSchema;
+  /** @deprecated use `InputModelDrivenTelemetryPqControls$Outbound` instead. */
+  export type Outbound = InputModelDrivenTelemetryPqControls$Outbound;
+}
+
+export function inputModelDrivenTelemetryPqControlsToJSON(
+  inputModelDrivenTelemetryPqControls: InputModelDrivenTelemetryPqControls,
+): string {
+  return JSON.stringify(
+    InputModelDrivenTelemetryPqControls$outboundSchema.parse(
+      inputModelDrivenTelemetryPqControls,
+    ),
+  );
+}
+
+export function inputModelDrivenTelemetryPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputModelDrivenTelemetryPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputModelDrivenTelemetryPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputModelDrivenTelemetryPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputModelDrivenTelemetryPq$inboundSchema: z.ZodType<
   InputModelDrivenTelemetryPq,
   z.ZodTypeDef,
@@ -332,6 +388,8 @@ export const InputModelDrivenTelemetryPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputModelDrivenTelemetryCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputModelDrivenTelemetryPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -343,6 +401,7 @@ export type InputModelDrivenTelemetryPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputModelDrivenTelemetryPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -358,6 +417,8 @@ export const InputModelDrivenTelemetryPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputModelDrivenTelemetryCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputModelDrivenTelemetryPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

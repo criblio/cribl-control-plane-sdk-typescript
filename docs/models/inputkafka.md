@@ -21,7 +21,9 @@ let value: InputKafka = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   brokers: [
     "<value 1>",
   ],

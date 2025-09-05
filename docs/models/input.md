@@ -20,7 +20,9 @@ const value: models.InputCollection = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   breakerRulesets: [
     "<value 1>",
   ],
@@ -60,7 +62,9 @@ const value: models.InputKafka = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   brokers: [
     "<value 1>",
   ],
@@ -123,7 +127,9 @@ const value: models.InputMsk = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   brokers: [
     "<value 1>",
   ],
@@ -194,7 +200,9 @@ const value: models.InputHttp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 1871.53,
   authTokens: [
     "<value 1>",
@@ -253,7 +261,9 @@ const value: models.InputSplunk = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 3317.72,
   tls: {
     certificateName: "<value>",
@@ -307,7 +317,9 @@ const value: models.InputSplunkSearch = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   search: "<value>",
   endpointParams: [
     {
@@ -381,7 +393,9 @@ const value: models.InputSplunkHec = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 817.1,
   authTokens: [
     {
@@ -458,7 +472,9 @@ const value: models.InputAzureBlob = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   metadata: [
     {
@@ -503,7 +519,9 @@ const value: models.InputElastic = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 8327.88,
   tls: {
     certificateName: "<value>",
@@ -564,7 +582,9 @@ const value: models.InputConfluentCloud = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   brokers: [
     "<value 1>",
   ],
@@ -640,6 +660,7 @@ const value: models.InputGrafana = {
     maxSize: "5GB",
     path: "$CRIBL_HOME/state/queues",
     compress: "none",
+    pqControls: {},
   },
   host: "0.0.0.0",
   port: 9330.93,
@@ -669,7 +690,6 @@ const value: models.InputGrafana = {
   ipDenylistRegex: "/^$/",
   prometheusAPI: "/api/prom/push",
   lokiAPI: "/loki/api/v1/push",
-  extractStructuredMetadata: false,
   prometheusAuth: {
     authType: "none",
     username: "Evalyn_Gislason15",
@@ -750,7 +770,9 @@ const value: models.InputLoki = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 6141.25,
   tls: {
     certificateName: "<value>",
@@ -811,7 +833,9 @@ const value: models.InputPrometheusRw = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 6798.56,
   tls: {
     certificateName: "<value>",
@@ -874,7 +898,9 @@ const value: models.InputPrometheus = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   dimensionList: [
     "<value 1>",
     "<value 2>",
@@ -931,7 +957,9 @@ const value: models.InputEdgePrometheus = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   dimensionList: [
     "<value 1>",
   ],
@@ -993,7 +1021,9 @@ const value: models.InputOffice365Mgmt = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tenantId: "<id>",
   appId: "<id>",
   metadata: [
@@ -1043,7 +1073,9 @@ const value: models.InputOffice365Service = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tenantId: "<id>",
   appId: "<id>",
   metadata: [
@@ -1092,7 +1124,9 @@ const value: models.InputOffice365MsgTrace = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   startDate: "<value>",
   endDate: "<value>",
   metadata: [
@@ -1141,7 +1175,9 @@ const value: models.InputEventhub = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   brokers: [
     "<value 1>",
   ],
@@ -1180,7 +1216,9 @@ const value: models.InputExec = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   command: "<value>",
   breakerRulesets: [
     "<value 1>",
@@ -1213,7 +1251,9 @@ const value: models.InputFirehose = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 7517.47,
   authTokens: [
     "<value 1>",
@@ -1259,7 +1299,9 @@ const value: models.InputGooglePubsub = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   subscriptionName: "<value>",
   region: "<value>",
   serviceAccountCredentials: "<value>",
@@ -1291,7 +1333,9 @@ const value: models.InputCribl = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   filter: "<value>",
   metadata: [
     {
@@ -1322,7 +1366,9 @@ const value: models.InputCriblTcp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 4566.33,
   tls: {
     certificateName: "<value>",
@@ -1364,7 +1410,9 @@ const value: models.InputCriblHttp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 3140.1,
   authTokens: [
     "<value 1>",
@@ -1409,7 +1457,9 @@ const value: models.InputCriblLakeHttp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 4386.51,
   authTokens: [
     "<value 1>",
@@ -1442,6 +1492,12 @@ const value: models.InputCriblLakeHttp = {
           value: "<value>",
         },
       ],
+      splunkHecMetadata: {
+        enabled: true,
+      },
+      elasticsearchMetadata: {
+        enabled: true,
+      },
     },
   ],
   description:
@@ -1466,7 +1522,9 @@ const value: models.InputTcpjson = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 6709.35,
   tls: {
     certificateName: "<value>",
@@ -1508,7 +1566,9 @@ const value: models.InputSystemMetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   host: {
     custom: {
       system: {},
@@ -1583,7 +1643,9 @@ const value: models.InputSystemState = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",
@@ -1626,7 +1688,9 @@ const value: models.InputKubeMetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",
@@ -1662,7 +1726,9 @@ const value: models.InputKubeLogs = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",
@@ -1700,7 +1766,9 @@ const value: models.InputKubeEvents = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",
@@ -1734,7 +1802,9 @@ const value: models.InputWindowsMetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   host: {
     custom: {
       system: {},
@@ -1793,7 +1863,9 @@ const value: models.InputCrowdstrike = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -1847,7 +1919,9 @@ const value: models.InputDatadogAgent = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 3937.07,
   tls: {
     certificateName: "<value>",
@@ -1889,7 +1963,9 @@ const value: models.InputDatagen = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   samples: [
     {
       sample: "<value>",
@@ -1922,7 +1998,9 @@ const value: models.InputHttpRaw = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 4578.26,
   authTokens: [
     "<value 1>",
@@ -1995,7 +2073,9 @@ const value: models.InputKinesis = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   streamName: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -2033,7 +2113,9 @@ const value: models.InputCriblmetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",
@@ -2063,7 +2145,9 @@ const value: models.InputMetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   udpPort: 1525.54,
   tcpPort: 6373.18,
   tls: {
@@ -2105,7 +2189,9 @@ const value: models.InputS3 = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -2160,7 +2246,9 @@ const value: models.InputS3Inventory = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -2215,7 +2303,9 @@ const value: models.InputSnmp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   snmpV3Auth: {
     v3Users: [
       {
@@ -2255,7 +2345,9 @@ const value: models.InputOpenTelemetry = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -2319,7 +2411,9 @@ const value: models.InputModelDrivenTelemetry = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -2360,7 +2454,9 @@ const value: models.InputSqs = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -2411,6 +2507,7 @@ const value: models.InputSyslog = {
     maxSize: "5GB",
     path: "$CRIBL_HOME/state/queues",
     compress: "none",
+    pqControls: {},
   },
   host: "0.0.0.0",
   udpPort: 1436.13,
@@ -2475,7 +2572,9 @@ const value: models.InputFile = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   filenames: [
     "<value 1>",
   ],
@@ -2515,7 +2614,9 @@ const value: models.InputTcp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 1733.5,
   tls: {
     certificateName: "<value>",
@@ -2567,7 +2668,9 @@ const value: models.InputAppscope = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",
@@ -2624,7 +2727,9 @@ const value: models.InputWef = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -2685,7 +2790,9 @@ const value: models.InputWinEventLogs = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   logNames: [
     "<value 1>",
     "<value 2>",
@@ -2718,7 +2825,9 @@ const value: models.InputRawUdp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 4339.08,
   udpSocketRxBufSize: 7664.5,
   metadata: [
@@ -2748,7 +2857,9 @@ const value: models.InputJournalFiles = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   path: "/private/var",
   journals: [
     "<value 1>",
@@ -2788,7 +2899,9 @@ const value: models.InputWiz = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   authUrl: "https://criminal-offset.info/",
   authAudienceOverride: "<value>",
   clientId: "<id>",
@@ -2832,7 +2945,9 @@ const value: models.InputWizWebhook = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 6799.14,
   authTokens: [
     "<value 1>",
@@ -2905,7 +3020,9 @@ const value: models.InputNetflow = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   udpSocketRxBufSize: 2121.68,
   metadata: [
     {
@@ -2936,7 +3053,9 @@ const value: models.InputSecurityLake = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
@@ -2991,7 +3110,9 @@ const value: models.InputZscalerHec = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 8324.99,
   authTokens: [
     {

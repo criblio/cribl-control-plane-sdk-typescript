@@ -19,7 +19,9 @@ let value: InputAppscope = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   metadata: [
     {
       name: "<value>",

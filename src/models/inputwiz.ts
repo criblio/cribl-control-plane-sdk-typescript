@@ -42,6 +42,8 @@ export const InputWizCompression = {
  */
 export type InputWizCompression = ClosedEnum<typeof InputWizCompression>;
 
+export type InputWizPqControls = {};
+
 export type InputWizPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputWizPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputWizCompression | undefined;
+  pqControls?: InputWizPqControls | undefined;
 };
 
 export type InputWizContentConfig = {
@@ -358,6 +361,54 @@ export namespace InputWizCompression$ {
 }
 
 /** @internal */
+export const InputWizPqControls$inboundSchema: z.ZodType<
+  InputWizPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputWizPqControls$Outbound = {};
+
+/** @internal */
+export const InputWizPqControls$outboundSchema: z.ZodType<
+  InputWizPqControls$Outbound,
+  z.ZodTypeDef,
+  InputWizPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputWizPqControls$ {
+  /** @deprecated use `InputWizPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputWizPqControls$inboundSchema;
+  /** @deprecated use `InputWizPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputWizPqControls$outboundSchema;
+  /** @deprecated use `InputWizPqControls$Outbound` instead. */
+  export type Outbound = InputWizPqControls$Outbound;
+}
+
+export function inputWizPqControlsToJSON(
+  inputWizPqControls: InputWizPqControls,
+): string {
+  return JSON.stringify(
+    InputWizPqControls$outboundSchema.parse(inputWizPqControls),
+  );
+}
+
+export function inputWizPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWizPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputWizPq$inboundSchema: z.ZodType<
   InputWizPq,
   z.ZodTypeDef,
@@ -370,6 +421,7 @@ export const InputWizPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWizCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWizPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -381,6 +433,7 @@ export type InputWizPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputWizPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -396,6 +449,7 @@ export const InputWizPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWizCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWizPqControls$outboundSchema).optional(),
 });
 
 /**
