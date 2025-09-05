@@ -1,162 +1,196 @@
+/**
+ * Authentication Helper Module
+ * 
+ * This helper module handles authentication for all SDK examples, supporting both
+ * cloud (OAuth2) and on-premises (username/password) deployments. It automatically
+ * detects the deployment type, loads environment variables, validates credentials,
+ * and provides authenticated SDK client instances.
+ * 
+ * Used by: All example files that require authenticated API access
+ */
+
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import { CriblControlPlane } from 'cribl-control-plane';
 
-/**
- * Load environment variables with priority:
- * 1. System environment variables (highest priority)
- * 2. .env file (if exists)
- * 3. Default values (lowest priority)
- */
-function loadEnvironmentVariables() {
-  // Try to find and load .env file (optional)
-  const possibleEnvPaths = [
-    path.resolve(__dirname, '..', '..', '.env'),
-    path.resolve(process.cwd(), '.env'),
-    path.resolve(process.cwd(), '..', '.env'),
-  ];
-
-  for (const envPath of possibleEnvPaths) {
-    if (fs.existsSync(envPath)) {
-      // Load .env but don't override existing environment variables
-      dotenv.config({
-        path: envPath,
-        override: false, // System env vars take precedence
-      });
-      break;
-    }
-  }
-}
-
-// Load environment variables with proper priority
-loadEnvironmentVariables();
-
-const {
-  WORKSPACE_NAME,
-  ORG_ID,
-  CRIBL_DOMAIN,
-  CLIENT_ID,
-  CLIENT_SECRET,
-  DEBUG_CLIENT,
-  // On-premises variables
-  ONPREM_SERVER_URL,
-  ONPREM_USERNAME,
-  ONPREM_PASSWORD,
-  // Deployment environment selector
-  DEPLOYMENT_ENV,
-} = process.env;
-
-// Determine deployment type: 'onprem' for on-premises, anything else (or unset) for cloud
-const isOnPremDeployment = DEPLOYMENT_ENV === 'onprem';
-export const isCloudDeployment = !isOnPremDeployment;
-
-/**
- * Validate that required environment variables are set for the current deployment type
- */
-function validateRequiredEnvironmentVariables() {
-  if (isCloudDeployment) {
-    // Required cloud environment variables
-    const requiredCloudVars = [
-      'WORKSPACE_NAME',
-      'ORG_ID', 
-      'CRIBL_DOMAIN',
-      'CLIENT_ID',
-      'CLIENT_SECRET'
-    ];
-
-    const missingVars = requiredCloudVars.filter(varName => !process.env[varName]);
-    
-    if (missingVars.length > 0) {
-      throw new Error(
-        `Missing required cloud environment variables: ${missingVars.join(', ')}.\n` +
-        `Please set these variables either in your system environment or in a .env file:\n` +
-        `${missingVars.map(v => `${v}=your-${v.toLowerCase().replace('_', '-')}`).join('\n')}`
-      );
-    }
-  } else {
-    // Required on-premises environment variables
-    const requiredOnPremVars = [
-      'ONPREM_SERVER_URL',
-      'ONPREM_USERNAME',
-      'ONPREM_PASSWORD'
-    ];
-
-    const missingVars = requiredOnPremVars.filter(varName => !process.env[varName]);
-    
-    if (missingVars.length > 0) {
-      throw new Error(
-        `Missing required on-premises environment variables: ${missingVars.join(', ')}.\n` +
-        `Please set these variables either in your system environment or in a .env file.`
-      );
-    }
-  }
-}
-
-// Validate environment variables after loading
-validateRequiredEnvironmentVariables();
-
+const envPath = path.resolve(process.cwd(), '.env');
 const sleep = async (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-let loginAttempts = 0;
 
-export const baseUrl = isCloudDeployment 
-  ? `https://${WORKSPACE_NAME}-${ORG_ID}.${CRIBL_DOMAIN}/api/v1`
-  : `${ONPREM_SERVER_URL}/api/v1`;
+type OnpremConfiguration = {
+  serverURL: string;
+  username: string;
+  password: string;
+}
 
-export const wgDefaultUrl = `${baseUrl}/m/default`;
-export const wgDefaultHybridUrl = `${baseUrl}/m/defaultHybrid`;
+type CloudConfiguration = {
+  orgId: string;
+  clientID: string;
+  clientSecret: string;
+  workspaceName: string;
+  criblDomain: string;
+}
 
-let criblClient: CriblControlPlane | null = null;
+// Resolve .evn path
+if (!fs.existsSync(envPath)) {
+  throw new Error(`No .env file found in current directory: ${envPath}`);
+}
 
+// Load .env file
+dotenv.config({
+  path: envPath,
+  override: false, // System env vars take precedence
+});
+
+const isOnprem = process.env.DEPLOYMENT_ENV === 'onprem';
+
+let configuration;
+if (isOnprem) {
+  configuration = getConfiguration<OnpremConfiguration>(isOnprem);
+} else {
+  configuration = getConfiguration<CloudConfiguration>(isOnprem);
+}
+
+export const baseUrl = isOnprem
+  ? `${configuration.serverURL}/api/v1`
+  : `https://${configuration.workspaceName}-${configuration.orgId}.${configuration.criblDomain}/api/v1`;
+
+/**
+ * Factory function that creates an authenticated Cribl Control Plane client
+ * Automatically detects deployment type and uses appropriate authentication method
+ * @returns Promise<CriblControlPlane> Authenticated SDK client instance
+ */
 export async function createCriblClient(): Promise<CriblControlPlane> {
-  if (criblClient) return criblClient;
+  const criblAuth = isOnprem ? new AuthOnprem(configuration) : new AuthCloud(configuration);
+  return await criblAuth.getClient();
+}
 
-  if (isCloudDeployment) {
-    // Cloud OAuth authentication
-    criblClient = new CriblControlPlane({
-      serverURL: baseUrl,
-      security: {
-        clientOauth: {
-          clientID: CLIENT_ID as string,
-          clientSecret: CLIENT_SECRET as string,
-          tokenURL: `https://login.${CRIBL_DOMAIN}/oauth/token`,
-          audience: `https://api.${CRIBL_DOMAIN}`,
-        },
-      },
-      ...(DEBUG_CLIENT === 'true' && { debugLogger: console }),
-    });
+/**
+ * Validates and returns configuration based on deployment type
+ * @param isOnprem Whether this is an on-premises deployment
+ * @returns Configuration object with required credentials
+ */
+function getConfiguration<T>(isOnprem: boolean): T {
+  if (isOnprem) {
+    if (!process.env.ONPREM_SERVER_URL) throw new Error('ONPREM_SERVER_URL is required for on-premises deployment');
+    if (!process.env.ONPREM_USERNAME) throw new Error('ONPREM_USERNAME is required for on-premises deployment');
+    if (!process.env.ONPREM_PASSWORD) throw new Error('ONPREM_PASSWORD is required for on-premises deployment');
+    return {
+      serverURL: process.env.ONPREM_SERVER_URL,
+      username: process.env.ONPREM_USERNAME,
+      password: process.env.ONPREM_PASSWORD,
+    } as T;
   } else {
-    // On-premises username/password authentication
-    // First retrieve the auth token
-    const tempClient = new CriblControlPlane({
-      serverURL: baseUrl,
-      ...(DEBUG_CLIENT === 'true' && { debugLogger: console }),
-    });
+    if (!process.env.ORG_ID) throw new Error('ORG_ID is required for cloud deployment');
+    if (!process.env.CLIENT_ID) throw new Error('CLIENT_ID is required for cloud deployment');
+    if (!process.env.CLIENT_SECRET) throw new Error('CLIENT_SECRET is required for cloud deployment');
+    if (!process.env.WORKSPACE_NAME) throw new Error('WORKSPACE_NAME is required for cloud deployment');
+    if (!process.env.CRIBL_DOMAIN) throw new Error('CRIBL_DOMAIN is required for cloud deployment');
+    return {
+      orgId: process.env.ORG_ID,
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      workspaceName: process.env.WORKSPACE_NAME,
+      criblDomain: process.env.CRIBL_DOMAIN,
+    } as T
+  };
+}
 
+/**
+ * Common interface for authentication providers
+ */
+interface ICriblAuth {
+  /** Returns an authenticated CriblControlPlane client instance */
+  getClient(): Promise<CriblControlPlane>;
+}
+
+/**
+ * On-premises authentication provider using username/password credentials
+ * Handles token retrieval and client creation with retry logic for rate limits
+ */
+class AuthOnprem implements ICriblAuth {
+  private client: CriblControlPlane;
+  private readonly username: string;
+  private readonly password: string;
+  private readonly baseUrl: string;
+  private attempts: number = 0;
+  constructor({ serverURL, username, password }: OnpremConfiguration) {
+    this.username = username;
+    this.password = password;
+    this.baseUrl = `${serverURL}/api/v1`;
+  }
+
+  public async getClient(): Promise<CriblControlPlane> {
+    if (this.client) return this.client;
+    const tokenGetter = new CriblControlPlane({ serverURL: this.baseUrl });
     try {
-      // Login to get the actual bearer token
-      const authResponse = await tempClient.auth.tokens.get({
-        username: ONPREM_USERNAME as string,
-        password: ONPREM_PASSWORD as string
+      const { token } = await tokenGetter.auth.tokens.get({
+        username: this.username,
+        password: this.password,
       });
-
-      // Create the real client with the obtained token
-      criblClient = new CriblControlPlane({
-        serverURL: baseUrl,
-        security: {
-          bearerAuth: authResponse.token
-        },
-        ...(DEBUG_CLIENT === 'true' && { debugLogger: console }),
-      });
+      this.client = new CriblControlPlane({ serverURL: this.baseUrl, security: { bearerAuth: token } });
+      return this.client;
     } catch (error) {
-      if (error.statusCode === 429 && loginAttempts < 20) {
-        loginAttempts++;
+      if (error.statusCode === 429 && this.attempts < 10) {
+        console.log(`⚠️ Rate limit exceeded, retrying...`);
+        this.attempts++;
         await sleep(1000);
-        return await createCriblClient();
+        return await this.getClient();
+      }
+      if (error.statusCode === 401) {
+        throw new Error(`Failed to authenticate with on-premises server: ${error}}`);
       }
       throw new Error(`Failed to authenticate with on-premises server: ${error}`);
     }
   }
+}
 
-  return criblClient;
+/**
+ * Cloud authentication provider using OAuth2 client credentials flow
+ * Automatically handles token exchange and refresh
+ */
+class AuthCloud implements ICriblAuth {
+  private client: CriblControlPlane;
+  private readonly baseUrl: string;
+  private readonly clientID: string;
+  private readonly clientSecret: string;
+  private readonly tokenURL: string;
+  private readonly audience: string;
+  private attempts: number = 0;
+  constructor({ orgId, clientID, clientSecret, workspaceName, criblDomain }: CloudConfiguration) {
+    this.clientID = clientID;
+    this.clientSecret = clientSecret;
+    this.baseUrl = `https://${workspaceName}-${orgId}.${criblDomain}/api/v1`;
+    this.tokenURL = `https://login.${criblDomain}/oauth/token`;
+    this.audience = `https://api.${criblDomain}`;
+  }
+
+  public async getClient(): Promise<CriblControlPlane> {
+    if (this.client) return this.client;
+    try {
+      this.client = new CriblControlPlane({
+        serverURL: this.baseUrl,
+        security: {
+          clientOauth: {
+            clientID: this.clientID,
+            clientSecret: this.clientSecret,
+            tokenURL: this.tokenURL,
+            audience: this.audience,
+          },
+        },
+      });
+      return this.client;
+    } catch (error) {
+      if (error.statusCode === 429 && this.attempts < 10) {
+        console.log(`⚠️ Rate limit exceeded, retrying...`);
+        this.attempts++;
+        await sleep(1000);
+        return await this.getClient();
+      }
+      if (error.statusCode === 401) {
+        throw new Error(`Failed to authenticate with cloud server: ${error}}`);
+      }
+      throw new Error(`Failed to authenticate with cloud server: ${error}; attempts: ${this.attempts}`);
+    }
+  }
 }
