@@ -10,7 +10,10 @@
  * 3. Scales the worker group up to 48MB/s max estimated ingest rate / 21 worker processes
  * 4. Provisions the worker group to activate cloud resources
  * 
- * Prerequisites: Configure cloud environment variables: ORG_ID, CLIENT_ID, CLIENT_SECRET, WORKSPACE_NAME, CRIBL_DOMAIN
+ * Check this documentation for more details about ingest rates and provisioning:
+ *   https://docs.cribl.io/stream/cloud-workers/#create-a-cloud-worker-group
+ * 
+ * Prerequisites: Configure cloud environment variables: ORG_ID, CLIENT_ID, CLIENT_SECRET, WORKSPACE_NAME
  * How to get these values: https://docs.cribl.io/api/#criblcloud
  *
  * Note: This example is for cloud deployments only and does not require a .env
@@ -24,7 +27,6 @@ const ORG_ID = 'your-org-id';
 const CLIENT_ID = 'your-client-id';
 const CLIENT_SECRET = 'your-client-secret';
 const WORKSPACE_NAME = 'your-workspace-name';
-const CRIBL_DOMAIN = 'your-cribl-domain';
 
 const WORKER_GROUP_ID = "your-cloud-worker-group-id";
 
@@ -49,7 +51,6 @@ async function main() {
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
     workspaceName: WORKSPACE_NAME,
-    criblDomain: CRIBL_DOMAIN,
   });
   const cribl = await auth.getClient();
 

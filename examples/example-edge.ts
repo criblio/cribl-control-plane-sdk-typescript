@@ -10,7 +10,8 @@
  * 3. An Amazon S3 destination to store processed data
  * 4. A pipeline that filters events to keep only eventSource and eventID fields
  * 5. A route that connects the source to the pipeline and destination
- *
+ * 6. Deploys the configuration to the fleet to make it active
+ * 
  * Data flow: Syslog Source → Route → Pipeline → S3 Destination
  *
  * The example includes proper error handling, checks for existing resources,

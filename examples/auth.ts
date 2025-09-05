@@ -17,6 +17,8 @@ import { CriblControlPlane } from 'cribl-control-plane';
 const envPath = path.resolve(process.cwd(), '.env');
 const sleep = async (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+const domain = "cribl.cloud";
+
 type OnpremConfiguration = {
   serverURL: string;
   username: string;
@@ -28,7 +30,6 @@ type CloudConfiguration = {
   clientID: string;
   clientSecret: string;
   workspaceName: string;
-  criblDomain: string;
 }
 
 // Resolve .evn path
@@ -53,7 +54,7 @@ if (isOnprem) {
 
 export const baseUrl = isOnprem
   ? `${configuration.serverURL}/api/v1`
-  : `https://${configuration.workspaceName}-${configuration.orgId}.${configuration.criblDomain}/api/v1`;
+  : `https://${configuration.workspaceName}-${configuration.orgId}.${domain}/api/v1`;
 
 /**
  * Factory function that creates an authenticated Cribl Control Plane client
@@ -85,13 +86,11 @@ function getConfiguration<T>(isOnprem: boolean): T {
     if (!process.env.CLIENT_ID) throw new Error('CLIENT_ID is required for cloud deployment');
     if (!process.env.CLIENT_SECRET) throw new Error('CLIENT_SECRET is required for cloud deployment');
     if (!process.env.WORKSPACE_NAME) throw new Error('WORKSPACE_NAME is required for cloud deployment');
-    if (!process.env.CRIBL_DOMAIN) throw new Error('CRIBL_DOMAIN is required for cloud deployment');
     return {
       orgId: process.env.ORG_ID,
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
       workspaceName: process.env.WORKSPACE_NAME,
-      criblDomain: process.env.CRIBL_DOMAIN,
     } as T
   };
 }
@@ -157,12 +156,12 @@ export class AuthCloud implements ICriblAuth {
   private readonly tokenURL: string;
   private readonly audience: string;
   private attempts: number = 0;
-  constructor({ orgId, clientID, clientSecret, workspaceName, criblDomain }: CloudConfiguration) {
+  constructor({ orgId, clientID, clientSecret, workspaceName }: CloudConfiguration) {
     this.clientID = clientID;
     this.clientSecret = clientSecret;
-    this.baseUrl = `https://${workspaceName}-${orgId}.${criblDomain}/api/v1`;
-    this.tokenURL = `https://login.${criblDomain}/oauth/token`;
-    this.audience = `https://api.${criblDomain}`;
+    this.baseUrl = `https://${workspaceName}-${orgId}.${domain}/api/v1`;
+    this.tokenURL = `https://login.${domain}/oauth/token`;
+    this.audience = `https://api.${domain}`;
   }
 
   public async getClient(): Promise<CriblControlPlane> {

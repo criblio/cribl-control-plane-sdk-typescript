@@ -22,20 +22,19 @@ const ORG_ID = "your-org-id"; // Replace with your organization ID
 const CLIENT_ID = "your-client-id"; // Replace with your OAuth2 client ID
 const CLIENT_SECRET = "your-client-secret"; // Replace with your OAuth2 client secret
 const WORKSPACE_NAME = "main"; // Replace with your workspace name
-const CRIBL_DOMAIN = "cribl.cloud"; // Replace with your Cribl domain
 
-const BASE_URL = `https://${WORKSPACE_NAME}-${ORG_ID}.${CRIBL_DOMAIN}/api/v1`;
+const baseUrl = `https://${WORKSPACE_NAME}-${ORG_ID}.cribl.cloud/api/v1`;
 
 async function main() {
   // Create authenticated client with OAuth2
   const client = new CriblControlPlane({
-    serverURL: BASE_URL,
+    serverURL: baseUrl,
     security: {
       clientOauth: {
         clientID: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
-        tokenURL: `https://login.${CRIBL_DOMAIN}/oauth/token`,
-        audience: `https://api.${CRIBL_DOMAIN}`,
+        tokenURL: `https://login.cribl.cloud/oauth/token`,
+        audience: `https://api.cribl.cloud`,
       },
     },
   });
