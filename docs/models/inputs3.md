@@ -19,7 +19,9 @@ let value: InputS3 = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   queueName: "<value>",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",

@@ -19,7 +19,9 @@ let value: InputHttpRaw = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 4578.26,
   authTokens: [
     "<value 1>",

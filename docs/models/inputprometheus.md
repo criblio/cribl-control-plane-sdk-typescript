@@ -21,7 +21,9 @@ let value: InputPrometheus = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   dimensionList: [
     "<value 1>",
     "<value 2>",

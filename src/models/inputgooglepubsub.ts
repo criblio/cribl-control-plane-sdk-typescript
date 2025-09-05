@@ -44,6 +44,8 @@ export type InputGooglePubsubCompression = ClosedEnum<
   typeof InputGooglePubsubCompression
 >;
 
+export type InputGooglePubsubPqControls = {};
+
 export type InputGooglePubsubPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputGooglePubsubPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputGooglePubsubCompression | undefined;
+  pqControls?: InputGooglePubsubPqControls | undefined;
 };
 
 /**
@@ -312,6 +315,56 @@ export namespace InputGooglePubsubCompression$ {
 }
 
 /** @internal */
+export const InputGooglePubsubPqControls$inboundSchema: z.ZodType<
+  InputGooglePubsubPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputGooglePubsubPqControls$Outbound = {};
+
+/** @internal */
+export const InputGooglePubsubPqControls$outboundSchema: z.ZodType<
+  InputGooglePubsubPqControls$Outbound,
+  z.ZodTypeDef,
+  InputGooglePubsubPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputGooglePubsubPqControls$ {
+  /** @deprecated use `InputGooglePubsubPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputGooglePubsubPqControls$inboundSchema;
+  /** @deprecated use `InputGooglePubsubPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputGooglePubsubPqControls$outboundSchema;
+  /** @deprecated use `InputGooglePubsubPqControls$Outbound` instead. */
+  export type Outbound = InputGooglePubsubPqControls$Outbound;
+}
+
+export function inputGooglePubsubPqControlsToJSON(
+  inputGooglePubsubPqControls: InputGooglePubsubPqControls,
+): string {
+  return JSON.stringify(
+    InputGooglePubsubPqControls$outboundSchema.parse(
+      inputGooglePubsubPqControls,
+    ),
+  );
+}
+
+export function inputGooglePubsubPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputGooglePubsubPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGooglePubsubPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGooglePubsubPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputGooglePubsubPq$inboundSchema: z.ZodType<
   InputGooglePubsubPq,
   z.ZodTypeDef,
@@ -324,6 +377,8 @@ export const InputGooglePubsubPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputGooglePubsubCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGooglePubsubPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -335,6 +390,7 @@ export type InputGooglePubsubPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputGooglePubsubPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -350,6 +406,8 @@ export const InputGooglePubsubPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputGooglePubsubCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGooglePubsubPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

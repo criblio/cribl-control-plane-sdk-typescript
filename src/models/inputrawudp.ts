@@ -42,6 +42,8 @@ export const InputRawUdpCompression = {
  */
 export type InputRawUdpCompression = ClosedEnum<typeof InputRawUdpCompression>;
 
+export type InputRawUdpPqControls = {};
+
 export type InputRawUdpPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputRawUdpPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputRawUdpCompression | undefined;
+  pqControls?: InputRawUdpPqControls | undefined;
 };
 
 export type InputRawUdpMetadatum = {
@@ -269,6 +272,54 @@ export namespace InputRawUdpCompression$ {
 }
 
 /** @internal */
+export const InputRawUdpPqControls$inboundSchema: z.ZodType<
+  InputRawUdpPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputRawUdpPqControls$Outbound = {};
+
+/** @internal */
+export const InputRawUdpPqControls$outboundSchema: z.ZodType<
+  InputRawUdpPqControls$Outbound,
+  z.ZodTypeDef,
+  InputRawUdpPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputRawUdpPqControls$ {
+  /** @deprecated use `InputRawUdpPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputRawUdpPqControls$inboundSchema;
+  /** @deprecated use `InputRawUdpPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputRawUdpPqControls$outboundSchema;
+  /** @deprecated use `InputRawUdpPqControls$Outbound` instead. */
+  export type Outbound = InputRawUdpPqControls$Outbound;
+}
+
+export function inputRawUdpPqControlsToJSON(
+  inputRawUdpPqControls: InputRawUdpPqControls,
+): string {
+  return JSON.stringify(
+    InputRawUdpPqControls$outboundSchema.parse(inputRawUdpPqControls),
+  );
+}
+
+export function inputRawUdpPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputRawUdpPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputRawUdpPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputRawUdpPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputRawUdpPq$inboundSchema: z.ZodType<
   InputRawUdpPq,
   z.ZodTypeDef,
@@ -281,6 +332,7 @@ export const InputRawUdpPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputRawUdpCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputRawUdpPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -292,6 +344,7 @@ export type InputRawUdpPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputRawUdpPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -307,6 +360,7 @@ export const InputRawUdpPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputRawUdpCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputRawUdpPqControls$outboundSchema).optional(),
 });
 
 /**

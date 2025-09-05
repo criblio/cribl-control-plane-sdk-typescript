@@ -19,7 +19,9 @@ let value: InputFirehose = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 7517.47,
   authTokens: [
     "<value 1>",

@@ -44,6 +44,8 @@ export type InputOffice365MgmtCompression = ClosedEnum<
   typeof InputOffice365MgmtCompression
 >;
 
+export type InputOffice365MgmtPqControls = {};
+
 export type InputOffice365MgmtPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputOffice365MgmtPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputOffice365MgmtCompression | undefined;
+  pqControls?: InputOffice365MgmtPqControls | undefined;
 };
 
 /**
@@ -419,6 +422,56 @@ export namespace InputOffice365MgmtCompression$ {
 }
 
 /** @internal */
+export const InputOffice365MgmtPqControls$inboundSchema: z.ZodType<
+  InputOffice365MgmtPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputOffice365MgmtPqControls$Outbound = {};
+
+/** @internal */
+export const InputOffice365MgmtPqControls$outboundSchema: z.ZodType<
+  InputOffice365MgmtPqControls$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MgmtPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputOffice365MgmtPqControls$ {
+  /** @deprecated use `InputOffice365MgmtPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputOffice365MgmtPqControls$inboundSchema;
+  /** @deprecated use `InputOffice365MgmtPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputOffice365MgmtPqControls$outboundSchema;
+  /** @deprecated use `InputOffice365MgmtPqControls$Outbound` instead. */
+  export type Outbound = InputOffice365MgmtPqControls$Outbound;
+}
+
+export function inputOffice365MgmtPqControlsToJSON(
+  inputOffice365MgmtPqControls: InputOffice365MgmtPqControls,
+): string {
+  return JSON.stringify(
+    InputOffice365MgmtPqControls$outboundSchema.parse(
+      inputOffice365MgmtPqControls,
+    ),
+  );
+}
+
+export function inputOffice365MgmtPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MgmtPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MgmtPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MgmtPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputOffice365MgmtPq$inboundSchema: z.ZodType<
   InputOffice365MgmtPq,
   z.ZodTypeDef,
@@ -431,6 +484,8 @@ export const InputOffice365MgmtPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputOffice365MgmtCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputOffice365MgmtPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -442,6 +497,7 @@ export type InputOffice365MgmtPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputOffice365MgmtPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -457,6 +513,8 @@ export const InputOffice365MgmtPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputOffice365MgmtCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputOffice365MgmtPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

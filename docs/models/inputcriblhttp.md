@@ -21,7 +21,9 @@ let value: InputCriblHttp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 3140.1,
   authTokens: [
     "<value 1>",

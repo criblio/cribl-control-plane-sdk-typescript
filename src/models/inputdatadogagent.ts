@@ -44,6 +44,8 @@ export type InputDatadogAgentCompression = ClosedEnum<
   typeof InputDatadogAgentCompression
 >;
 
+export type InputDatadogAgentPqControls = {};
+
 export type InputDatadogAgentPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputDatadogAgentPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputDatadogAgentCompression | undefined;
+  pqControls?: InputDatadogAgentPqControls | undefined;
 };
 
 export const InputDatadogAgentMinimumTLSVersion = {
@@ -366,6 +369,56 @@ export namespace InputDatadogAgentCompression$ {
 }
 
 /** @internal */
+export const InputDatadogAgentPqControls$inboundSchema: z.ZodType<
+  InputDatadogAgentPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputDatadogAgentPqControls$Outbound = {};
+
+/** @internal */
+export const InputDatadogAgentPqControls$outboundSchema: z.ZodType<
+  InputDatadogAgentPqControls$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgentPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputDatadogAgentPqControls$ {
+  /** @deprecated use `InputDatadogAgentPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputDatadogAgentPqControls$inboundSchema;
+  /** @deprecated use `InputDatadogAgentPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputDatadogAgentPqControls$outboundSchema;
+  /** @deprecated use `InputDatadogAgentPqControls$Outbound` instead. */
+  export type Outbound = InputDatadogAgentPqControls$Outbound;
+}
+
+export function inputDatadogAgentPqControlsToJSON(
+  inputDatadogAgentPqControls: InputDatadogAgentPqControls,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentPqControls$outboundSchema.parse(
+      inputDatadogAgentPqControls,
+    ),
+  );
+}
+
+export function inputDatadogAgentPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatadogAgentPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatadogAgentPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputDatadogAgentPq$inboundSchema: z.ZodType<
   InputDatadogAgentPq,
   z.ZodTypeDef,
@@ -378,6 +431,8 @@ export const InputDatadogAgentPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputDatadogAgentCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputDatadogAgentPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -389,6 +444,7 @@ export type InputDatadogAgentPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputDatadogAgentPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -404,6 +460,8 @@ export const InputDatadogAgentPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputDatadogAgentCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputDatadogAgentPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

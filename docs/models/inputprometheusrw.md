@@ -19,7 +19,9 @@ let value: InputPrometheusRw = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 6798.56,
   tls: {
     certificateName: "<value>",

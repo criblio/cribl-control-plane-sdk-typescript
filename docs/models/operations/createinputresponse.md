@@ -35,6 +35,7 @@ let value: CreateInputResponse = {
         maxSize: "5GB",
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
+        pqControls: {},
       },
       queueName: "<value>",
       queueType: "standard",

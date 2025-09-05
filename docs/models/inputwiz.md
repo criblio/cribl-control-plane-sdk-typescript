@@ -19,7 +19,9 @@ let value: InputWiz = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   authUrl: "https://criminal-offset.info/",
   authAudienceOverride: "<value>",
   clientId: "<id>",

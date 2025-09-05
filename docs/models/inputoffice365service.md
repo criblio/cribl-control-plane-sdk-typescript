@@ -21,7 +21,9 @@ let value: InputOffice365Service = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tenantId: "<id>",
   appId: "<id>",
   metadata: [

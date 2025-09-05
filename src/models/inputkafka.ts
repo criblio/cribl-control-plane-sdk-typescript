@@ -42,6 +42,8 @@ export const InputKafkaCompression = {
  */
 export type InputKafkaCompression = ClosedEnum<typeof InputKafkaCompression>;
 
+export type InputKafkaPqControls = {};
+
 export type InputKafkaPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputKafkaPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputKafkaCompression | undefined;
+  pqControls?: InputKafkaPqControls | undefined;
 };
 
 /**
@@ -525,6 +528,54 @@ export namespace InputKafkaCompression$ {
 }
 
 /** @internal */
+export const InputKafkaPqControls$inboundSchema: z.ZodType<
+  InputKafkaPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputKafkaPqControls$Outbound = {};
+
+/** @internal */
+export const InputKafkaPqControls$outboundSchema: z.ZodType<
+  InputKafkaPqControls$Outbound,
+  z.ZodTypeDef,
+  InputKafkaPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputKafkaPqControls$ {
+  /** @deprecated use `InputKafkaPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputKafkaPqControls$inboundSchema;
+  /** @deprecated use `InputKafkaPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputKafkaPqControls$outboundSchema;
+  /** @deprecated use `InputKafkaPqControls$Outbound` instead. */
+  export type Outbound = InputKafkaPqControls$Outbound;
+}
+
+export function inputKafkaPqControlsToJSON(
+  inputKafkaPqControls: InputKafkaPqControls,
+): string {
+  return JSON.stringify(
+    InputKafkaPqControls$outboundSchema.parse(inputKafkaPqControls),
+  );
+}
+
+export function inputKafkaPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKafkaPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKafkaPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKafkaPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputKafkaPq$inboundSchema: z.ZodType<
   InputKafkaPq,
   z.ZodTypeDef,
@@ -537,6 +588,7 @@ export const InputKafkaPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputKafkaCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputKafkaPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -548,6 +600,7 @@ export type InputKafkaPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputKafkaPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -563,6 +616,7 @@ export const InputKafkaPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputKafkaCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputKafkaPqControls$outboundSchema).optional(),
 });
 
 /**

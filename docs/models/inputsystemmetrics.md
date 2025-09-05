@@ -20,7 +20,9 @@ let value: InputSystemMetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   host: {
     custom: {
       system: {},

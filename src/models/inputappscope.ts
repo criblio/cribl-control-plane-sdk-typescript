@@ -44,6 +44,8 @@ export type InputAppscopeCompression = ClosedEnum<
   typeof InputAppscopeCompression
 >;
 
+export type InputAppscopePqControls = {};
+
 export type InputAppscopePq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputAppscopePq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputAppscopeCompression | undefined;
+  pqControls?: InputAppscopePqControls | undefined;
 };
 
 export type InputAppscopeMetadatum = {
@@ -434,6 +437,54 @@ export namespace InputAppscopeCompression$ {
 }
 
 /** @internal */
+export const InputAppscopePqControls$inboundSchema: z.ZodType<
+  InputAppscopePqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputAppscopePqControls$Outbound = {};
+
+/** @internal */
+export const InputAppscopePqControls$outboundSchema: z.ZodType<
+  InputAppscopePqControls$Outbound,
+  z.ZodTypeDef,
+  InputAppscopePqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputAppscopePqControls$ {
+  /** @deprecated use `InputAppscopePqControls$inboundSchema` instead. */
+  export const inboundSchema = InputAppscopePqControls$inboundSchema;
+  /** @deprecated use `InputAppscopePqControls$outboundSchema` instead. */
+  export const outboundSchema = InputAppscopePqControls$outboundSchema;
+  /** @deprecated use `InputAppscopePqControls$Outbound` instead. */
+  export type Outbound = InputAppscopePqControls$Outbound;
+}
+
+export function inputAppscopePqControlsToJSON(
+  inputAppscopePqControls: InputAppscopePqControls,
+): string {
+  return JSON.stringify(
+    InputAppscopePqControls$outboundSchema.parse(inputAppscopePqControls),
+  );
+}
+
+export function inputAppscopePqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopePqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopePqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopePqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputAppscopePq$inboundSchema: z.ZodType<
   InputAppscopePq,
   z.ZodTypeDef,
@@ -446,6 +497,7 @@ export const InputAppscopePq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputAppscopeCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputAppscopePqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -457,6 +509,7 @@ export type InputAppscopePq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputAppscopePqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -472,6 +525,7 @@ export const InputAppscopePq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputAppscopeCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputAppscopePqControls$outboundSchema).optional(),
 });
 
 /**

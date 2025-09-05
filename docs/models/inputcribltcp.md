@@ -21,7 +21,9 @@ let value: InputCriblTcp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 4566.33,
   tls: {
     certificateName: "<value>",

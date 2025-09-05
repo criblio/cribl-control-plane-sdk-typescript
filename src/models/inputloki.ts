@@ -42,6 +42,8 @@ export const InputLokiCompression = {
  */
 export type InputLokiCompression = ClosedEnum<typeof InputLokiCompression>;
 
+export type InputLokiPqControls = {};
+
 export type InputLokiPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputLokiPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputLokiCompression | undefined;
+  pqControls?: InputLokiPqControls | undefined;
 };
 
 export const InputLokiMinimumTLSVersion = {
@@ -263,10 +266,6 @@ export type InputLoki = {
    */
   lokiAPI?: string | undefined;
   /**
-   * Extract structured metadata from the Loki 3.5.3+ format and place it in the __structuredMetadata field. When disabled, uses legacy Loki parsing for backward compatibility.
-   */
-  extractStructuredMetadata?: boolean | undefined;
-  /**
    * Loki logs authentication type
    */
   authType?: InputLokiAuthenticationType | undefined;
@@ -444,6 +443,54 @@ export namespace InputLokiCompression$ {
 }
 
 /** @internal */
+export const InputLokiPqControls$inboundSchema: z.ZodType<
+  InputLokiPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputLokiPqControls$Outbound = {};
+
+/** @internal */
+export const InputLokiPqControls$outboundSchema: z.ZodType<
+  InputLokiPqControls$Outbound,
+  z.ZodTypeDef,
+  InputLokiPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputLokiPqControls$ {
+  /** @deprecated use `InputLokiPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputLokiPqControls$inboundSchema;
+  /** @deprecated use `InputLokiPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputLokiPqControls$outboundSchema;
+  /** @deprecated use `InputLokiPqControls$Outbound` instead. */
+  export type Outbound = InputLokiPqControls$Outbound;
+}
+
+export function inputLokiPqControlsToJSON(
+  inputLokiPqControls: InputLokiPqControls,
+): string {
+  return JSON.stringify(
+    InputLokiPqControls$outboundSchema.parse(inputLokiPqControls),
+  );
+}
+
+export function inputLokiPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputLokiPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputLokiPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputLokiPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputLokiPq$inboundSchema: z.ZodType<
   InputLokiPq,
   z.ZodTypeDef,
@@ -456,6 +503,7 @@ export const InputLokiPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputLokiCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputLokiPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -467,6 +515,7 @@ export type InputLokiPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputLokiPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -482,6 +531,7 @@ export const InputLokiPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputLokiCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputLokiPqControls$outboundSchema).optional(),
 });
 
 /**
@@ -863,7 +913,6 @@ export const InputLoki$inboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  extractStructuredMetadata: z.boolean().default(false),
   authType: InputLokiAuthenticationType$inboundSchema.default("none"),
   metadata: z.array(z.lazy(() => InputLokiMetadatum$inboundSchema)).optional(),
   description: z.string().optional(),
@@ -911,7 +960,6 @@ export type InputLoki$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   lokiAPI: string;
-  extractStructuredMetadata: boolean;
   authType: string;
   metadata?: Array<InputLokiMetadatum$Outbound> | undefined;
   description?: string | undefined;
@@ -962,7 +1010,6 @@ export const InputLoki$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  extractStructuredMetadata: z.boolean().default(false),
   authType: InputLokiAuthenticationType$outboundSchema.default("none"),
   metadata: z.array(z.lazy(() => InputLokiMetadatum$outboundSchema)).optional(),
   description: z.string().optional(),

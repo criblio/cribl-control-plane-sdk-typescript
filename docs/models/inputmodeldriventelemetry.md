@@ -20,7 +20,9 @@ let value: InputModelDrivenTelemetry = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",

@@ -21,7 +21,9 @@ let value: InputSplunkSearch = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   search: "<value>",
   endpointParams: [
     {

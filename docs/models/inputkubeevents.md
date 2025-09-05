@@ -19,7 +19,9 @@ let value: InputKubeEvents = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",

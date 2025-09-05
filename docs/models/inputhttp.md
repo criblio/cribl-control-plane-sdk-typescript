@@ -20,7 +20,9 @@ let value: InputHttp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 1871.53,
   authTokens: [
     "<value 1>",

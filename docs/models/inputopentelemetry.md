@@ -21,7 +21,9 @@ let value: InputOpenTelemetry = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",

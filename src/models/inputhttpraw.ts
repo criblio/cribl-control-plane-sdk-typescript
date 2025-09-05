@@ -44,6 +44,8 @@ export type InputHttpRawCompression = ClosedEnum<
   typeof InputHttpRawCompression
 >;
 
+export type InputHttpRawPqControls = {};
+
 export type InputHttpRawPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputHttpRawPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputHttpRawCompression | undefined;
+  pqControls?: InputHttpRawPqControls | undefined;
 };
 
 export const InputHttpRawMinimumTLSVersion = {
@@ -392,6 +395,54 @@ export namespace InputHttpRawCompression$ {
 }
 
 /** @internal */
+export const InputHttpRawPqControls$inboundSchema: z.ZodType<
+  InputHttpRawPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputHttpRawPqControls$Outbound = {};
+
+/** @internal */
+export const InputHttpRawPqControls$outboundSchema: z.ZodType<
+  InputHttpRawPqControls$Outbound,
+  z.ZodTypeDef,
+  InputHttpRawPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputHttpRawPqControls$ {
+  /** @deprecated use `InputHttpRawPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputHttpRawPqControls$inboundSchema;
+  /** @deprecated use `InputHttpRawPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputHttpRawPqControls$outboundSchema;
+  /** @deprecated use `InputHttpRawPqControls$Outbound` instead. */
+  export type Outbound = InputHttpRawPqControls$Outbound;
+}
+
+export function inputHttpRawPqControlsToJSON(
+  inputHttpRawPqControls: InputHttpRawPqControls,
+): string {
+  return JSON.stringify(
+    InputHttpRawPqControls$outboundSchema.parse(inputHttpRawPqControls),
+  );
+}
+
+export function inputHttpRawPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpRawPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpRawPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpRawPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputHttpRawPq$inboundSchema: z.ZodType<
   InputHttpRawPq,
   z.ZodTypeDef,
@@ -404,6 +455,7 @@ export const InputHttpRawPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputHttpRawCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputHttpRawPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -415,6 +467,7 @@ export type InputHttpRawPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputHttpRawPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -430,6 +483,7 @@ export const InputHttpRawPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputHttpRawCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputHttpRawPqControls$outboundSchema).optional(),
 });
 
 /**

@@ -44,6 +44,8 @@ export type InputCrowdstrikeCompression = ClosedEnum<
   typeof InputCrowdstrikeCompression
 >;
 
+export type InputCrowdstrikePqControls = {};
+
 export type InputCrowdstrikePq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputCrowdstrikePq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputCrowdstrikeCompression | undefined;
+  pqControls?: InputCrowdstrikePqControls | undefined;
 };
 
 /**
@@ -416,6 +419,54 @@ export namespace InputCrowdstrikeCompression$ {
 }
 
 /** @internal */
+export const InputCrowdstrikePqControls$inboundSchema: z.ZodType<
+  InputCrowdstrikePqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputCrowdstrikePqControls$Outbound = {};
+
+/** @internal */
+export const InputCrowdstrikePqControls$outboundSchema: z.ZodType<
+  InputCrowdstrikePqControls$Outbound,
+  z.ZodTypeDef,
+  InputCrowdstrikePqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputCrowdstrikePqControls$ {
+  /** @deprecated use `InputCrowdstrikePqControls$inboundSchema` instead. */
+  export const inboundSchema = InputCrowdstrikePqControls$inboundSchema;
+  /** @deprecated use `InputCrowdstrikePqControls$outboundSchema` instead. */
+  export const outboundSchema = InputCrowdstrikePqControls$outboundSchema;
+  /** @deprecated use `InputCrowdstrikePqControls$Outbound` instead. */
+  export type Outbound = InputCrowdstrikePqControls$Outbound;
+}
+
+export function inputCrowdstrikePqControlsToJSON(
+  inputCrowdstrikePqControls: InputCrowdstrikePqControls,
+): string {
+  return JSON.stringify(
+    InputCrowdstrikePqControls$outboundSchema.parse(inputCrowdstrikePqControls),
+  );
+}
+
+export function inputCrowdstrikePqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCrowdstrikePqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCrowdstrikePqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCrowdstrikePqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputCrowdstrikePq$inboundSchema: z.ZodType<
   InputCrowdstrikePq,
   z.ZodTypeDef,
@@ -428,6 +479,7 @@ export const InputCrowdstrikePq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputCrowdstrikeCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputCrowdstrikePqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -439,6 +491,7 @@ export type InputCrowdstrikePq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputCrowdstrikePqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -454,6 +507,8 @@ export const InputCrowdstrikePq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputCrowdstrikeCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputCrowdstrikePqControls$outboundSchema)
+    .optional(),
 });
 
 /**

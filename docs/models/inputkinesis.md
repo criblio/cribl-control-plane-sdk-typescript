@@ -20,7 +20,9 @@ let value: InputKinesis = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   streamName: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",

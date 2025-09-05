@@ -19,7 +19,9 @@ let value: InputWindowsMetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   host: {
     custom: {
       system: {},

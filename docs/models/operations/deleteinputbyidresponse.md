@@ -35,6 +35,7 @@ let value: DeleteInputByIdResponse = {
         maxSize: "5GB",
         path: "$CRIBL_HOME/state/queues",
         compress: "none",
+        pqControls: {},
       },
       host: "0.0.0.0",
       port: 1132.54,
@@ -86,10 +87,15 @@ let value: DeleteInputByIdResponse = {
               value: "<value>",
             },
           ],
-          enableSplunkHec: false,
+          splunkHecMetadata: {
+            enabled: true,
+          },
+          elasticsearchMetadata: {
+            enabled: true,
+          },
         },
       ],
-      description: "gape on convalesce incinerate",
+      description: "favorable connect ack infamous vice athletic boohoo",
     },
   ],
 };

@@ -19,7 +19,9 @@ let value: InputJournalFiles = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   path: "/private/var",
   journals: [
     "<value 1>",

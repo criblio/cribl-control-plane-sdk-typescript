@@ -44,6 +44,8 @@ export type InputFirehoseCompression = ClosedEnum<
   typeof InputFirehoseCompression
 >;
 
+export type InputFirehosePqControls = {};
+
 export type InputFirehosePq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputFirehosePq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputFirehoseCompression | undefined;
+  pqControls?: InputFirehosePqControls | undefined;
 };
 
 export const InputFirehoseMinimumTLSVersion = {
@@ -352,6 +355,54 @@ export namespace InputFirehoseCompression$ {
 }
 
 /** @internal */
+export const InputFirehosePqControls$inboundSchema: z.ZodType<
+  InputFirehosePqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputFirehosePqControls$Outbound = {};
+
+/** @internal */
+export const InputFirehosePqControls$outboundSchema: z.ZodType<
+  InputFirehosePqControls$Outbound,
+  z.ZodTypeDef,
+  InputFirehosePqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputFirehosePqControls$ {
+  /** @deprecated use `InputFirehosePqControls$inboundSchema` instead. */
+  export const inboundSchema = InputFirehosePqControls$inboundSchema;
+  /** @deprecated use `InputFirehosePqControls$outboundSchema` instead. */
+  export const outboundSchema = InputFirehosePqControls$outboundSchema;
+  /** @deprecated use `InputFirehosePqControls$Outbound` instead. */
+  export type Outbound = InputFirehosePqControls$Outbound;
+}
+
+export function inputFirehosePqControlsToJSON(
+  inputFirehosePqControls: InputFirehosePqControls,
+): string {
+  return JSON.stringify(
+    InputFirehosePqControls$outboundSchema.parse(inputFirehosePqControls),
+  );
+}
+
+export function inputFirehosePqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputFirehosePqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputFirehosePqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputFirehosePqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputFirehosePq$inboundSchema: z.ZodType<
   InputFirehosePq,
   z.ZodTypeDef,
@@ -364,6 +415,7 @@ export const InputFirehosePq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputFirehoseCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputFirehosePqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -375,6 +427,7 @@ export type InputFirehosePq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputFirehosePqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -390,6 +443,7 @@ export const InputFirehosePq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputFirehoseCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputFirehosePqControls$outboundSchema).optional(),
 });
 
 /**

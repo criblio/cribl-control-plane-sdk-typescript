@@ -21,7 +21,9 @@ let value: InputExec = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   command: "<value>",
   breakerRulesets: [
     "<value 1>",
