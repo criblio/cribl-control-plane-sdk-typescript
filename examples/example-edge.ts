@@ -6,33 +6,43 @@
  * data pipeline in Cribl Edge using the Control Plane SDK. It creates:
  * 
  * 1. A Fleet to manage the configuration
- * 2. A TCP JSON source to receive data on port 9020
- * 3. A filesystem destination to output processed data
- * 4. A pipeline that filters events to keep only the "name" field
+ * 2. A Syslog source to receive data on port 9021
+ * 3. An Amazon S3 destination to store processed data
+ * 4. A pipeline that filters events to keep only eventSource and eventID fields
  * 5. A route that connects the source to the pipeline and destination
- *
- * Data flow: TCP JSON Source → Route → Pipeline → File Destination
+ * 6. Deploys the configuration to the fleet to make it active
+ * 
+ * Data flow: Syslog Source → Route → Pipeline → S3 Destination
  *
  * The example includes proper error handling, checks for existing resources,
  * and automatically deploys the configuration to make it active.
  * 
  * Prerequisites:
- * - Configure your .env file
+ * - Configure your .env file with appropriate credentials
+ * - Update AWS S3 configuration values (AWS_API_KEY, AWS_SECRET_KEY, AWS_BUCKET_NAME, AWS_REGION)
  * - Requires Enterprise License on the server
  */
 
+const FLEET_ID = "my-fleet";
+
+// Syslog source configuration
+const SYSLOG_PORT = 9021;
+
+// Amazon S3 destination configuration
+// [ UPDATE THESE VALUES ]
+const AWS_API_KEY = "your-aws-api-key"; // Replace with your AWS Access Key ID
+const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Access Key
+const AWS_BUCKET_NAME = "your-aws-bucket-name"; // Replace with your S3 bucket name
+const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
+
 import {
   ConfigGroup,
-  InputTcpjson,
-  OutputFilesystem,
+  InputSyslog,
+  OutputS3,
   Pipeline,
   RoutesRoute,
 } from "../dist/esm/models";
 import { baseUrl, createCriblClient } from "./auth";
-
-const PORT = 9020;
-const AUTH_TOKEN = "4a4b3663-7a57-7369-7632-795553573668";
-const FLEET_ID = "my-fleet";
 
 const myFleet: ConfigGroup = {
   onPrem: true,
@@ -42,22 +52,28 @@ const myFleet: ConfigGroup = {
   id: FLEET_ID
 };
 
-const tcpJsonSource: InputTcpjson = {
-  id: "my-tcp-json",
-  type: "tcpjson",
-  port: PORT,
-  authType: "manual",
-  authToken: AUTH_TOKEN,
+const syslogSource: InputSyslog = {
+  id: "my-syslog-source",
+  type: "syslog",
+  tcpPort: SYSLOG_PORT,
+  tls: {
+    disabled: true,
+  }
 };
 
-const fileSystemDestination: OutputFilesystem = {
-  id: "my-fs-destination",
-  type: "filesystem",
-  destPath: "/tmp/my-output",
-  compress: "none"
+const s3Destination: OutputS3 = {
+  id: "my-s3-destination",
+  type: "s3",
+  bucket: AWS_BUCKET_NAME,
+  region: AWS_REGION,
+  awsSecretKey: AWS_SECRET_KEY,
+  awsApiKey: AWS_API_KEY,
+  compress: "gzip",
+  compressionLevel: "best_speed",
+  emptyDirCleanupSec: 300,
 };
 
-// Pipeline configuration: filters events to keep only the "name" field
+// Pipeline configuration: filters events to keep only eventSource and eventID fields
 const pipeline: Pipeline = {
   id: "my-pipeline",
   conf: {
@@ -65,12 +81,8 @@ const pipeline: Pipeline = {
       functions: [{
         filter: "true",
         conf: {
-            remove: [
-                "*"
-            ],
-            keep: [
-                "name"
-            ]
+            remove: ["*"],
+            keep: ["eventSource", "eventID"]
         },
         id: "eval",
         final: true,
@@ -83,8 +95,8 @@ const route: RoutesRoute = {
   id: "my-route",
   name: "my-route",
   pipeline: pipeline.id,
-  output: fileSystemDestination.id,
-  filter: "__inputId=='tcpjson:my-tcp-json'",
+  output: s3Destination.id,
+  filter: `__inputId=='${syslogSource.id}'`,
   description: "This is my new route",
   additionalProperties: {},
 };
@@ -105,13 +117,13 @@ async function main() {
   await cribl.groups.create({ product: "edge", configGroup: myFleet });
   console.log(`✅ Fleet created: ${myFleet.id}`);
 
-  // Create TCP JSON source
-  await cribl.sources.create(tcpJsonSource, { serverURL: groupUrl });
-  console.log(`✅ Tcp Json Source created: ${tcpJsonSource.id}`);
+  // Create Syslog source
+  await cribl.sources.create(syslogSource, { serverURL: groupUrl });
+  console.log(`✅ Syslog source created: ${syslogSource.id}`);
 
-  // Create file destination
-  await cribl.destinations.create(fileSystemDestination, { serverURL: groupUrl });
-  console.log(`✅ File Destination created: ${fileSystemDestination.id}`);
+  // Create S3 destination
+  await cribl.destinations.create(s3Destination, { serverURL: groupUrl });
+  console.log(`✅ S3 destination created: ${s3Destination.id}`);
 
   // Create pipeline
   await cribl.pipelines.create(pipeline, { serverURL: groupUrl });
@@ -146,5 +158,5 @@ async function main() {
 }
 
 main().catch(error => {
-  console.error("❌ Something went wrong: ", error);
+  console.error("❌ Something went wrong: ", error.message);
 });
