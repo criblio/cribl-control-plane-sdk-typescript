@@ -21,7 +21,9 @@ let value: InputNetflow = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   udpSocketRxBufSize: 2121.68,
   metadata: [
     {

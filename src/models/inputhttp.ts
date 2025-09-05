@@ -42,6 +42,8 @@ export const InputHttpCompression = {
  */
 export type InputHttpCompression = ClosedEnum<typeof InputHttpCompression>;
 
+export type InputHttpPqControls = {};
+
 export type InputHttpPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputHttpPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputHttpCompression | undefined;
+  pqControls?: InputHttpPqControls | undefined;
 };
 
 export const InputHttpMinimumTLSVersion = {
@@ -387,6 +390,54 @@ export namespace InputHttpCompression$ {
 }
 
 /** @internal */
+export const InputHttpPqControls$inboundSchema: z.ZodType<
+  InputHttpPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputHttpPqControls$Outbound = {};
+
+/** @internal */
+export const InputHttpPqControls$outboundSchema: z.ZodType<
+  InputHttpPqControls$Outbound,
+  z.ZodTypeDef,
+  InputHttpPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputHttpPqControls$ {
+  /** @deprecated use `InputHttpPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputHttpPqControls$inboundSchema;
+  /** @deprecated use `InputHttpPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputHttpPqControls$outboundSchema;
+  /** @deprecated use `InputHttpPqControls$Outbound` instead. */
+  export type Outbound = InputHttpPqControls$Outbound;
+}
+
+export function inputHttpPqControlsToJSON(
+  inputHttpPqControls: InputHttpPqControls,
+): string {
+  return JSON.stringify(
+    InputHttpPqControls$outboundSchema.parse(inputHttpPqControls),
+  );
+}
+
+export function inputHttpPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputHttpPq$inboundSchema: z.ZodType<
   InputHttpPq,
   z.ZodTypeDef,
@@ -399,6 +450,7 @@ export const InputHttpPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputHttpCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputHttpPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -410,6 +462,7 @@ export type InputHttpPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputHttpPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -425,6 +478,7 @@ export const InputHttpPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputHttpCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputHttpPqControls$outboundSchema).optional(),
 });
 
 /**

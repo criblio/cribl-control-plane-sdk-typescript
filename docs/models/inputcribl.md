@@ -19,7 +19,9 @@ let value: InputCribl = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   filter: "<value>",
   metadata: [
     {

@@ -21,7 +21,9 @@ let value: InputGooglePubsub = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   subscriptionName: "<value>",
   region: "<value>",
   serviceAccountCredentials: "<value>",

@@ -20,7 +20,9 @@ let value: InputDatagen = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   samples: [
     {
       sample: "<value>",

@@ -21,7 +21,9 @@ let value: InputSyslogSyslog1 = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   udpPort: 8325.84,
   tcpPort: 5133.04,
   keepFieldsList: [

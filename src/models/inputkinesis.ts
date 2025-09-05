@@ -44,6 +44,8 @@ export type InputKinesisCompression = ClosedEnum<
   typeof InputKinesisCompression
 >;
 
+export type InputKinesisPqControls = {};
+
 export type InputKinesisPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputKinesisPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputKinesisCompression | undefined;
+  pqControls?: InputKinesisPqControls | undefined;
 };
 
 /**
@@ -398,6 +401,54 @@ export namespace InputKinesisCompression$ {
 }
 
 /** @internal */
+export const InputKinesisPqControls$inboundSchema: z.ZodType<
+  InputKinesisPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputKinesisPqControls$Outbound = {};
+
+/** @internal */
+export const InputKinesisPqControls$outboundSchema: z.ZodType<
+  InputKinesisPqControls$Outbound,
+  z.ZodTypeDef,
+  InputKinesisPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputKinesisPqControls$ {
+  /** @deprecated use `InputKinesisPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputKinesisPqControls$inboundSchema;
+  /** @deprecated use `InputKinesisPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputKinesisPqControls$outboundSchema;
+  /** @deprecated use `InputKinesisPqControls$Outbound` instead. */
+  export type Outbound = InputKinesisPqControls$Outbound;
+}
+
+export function inputKinesisPqControlsToJSON(
+  inputKinesisPqControls: InputKinesisPqControls,
+): string {
+  return JSON.stringify(
+    InputKinesisPqControls$outboundSchema.parse(inputKinesisPqControls),
+  );
+}
+
+export function inputKinesisPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesisPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesisPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputKinesisPq$inboundSchema: z.ZodType<
   InputKinesisPq,
   z.ZodTypeDef,
@@ -410,6 +461,7 @@ export const InputKinesisPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputKinesisCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputKinesisPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -421,6 +473,7 @@ export type InputKinesisPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputKinesisPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -436,6 +489,7 @@ export const InputKinesisPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputKinesisCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputKinesisPqControls$outboundSchema).optional(),
 });
 
 /**

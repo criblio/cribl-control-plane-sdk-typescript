@@ -44,6 +44,8 @@ export type InputAzureBlobCompression = ClosedEnum<
   typeof InputAzureBlobCompression
 >;
 
+export type InputAzureBlobPqControls = {};
+
 export type InputAzureBlobPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputAzureBlobPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputAzureBlobCompression | undefined;
+  pqControls?: InputAzureBlobPqControls | undefined;
 };
 
 export type InputAzureBlobMetadatum = {
@@ -338,6 +341,54 @@ export namespace InputAzureBlobCompression$ {
 }
 
 /** @internal */
+export const InputAzureBlobPqControls$inboundSchema: z.ZodType<
+  InputAzureBlobPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputAzureBlobPqControls$Outbound = {};
+
+/** @internal */
+export const InputAzureBlobPqControls$outboundSchema: z.ZodType<
+  InputAzureBlobPqControls$Outbound,
+  z.ZodTypeDef,
+  InputAzureBlobPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputAzureBlobPqControls$ {
+  /** @deprecated use `InputAzureBlobPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputAzureBlobPqControls$inboundSchema;
+  /** @deprecated use `InputAzureBlobPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputAzureBlobPqControls$outboundSchema;
+  /** @deprecated use `InputAzureBlobPqControls$Outbound` instead. */
+  export type Outbound = InputAzureBlobPqControls$Outbound;
+}
+
+export function inputAzureBlobPqControlsToJSON(
+  inputAzureBlobPqControls: InputAzureBlobPqControls,
+): string {
+  return JSON.stringify(
+    InputAzureBlobPqControls$outboundSchema.parse(inputAzureBlobPqControls),
+  );
+}
+
+export function inputAzureBlobPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputAzureBlobPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAzureBlobPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAzureBlobPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputAzureBlobPq$inboundSchema: z.ZodType<
   InputAzureBlobPq,
   z.ZodTypeDef,
@@ -350,6 +401,7 @@ export const InputAzureBlobPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputAzureBlobCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputAzureBlobPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -361,6 +413,7 @@ export type InputAzureBlobPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputAzureBlobPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -376,6 +429,7 @@ export const InputAzureBlobPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputAzureBlobCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputAzureBlobPqControls$outboundSchema).optional(),
 });
 
 /**

@@ -21,7 +21,9 @@ let value: InputSplunkHec = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 817.1,
   authTokens: [
     {

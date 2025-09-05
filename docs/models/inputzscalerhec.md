@@ -20,7 +20,9 @@ let value: InputZscalerHec = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 8324.99,
   authTokens: [
     {

@@ -42,6 +42,8 @@ export const InputS3Compression = {
  */
 export type InputS3Compression = ClosedEnum<typeof InputS3Compression>;
 
+export type InputS3PqControls = {};
+
 export type InputS3Pq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputS3Pq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputS3Compression | undefined;
+  pqControls?: InputS3PqControls | undefined;
 };
 
 /**
@@ -413,6 +416,54 @@ export namespace InputS3Compression$ {
 }
 
 /** @internal */
+export const InputS3PqControls$inboundSchema: z.ZodType<
+  InputS3PqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputS3PqControls$Outbound = {};
+
+/** @internal */
+export const InputS3PqControls$outboundSchema: z.ZodType<
+  InputS3PqControls$Outbound,
+  z.ZodTypeDef,
+  InputS3PqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputS3PqControls$ {
+  /** @deprecated use `InputS3PqControls$inboundSchema` instead. */
+  export const inboundSchema = InputS3PqControls$inboundSchema;
+  /** @deprecated use `InputS3PqControls$outboundSchema` instead. */
+  export const outboundSchema = InputS3PqControls$outboundSchema;
+  /** @deprecated use `InputS3PqControls$Outbound` instead. */
+  export type Outbound = InputS3PqControls$Outbound;
+}
+
+export function inputS3PqControlsToJSON(
+  inputS3PqControls: InputS3PqControls,
+): string {
+  return JSON.stringify(
+    InputS3PqControls$outboundSchema.parse(inputS3PqControls),
+  );
+}
+
+export function inputS3PqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputS3PqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputS3PqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputS3PqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputS3Pq$inboundSchema: z.ZodType<
   InputS3Pq,
   z.ZodTypeDef,
@@ -425,6 +476,7 @@ export const InputS3Pq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputS3Compression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputS3PqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -436,6 +488,7 @@ export type InputS3Pq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputS3PqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -451,6 +504,7 @@ export const InputS3Pq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputS3Compression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputS3PqControls$outboundSchema).optional(),
 });
 
 /**

@@ -20,7 +20,9 @@ let value: InputKubeMetrics = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",

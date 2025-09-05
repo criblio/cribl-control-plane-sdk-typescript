@@ -22,7 +22,9 @@ const value: models.InputSyslogSyslog1 = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   udpPort: 8325.84,
   tcpPort: 5133.04,
   keepFieldsList: [
@@ -70,7 +72,9 @@ const value: models.InputSyslogSyslog2 = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   udpPort: 8752.91,
   tcpPort: 8415.47,
   keepFieldsList: [

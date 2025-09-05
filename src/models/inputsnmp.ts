@@ -42,6 +42,8 @@ export const InputSnmpCompression = {
  */
 export type InputSnmpCompression = ClosedEnum<typeof InputSnmpCompression>;
 
+export type InputSnmpPqControls = {};
+
 export type InputSnmpPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputSnmpPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputSnmpCompression | undefined;
+  pqControls?: InputSnmpPqControls | undefined;
 };
 
 export const AuthenticationProtocol = {
@@ -306,6 +309,54 @@ export namespace InputSnmpCompression$ {
 }
 
 /** @internal */
+export const InputSnmpPqControls$inboundSchema: z.ZodType<
+  InputSnmpPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputSnmpPqControls$Outbound = {};
+
+/** @internal */
+export const InputSnmpPqControls$outboundSchema: z.ZodType<
+  InputSnmpPqControls$Outbound,
+  z.ZodTypeDef,
+  InputSnmpPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputSnmpPqControls$ {
+  /** @deprecated use `InputSnmpPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputSnmpPqControls$inboundSchema;
+  /** @deprecated use `InputSnmpPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputSnmpPqControls$outboundSchema;
+  /** @deprecated use `InputSnmpPqControls$Outbound` instead. */
+  export type Outbound = InputSnmpPqControls$Outbound;
+}
+
+export function inputSnmpPqControlsToJSON(
+  inputSnmpPqControls: InputSnmpPqControls,
+): string {
+  return JSON.stringify(
+    InputSnmpPqControls$outboundSchema.parse(inputSnmpPqControls),
+  );
+}
+
+export function inputSnmpPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSnmpPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSnmpPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSnmpPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSnmpPq$inboundSchema: z.ZodType<
   InputSnmpPq,
   z.ZodTypeDef,
@@ -318,6 +369,7 @@ export const InputSnmpPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSnmpCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSnmpPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -329,6 +381,7 @@ export type InputSnmpPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputSnmpPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -344,6 +397,7 @@ export const InputSnmpPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSnmpCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSnmpPqControls$outboundSchema).optional(),
 });
 
 /**

@@ -21,7 +21,9 @@ const value: models.InputGrafanaGrafana1 = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 3832.52,
   tls: {
     certificateName: "<value>",
@@ -107,7 +109,9 @@ const value: models.InputGrafanaGrafana2 = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 5037.49,
   tls: {
     certificateName: "<value>",

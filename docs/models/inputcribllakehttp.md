@@ -20,7 +20,9 @@ let value: InputCriblLakeHttp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 4386.51,
   authTokens: [
     "<value 1>",
@@ -53,6 +55,12 @@ let value: InputCriblLakeHttp = {
           value: "<value>",
         },
       ],
+      splunkHecMetadata: {
+        enabled: true,
+      },
+      elasticsearchMetadata: {
+        enabled: true,
+      },
     },
   ],
   description:

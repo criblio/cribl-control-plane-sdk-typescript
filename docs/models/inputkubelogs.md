@@ -19,7 +19,9 @@ let value: InputKubeLogs = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   rules: [
     {
       filter: "<value>",

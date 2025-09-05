@@ -48,6 +48,8 @@ export type InputConfluentCloudCompression = ClosedEnum<
   typeof InputConfluentCloudCompression
 >;
 
+export type InputConfluentCloudPqControls = {};
+
 export type InputConfluentCloudPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -77,6 +79,7 @@ export type InputConfluentCloudPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputConfluentCloudCompression | undefined;
+  pqControls?: InputConfluentCloudPqControls | undefined;
 };
 
 export const InputConfluentCloudMinimumTLSVersion = {
@@ -539,6 +542,56 @@ export namespace InputConfluentCloudCompression$ {
 }
 
 /** @internal */
+export const InputConfluentCloudPqControls$inboundSchema: z.ZodType<
+  InputConfluentCloudPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputConfluentCloudPqControls$Outbound = {};
+
+/** @internal */
+export const InputConfluentCloudPqControls$outboundSchema: z.ZodType<
+  InputConfluentCloudPqControls$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputConfluentCloudPqControls$ {
+  /** @deprecated use `InputConfluentCloudPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputConfluentCloudPqControls$inboundSchema;
+  /** @deprecated use `InputConfluentCloudPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputConfluentCloudPqControls$outboundSchema;
+  /** @deprecated use `InputConfluentCloudPqControls$Outbound` instead. */
+  export type Outbound = InputConfluentCloudPqControls$Outbound;
+}
+
+export function inputConfluentCloudPqControlsToJSON(
+  inputConfluentCloudPqControls: InputConfluentCloudPqControls,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudPqControls$outboundSchema.parse(
+      inputConfluentCloudPqControls,
+    ),
+  );
+}
+
+export function inputConfluentCloudPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputConfluentCloudPq$inboundSchema: z.ZodType<
   InputConfluentCloudPq,
   z.ZodTypeDef,
@@ -551,6 +604,8 @@ export const InputConfluentCloudPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputConfluentCloudCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputConfluentCloudPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -562,6 +617,7 @@ export type InputConfluentCloudPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputConfluentCloudPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -577,6 +633,8 @@ export const InputConfluentCloudPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputConfluentCloudCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputConfluentCloudPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

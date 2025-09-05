@@ -42,6 +42,8 @@ export const InputTcpCompression = {
  */
 export type InputTcpCompression = ClosedEnum<typeof InputTcpCompression>;
 
+export type InputTcpPqControls = {};
+
 export type InputTcpPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputTcpPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputTcpCompression | undefined;
+  pqControls?: InputTcpPqControls | undefined;
 };
 
 export const InputTcpMinimumTLSVersion = {
@@ -365,6 +368,54 @@ export namespace InputTcpCompression$ {
 }
 
 /** @internal */
+export const InputTcpPqControls$inboundSchema: z.ZodType<
+  InputTcpPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputTcpPqControls$Outbound = {};
+
+/** @internal */
+export const InputTcpPqControls$outboundSchema: z.ZodType<
+  InputTcpPqControls$Outbound,
+  z.ZodTypeDef,
+  InputTcpPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputTcpPqControls$ {
+  /** @deprecated use `InputTcpPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputTcpPqControls$inboundSchema;
+  /** @deprecated use `InputTcpPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputTcpPqControls$outboundSchema;
+  /** @deprecated use `InputTcpPqControls$Outbound` instead. */
+  export type Outbound = InputTcpPqControls$Outbound;
+}
+
+export function inputTcpPqControlsToJSON(
+  inputTcpPqControls: InputTcpPqControls,
+): string {
+  return JSON.stringify(
+    InputTcpPqControls$outboundSchema.parse(inputTcpPqControls),
+  );
+}
+
+export function inputTcpPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputTcpPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputTcpPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputTcpPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputTcpPq$inboundSchema: z.ZodType<
   InputTcpPq,
   z.ZodTypeDef,
@@ -377,6 +428,7 @@ export const InputTcpPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputTcpCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputTcpPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -388,6 +440,7 @@ export type InputTcpPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputTcpPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -403,6 +456,7 @@ export const InputTcpPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputTcpCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputTcpPqControls$outboundSchema).optional(),
 });
 
 /**

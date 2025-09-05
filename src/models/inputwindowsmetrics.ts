@@ -48,6 +48,8 @@ export type InputWindowsMetricsCompression = ClosedEnum<
   typeof InputWindowsMetricsCompression
 >;
 
+export type InputWindowsMetricsPqControls = {};
+
 export type InputWindowsMetricsPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -77,6 +79,7 @@ export type InputWindowsMetricsPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputWindowsMetricsCompression | undefined;
+  pqControls?: InputWindowsMetricsPqControls | undefined;
 };
 
 /**
@@ -492,6 +495,56 @@ export namespace InputWindowsMetricsCompression$ {
 }
 
 /** @internal */
+export const InputWindowsMetricsPqControls$inboundSchema: z.ZodType<
+  InputWindowsMetricsPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputWindowsMetricsPqControls$Outbound = {};
+
+/** @internal */
+export const InputWindowsMetricsPqControls$outboundSchema: z.ZodType<
+  InputWindowsMetricsPqControls$Outbound,
+  z.ZodTypeDef,
+  InputWindowsMetricsPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputWindowsMetricsPqControls$ {
+  /** @deprecated use `InputWindowsMetricsPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputWindowsMetricsPqControls$inboundSchema;
+  /** @deprecated use `InputWindowsMetricsPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputWindowsMetricsPqControls$outboundSchema;
+  /** @deprecated use `InputWindowsMetricsPqControls$Outbound` instead. */
+  export type Outbound = InputWindowsMetricsPqControls$Outbound;
+}
+
+export function inputWindowsMetricsPqControlsToJSON(
+  inputWindowsMetricsPqControls: InputWindowsMetricsPqControls,
+): string {
+  return JSON.stringify(
+    InputWindowsMetricsPqControls$outboundSchema.parse(
+      inputWindowsMetricsPqControls,
+    ),
+  );
+}
+
+export function inputWindowsMetricsPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWindowsMetricsPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWindowsMetricsPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWindowsMetricsPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputWindowsMetricsPq$inboundSchema: z.ZodType<
   InputWindowsMetricsPq,
   z.ZodTypeDef,
@@ -504,6 +557,8 @@ export const InputWindowsMetricsPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWindowsMetricsCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWindowsMetricsPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -515,6 +570,7 @@ export type InputWindowsMetricsPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputWindowsMetricsPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -530,6 +586,8 @@ export const InputWindowsMetricsPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWindowsMetricsCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWindowsMetricsPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

@@ -20,7 +20,9 @@ let value: InputMsk = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   brokers: [
     "<value 1>",
   ],

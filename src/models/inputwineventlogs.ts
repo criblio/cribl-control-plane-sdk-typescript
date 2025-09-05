@@ -44,6 +44,8 @@ export type InputWinEventLogsCompression = ClosedEnum<
   typeof InputWinEventLogsCompression
 >;
 
+export type InputWinEventLogsPqControls = {};
+
 export type InputWinEventLogsPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputWinEventLogsPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputWinEventLogsCompression | undefined;
+  pqControls?: InputWinEventLogsPqControls | undefined;
 };
 
 /**
@@ -297,6 +300,56 @@ export namespace InputWinEventLogsCompression$ {
 }
 
 /** @internal */
+export const InputWinEventLogsPqControls$inboundSchema: z.ZodType<
+  InputWinEventLogsPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputWinEventLogsPqControls$Outbound = {};
+
+/** @internal */
+export const InputWinEventLogsPqControls$outboundSchema: z.ZodType<
+  InputWinEventLogsPqControls$Outbound,
+  z.ZodTypeDef,
+  InputWinEventLogsPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputWinEventLogsPqControls$ {
+  /** @deprecated use `InputWinEventLogsPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputWinEventLogsPqControls$inboundSchema;
+  /** @deprecated use `InputWinEventLogsPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputWinEventLogsPqControls$outboundSchema;
+  /** @deprecated use `InputWinEventLogsPqControls$Outbound` instead. */
+  export type Outbound = InputWinEventLogsPqControls$Outbound;
+}
+
+export function inputWinEventLogsPqControlsToJSON(
+  inputWinEventLogsPqControls: InputWinEventLogsPqControls,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsPqControls$outboundSchema.parse(
+      inputWinEventLogsPqControls,
+    ),
+  );
+}
+
+export function inputWinEventLogsPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWinEventLogsPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWinEventLogsPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWinEventLogsPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputWinEventLogsPq$inboundSchema: z.ZodType<
   InputWinEventLogsPq,
   z.ZodTypeDef,
@@ -309,6 +362,8 @@ export const InputWinEventLogsPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWinEventLogsCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWinEventLogsPqControls$inboundSchema)
+    .optional(),
 });
 
 /** @internal */
@@ -320,6 +375,7 @@ export type InputWinEventLogsPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputWinEventLogsPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -335,6 +391,8 @@ export const InputWinEventLogsPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputWinEventLogsCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWinEventLogsPqControls$outboundSchema)
+    .optional(),
 });
 
 /**

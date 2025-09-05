@@ -44,6 +44,8 @@ export type InputSystemStateCompression = ClosedEnum<
   typeof InputSystemStateCompression
 >;
 
+export type InputSystemStatePqControls = {};
+
 export type InputSystemStatePq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputSystemStatePq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputSystemStateCompression | undefined;
+  pqControls?: InputSystemStatePqControls | undefined;
 };
 
 export type InputSystemStateMetadatum = {
@@ -409,6 +412,54 @@ export namespace InputSystemStateCompression$ {
 }
 
 /** @internal */
+export const InputSystemStatePqControls$inboundSchema: z.ZodType<
+  InputSystemStatePqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputSystemStatePqControls$Outbound = {};
+
+/** @internal */
+export const InputSystemStatePqControls$outboundSchema: z.ZodType<
+  InputSystemStatePqControls$Outbound,
+  z.ZodTypeDef,
+  InputSystemStatePqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputSystemStatePqControls$ {
+  /** @deprecated use `InputSystemStatePqControls$inboundSchema` instead. */
+  export const inboundSchema = InputSystemStatePqControls$inboundSchema;
+  /** @deprecated use `InputSystemStatePqControls$outboundSchema` instead. */
+  export const outboundSchema = InputSystemStatePqControls$outboundSchema;
+  /** @deprecated use `InputSystemStatePqControls$Outbound` instead. */
+  export type Outbound = InputSystemStatePqControls$Outbound;
+}
+
+export function inputSystemStatePqControlsToJSON(
+  inputSystemStatePqControls: InputSystemStatePqControls,
+): string {
+  return JSON.stringify(
+    InputSystemStatePqControls$outboundSchema.parse(inputSystemStatePqControls),
+  );
+}
+
+export function inputSystemStatePqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemStatePqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemStatePqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStatePqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSystemStatePq$inboundSchema: z.ZodType<
   InputSystemStatePq,
   z.ZodTypeDef,
@@ -421,6 +472,7 @@ export const InputSystemStatePq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSystemStateCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSystemStatePqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -432,6 +484,7 @@ export type InputSystemStatePq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputSystemStatePqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -447,6 +500,8 @@ export const InputSystemStatePq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSystemStateCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSystemStatePqControls$outboundSchema)
+    .optional(),
 });
 
 /**

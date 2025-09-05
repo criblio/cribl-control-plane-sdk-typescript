@@ -20,7 +20,9 @@ let value: InputRawUdp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 4339.08,
   udpSocketRxBufSize: 7664.5,
   metadata: [

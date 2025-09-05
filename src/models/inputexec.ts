@@ -42,6 +42,8 @@ export const InputExecCompression = {
  */
 export type InputExecCompression = ClosedEnum<typeof InputExecCompression>;
 
+export type InputExecPqControls = {};
+
 export type InputExecPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -71,6 +73,7 @@ export type InputExecPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputExecCompression | undefined;
+  pqControls?: InputExecPqControls | undefined;
 };
 
 /**
@@ -281,6 +284,54 @@ export namespace InputExecCompression$ {
 }
 
 /** @internal */
+export const InputExecPqControls$inboundSchema: z.ZodType<
+  InputExecPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputExecPqControls$Outbound = {};
+
+/** @internal */
+export const InputExecPqControls$outboundSchema: z.ZodType<
+  InputExecPqControls$Outbound,
+  z.ZodTypeDef,
+  InputExecPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputExecPqControls$ {
+  /** @deprecated use `InputExecPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputExecPqControls$inboundSchema;
+  /** @deprecated use `InputExecPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputExecPqControls$outboundSchema;
+  /** @deprecated use `InputExecPqControls$Outbound` instead. */
+  export type Outbound = InputExecPqControls$Outbound;
+}
+
+export function inputExecPqControlsToJSON(
+  inputExecPqControls: InputExecPqControls,
+): string {
+  return JSON.stringify(
+    InputExecPqControls$outboundSchema.parse(inputExecPqControls),
+  );
+}
+
+export function inputExecPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputExecPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputExecPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputExecPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputExecPq$inboundSchema: z.ZodType<
   InputExecPq,
   z.ZodTypeDef,
@@ -293,6 +344,7 @@ export const InputExecPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputExecCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputExecPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -304,6 +356,7 @@ export type InputExecPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputExecPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -319,6 +372,7 @@ export const InputExecPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputExecCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputExecPqControls$outboundSchema).optional(),
 });
 
 /**

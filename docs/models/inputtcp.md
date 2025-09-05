@@ -21,7 +21,9 @@ let value: InputTcp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 1733.5,
   tls: {
     certificateName: "<value>",

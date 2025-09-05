@@ -44,6 +44,8 @@ export type InputNetflowCompression = ClosedEnum<
   typeof InputNetflowCompression
 >;
 
+export type InputNetflowPqControls = {};
+
 export type InputNetflowPq = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputNetflowPq = {
    * Codec to use to compress the persisted data
    */
   compress?: InputNetflowCompression | undefined;
+  pqControls?: InputNetflowPqControls | undefined;
 };
 
 export type InputNetflowMetadatum = {
@@ -283,6 +286,54 @@ export namespace InputNetflowCompression$ {
 }
 
 /** @internal */
+export const InputNetflowPqControls$inboundSchema: z.ZodType<
+  InputNetflowPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputNetflowPqControls$Outbound = {};
+
+/** @internal */
+export const InputNetflowPqControls$outboundSchema: z.ZodType<
+  InputNetflowPqControls$Outbound,
+  z.ZodTypeDef,
+  InputNetflowPqControls
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputNetflowPqControls$ {
+  /** @deprecated use `InputNetflowPqControls$inboundSchema` instead. */
+  export const inboundSchema = InputNetflowPqControls$inboundSchema;
+  /** @deprecated use `InputNetflowPqControls$outboundSchema` instead. */
+  export const outboundSchema = InputNetflowPqControls$outboundSchema;
+  /** @deprecated use `InputNetflowPqControls$Outbound` instead. */
+  export type Outbound = InputNetflowPqControls$Outbound;
+}
+
+export function inputNetflowPqControlsToJSON(
+  inputNetflowPqControls: InputNetflowPqControls,
+): string {
+  return JSON.stringify(
+    InputNetflowPqControls$outboundSchema.parse(inputNetflowPqControls),
+  );
+}
+
+export function inputNetflowPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputNetflowPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputNetflowPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputNetflowPqControls' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputNetflowPq$inboundSchema: z.ZodType<
   InputNetflowPq,
   z.ZodTypeDef,
@@ -295,6 +346,7 @@ export const InputNetflowPq$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputNetflowCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputNetflowPqControls$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -306,6 +358,7 @@ export type InputNetflowPq$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputNetflowPqControls$Outbound | undefined;
 };
 
 /** @internal */
@@ -321,6 +374,7 @@ export const InputNetflowPq$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputNetflowCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputNetflowPqControls$outboundSchema).optional(),
 });
 
 /**

@@ -21,7 +21,9 @@ let value: InputSnmp = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   snmpV3Auth: {
     v3Users: [
       {

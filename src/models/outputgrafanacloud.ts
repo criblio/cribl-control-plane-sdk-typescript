@@ -314,10 +314,6 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    */
   safeHeaders?: Array<string> | undefined;
   /**
-   * Add structured metadata fields from __structuredMetadata to each log. Key-value pairs must be strings.
-   */
-  sendStructuredMetadata?: boolean | undefined;
-  /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
@@ -669,10 +665,6 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  /**
-   * Add structured metadata fields from __structuredMetadata to each log. Key-value pairs must be strings.
-   */
-  sendStructuredMetadata?: boolean | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -1425,7 +1417,6 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   failedRequestLoggingMode:
     OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  sendStructuredMetadata: z.boolean().default(false),
   responseRetrySettings: z.array(
     z.lazy(() => OutputGrafanaCloudResponseRetrySetting2$inboundSchema),
   ).optional(),
@@ -1478,7 +1469,6 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  sendStructuredMetadata: boolean;
   responseRetrySettings?:
     | Array<OutputGrafanaCloudResponseRetrySetting2$Outbound>
     | undefined;
@@ -1535,7 +1525,6 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   failedRequestLoggingMode:
     OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  sendStructuredMetadata: z.boolean().default(false),
   responseRetrySettings: z.array(
     z.lazy(() => OutputGrafanaCloudResponseRetrySetting2$outboundSchema),
   ).optional(),
@@ -2293,7 +2282,6 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   failedRequestLoggingMode:
     OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  sendStructuredMetadata: z.boolean().default(false),
   responseRetrySettings: z.array(
     z.lazy(() => OutputGrafanaCloudResponseRetrySetting1$inboundSchema),
   ).optional(),
@@ -2346,7 +2334,6 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  sendStructuredMetadata: boolean;
   responseRetrySettings?:
     | Array<OutputGrafanaCloudResponseRetrySetting1$Outbound>
     | undefined;
@@ -2403,7 +2390,6 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   failedRequestLoggingMode:
     OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  sendStructuredMetadata: z.boolean().default(false),
   responseRetrySettings: z.array(
     z.lazy(() => OutputGrafanaCloudResponseRetrySetting1$outboundSchema),
   ).optional(),

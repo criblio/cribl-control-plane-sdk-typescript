@@ -44,6 +44,8 @@ export type InputSyslogCompression2 = ClosedEnum<
   typeof InputSyslogCompression2
 >;
 
+export type InputSyslogPqControls2 = {};
+
 export type InputSyslogPq2 = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -73,6 +75,7 @@ export type InputSyslogPq2 = {
    * Codec to use to compress the persisted data
    */
   compress?: InputSyslogCompression2 | undefined;
+  pqControls?: InputSyslogPqControls2 | undefined;
 };
 
 export const InputSyslogMinimumTLSVersion2 = {
@@ -291,6 +294,8 @@ export type InputSyslogCompression1 = ClosedEnum<
   typeof InputSyslogCompression1
 >;
 
+export type InputSyslogPqControls1 = {};
+
 export type InputSyslogPq1 = {
   /**
    * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
@@ -320,6 +325,7 @@ export type InputSyslogPq1 = {
    * Codec to use to compress the persisted data
    */
   compress?: InputSyslogCompression1 | undefined;
+  pqControls?: InputSyslogPqControls1 | undefined;
 };
 
 export const InputSyslogMinimumTLSVersion1 = {
@@ -625,6 +631,54 @@ export namespace InputSyslogCompression2$ {
 }
 
 /** @internal */
+export const InputSyslogPqControls2$inboundSchema: z.ZodType<
+  InputSyslogPqControls2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputSyslogPqControls2$Outbound = {};
+
+/** @internal */
+export const InputSyslogPqControls2$outboundSchema: z.ZodType<
+  InputSyslogPqControls2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPqControls2
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputSyslogPqControls2$ {
+  /** @deprecated use `InputSyslogPqControls2$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogPqControls2$inboundSchema;
+  /** @deprecated use `InputSyslogPqControls2$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogPqControls2$outboundSchema;
+  /** @deprecated use `InputSyslogPqControls2$Outbound` instead. */
+  export type Outbound = InputSyslogPqControls2$Outbound;
+}
+
+export function inputSyslogPqControls2ToJSON(
+  inputSyslogPqControls2: InputSyslogPqControls2,
+): string {
+  return JSON.stringify(
+    InputSyslogPqControls2$outboundSchema.parse(inputSyslogPqControls2),
+  );
+}
+
+export function inputSyslogPqControls2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogPqControls2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogPqControls2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogPqControls2' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSyslogPq2$inboundSchema: z.ZodType<
   InputSyslogPq2,
   z.ZodTypeDef,
@@ -637,6 +691,7 @@ export const InputSyslogPq2$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSyslogCompression2$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls2$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -648,6 +703,7 @@ export type InputSyslogPq2$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputSyslogPqControls2$Outbound | undefined;
 };
 
 /** @internal */
@@ -663,6 +719,7 @@ export const InputSyslogPq2$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSyslogCompression2$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls2$outboundSchema).optional(),
 });
 
 /**
@@ -1154,6 +1211,54 @@ export namespace InputSyslogCompression1$ {
 }
 
 /** @internal */
+export const InputSyslogPqControls1$inboundSchema: z.ZodType<
+  InputSyslogPqControls1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type InputSyslogPqControls1$Outbound = {};
+
+/** @internal */
+export const InputSyslogPqControls1$outboundSchema: z.ZodType<
+  InputSyslogPqControls1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPqControls1
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputSyslogPqControls1$ {
+  /** @deprecated use `InputSyslogPqControls1$inboundSchema` instead. */
+  export const inboundSchema = InputSyslogPqControls1$inboundSchema;
+  /** @deprecated use `InputSyslogPqControls1$outboundSchema` instead. */
+  export const outboundSchema = InputSyslogPqControls1$outboundSchema;
+  /** @deprecated use `InputSyslogPqControls1$Outbound` instead. */
+  export type Outbound = InputSyslogPqControls1$Outbound;
+}
+
+export function inputSyslogPqControls1ToJSON(
+  inputSyslogPqControls1: InputSyslogPqControls1,
+): string {
+  return JSON.stringify(
+    InputSyslogPqControls1$outboundSchema.parse(inputSyslogPqControls1),
+  );
+}
+
+export function inputSyslogPqControls1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogPqControls1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogPqControls1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogPqControls1' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSyslogPq1$inboundSchema: z.ZodType<
   InputSyslogPq1,
   z.ZodTypeDef,
@@ -1166,6 +1271,7 @@ export const InputSyslogPq1$inboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSyslogCompression1$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls1$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -1177,6 +1283,7 @@ export type InputSyslogPq1$Outbound = {
   maxSize: string;
   path: string;
   compress: string;
+  pqControls?: InputSyslogPqControls1$Outbound | undefined;
 };
 
 /** @internal */
@@ -1192,6 +1299,7 @@ export const InputSyslogPq1$outboundSchema: z.ZodType<
   maxSize: z.string().default("5GB"),
   path: z.string().default("$CRIBL_HOME/state/queues"),
   compress: InputSyslogCompression1$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls1$outboundSchema).optional(),
 });
 
 /**

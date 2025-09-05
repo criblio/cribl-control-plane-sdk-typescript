@@ -19,7 +19,9 @@ let value: InputCollection = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   breakerRulesets: [
     "<value 1>",
   ],

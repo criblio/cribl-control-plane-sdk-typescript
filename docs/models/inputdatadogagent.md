@@ -21,7 +21,9 @@ let value: InputDatadogAgent = {
       output: "<value>",
     },
   ],
-  pq: {},
+  pq: {
+    pqControls: {},
+  },
   port: 3937.07,
   tls: {
     certificateName: "<value>",
