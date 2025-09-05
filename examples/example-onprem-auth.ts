@@ -10,7 +10,8 @@
  * 
  * Prerequisites: Configure the on-premises server URL, username, and password
  * 
- * You don't need to configure .env file for this example.
+ * Note: This example is for onprem deployments only and does not require a .env
+ * file configuration to run.
  */
 
 import { CriblControlPlane } from "../dist/esm";
@@ -34,9 +35,10 @@ async function main() {
   client = new CriblControlPlane({ serverURL: BASE_URL, security: { bearerAuth: token }});
   console.log(`✅ Cribl SDK client created for on-premises server`);
 
-  // Validate connection
-  const health = await client.health.get();
-  console.log(`✅ Client works! Server status: ${health.status}`);
+  // Validate connection, try to list all git branches
+  const response = await client.versions.branches.list();
+  const branches = response.items?.map(branch => branch.id).join("\n\t");
+  console.log(`✅ Client works! Your list of branches:\n\t${branches}`);
 }
 
 main().catch((error) => {

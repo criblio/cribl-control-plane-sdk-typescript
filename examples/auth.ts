@@ -6,7 +6,7 @@
  * detects the deployment type, loads environment variables, validates credentials,
  * and provides authenticated SDK client instances.
  * 
- * Used by: All example files that require authenticated API access
+ * Used by: Example files that that can run on cloud or on-premises
  */
 
 import * as path from 'path';
@@ -108,7 +108,7 @@ interface ICriblAuth {
  * On-premises authentication provider using username/password credentials
  * Handles token retrieval and client creation with retry logic for rate limits
  */
-class AuthOnprem implements ICriblAuth {
+export class AuthOnprem implements ICriblAuth {
   private client: CriblControlPlane;
   private readonly username: string;
   private readonly password: string;
@@ -149,7 +149,7 @@ class AuthOnprem implements ICriblAuth {
  * Cloud authentication provider using OAuth2 client credentials flow
  * Automatically handles token exchange and refresh
  */
-class AuthCloud implements ICriblAuth {
+export class AuthCloud implements ICriblAuth {
   private client: CriblControlPlane;
   private readonly baseUrl: string;
   private readonly clientID: string;

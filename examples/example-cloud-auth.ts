@@ -8,13 +8,11 @@
  * 2. Automatically handles token exchange and refresh
  * 3. Validates the connection by checking server health status
  * 
- * Prerequisites: Configure cloud environment variables:
- *   CLIENT_ID, CLIENT_SECRET, WORKSPACE_NAME, ORG_ID, CRIBL_DOMAIN
+ * Prerequisites: Configure cloud environment variables: ORG_ID, CLIENT_ID, CLIENT_SECRET, WORKSPACE_NAME, CRIBL_DOMAIN
+ * How to get these values: https://docs.cribl.io/api/#criblcloud
  * 
- * To get these values go to:
- * https://YOUR_CRIBL_CLOUD_INSTANCE/api-credentials
- * 
- * You don't need to configure .env file for this example.
+ * Note: This example is for cloud deployments only and does not require a .env
+ * file configuration to run.
  */
 
 import { CriblControlPlane } from "../dist/esm";
@@ -43,9 +41,11 @@ async function main() {
   });
   console.log(`✅ Cribl SDK client created for cloud deployment`);
 
-  // Validate connection
-  const health = await client.health.get();
-  console.log(`✅ Client works! Server status: ${health.status}`);
+  // Validate connection, try to list all git branches
+  const response = await client.versions.branches.list();
+  const branches = response.items?.map(branch => branch.id).join("\n\t");
+  console.log(`✅ Client works! Your list of branches:\n\t${branches}`);
+
 }
 
 main().catch((error) => {
