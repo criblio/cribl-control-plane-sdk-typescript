@@ -1,5 +1,1 @@
-/examples/.env.template
-/examples/lakeDatasetsCreate.example.ts
-/examples/README.md
-/examples/package-lock.json
-/examples/package.json
+/examples/
