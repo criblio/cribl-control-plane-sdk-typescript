@@ -2,24 +2,28 @@
 /**
  * Cribl Stream Configuration Example
  * 
- * This example demonstrates how to programmatically create and configure a complete
- * data pipeline in Cribl Stream using the Control Plane SDK. It creates:
+ * This example demonstrates how to programmatically create and configure a 
+ * complete data pipeline in Cribl Stream using the Control Plane SDK.
  * 
- * 1. A worker group to manage the configuration
- * 2. A TCP JSON source to receive data on port 9020
- * 3. A filesystem destination to output processed data
- * 4. A pipeline that filters events to keep only the "name" field
- * 5. A route that connects the source to the pipeline and destination
- * 6. Deploys the configuration to the worker group to make it active
+ * This example creates:
  * 
- * Data flow: TCP JSON Source → Route → Pipeline → File Destination
+ * 1. A Worker Group to manage the configuration.
+ * 2. A TCP JSON source to receive data on port 9020.
+ * 3. A Filesystem Destination to store processed data.
+ * 4. A Pipeline that filters events and keeps only data in the "name" 
+ * field.
+ * 5. A Route that connects the Source to the Pipeline and Destination.
+ * 
+ * This example also deploys the configuration to the Worker Group to make it 
+ * active.
+ * 
+ * Data flow: TCP JSON Source → Route → Pipeline → Filesystem Destination
  *
- * The example includes proper error handling, checks for existing resources,
- * and automatically deploys the configuration to make it active.
+ * The example includes error handling and checks for existing resources.
  * 
  * Prerequisites:
- * - Configure your .env file
- * - Requires Enterprise License on the server
+ * - An .env file that is configured with your credentials.
+ * - An Enterprise License on the server.
  */
 
 import {
@@ -41,6 +45,7 @@ const myWorkerGroup: ConfigGroup = {
   onPrem: true,
 };
 
+// TCP JSON Source configuration
 const tcpJsonSource: InputTcpjson = {
   id: "my-tcp-json",
   type: "tcpjson",
@@ -49,13 +54,14 @@ const tcpJsonSource: InputTcpjson = {
   authToken: AUTH_TOKEN,
 };
 
+// Filesystem Destination configuration
 const fileSystemDestination: OutputFilesystem = {
   id: "my-fs-destination",
   type: "filesystem",
   destPath: "/tmp/my-output",
 };
 
-// Pipeline configuration: filters events to keep only the "name" field
+// Pipeline configuration: filter events and keep only data in the "name" field
 const pipeline: Pipeline = {
   id: "my-pipeline",
   conf: {
@@ -76,6 +82,7 @@ const pipeline: Pipeline = {
   },
 };
 
+// Route configuration: route data from the Source to the Pipeline and Destination
 const route: RoutesRoute = {
   final: false,
   id: "my-route",
@@ -92,40 +99,40 @@ async function main() {
   // Initialize Cribl client
   const cribl = await createCriblClient();
 
-  // Verify worker group doesn't already exist
+  // Verify that Worker Group doesn't already exist
   const workerGroupResponse = await cribl.groups.get({ id: myWorkerGroup.id, product: "stream" });
   if (workerGroupResponse.items!.length > 0) {
-    console.log(`⚠️ Worker Group already exists: ${myWorkerGroup.id}. Try different group id.`);
+    console.log(`⚠️ Worker Group already exists: ${myWorkerGroup.id}. Try a different group ID.`);
     return;
   }
 
-  // Create worker group
+  // Create Worker Group
   await cribl.groups.create({ product: "stream", configGroup: myWorkerGroup });
   console.log(`✅ Worker Group created: ${myWorkerGroup.id}`);
 
-  // Create TCP JSON source
+  // Create TCP JSON Source
   await cribl.sources.create(tcpJsonSource, { serverURL: groupUrl });
-  console.log(`✅ Tcp Json Source created: ${tcpJsonSource.id}`);
+  console.log(`✅ TCP JSON Source created: ${tcpJsonSource.id}`);
 
-  // Create file destination
+  // Create Filesystem Destination
   await cribl.destinations.create(fileSystemDestination, {
     serverURL: groupUrl,
   });
-  console.log(`✅ File Destination created: ${fileSystemDestination.id}`);
+  console.log(`✅ Filesystem Destination created: ${fileSystemDestination.id}`);
 
-  // Create pipeline
+  // Create Pipeline
   await cribl.pipelines.create(pipeline, { serverURL: groupUrl });
   console.log(`✅ Pipeline created: ${pipeline.id}`);
 
-  // Add route to routing table
+  // Add Route to Routing table
   const routesListResponse = await cribl.routes.list({ serverURL: groupUrl });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
-    throw new Error("No routes found");
+    throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
   await cribl.routes.update({ id: routes.id, routes }, { serverURL: groupUrl });
-  console.log(`✅ Route inserted: ${route.id}`);
+  console.log(`✅ Route added: ${route.id}`);
 
   // Deploy configuration changes
   const response = await cribl.groups.configs.versions.get({

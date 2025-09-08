@@ -1,23 +1,29 @@
 /**
- * Cloud Worker Group Management Example
+ * Cribl.Cloud Worker Group Management Example
  * 
- * This example demonstrates how to create and manage a cloud-based worker group
- * in Cribl Stream using the Control Plane SDK. It shows:
+ * This example demonstrates how to create and manage a Cribl.Cloud-based 
+ * Worker Group in Cribl Stream using the Control Plane SDK.
  * 
- * 1. Creates a cloud worker group with AWS provider configuration with
- *    24MB/s max estimated ingest rate / 9 worker processes
- * 2. Verifies the worker group doesn't already exist
- * 3. Scales the worker group up to 48MB/s max estimated ingest rate / 21 worker processes
- * 4. Provisions the worker group to activate cloud resources
+ * 1. Create a Cribl.Cloud Worker Group using the AWS provider configuration. 
+ * Set the maximum estimated ingest rate to 24 MB/s and configure 9 
+ * Worker Processes.
+ * 2. Verify that the Worker Group doesn't already exist.
+ * 3. Scale up the Worker Group to 48 MB/s maximum estimated ingest rate and 
+ * 21 Worker Processes.
+ * 4. Provision the Worker Group to activate Cribl.Cloud resources.
  * 
- * Check this documentation for more details about ingest rates and provisioning:
- *   https://docs.cribl.io/stream/cloud-workers/#create-a-cloud-worker-group
+ * The Cribl documentation provides more information about ingest rates and 
+ * provisioning: 
+ * https://docs.cribl.io/stream/cloud-workers/#create-a-cloud-worker-group
  * 
- * Prerequisites: Configure cloud environment variables: ORG_ID, CLIENT_ID, CLIENT_SECRET, WORKSPACE_NAME
- * How to get these values: https://docs.cribl.io/api/#criblcloud
- *
- * Note: This example is for cloud deployments only and does not require a .env
- * file configuration to run.
+ * Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID, 
+ * CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and 
+ * Secret, and Workspace name. To get your CLIENT_ID and CLIENT_SECRET values, 
+ * follow the steps at https://docs.cribl.io/api/#criblcloud. Your Client ID 
+ * and Secret are sensitive information and should be kept private.
+ * 
+ * NOTE: This example is for Cribl.Cloud deployments only. It does not require 
+ * .env file configuration.
  */
 
 import { ConfigGroup } from "../dist/esm/models";
@@ -40,7 +46,7 @@ const group: ConfigGroup = {
   provisioned: false,
   isFleet: false,
   isSearch: false,
-  estimatedIngestRate: 2048, // 24MB/s Max est ingest rate / 9 Worker Processes
+  estimatedIngestRate: 2048, // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
   id: WORKER_GROUP_ID,
   name: "my-aws-worker-group",
 };
@@ -54,19 +60,19 @@ async function main() {
   });
   const cribl = await auth.getClient();
 
-  // Verify worker group doesn't already exist
+  // Verify that Worker Group doesn't already exist
   const workerGroupResponse = await cribl.groups.get({ id: group.id, product: "stream" });
   if (workerGroupResponse.items!.length > 0) {
-    console.log(`⚠️ Worker Group already exists: ${group.id}. Try different group id.`);
+    console.log(`⚠️ Worker Group already exists: ${group.id}. Try a different group ID.`);
     return;
   }
 
-  // Create the worker group
+  // Create the Worker Group
   await cribl.groups.create({ product: "stream", configGroup: group });
   console.log(`✅ Worker Group created: ${group.id}`);
 
-  // Scale and provision the worker group 
-  group.estimatedIngestRate = 4096; // 48MB/s Max est ingest rate / 21 Worker Processes
+  // Scale and provision the Worker Group
+  group.estimatedIngestRate = 4096; // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
   group.provisioned = true;
   await cribl.groups.update({ product: "stream", id: group.id, configGroup: group });
   console.log(`✅ Worker Group scaled and provisioned: ${group.id}`);
