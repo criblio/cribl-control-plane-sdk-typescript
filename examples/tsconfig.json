@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "cribl-control-plane": ["../dist/esm"],
+      "cribl-control-plane/models": ["../dist/esm/models"],
+      "../dist/esm": ["../dist/esm"],
+      "../dist/esm/models": ["../dist/esm/models"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}

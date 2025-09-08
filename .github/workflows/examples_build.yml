@@ -1,0 +1,25 @@
+name: Build Examples on PR
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: examples/package-lock.json
+
+      - name: Install dependencies & Type check
+        run: |
+          cd examples
+          npm ci
+          npm run typecheck
