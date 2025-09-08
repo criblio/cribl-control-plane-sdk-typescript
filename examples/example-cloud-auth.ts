@@ -1,32 +1,39 @@
 /**
- * Cloud Authentication Example
+ * Cribl.Cloud Authentication Example
  * 
  * This example demonstrates how to authenticate with Cribl Cloud using OAuth2
  * client credentials flow. It shows the authentication process:
  * 
- * 1. Creates an SDK client with OAuth2 client credentials configuration
- * 2. Automatically handles token exchange and refresh
- * 3. Validates the connection by checking server health status
+ * This example demonstrates the Cribl.Cloud authentication process using 
+ * OAuth2 credentials.
  * 
- * Prerequisites: Configure cloud environment variables: ORG_ID, CLIENT_ID, CLIENT_SECRET, WORKSPACE_NAME, CRIBL_DOMAIN
- * How to get these values: https://docs.cribl.io/api/#criblcloud
+ * 1. Create an SDK client with OAuth2 client credentials.
+ * 2. Automatically handle token exchange and refresh.
+ * 3. Validate the connection by checking the server health status and listing 
+ * all git branches.
  * 
- * Note: This example is for cloud deployments only and does not require a .env
- * file configuration to run.
+ * Prerequisites: Replace the placeholder values for ORG_ID, CLIENT_ID, 
+ * CLIENT_SECRET, and WORKSPACE_NAME with your Organization ID, Client ID and 
+ * Secret, and Workspace name. To get your CLIENT_ID and CLIENT_SECRET values, 
+ * follow the steps at https://docs.cribl.io/api/#criblcloud. Your Client ID 
+ * and Secret are sensitive information and should be kept private.
+ * 
+ * NOTE: This example is for Cribl.Cloud deployments only. It does not require 
+ * .env file configuration.
  */
 
 import { CriblControlPlane } from "../dist/esm";
 
-// Cloud configuration - UPDATE THESE VALUES
-const ORG_ID = "your-org-id"; // Replace with your organization ID
-const CLIENT_ID = "your-client-id"; // Replace with your OAuth2 client ID
-const CLIENT_SECRET = "your-client-secret"; // Replace with your OAuth2 client secret
-const WORKSPACE_NAME = "main"; // Replace with your workspace name
+// Cribl.Cloud configuration: Replace the placeholder values
+const ORG_ID = "your-org-id"; // Replace with your Organization ID
+const CLIENT_ID = "your-client-id"; // Replace with your OAuth2 Client ID
+const CLIENT_SECRET = "your-client-secret"; // Replace with your OAuth2 Client Secret
+const WORKSPACE_NAME = "main"; // Replace with your Workspace name
 
 const baseUrl = `https://${WORKSPACE_NAME}-${ORG_ID}.cribl.cloud/api/v1`;
 
 async function main() {
-  // Create authenticated client with OAuth2
+  // Create authenticated SDK client with OAuth2
   const client = new CriblControlPlane({
     serverURL: baseUrl,
     security: {
@@ -38,9 +45,9 @@ async function main() {
       },
     },
   });
-  console.log(`✅ Cribl SDK client created for cloud deployment`);
+  console.log(`✅ Cribl SDK client created for Cribl.Cloud deployment`);
 
-  // Validate connection, try to list all git branches
+  // Validate connection and list all git branches
   const response = await client.versions.branches.list();
   const branches = response.items?.map(branch => branch.id).join("\n\t");
   console.log(`✅ Client works! Your list of branches:\n\t${branches}`);
@@ -51,7 +58,7 @@ main().catch((error) => {
   if (error.statusCode === 401) {
     console.log("⚠️ Authentication failed! Check your CLIENT_ID and CLIENT_SECRET.");
   } else if (error.statusCode === 429) {
-    console.log("⚠️ Uh oh, you've hit the rate limit! Try again in a few seconds.");
+    console.log("⚠️ Uh oh, you've reached the rate limit! Try again in a few seconds.");
   } else {
     console.error("❌ Something went wrong: ", error);
   }

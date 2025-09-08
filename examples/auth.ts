@@ -2,11 +2,11 @@
  * Authentication Helper Module
  *
  * This helper module handles authentication for all SDK examples, supporting both
- * cloud (OAuth2) and on-premises (username/password) deployments. It automatically
- * detects the deployment type, loads environment variables, validates credentials,
- * and provides authenticated SDK client instances.
+ * Cribl.Cloud (OAuth2) and on-prem (username/password) deployments. It 
+ * automatically detects the deployment type, loads environment variables, 
+ * validates credentials, and provides authenticated SDK client instances.
  *
- * Used by: Example files that can run on cloud or on-premises
+ * Used by example files that can run on Cribl.Cloud and on-prem deployments.
  */
 
 import * as path from 'path';
@@ -32,7 +32,7 @@ type CloudConfiguration = {
   workspaceName: string;
 };
 
-// Load .env file if present (system env vars still take precedence)
+// Load .env file if present (system environment variables take precedence)
 if (fs.existsSync(envPath)) {
   dotenv.config({ path: envPath, override: false });
 }
@@ -46,8 +46,9 @@ export const baseUrl = isOnprem
   : `https://${(configuration as CloudConfiguration).workspaceName}-${(configuration as CloudConfiguration).orgId}.${domain}/api/v1`;
 
 /**
- * Factory function that creates an authenticated Cribl Control Plane client.
- * Automatically detects deployment type and uses the appropriate authentication method.
+ * Factory function that creates an authenticated Cribl Control Plane client. 
+ * Automatically detects deployment type and uses the appropriate 
+ * authentication method.
  */
 export async function createCriblClient(): Promise<CriblControlPlane> {
   const criblAuth = isOnprem
@@ -94,7 +95,7 @@ interface ICriblAuth {
 }
 
 /**
- * On-premises authentication provider using username/password credentials.
+ * On-prem authentication provider using username/password credentials. 
  * Handles token retrieval and client creation with retry logic for rate limits.
  */
 export class AuthOnprem implements ICriblAuth {
@@ -129,15 +130,15 @@ export class AuthOnprem implements ICriblAuth {
         return this.getClient();
       }
       if (error?.statusCode === 401) {
-        throw new Error(`Failed to authenticate with on-premises server: ${String(error)}`);
+        throw new Error(`Failed to authenticate with on-prem server: ${String(error)}`);
       }
-      throw new Error(`Failed to authenticate with on-premises server: ${String(error)}`);
+      throw new Error(`Failed to authenticate with on-prem server: ${String(error)}`);
     }
   }
 }
 
 /**
- * Cloud authentication provider using OAuth2 client credentials flow.
+ * Cribl.Cloud authentication provider using OAuth2 credentials.
  * Automatically handles token exchange and refresh.
  */
 export class AuthCloud implements ICriblAuth {
@@ -181,9 +182,9 @@ export class AuthCloud implements ICriblAuth {
         return this.getClient();
       }
       if (error?.statusCode === 401) {
-        throw new Error(`Failed to authenticate with cloud server: ${String(error)}`);
+        throw new Error(`Failed to authenticate with Cribl.Cloud server: ${String(error)}`);
       }
-      throw new Error(`Failed to authenticate with cloud server: ${String(error)}; attempts: ${this.attempts}`);
+      throw new Error(`Failed to authenticate with Cribl.Cloud server: ${String(error)}; attempts: ${this.attempts}`);
     }
   }
 }

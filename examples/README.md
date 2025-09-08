@@ -1,6 +1,6 @@
 # cribl-control-plane Examples
 
-This directory contains example scripts demonstrating how to use the cribl-control-plane SDK.
+This directory contains example scripts that demonstrate how to use the cribl-control-plane SDK.
 
 ## Prerequisites
 
@@ -14,14 +14,13 @@ This directory contains example scripts demonstrating how to use the cribl-contr
    cp .env.template .env
    ```
 
-2. Edit `.env` and add your actual credentials (API keys, tokens, etc.)
+2. Open `.env`, replace the placeholder values with your credentials, and save.
 
-## Running the Examples
+## Run the Examples
 
-To run an example file from the examples directory:
+To run an example file from the `examples` directory:
 
 ```bash
 npm run build && npx tsx example-onprem-auth.ts
 ```
-
 

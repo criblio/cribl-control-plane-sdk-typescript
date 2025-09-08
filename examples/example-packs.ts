@@ -2,24 +2,26 @@
  * Cribl Packs Integration Example
  * 
  * This example demonstrates how to install and configure a Cribl Pack using the 
- * Control Plane SDK. It installs the Palo Alto Networks pack from GitHub and 
- * creates a complete data pipeline within the pack:
+ * Control Plane SDK. It installs the Palo Alto Networks Pack from GitHub and 
+ * creates a complete data pipeline within the Pack.
  * 
- * 1. Installs the Palo Alto Networks pack from a remote URL
- * 2. Creates a TCP JSON source to receive data on port 9020
- * 3. Creates an Amazon S3 destination for data storage
- * 4. Creates a pipeline that filters events to keep only the "name" field
- * 5. Creates a route connecting the source to the pipeline and destination
+ * 1. Install the Palo Alto Networks Pack from a remote URL.
+ * 2. Create a TCP JSON Source to receive data on port 9020.
+ * 3. Create an Amazon S3 Destination for data storage.
+ * 4. Create a Pipeline that filters events and keeps only data in the "name" 
+ * field.
+ * 5. Create a Route that connects the Source to the Pipeline and Destination.
  * 
- * Data flow: TCP JSON Source → Route → Pipeline → S3 Destination
+ * Data flow: TCP JSON Source → Route → Pipeline → Amazon S3 Destination
  * 
- * Note: This example creates resources within the pack but does not commit
- * or deploy the configuration to a worker group.
+ * NOTE: This example creates resources within the Pack but does not commit
+ * or deploy the configuration to a Worker Group.
  * 
  * Prerequisites: 
- * - Configure your .env file with appropriate credentials
- * - Create a worker group with the configured WORKER_GROUP_ID
- * - Update AWS S3 configuration values (AWS_API_KEY, AWS_SECRET_KEY, AWS_BUCKET_NAME, AWS_REGION)
+ * - An .env file that is configured with your credentials.
+ * - A Worker Group whose ID matches the configured WORKER_GROUP_ID value.
+ * - Your AWS S3 values for AWS_API_KEY, AWS_SECRET_KEY, AWS_BUCKET_NAME, and 
+ * AWS_REGION.
  */
 
 import {
@@ -34,12 +36,11 @@ const PACK_URL = "https://github.com/criblpacks/cribl-palo-alto-networks/release
 const PACK_ID = "cribl-palo-alto-networks";
 const WORKER_GROUP_ID = "my-worker-group";
 
-// TCP JSON source configuration
+// TCP JSON Source configuration
 const AUTH_TOKEN = "4a4b3663-7a57-7369-7632-795553573668";
 const PORT = 9020;
 
-// Amazon S3 destination configuration
-// [ UPDATE THESE VALUES ]
+// Amazon S3 Destination configuration: Replace the placeholder values
 const AWS_API_KEY = "your-aws-api-key"; // Replace with your AWS Access Key ID
 const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Access Key
 const AWS_BUCKET_NAME = "your-aws-bucket-name"; // Replace with your S3 bucket name
@@ -48,7 +49,7 @@ const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 const groupUrl = `${baseUrl}/m/${WORKER_GROUP_ID}`;
 const packUrl = `${groupUrl}/p/${PACK_ID}`;
 
-// TCP JSON source configuration
+// TCP JSON Source configuration
 const tcpJsonSource: InputTcpjson = {
   id: "my-tcp-json",
   type: "tcpjson",
@@ -57,7 +58,7 @@ const tcpJsonSource: InputTcpjson = {
   authToken: AUTH_TOKEN,
 };
 
-// Amazon S3 destination configuration
+// Amazon S3 Destination configuration
 const s3Destination: OutputS3 = {
   id: "my-s3-destination",
   type: "s3",
@@ -70,7 +71,7 @@ const s3Destination: OutputS3 = {
   emptyDirCleanupSec: 300,
 };
 
-// Pipeline configuration: filters events to keep only the "name" field
+// Pipeline configuration: filter events and keep only data in the "name" field
 const pipeline: Pipeline = {
   id: "my-pipeline",
   conf: {
@@ -89,7 +90,7 @@ const pipeline: Pipeline = {
   },
 };
 
-// Route configuration: routes data from the source to the pipeline and destination
+// Route configuration: route data from the Source to the Pipeline and Destination
 const route: RoutesRoute = {
   final: false,
   id: "my-route",
@@ -97,39 +98,39 @@ const route: RoutesRoute = {
   pipeline: pipeline.id,
   output: s3Destination.id,
   filter: "__inputId=='tcpjson:my-tcp-json'",
-  description: "This is my new route",
+  description: "This is my new Route",
   additionalProperties: {},
 };
 
 async function main() {
   const cribl = await createCriblClient();
 
-  // Install pack from URL
+  // Install Pack from URL
   await cribl.packs.install({ source: PACK_URL, id: PACK_ID }, { serverURL: groupUrl });
-  console.log(`✅ Installed pack "${PACK_ID}" from: ${PACK_URL}`);
+  console.log(`✅ Installed Pack "${PACK_ID}" from: ${PACK_URL}`);
 
-  // Create TCP JSON source in pack
+  // Create TCP JSON Source in Pack
   await cribl.sources.create(tcpJsonSource, { serverURL: packUrl });
-  console.log(`✅ Created tcp json source: ${tcpJsonSource.id} in pack: "${PACK_ID}"`);
+  console.log(`✅ Created TCP JSON Source ${tcpJsonSource.id} in Pack: "${PACK_ID}"`);
 
-  // Create s3 destination in pack
+  // Create Amazon S3 Destination in Pack
   await cribl.destinations.create(s3Destination, { serverURL: packUrl });
-  console.log(`✅ Created s3 destination: ${s3Destination.id} in pack: "${PACK_ID}"`);
+  console.log(`✅ Created Amazon S3 Destination ${s3Destination.id} in Pack: "${PACK_ID}"`);
 
-  // Create pipeline in pack
+  // Create Pipeline in Pack
   await cribl.pipelines.create(pipeline, { serverURL: packUrl });
-  console.log(`✅ Created pipeline: ${pipeline.id} in pack: "${PACK_ID}"`);
+  console.log(`✅ Created Pipeline ${pipeline.id} in Pack: "${PACK_ID}"`);
 
-  // Add route to routing table in pack
+  // Add Route to Routing table in Pack
   const routesListResponse = await cribl.routes.list({ serverURL: packUrl });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
-    throw new Error("No routes found");
+    throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
   await cribl.routes.update({ id: routes.id, routes }, { serverURL: packUrl });
-  console.log(`✅ Route inserted: ${route.id} in pack: ${PACK_ID}`);
-  console.log(`ℹ️ This example does not commit / deploy the configuration to the worker group.`);
+  console.log(`✅ Added Route ${route.id} in Pack: ${PACK_ID}`);
+  console.log(`ℹ️ This example does not commit or deploy the configuration to the Worker Group.`);
 }
 
 main().catch(error => {
