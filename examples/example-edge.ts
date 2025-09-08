@@ -1,35 +1,38 @@
 
 /**
- * Cribl Stream Configuration Example
+ * Cribl Edge Configuration Example
  * 
- * This example demonstrates how to programmatically create and configure a complete
- * data pipeline in Cribl Edge using the Control Plane SDK. It creates:
+ * This example demonstrates how to programmatically create and configure a 
+ * complete data pipeline in Cribl Edge using the Control Plane SDK.
  * 
- * 1. A Fleet to manage the configuration
- * 2. A Syslog source to receive data on port 9021
- * 3. An Amazon S3 destination to store processed data
- * 4. A pipeline that filters events to keep only eventSource and eventID fields
- * 5. A route that connects the source to the pipeline and destination
- * 6. Deploys the configuration to the fleet to make it active
+ * This example creates:
  * 
- * Data flow: Syslog Source → Route → Pipeline → S3 Destination
+ * 1. A Fleet to manage the configuration.
+ * 2. A Syslog Source to receive data on port 9021.
+ * 3. An Amazon S3 Destination to store processed data.
+ * 4. A Pipeline that filters events and keeps only data in the "eventSource" 
+ * and "eventID" fields.
+ * 5. A Route that connects the Source to the Pipeline and Destination.
+ * 
+ * This example also deploys the configuration to the Fleet to make it active.
+ * 
+ * Data flow: Syslog Source → Route → Pipeline → Amazon S3 Destination
  *
- * The example includes proper error handling, checks for existing resources,
- * and automatically deploys the configuration to make it active.
+ * This example includes error handling and checks for existing resources.
  * 
  * Prerequisites:
- * - Configure your .env file with appropriate credentials
- * - Update AWS S3 configuration values (AWS_API_KEY, AWS_SECRET_KEY, AWS_BUCKET_NAME, AWS_REGION)
- * - Requires Enterprise License on the server
+ * - An .env file that is configured with your credentials.
+ * - Your AWS S3 values for AWS_API_KEY, AWS_SECRET_KEY, AWS_BUCKET_NAME, and 
+ * AWS_REGION.
+ * - An Enterprise License on the server.
  */
 
 const FLEET_ID = "my-fleet";
 
-// Syslog source configuration
+// Syslog Source configuration
 const SYSLOG_PORT = 9021;
 
-// Amazon S3 destination configuration
-// [ UPDATE THESE VALUES ]
+// Amazon S3 Destination configuration: Replace the placeholder values
 const AWS_API_KEY = "your-aws-api-key"; // Replace with your AWS Access Key ID
 const AWS_SECRET_KEY = "your-aws-secret-key"; // Replace with your AWS Secret Access Key
 const AWS_BUCKET_NAME = "your-aws-bucket-name"; // Replace with your S3 bucket name
@@ -44,6 +47,7 @@ import {
 } from "../dist/esm/models";
 import { baseUrl, createCriblClient } from "./auth";
 
+// Create Fleet
 const myFleet: ConfigGroup = {
   onPrem: true,
   workerRemoteAccess: true,
@@ -52,6 +56,7 @@ const myFleet: ConfigGroup = {
   id: FLEET_ID
 };
 
+// Create Syslog Source
 const syslogSource: InputSyslog = {
   id: "my-syslog-source",
   type: "syslog",
@@ -61,6 +66,7 @@ const syslogSource: InputSyslog = {
   }
 };
 
+// Create Amazon S3 Destination
 const s3Destination: OutputS3 = {
   id: "my-s3-destination",
   type: "s3",
@@ -73,7 +79,7 @@ const s3Destination: OutputS3 = {
   emptyDirCleanupSec: 300,
 };
 
-// Pipeline configuration: filters events to keep only eventSource and eventID fields
+// Pipeline configuration: filter events and keep only data in the "eventSource" and "eventID" fields
 const pipeline: Pipeline = {
   id: "my-pipeline",
   conf: {
@@ -90,6 +96,7 @@ const pipeline: Pipeline = {
   },
 };
 
+// Route configuration: route data from the Source to the Pipeline and Destination
 const route: RoutesRoute = {
   final: false,
   id: "my-route",
@@ -97,7 +104,7 @@ const route: RoutesRoute = {
   pipeline: pipeline.id,
   output: s3Destination.id,
   filter: `__inputId=='${syslogSource.id}'`,
-  description: "This is my new route",
+  description: "This is my new Route",
   additionalProperties: {},
 };
 const groupUrl = `${baseUrl}/m/${myFleet.id}`;
@@ -106,10 +113,10 @@ async function main() {
   // Initialize Cribl client
   const cribl = await createCriblClient();
 
-  // Verify fleet doesn't already exist
+  // Verify that Fleet doesn't already exist
   const fleetResponse = await cribl.groups.get({ id: myFleet.id, product: "edge" });
   if (fleetResponse.items!.length > 0) {
-    console.log(`⚠️ Fleet already exists: ${myFleet.id}. Try different fleet id.`);
+    console.log(`⚠️ Fleet already exists: ${myFleet.id}. Try a different Fleet ID.`);
     return;
   }
 
@@ -117,27 +124,27 @@ async function main() {
   await cribl.groups.create({ product: "edge", configGroup: myFleet });
   console.log(`✅ Fleet created: ${myFleet.id}`);
 
-  // Create Syslog source
+  // Create Syslog Source
   await cribl.sources.create(syslogSource, { serverURL: groupUrl });
-  console.log(`✅ Syslog source created: ${syslogSource.id}`);
+  console.log(`✅ Syslog Source created: ${syslogSource.id}`);
 
-  // Create S3 destination
+  // Create Amazon S3 Destination
   await cribl.destinations.create(s3Destination, { serverURL: groupUrl });
-  console.log(`✅ S3 destination created: ${s3Destination.id}`);
+  console.log(`✅ Amazon S3 Destination created: ${s3Destination.id}`);
 
-  // Create pipeline
+  // Create Pipeline
   await cribl.pipelines.create(pipeline, { serverURL: groupUrl });
   console.log(`✅ Pipeline created: ${pipeline.id}`);
 
-  // Add route to routing table
+  // Add Route to Routing table
   const routesListResponse = await cribl.routes.list({ serverURL: groupUrl });
   const routes = routesListResponse.items?.[0];
   if (!routes || !routes.id) {
-    throw new Error("No routes found");
+    throw new Error("No Routes found");
   }
   routes.routes = [route, ...routes.routes];
   await cribl.routes.update({ id: routes.id, routes }, { serverURL: groupUrl });
-  console.log(`✅ Route inserted: ${route.id}`);
+  console.log(`✅ Route added: ${route.id}`);
 
   // Deploy configuration changes
   const response = await cribl.groups.configs.versions.get({
