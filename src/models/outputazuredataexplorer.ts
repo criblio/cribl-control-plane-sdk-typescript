@@ -484,6 +484,10 @@ export type OutputAzureDataExplorer = {
    */
   pqMode?: OutputAzureDataExplorerMode | undefined;
   pqControls?: OutputAzureDataExplorerPqControls | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
 };
 
 /** @internal */
@@ -1305,6 +1309,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   pqMode: OutputAzureDataExplorerMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$inboundSchema)
     .optional(),
+  emptyDirCleanupSec: z.number().default(300),
 });
 
 /** @internal */
@@ -1375,6 +1380,7 @@ export type OutputAzureDataExplorer$Outbound = {
   pqOnBackpressure: string;
   pqMode: string;
   pqControls?: OutputAzureDataExplorerPqControls$Outbound | undefined;
+  emptyDirCleanupSec: number;
 };
 
 /** @internal */
@@ -1465,6 +1471,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   pqMode: OutputAzureDataExplorerMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$outboundSchema)
     .optional(),
+  emptyDirCleanupSec: z.number().default(300),
 });
 
 /**

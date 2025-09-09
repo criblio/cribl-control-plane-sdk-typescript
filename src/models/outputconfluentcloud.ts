@@ -257,6 +257,10 @@ export type OutputConfluentCloudSASLMechanism = ClosedEnum<
 export type OutputConfluentCloudAuthentication = {
   disabled?: boolean | undefined;
   mechanism?: OutputConfluentCloudSASLMechanism | undefined;
+  /**
+   * Enable OAuth authentication
+   */
+  oauthEnabled?: boolean | undefined;
 };
 
 /**
@@ -1040,12 +1044,14 @@ export const OutputConfluentCloudAuthentication$inboundSchema: z.ZodType<
 > = z.object({
   disabled: z.boolean().default(true),
   mechanism: OutputConfluentCloudSASLMechanism$inboundSchema.default("plain"),
+  oauthEnabled: z.boolean().default(false),
 });
 
 /** @internal */
 export type OutputConfluentCloudAuthentication$Outbound = {
   disabled: boolean;
   mechanism: string;
+  oauthEnabled: boolean;
 };
 
 /** @internal */
@@ -1056,6 +1062,7 @@ export const OutputConfluentCloudAuthentication$outboundSchema: z.ZodType<
 > = z.object({
   disabled: z.boolean().default(true),
   mechanism: OutputConfluentCloudSASLMechanism$outboundSchema.default("plain"),
+  oauthEnabled: z.boolean().default(false),
 });
 
 /**

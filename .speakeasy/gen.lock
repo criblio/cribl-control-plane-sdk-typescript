@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 5b089dd95e9aa5956eda42479ef9b11e
-  docVersion: 4.14.0-alpha.1757087755104-f460003f
-  speakeasyVersion: 1.606.0
-  generationVersion: 2.686.7
-  releaseVersion: 0.0.50
-  configChecksum: 8c1621688958c5a037f12f37a156bc22
+  docChecksum: d1ddd19d9c9bd692e94434e9b57debb0
+  docVersion: 4.14.0-alpha.1757401089572-3ca67bed
+  speakeasyVersion: 1.613.0
+  generationVersion: 2.696.0
+  releaseVersion: 0.0.51
+  configChecksum: 06196238373a4fc02bda6def1b6c2430
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.12
-    core: 3.21.20
+    core: 3.21.22
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.0
     enumUnions: 0.1.0
@@ -1799,6 +1799,7 @@ generatedFiles:
   - docs/models/outputsyslog.md
   - docs/models/outputsyslogbackpressurebehavior.md
   - docs/models/outputsyslogcompression.md
+  - docs/models/outputsysloghost.md
   - docs/models/outputsyslogmaximumtlsversion.md
   - docs/models/outputsyslogmessageformat.md
   - docs/models/outputsyslogminimumtlsversion.md
@@ -1807,6 +1808,7 @@ generatedFiles:
   - docs/models/outputsyslogprotocol.md
   - docs/models/outputsyslogqueuefullbehavior.md
   - docs/models/outputsyslogseverity.md
+  - docs/models/outputsyslogtls.md
   - docs/models/outputsyslogtlssettingsclientside.md
   - docs/models/outputsyslogtype.md
   - docs/models/outputtcpjson.md
@@ -1997,7 +1999,6 @@ generatedFiles:
   - docs/sdks/versions/README.md
   - docs/sdks/versionsconfigs/README.md
   - eslint.config.mjs
-  - examples/package.json
   - jsr.json
   - package.json
   - src/core.ts
@@ -3318,4 +3319,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## SDK Changes Detected:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n"

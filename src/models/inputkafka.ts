@@ -201,6 +201,10 @@ export type InputKafkaSASLMechanism = ClosedEnum<
 export type InputKafkaAuthentication = {
   disabled?: boolean | undefined;
   mechanism?: InputKafkaSASLMechanism | undefined;
+  /**
+   * Enable OAuth authentication
+   */
+  oauthEnabled?: boolean | undefined;
 };
 
 export const InputKafkaMinimumTLSVersion = {
@@ -986,12 +990,14 @@ export const InputKafkaAuthentication$inboundSchema: z.ZodType<
 > = z.object({
   disabled: z.boolean().default(true),
   mechanism: InputKafkaSASLMechanism$inboundSchema.default("plain"),
+  oauthEnabled: z.boolean().default(false),
 });
 
 /** @internal */
 export type InputKafkaAuthentication$Outbound = {
   disabled: boolean;
   mechanism: string;
+  oauthEnabled: boolean;
 };
 
 /** @internal */
@@ -1002,6 +1008,7 @@ export const InputKafkaAuthentication$outboundSchema: z.ZodType<
 > = z.object({
   disabled: z.boolean().default(true),
   mechanism: InputKafkaSASLMechanism$outboundSchema.default("plain"),
+  oauthEnabled: z.boolean().default(false),
 });
 
 /**
