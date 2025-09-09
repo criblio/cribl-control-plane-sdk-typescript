@@ -199,6 +199,12 @@ const value: models.OutputSyslog = {
   host: "poor-mozzarella.info",
   port: 6265.46,
   pqControls: {},
+  hosts: [
+    {
+      host: "timely-passport.net",
+      servername: "<value>",
+    },
+  ],
 };
 ```
 
