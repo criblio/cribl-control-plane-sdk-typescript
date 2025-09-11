@@ -10,6 +10,8 @@ let value: InputWizType = "wiz";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"wiz"
+"wiz" | Unrecognized<string>
 ```

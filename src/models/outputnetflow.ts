@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputNetflowType = {
   Netflow: "netflow",
 } as const;
-export type OutputNetflowType = ClosedEnum<typeof OutputNetflowType>;
+export type OutputNetflowType = OpenEnum<typeof OutputNetflowType>;
 
 export type OutputNetflowHost = {
   /**
@@ -58,14 +62,25 @@ export type OutputNetflow = {
 };
 
 /** @internal */
-export const OutputNetflowType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputNetflowType
-> = z.nativeEnum(OutputNetflowType);
+export const OutputNetflowType$inboundSchema: z.ZodType<
+  OutputNetflowType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputNetflowType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputNetflowType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputNetflowType
-> = OutputNetflowType$inboundSchema;
+export const OutputNetflowType$outboundSchema: z.ZodType<
+  OutputNetflowType,
+  z.ZodTypeDef,
+  OutputNetflowType
+> = z.union([
+  z.nativeEnum(OutputNetflowType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputDatadogAgentType = {
   DatadogAgent: "datadog_agent",
 } as const;
-export type InputDatadogAgentType = ClosedEnum<typeof InputDatadogAgentType>;
+export type InputDatadogAgentType = OpenEnum<typeof InputDatadogAgentType>;
 
 export type InputDatadogAgentConnection = {
   pipeline?: string | undefined;
@@ -28,7 +32,7 @@ export const InputDatadogAgentMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputDatadogAgentMode = ClosedEnum<typeof InputDatadogAgentMode>;
+export type InputDatadogAgentMode = OpenEnum<typeof InputDatadogAgentMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +44,7 @@ export const InputDatadogAgentCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputDatadogAgentCompression = ClosedEnum<
+export type InputDatadogAgentCompression = OpenEnum<
   typeof InputDatadogAgentCompression
 >;
 
@@ -84,7 +88,7 @@ export const InputDatadogAgentMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputDatadogAgentMinimumTLSVersion = ClosedEnum<
+export type InputDatadogAgentMinimumTLSVersion = OpenEnum<
   typeof InputDatadogAgentMinimumTLSVersion
 >;
 
@@ -94,7 +98,7 @@ export const InputDatadogAgentMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputDatadogAgentMaximumTLSVersion = ClosedEnum<
+export type InputDatadogAgentMaximumTLSVersion = OpenEnum<
   typeof InputDatadogAgentMaximumTLSVersion
 >;
 
@@ -247,14 +251,25 @@ export type InputDatadogAgent = {
 };
 
 /** @internal */
-export const InputDatadogAgentType$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentType
-> = z.nativeEnum(InputDatadogAgentType);
+export const InputDatadogAgentType$inboundSchema: z.ZodType<
+  InputDatadogAgentType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputDatadogAgentType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputDatadogAgentType$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentType
-> = InputDatadogAgentType$inboundSchema;
+export const InputDatadogAgentType$outboundSchema: z.ZodType<
+  InputDatadogAgentType,
+  z.ZodTypeDef,
+  InputDatadogAgentType
+> = z.union([
+  z.nativeEnum(InputDatadogAgentType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -327,14 +342,25 @@ export function inputDatadogAgentConnectionFromJSON(
 }
 
 /** @internal */
-export const InputDatadogAgentMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentMode
-> = z.nativeEnum(InputDatadogAgentMode);
+export const InputDatadogAgentMode$inboundSchema: z.ZodType<
+  InputDatadogAgentMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputDatadogAgentMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputDatadogAgentMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentMode
-> = InputDatadogAgentMode$inboundSchema;
+export const InputDatadogAgentMode$outboundSchema: z.ZodType<
+  InputDatadogAgentMode,
+  z.ZodTypeDef,
+  InputDatadogAgentMode
+> = z.union([
+  z.nativeEnum(InputDatadogAgentMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -348,14 +374,25 @@ export namespace InputDatadogAgentMode$ {
 }
 
 /** @internal */
-export const InputDatadogAgentCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentCompression
-> = z.nativeEnum(InputDatadogAgentCompression);
+export const InputDatadogAgentCompression$inboundSchema: z.ZodType<
+  InputDatadogAgentCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputDatadogAgentCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputDatadogAgentCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentCompression
-> = InputDatadogAgentCompression$inboundSchema;
+export const InputDatadogAgentCompression$outboundSchema: z.ZodType<
+  InputDatadogAgentCompression,
+  z.ZodTypeDef,
+  InputDatadogAgentCompression
+> = z.union([
+  z.nativeEnum(InputDatadogAgentCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -496,14 +533,25 @@ export function inputDatadogAgentPqFromJSON(
 }
 
 /** @internal */
-export const InputDatadogAgentMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentMinimumTLSVersion
-> = z.nativeEnum(InputDatadogAgentMinimumTLSVersion);
+export const InputDatadogAgentMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputDatadogAgentMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputDatadogAgentMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputDatadogAgentMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentMinimumTLSVersion
-> = InputDatadogAgentMinimumTLSVersion$inboundSchema;
+export const InputDatadogAgentMinimumTLSVersion$outboundSchema: z.ZodType<
+  InputDatadogAgentMinimumTLSVersion,
+  z.ZodTypeDef,
+  InputDatadogAgentMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(InputDatadogAgentMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -518,14 +566,25 @@ export namespace InputDatadogAgentMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputDatadogAgentMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentMaximumTLSVersion
-> = z.nativeEnum(InputDatadogAgentMaximumTLSVersion);
+export const InputDatadogAgentMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputDatadogAgentMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputDatadogAgentMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputDatadogAgentMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentMaximumTLSVersion
-> = InputDatadogAgentMaximumTLSVersion$inboundSchema;
+export const InputDatadogAgentMaximumTLSVersion$outboundSchema: z.ZodType<
+  InputDatadogAgentMaximumTLSVersion,
+  z.ZodTypeDef,
+  InputDatadogAgentMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(InputDatadogAgentMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

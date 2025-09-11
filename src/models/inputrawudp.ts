@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputRawUdpType = {
   RawUdp: "raw_udp",
 } as const;
-export type InputRawUdpType = ClosedEnum<typeof InputRawUdpType>;
+export type InputRawUdpType = OpenEnum<typeof InputRawUdpType>;
 
 export type InputRawUdpConnection = {
   pipeline?: string | undefined;
@@ -28,7 +32,7 @@ export const InputRawUdpMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputRawUdpMode = ClosedEnum<typeof InputRawUdpMode>;
+export type InputRawUdpMode = OpenEnum<typeof InputRawUdpMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +44,7 @@ export const InputRawUdpCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputRawUdpCompression = ClosedEnum<typeof InputRawUdpCompression>;
+export type InputRawUdpCompression = OpenEnum<typeof InputRawUdpCompression>;
 
 export type InputRawUdpPqControls = {};
 
@@ -152,14 +156,25 @@ export type InputRawUdp = {
 };
 
 /** @internal */
-export const InputRawUdpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpType
-> = z.nativeEnum(InputRawUdpType);
+export const InputRawUdpType$inboundSchema: z.ZodType<
+  InputRawUdpType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputRawUdpType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputRawUdpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpType
-> = InputRawUdpType$inboundSchema;
+export const InputRawUdpType$outboundSchema: z.ZodType<
+  InputRawUdpType,
+  z.ZodTypeDef,
+  InputRawUdpType
+> = z.union([
+  z.nativeEnum(InputRawUdpType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -230,14 +245,25 @@ export function inputRawUdpConnectionFromJSON(
 }
 
 /** @internal */
-export const InputRawUdpMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpMode
-> = z.nativeEnum(InputRawUdpMode);
+export const InputRawUdpMode$inboundSchema: z.ZodType<
+  InputRawUdpMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputRawUdpMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputRawUdpMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpMode
-> = InputRawUdpMode$inboundSchema;
+export const InputRawUdpMode$outboundSchema: z.ZodType<
+  InputRawUdpMode,
+  z.ZodTypeDef,
+  InputRawUdpMode
+> = z.union([
+  z.nativeEnum(InputRawUdpMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -251,14 +277,25 @@ export namespace InputRawUdpMode$ {
 }
 
 /** @internal */
-export const InputRawUdpCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpCompression
-> = z.nativeEnum(InputRawUdpCompression);
+export const InputRawUdpCompression$inboundSchema: z.ZodType<
+  InputRawUdpCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputRawUdpCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputRawUdpCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpCompression
-> = InputRawUdpCompression$inboundSchema;
+export const InputRawUdpCompression$outboundSchema: z.ZodType<
+  InputRawUdpCompression,
+  z.ZodTypeDef,
+  InputRawUdpCompression
+> = z.union([
+  z.nativeEnum(InputRawUdpCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

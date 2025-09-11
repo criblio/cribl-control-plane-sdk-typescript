@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputSumoLogicType = {
   SumoLogic: "sumo_logic",
 } as const;
-export type OutputSumoLogicType = ClosedEnum<typeof OutputSumoLogicType>;
+export type OutputSumoLogicType = OpenEnum<typeof OutputSumoLogicType>;
 
 /**
  * Preserve the raw event format instead of JSONifying it
@@ -23,7 +27,7 @@ export const OutputSumoLogicDataFormat = {
 /**
  * Preserve the raw event format instead of JSONifying it
  */
-export type OutputSumoLogicDataFormat = ClosedEnum<
+export type OutputSumoLogicDataFormat = OpenEnum<
   typeof OutputSumoLogicDataFormat
 >;
 
@@ -43,7 +47,7 @@ export const OutputSumoLogicFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputSumoLogicFailedRequestLoggingMode = ClosedEnum<
+export type OutputSumoLogicFailedRequestLoggingMode = OpenEnum<
   typeof OutputSumoLogicFailedRequestLoggingMode
 >;
 
@@ -93,7 +97,7 @@ export const OutputSumoLogicBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputSumoLogicBackpressureBehavior = ClosedEnum<
+export type OutputSumoLogicBackpressureBehavior = OpenEnum<
   typeof OutputSumoLogicBackpressureBehavior
 >;
 
@@ -107,7 +111,7 @@ export const OutputSumoLogicCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputSumoLogicCompression = ClosedEnum<
+export type OutputSumoLogicCompression = OpenEnum<
   typeof OutputSumoLogicCompression
 >;
 
@@ -121,7 +125,7 @@ export const OutputSumoLogicQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputSumoLogicQueueFullBehavior = ClosedEnum<
+export type OutputSumoLogicQueueFullBehavior = OpenEnum<
   typeof OutputSumoLogicQueueFullBehavior
 >;
 
@@ -136,7 +140,7 @@ export const OutputSumoLogicMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputSumoLogicMode = ClosedEnum<typeof OutputSumoLogicMode>;
+export type OutputSumoLogicMode = OpenEnum<typeof OutputSumoLogicMode>;
 
 export type OutputSumoLogicPqControls = {};
 
@@ -276,14 +280,25 @@ export type OutputSumoLogic = {
 };
 
 /** @internal */
-export const OutputSumoLogicType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicType
-> = z.nativeEnum(OutputSumoLogicType);
+export const OutputSumoLogicType$inboundSchema: z.ZodType<
+  OutputSumoLogicType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSumoLogicType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSumoLogicType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicType
-> = OutputSumoLogicType$inboundSchema;
+export const OutputSumoLogicType$outboundSchema: z.ZodType<
+  OutputSumoLogicType,
+  z.ZodTypeDef,
+  OutputSumoLogicType
+> = z.union([
+  z.nativeEnum(OutputSumoLogicType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -297,14 +312,25 @@ export namespace OutputSumoLogicType$ {
 }
 
 /** @internal */
-export const OutputSumoLogicDataFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicDataFormat
-> = z.nativeEnum(OutputSumoLogicDataFormat);
+export const OutputSumoLogicDataFormat$inboundSchema: z.ZodType<
+  OutputSumoLogicDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSumoLogicDataFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSumoLogicDataFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicDataFormat
-> = OutputSumoLogicDataFormat$inboundSchema;
+export const OutputSumoLogicDataFormat$outboundSchema: z.ZodType<
+  OutputSumoLogicDataFormat,
+  z.ZodTypeDef,
+  OutputSumoLogicDataFormat
+> = z.union([
+  z.nativeEnum(OutputSumoLogicDataFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -377,14 +403,25 @@ export function outputSumoLogicExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputSumoLogicFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputSumoLogicFailedRequestLoggingMode> = z
-    .nativeEnum(OutputSumoLogicFailedRequestLoggingMode);
+export const OutputSumoLogicFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputSumoLogicFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSumoLogicFailedRequestLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSumoLogicFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputSumoLogicFailedRequestLoggingMode> =
-    OutputSumoLogicFailedRequestLoggingMode$inboundSchema;
+export const OutputSumoLogicFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  OutputSumoLogicFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  OutputSumoLogicFailedRequestLoggingMode
+> = z.union([
+  z.nativeEnum(OutputSumoLogicFailedRequestLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -536,14 +573,25 @@ export function outputSumoLogicTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputSumoLogicBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicBackpressureBehavior
-> = z.nativeEnum(OutputSumoLogicBackpressureBehavior);
+export const OutputSumoLogicBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputSumoLogicBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSumoLogicBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSumoLogicBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputSumoLogicBackpressureBehavior> =
-    OutputSumoLogicBackpressureBehavior$inboundSchema;
+export const OutputSumoLogicBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputSumoLogicBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputSumoLogicBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputSumoLogicBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -559,14 +607,25 @@ export namespace OutputSumoLogicBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputSumoLogicCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicCompression
-> = z.nativeEnum(OutputSumoLogicCompression);
+export const OutputSumoLogicCompression$inboundSchema: z.ZodType<
+  OutputSumoLogicCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSumoLogicCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSumoLogicCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicCompression
-> = OutputSumoLogicCompression$inboundSchema;
+export const OutputSumoLogicCompression$outboundSchema: z.ZodType<
+  OutputSumoLogicCompression,
+  z.ZodTypeDef,
+  OutputSumoLogicCompression
+> = z.union([
+  z.nativeEnum(OutputSumoLogicCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -580,14 +639,25 @@ export namespace OutputSumoLogicCompression$ {
 }
 
 /** @internal */
-export const OutputSumoLogicQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicQueueFullBehavior
-> = z.nativeEnum(OutputSumoLogicQueueFullBehavior);
+export const OutputSumoLogicQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSumoLogicQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSumoLogicQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSumoLogicQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicQueueFullBehavior
-> = OutputSumoLogicQueueFullBehavior$inboundSchema;
+export const OutputSumoLogicQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputSumoLogicQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputSumoLogicQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputSumoLogicQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -601,14 +671,25 @@ export namespace OutputSumoLogicQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputSumoLogicMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicMode
-> = z.nativeEnum(OutputSumoLogicMode);
+export const OutputSumoLogicMode$inboundSchema: z.ZodType<
+  OutputSumoLogicMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSumoLogicMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSumoLogicMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicMode
-> = OutputSumoLogicMode$inboundSchema;
+export const OutputSumoLogicMode$outboundSchema: z.ZodType<
+  OutputSumoLogicMode,
+  z.ZodTypeDef,
+  OutputSumoLogicMode
+> = z.union([
+  z.nativeEnum(OutputSumoLogicMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

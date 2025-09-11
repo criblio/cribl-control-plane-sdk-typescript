@@ -1715,23 +1715,23 @@ const value: models.OutputDatadog = {
 };
 ```
 
-### `models.OutputGrafanaCloud`
+### `models.OutputGrafanaCloudUnion`
 
 ```typescript
-const value: models.OutputGrafanaCloud = {
+const value: models.OutputGrafanaCloudUnion = {
   id: "<id>",
   type: "grafana_cloud",
   pipeline: "<value>",
   systemFields: [
     "<value 1>",
+    "<value 2>",
   ],
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
-  lokiUrl: "https://damp-vision.biz/",
-  prometheusUrl: "https://courageous-ribbon.info/",
+  lokiUrl: "https://uncomfortable-aircraft.name/",
+  prometheusUrl: "https://feline-tapioca.name/",
   message: "<value>",
   messageFormat: "protobuf",
   labels: [
@@ -1745,16 +1745,16 @@ const value: models.OutputGrafanaCloud = {
     authType: "basic",
     token: "<value>",
     textSecret: "<value>",
-    username: "Keshaun.Pagac",
-    password: "6tVmZtXY_Yorgje",
+    username: "Jessica25",
+    password: "sVhfb20seERtO6D",
     credentialsSecret: "<value>",
   },
   lokiAuth: {
     authType: "basic",
     token: "<value>",
     textSecret: "<value>",
-    username: "Assunta_Kris",
-    password: "pv19FDqWjIgMACL",
+    username: "Peyton_Ratke57",
+    password: "RNPIgWfrnnYdaPf",
     credentialsSecret: "<value>",
   },
   concurrency: 1,
@@ -1773,11 +1773,10 @@ const value: models.OutputGrafanaCloud = {
   failedRequestLoggingMode: "none",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6825.33,
+      httpStatus: 8578.44,
       initialBackoff: 1000,
       backoffRate: 2,
       maxBackoff: 10000,
@@ -1791,7 +1790,7 @@ const value: models.OutputGrafanaCloud = {
   },
   responseHonorRetryAfterHeader: false,
   onBackpressure: "block",
-  description: "woefully wing whenever overcooked matter how irritably",
+  description: "gently paltry vice speedily gadzooks however",
   compress: true,
   pqMaxFileSize: "1 MB",
   pqMaxSize: "5GB",

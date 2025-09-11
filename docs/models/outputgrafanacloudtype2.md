@@ -10,6 +10,8 @@ let value: OutputGrafanaCloudType2 = "grafana_cloud";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"grafana_cloud"
+"grafana_cloud" | Unrecognized<string>
 ```

@@ -12,6 +12,8 @@ let value: InputConfluentCloudSchemaType = "avro";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"avro" | "json"
+"avro" | "json" | Unrecognized<string>
 ```

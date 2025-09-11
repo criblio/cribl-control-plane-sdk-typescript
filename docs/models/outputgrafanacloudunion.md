@@ -1,12 +1,12 @@
-# OutputGrafanaCloud
+# OutputGrafanaCloudUnion
 
 
 ## Supported Types
 
-### `models.OutputGrafanaCloudGrafanaCloud1`
+### `models.OutputGrafanaCloud1`
 
 ```typescript
-const value: models.OutputGrafanaCloudGrafanaCloud1 = {
+const value: models.OutputGrafanaCloud1 = {
   id: "<id>",
   type: "grafana_cloud",
   pipeline: "<value>",
@@ -17,9 +17,10 @@ const value: models.OutputGrafanaCloudGrafanaCloud1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
-  lokiUrl: "https://fruitful-maestro.info",
-  prometheusUrl: "https://meaty-remark.org",
+  lokiUrl: "https://ordinary-coordination.name/",
+  prometheusUrl: "https://upbeat-quinoa.biz/",
   message: "<value>",
   labels: [
     {
@@ -29,15 +30,15 @@ const value: models.OutputGrafanaCloudGrafanaCloud1 = {
   prometheusAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Shakira_Wisozk",
-    password: "B0RWaZFIYeYi4FE",
+    username: "Daniela75",
+    password: "XGIAGOAQ6ixwc6M",
     credentialsSecret: "<value>",
   },
   lokiAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Myles.Durgan",
-    password: "2zPSMZhEVhRBQno",
+    username: "Ova_Strosin",
+    password: "f232trLH1hflhWT",
     credentialsSecret: "<value>",
   },
   extraHttpHeaders: [
@@ -49,37 +50,38 @@ const value: models.OutputGrafanaCloudGrafanaCloud1 = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 2643.26,
+      httpStatus: 56.46,
     },
   ],
   timeoutRetrySettings: {},
-  description: "ignorant who where iterate eek keenly frantically gadzooks",
+  description: "ha whoever humiliating reluctantly institute gah silk",
   pqControls: {},
 };
 ```
 
-### `models.OutputGrafanaCloudGrafanaCloud2`
+### `models.OutputGrafanaCloud2`
 
 ```typescript
-const value: models.OutputGrafanaCloudGrafanaCloud2 = {
+const value: models.OutputGrafanaCloud2 = {
   id: "<id>",
   type: "grafana_cloud",
   pipeline: "<value>",
   systemFields: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  lokiUrl: "https://sugary-gown.name",
-  prometheusUrl: "https://mysterious-diver.info",
+  lokiUrl: "https://frequent-cassava.biz",
+  prometheusUrl: "https://acidic-pronoun.info/",
   message: "<value>",
   labels: [
     {
@@ -89,15 +91,15 @@ const value: models.OutputGrafanaCloudGrafanaCloud2 = {
   prometheusAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Keshaun.Pagac",
-    password: "6tVmZtXY_Yorgje",
+    username: "Jessica25",
+    password: "sVhfb20seERtO6D",
     credentialsSecret: "<value>",
   },
   lokiAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Assunta_Kris",
-    password: "pv19FDqWjIgMACL",
+    username: "Peyton_Ratke57",
+    password: "RNPIgWfrnnYdaPf",
     credentialsSecret: "<value>",
   },
   extraHttpHeaders: [
@@ -109,15 +111,15 @@ const value: models.OutputGrafanaCloudGrafanaCloud2 = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6825.33,
+      httpStatus: 8578.44,
     },
   ],
   timeoutRetrySettings: {},
-  description: "grouper towards distant black inside mushy shakily severe",
+  description:
+    "yieldingly jealously lonely yet beyond venture because other regarding with",
   pqControls: {},
 };
 ```

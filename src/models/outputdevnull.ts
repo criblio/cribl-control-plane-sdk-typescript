@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputDevnullType = {
   Devnull: "devnull",
 } as const;
-export type OutputDevnullType = ClosedEnum<typeof OutputDevnullType>;
+export type OutputDevnullType = OpenEnum<typeof OutputDevnullType>;
 
 export type OutputDevnull = {
   /**
@@ -38,14 +42,25 @@ export type OutputDevnull = {
 };
 
 /** @internal */
-export const OutputDevnullType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDevnullType
-> = z.nativeEnum(OutputDevnullType);
+export const OutputDevnullType$inboundSchema: z.ZodType<
+  OutputDevnullType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDevnullType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputDevnullType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDevnullType
-> = OutputDevnullType$inboundSchema;
+export const OutputDevnullType$outboundSchema: z.ZodType<
+  OutputDevnullType,
+  z.ZodTypeDef,
+  OutputDevnullType
+> = z.union([
+  z.nativeEnum(OutputDevnullType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

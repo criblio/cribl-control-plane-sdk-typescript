@@ -10,6 +10,8 @@ let value: OutputNewrelicEventsType = "newrelic_events";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"newrelic_events"
+"newrelic_events" | Unrecognized<string>
 ```

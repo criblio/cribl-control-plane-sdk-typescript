@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputExecType = {
   Exec: "exec",
 } as const;
-export type InputExecType = ClosedEnum<typeof InputExecType>;
+export type InputExecType = OpenEnum<typeof InputExecType>;
 
 export type InputExecConnection = {
   pipeline?: string | undefined;
@@ -28,7 +32,7 @@ export const InputExecMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputExecMode = ClosedEnum<typeof InputExecMode>;
+export type InputExecMode = OpenEnum<typeof InputExecMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +44,7 @@ export const InputExecCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputExecCompression = ClosedEnum<typeof InputExecCompression>;
+export type InputExecCompression = OpenEnum<typeof InputExecCompression>;
 
 export type InputExecPqControls = {};
 
@@ -86,7 +90,7 @@ export const ScheduleType = {
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export type ScheduleType = ClosedEnum<typeof ScheduleType>;
+export type ScheduleType = OpenEnum<typeof ScheduleType>;
 
 export type InputExecMetadatum = {
   name: string;
@@ -164,14 +168,25 @@ export type InputExec = {
 };
 
 /** @internal */
-export const InputExecType$inboundSchema: z.ZodNativeEnum<
-  typeof InputExecType
-> = z.nativeEnum(InputExecType);
+export const InputExecType$inboundSchema: z.ZodType<
+  InputExecType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputExecType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputExecType$outboundSchema: z.ZodNativeEnum<
-  typeof InputExecType
-> = InputExecType$inboundSchema;
+export const InputExecType$outboundSchema: z.ZodType<
+  InputExecType,
+  z.ZodTypeDef,
+  InputExecType
+> = z.union([
+  z.nativeEnum(InputExecType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -242,14 +257,25 @@ export function inputExecConnectionFromJSON(
 }
 
 /** @internal */
-export const InputExecMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputExecMode
-> = z.nativeEnum(InputExecMode);
+export const InputExecMode$inboundSchema: z.ZodType<
+  InputExecMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputExecMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputExecMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputExecMode
-> = InputExecMode$inboundSchema;
+export const InputExecMode$outboundSchema: z.ZodType<
+  InputExecMode,
+  z.ZodTypeDef,
+  InputExecMode
+> = z.union([
+  z.nativeEnum(InputExecMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -263,14 +289,25 @@ export namespace InputExecMode$ {
 }
 
 /** @internal */
-export const InputExecCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputExecCompression
-> = z.nativeEnum(InputExecCompression);
+export const InputExecCompression$inboundSchema: z.ZodType<
+  InputExecCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputExecCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputExecCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputExecCompression
-> = InputExecCompression$inboundSchema;
+export const InputExecCompression$outboundSchema: z.ZodType<
+  InputExecCompression,
+  z.ZodTypeDef,
+  InputExecCompression
+> = z.union([
+  z.nativeEnum(InputExecCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -403,12 +440,25 @@ export function inputExecPqFromJSON(
 }
 
 /** @internal */
-export const ScheduleType$inboundSchema: z.ZodNativeEnum<typeof ScheduleType> =
-  z.nativeEnum(ScheduleType);
+export const ScheduleType$inboundSchema: z.ZodType<
+  ScheduleType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ScheduleType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const ScheduleType$outboundSchema: z.ZodNativeEnum<typeof ScheduleType> =
-  ScheduleType$inboundSchema;
+export const ScheduleType$outboundSchema: z.ZodType<
+  ScheduleType,
+  z.ZodTypeDef,
+  ScheduleType
+> = z.union([
+  z.nativeEnum(ScheduleType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

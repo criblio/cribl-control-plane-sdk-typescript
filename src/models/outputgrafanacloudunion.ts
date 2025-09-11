@@ -4,16 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputGrafanaCloudType2 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
-export type OutputGrafanaCloudType2 = ClosedEnum<
-  typeof OutputGrafanaCloudType2
->;
+export type OutputGrafanaCloudType2 = OpenEnum<typeof OutputGrafanaCloudType2>;
 
 /**
  * Format to use when sending logs to Loki (Protobuf or JSON)
@@ -25,7 +27,7 @@ export const OutputGrafanaCloudMessageFormat2 = {
 /**
  * Format to use when sending logs to Loki (Protobuf or JSON)
  */
-export type OutputGrafanaCloudMessageFormat2 = ClosedEnum<
+export type OutputGrafanaCloudMessageFormat2 = OpenEnum<
   typeof OutputGrafanaCloudMessageFormat2
 >;
 
@@ -41,7 +43,7 @@ export const OutputGrafanaCloudPrometheusAuthAuthenticationType2 = {
   Basic: "basic",
   CredentialsSecret: "credentialsSecret",
 } as const;
-export type OutputGrafanaCloudPrometheusAuthAuthenticationType2 = ClosedEnum<
+export type OutputGrafanaCloudPrometheusAuthAuthenticationType2 = OpenEnum<
   typeof OutputGrafanaCloudPrometheusAuthAuthenticationType2
 >;
 
@@ -76,7 +78,7 @@ export const OutputGrafanaCloudLokiAuthAuthenticationType2 = {
   Basic: "basic",
   CredentialsSecret: "credentialsSecret",
 } as const;
-export type OutputGrafanaCloudLokiAuthAuthenticationType2 = ClosedEnum<
+export type OutputGrafanaCloudLokiAuthAuthenticationType2 = OpenEnum<
   typeof OutputGrafanaCloudLokiAuthAuthenticationType2
 >;
 
@@ -120,7 +122,7 @@ export const OutputGrafanaCloudFailedRequestLoggingMode2 = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputGrafanaCloudFailedRequestLoggingMode2 = ClosedEnum<
+export type OutputGrafanaCloudFailedRequestLoggingMode2 = OpenEnum<
   typeof OutputGrafanaCloudFailedRequestLoggingMode2
 >;
 
@@ -170,7 +172,7 @@ export const OutputGrafanaCloudBackpressureBehavior2 = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputGrafanaCloudBackpressureBehavior2 = ClosedEnum<
+export type OutputGrafanaCloudBackpressureBehavior2 = OpenEnum<
   typeof OutputGrafanaCloudBackpressureBehavior2
 >;
 
@@ -184,7 +186,7 @@ export const OutputGrafanaCloudCompression2 = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputGrafanaCloudCompression2 = ClosedEnum<
+export type OutputGrafanaCloudCompression2 = OpenEnum<
   typeof OutputGrafanaCloudCompression2
 >;
 
@@ -198,7 +200,7 @@ export const OutputGrafanaCloudQueueFullBehavior2 = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputGrafanaCloudQueueFullBehavior2 = ClosedEnum<
+export type OutputGrafanaCloudQueueFullBehavior2 = OpenEnum<
   typeof OutputGrafanaCloudQueueFullBehavior2
 >;
 
@@ -213,13 +215,11 @@ export const OutputGrafanaCloudMode2 = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputGrafanaCloudMode2 = ClosedEnum<
-  typeof OutputGrafanaCloudMode2
->;
+export type OutputGrafanaCloudMode2 = OpenEnum<typeof OutputGrafanaCloudMode2>;
 
 export type OutputGrafanaCloudPqControls2 = {};
 
-export type OutputGrafanaCloudGrafanaCloud2 = {
+export type OutputGrafanaCloud2 = {
   /**
    * Unique ID for this output
    */
@@ -363,9 +363,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
 export const OutputGrafanaCloudType1 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
-export type OutputGrafanaCloudType1 = ClosedEnum<
-  typeof OutputGrafanaCloudType1
->;
+export type OutputGrafanaCloudType1 = OpenEnum<typeof OutputGrafanaCloudType1>;
 
 /**
  * Format to use when sending logs to Loki (Protobuf or JSON)
@@ -377,7 +375,7 @@ export const OutputGrafanaCloudMessageFormat1 = {
 /**
  * Format to use when sending logs to Loki (Protobuf or JSON)
  */
-export type OutputGrafanaCloudMessageFormat1 = ClosedEnum<
+export type OutputGrafanaCloudMessageFormat1 = OpenEnum<
   typeof OutputGrafanaCloudMessageFormat1
 >;
 
@@ -393,7 +391,7 @@ export const OutputGrafanaCloudPrometheusAuthAuthenticationType1 = {
   Basic: "basic",
   CredentialsSecret: "credentialsSecret",
 } as const;
-export type OutputGrafanaCloudPrometheusAuthAuthenticationType1 = ClosedEnum<
+export type OutputGrafanaCloudPrometheusAuthAuthenticationType1 = OpenEnum<
   typeof OutputGrafanaCloudPrometheusAuthAuthenticationType1
 >;
 
@@ -428,7 +426,7 @@ export const OutputGrafanaCloudLokiAuthAuthenticationType1 = {
   Basic: "basic",
   CredentialsSecret: "credentialsSecret",
 } as const;
-export type OutputGrafanaCloudLokiAuthAuthenticationType1 = ClosedEnum<
+export type OutputGrafanaCloudLokiAuthAuthenticationType1 = OpenEnum<
   typeof OutputGrafanaCloudLokiAuthAuthenticationType1
 >;
 
@@ -472,7 +470,7 @@ export const OutputGrafanaCloudFailedRequestLoggingMode1 = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputGrafanaCloudFailedRequestLoggingMode1 = ClosedEnum<
+export type OutputGrafanaCloudFailedRequestLoggingMode1 = OpenEnum<
   typeof OutputGrafanaCloudFailedRequestLoggingMode1
 >;
 
@@ -522,7 +520,7 @@ export const OutputGrafanaCloudBackpressureBehavior1 = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputGrafanaCloudBackpressureBehavior1 = ClosedEnum<
+export type OutputGrafanaCloudBackpressureBehavior1 = OpenEnum<
   typeof OutputGrafanaCloudBackpressureBehavior1
 >;
 
@@ -536,7 +534,7 @@ export const OutputGrafanaCloudCompression1 = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputGrafanaCloudCompression1 = ClosedEnum<
+export type OutputGrafanaCloudCompression1 = OpenEnum<
   typeof OutputGrafanaCloudCompression1
 >;
 
@@ -550,7 +548,7 @@ export const OutputGrafanaCloudQueueFullBehavior1 = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputGrafanaCloudQueueFullBehavior1 = ClosedEnum<
+export type OutputGrafanaCloudQueueFullBehavior1 = OpenEnum<
   typeof OutputGrafanaCloudQueueFullBehavior1
 >;
 
@@ -565,13 +563,11 @@ export const OutputGrafanaCloudMode1 = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputGrafanaCloudMode1 = ClosedEnum<
-  typeof OutputGrafanaCloudMode1
->;
+export type OutputGrafanaCloudMode1 = OpenEnum<typeof OutputGrafanaCloudMode1>;
 
 export type OutputGrafanaCloudPqControls1 = {};
 
-export type OutputGrafanaCloudGrafanaCloud1 = {
+export type OutputGrafanaCloud1 = {
   /**
    * Unique ID for this output
    */
@@ -712,19 +708,28 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   pqControls?: OutputGrafanaCloudPqControls1 | undefined;
 };
 
-export type OutputGrafanaCloud =
-  | OutputGrafanaCloudGrafanaCloud1
-  | OutputGrafanaCloudGrafanaCloud2;
+export type OutputGrafanaCloudUnion = OutputGrafanaCloud1 | OutputGrafanaCloud2;
 
 /** @internal */
-export const OutputGrafanaCloudType2$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudType2
-> = z.nativeEnum(OutputGrafanaCloudType2);
+export const OutputGrafanaCloudType2$inboundSchema: z.ZodType<
+  OutputGrafanaCloudType2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudType2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudType2$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudType2
-> = OutputGrafanaCloudType2$inboundSchema;
+export const OutputGrafanaCloudType2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudType2,
+  z.ZodTypeDef,
+  OutputGrafanaCloudType2
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudType2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -738,14 +743,25 @@ export namespace OutputGrafanaCloudType2$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudMessageFormat2$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudMessageFormat2
-> = z.nativeEnum(OutputGrafanaCloudMessageFormat2);
+export const OutputGrafanaCloudMessageFormat2$inboundSchema: z.ZodType<
+  OutputGrafanaCloudMessageFormat2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudMessageFormat2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudMessageFormat2$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudMessageFormat2
-> = OutputGrafanaCloudMessageFormat2$inboundSchema;
+export const OutputGrafanaCloudMessageFormat2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudMessageFormat2,
+  z.ZodTypeDef,
+  OutputGrafanaCloudMessageFormat2
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudMessageFormat2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -817,13 +833,26 @@ export function outputGrafanaCloudLabel2FromJSON(
 
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudPrometheusAuthAuthenticationType2> =
-    z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType2);
+  z.ZodType<
+    OutputGrafanaCloudPrometheusAuthAuthenticationType2,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType2),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudPrometheusAuthAuthenticationType2> =
-    OutputGrafanaCloudPrometheusAuthAuthenticationType2$inboundSchema;
+  z.ZodType<
+    OutputGrafanaCloudPrometheusAuthAuthenticationType2,
+    z.ZodTypeDef,
+    OutputGrafanaCloudPrometheusAuthAuthenticationType2
+  > = z.union([
+    z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -914,13 +943,26 @@ export function outputGrafanaCloudPrometheusAuth2FromJSON(
 
 /** @internal */
 export const OutputGrafanaCloudLokiAuthAuthenticationType2$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudLokiAuthAuthenticationType2> = z
-    .nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType2);
+  z.ZodType<
+    OutputGrafanaCloudLokiAuthAuthenticationType2,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType2),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGrafanaCloudLokiAuthAuthenticationType2$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudLokiAuthAuthenticationType2> =
-    OutputGrafanaCloudLokiAuthAuthenticationType2$inboundSchema;
+  z.ZodType<
+    OutputGrafanaCloudLokiAuthAuthenticationType2,
+    z.ZodTypeDef,
+    OutputGrafanaCloudLokiAuthAuthenticationType2
+  > = z.union([
+    z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -1072,13 +1114,26 @@ export function outputGrafanaCloudExtraHttpHeader2FromJSON(
 
 /** @internal */
 export const OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudFailedRequestLoggingMode2> = z
-    .nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode2);
+  z.ZodType<
+    OutputGrafanaCloudFailedRequestLoggingMode2,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode2),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudFailedRequestLoggingMode2> =
-    OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema;
+  z.ZodType<
+    OutputGrafanaCloudFailedRequestLoggingMode2,
+    z.ZodTypeDef,
+    OutputGrafanaCloudFailedRequestLoggingMode2
+  > = z.union([
+    z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -1242,14 +1297,25 @@ export function outputGrafanaCloudTimeoutRetrySettings2FromJSON(
 }
 
 /** @internal */
-export const OutputGrafanaCloudBackpressureBehavior2$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudBackpressureBehavior2> = z
-    .nativeEnum(OutputGrafanaCloudBackpressureBehavior2);
+export const OutputGrafanaCloudBackpressureBehavior2$inboundSchema: z.ZodType<
+  OutputGrafanaCloudBackpressureBehavior2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudBackpressureBehavior2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudBackpressureBehavior2$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudBackpressureBehavior2> =
-    OutputGrafanaCloudBackpressureBehavior2$inboundSchema;
+export const OutputGrafanaCloudBackpressureBehavior2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudBackpressureBehavior2,
+  z.ZodTypeDef,
+  OutputGrafanaCloudBackpressureBehavior2
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudBackpressureBehavior2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1265,14 +1331,25 @@ export namespace OutputGrafanaCloudBackpressureBehavior2$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudCompression2$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudCompression2
-> = z.nativeEnum(OutputGrafanaCloudCompression2);
+export const OutputGrafanaCloudCompression2$inboundSchema: z.ZodType<
+  OutputGrafanaCloudCompression2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudCompression2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudCompression2$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudCompression2
-> = OutputGrafanaCloudCompression2$inboundSchema;
+export const OutputGrafanaCloudCompression2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudCompression2,
+  z.ZodTypeDef,
+  OutputGrafanaCloudCompression2
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudCompression2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1286,15 +1363,25 @@ export namespace OutputGrafanaCloudCompression2$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudQueueFullBehavior2$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudQueueFullBehavior2> = z.nativeEnum(
-    OutputGrafanaCloudQueueFullBehavior2,
-  );
+export const OutputGrafanaCloudQueueFullBehavior2$inboundSchema: z.ZodType<
+  OutputGrafanaCloudQueueFullBehavior2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudQueueFullBehavior2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudQueueFullBehavior2$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudQueueFullBehavior2> =
-    OutputGrafanaCloudQueueFullBehavior2$inboundSchema;
+export const OutputGrafanaCloudQueueFullBehavior2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudQueueFullBehavior2,
+  z.ZodTypeDef,
+  OutputGrafanaCloudQueueFullBehavior2
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudQueueFullBehavior2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1310,14 +1397,25 @@ export namespace OutputGrafanaCloudQueueFullBehavior2$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudMode2$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudMode2
-> = z.nativeEnum(OutputGrafanaCloudMode2);
+export const OutputGrafanaCloudMode2$inboundSchema: z.ZodType<
+  OutputGrafanaCloudMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudMode2$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudMode2
-> = OutputGrafanaCloudMode2$inboundSchema;
+export const OutputGrafanaCloudMode2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudMode2,
+  z.ZodTypeDef,
+  OutputGrafanaCloudMode2
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1381,8 +1479,8 @@ export function outputGrafanaCloudPqControls2FromJSON(
 }
 
 /** @internal */
-export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudGrafanaCloud2,
+export const OutputGrafanaCloud2$inboundSchema: z.ZodType<
+  OutputGrafanaCloud2,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1442,7 +1540,7 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
+export type OutputGrafanaCloud2$Outbound = {
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1489,10 +1587,10 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
 };
 
 /** @internal */
-export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudGrafanaCloud2$Outbound,
+export const OutputGrafanaCloud2$outboundSchema: z.ZodType<
+  OutputGrafanaCloud2$Outbound,
   z.ZodTypeDef,
-  OutputGrafanaCloudGrafanaCloud2
+  OutputGrafanaCloud2
 > = z.object({
   id: z.string().optional(),
   type: OutputGrafanaCloudType2$outboundSchema,
@@ -1552,44 +1650,53 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace OutputGrafanaCloudGrafanaCloud2$ {
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudGrafanaCloud2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudGrafanaCloud2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudGrafanaCloud2$Outbound;
+export namespace OutputGrafanaCloud2$ {
+  /** @deprecated use `OutputGrafanaCloud2$inboundSchema` instead. */
+  export const inboundSchema = OutputGrafanaCloud2$inboundSchema;
+  /** @deprecated use `OutputGrafanaCloud2$outboundSchema` instead. */
+  export const outboundSchema = OutputGrafanaCloud2$outboundSchema;
+  /** @deprecated use `OutputGrafanaCloud2$Outbound` instead. */
+  export type Outbound = OutputGrafanaCloud2$Outbound;
 }
 
-export function outputGrafanaCloudGrafanaCloud2ToJSON(
-  outputGrafanaCloudGrafanaCloud2: OutputGrafanaCloudGrafanaCloud2,
+export function outputGrafanaCloud2ToJSON(
+  outputGrafanaCloud2: OutputGrafanaCloud2,
 ): string {
   return JSON.stringify(
-    OutputGrafanaCloudGrafanaCloud2$outboundSchema.parse(
-      outputGrafanaCloudGrafanaCloud2,
-    ),
+    OutputGrafanaCloud2$outboundSchema.parse(outputGrafanaCloud2),
   );
 }
 
-export function outputGrafanaCloudGrafanaCloud2FromJSON(
+export function outputGrafanaCloud2FromJSON(
   jsonString: string,
-): SafeParseResult<OutputGrafanaCloudGrafanaCloud2, SDKValidationError> {
+): SafeParseResult<OutputGrafanaCloud2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputGrafanaCloudGrafanaCloud2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudGrafanaCloud2' from JSON`,
+    (x) => OutputGrafanaCloud2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGrafanaCloud2' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputGrafanaCloudType1$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudType1
-> = z.nativeEnum(OutputGrafanaCloudType1);
+export const OutputGrafanaCloudType1$inboundSchema: z.ZodType<
+  OutputGrafanaCloudType1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudType1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudType1$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudType1
-> = OutputGrafanaCloudType1$inboundSchema;
+export const OutputGrafanaCloudType1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudType1,
+  z.ZodTypeDef,
+  OutputGrafanaCloudType1
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudType1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1603,14 +1710,25 @@ export namespace OutputGrafanaCloudType1$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudMessageFormat1$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudMessageFormat1
-> = z.nativeEnum(OutputGrafanaCloudMessageFormat1);
+export const OutputGrafanaCloudMessageFormat1$inboundSchema: z.ZodType<
+  OutputGrafanaCloudMessageFormat1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudMessageFormat1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudMessageFormat1$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudMessageFormat1
-> = OutputGrafanaCloudMessageFormat1$inboundSchema;
+export const OutputGrafanaCloudMessageFormat1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudMessageFormat1,
+  z.ZodTypeDef,
+  OutputGrafanaCloudMessageFormat1
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudMessageFormat1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1682,13 +1800,26 @@ export function outputGrafanaCloudLabel1FromJSON(
 
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudPrometheusAuthAuthenticationType1> =
-    z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType1);
+  z.ZodType<
+    OutputGrafanaCloudPrometheusAuthAuthenticationType1,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType1),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudPrometheusAuthAuthenticationType1> =
-    OutputGrafanaCloudPrometheusAuthAuthenticationType1$inboundSchema;
+  z.ZodType<
+    OutputGrafanaCloudPrometheusAuthAuthenticationType1,
+    z.ZodTypeDef,
+    OutputGrafanaCloudPrometheusAuthAuthenticationType1
+  > = z.union([
+    z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -1779,13 +1910,26 @@ export function outputGrafanaCloudPrometheusAuth1FromJSON(
 
 /** @internal */
 export const OutputGrafanaCloudLokiAuthAuthenticationType1$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudLokiAuthAuthenticationType1> = z
-    .nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType1);
+  z.ZodType<
+    OutputGrafanaCloudLokiAuthAuthenticationType1,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType1),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGrafanaCloudLokiAuthAuthenticationType1$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudLokiAuthAuthenticationType1> =
-    OutputGrafanaCloudLokiAuthAuthenticationType1$inboundSchema;
+  z.ZodType<
+    OutputGrafanaCloudLokiAuthAuthenticationType1,
+    z.ZodTypeDef,
+    OutputGrafanaCloudLokiAuthAuthenticationType1
+  > = z.union([
+    z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -1937,13 +2081,26 @@ export function outputGrafanaCloudExtraHttpHeader1FromJSON(
 
 /** @internal */
 export const OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudFailedRequestLoggingMode1> = z
-    .nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode1);
+  z.ZodType<
+    OutputGrafanaCloudFailedRequestLoggingMode1,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode1),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudFailedRequestLoggingMode1> =
-    OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema;
+  z.ZodType<
+    OutputGrafanaCloudFailedRequestLoggingMode1,
+    z.ZodTypeDef,
+    OutputGrafanaCloudFailedRequestLoggingMode1
+  > = z.union([
+    z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -2107,14 +2264,25 @@ export function outputGrafanaCloudTimeoutRetrySettings1FromJSON(
 }
 
 /** @internal */
-export const OutputGrafanaCloudBackpressureBehavior1$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudBackpressureBehavior1> = z
-    .nativeEnum(OutputGrafanaCloudBackpressureBehavior1);
+export const OutputGrafanaCloudBackpressureBehavior1$inboundSchema: z.ZodType<
+  OutputGrafanaCloudBackpressureBehavior1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudBackpressureBehavior1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudBackpressureBehavior1$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudBackpressureBehavior1> =
-    OutputGrafanaCloudBackpressureBehavior1$inboundSchema;
+export const OutputGrafanaCloudBackpressureBehavior1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudBackpressureBehavior1,
+  z.ZodTypeDef,
+  OutputGrafanaCloudBackpressureBehavior1
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudBackpressureBehavior1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2130,14 +2298,25 @@ export namespace OutputGrafanaCloudBackpressureBehavior1$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudCompression1$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudCompression1
-> = z.nativeEnum(OutputGrafanaCloudCompression1);
+export const OutputGrafanaCloudCompression1$inboundSchema: z.ZodType<
+  OutputGrafanaCloudCompression1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudCompression1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudCompression1$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudCompression1
-> = OutputGrafanaCloudCompression1$inboundSchema;
+export const OutputGrafanaCloudCompression1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudCompression1,
+  z.ZodTypeDef,
+  OutputGrafanaCloudCompression1
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudCompression1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2151,15 +2330,25 @@ export namespace OutputGrafanaCloudCompression1$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudQueueFullBehavior1$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudQueueFullBehavior1> = z.nativeEnum(
-    OutputGrafanaCloudQueueFullBehavior1,
-  );
+export const OutputGrafanaCloudQueueFullBehavior1$inboundSchema: z.ZodType<
+  OutputGrafanaCloudQueueFullBehavior1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudQueueFullBehavior1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudQueueFullBehavior1$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGrafanaCloudQueueFullBehavior1> =
-    OutputGrafanaCloudQueueFullBehavior1$inboundSchema;
+export const OutputGrafanaCloudQueueFullBehavior1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudQueueFullBehavior1,
+  z.ZodTypeDef,
+  OutputGrafanaCloudQueueFullBehavior1
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudQueueFullBehavior1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2175,14 +2364,25 @@ export namespace OutputGrafanaCloudQueueFullBehavior1$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudMode1$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudMode1
-> = z.nativeEnum(OutputGrafanaCloudMode1);
+export const OutputGrafanaCloudMode1$inboundSchema: z.ZodType<
+  OutputGrafanaCloudMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGrafanaCloudMode1$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudMode1
-> = OutputGrafanaCloudMode1$inboundSchema;
+export const OutputGrafanaCloudMode1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudMode1,
+  z.ZodTypeDef,
+  OutputGrafanaCloudMode1
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2246,8 +2446,8 @@ export function outputGrafanaCloudPqControls1FromJSON(
 }
 
 /** @internal */
-export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudGrafanaCloud1,
+export const OutputGrafanaCloud1$inboundSchema: z.ZodType<
+  OutputGrafanaCloud1,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -2307,7 +2507,7 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
+export type OutputGrafanaCloud1$Outbound = {
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -2354,10 +2554,10 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
 };
 
 /** @internal */
-export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudGrafanaCloud1$Outbound,
+export const OutputGrafanaCloud1$outboundSchema: z.ZodType<
+  OutputGrafanaCloud1$Outbound,
   z.ZodTypeDef,
-  OutputGrafanaCloudGrafanaCloud1
+  OutputGrafanaCloud1
 > = z.object({
   id: z.string().optional(),
   type: OutputGrafanaCloudType1$outboundSchema,
@@ -2417,87 +2617,85 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace OutputGrafanaCloudGrafanaCloud1$ {
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudGrafanaCloud1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudGrafanaCloud1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudGrafanaCloud1$Outbound;
+export namespace OutputGrafanaCloud1$ {
+  /** @deprecated use `OutputGrafanaCloud1$inboundSchema` instead. */
+  export const inboundSchema = OutputGrafanaCloud1$inboundSchema;
+  /** @deprecated use `OutputGrafanaCloud1$outboundSchema` instead. */
+  export const outboundSchema = OutputGrafanaCloud1$outboundSchema;
+  /** @deprecated use `OutputGrafanaCloud1$Outbound` instead. */
+  export type Outbound = OutputGrafanaCloud1$Outbound;
 }
 
-export function outputGrafanaCloudGrafanaCloud1ToJSON(
-  outputGrafanaCloudGrafanaCloud1: OutputGrafanaCloudGrafanaCloud1,
+export function outputGrafanaCloud1ToJSON(
+  outputGrafanaCloud1: OutputGrafanaCloud1,
 ): string {
   return JSON.stringify(
-    OutputGrafanaCloudGrafanaCloud1$outboundSchema.parse(
-      outputGrafanaCloudGrafanaCloud1,
-    ),
+    OutputGrafanaCloud1$outboundSchema.parse(outputGrafanaCloud1),
   );
 }
 
-export function outputGrafanaCloudGrafanaCloud1FromJSON(
+export function outputGrafanaCloud1FromJSON(
   jsonString: string,
-): SafeParseResult<OutputGrafanaCloudGrafanaCloud1, SDKValidationError> {
+): SafeParseResult<OutputGrafanaCloud1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputGrafanaCloudGrafanaCloud1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudGrafanaCloud1' from JSON`,
+    (x) => OutputGrafanaCloud1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGrafanaCloud1' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputGrafanaCloud$inboundSchema: z.ZodType<
-  OutputGrafanaCloud,
+export const OutputGrafanaCloudUnion$inboundSchema: z.ZodType<
+  OutputGrafanaCloudUnion,
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => OutputGrafanaCloudGrafanaCloud1$inboundSchema),
-  z.lazy(() => OutputGrafanaCloudGrafanaCloud2$inboundSchema),
+  z.lazy(() => OutputGrafanaCloud1$inboundSchema),
+  z.lazy(() => OutputGrafanaCloud2$inboundSchema),
 ]);
 
 /** @internal */
-export type OutputGrafanaCloud$Outbound =
-  | OutputGrafanaCloudGrafanaCloud1$Outbound
-  | OutputGrafanaCloudGrafanaCloud2$Outbound;
+export type OutputGrafanaCloudUnion$Outbound =
+  | OutputGrafanaCloud1$Outbound
+  | OutputGrafanaCloud2$Outbound;
 
 /** @internal */
-export const OutputGrafanaCloud$outboundSchema: z.ZodType<
-  OutputGrafanaCloud$Outbound,
+export const OutputGrafanaCloudUnion$outboundSchema: z.ZodType<
+  OutputGrafanaCloudUnion$Outbound,
   z.ZodTypeDef,
-  OutputGrafanaCloud
+  OutputGrafanaCloudUnion
 > = z.union([
-  z.lazy(() => OutputGrafanaCloudGrafanaCloud1$outboundSchema),
-  z.lazy(() => OutputGrafanaCloudGrafanaCloud2$outboundSchema),
+  z.lazy(() => OutputGrafanaCloud1$outboundSchema),
+  z.lazy(() => OutputGrafanaCloud2$outboundSchema),
 ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace OutputGrafanaCloud$ {
-  /** @deprecated use `OutputGrafanaCloud$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloud$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloud$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloud$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloud$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloud$Outbound;
+export namespace OutputGrafanaCloudUnion$ {
+  /** @deprecated use `OutputGrafanaCloudUnion$inboundSchema` instead. */
+  export const inboundSchema = OutputGrafanaCloudUnion$inboundSchema;
+  /** @deprecated use `OutputGrafanaCloudUnion$outboundSchema` instead. */
+  export const outboundSchema = OutputGrafanaCloudUnion$outboundSchema;
+  /** @deprecated use `OutputGrafanaCloudUnion$Outbound` instead. */
+  export type Outbound = OutputGrafanaCloudUnion$Outbound;
 }
 
-export function outputGrafanaCloudToJSON(
-  outputGrafanaCloud: OutputGrafanaCloud,
+export function outputGrafanaCloudUnionToJSON(
+  outputGrafanaCloudUnion: OutputGrafanaCloudUnion,
 ): string {
   return JSON.stringify(
-    OutputGrafanaCloud$outboundSchema.parse(outputGrafanaCloud),
+    OutputGrafanaCloudUnion$outboundSchema.parse(outputGrafanaCloudUnion),
   );
 }
 
-export function outputGrafanaCloudFromJSON(
+export function outputGrafanaCloudUnionFromJSON(
   jsonString: string,
-): SafeParseResult<OutputGrafanaCloud, SDKValidationError> {
+): SafeParseResult<OutputGrafanaCloudUnion, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputGrafanaCloud$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloud' from JSON`,
+    (x) => OutputGrafanaCloudUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGrafanaCloudUnion' from JSON`,
   );
 }

@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputGrafanaType2 = {
   Grafana: "grafana",
 } as const;
-export type InputGrafanaType2 = ClosedEnum<typeof InputGrafanaType2>;
+export type InputGrafanaType2 = OpenEnum<typeof InputGrafanaType2>;
 
 export type InputGrafanaConnection2 = {
   pipeline?: string | undefined;
@@ -28,7 +32,7 @@ export const InputGrafanaMode2 = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputGrafanaMode2 = ClosedEnum<typeof InputGrafanaMode2>;
+export type InputGrafanaMode2 = OpenEnum<typeof InputGrafanaMode2>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +44,7 @@ export const InputGrafanaCompression2 = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputGrafanaCompression2 = ClosedEnum<
+export type InputGrafanaCompression2 = OpenEnum<
   typeof InputGrafanaCompression2
 >;
 
@@ -84,7 +88,7 @@ export const InputGrafanaMinimumTLSVersion2 = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputGrafanaMinimumTLSVersion2 = ClosedEnum<
+export type InputGrafanaMinimumTLSVersion2 = OpenEnum<
   typeof InputGrafanaMinimumTLSVersion2
 >;
 
@@ -94,7 +98,7 @@ export const InputGrafanaMaximumTLSVersion2 = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputGrafanaMaximumTLSVersion2 = ClosedEnum<
+export type InputGrafanaMaximumTLSVersion2 = OpenEnum<
   typeof InputGrafanaMaximumTLSVersion2
 >;
 
@@ -144,7 +148,7 @@ export const InputGrafanaPrometheusAuthAuthenticationType2 = {
 /**
  * Remote Write authentication type
  */
-export type InputGrafanaPrometheusAuthAuthenticationType2 = ClosedEnum<
+export type InputGrafanaPrometheusAuthAuthenticationType2 = OpenEnum<
   typeof InputGrafanaPrometheusAuthAuthenticationType2
 >;
 
@@ -237,7 +241,7 @@ export const InputGrafanaLokiAuthAuthenticationType2 = {
 /**
  * Loki logs authentication type
  */
-export type InputGrafanaLokiAuthAuthenticationType2 = ClosedEnum<
+export type InputGrafanaLokiAuthAuthenticationType2 = OpenEnum<
   typeof InputGrafanaLokiAuthAuthenticationType2
 >;
 
@@ -324,7 +328,7 @@ export type InputGrafanaMetadatum2 = {
   value: string;
 };
 
-export type InputGrafanaGrafana2 = {
+export type InputGrafana2 = {
   /**
    * Unique ID for this input
    */
@@ -429,7 +433,7 @@ export type InputGrafanaGrafana2 = {
 export const InputGrafanaType1 = {
   Grafana: "grafana",
 } as const;
-export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
+export type InputGrafanaType1 = OpenEnum<typeof InputGrafanaType1>;
 
 export type InputGrafanaConnection1 = {
   pipeline?: string | undefined;
@@ -446,7 +450,7 @@ export const InputGrafanaMode1 = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputGrafanaMode1 = ClosedEnum<typeof InputGrafanaMode1>;
+export type InputGrafanaMode1 = OpenEnum<typeof InputGrafanaMode1>;
 
 /**
  * Codec to use to compress the persisted data
@@ -458,7 +462,7 @@ export const InputGrafanaCompression1 = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputGrafanaCompression1 = ClosedEnum<
+export type InputGrafanaCompression1 = OpenEnum<
   typeof InputGrafanaCompression1
 >;
 
@@ -502,7 +506,7 @@ export const InputGrafanaMinimumTLSVersion1 = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputGrafanaMinimumTLSVersion1 = ClosedEnum<
+export type InputGrafanaMinimumTLSVersion1 = OpenEnum<
   typeof InputGrafanaMinimumTLSVersion1
 >;
 
@@ -512,7 +516,7 @@ export const InputGrafanaMaximumTLSVersion1 = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputGrafanaMaximumTLSVersion1 = ClosedEnum<
+export type InputGrafanaMaximumTLSVersion1 = OpenEnum<
   typeof InputGrafanaMaximumTLSVersion1
 >;
 
@@ -562,7 +566,7 @@ export const InputGrafanaPrometheusAuthAuthenticationType1 = {
 /**
  * Remote Write authentication type
  */
-export type InputGrafanaPrometheusAuthAuthenticationType1 = ClosedEnum<
+export type InputGrafanaPrometheusAuthAuthenticationType1 = OpenEnum<
   typeof InputGrafanaPrometheusAuthAuthenticationType1
 >;
 
@@ -655,7 +659,7 @@ export const InputGrafanaLokiAuthAuthenticationType1 = {
 /**
  * Loki logs authentication type
  */
-export type InputGrafanaLokiAuthAuthenticationType1 = ClosedEnum<
+export type InputGrafanaLokiAuthAuthenticationType1 = OpenEnum<
   typeof InputGrafanaLokiAuthAuthenticationType1
 >;
 
@@ -742,7 +746,7 @@ export type InputGrafanaMetadatum1 = {
   value: string;
 };
 
-export type InputGrafanaGrafana1 = {
+export type InputGrafana1 = {
   /**
    * Unique ID for this input
    */
@@ -844,17 +848,28 @@ export type InputGrafanaGrafana1 = {
   description?: string | undefined;
 };
 
-export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
+export type InputGrafanaUnion = InputGrafana1 | InputGrafana2;
 
 /** @internal */
-export const InputGrafanaType2$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaType2
-> = z.nativeEnum(InputGrafanaType2);
+export const InputGrafanaType2$inboundSchema: z.ZodType<
+  InputGrafanaType2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaType2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaType2$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaType2
-> = InputGrafanaType2$inboundSchema;
+export const InputGrafanaType2$outboundSchema: z.ZodType<
+  InputGrafanaType2,
+  z.ZodTypeDef,
+  InputGrafanaType2
+> = z.union([
+  z.nativeEnum(InputGrafanaType2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -925,14 +940,25 @@ export function inputGrafanaConnection2FromJSON(
 }
 
 /** @internal */
-export const InputGrafanaMode2$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMode2
-> = z.nativeEnum(InputGrafanaMode2);
+export const InputGrafanaMode2$inboundSchema: z.ZodType<
+  InputGrafanaMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaMode2$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMode2
-> = InputGrafanaMode2$inboundSchema;
+export const InputGrafanaMode2$outboundSchema: z.ZodType<
+  InputGrafanaMode2,
+  z.ZodTypeDef,
+  InputGrafanaMode2
+> = z.union([
+  z.nativeEnum(InputGrafanaMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -946,14 +972,25 @@ export namespace InputGrafanaMode2$ {
 }
 
 /** @internal */
-export const InputGrafanaCompression2$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaCompression2
-> = z.nativeEnum(InputGrafanaCompression2);
+export const InputGrafanaCompression2$inboundSchema: z.ZodType<
+  InputGrafanaCompression2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaCompression2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaCompression2$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaCompression2
-> = InputGrafanaCompression2$inboundSchema;
+export const InputGrafanaCompression2$outboundSchema: z.ZodType<
+  InputGrafanaCompression2,
+  z.ZodTypeDef,
+  InputGrafanaCompression2
+> = z.union([
+  z.nativeEnum(InputGrafanaCompression2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1088,14 +1125,25 @@ export function inputGrafanaPq2FromJSON(
 }
 
 /** @internal */
-export const InputGrafanaMinimumTLSVersion2$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMinimumTLSVersion2
-> = z.nativeEnum(InputGrafanaMinimumTLSVersion2);
+export const InputGrafanaMinimumTLSVersion2$inboundSchema: z.ZodType<
+  InputGrafanaMinimumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaMinimumTLSVersion2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaMinimumTLSVersion2$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMinimumTLSVersion2
-> = InputGrafanaMinimumTLSVersion2$inboundSchema;
+export const InputGrafanaMinimumTLSVersion2$outboundSchema: z.ZodType<
+  InputGrafanaMinimumTLSVersion2,
+  z.ZodTypeDef,
+  InputGrafanaMinimumTLSVersion2
+> = z.union([
+  z.nativeEnum(InputGrafanaMinimumTLSVersion2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1109,14 +1157,25 @@ export namespace InputGrafanaMinimumTLSVersion2$ {
 }
 
 /** @internal */
-export const InputGrafanaMaximumTLSVersion2$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMaximumTLSVersion2
-> = z.nativeEnum(InputGrafanaMaximumTLSVersion2);
+export const InputGrafanaMaximumTLSVersion2$inboundSchema: z.ZodType<
+  InputGrafanaMaximumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaMaximumTLSVersion2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaMaximumTLSVersion2$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMaximumTLSVersion2
-> = InputGrafanaMaximumTLSVersion2$inboundSchema;
+export const InputGrafanaMaximumTLSVersion2$outboundSchema: z.ZodType<
+  InputGrafanaMaximumTLSVersion2,
+  z.ZodTypeDef,
+  InputGrafanaMaximumTLSVersion2
+> = z.union([
+  z.nativeEnum(InputGrafanaMaximumTLSVersion2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1219,13 +1278,26 @@ export function inputGrafanaTLSSettingsServerSide2FromJSON(
 
 /** @internal */
 export const InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema:
-  z.ZodNativeEnum<typeof InputGrafanaPrometheusAuthAuthenticationType2> = z
-    .nativeEnum(InputGrafanaPrometheusAuthAuthenticationType2);
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType2,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType2),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema:
-  z.ZodNativeEnum<typeof InputGrafanaPrometheusAuthAuthenticationType2> =
-    InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema;
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType2,
+    z.ZodTypeDef,
+    InputGrafanaPrometheusAuthAuthenticationType2
+  > = z.union([
+    z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -1457,14 +1529,25 @@ export function inputGrafanaPrometheusAuth2FromJSON(
 }
 
 /** @internal */
-export const InputGrafanaLokiAuthAuthenticationType2$inboundSchema:
-  z.ZodNativeEnum<typeof InputGrafanaLokiAuthAuthenticationType2> = z
-    .nativeEnum(InputGrafanaLokiAuthAuthenticationType2);
+export const InputGrafanaLokiAuthAuthenticationType2$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaLokiAuthAuthenticationType2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaLokiAuthAuthenticationType2$outboundSchema:
-  z.ZodNativeEnum<typeof InputGrafanaLokiAuthAuthenticationType2> =
-    InputGrafanaLokiAuthAuthenticationType2$inboundSchema;
+export const InputGrafanaLokiAuthAuthenticationType2$outboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType2,
+  z.ZodTypeDef,
+  InputGrafanaLokiAuthAuthenticationType2
+> = z.union([
+  z.nativeEnum(InputGrafanaLokiAuthAuthenticationType2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1752,8 +1835,8 @@ export function inputGrafanaMetadatum2FromJSON(
 }
 
 /** @internal */
-export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
-  InputGrafanaGrafana2,
+export const InputGrafana2$inboundSchema: z.ZodType<
+  InputGrafana2,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -1794,7 +1877,7 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type InputGrafanaGrafana2$Outbound = {
+export type InputGrafana2$Outbound = {
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1828,10 +1911,10 @@ export type InputGrafanaGrafana2$Outbound = {
 };
 
 /** @internal */
-export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
-  InputGrafanaGrafana2$Outbound,
+export const InputGrafana2$outboundSchema: z.ZodType<
+  InputGrafana2$Outbound,
   z.ZodTypeDef,
-  InputGrafanaGrafana2
+  InputGrafana2
 > = z.object({
   id: z.string().optional(),
   type: InputGrafanaType2$outboundSchema,
@@ -1873,42 +1956,49 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputGrafanaGrafana2$ {
-  /** @deprecated use `InputGrafanaGrafana2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaGrafana2$inboundSchema;
-  /** @deprecated use `InputGrafanaGrafana2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaGrafana2$outboundSchema;
-  /** @deprecated use `InputGrafanaGrafana2$Outbound` instead. */
-  export type Outbound = InputGrafanaGrafana2$Outbound;
+export namespace InputGrafana2$ {
+  /** @deprecated use `InputGrafana2$inboundSchema` instead. */
+  export const inboundSchema = InputGrafana2$inboundSchema;
+  /** @deprecated use `InputGrafana2$outboundSchema` instead. */
+  export const outboundSchema = InputGrafana2$outboundSchema;
+  /** @deprecated use `InputGrafana2$Outbound` instead. */
+  export type Outbound = InputGrafana2$Outbound;
 }
 
-export function inputGrafanaGrafana2ToJSON(
-  inputGrafanaGrafana2: InputGrafanaGrafana2,
-): string {
-  return JSON.stringify(
-    InputGrafanaGrafana2$outboundSchema.parse(inputGrafanaGrafana2),
-  );
+export function inputGrafana2ToJSON(inputGrafana2: InputGrafana2): string {
+  return JSON.stringify(InputGrafana2$outboundSchema.parse(inputGrafana2));
 }
 
-export function inputGrafanaGrafana2FromJSON(
+export function inputGrafana2FromJSON(
   jsonString: string,
-): SafeParseResult<InputGrafanaGrafana2, SDKValidationError> {
+): SafeParseResult<InputGrafana2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputGrafanaGrafana2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputGrafanaGrafana2' from JSON`,
+    (x) => InputGrafana2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafana2' from JSON`,
   );
 }
 
 /** @internal */
-export const InputGrafanaType1$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaType1
-> = z.nativeEnum(InputGrafanaType1);
+export const InputGrafanaType1$inboundSchema: z.ZodType<
+  InputGrafanaType1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaType1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaType1$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaType1
-> = InputGrafanaType1$inboundSchema;
+export const InputGrafanaType1$outboundSchema: z.ZodType<
+  InputGrafanaType1,
+  z.ZodTypeDef,
+  InputGrafanaType1
+> = z.union([
+  z.nativeEnum(InputGrafanaType1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1979,14 +2069,25 @@ export function inputGrafanaConnection1FromJSON(
 }
 
 /** @internal */
-export const InputGrafanaMode1$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMode1
-> = z.nativeEnum(InputGrafanaMode1);
+export const InputGrafanaMode1$inboundSchema: z.ZodType<
+  InputGrafanaMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaMode1$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMode1
-> = InputGrafanaMode1$inboundSchema;
+export const InputGrafanaMode1$outboundSchema: z.ZodType<
+  InputGrafanaMode1,
+  z.ZodTypeDef,
+  InputGrafanaMode1
+> = z.union([
+  z.nativeEnum(InputGrafanaMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2000,14 +2101,25 @@ export namespace InputGrafanaMode1$ {
 }
 
 /** @internal */
-export const InputGrafanaCompression1$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaCompression1
-> = z.nativeEnum(InputGrafanaCompression1);
+export const InputGrafanaCompression1$inboundSchema: z.ZodType<
+  InputGrafanaCompression1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaCompression1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaCompression1$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaCompression1
-> = InputGrafanaCompression1$inboundSchema;
+export const InputGrafanaCompression1$outboundSchema: z.ZodType<
+  InputGrafanaCompression1,
+  z.ZodTypeDef,
+  InputGrafanaCompression1
+> = z.union([
+  z.nativeEnum(InputGrafanaCompression1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2142,14 +2254,25 @@ export function inputGrafanaPq1FromJSON(
 }
 
 /** @internal */
-export const InputGrafanaMinimumTLSVersion1$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMinimumTLSVersion1
-> = z.nativeEnum(InputGrafanaMinimumTLSVersion1);
+export const InputGrafanaMinimumTLSVersion1$inboundSchema: z.ZodType<
+  InputGrafanaMinimumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaMinimumTLSVersion1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaMinimumTLSVersion1$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMinimumTLSVersion1
-> = InputGrafanaMinimumTLSVersion1$inboundSchema;
+export const InputGrafanaMinimumTLSVersion1$outboundSchema: z.ZodType<
+  InputGrafanaMinimumTLSVersion1,
+  z.ZodTypeDef,
+  InputGrafanaMinimumTLSVersion1
+> = z.union([
+  z.nativeEnum(InputGrafanaMinimumTLSVersion1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2163,14 +2286,25 @@ export namespace InputGrafanaMinimumTLSVersion1$ {
 }
 
 /** @internal */
-export const InputGrafanaMaximumTLSVersion1$inboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMaximumTLSVersion1
-> = z.nativeEnum(InputGrafanaMaximumTLSVersion1);
+export const InputGrafanaMaximumTLSVersion1$inboundSchema: z.ZodType<
+  InputGrafanaMaximumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaMaximumTLSVersion1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaMaximumTLSVersion1$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaMaximumTLSVersion1
-> = InputGrafanaMaximumTLSVersion1$inboundSchema;
+export const InputGrafanaMaximumTLSVersion1$outboundSchema: z.ZodType<
+  InputGrafanaMaximumTLSVersion1,
+  z.ZodTypeDef,
+  InputGrafanaMaximumTLSVersion1
+> = z.union([
+  z.nativeEnum(InputGrafanaMaximumTLSVersion1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2273,13 +2407,26 @@ export function inputGrafanaTLSSettingsServerSide1FromJSON(
 
 /** @internal */
 export const InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema:
-  z.ZodNativeEnum<typeof InputGrafanaPrometheusAuthAuthenticationType1> = z
-    .nativeEnum(InputGrafanaPrometheusAuthAuthenticationType1);
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType1,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType1),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema:
-  z.ZodNativeEnum<typeof InputGrafanaPrometheusAuthAuthenticationType1> =
-    InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema;
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType1,
+    z.ZodTypeDef,
+    InputGrafanaPrometheusAuthAuthenticationType1
+  > = z.union([
+    z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -2511,14 +2658,25 @@ export function inputGrafanaPrometheusAuth1FromJSON(
 }
 
 /** @internal */
-export const InputGrafanaLokiAuthAuthenticationType1$inboundSchema:
-  z.ZodNativeEnum<typeof InputGrafanaLokiAuthAuthenticationType1> = z
-    .nativeEnum(InputGrafanaLokiAuthAuthenticationType1);
+export const InputGrafanaLokiAuthAuthenticationType1$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputGrafanaLokiAuthAuthenticationType1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputGrafanaLokiAuthAuthenticationType1$outboundSchema:
-  z.ZodNativeEnum<typeof InputGrafanaLokiAuthAuthenticationType1> =
-    InputGrafanaLokiAuthAuthenticationType1$inboundSchema;
+export const InputGrafanaLokiAuthAuthenticationType1$outboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType1,
+  z.ZodTypeDef,
+  InputGrafanaLokiAuthAuthenticationType1
+> = z.union([
+  z.nativeEnum(InputGrafanaLokiAuthAuthenticationType1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -2806,8 +2964,8 @@ export function inputGrafanaMetadatum1FromJSON(
 }
 
 /** @internal */
-export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
-  InputGrafanaGrafana1,
+export const InputGrafana1$inboundSchema: z.ZodType<
+  InputGrafana1,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -2848,7 +3006,7 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type InputGrafanaGrafana1$Outbound = {
+export type InputGrafana1$Outbound = {
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -2882,10 +3040,10 @@ export type InputGrafanaGrafana1$Outbound = {
 };
 
 /** @internal */
-export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
-  InputGrafanaGrafana1$Outbound,
+export const InputGrafana1$outboundSchema: z.ZodType<
+  InputGrafana1$Outbound,
   z.ZodTypeDef,
-  InputGrafanaGrafana1
+  InputGrafana1
 > = z.object({
   id: z.string().optional(),
   type: InputGrafanaType1$outboundSchema,
@@ -2927,81 +3085,81 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputGrafanaGrafana1$ {
-  /** @deprecated use `InputGrafanaGrafana1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaGrafana1$inboundSchema;
-  /** @deprecated use `InputGrafanaGrafana1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaGrafana1$outboundSchema;
-  /** @deprecated use `InputGrafanaGrafana1$Outbound` instead. */
-  export type Outbound = InputGrafanaGrafana1$Outbound;
+export namespace InputGrafana1$ {
+  /** @deprecated use `InputGrafana1$inboundSchema` instead. */
+  export const inboundSchema = InputGrafana1$inboundSchema;
+  /** @deprecated use `InputGrafana1$outboundSchema` instead. */
+  export const outboundSchema = InputGrafana1$outboundSchema;
+  /** @deprecated use `InputGrafana1$Outbound` instead. */
+  export type Outbound = InputGrafana1$Outbound;
 }
 
-export function inputGrafanaGrafana1ToJSON(
-  inputGrafanaGrafana1: InputGrafanaGrafana1,
-): string {
-  return JSON.stringify(
-    InputGrafanaGrafana1$outboundSchema.parse(inputGrafanaGrafana1),
-  );
+export function inputGrafana1ToJSON(inputGrafana1: InputGrafana1): string {
+  return JSON.stringify(InputGrafana1$outboundSchema.parse(inputGrafana1));
 }
 
-export function inputGrafanaGrafana1FromJSON(
+export function inputGrafana1FromJSON(
   jsonString: string,
-): SafeParseResult<InputGrafanaGrafana1, SDKValidationError> {
+): SafeParseResult<InputGrafana1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputGrafanaGrafana1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputGrafanaGrafana1' from JSON`,
+    (x) => InputGrafana1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafana1' from JSON`,
   );
 }
 
 /** @internal */
-export const InputGrafana$inboundSchema: z.ZodType<
-  InputGrafana,
+export const InputGrafanaUnion$inboundSchema: z.ZodType<
+  InputGrafanaUnion,
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => InputGrafanaGrafana1$inboundSchema),
-  z.lazy(() => InputGrafanaGrafana2$inboundSchema),
+  z.lazy(() => InputGrafana1$inboundSchema),
+  z.lazy(() => InputGrafana2$inboundSchema),
 ]);
 
 /** @internal */
-export type InputGrafana$Outbound =
-  | InputGrafanaGrafana1$Outbound
-  | InputGrafanaGrafana2$Outbound;
+export type InputGrafanaUnion$Outbound =
+  | InputGrafana1$Outbound
+  | InputGrafana2$Outbound;
 
 /** @internal */
-export const InputGrafana$outboundSchema: z.ZodType<
-  InputGrafana$Outbound,
+export const InputGrafanaUnion$outboundSchema: z.ZodType<
+  InputGrafanaUnion$Outbound,
   z.ZodTypeDef,
-  InputGrafana
+  InputGrafanaUnion
 > = z.union([
-  z.lazy(() => InputGrafanaGrafana1$outboundSchema),
-  z.lazy(() => InputGrafanaGrafana2$outboundSchema),
+  z.lazy(() => InputGrafana1$outboundSchema),
+  z.lazy(() => InputGrafana2$outboundSchema),
 ]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InputGrafana$ {
-  /** @deprecated use `InputGrafana$inboundSchema` instead. */
-  export const inboundSchema = InputGrafana$inboundSchema;
-  /** @deprecated use `InputGrafana$outboundSchema` instead. */
-  export const outboundSchema = InputGrafana$outboundSchema;
-  /** @deprecated use `InputGrafana$Outbound` instead. */
-  export type Outbound = InputGrafana$Outbound;
+export namespace InputGrafanaUnion$ {
+  /** @deprecated use `InputGrafanaUnion$inboundSchema` instead. */
+  export const inboundSchema = InputGrafanaUnion$inboundSchema;
+  /** @deprecated use `InputGrafanaUnion$outboundSchema` instead. */
+  export const outboundSchema = InputGrafanaUnion$outboundSchema;
+  /** @deprecated use `InputGrafanaUnion$Outbound` instead. */
+  export type Outbound = InputGrafanaUnion$Outbound;
 }
 
-export function inputGrafanaToJSON(inputGrafana: InputGrafana): string {
-  return JSON.stringify(InputGrafana$outboundSchema.parse(inputGrafana));
+export function inputGrafanaUnionToJSON(
+  inputGrafanaUnion: InputGrafanaUnion,
+): string {
+  return JSON.stringify(
+    InputGrafanaUnion$outboundSchema.parse(inputGrafanaUnion),
+  );
 }
 
-export function inputGrafanaFromJSON(
+export function inputGrafanaUnionFromJSON(
   jsonString: string,
-): SafeParseResult<InputGrafana, SDKValidationError> {
+): SafeParseResult<InputGrafanaUnion, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputGrafana$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputGrafana' from JSON`,
+    (x) => InputGrafanaUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaUnion' from JSON`,
   );
 }

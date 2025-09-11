@@ -1,25 +1,27 @@
-# OutputGrafanaCloudGrafanaCloud2
+# OutputGrafanaCloud2
 
 ## Example Usage
 
 ```typescript
-import { OutputGrafanaCloudGrafanaCloud2 } from "cribl-control-plane/models";
+import { OutputGrafanaCloud2 } from "cribl-control-plane/models";
 
-let value: OutputGrafanaCloudGrafanaCloud2 = {
+let value: OutputGrafanaCloud2 = {
   id: "<id>",
   type: "grafana_cloud",
   pipeline: "<value>",
   systemFields: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  lokiUrl: "https://sugary-gown.name",
-  prometheusUrl: "https://mysterious-diver.info",
+  lokiUrl: "https://frequent-cassava.biz",
+  prometheusUrl: "https://acidic-pronoun.info/",
   message: "<value>",
   labels: [
     {
@@ -29,15 +31,15 @@ let value: OutputGrafanaCloudGrafanaCloud2 = {
   prometheusAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Keshaun.Pagac",
-    password: "6tVmZtXY_Yorgje",
+    username: "Jessica25",
+    password: "sVhfb20seERtO6D",
     credentialsSecret: "<value>",
   },
   lokiAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Assunta_Kris",
-    password: "pv19FDqWjIgMACL",
+    username: "Peyton_Ratke57",
+    password: "RNPIgWfrnnYdaPf",
     credentialsSecret: "<value>",
   },
   extraHttpHeaders: [
@@ -49,15 +51,15 @@ let value: OutputGrafanaCloudGrafanaCloud2 = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6825.33,
+      httpStatus: 8578.44,
     },
   ],
   timeoutRetrySettings: {},
-  description: "grouper towards distant black inside mushy shakily severe",
+  description:
+    "yieldingly jealously lonely yet beyond venture because other regarding with",
   pqControls: {},
 };
 ```

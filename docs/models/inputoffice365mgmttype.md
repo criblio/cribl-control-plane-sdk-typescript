@@ -10,6 +10,8 @@ let value: InputOffice365MgmtType = "office365_mgmt";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"office365_mgmt"
+"office365_mgmt" | Unrecognized<string>
 ```

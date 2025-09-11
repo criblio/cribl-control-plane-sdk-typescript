@@ -1,11 +1,11 @@
-# OutputGrafanaCloudGrafanaCloud1
+# OutputGrafanaCloud1
 
 ## Example Usage
 
 ```typescript
-import { OutputGrafanaCloudGrafanaCloud1 } from "cribl-control-plane/models";
+import { OutputGrafanaCloud1 } from "cribl-control-plane/models";
 
-let value: OutputGrafanaCloudGrafanaCloud1 = {
+let value: OutputGrafanaCloud1 = {
   id: "<id>",
   type: "grafana_cloud",
   pipeline: "<value>",
@@ -16,9 +16,10 @@ let value: OutputGrafanaCloudGrafanaCloud1 = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
-  lokiUrl: "https://fruitful-maestro.info",
-  prometheusUrl: "https://meaty-remark.org",
+  lokiUrl: "https://ordinary-coordination.name/",
+  prometheusUrl: "https://upbeat-quinoa.biz/",
   message: "<value>",
   labels: [
     {
@@ -28,15 +29,15 @@ let value: OutputGrafanaCloudGrafanaCloud1 = {
   prometheusAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Shakira_Wisozk",
-    password: "B0RWaZFIYeYi4FE",
+    username: "Daniela75",
+    password: "XGIAGOAQ6ixwc6M",
     credentialsSecret: "<value>",
   },
   lokiAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Myles.Durgan",
-    password: "2zPSMZhEVhRBQno",
+    username: "Ova_Strosin",
+    password: "f232trLH1hflhWT",
     credentialsSecret: "<value>",
   },
   extraHttpHeaders: [
@@ -48,15 +49,14 @@ let value: OutputGrafanaCloudGrafanaCloud1 = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 2643.26,
+      httpStatus: 56.46,
     },
   ],
   timeoutRetrySettings: {},
-  description: "ignorant who where iterate eek keenly frantically gadzooks",
+  description: "ha whoever humiliating reluctantly institute gah silk",
   pqControls: {},
 };
 ```

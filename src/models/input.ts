@@ -121,11 +121,11 @@ import {
   InputGooglePubsub$outboundSchema,
 } from "./inputgooglepubsub.js";
 import {
-  InputGrafana,
-  InputGrafana$inboundSchema,
-  InputGrafana$Outbound,
-  InputGrafana$outboundSchema,
-} from "./inputgrafana.js";
+  InputGrafanaUnion,
+  InputGrafanaUnion$inboundSchema,
+  InputGrafanaUnion$Outbound,
+  InputGrafanaUnion$outboundSchema,
+} from "./inputgrafanaunion.js";
 import {
   InputHttp,
   InputHttp$inboundSchema,
@@ -295,11 +295,11 @@ import {
   InputSqs$outboundSchema,
 } from "./inputsqs.js";
 import {
-  InputSyslog,
-  InputSyslog$inboundSchema,
-  InputSyslog$Outbound,
-  InputSyslog$outboundSchema,
-} from "./inputsyslog.js";
+  InputSyslogUnion,
+  InputSyslogUnion$inboundSchema,
+  InputSyslogUnion$Outbound,
+  InputSyslogUnion$outboundSchema,
+} from "./inputsyslogunion.js";
 import {
   InputSystemMetrics,
   InputSystemMetrics$inboundSchema,
@@ -419,8 +419,8 @@ export type Input =
   | InputAppscope
   | InputNetflow
   | InputCollection
-  | InputGrafana
-  | InputSyslog;
+  | InputGrafanaUnion
+  | InputSyslogUnion;
 
 /** @internal */
 export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
@@ -482,8 +482,8 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     InputAppscope$inboundSchema,
     InputNetflow$inboundSchema,
     InputCollection$inboundSchema,
-    InputGrafana$inboundSchema,
-    InputSyslog$inboundSchema,
+    InputGrafanaUnion$inboundSchema,
+    InputSyslogUnion$inboundSchema,
   ]);
 
 /** @internal */
@@ -545,8 +545,8 @@ export type Input$Outbound =
   | InputAppscope$Outbound
   | InputNetflow$Outbound
   | InputCollection$Outbound
-  | InputGrafana$Outbound
-  | InputSyslog$Outbound;
+  | InputGrafanaUnion$Outbound
+  | InputSyslogUnion$Outbound;
 
 /** @internal */
 export const Input$outboundSchema: z.ZodType<
@@ -611,8 +611,8 @@ export const Input$outboundSchema: z.ZodType<
   InputAppscope$outboundSchema,
   InputNetflow$outboundSchema,
   InputCollection$outboundSchema,
-  InputGrafana$outboundSchema,
-  InputSyslog$outboundSchema,
+  InputGrafanaUnion$outboundSchema,
+  InputSyslogUnion$outboundSchema,
 ]);
 
 /**

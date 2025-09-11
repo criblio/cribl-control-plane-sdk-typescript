@@ -630,10 +630,10 @@ const value: models.InputConfluentCloud = {
 };
 ```
 
-### `models.InputGrafana`
+### `models.InputGrafanaUnion`
 
 ```typescript
-const value: models.InputGrafana = {
+const value: models.InputGrafanaUnion = {
   id: "<id>",
   type: "grafana",
   disabled: false,
@@ -643,8 +643,6 @@ const value: models.InputGrafana = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -663,7 +661,7 @@ const value: models.InputGrafana = {
     pqControls: {},
   },
   host: "0.0.0.0",
-  port: 9330.93,
+  port: 9168.57,
   tls: {
     disabled: true,
     certificateName: "<value>",
@@ -692,12 +690,12 @@ const value: models.InputGrafana = {
   lokiAPI: "/loki/api/v1/push",
   prometheusAuth: {
     authType: "none",
-    username: "Evalyn_Gislason15",
-    password: "R3S3RViAySqW5o8",
+    username: "Horacio.Spinka",
+    password: "oemMU46tHfBu4IW",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://joyful-pneumonia.info/",
+    loginUrl: "https://tragic-metal.net/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -718,12 +716,12 @@ const value: models.InputGrafana = {
   },
   lokiAuth: {
     authType: "none",
-    username: "Fatima34",
-    password: "fAYNLh60GmdmcY5",
+    username: "Janessa46",
+    password: "CiYOnU2Q4IsWwIi",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://physical-breastplate.info",
+    loginUrl: "https://proper-responsibility.org/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -748,8 +746,7 @@ const value: models.InputGrafana = {
       value: "<value>",
     },
   ],
-  description:
-    "kooky internal certainly minus front vivaciously minus naturally compete",
+  description: "prestigious political sting inasmuch",
 };
 ```
 
@@ -2477,10 +2474,10 @@ const value: models.InputSqs = {
 };
 ```
 
-### `models.InputSyslog`
+### `models.InputSyslogUnion`
 
 ```typescript
-const value: models.InputSyslog = {
+const value: models.InputSyslogUnion = {
   id: "<id>",
   type: "syslog",
   disabled: false,
@@ -2490,8 +2487,6 @@ const value: models.InputSyslog = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -2510,8 +2505,8 @@ const value: models.InputSyslog = {
     pqControls: {},
   },
   host: "0.0.0.0",
-  udpPort: 1436.13,
-  tcpPort: 4731.61,
+  udpPort: 3484.99,
+  tcpPort: 1454.03,
   maxBufferSize: 1000,
   ipWhitelistRegex: "/.*/",
   timestampTimezone: "local",
@@ -2520,6 +2515,7 @@ const value: models.InputSyslog = {
   keepFieldsList: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   octetCounting: false,
   inferFraming: true,
@@ -2539,8 +2535,8 @@ const value: models.InputSyslog = {
     requestCert: false,
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -2548,10 +2544,10 @@ const value: models.InputSyslog = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 9849.4,
+  udpSocketRxBufSize: 1352.67,
   enableLoadBalancing: false,
-  description: "whether ouch boo",
-  enableEnhancedProxyHeaderParsing: false,
+  description: "whoa helplessly quarterly meh youthfully upon",
+  enableEnhancedProxyHeaderParsing: true,
 };
 ```
 

@@ -10,6 +10,8 @@ let value: InputCriblLakeHttpType = "cribl_lake_http";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"cribl_lake_http"
+"cribl_lake_http" | Unrecognized<string>
 ```

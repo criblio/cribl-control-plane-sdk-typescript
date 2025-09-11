@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputKubeMetricsType = {
   KubeMetrics: "kube_metrics",
 } as const;
-export type InputKubeMetricsType = ClosedEnum<typeof InputKubeMetricsType>;
+export type InputKubeMetricsType = OpenEnum<typeof InputKubeMetricsType>;
 
 export type InputKubeMetricsConnection = {
   pipeline?: string | undefined;
@@ -28,7 +32,7 @@ export const InputKubeMetricsMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputKubeMetricsMode = ClosedEnum<typeof InputKubeMetricsMode>;
+export type InputKubeMetricsMode = OpenEnum<typeof InputKubeMetricsMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +44,7 @@ export const InputKubeMetricsCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputKubeMetricsCompression = ClosedEnum<
+export type InputKubeMetricsCompression = OpenEnum<
   typeof InputKubeMetricsCompression
 >;
 
@@ -101,7 +105,7 @@ export const InputKubeMetricsDataCompressionFormat = {
   None: "none",
   Gzip: "gzip",
 } as const;
-export type InputKubeMetricsDataCompressionFormat = ClosedEnum<
+export type InputKubeMetricsDataCompressionFormat = OpenEnum<
   typeof InputKubeMetricsDataCompressionFormat
 >;
 
@@ -178,14 +182,25 @@ export type InputKubeMetrics = {
 };
 
 /** @internal */
-export const InputKubeMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsType
-> = z.nativeEnum(InputKubeMetricsType);
+export const InputKubeMetricsType$inboundSchema: z.ZodType<
+  InputKubeMetricsType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeMetricsType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsType
-> = InputKubeMetricsType$inboundSchema;
+export const InputKubeMetricsType$outboundSchema: z.ZodType<
+  InputKubeMetricsType,
+  z.ZodTypeDef,
+  InputKubeMetricsType
+> = z.union([
+  z.nativeEnum(InputKubeMetricsType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -256,14 +271,25 @@ export function inputKubeMetricsConnectionFromJSON(
 }
 
 /** @internal */
-export const InputKubeMetricsMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsMode
-> = z.nativeEnum(InputKubeMetricsMode);
+export const InputKubeMetricsMode$inboundSchema: z.ZodType<
+  InputKubeMetricsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeMetricsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeMetricsMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsMode
-> = InputKubeMetricsMode$inboundSchema;
+export const InputKubeMetricsMode$outboundSchema: z.ZodType<
+  InputKubeMetricsMode,
+  z.ZodTypeDef,
+  InputKubeMetricsMode
+> = z.union([
+  z.nativeEnum(InputKubeMetricsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -277,14 +303,25 @@ export namespace InputKubeMetricsMode$ {
 }
 
 /** @internal */
-export const InputKubeMetricsCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsCompression
-> = z.nativeEnum(InputKubeMetricsCompression);
+export const InputKubeMetricsCompression$inboundSchema: z.ZodType<
+  InputKubeMetricsCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeMetricsCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeMetricsCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsCompression
-> = InputKubeMetricsCompression$inboundSchema;
+export const InputKubeMetricsCompression$outboundSchema: z.ZodType<
+  InputKubeMetricsCompression,
+  z.ZodTypeDef,
+  InputKubeMetricsCompression
+> = z.union([
+  z.nativeEnum(InputKubeMetricsCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -536,15 +573,25 @@ export function inputKubeMetricsMetadatumFromJSON(
 }
 
 /** @internal */
-export const InputKubeMetricsDataCompressionFormat$inboundSchema:
-  z.ZodNativeEnum<typeof InputKubeMetricsDataCompressionFormat> = z.nativeEnum(
-    InputKubeMetricsDataCompressionFormat,
-  );
+export const InputKubeMetricsDataCompressionFormat$inboundSchema: z.ZodType<
+  InputKubeMetricsDataCompressionFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeMetricsDataCompressionFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeMetricsDataCompressionFormat$outboundSchema:
-  z.ZodNativeEnum<typeof InputKubeMetricsDataCompressionFormat> =
-    InputKubeMetricsDataCompressionFormat$inboundSchema;
+export const InputKubeMetricsDataCompressionFormat$outboundSchema: z.ZodType<
+  InputKubeMetricsDataCompressionFormat,
+  z.ZodTypeDef,
+  InputKubeMetricsDataCompressionFormat
+> = z.union([
+  z.nativeEnum(InputKubeMetricsDataCompressionFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

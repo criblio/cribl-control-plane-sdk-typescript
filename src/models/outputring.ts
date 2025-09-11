@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputRingType = {
   Ring: "ring",
 } as const;
-export type OutputRingType = ClosedEnum<typeof OutputRingType>;
+export type OutputRingType = OpenEnum<typeof OutputRingType>;
 
 /**
  * Format of the output data.
@@ -23,13 +27,13 @@ export const OutputRingDataFormat = {
 /**
  * Format of the output data.
  */
-export type OutputRingDataFormat = ClosedEnum<typeof OutputRingDataFormat>;
+export type OutputRingDataFormat = OpenEnum<typeof OutputRingDataFormat>;
 
 export const OutputRingDataCompressionFormat = {
   None: "none",
   Gzip: "gzip",
 } as const;
-export type OutputRingDataCompressionFormat = ClosedEnum<
+export type OutputRingDataCompressionFormat = OpenEnum<
   typeof OutputRingDataCompressionFormat
 >;
 
@@ -43,7 +47,7 @@ export const OutputRingBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputRingBackpressureBehavior = ClosedEnum<
+export type OutputRingBackpressureBehavior = OpenEnum<
   typeof OutputRingBackpressureBehavior
 >;
 
@@ -98,14 +102,25 @@ export type OutputRing = {
 };
 
 /** @internal */
-export const OutputRingType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputRingType
-> = z.nativeEnum(OutputRingType);
+export const OutputRingType$inboundSchema: z.ZodType<
+  OutputRingType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputRingType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputRingType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputRingType
-> = OutputRingType$inboundSchema;
+export const OutputRingType$outboundSchema: z.ZodType<
+  OutputRingType,
+  z.ZodTypeDef,
+  OutputRingType
+> = z.union([
+  z.nativeEnum(OutputRingType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -119,14 +134,25 @@ export namespace OutputRingType$ {
 }
 
 /** @internal */
-export const OutputRingDataFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputRingDataFormat
-> = z.nativeEnum(OutputRingDataFormat);
+export const OutputRingDataFormat$inboundSchema: z.ZodType<
+  OutputRingDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputRingDataFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputRingDataFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputRingDataFormat
-> = OutputRingDataFormat$inboundSchema;
+export const OutputRingDataFormat$outboundSchema: z.ZodType<
+  OutputRingDataFormat,
+  z.ZodTypeDef,
+  OutputRingDataFormat
+> = z.union([
+  z.nativeEnum(OutputRingDataFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -140,14 +166,25 @@ export namespace OutputRingDataFormat$ {
 }
 
 /** @internal */
-export const OutputRingDataCompressionFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputRingDataCompressionFormat
-> = z.nativeEnum(OutputRingDataCompressionFormat);
+export const OutputRingDataCompressionFormat$inboundSchema: z.ZodType<
+  OutputRingDataCompressionFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputRingDataCompressionFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputRingDataCompressionFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputRingDataCompressionFormat
-> = OutputRingDataCompressionFormat$inboundSchema;
+export const OutputRingDataCompressionFormat$outboundSchema: z.ZodType<
+  OutputRingDataCompressionFormat,
+  z.ZodTypeDef,
+  OutputRingDataCompressionFormat
+> = z.union([
+  z.nativeEnum(OutputRingDataCompressionFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -161,14 +198,25 @@ export namespace OutputRingDataCompressionFormat$ {
 }
 
 /** @internal */
-export const OutputRingBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputRingBackpressureBehavior
-> = z.nativeEnum(OutputRingBackpressureBehavior);
+export const OutputRingBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputRingBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputRingBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputRingBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputRingBackpressureBehavior
-> = OutputRingBackpressureBehavior$inboundSchema;
+export const OutputRingBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputRingBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputRingBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputRingBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

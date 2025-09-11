@@ -1,12 +1,12 @@
-# InputGrafana
+# InputGrafanaUnion
 
 
 ## Supported Types
 
-### `models.InputGrafanaGrafana1`
+### `models.InputGrafana1`
 
 ```typescript
-const value: models.InputGrafanaGrafana1 = {
+const value: models.InputGrafana1 = {
   id: "<id>",
   type: "grafana",
   pipeline: "<value>",
@@ -24,7 +24,7 @@ const value: models.InputGrafanaGrafana1 = {
   pq: {
     pqControls: {},
   },
-  port: 3832.52,
+  port: 4783.97,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -37,12 +37,12 @@ const value: models.InputGrafanaGrafana1 = {
     maxVersion: "TLSv1.2",
   },
   prometheusAuth: {
-    username: "Evalyn_Gislason15",
-    password: "R3S3RViAySqW5o8",
+    username: "Horacio.Spinka",
+    password: "oemMU46tHfBu4IW",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://joyful-pneumonia.info/",
+    loginUrl: "https://tragic-metal.net/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -60,12 +60,12 @@ const value: models.InputGrafanaGrafana1 = {
     ],
   },
   lokiAuth: {
-    username: "Fatima34",
-    password: "fAYNLh60GmdmcY5",
+    username: "Janessa46",
+    password: "CiYOnU2Q4IsWwIi",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://physical-breastplate.info",
+    loginUrl: "https://proper-responsibility.org/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -88,14 +88,14 @@ const value: models.InputGrafanaGrafana1 = {
       value: "<value>",
     },
   ],
-  description: "furiously crossly parsnip provided until save chime",
+  description: "likewise overstay accurate hypothesise",
 };
 ```
 
-### `models.InputGrafanaGrafana2`
+### `models.InputGrafana2`
 
 ```typescript
-const value: models.InputGrafanaGrafana2 = {
+const value: models.InputGrafana2 = {
   id: "<id>",
   type: "grafana",
   pipeline: "<value>",
@@ -112,7 +112,7 @@ const value: models.InputGrafanaGrafana2 = {
   pq: {
     pqControls: {},
   },
-  port: 5037.49,
+  port: 7051.99,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -121,16 +121,16 @@ const value: models.InputGrafanaGrafana2 = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   prometheusAuth: {
-    username: "Christina62",
-    password: "crLARJiPnD6_4yH",
+    username: "Reece.Champlin",
+    password: "3tm2W_93UaexPi3",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://somber-order.biz/",
+    loginUrl: "https://optimal-clavicle.name",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -148,12 +148,12 @@ const value: models.InputGrafanaGrafana2 = {
     ],
   },
   lokiAuth: {
-    username: "Candida_Gusikowski76",
-    password: "18jxjkswNioVZZq",
+    username: "Braulio94",
+    password: "MGOvep4ZwUPFQOn",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://blushing-season.com",
+    loginUrl: "https://lanky-meatloaf.net",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -176,7 +176,7 @@ const value: models.InputGrafanaGrafana2 = {
       value: "<value>",
     },
   ],
-  description: "anti fun fast huzzah er",
+  description: "which gratefully best-seller serpentine unlike syringe psst",
 };
 ```
 

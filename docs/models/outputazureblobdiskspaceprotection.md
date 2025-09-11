@@ -12,6 +12,8 @@ let value: OutputAzureBlobDiskSpaceProtection = "block";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"block" | "drop"
+"block" | "drop" | Unrecognized<string>
 ```

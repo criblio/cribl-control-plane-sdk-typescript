@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputKubeEventsType = {
   KubeEvents: "kube_events",
 } as const;
-export type InputKubeEventsType = ClosedEnum<typeof InputKubeEventsType>;
+export type InputKubeEventsType = OpenEnum<typeof InputKubeEventsType>;
 
 export type InputKubeEventsConnection = {
   pipeline?: string | undefined;
@@ -28,7 +32,7 @@ export const InputKubeEventsMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputKubeEventsMode = ClosedEnum<typeof InputKubeEventsMode>;
+export type InputKubeEventsMode = OpenEnum<typeof InputKubeEventsMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +44,7 @@ export const InputKubeEventsCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputKubeEventsCompression = ClosedEnum<
+export type InputKubeEventsCompression = OpenEnum<
   typeof InputKubeEventsCompression
 >;
 
@@ -141,14 +145,25 @@ export type InputKubeEvents = {
 };
 
 /** @internal */
-export const InputKubeEventsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsType
-> = z.nativeEnum(InputKubeEventsType);
+export const InputKubeEventsType$inboundSchema: z.ZodType<
+  InputKubeEventsType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeEventsType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeEventsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsType
-> = InputKubeEventsType$inboundSchema;
+export const InputKubeEventsType$outboundSchema: z.ZodType<
+  InputKubeEventsType,
+  z.ZodTypeDef,
+  InputKubeEventsType
+> = z.union([
+  z.nativeEnum(InputKubeEventsType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -219,14 +234,25 @@ export function inputKubeEventsConnectionFromJSON(
 }
 
 /** @internal */
-export const InputKubeEventsMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsMode
-> = z.nativeEnum(InputKubeEventsMode);
+export const InputKubeEventsMode$inboundSchema: z.ZodType<
+  InputKubeEventsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeEventsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeEventsMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsMode
-> = InputKubeEventsMode$inboundSchema;
+export const InputKubeEventsMode$outboundSchema: z.ZodType<
+  InputKubeEventsMode,
+  z.ZodTypeDef,
+  InputKubeEventsMode
+> = z.union([
+  z.nativeEnum(InputKubeEventsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -240,14 +266,25 @@ export namespace InputKubeEventsMode$ {
 }
 
 /** @internal */
-export const InputKubeEventsCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsCompression
-> = z.nativeEnum(InputKubeEventsCompression);
+export const InputKubeEventsCompression$inboundSchema: z.ZodType<
+  InputKubeEventsCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeEventsCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeEventsCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsCompression
-> = InputKubeEventsCompression$inboundSchema;
+export const InputKubeEventsCompression$outboundSchema: z.ZodType<
+  InputKubeEventsCompression,
+  z.ZodTypeDef,
+  InputKubeEventsCompression
+> = z.union([
+  z.nativeEnum(InputKubeEventsCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputPrometheusType = {
   Prometheus: "prometheus",
 } as const;
-export type OutputPrometheusType = ClosedEnum<typeof OutputPrometheusType>;
+export type OutputPrometheusType = OpenEnum<typeof OutputPrometheusType>;
 
 export type OutputPrometheusExtraHttpHeader = {
   name?: string | undefined;
@@ -29,7 +33,7 @@ export const OutputPrometheusFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputPrometheusFailedRequestLoggingMode = ClosedEnum<
+export type OutputPrometheusFailedRequestLoggingMode = OpenEnum<
   typeof OutputPrometheusFailedRequestLoggingMode
 >;
 
@@ -79,7 +83,7 @@ export const OutputPrometheusBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputPrometheusBackpressureBehavior = ClosedEnum<
+export type OutputPrometheusBackpressureBehavior = OpenEnum<
   typeof OutputPrometheusBackpressureBehavior
 >;
 
@@ -97,7 +101,7 @@ export const OutputPrometheusAuthenticationType = {
 /**
  * Remote Write authentication type
  */
-export type OutputPrometheusAuthenticationType = ClosedEnum<
+export type OutputPrometheusAuthenticationType = OpenEnum<
   typeof OutputPrometheusAuthenticationType
 >;
 
@@ -111,7 +115,7 @@ export const OutputPrometheusCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputPrometheusCompression = ClosedEnum<
+export type OutputPrometheusCompression = OpenEnum<
   typeof OutputPrometheusCompression
 >;
 
@@ -125,7 +129,7 @@ export const OutputPrometheusQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputPrometheusQueueFullBehavior = ClosedEnum<
+export type OutputPrometheusQueueFullBehavior = OpenEnum<
   typeof OutputPrometheusQueueFullBehavior
 >;
 
@@ -140,7 +144,7 @@ export const OutputPrometheusMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputPrometheusMode = ClosedEnum<typeof OutputPrometheusMode>;
+export type OutputPrometheusMode = OpenEnum<typeof OutputPrometheusMode>;
 
 export type OutputPrometheusPqControls = {};
 
@@ -344,14 +348,25 @@ export type OutputPrometheus = {
 };
 
 /** @internal */
-export const OutputPrometheusType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusType
-> = z.nativeEnum(OutputPrometheusType);
+export const OutputPrometheusType$inboundSchema: z.ZodType<
+  OutputPrometheusType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputPrometheusType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusType
-> = OutputPrometheusType$inboundSchema;
+export const OutputPrometheusType$outboundSchema: z.ZodType<
+  OutputPrometheusType,
+  z.ZodTypeDef,
+  OutputPrometheusType
+> = z.union([
+  z.nativeEnum(OutputPrometheusType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -424,14 +439,25 @@ export function outputPrometheusExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputPrometheusFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputPrometheusFailedRequestLoggingMode> = z
-    .nativeEnum(OutputPrometheusFailedRequestLoggingMode);
+export const OutputPrometheusFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputPrometheusFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusFailedRequestLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputPrometheusFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputPrometheusFailedRequestLoggingMode> =
-    OutputPrometheusFailedRequestLoggingMode$inboundSchema;
+export const OutputPrometheusFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  OutputPrometheusFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  OutputPrometheusFailedRequestLoggingMode
+> = z.union([
+  z.nativeEnum(OutputPrometheusFailedRequestLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -583,15 +609,25 @@ export function outputPrometheusTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputPrometheusBackpressureBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputPrometheusBackpressureBehavior> = z.nativeEnum(
-    OutputPrometheusBackpressureBehavior,
-  );
+export const OutputPrometheusBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputPrometheusBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputPrometheusBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputPrometheusBackpressureBehavior> =
-    OutputPrometheusBackpressureBehavior$inboundSchema;
+export const OutputPrometheusBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputPrometheusBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputPrometheusBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputPrometheusBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -607,14 +643,25 @@ export namespace OutputPrometheusBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputPrometheusAuthenticationType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusAuthenticationType
-> = z.nativeEnum(OutputPrometheusAuthenticationType);
+export const OutputPrometheusAuthenticationType$inboundSchema: z.ZodType<
+  OutputPrometheusAuthenticationType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusAuthenticationType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputPrometheusAuthenticationType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusAuthenticationType
-> = OutputPrometheusAuthenticationType$inboundSchema;
+export const OutputPrometheusAuthenticationType$outboundSchema: z.ZodType<
+  OutputPrometheusAuthenticationType,
+  z.ZodTypeDef,
+  OutputPrometheusAuthenticationType
+> = z.union([
+  z.nativeEnum(OutputPrometheusAuthenticationType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -629,14 +676,25 @@ export namespace OutputPrometheusAuthenticationType$ {
 }
 
 /** @internal */
-export const OutputPrometheusCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusCompression
-> = z.nativeEnum(OutputPrometheusCompression);
+export const OutputPrometheusCompression$inboundSchema: z.ZodType<
+  OutputPrometheusCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputPrometheusCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusCompression
-> = OutputPrometheusCompression$inboundSchema;
+export const OutputPrometheusCompression$outboundSchema: z.ZodType<
+  OutputPrometheusCompression,
+  z.ZodTypeDef,
+  OutputPrometheusCompression
+> = z.union([
+  z.nativeEnum(OutputPrometheusCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -650,14 +708,25 @@ export namespace OutputPrometheusCompression$ {
 }
 
 /** @internal */
-export const OutputPrometheusQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusQueueFullBehavior
-> = z.nativeEnum(OutputPrometheusQueueFullBehavior);
+export const OutputPrometheusQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputPrometheusQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputPrometheusQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusQueueFullBehavior
-> = OutputPrometheusQueueFullBehavior$inboundSchema;
+export const OutputPrometheusQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputPrometheusQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputPrometheusQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputPrometheusQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -672,14 +741,25 @@ export namespace OutputPrometheusQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputPrometheusMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusMode
-> = z.nativeEnum(OutputPrometheusMode);
+export const OutputPrometheusMode$inboundSchema: z.ZodType<
+  OutputPrometheusMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputPrometheusMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusMode
-> = OutputPrometheusMode$inboundSchema;
+export const OutputPrometheusMode$outboundSchema: z.ZodType<
+  OutputPrometheusMode,
+  z.ZodTypeDef,
+  OutputPrometheusMode
+> = z.union([
+  z.nativeEnum(OutputPrometheusMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

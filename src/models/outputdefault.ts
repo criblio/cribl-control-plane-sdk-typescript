@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputDefaultType = {
   Default: "default",
 } as const;
-export type OutputDefaultType = ClosedEnum<typeof OutputDefaultType>;
+export type OutputDefaultType = OpenEnum<typeof OutputDefaultType>;
 
 export type OutputDefault = {
   /**
@@ -42,14 +46,25 @@ export type OutputDefault = {
 };
 
 /** @internal */
-export const OutputDefaultType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDefaultType
-> = z.nativeEnum(OutputDefaultType);
+export const OutputDefaultType$inboundSchema: z.ZodType<
+  OutputDefaultType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDefaultType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputDefaultType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDefaultType
-> = OutputDefaultType$inboundSchema;
+export const OutputDefaultType$outboundSchema: z.ZodType<
+  OutputDefaultType,
+  z.ZodTypeDef,
+  OutputDefaultType
+> = z.union([
+  z.nativeEnum(OutputDefaultType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

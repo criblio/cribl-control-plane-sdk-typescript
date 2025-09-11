@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputDatagenType = {
   Datagen: "datagen",
 } as const;
-export type InputDatagenType = ClosedEnum<typeof InputDatagenType>;
+export type InputDatagenType = OpenEnum<typeof InputDatagenType>;
 
 export type InputDatagenConnection = {
   pipeline?: string | undefined;
@@ -28,7 +32,7 @@ export const InputDatagenMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputDatagenMode = ClosedEnum<typeof InputDatagenMode>;
+export type InputDatagenMode = OpenEnum<typeof InputDatagenMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,9 +44,7 @@ export const InputDatagenCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputDatagenCompression = ClosedEnum<
-  typeof InputDatagenCompression
->;
+export type InputDatagenCompression = OpenEnum<typeof InputDatagenCompression>;
 
 export type InputDatagenPqControls = {};
 
@@ -135,14 +137,25 @@ export type InputDatagen = {
 };
 
 /** @internal */
-export const InputDatagenType$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenType
-> = z.nativeEnum(InputDatagenType);
+export const InputDatagenType$inboundSchema: z.ZodType<
+  InputDatagenType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputDatagenType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputDatagenType$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenType
-> = InputDatagenType$inboundSchema;
+export const InputDatagenType$outboundSchema: z.ZodType<
+  InputDatagenType,
+  z.ZodTypeDef,
+  InputDatagenType
+> = z.union([
+  z.nativeEnum(InputDatagenType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -213,14 +226,25 @@ export function inputDatagenConnectionFromJSON(
 }
 
 /** @internal */
-export const InputDatagenMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenMode
-> = z.nativeEnum(InputDatagenMode);
+export const InputDatagenMode$inboundSchema: z.ZodType<
+  InputDatagenMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputDatagenMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputDatagenMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenMode
-> = InputDatagenMode$inboundSchema;
+export const InputDatagenMode$outboundSchema: z.ZodType<
+  InputDatagenMode,
+  z.ZodTypeDef,
+  InputDatagenMode
+> = z.union([
+  z.nativeEnum(InputDatagenMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -234,14 +258,25 @@ export namespace InputDatagenMode$ {
 }
 
 /** @internal */
-export const InputDatagenCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenCompression
-> = z.nativeEnum(InputDatagenCompression);
+export const InputDatagenCompression$inboundSchema: z.ZodType<
+  InputDatagenCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputDatagenCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputDatagenCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenCompression
-> = InputDatagenCompression$inboundSchema;
+export const InputDatagenCompression$outboundSchema: z.ZodType<
+  InputDatagenCompression,
+  z.ZodTypeDef,
+  InputDatagenCompression
+> = z.union([
+  z.nativeEnum(InputDatagenCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

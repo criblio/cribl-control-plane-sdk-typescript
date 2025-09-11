@@ -169,11 +169,11 @@ import {
   OutputGooglePubsub$outboundSchema,
 } from "./outputgooglepubsub.js";
 import {
-  OutputGrafanaCloud,
-  OutputGrafanaCloud$inboundSchema,
-  OutputGrafanaCloud$Outbound,
-  OutputGrafanaCloud$outboundSchema,
-} from "./outputgrafanacloud.js";
+  OutputGrafanaCloudUnion,
+  OutputGrafanaCloudUnion$inboundSchema,
+  OutputGrafanaCloudUnion$Outbound,
+  OutputGrafanaCloudUnion$outboundSchema,
+} from "./outputgrafanacloudunion.js";
 import {
   OutputGraphite,
   OutputGraphite$inboundSchema,
@@ -455,7 +455,7 @@ export type Output =
   | OutputXsiam
   | OutputDynatraceHttp
   | OutputSentinelOneAiSiem
-  | OutputGrafanaCloud;
+  | OutputGrafanaCloudUnion;
 
 /** @internal */
 export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
@@ -523,7 +523,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputXsiam$inboundSchema,
     OutputDynatraceHttp$inboundSchema,
     OutputSentinelOneAiSiem$inboundSchema,
-    OutputGrafanaCloud$inboundSchema,
+    OutputGrafanaCloudUnion$inboundSchema,
   ]);
 
 /** @internal */
@@ -591,7 +591,7 @@ export type Output$Outbound =
   | OutputXsiam$Outbound
   | OutputDynatraceHttp$Outbound
   | OutputSentinelOneAiSiem$Outbound
-  | OutputGrafanaCloud$Outbound;
+  | OutputGrafanaCloudUnion$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -662,7 +662,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputXsiam$outboundSchema,
   OutputDynatraceHttp$outboundSchema,
   OutputSentinelOneAiSiem$outboundSchema,
-  OutputGrafanaCloud$outboundSchema,
+  OutputGrafanaCloudUnion$outboundSchema,
 ]);
 
 /**

@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputSnsType = {
   Sns: "sns",
 } as const;
-export type OutputSnsType = ClosedEnum<typeof OutputSnsType>;
+export type OutputSnsType = OpenEnum<typeof OutputSnsType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -24,7 +28,7 @@ export const OutputSnsAuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type OutputSnsAuthenticationMethod = ClosedEnum<
+export type OutputSnsAuthenticationMethod = OpenEnum<
   typeof OutputSnsAuthenticationMethod
 >;
 
@@ -38,7 +42,7 @@ export const OutputSnsSignatureVersion = {
 /**
  * Signature version to use for signing SNS requests
  */
-export type OutputSnsSignatureVersion = ClosedEnum<
+export type OutputSnsSignatureVersion = OpenEnum<
   typeof OutputSnsSignatureVersion
 >;
 
@@ -53,7 +57,7 @@ export const OutputSnsBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputSnsBackpressureBehavior = ClosedEnum<
+export type OutputSnsBackpressureBehavior = OpenEnum<
   typeof OutputSnsBackpressureBehavior
 >;
 
@@ -67,7 +71,7 @@ export const OutputSnsCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputSnsCompression = ClosedEnum<typeof OutputSnsCompression>;
+export type OutputSnsCompression = OpenEnum<typeof OutputSnsCompression>;
 
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
@@ -79,7 +83,7 @@ export const OutputSnsQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputSnsQueueFullBehavior = ClosedEnum<
+export type OutputSnsQueueFullBehavior = OpenEnum<
   typeof OutputSnsQueueFullBehavior
 >;
 
@@ -94,7 +98,7 @@ export const OutputSnsMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputSnsMode = ClosedEnum<typeof OutputSnsMode>;
+export type OutputSnsMode = OpenEnum<typeof OutputSnsMode>;
 
 export type OutputSnsPqControls = {};
 
@@ -211,14 +215,25 @@ export type OutputSns = {
 };
 
 /** @internal */
-export const OutputSnsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsType
-> = z.nativeEnum(OutputSnsType);
+export const OutputSnsType$inboundSchema: z.ZodType<
+  OutputSnsType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSnsType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSnsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsType
-> = OutputSnsType$inboundSchema;
+export const OutputSnsType$outboundSchema: z.ZodType<
+  OutputSnsType,
+  z.ZodTypeDef,
+  OutputSnsType
+> = z.union([
+  z.nativeEnum(OutputSnsType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -232,14 +247,25 @@ export namespace OutputSnsType$ {
 }
 
 /** @internal */
-export const OutputSnsAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsAuthenticationMethod
-> = z.nativeEnum(OutputSnsAuthenticationMethod);
+export const OutputSnsAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputSnsAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSnsAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSnsAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsAuthenticationMethod
-> = OutputSnsAuthenticationMethod$inboundSchema;
+export const OutputSnsAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputSnsAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputSnsAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputSnsAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -253,14 +279,25 @@ export namespace OutputSnsAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputSnsSignatureVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsSignatureVersion
-> = z.nativeEnum(OutputSnsSignatureVersion);
+export const OutputSnsSignatureVersion$inboundSchema: z.ZodType<
+  OutputSnsSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSnsSignatureVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSnsSignatureVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsSignatureVersion
-> = OutputSnsSignatureVersion$inboundSchema;
+export const OutputSnsSignatureVersion$outboundSchema: z.ZodType<
+  OutputSnsSignatureVersion,
+  z.ZodTypeDef,
+  OutputSnsSignatureVersion
+> = z.union([
+  z.nativeEnum(OutputSnsSignatureVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -274,14 +311,25 @@ export namespace OutputSnsSignatureVersion$ {
 }
 
 /** @internal */
-export const OutputSnsBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsBackpressureBehavior
-> = z.nativeEnum(OutputSnsBackpressureBehavior);
+export const OutputSnsBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputSnsBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSnsBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSnsBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsBackpressureBehavior
-> = OutputSnsBackpressureBehavior$inboundSchema;
+export const OutputSnsBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputSnsBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputSnsBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputSnsBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -295,14 +343,25 @@ export namespace OutputSnsBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputSnsCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsCompression
-> = z.nativeEnum(OutputSnsCompression);
+export const OutputSnsCompression$inboundSchema: z.ZodType<
+  OutputSnsCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSnsCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSnsCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsCompression
-> = OutputSnsCompression$inboundSchema;
+export const OutputSnsCompression$outboundSchema: z.ZodType<
+  OutputSnsCompression,
+  z.ZodTypeDef,
+  OutputSnsCompression
+> = z.union([
+  z.nativeEnum(OutputSnsCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -316,14 +375,25 @@ export namespace OutputSnsCompression$ {
 }
 
 /** @internal */
-export const OutputSnsQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsQueueFullBehavior
-> = z.nativeEnum(OutputSnsQueueFullBehavior);
+export const OutputSnsQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSnsQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSnsQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSnsQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsQueueFullBehavior
-> = OutputSnsQueueFullBehavior$inboundSchema;
+export const OutputSnsQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputSnsQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputSnsQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputSnsQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -337,14 +407,25 @@ export namespace OutputSnsQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputSnsMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsMode
-> = z.nativeEnum(OutputSnsMode);
+export const OutputSnsMode$inboundSchema: z.ZodType<
+  OutputSnsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSnsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSnsMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsMode
-> = OutputSnsMode$inboundSchema;
+export const OutputSnsMode$outboundSchema: z.ZodType<
+  OutputSnsMode,
+  z.ZodTypeDef,
+  OutputSnsMode
+> = z.union([
+  z.nativeEnum(OutputSnsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

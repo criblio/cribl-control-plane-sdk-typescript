@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputGooglePubsubType = {
   GooglePubsub: "google_pubsub",
 } as const;
-export type OutputGooglePubsubType = ClosedEnum<typeof OutputGooglePubsubType>;
+export type OutputGooglePubsubType = OpenEnum<typeof OutputGooglePubsubType>;
 
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
@@ -24,7 +28,7 @@ export const OutputGooglePubsubGoogleAuthenticationMethod = {
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
-export type OutputGooglePubsubGoogleAuthenticationMethod = ClosedEnum<
+export type OutputGooglePubsubGoogleAuthenticationMethod = OpenEnum<
   typeof OutputGooglePubsubGoogleAuthenticationMethod
 >;
 
@@ -39,7 +43,7 @@ export const OutputGooglePubsubBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputGooglePubsubBackpressureBehavior = ClosedEnum<
+export type OutputGooglePubsubBackpressureBehavior = OpenEnum<
   typeof OutputGooglePubsubBackpressureBehavior
 >;
 
@@ -53,7 +57,7 @@ export const OutputGooglePubsubCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputGooglePubsubCompression = ClosedEnum<
+export type OutputGooglePubsubCompression = OpenEnum<
   typeof OutputGooglePubsubCompression
 >;
 
@@ -67,7 +71,7 @@ export const OutputGooglePubsubQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputGooglePubsubQueueFullBehavior = ClosedEnum<
+export type OutputGooglePubsubQueueFullBehavior = OpenEnum<
   typeof OutputGooglePubsubQueueFullBehavior
 >;
 
@@ -82,7 +86,7 @@ export const OutputGooglePubsubMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputGooglePubsubMode = ClosedEnum<typeof OutputGooglePubsubMode>;
+export type OutputGooglePubsubMode = OpenEnum<typeof OutputGooglePubsubMode>;
 
 export type OutputGooglePubsubPqControls = {};
 
@@ -193,14 +197,25 @@ export type OutputGooglePubsub = {
 };
 
 /** @internal */
-export const OutputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubType
-> = z.nativeEnum(OutputGooglePubsubType);
+export const OutputGooglePubsubType$inboundSchema: z.ZodType<
+  OutputGooglePubsubType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGooglePubsubType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubType
-> = OutputGooglePubsubType$inboundSchema;
+export const OutputGooglePubsubType$outboundSchema: z.ZodType<
+  OutputGooglePubsubType,
+  z.ZodTypeDef,
+  OutputGooglePubsubType
+> = z.union([
+  z.nativeEnum(OutputGooglePubsubType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -215,13 +230,26 @@ export namespace OutputGooglePubsubType$ {
 
 /** @internal */
 export const OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGooglePubsubGoogleAuthenticationMethod> = z
-    .nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod);
+  z.ZodType<
+    OutputGooglePubsubGoogleAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGooglePubsubGoogleAuthenticationMethod> =
-    OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema;
+  z.ZodType<
+    OutputGooglePubsubGoogleAuthenticationMethod,
+    z.ZodTypeDef,
+    OutputGooglePubsubGoogleAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -237,15 +265,25 @@ export namespace OutputGooglePubsubGoogleAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputGooglePubsubBackpressureBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGooglePubsubBackpressureBehavior> = z.nativeEnum(
-    OutputGooglePubsubBackpressureBehavior,
-  );
+export const OutputGooglePubsubBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputGooglePubsubBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGooglePubsubBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGooglePubsubBackpressureBehavior> =
-    OutputGooglePubsubBackpressureBehavior$inboundSchema;
+export const OutputGooglePubsubBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputGooglePubsubBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputGooglePubsubBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -261,14 +299,25 @@ export namespace OutputGooglePubsubBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputGooglePubsubCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubCompression
-> = z.nativeEnum(OutputGooglePubsubCompression);
+export const OutputGooglePubsubCompression$inboundSchema: z.ZodType<
+  OutputGooglePubsubCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGooglePubsubCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGooglePubsubCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubCompression
-> = OutputGooglePubsubCompression$inboundSchema;
+export const OutputGooglePubsubCompression$outboundSchema: z.ZodType<
+  OutputGooglePubsubCompression,
+  z.ZodTypeDef,
+  OutputGooglePubsubCompression
+> = z.union([
+  z.nativeEnum(OutputGooglePubsubCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -282,14 +331,25 @@ export namespace OutputGooglePubsubCompression$ {
 }
 
 /** @internal */
-export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubQueueFullBehavior
-> = z.nativeEnum(OutputGooglePubsubQueueFullBehavior);
+export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputGooglePubsubQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGooglePubsubQueueFullBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGooglePubsubQueueFullBehavior> =
-    OutputGooglePubsubQueueFullBehavior$inboundSchema;
+export const OutputGooglePubsubQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputGooglePubsubQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputGooglePubsubQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -305,14 +365,25 @@ export namespace OutputGooglePubsubQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputGooglePubsubMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubMode
-> = z.nativeEnum(OutputGooglePubsubMode);
+export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
+  OutputGooglePubsubMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGooglePubsubMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGooglePubsubMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubMode
-> = OutputGooglePubsubMode$inboundSchema;
+export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
+  OutputGooglePubsubMode,
+  z.ZodTypeDef,
+  OutputGooglePubsubMode
+> = z.union([
+  z.nativeEnum(OutputGooglePubsubMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

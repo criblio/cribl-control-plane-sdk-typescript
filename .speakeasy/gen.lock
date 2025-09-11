@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: d1ddd19d9c9bd692e94434e9b57debb0
-  docVersion: 4.14.0-alpha.1757401089572-3ca67bed
+  docChecksum: 6ce5ed56af925fecea7422df5f39a25a
+  docVersion: 4.14.0-alpha.1757581172405-aff4ea16
   speakeasyVersion: 1.613.0
   generationVersion: 2.696.0
-  releaseVersion: 0.0.51
-  configChecksum: 06196238373a4fc02bda6def1b6c2430
+  releaseVersion: 0.0.51-alpha.2
+  configChecksum: dc1084982773b64a14b8bc9da1677950
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -28,6 +28,7 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.1.1
     oauth2ClientCredentials: 0.5.0
+    openEnums: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
@@ -364,13 +365,12 @@ generatedFiles:
   - docs/models/inputgooglepubsubpq.md
   - docs/models/inputgooglepubsubpqcontrols.md
   - docs/models/inputgooglepubsubtype.md
-  - docs/models/inputgrafana.md
+  - docs/models/inputgrafana1.md
+  - docs/models/inputgrafana2.md
   - docs/models/inputgrafanacompression1.md
   - docs/models/inputgrafanacompression2.md
   - docs/models/inputgrafanaconnection1.md
   - docs/models/inputgrafanaconnection2.md
-  - docs/models/inputgrafanagrafana1.md
-  - docs/models/inputgrafanagrafana2.md
   - docs/models/inputgrafanalokiauth1.md
   - docs/models/inputgrafanalokiauth2.md
   - docs/models/inputgrafanalokiauthauthenticationtype1.md
@@ -395,6 +395,7 @@ generatedFiles:
   - docs/models/inputgrafanatlssettingsserverside2.md
   - docs/models/inputgrafanatype1.md
   - docs/models/inputgrafanatype2.md
+  - docs/models/inputgrafanaunion.md
   - docs/models/inputhttp.md
   - docs/models/inputhttpauthtokensext.md
   - docs/models/inputhttpauthtokensextmetadatum.md
@@ -747,7 +748,8 @@ generatedFiles:
   - docs/models/inputsqsqueuetype.md
   - docs/models/inputsqssignatureversion.md
   - docs/models/inputsqstype.md
-  - docs/models/inputsyslog.md
+  - docs/models/inputsyslog1.md
+  - docs/models/inputsyslog2.md
   - docs/models/inputsyslogcompression1.md
   - docs/models/inputsyslogcompression2.md
   - docs/models/inputsyslogconnection1.md
@@ -764,12 +766,11 @@ generatedFiles:
   - docs/models/inputsyslogpq2.md
   - docs/models/inputsyslogpqcontrols1.md
   - docs/models/inputsyslogpqcontrols2.md
-  - docs/models/inputsyslogsyslog1.md
-  - docs/models/inputsyslogsyslog2.md
   - docs/models/inputsyslogtlssettingsserverside1.md
   - docs/models/inputsyslogtlssettingsserverside2.md
   - docs/models/inputsyslogtype1.md
   - docs/models/inputsyslogtype2.md
+  - docs/models/inputsyslogunion.md
   - docs/models/inputsystemmetrics.md
   - docs/models/inputsystemmetricscompression.md
   - docs/models/inputsystemmetricsconnection.md
@@ -832,6 +833,7 @@ generatedFiles:
   - docs/models/inputtcppreprocess.md
   - docs/models/inputtcptlssettingsserverside.md
   - docs/models/inputtcptype.md
+  - docs/models/inputtype.md
   - docs/models/inputwef.md
   - docs/models/inputwefauthenticationmethod.md
   - docs/models/inputwefcompression.md
@@ -1381,7 +1383,8 @@ generatedFiles:
   - docs/models/outputgooglepubsubpqcontrols.md
   - docs/models/outputgooglepubsubqueuefullbehavior.md
   - docs/models/outputgooglepubsubtype.md
-  - docs/models/outputgrafanacloud.md
+  - docs/models/outputgrafanacloud1.md
+  - docs/models/outputgrafanacloud2.md
   - docs/models/outputgrafanacloudbackpressurebehavior1.md
   - docs/models/outputgrafanacloudbackpressurebehavior2.md
   - docs/models/outputgrafanacloudcompression1.md
@@ -1390,8 +1393,6 @@ generatedFiles:
   - docs/models/outputgrafanacloudextrahttpheader2.md
   - docs/models/outputgrafanacloudfailedrequestloggingmode1.md
   - docs/models/outputgrafanacloudfailedrequestloggingmode2.md
-  - docs/models/outputgrafanacloudgrafanacloud1.md
-  - docs/models/outputgrafanacloudgrafanacloud2.md
   - docs/models/outputgrafanacloudlabel1.md
   - docs/models/outputgrafanacloudlabel2.md
   - docs/models/outputgrafanacloudlokiauth1.md
@@ -1416,6 +1417,7 @@ generatedFiles:
   - docs/models/outputgrafanacloudtimeoutretrysettings2.md
   - docs/models/outputgrafanacloudtype1.md
   - docs/models/outputgrafanacloudtype2.md
+  - docs/models/outputgrafanacloudunion.md
   - docs/models/outputgraphite.md
   - docs/models/outputgraphitebackpressurebehavior.md
   - docs/models/outputgraphitecompression.md
@@ -1923,7 +1925,6 @@ generatedFiles:
   - docs/models/runnablejobcollectionscheduleloglevel.md
   - docs/models/runnablejobcollectionscheduletimewarning.md
   - docs/models/runnablejobcollectiontimewarning.md
-  - docs/models/runnablejobcollectiontype.md
   - docs/models/runnablejobexecutor.md
   - docs/models/runnablejobexecutorjobtype.md
   - docs/models/runnablejobexecutorloglevel.md
@@ -2149,7 +2150,7 @@ generatedFiles:
   - src/models/inputfile.ts
   - src/models/inputfirehose.ts
   - src/models/inputgooglepubsub.ts
-  - src/models/inputgrafana.ts
+  - src/models/inputgrafanaunion.ts
   - src/models/inputhttp.ts
   - src/models/inputhttpraw.ts
   - src/models/inputjournalfiles.ts
@@ -2178,7 +2179,7 @@ generatedFiles:
   - src/models/inputsplunkhec.ts
   - src/models/inputsplunksearch.ts
   - src/models/inputsqs.ts
-  - src/models/inputsyslog.ts
+  - src/models/inputsyslogunion.ts
   - src/models/inputsystemmetrics.ts
   - src/models/inputsystemstate.ts
   - src/models/inputtcp.ts
@@ -2290,7 +2291,7 @@ generatedFiles:
   - src/models/outputgooglecloudlogging.ts
   - src/models/outputgooglecloudstorage.ts
   - src/models/outputgooglepubsub.ts
-  - src/models/outputgrafanacloud.ts
+  - src/models/outputgrafanacloudunion.ts
   - src/models/outputgraphite.ts
   - src/models/outputhoneycomb.ts
   - src/models/outputhumiohec.ts
@@ -3319,4 +3320,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n"

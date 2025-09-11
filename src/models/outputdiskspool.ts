@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputDiskSpoolType = {
   DiskSpool: "disk_spool",
 } as const;
-export type OutputDiskSpoolType = ClosedEnum<typeof OutputDiskSpoolType>;
+export type OutputDiskSpoolType = OpenEnum<typeof OutputDiskSpoolType>;
 
 /**
  * Data compression format. Default is gzip.
@@ -23,7 +27,7 @@ export const OutputDiskSpoolCompression = {
 /**
  * Data compression format. Default is gzip.
  */
-export type OutputDiskSpoolCompression = ClosedEnum<
+export type OutputDiskSpoolCompression = OpenEnum<
   typeof OutputDiskSpoolCompression
 >;
 
@@ -73,14 +77,25 @@ export type OutputDiskSpool = {
 };
 
 /** @internal */
-export const OutputDiskSpoolType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDiskSpoolType
-> = z.nativeEnum(OutputDiskSpoolType);
+export const OutputDiskSpoolType$inboundSchema: z.ZodType<
+  OutputDiskSpoolType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDiskSpoolType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputDiskSpoolType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDiskSpoolType
-> = OutputDiskSpoolType$inboundSchema;
+export const OutputDiskSpoolType$outboundSchema: z.ZodType<
+  OutputDiskSpoolType,
+  z.ZodTypeDef,
+  OutputDiskSpoolType
+> = z.union([
+  z.nativeEnum(OutputDiskSpoolType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -94,14 +109,25 @@ export namespace OutputDiskSpoolType$ {
 }
 
 /** @internal */
-export const OutputDiskSpoolCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDiskSpoolCompression
-> = z.nativeEnum(OutputDiskSpoolCompression);
+export const OutputDiskSpoolCompression$inboundSchema: z.ZodType<
+  OutputDiskSpoolCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDiskSpoolCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputDiskSpoolCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDiskSpoolCompression
-> = OutputDiskSpoolCompression$inboundSchema;
+export const OutputDiskSpoolCompression$outboundSchema: z.ZodType<
+  OutputDiskSpoolCompression,
+  z.ZodTypeDef,
+  OutputDiskSpoolCompression
+> = z.union([
+  z.nativeEnum(OutputDiskSpoolCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

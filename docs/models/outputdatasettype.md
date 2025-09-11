@@ -10,6 +10,8 @@ let value: OutputDatasetType = "dataset";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"dataset"
+"dataset" | Unrecognized<string>
 ```

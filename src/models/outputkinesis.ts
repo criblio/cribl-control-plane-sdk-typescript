@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputKinesisType = {
   Kinesis: "kinesis",
 } as const;
-export type OutputKinesisType = ClosedEnum<typeof OutputKinesisType>;
+export type OutputKinesisType = OpenEnum<typeof OutputKinesisType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -24,7 +28,7 @@ export const OutputKinesisAuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type OutputKinesisAuthenticationMethod = ClosedEnum<
+export type OutputKinesisAuthenticationMethod = OpenEnum<
   typeof OutputKinesisAuthenticationMethod
 >;
 
@@ -38,7 +42,7 @@ export const OutputKinesisSignatureVersion = {
 /**
  * Signature version to use for signing Kinesis stream requests
  */
-export type OutputKinesisSignatureVersion = ClosedEnum<
+export type OutputKinesisSignatureVersion = OpenEnum<
   typeof OutputKinesisSignatureVersion
 >;
 
@@ -52,7 +56,7 @@ export const OutputKinesisCompression = {
 /**
  * Compression type to use for records
  */
-export type OutputKinesisCompression = ClosedEnum<
+export type OutputKinesisCompression = OpenEnum<
   typeof OutputKinesisCompression
 >;
 
@@ -67,7 +71,7 @@ export const OutputKinesisBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputKinesisBackpressureBehavior = ClosedEnum<
+export type OutputKinesisBackpressureBehavior = OpenEnum<
   typeof OutputKinesisBackpressureBehavior
 >;
 
@@ -81,7 +85,7 @@ export const OutputKinesisPqCompressCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputKinesisPqCompressCompression = ClosedEnum<
+export type OutputKinesisPqCompressCompression = OpenEnum<
   typeof OutputKinesisPqCompressCompression
 >;
 
@@ -95,7 +99,7 @@ export const OutputKinesisQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputKinesisQueueFullBehavior = ClosedEnum<
+export type OutputKinesisQueueFullBehavior = OpenEnum<
   typeof OutputKinesisQueueFullBehavior
 >;
 
@@ -110,7 +114,7 @@ export const OutputKinesisMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputKinesisMode = ClosedEnum<typeof OutputKinesisMode>;
+export type OutputKinesisMode = OpenEnum<typeof OutputKinesisMode>;
 
 export type OutputKinesisPqControls = {};
 
@@ -243,14 +247,25 @@ export type OutputKinesis = {
 };
 
 /** @internal */
-export const OutputKinesisType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisType
-> = z.nativeEnum(OutputKinesisType);
+export const OutputKinesisType$inboundSchema: z.ZodType<
+  OutputKinesisType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKinesisType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputKinesisType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisType
-> = OutputKinesisType$inboundSchema;
+export const OutputKinesisType$outboundSchema: z.ZodType<
+  OutputKinesisType,
+  z.ZodTypeDef,
+  OutputKinesisType
+> = z.union([
+  z.nativeEnum(OutputKinesisType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -264,14 +279,25 @@ export namespace OutputKinesisType$ {
 }
 
 /** @internal */
-export const OutputKinesisAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisAuthenticationMethod
-> = z.nativeEnum(OutputKinesisAuthenticationMethod);
+export const OutputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputKinesisAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKinesisAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputKinesisAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisAuthenticationMethod
-> = OutputKinesisAuthenticationMethod$inboundSchema;
+export const OutputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputKinesisAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputKinesisAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputKinesisAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -286,14 +312,25 @@ export namespace OutputKinesisAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputKinesisSignatureVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisSignatureVersion
-> = z.nativeEnum(OutputKinesisSignatureVersion);
+export const OutputKinesisSignatureVersion$inboundSchema: z.ZodType<
+  OutputKinesisSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKinesisSignatureVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputKinesisSignatureVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisSignatureVersion
-> = OutputKinesisSignatureVersion$inboundSchema;
+export const OutputKinesisSignatureVersion$outboundSchema: z.ZodType<
+  OutputKinesisSignatureVersion,
+  z.ZodTypeDef,
+  OutputKinesisSignatureVersion
+> = z.union([
+  z.nativeEnum(OutputKinesisSignatureVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -307,14 +344,25 @@ export namespace OutputKinesisSignatureVersion$ {
 }
 
 /** @internal */
-export const OutputKinesisCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisCompression
-> = z.nativeEnum(OutputKinesisCompression);
+export const OutputKinesisCompression$inboundSchema: z.ZodType<
+  OutputKinesisCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKinesisCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputKinesisCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisCompression
-> = OutputKinesisCompression$inboundSchema;
+export const OutputKinesisCompression$outboundSchema: z.ZodType<
+  OutputKinesisCompression,
+  z.ZodTypeDef,
+  OutputKinesisCompression
+> = z.union([
+  z.nativeEnum(OutputKinesisCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -328,14 +376,25 @@ export namespace OutputKinesisCompression$ {
 }
 
 /** @internal */
-export const OutputKinesisBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisBackpressureBehavior
-> = z.nativeEnum(OutputKinesisBackpressureBehavior);
+export const OutputKinesisBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputKinesisBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKinesisBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputKinesisBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisBackpressureBehavior
-> = OutputKinesisBackpressureBehavior$inboundSchema;
+export const OutputKinesisBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputKinesisBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputKinesisBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputKinesisBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -350,14 +409,25 @@ export namespace OutputKinesisBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputKinesisPqCompressCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisPqCompressCompression
-> = z.nativeEnum(OutputKinesisPqCompressCompression);
+export const OutputKinesisPqCompressCompression$inboundSchema: z.ZodType<
+  OutputKinesisPqCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKinesisPqCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputKinesisPqCompressCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisPqCompressCompression
-> = OutputKinesisPqCompressCompression$inboundSchema;
+export const OutputKinesisPqCompressCompression$outboundSchema: z.ZodType<
+  OutputKinesisPqCompressCompression,
+  z.ZodTypeDef,
+  OutputKinesisPqCompressCompression
+> = z.union([
+  z.nativeEnum(OutputKinesisPqCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -372,14 +442,25 @@ export namespace OutputKinesisPqCompressCompression$ {
 }
 
 /** @internal */
-export const OutputKinesisQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisQueueFullBehavior
-> = z.nativeEnum(OutputKinesisQueueFullBehavior);
+export const OutputKinesisQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputKinesisQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKinesisQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputKinesisQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisQueueFullBehavior
-> = OutputKinesisQueueFullBehavior$inboundSchema;
+export const OutputKinesisQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputKinesisQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputKinesisQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputKinesisQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -393,14 +474,25 @@ export namespace OutputKinesisQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputKinesisMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisMode
-> = z.nativeEnum(OutputKinesisMode);
+export const OutputKinesisMode$inboundSchema: z.ZodType<
+  OutputKinesisMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKinesisMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputKinesisMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisMode
-> = OutputKinesisMode$inboundSchema;
+export const OutputKinesisMode$outboundSchema: z.ZodType<
+  OutputKinesisMode,
+  z.ZodTypeDef,
+  OutputKinesisMode
+> = z.union([
+  z.nativeEnum(OutputKinesisMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

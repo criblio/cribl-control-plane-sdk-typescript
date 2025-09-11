@@ -10,6 +10,8 @@ let value: OutputGooglePubsubType = "google_pubsub";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"google_pubsub"
+"google_pubsub" | Unrecognized<string>
 ```

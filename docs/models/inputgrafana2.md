@@ -1,11 +1,11 @@
-# InputGrafanaGrafana2
+# InputGrafana2
 
 ## Example Usage
 
 ```typescript
-import { InputGrafanaGrafana2 } from "cribl-control-plane/models";
+import { InputGrafana2 } from "cribl-control-plane/models";
 
-let value: InputGrafanaGrafana2 = {
+let value: InputGrafana2 = {
   id: "<id>",
   type: "grafana",
   pipeline: "<value>",
@@ -22,7 +22,7 @@ let value: InputGrafanaGrafana2 = {
   pq: {
     pqControls: {},
   },
-  port: 5037.49,
+  port: 7051.99,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -31,16 +31,16 @@ let value: InputGrafanaGrafana2 = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   prometheusAuth: {
-    username: "Christina62",
-    password: "crLARJiPnD6_4yH",
+    username: "Reece.Champlin",
+    password: "3tm2W_93UaexPi3",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://somber-order.biz/",
+    loginUrl: "https://optimal-clavicle.name",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -58,12 +58,12 @@ let value: InputGrafanaGrafana2 = {
     ],
   },
   lokiAuth: {
-    username: "Candida_Gusikowski76",
-    password: "18jxjkswNioVZZq",
+    username: "Braulio94",
+    password: "MGOvep4ZwUPFQOn",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://blushing-season.com",
+    loginUrl: "https://lanky-meatloaf.net",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -86,7 +86,7 @@ let value: InputGrafanaGrafana2 = {
       value: "<value>",
     },
   ],
-  description: "anti fun fast huzzah er",
+  description: "which gratefully best-seller serpentine unlike syringe psst",
 };
 ```
 

@@ -10,6 +10,8 @@ let value: OutputWebhookType = "webhook";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"webhook"
+"webhook" | Unrecognized<string>
 ```

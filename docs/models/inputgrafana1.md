@@ -1,11 +1,11 @@
-# InputGrafanaGrafana1
+# InputGrafana1
 
 ## Example Usage
 
 ```typescript
-import { InputGrafanaGrafana1 } from "cribl-control-plane/models";
+import { InputGrafana1 } from "cribl-control-plane/models";
 
-let value: InputGrafanaGrafana1 = {
+let value: InputGrafana1 = {
   id: "<id>",
   type: "grafana",
   pipeline: "<value>",
@@ -23,7 +23,7 @@ let value: InputGrafanaGrafana1 = {
   pq: {
     pqControls: {},
   },
-  port: 3832.52,
+  port: 4783.97,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -36,12 +36,12 @@ let value: InputGrafanaGrafana1 = {
     maxVersion: "TLSv1.2",
   },
   prometheusAuth: {
-    username: "Evalyn_Gislason15",
-    password: "R3S3RViAySqW5o8",
+    username: "Horacio.Spinka",
+    password: "oemMU46tHfBu4IW",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://joyful-pneumonia.info/",
+    loginUrl: "https://tragic-metal.net/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -59,12 +59,12 @@ let value: InputGrafanaGrafana1 = {
     ],
   },
   lokiAuth: {
-    username: "Fatima34",
-    password: "fAYNLh60GmdmcY5",
+    username: "Janessa46",
+    password: "CiYOnU2Q4IsWwIi",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://physical-breastplate.info",
+    loginUrl: "https://proper-responsibility.org/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
@@ -87,7 +87,7 @@ let value: InputGrafanaGrafana1 = {
       value: "<value>",
     },
   ],
-  description: "furiously crossly parsnip provided until save chime",
+  description: "likewise overstay accurate hypothesise",
 };
 ```
 

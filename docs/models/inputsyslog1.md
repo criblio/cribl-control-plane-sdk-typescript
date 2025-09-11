@@ -1,11 +1,11 @@
-# InputSyslogSyslog1
+# InputSyslog1
 
 ## Example Usage
 
 ```typescript
-import { InputSyslogSyslog1 } from "cribl-control-plane/models";
+import { InputSyslog1 } from "cribl-control-plane/models";
 
-let value: InputSyslogSyslog1 = {
+let value: InputSyslog1 = {
   id: "<id>",
   type: "syslog",
   pipeline: "<value>",
@@ -24,10 +24,11 @@ let value: InputSyslogSyslog1 = {
   pq: {
     pqControls: {},
   },
-  udpPort: 8325.84,
-  tcpPort: 5133.04,
+  udpPort: 4129.57,
+  tcpPort: 9617.13,
   keepFieldsList: [
     "<value 1>",
+    "<value 2>",
   ],
   tls: {
     certificateName: "<value>",
@@ -37,8 +38,8 @@ let value: InputSyslogSyslog1 = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -46,8 +47,9 @@ let value: InputSyslogSyslog1 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 7137.89,
-  description: "phew fedora ew round",
+  udpSocketRxBufSize: 8695.64,
+  description:
+    "boss out concerning unlined sparse esteemed upliftingly whose dual",
   enableEnhancedProxyHeaderParsing: true,
 };
 ```

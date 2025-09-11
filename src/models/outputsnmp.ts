@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const OutputSnmpType = {
   Snmp: "snmp",
 } as const;
-export type OutputSnmpType = ClosedEnum<typeof OutputSnmpType>;
+export type OutputSnmpType = OpenEnum<typeof OutputSnmpType>;
 
 export type OutputSnmpHost = {
   /**
@@ -58,14 +62,25 @@ export type OutputSnmp = {
 };
 
 /** @internal */
-export const OutputSnmpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnmpType
-> = z.nativeEnum(OutputSnmpType);
+export const OutputSnmpType$inboundSchema: z.ZodType<
+  OutputSnmpType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSnmpType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSnmpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnmpType
-> = OutputSnmpType$inboundSchema;
+export const OutputSnmpType$outboundSchema: z.ZodType<
+  OutputSnmpType,
+  z.ZodTypeDef,
+  OutputSnmpType
+> = z.union([
+  z.nativeEnum(OutputSnmpType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

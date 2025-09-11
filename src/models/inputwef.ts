@@ -4,14 +4,18 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const InputWefType = {
   Wef: "wef",
 } as const;
-export type InputWefType = ClosedEnum<typeof InputWefType>;
+export type InputWefType = OpenEnum<typeof InputWefType>;
 
 export type InputWefConnection = {
   pipeline?: string | undefined;
@@ -28,7 +32,7 @@ export const InputWefMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputWefMode = ClosedEnum<typeof InputWefMode>;
+export type InputWefMode = OpenEnum<typeof InputWefMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +44,7 @@ export const InputWefCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputWefCompression = ClosedEnum<typeof InputWefCompression>;
+export type InputWefCompression = OpenEnum<typeof InputWefCompression>;
 
 export type InputWefPqControls = {};
 
@@ -86,7 +90,7 @@ export const InputWefAuthenticationMethod = {
 /**
  * How to authenticate incoming client connections
  */
-export type InputWefAuthenticationMethod = ClosedEnum<
+export type InputWefAuthenticationMethod = OpenEnum<
   typeof InputWefAuthenticationMethod
 >;
 
@@ -96,7 +100,7 @@ export const InputWefMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputWefMinimumTLSVersion = ClosedEnum<
+export type InputWefMinimumTLSVersion = OpenEnum<
   typeof InputWefMinimumTLSVersion
 >;
 
@@ -106,7 +110,7 @@ export const InputWefMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputWefMaximumTLSVersion = ClosedEnum<
+export type InputWefMaximumTLSVersion = OpenEnum<
   typeof InputWefMaximumTLSVersion
 >;
 
@@ -171,13 +175,13 @@ export const InputWefFormat = {
 /**
  * Content format in which the endpoint should deliver events
  */
-export type InputWefFormat = ClosedEnum<typeof InputWefFormat>;
+export type InputWefFormat = OpenEnum<typeof InputWefFormat>;
 
 export const QueryBuilderMode = {
   Simple: "simple",
   Xml: "xml",
 } as const;
-export type QueryBuilderMode = ClosedEnum<typeof QueryBuilderMode>;
+export type QueryBuilderMode = OpenEnum<typeof QueryBuilderMode>;
 
 export type SubscriptionMetadatum = {
   name: string;
@@ -353,12 +357,25 @@ export type InputWef = {
 };
 
 /** @internal */
-export const InputWefType$inboundSchema: z.ZodNativeEnum<typeof InputWefType> =
-  z.nativeEnum(InputWefType);
+export const InputWefType$inboundSchema: z.ZodType<
+  InputWefType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWefType$outboundSchema: z.ZodNativeEnum<typeof InputWefType> =
-  InputWefType$inboundSchema;
+export const InputWefType$outboundSchema: z.ZodType<
+  InputWefType,
+  z.ZodTypeDef,
+  InputWefType
+> = z.union([
+  z.nativeEnum(InputWefType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -429,12 +446,25 @@ export function inputWefConnectionFromJSON(
 }
 
 /** @internal */
-export const InputWefMode$inboundSchema: z.ZodNativeEnum<typeof InputWefMode> =
-  z.nativeEnum(InputWefMode);
+export const InputWefMode$inboundSchema: z.ZodType<
+  InputWefMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWefMode$outboundSchema: z.ZodNativeEnum<typeof InputWefMode> =
-  InputWefMode$inboundSchema;
+export const InputWefMode$outboundSchema: z.ZodType<
+  InputWefMode,
+  z.ZodTypeDef,
+  InputWefMode
+> = z.union([
+  z.nativeEnum(InputWefMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -448,14 +478,25 @@ export namespace InputWefMode$ {
 }
 
 /** @internal */
-export const InputWefCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputWefCompression
-> = z.nativeEnum(InputWefCompression);
+export const InputWefCompression$inboundSchema: z.ZodType<
+  InputWefCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWefCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputWefCompression
-> = InputWefCompression$inboundSchema;
+export const InputWefCompression$outboundSchema: z.ZodType<
+  InputWefCompression,
+  z.ZodTypeDef,
+  InputWefCompression
+> = z.union([
+  z.nativeEnum(InputWefCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -588,14 +629,25 @@ export function inputWefPqFromJSON(
 }
 
 /** @internal */
-export const InputWefAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof InputWefAuthenticationMethod
-> = z.nativeEnum(InputWefAuthenticationMethod);
+export const InputWefAuthenticationMethod$inboundSchema: z.ZodType<
+  InputWefAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWefAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof InputWefAuthenticationMethod
-> = InputWefAuthenticationMethod$inboundSchema;
+export const InputWefAuthenticationMethod$outboundSchema: z.ZodType<
+  InputWefAuthenticationMethod,
+  z.ZodTypeDef,
+  InputWefAuthenticationMethod
+> = z.union([
+  z.nativeEnum(InputWefAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -609,14 +661,25 @@ export namespace InputWefAuthenticationMethod$ {
 }
 
 /** @internal */
-export const InputWefMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputWefMinimumTLSVersion
-> = z.nativeEnum(InputWefMinimumTLSVersion);
+export const InputWefMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWefMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputWefMinimumTLSVersion
-> = InputWefMinimumTLSVersion$inboundSchema;
+export const InputWefMinimumTLSVersion$outboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion,
+  z.ZodTypeDef,
+  InputWefMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(InputWefMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -630,14 +693,25 @@ export namespace InputWefMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputWefMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputWefMaximumTLSVersion
-> = z.nativeEnum(InputWefMaximumTLSVersion);
+export const InputWefMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWefMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputWefMaximumTLSVersion
-> = InputWefMaximumTLSVersion$inboundSchema;
+export const InputWefMaximumTLSVersion$outboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion,
+  z.ZodTypeDef,
+  InputWefMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(InputWefMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -743,14 +817,25 @@ export function mTLSSettingsFromJSON(
 }
 
 /** @internal */
-export const InputWefFormat$inboundSchema: z.ZodNativeEnum<
-  typeof InputWefFormat
-> = z.nativeEnum(InputWefFormat);
+export const InputWefFormat$inboundSchema: z.ZodType<
+  InputWefFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWefFormat$outboundSchema: z.ZodNativeEnum<
-  typeof InputWefFormat
-> = InputWefFormat$inboundSchema;
+export const InputWefFormat$outboundSchema: z.ZodType<
+  InputWefFormat,
+  z.ZodTypeDef,
+  InputWefFormat
+> = z.union([
+  z.nativeEnum(InputWefFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -764,14 +849,25 @@ export namespace InputWefFormat$ {
 }
 
 /** @internal */
-export const QueryBuilderMode$inboundSchema: z.ZodNativeEnum<
-  typeof QueryBuilderMode
-> = z.nativeEnum(QueryBuilderMode);
+export const QueryBuilderMode$inboundSchema: z.ZodType<
+  QueryBuilderMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(QueryBuilderMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const QueryBuilderMode$outboundSchema: z.ZodNativeEnum<
-  typeof QueryBuilderMode
-> = QueryBuilderMode$inboundSchema;
+export const QueryBuilderMode$outboundSchema: z.ZodType<
+  QueryBuilderMode,
+  z.ZodTypeDef,
+  QueryBuilderMode
+> = z.union([
+  z.nativeEnum(QueryBuilderMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
