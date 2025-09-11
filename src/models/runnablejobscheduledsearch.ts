@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -13,7 +18,7 @@ export const RunnableJobScheduledSearchJobType = {
   Executor: "executor",
   ScheduledSearch: "scheduledSearch",
 } as const;
-export type RunnableJobScheduledSearchJobType = ClosedEnum<
+export type RunnableJobScheduledSearchJobType = OpenEnum<
   typeof RunnableJobScheduledSearchJobType
 >;
 
@@ -164,14 +169,25 @@ export type RunnableJobScheduledSearch = {
 };
 
 /** @internal */
-export const RunnableJobScheduledSearchJobType$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobScheduledSearchJobType
-> = z.nativeEnum(RunnableJobScheduledSearchJobType);
+export const RunnableJobScheduledSearchJobType$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchJobType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RunnableJobScheduledSearchJobType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const RunnableJobScheduledSearchJobType$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobScheduledSearchJobType
-> = RunnableJobScheduledSearchJobType$inboundSchema;
+export const RunnableJobScheduledSearchJobType$outboundSchema: z.ZodType<
+  RunnableJobScheduledSearchJobType,
+  z.ZodTypeDef,
+  RunnableJobScheduledSearchJobType
+> = z.union([
+  z.nativeEnum(RunnableJobScheduledSearchJobType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
