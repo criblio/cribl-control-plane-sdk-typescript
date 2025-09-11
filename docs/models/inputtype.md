@@ -1,11 +1,11 @@
-# ScanMode
+# InputType
 
 ## Example Usage
 
 ```typescript
-import { ScanMode } from "cribl-control-plane/models";
+import { InputType } from "cribl-control-plane/models";
 
-let value: ScanMode = "detailed";
+let value: InputType = "collection";
 ```
 
 ## Values
@@ -13,5 +13,5 @@ let value: ScanMode = "detailed";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"detailed" | "quick" | Unrecognized<string>
+"collection" | Unrecognized<string>
 ```

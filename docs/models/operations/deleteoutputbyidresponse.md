@@ -78,7 +78,7 @@ let value: DeleteOutputByIdResponse = {
         backoffRate: 2,
         maxBackoff: 10000,
       },
-      responseHonorRetryAfterHeader: false,
+      responseHonorRetryAfterHeader: true,
       pqMaxFileSize: "1 MB",
       pqMaxSize: "5GB",
       pqPath: "$CRIBL_HOME/state/queues",

@@ -59,7 +59,7 @@ let value: UpdateOutputByIdResponse = {
         backoffRate: 2,
         maxBackoff: 10000,
       },
-      responseHonorRetryAfterHeader: false,
+      responseHonorRetryAfterHeader: true,
       onBackpressure: "block",
       authType: "manual",
       description: "minty gosh decent whether duh nervously",

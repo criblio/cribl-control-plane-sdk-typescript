@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -24,7 +29,7 @@ export const OutputWebhookMethod = {
 /**
  * The method to use when sending events
  */
-export type OutputWebhookMethod = ClosedEnum<typeof OutputWebhookMethod>;
+export type OutputWebhookMethod = OpenEnum<typeof OutputWebhookMethod>;
 
 /**
  * How to format events before sending out
@@ -38,7 +43,7 @@ export const OutputWebhookFormat = {
 /**
  * How to format events before sending out
  */
-export type OutputWebhookFormat = ClosedEnum<typeof OutputWebhookFormat>;
+export type OutputWebhookFormat = OpenEnum<typeof OutputWebhookFormat>;
 
 export type OutputWebhookExtraHttpHeader = {
   name?: string | undefined;
@@ -56,7 +61,7 @@ export const OutputWebhookFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputWebhookFailedRequestLoggingMode = ClosedEnum<
+export type OutputWebhookFailedRequestLoggingMode = OpenEnum<
   typeof OutputWebhookFailedRequestLoggingMode
 >;
 
@@ -106,7 +111,7 @@ export const OutputWebhookBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputWebhookBackpressureBehavior = ClosedEnum<
+export type OutputWebhookBackpressureBehavior = OpenEnum<
   typeof OutputWebhookBackpressureBehavior
 >;
 
@@ -124,7 +129,7 @@ export const OutputWebhookAuthenticationType = {
 /**
  * Authentication method to use for the HTTP request
  */
-export type OutputWebhookAuthenticationType = ClosedEnum<
+export type OutputWebhookAuthenticationType = OpenEnum<
   typeof OutputWebhookAuthenticationType
 >;
 
@@ -134,7 +139,7 @@ export const OutputWebhookMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputWebhookMinimumTLSVersion = ClosedEnum<
+export type OutputWebhookMinimumTLSVersion = OpenEnum<
   typeof OutputWebhookMinimumTLSVersion
 >;
 
@@ -144,7 +149,7 @@ export const OutputWebhookMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputWebhookMaximumTLSVersion = ClosedEnum<
+export type OutputWebhookMaximumTLSVersion = OpenEnum<
   typeof OutputWebhookMaximumTLSVersion
 >;
 
@@ -188,7 +193,7 @@ export const OutputWebhookCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputWebhookCompression = ClosedEnum<
+export type OutputWebhookCompression = OpenEnum<
   typeof OutputWebhookCompression
 >;
 
@@ -202,7 +207,7 @@ export const OutputWebhookQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputWebhookQueueFullBehavior = ClosedEnum<
+export type OutputWebhookQueueFullBehavior = OpenEnum<
   typeof OutputWebhookQueueFullBehavior
 >;
 
@@ -217,7 +222,7 @@ export const OutputWebhookMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputWebhookMode = ClosedEnum<typeof OutputWebhookMode>;
+export type OutputWebhookMode = OpenEnum<typeof OutputWebhookMode>;
 
 export type OutputWebhookPqControls = {};
 
@@ -507,14 +512,25 @@ export namespace OutputWebhookType$ {
 }
 
 /** @internal */
-export const OutputWebhookMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookMethod
-> = z.nativeEnum(OutputWebhookMethod);
+export const OutputWebhookMethod$inboundSchema: z.ZodType<
+  OutputWebhookMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookMethod
-> = OutputWebhookMethod$inboundSchema;
+export const OutputWebhookMethod$outboundSchema: z.ZodType<
+  OutputWebhookMethod,
+  z.ZodTypeDef,
+  OutputWebhookMethod
+> = z.union([
+  z.nativeEnum(OutputWebhookMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -528,14 +544,25 @@ export namespace OutputWebhookMethod$ {
 }
 
 /** @internal */
-export const OutputWebhookFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookFormat
-> = z.nativeEnum(OutputWebhookFormat);
+export const OutputWebhookFormat$inboundSchema: z.ZodType<
+  OutputWebhookFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookFormat
-> = OutputWebhookFormat$inboundSchema;
+export const OutputWebhookFormat$outboundSchema: z.ZodType<
+  OutputWebhookFormat,
+  z.ZodTypeDef,
+  OutputWebhookFormat
+> = z.union([
+  z.nativeEnum(OutputWebhookFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -608,15 +635,25 @@ export function outputWebhookExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputWebhookFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputWebhookFailedRequestLoggingMode> = z.nativeEnum(
-    OutputWebhookFailedRequestLoggingMode,
-  );
+export const OutputWebhookFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputWebhookFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookFailedRequestLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputWebhookFailedRequestLoggingMode> =
-    OutputWebhookFailedRequestLoggingMode$inboundSchema;
+export const OutputWebhookFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  OutputWebhookFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  OutputWebhookFailedRequestLoggingMode
+> = z.union([
+  z.nativeEnum(OutputWebhookFailedRequestLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -764,14 +801,25 @@ export function outputWebhookTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputWebhookBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookBackpressureBehavior
-> = z.nativeEnum(OutputWebhookBackpressureBehavior);
+export const OutputWebhookBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputWebhookBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookBackpressureBehavior
-> = OutputWebhookBackpressureBehavior$inboundSchema;
+export const OutputWebhookBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputWebhookBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputWebhookBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputWebhookBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -786,14 +834,25 @@ export namespace OutputWebhookBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputWebhookAuthenticationType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookAuthenticationType
-> = z.nativeEnum(OutputWebhookAuthenticationType);
+export const OutputWebhookAuthenticationType$inboundSchema: z.ZodType<
+  OutputWebhookAuthenticationType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookAuthenticationType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookAuthenticationType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookAuthenticationType
-> = OutputWebhookAuthenticationType$inboundSchema;
+export const OutputWebhookAuthenticationType$outboundSchema: z.ZodType<
+  OutputWebhookAuthenticationType,
+  z.ZodTypeDef,
+  OutputWebhookAuthenticationType
+> = z.union([
+  z.nativeEnum(OutputWebhookAuthenticationType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -807,14 +866,25 @@ export namespace OutputWebhookAuthenticationType$ {
 }
 
 /** @internal */
-export const OutputWebhookMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookMinimumTLSVersion
-> = z.nativeEnum(OutputWebhookMinimumTLSVersion);
+export const OutputWebhookMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputWebhookMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookMinimumTLSVersion
-> = OutputWebhookMinimumTLSVersion$inboundSchema;
+export const OutputWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
+  OutputWebhookMinimumTLSVersion,
+  z.ZodTypeDef,
+  OutputWebhookMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputWebhookMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -828,14 +898,25 @@ export namespace OutputWebhookMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const OutputWebhookMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookMaximumTLSVersion
-> = z.nativeEnum(OutputWebhookMaximumTLSVersion);
+export const OutputWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputWebhookMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookMaximumTLSVersion
-> = OutputWebhookMaximumTLSVersion$inboundSchema;
+export const OutputWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
+  OutputWebhookMaximumTLSVersion,
+  z.ZodTypeDef,
+  OutputWebhookMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputWebhookMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -931,14 +1012,25 @@ export function outputWebhookTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputWebhookCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookCompression
-> = z.nativeEnum(OutputWebhookCompression);
+export const OutputWebhookCompression$inboundSchema: z.ZodType<
+  OutputWebhookCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookCompression
-> = OutputWebhookCompression$inboundSchema;
+export const OutputWebhookCompression$outboundSchema: z.ZodType<
+  OutputWebhookCompression,
+  z.ZodTypeDef,
+  OutputWebhookCompression
+> = z.union([
+  z.nativeEnum(OutputWebhookCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -952,14 +1044,25 @@ export namespace OutputWebhookCompression$ {
 }
 
 /** @internal */
-export const OutputWebhookQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookQueueFullBehavior
-> = z.nativeEnum(OutputWebhookQueueFullBehavior);
+export const OutputWebhookQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputWebhookQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookQueueFullBehavior
-> = OutputWebhookQueueFullBehavior$inboundSchema;
+export const OutputWebhookQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputWebhookQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputWebhookQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputWebhookQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -973,14 +1076,25 @@ export namespace OutputWebhookQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputWebhookMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookMode
-> = z.nativeEnum(OutputWebhookMode);
+export const OutputWebhookMode$inboundSchema: z.ZodType<
+  OutputWebhookMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputWebhookMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookMode
-> = OutputWebhookMode$inboundSchema;
+export const OutputWebhookMode$outboundSchema: z.ZodType<
+  OutputWebhookMode,
+  z.ZodTypeDef,
+  OutputWebhookMode
+> = z.union([
+  z.nativeEnum(OutputWebhookMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
