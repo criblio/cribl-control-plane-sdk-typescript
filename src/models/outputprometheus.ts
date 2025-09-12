@@ -890,7 +890,7 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputPrometheusTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputPrometheusBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -1013,7 +1013,7 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputPrometheusTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputPrometheusBackpressureBehavior$outboundSchema.default(
     "block",
   ),

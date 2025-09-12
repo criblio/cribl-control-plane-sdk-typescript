@@ -35,6 +35,7 @@ export type Config = {
 export type HBCriblInfo = {
   config: Config;
   deploymentId?: string | undefined;
+  disableSNIRouting?: boolean | undefined;
   distMode: AppMode;
   edgeNodes?: number | undefined;
   group: string;
@@ -115,6 +116,7 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
 > = z.object({
   config: z.lazy(() => Config$inboundSchema),
   deploymentId: z.string().optional(),
+  disableSNIRouting: z.boolean().optional(),
   distMode: AppMode$inboundSchema,
   edgeNodes: z.number().optional(),
   group: z.string(),
@@ -132,6 +134,7 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
 export type HBCriblInfo$Outbound = {
   config: Config$Outbound;
   deploymentId?: string | undefined;
+  disableSNIRouting?: boolean | undefined;
   distMode: string;
   edgeNodes?: number | undefined;
   group: string;
@@ -153,6 +156,7 @@ export const HBCriblInfo$outboundSchema: z.ZodType<
 > = z.object({
   config: z.lazy(() => Config$outboundSchema),
   deploymentId: z.string().optional(),
+  disableSNIRouting: z.boolean().optional(),
   distMode: AppMode$outboundSchema,
   edgeNodes: z.number().optional(),
   group: z.string(),

@@ -711,7 +711,7 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputAzureLogsTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputAzureLogsBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -810,7 +810,7 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputAzureLogsTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputAzureLogsBackpressureBehavior$outboundSchema.default(
     "block",
   ),

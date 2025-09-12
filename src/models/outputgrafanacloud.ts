@@ -1423,7 +1423,7 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputGrafanaCloudTimeoutRetrySettings2$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputGrafanaCloudBackpressureBehavior2$inboundSchema.default(
     "block",
   ),
@@ -1531,7 +1531,7 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputGrafanaCloudTimeoutRetrySettings2$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputGrafanaCloudBackpressureBehavior2$outboundSchema
     .default("block"),
   description: z.string().optional(),
@@ -2288,7 +2288,7 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputGrafanaCloudTimeoutRetrySettings1$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputGrafanaCloudBackpressureBehavior1$inboundSchema.default(
     "block",
   ),
@@ -2396,7 +2396,7 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputGrafanaCloudTimeoutRetrySettings1$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputGrafanaCloudBackpressureBehavior1$outboundSchema
     .default("block"),
   description: z.string().optional(),

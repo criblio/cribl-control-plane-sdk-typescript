@@ -679,7 +679,7 @@ export const OutputCriblHttpTimeoutRetrySettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  timeoutRetry: z.boolean().default(false),
+  timeoutRetry: z.boolean().default(true),
   initialBackoff: z.number().default(1000),
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
@@ -699,7 +699,7 @@ export const OutputCriblHttpTimeoutRetrySettings$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputCriblHttpTimeoutRetrySettings
 > = z.object({
-  timeoutRetry: z.boolean().default(false),
+  timeoutRetry: z.boolean().default(true),
   initialBackoff: z.number().default(1000),
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
@@ -971,7 +971,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputCriblHttpTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputCriblHttpBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -1077,7 +1077,7 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputCriblHttpTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputCriblHttpBackpressureBehavior$outboundSchema.default(
     "block",
   ),

@@ -700,7 +700,7 @@ export const OutputHoneycomb$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputHoneycombTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputHoneycombBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -793,7 +793,7 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputHoneycombTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputHoneycombBackpressureBehavior$outboundSchema.default(
     "block",
   ),

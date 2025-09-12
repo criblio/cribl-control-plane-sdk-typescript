@@ -797,7 +797,7 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputCrowdstrikeNextGenSiemBackpressureBehavior$inboundSchema
     .default("block"),
   description: z.string().optional(),
@@ -902,7 +902,7 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure:
     OutputCrowdstrikeNextGenSiemBackpressureBehavior$outboundSchema.default(
       "block",

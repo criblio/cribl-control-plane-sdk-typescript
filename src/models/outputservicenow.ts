@@ -1102,7 +1102,7 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputServiceNowTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputServiceNowTLSSettingsClientSide$inboundSchema)
     .optional(),
   pqMaxFileSize: z.string().default("1 MB"),
@@ -1221,7 +1221,7 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputServiceNowTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputServiceNowTLSSettingsClientSide$outboundSchema)
     .optional(),
   pqMaxFileSize: z.string().default("1 MB"),

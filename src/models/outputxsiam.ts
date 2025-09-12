@@ -763,7 +763,7 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputXsiamTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   throttleRateReqPerSec: z.number().int().default(400),
   onBackpressure: OutputXsiamBackpressureBehavior$inboundSchema.default(
     "block",
@@ -864,7 +864,7 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputXsiamTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   throttleRateReqPerSec: z.number().int().default(400),
   onBackpressure: OutputXsiamBackpressureBehavior$outboundSchema.default(
     "block",

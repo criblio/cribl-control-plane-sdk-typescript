@@ -982,7 +982,7 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputDynatraceOtlpTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1103,7 +1103,7 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputDynatraceOtlpTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),

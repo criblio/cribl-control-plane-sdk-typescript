@@ -866,7 +866,7 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputDynatraceHttpTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputDynatraceHttpBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -980,7 +980,7 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputDynatraceHttpTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputDynatraceHttpBackpressureBehavior$outboundSchema
     .default("block"),
   authType: OutputDynatraceHttpAuthenticationType$outboundSchema.default(
