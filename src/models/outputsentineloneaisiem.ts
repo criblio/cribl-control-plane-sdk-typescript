@@ -872,7 +872,7 @@ export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputSentinelOneAiSiemTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputSentinelOneAiSiemBackpressureBehavior$inboundSchema
     .default("block"),
   description: z.string().optional(),
@@ -1008,7 +1008,7 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputSentinelOneAiSiemTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputSentinelOneAiSiemBackpressureBehavior$outboundSchema
     .default("block"),
   description: z.string().optional(),

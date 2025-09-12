@@ -694,7 +694,7 @@ export const OutputSignalfx$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputSignalfxTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputSignalfxBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -787,7 +787,7 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputSignalfxTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputSignalfxBackpressureBehavior$outboundSchema.default(
     "block",
   ),

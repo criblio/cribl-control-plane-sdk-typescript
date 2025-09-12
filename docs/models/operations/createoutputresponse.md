@@ -56,7 +56,7 @@ let value: CreateOutputResponse = {
         backoffRate: 2,
         maxBackoff: 10000,
       },
-      responseHonorRetryAfterHeader: false,
+      responseHonorRetryAfterHeader: true,
       extraParams: [
         {
           name: "<value>",
