@@ -1234,7 +1234,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputClickHouseTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   dumpFormatErrorsToDisk: z.boolean().default(false),
   onBackpressure: OutputClickHouseBackpressureBehavior$inboundSchema.default(
     "block",
@@ -1380,7 +1380,7 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputClickHouseTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   dumpFormatErrorsToDisk: z.boolean().default(false),
   onBackpressure: OutputClickHouseBackpressureBehavior$outboundSchema.default(
     "block",

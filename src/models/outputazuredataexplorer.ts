@@ -1287,7 +1287,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   compress: OutputAzureDataExplorerCompressCompression$inboundSchema.default(
     "gzip",
   ),
@@ -1449,7 +1449,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   compress: OutputAzureDataExplorerCompressCompression$outboundSchema.default(
     "gzip",
   ),

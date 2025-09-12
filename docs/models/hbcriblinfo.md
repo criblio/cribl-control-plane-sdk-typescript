@@ -14,21 +14,26 @@ let value: HBCriblInfo = {
     version: "<value>",
   },
   deploymentId: "<id>",
-  distMode: "edge",
-  edgeNodes: 7981.9,
+  disableSNIRouting: false,
+  distMode: "managed-edge",
+  edgeNodes: 4521.05,
   group: "<value>",
   guid: "<id>",
   installType: "<value>",
   lookupVersions: {},
   master: {
-    host: "petty-entry.com",
-    port: 3592.48,
+    host: "frequent-bell.info",
+    port: 9100.63,
     servername: "<value>",
-    tls: false,
+    tls: true,
   },
-  pid: 4521.05,
-  startTime: 8614.45,
-  tags: [],
+  pid: 8614.45,
+  startTime: 2035.4,
+  tags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   version: "<value>",
 };
 ```
@@ -39,6 +44,7 @@ let value: HBCriblInfo = {
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | `config`                                             | [models.Config](../models/config.md)                 | :heavy_check_mark:                                   | N/A                                                  |
 | `deploymentId`                                       | *string*                                             | :heavy_minus_sign:                                   | N/A                                                  |
+| `disableSNIRouting`                                  | *boolean*                                            | :heavy_minus_sign:                                   | N/A                                                  |
 | `distMode`                                           | [models.AppMode](../models/appmode.md)               | :heavy_check_mark:                                   | N/A                                                  |
 | `edgeNodes`                                          | *number*                                             | :heavy_minus_sign:                                   | N/A                                                  |
 | `group`                                              | *string*                                             | :heavy_check_mark:                                   | N/A                                                  |

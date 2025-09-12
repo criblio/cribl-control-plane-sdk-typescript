@@ -850,7 +850,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputElasticCloudTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputElasticCloudBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -950,7 +950,7 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputElasticCloudTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputElasticCloudBackpressureBehavior$outboundSchema.default(
     "block",
   ),

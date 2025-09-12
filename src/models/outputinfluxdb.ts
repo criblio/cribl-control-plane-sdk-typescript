@@ -939,7 +939,7 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputInfluxdbTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputInfluxdbBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -1070,7 +1070,7 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputInfluxdbTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputInfluxdbBackpressureBehavior$outboundSchema.default(
     "block",
   ),

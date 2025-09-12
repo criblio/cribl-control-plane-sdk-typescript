@@ -734,7 +734,7 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputHumioHecTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputHumioHecBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -829,7 +829,7 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputHumioHecTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputHumioHecBackpressureBehavior$outboundSchema.default(
     "block",
   ),

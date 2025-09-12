@@ -989,7 +989,7 @@ export const OutputElastic$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputElasticTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   extraParams: z.array(z.lazy(() => OutputElasticExtraParam$inboundSchema))
     .optional(),
   auth: z.lazy(() => OutputElasticAuth$inboundSchema).optional(),
@@ -1103,7 +1103,7 @@ export const OutputElastic$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputElasticTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   extraParams: z.array(z.lazy(() => OutputElasticExtraParam$outboundSchema))
     .optional(),
   auth: z.lazy(() => OutputElasticAuth$outboundSchema).optional(),

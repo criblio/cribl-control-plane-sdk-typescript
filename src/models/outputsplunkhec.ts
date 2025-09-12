@@ -800,7 +800,7 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputSplunkHecTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputSplunkHecBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -911,7 +911,7 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputSplunkHecTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputSplunkHecBackpressureBehavior$outboundSchema.default(
     "block",
   ),

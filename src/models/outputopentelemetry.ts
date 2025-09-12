@@ -1380,7 +1380,7 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputOpenTelemetryTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputOpenTelemetryTLSSettingsClientSide$inboundSchema)
     .optional(),
   pqMaxFileSize: z.string().default("1 MB"),
@@ -1530,7 +1530,7 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputOpenTelemetryTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputOpenTelemetryTLSSettingsClientSide$outboundSchema)
     .optional(),
   pqMaxFileSize: z.string().default("1 MB"),

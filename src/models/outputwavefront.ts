@@ -701,7 +701,7 @@ export const OutputWavefront$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputWavefrontTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputWavefrontBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -796,7 +796,7 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputWavefrontTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputWavefrontBackpressureBehavior$outboundSchema.default(
     "block",
   ),

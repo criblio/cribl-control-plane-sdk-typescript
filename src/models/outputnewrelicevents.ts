@@ -771,7 +771,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputNewrelicEventsTimeoutRetrySettings$inboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputNewrelicEventsBackpressureBehavior$inboundSchema
     .default("block"),
   authType: OutputNewrelicEventsAuthenticationMethod$inboundSchema.default(
@@ -874,7 +874,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   timeoutRetrySettings: z.lazy(() =>
     OutputNewrelicEventsTimeoutRetrySettings$outboundSchema
   ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
   onBackpressure: OutputNewrelicEventsBackpressureBehavior$outboundSchema
     .default("block"),
   authType: OutputNewrelicEventsAuthenticationMethod$outboundSchema.default(

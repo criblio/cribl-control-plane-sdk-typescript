@@ -1789,7 +1789,7 @@ const value: models.OutputGrafanaCloud = {
     backoffRate: 2,
     maxBackoff: 10000,
   },
-  responseHonorRetryAfterHeader: false,
+  responseHonorRetryAfterHeader: true,
   onBackpressure: "block",
   description: "woefully wing whenever overcooked matter how irritably",
   compress: true,
