@@ -4,7 +4,11 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Commit,
@@ -35,7 +39,7 @@ export type Git = {
 export const ConfigGroupType = {
   LakeAccess: "lake_access",
 } as const;
-export type ConfigGroupType = ClosedEnum<typeof ConfigGroupType>;
+export type ConfigGroupType = OpenEnum<typeof ConfigGroupType>;
 
 export type ConfigGroup = {
   cloud?: ConfigGroupCloud | undefined;
@@ -113,14 +117,25 @@ export function gitFromJSON(
 }
 
 /** @internal */
-export const ConfigGroupType$inboundSchema: z.ZodNativeEnum<
-  typeof ConfigGroupType
-> = z.nativeEnum(ConfigGroupType);
+export const ConfigGroupType$inboundSchema: z.ZodType<
+  ConfigGroupType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ConfigGroupType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const ConfigGroupType$outboundSchema: z.ZodNativeEnum<
-  typeof ConfigGroupType
-> = ConfigGroupType$inboundSchema;
+export const ConfigGroupType$outboundSchema: z.ZodType<
+  ConfigGroupType,
+  z.ZodTypeDef,
+  ConfigGroupType
+> = z.union([
+  z.nativeEnum(ConfigGroupType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

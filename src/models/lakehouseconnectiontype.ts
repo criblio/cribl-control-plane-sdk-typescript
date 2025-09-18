@@ -3,25 +3,38 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 
 export const LakehouseConnectionType = {
   Cache: "cache",
   ZeroPoint: "zeroPoint",
 } as const;
-export type LakehouseConnectionType = ClosedEnum<
-  typeof LakehouseConnectionType
->;
+export type LakehouseConnectionType = OpenEnum<typeof LakehouseConnectionType>;
 
 /** @internal */
-export const LakehouseConnectionType$inboundSchema: z.ZodNativeEnum<
-  typeof LakehouseConnectionType
-> = z.nativeEnum(LakehouseConnectionType);
+export const LakehouseConnectionType$inboundSchema: z.ZodType<
+  LakehouseConnectionType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(LakehouseConnectionType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const LakehouseConnectionType$outboundSchema: z.ZodNativeEnum<
-  typeof LakehouseConnectionType
-> = LakehouseConnectionType$inboundSchema;
+export const LakehouseConnectionType$outboundSchema: z.ZodType<
+  LakehouseConnectionType,
+  z.ZodTypeDef,
+  LakehouseConnectionType
+> = z.union([
+  z.nativeEnum(LakehouseConnectionType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

@@ -12,6 +12,8 @@ let value: ShardIteratorStart = "LATEST";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"TRIM_HORIZON" | "LATEST"
+"TRIM_HORIZON" | "LATEST" | Unrecognized<string>
 ```

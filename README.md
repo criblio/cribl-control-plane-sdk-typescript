@@ -306,6 +306,14 @@ run();
 * [get](docs/sdks/packs/README.md#get) - Get a Pack
 * [update](docs/sdks/packs/README.md#update) - Upgrade a Pack
 
+#### [packs.search.dashboards](docs/sdks/packsdashboards/README.md)
+
+* [list](docs/sdks/packsdashboards/README.md#list) - Get a list of SearchDashboard objects within a Pack
+* [create](docs/sdks/packsdashboards/README.md#create) - Create SearchDashboard within a Pack
+* [get](docs/sdks/packsdashboards/README.md#get) - Get SearchDashboard by ID within a Pack
+* [update](docs/sdks/packsdashboards/README.md#update) - Update SearchDashboard within a Pack
+* [delete](docs/sdks/packsdashboards/README.md#delete) - Delete SearchDashboard within a Pack
+
 ### [pipelines](docs/sdks/pipelines/README.md)
 
 * [list](docs/sdks/pipelines/README.md#list) - List all Pipelines
@@ -320,6 +328,17 @@ run();
 * [get](docs/sdks/routes/README.md#get) - Get a Routing table
 * [update](docs/sdks/routes/README.md#update) - Update a Route
 * [append](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
+
+### [search](docs/sdks/search/README.md)
+
+
+#### [search.dashboards](docs/sdks/dashboards/README.md)
+
+* [list](docs/sdks/dashboards/README.md#list) - Get a list of SearchDashboard objects
+* [create](docs/sdks/dashboards/README.md#create) - Create SearchDashboard
+* [get](docs/sdks/dashboards/README.md#get) - Get SearchDashboard by ID
+* [update](docs/sdks/dashboards/README.md#update) - Update SearchDashboard
+* [delete](docs/sdks/dashboards/README.md#delete) - Delete SearchDashboard
 
 ### [sources](docs/sdks/sources/README.md)
 
@@ -415,6 +434,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
 - [`packsInstall`](docs/sdks/packs/README.md#install) - Create or install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
+- [`packsSearchDashboardsCreate`](docs/sdks/packsdashboards/README.md#create) - Create SearchDashboard within a Pack
+- [`packsSearchDashboardsDelete`](docs/sdks/packsdashboards/README.md#delete) - Delete SearchDashboard within a Pack
+- [`packsSearchDashboardsGet`](docs/sdks/packsdashboards/README.md#get) - Get SearchDashboard by ID within a Pack
+- [`packsSearchDashboardsList`](docs/sdks/packsdashboards/README.md#list) - Get a list of SearchDashboard objects within a Pack
+- [`packsSearchDashboardsUpdate`](docs/sdks/packsdashboards/README.md#update) - Update SearchDashboard within a Pack
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
 - [`pipelinesCreate`](docs/sdks/pipelines/README.md#create) - Create a Pipeline
 - [`pipelinesDelete`](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
@@ -425,6 +449,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`routesGet`](docs/sdks/routes/README.md#get) - Get a Routing table
 - [`routesList`](docs/sdks/routes/README.md#list) - List all Routes
 - [`routesUpdate`](docs/sdks/routes/README.md#update) - Update a Route
+- [`searchDashboardsCreate`](docs/sdks/dashboards/README.md#create) - Create SearchDashboard
+- [`searchDashboardsDelete`](docs/sdks/dashboards/README.md#delete) - Delete SearchDashboard
+- [`searchDashboardsGet`](docs/sdks/dashboards/README.md#get) - Get SearchDashboard by ID
+- [`searchDashboardsList`](docs/sdks/dashboards/README.md#list) - Get a list of SearchDashboard objects
+- [`searchDashboardsUpdate`](docs/sdks/dashboards/README.md#update) - Update SearchDashboard
 - [`sourcesCreate`](docs/sdks/sources/README.md#create) - Create a Source
 - [`sourcesDelete`](docs/sdks/sources/README.md#delete) - Delete a Source
 - [`sourcesGet`](docs/sdks/sources/README.md#get) - Get a Source
@@ -737,7 +766,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 62 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 72 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

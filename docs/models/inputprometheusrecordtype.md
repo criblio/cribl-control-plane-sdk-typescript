@@ -12,6 +12,8 @@ let value: InputPrometheusRecordType = "SRV";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"SRV" | "A" | "AAAA"
+"SRV" | "A" | "AAAA" | Unrecognized<string>
 ```
