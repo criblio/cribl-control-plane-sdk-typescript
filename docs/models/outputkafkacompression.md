@@ -12,6 +12,8 @@ let value: OutputKafkaCompression = "gzip";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"none" | "gzip" | "snappy" | "lz4"
+"none" | "gzip" | "snappy" | "lz4" | Unrecognized<string>
 ```

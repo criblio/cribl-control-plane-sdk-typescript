@@ -3,25 +3,38 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 
 export const NodeFailedUpgradeStatus = {
   Zero: 0,
   One: 1,
 } as const;
-export type NodeFailedUpgradeStatus = ClosedEnum<
-  typeof NodeFailedUpgradeStatus
->;
+export type NodeFailedUpgradeStatus = OpenEnum<typeof NodeFailedUpgradeStatus>;
 
 /** @internal */
-export const NodeFailedUpgradeStatus$inboundSchema: z.ZodNativeEnum<
-  typeof NodeFailedUpgradeStatus
-> = z.nativeEnum(NodeFailedUpgradeStatus);
+export const NodeFailedUpgradeStatus$inboundSchema: z.ZodType<
+  NodeFailedUpgradeStatus,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(NodeFailedUpgradeStatus),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const NodeFailedUpgradeStatus$outboundSchema: z.ZodNativeEnum<
-  typeof NodeFailedUpgradeStatus
-> = NodeFailedUpgradeStatus$inboundSchema;
+export const NodeFailedUpgradeStatus$outboundSchema: z.ZodType<
+  NodeFailedUpgradeStatus,
+  z.ZodTypeDef,
+  NodeFailedUpgradeStatus
+> = z.union([
+  z.nativeEnum(NodeFailedUpgradeStatus),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
 
 /**
  * @internal

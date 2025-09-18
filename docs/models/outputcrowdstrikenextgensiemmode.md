@@ -12,6 +12,8 @@ let value: OutputCrowdstrikeNextGenSiemMode = "always";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"error" | "backpressure" | "always"
+"error" | "backpressure" | "always" | Unrecognized<string>
 ```

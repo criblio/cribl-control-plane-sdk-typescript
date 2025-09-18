@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 1212b32a477327a41f38b48ca964301c
-  docVersion: 4.14.0-alpha.1757673007102-5d0e07e7
+  docChecksum: 6b3d90d6233ffd7ac726e23e72625e05
+  docVersion: 4.14.1-alpha.1758213318893-e6b53d3f
   speakeasyVersion: 1.613.0
   generationVersion: 2.696.0
-  releaseVersion: 0.0.52
-  configChecksum: 78e47e0cb44f8317f59c0a90b5358ebc
+  releaseVersion: 0.0.53-alpha.1
+  configChecksum: 34d21595dbfe2a2f3b4d91a38292b59d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -28,6 +28,7 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.1.1
     oauth2ClientCredentials: 0.5.0
+    openEnums: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
@@ -69,6 +70,7 @@ generatedFiles:
   - docs/models/columnmapping.md
   - docs/models/comment.md
   - docs/models/commit.md
+  - docs/models/conditionspecificconfigs.md
   - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
@@ -83,6 +85,10 @@ generatedFiles:
   - docs/models/cribllakedatasetformat.md
   - docs/models/currentbranchresult.md
   - docs/models/customlabel.md
+  - docs/models/dashboardelement1.md
+  - docs/models/dashboardelement2.md
+  - docs/models/dashboardelement3.md
+  - docs/models/dashboardelementunion.md
   - docs/models/datadogsite.md
   - docs/models/datasetmetadata.md
   - docs/models/datasetmetadataruninfo.md
@@ -96,8 +102,11 @@ generatedFiles:
   - docs/models/distributedsummarygroups.md
   - docs/models/distributedsummaryworkers.md
   - docs/models/dns.md
+  - docs/models/earliest1.md
+  - docs/models/earliest2.md
   - docs/models/elasticsearchmetadata.md
   - docs/models/elasticversion.md
+  - docs/models/emailrecipient.md
   - docs/models/endpoint.md
   - docs/models/endpointconfiguration.md
   - docs/models/endpointheader.md
@@ -108,6 +117,7 @@ generatedFiles:
   - docs/models/eventformat.md
   - docs/models/executor.md
   - docs/models/executorspecificsettings.md
+  - docs/models/expectedoutputtype.md
   - docs/models/extenttag.md
   - docs/models/extralogtype.md
   - docs/models/facility.md
@@ -316,6 +326,7 @@ generatedFiles:
   - docs/models/inputelasticproxymode.md
   - docs/models/inputelastictlssettingsserverside.md
   - docs/models/inputelastictype.md
+  - docs/models/inputelementtype.md
   - docs/models/inputeventhub.md
   - docs/models/inputeventhubauthentication.md
   - docs/models/inputeventhubcompression.md
@@ -832,6 +843,7 @@ generatedFiles:
   - docs/models/inputtcppreprocess.md
   - docs/models/inputtcptlssettingsserverside.md
   - docs/models/inputtcptype.md
+  - docs/models/inputtype.md
   - docs/models/inputwef.md
   - docs/models/inputwefauthenticationmethod.md
   - docs/models/inputwefcompression.md
@@ -922,6 +934,8 @@ generatedFiles:
   - docs/models/lakedatasetsearchconfig.md
   - docs/models/lakehouseconnectiontype.md
   - docs/models/lastmetrics.md
+  - docs/models/latest1.md
+  - docs/models/latest2.md
   - docs/models/line1.md
   - docs/models/line2.md
   - docs/models/line3.md
@@ -937,6 +951,8 @@ generatedFiles:
   - docs/models/lokiauthoauthparam2.md
   - docs/models/lookupversions.md
   - docs/models/mappingtype.md
+  - docs/models/markdownelementconfig.md
+  - docs/models/markdownelementtype.md
   - docs/models/masterworkerentry.md
   - docs/models/masterworkerentrytype.md
   - docs/models/masterworkerentryworkers.md
@@ -956,6 +972,10 @@ generatedFiles:
   - docs/models/nodeskippedupgradestatus.md
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
+  - docs/models/notification.md
+  - docs/models/notificationconfigforsmtptarget.md
+  - docs/models/notificationmetadatum.md
+  - docs/models/notifications.md
   - docs/models/oldmode.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
@@ -971,6 +991,9 @@ generatedFiles:
   - docs/models/operations/createpipelineresponse.md
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
+  - docs/models/operations/createsearchdashboardresponse.md
+  - docs/models/operations/createsearchdashboardsearchbypackrequest.md
+  - docs/models/operations/createsearchdashboardsearchbypackresponse.md
   - docs/models/operations/createversioncommitrequest.md
   - docs/models/operations/createversioncommitresponse.md
   - docs/models/operations/createversionpushresponse.md
@@ -992,6 +1015,10 @@ generatedFiles:
   - docs/models/operations/deletepacksbyidresponse.md
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
+  - docs/models/operations/deletesearchdashboardbyidrequest.md
+  - docs/models/operations/deletesearchdashboardbyidresponse.md
+  - docs/models/operations/deletesearchdashboardsearchbypackandidrequest.md
+  - docs/models/operations/deletesearchdashboardsearchbypackandidresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
@@ -1022,6 +1049,12 @@ generatedFiles:
   - docs/models/operations/getpipelinebyidresponse.md
   - docs/models/operations/getroutesbyidrequest.md
   - docs/models/operations/getroutesbyidresponse.md
+  - docs/models/operations/getsearchdashboardbyidrequest.md
+  - docs/models/operations/getsearchdashboardbyidresponse.md
+  - docs/models/operations/getsearchdashboardsearchbypackandidrequest.md
+  - docs/models/operations/getsearchdashboardsearchbypackandidresponse.md
+  - docs/models/operations/getsearchdashboardsearchbypackrequest.md
+  - docs/models/operations/getsearchdashboardsearchbypackresponse.md
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
   - docs/models/operations/getversionbranchresponse.md
@@ -1046,6 +1079,7 @@ generatedFiles:
   - docs/models/operations/listoutputresponse.md
   - docs/models/operations/listpipelineresponse.md
   - docs/models/operations/listroutesresponse.md
+  - docs/models/operations/listsearchdashboardresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
@@ -1064,6 +1098,10 @@ generatedFiles:
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
+  - docs/models/operations/updatesearchdashboardbyidrequest.md
+  - docs/models/operations/updatesearchdashboardbyidresponse.md
+  - docs/models/operations/updatesearchdashboardsearchbypackandidrequest.md
+  - docs/models/operations/updatesearchdashboardsearchbypackandidresponse.md
   - docs/models/os.md
   - docs/models/output.md
   - docs/models/outputazureblob.md
@@ -1882,6 +1920,7 @@ generatedFiles:
   - docs/models/packrequestbodytags2.md
   - docs/models/packrequestbodyunion.md
   - docs/models/packupgraderequest.md
+  - docs/models/panelquerydefinition.md
   - docs/models/payloadformat.md
   - docs/models/pipeline.md
   - docs/models/pipelinefunctionconf.md
@@ -1923,7 +1962,6 @@ generatedFiles:
   - docs/models/runnablejobcollectionscheduleloglevel.md
   - docs/models/runnablejobcollectionscheduletimewarning.md
   - docs/models/runnablejobcollectiontimewarning.md
-  - docs/models/runnablejobcollectiontype.md
   - docs/models/runnablejobexecutor.md
   - docs/models/runnablejobexecutorjobtype.md
   - docs/models/runnablejobexecutorloglevel.md
@@ -1941,10 +1979,24 @@ generatedFiles:
   - docs/models/runnablejobscheduledsearchtimewarning.md
   - docs/models/runnablejobscheduledsearchtype.md
   - docs/models/sample.md
+  - docs/models/savedqueryschedule.md
+  - docs/models/savessearchrunmode.md
   - docs/models/scanmode.md
   - docs/models/scheduletype.md
   - docs/models/schemeclientoauth.md
   - docs/models/scrapeprotocolprotocol.md
+  - docs/models/searchdashboard.md
+  - docs/models/searchquery1.md
+  - docs/models/searchquery2.md
+  - docs/models/searchquery3.md
+  - docs/models/searchquery4.md
+  - docs/models/searchquery5.md
+  - docs/models/searchquerytype1.md
+  - docs/models/searchquerytype2.md
+  - docs/models/searchquerytype3.md
+  - docs/models/searchquerytype4.md
+  - docs/models/searchquerytype5.md
+  - docs/models/searchqueryunion.md
   - docs/models/security.md
   - docs/models/sendeventsas.md
   - docs/models/sendlogsas.md
@@ -1959,17 +2011,27 @@ generatedFiles:
   - docs/models/subscriptionmetadatum.md
   - docs/models/summary.md
   - docs/models/target.md
+  - docs/models/targetconfig.md
+  - docs/models/targetconfigunion.md
   - docs/models/targetprotocol.md
   - docs/models/teamaccesscontrollist.md
   - docs/models/telemetrytype.md
   - docs/models/timerange.md
   - docs/models/timestampformat.md
   - docs/models/timestampprecision.md
+  - docs/models/titleaction.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
+  - docs/models/variant1.md
+  - docs/models/variant2.md
+  - docs/models/variant3.md
+  - docs/models/visualizationelementtype.md
+  - docs/models/visualizationelementtypeenum1.md
+  - docs/models/visualizationelementtypeenum2.md
+  - docs/models/visualizationelementtypeenum3.md
   - docs/models/wheretocapture.md
   - docs/models/workertypes.md
   - docs/models/writeaction.md
@@ -1979,6 +2041,7 @@ generatedFiles:
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
   - docs/sdks/criblcontrolplane/README.md
+  - docs/sdks/dashboards/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
@@ -1987,10 +2050,12 @@ generatedFiles:
   - docs/sdks/lakedatasets/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
+  - docs/sdks/packsdashboards/README.md
   - docs/sdks/pipelines/README.md
   - docs/sdks/pq/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/samples/README.md
+  - docs/sdks/search/README.md
   - docs/sdks/sources/README.md
   - docs/sdks/statuses/README.md
   - docs/sdks/summaries/README.md
@@ -2034,6 +2099,11 @@ generatedFiles:
   - src/funcs/packsGet.ts
   - src/funcs/packsInstall.ts
   - src/funcs/packsList.ts
+  - src/funcs/packsSearchDashboardsCreate.ts
+  - src/funcs/packsSearchDashboardsDelete.ts
+  - src/funcs/packsSearchDashboardsGet.ts
+  - src/funcs/packsSearchDashboardsList.ts
+  - src/funcs/packsSearchDashboardsUpdate.ts
   - src/funcs/packsUpdate.ts
   - src/funcs/pipelinesCreate.ts
   - src/funcs/pipelinesDelete.ts
@@ -2044,6 +2114,11 @@ generatedFiles:
   - src/funcs/routesGet.ts
   - src/funcs/routesList.ts
   - src/funcs/routesUpdate.ts
+  - src/funcs/searchDashboardsCreate.ts
+  - src/funcs/searchDashboardsDelete.ts
+  - src/funcs/searchDashboardsGet.ts
+  - src/funcs/searchDashboardsList.ts
+  - src/funcs/searchDashboardsUpdate.ts
   - src/funcs/sourcesCreate.ts
   - src/funcs/sourcesDelete.ts
   - src/funcs/sourcesGet.ts
@@ -2099,6 +2174,7 @@ generatedFiles:
   - src/models/criblevent.ts
   - src/models/cribllakedataset.ts
   - src/models/currentbranchresult.ts
+  - src/models/dashboardelementunion.ts
   - src/models/datasetmetadata.ts
   - src/models/datasetmetadataruninfo.ts
   - src/models/deployrequest.ts
@@ -2113,6 +2189,7 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkvalidationerror.ts
+  - src/models/expectedoutputtype.ts
   - src/models/gitcommitparams.ts
   - src/models/gitcommitsummary.ts
   - src/models/gitcountresult.ts
@@ -2144,6 +2221,7 @@ generatedFiles:
   - src/models/inputdatagen.ts
   - src/models/inputedgeprometheus.ts
   - src/models/inputelastic.ts
+  - src/models/inputelementtype.ts
   - src/models/inputeventhub.ts
   - src/models/inputexec.ts
   - src/models/inputfile.ts
@@ -2195,6 +2273,8 @@ generatedFiles:
   - src/models/lakehouseconnectiontype.ts
   - src/models/logininfo.ts
   - src/models/lookupversions.ts
+  - src/models/markdownelementconfig.ts
+  - src/models/markdownelementtype.ts
   - src/models/masterworkerentry.ts
   - src/models/nodeactiveupgradestatus.ts
   - src/models/nodefailedupgradestatus.ts
@@ -2202,6 +2282,7 @@ generatedFiles:
   - src/models/nodeskippedupgradestatus.ts
   - src/models/nodeupgradestate.ts
   - src/models/nodeupgradestatus.ts
+  - src/models/notification.ts
   - src/models/operations/createconfiggroupbyproduct.ts
   - src/models/operations/createcribllakedatasetbylakeid.ts
   - src/models/operations/createinput.ts
@@ -2211,6 +2292,8 @@ generatedFiles:
   - src/models/operations/createpacks.ts
   - src/models/operations/createpipeline.ts
   - src/models/operations/createroutesappendbyid.ts
+  - src/models/operations/createsearchdashboard.ts
+  - src/models/operations/createsearchdashboardsearchbypack.ts
   - src/models/operations/createversioncommit.ts
   - src/models/operations/createversionpush.ts
   - src/models/operations/createversionrevert.ts
@@ -2222,6 +2305,8 @@ generatedFiles:
   - src/models/operations/deleteoutputpqbyid.ts
   - src/models/operations/deletepacksbyid.ts
   - src/models/operations/deletepipelinebyid.ts
+  - src/models/operations/deletesearchdashboardbyid.ts
+  - src/models/operations/deletesearchdashboardsearchbypackandid.ts
   - src/models/operations/getconfiggroupaclbyproductandid.ts
   - src/models/operations/getconfiggroupaclteamsbyproductandid.ts
   - src/models/operations/getconfiggroupbyproductandid.ts
@@ -2237,6 +2322,9 @@ generatedFiles:
   - src/models/operations/getpacksbyid.ts
   - src/models/operations/getpipelinebyid.ts
   - src/models/operations/getroutesbyid.ts
+  - src/models/operations/getsearchdashboardbyid.ts
+  - src/models/operations/getsearchdashboardsearchbypack.ts
+  - src/models/operations/getsearchdashboardsearchbypackandid.ts
   - src/models/operations/getsummary.ts
   - src/models/operations/getversion.ts
   - src/models/operations/getversionbranch.ts
@@ -2253,6 +2341,7 @@ generatedFiles:
   - src/models/operations/listoutput.ts
   - src/models/operations/listpipeline.ts
   - src/models/operations/listroutes.ts
+  - src/models/operations/listsearchdashboard.ts
   - src/models/operations/updateconfiggroupbyproductandid.ts
   - src/models/operations/updateconfiggroupdeploybyproductandid.ts
   - src/models/operations/updatecribllakedatasetbylakeidandid.ts
@@ -2262,6 +2351,8 @@ generatedFiles:
   - src/models/operations/updatepacksbyid.ts
   - src/models/operations/updatepipelinebyid.ts
   - src/models/operations/updateroutesbyid.ts
+  - src/models/operations/updatesearchdashboardbyid.ts
+  - src/models/operations/updatesearchdashboardsearchbypackandid.ts
   - src/models/output.ts
   - src/models/outputazureblob.ts
   - src/models/outputazuredataexplorer.ts
@@ -2334,6 +2425,7 @@ generatedFiles:
   - src/models/packinstallinfo.ts
   - src/models/packrequestbodyunion.ts
   - src/models/packupgraderequest.ts
+  - src/models/panelquerydefinition.ts
   - src/models/pipeline.ts
   - src/models/pipelinefunctionconf.ts
   - src/models/productscore.ts
@@ -2347,17 +2439,24 @@ generatedFiles:
   - src/models/runnablejobcollection.ts
   - src/models/runnablejobexecutor.ts
   - src/models/runnablejobscheduledsearch.ts
+  - src/models/savedqueryschedule.ts
+  - src/models/savessearchrunmode.ts
   - src/models/schemeclientoauth.ts
+  - src/models/searchdashboard.ts
+  - src/models/searchqueryunion.ts
   - src/models/security.ts
   - src/models/teamaccesscontrollist.ts
+  - src/models/titleaction.ts
   - src/models/updatehectokenrequest.ts
   - src/models/useraccesscontrollist.ts
+  - src/models/visualizationelementtype.ts
   - src/models/workertypes.ts
   - src/sdk/acl.ts
   - src/sdk/auth.ts
   - src/sdk/branches.ts
   - src/sdk/commits.ts
   - src/sdk/configsversions.ts
+  - src/sdk/dashboards.ts
   - src/sdk/destinations.ts
   - src/sdk/files.ts
   - src/sdk/groups.ts
@@ -2368,11 +2467,14 @@ generatedFiles:
   - src/sdk/lakedatasets.ts
   - src/sdk/nodes.ts
   - src/sdk/packs.ts
+  - src/sdk/packsdashboards.ts
+  - src/sdk/packssearch.ts
   - src/sdk/pipelines.ts
   - src/sdk/pq.ts
   - src/sdk/routes.ts
   - src/sdk/samples.ts
   - src/sdk/sdk.ts
+  - src/sdk/search.ts
   - src/sdk/sources.ts
   - src/sdk/statuses.ts
   - src/sdk/summaries.ts
@@ -3254,6 +3356,111 @@ examples:
           application/json: {"count": 163235, "items": [{"author": "<value>", "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
+  listSearchDashboard:
+    speakeasy-default-list-search-dashboard:
+      responses:
+        "200":
+          application/json: {"count": 968523, "items": [{"cacheTTLSeconds": 530.7, "category": "<value>", "created": 4176.79, "createdBy": "<value>", "description": "opposite oh pish", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"description": "confute psst possible fervently parade", "empty": true, "group": "<value>", "hidePanel": false, "horizontalChart": false, "id": "<id>", "index": 613.2, "inputId": "<id>", "search": {"query": "<value>", "queryId": "<id>", "runMode": "newSearch", "type": "saved"}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": true, "url": "https://rare-priesthood.biz"}, "type": "input.text", "value": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "variant": "input"}], "groups": "<value>", "id": "<id>", "modified": 2596.51, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 2310.1, "resolvedDatasetIds": ["<value 1>", "<value 2>"], "schedule": {"cronSchedule": "<value>", "enabled": false, "keepLastN": 9253.42, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": false, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createSearchDashboard:
+    speakeasy-default-create-search-dashboard:
+      requestBody:
+        application/json: {"cacheTTLSeconds": 9377.15, "category": "<value>", "created": 6538.99, "createdBy": "<value>", "description": "nougat whether marvelous thankfully lecture readily beside lest", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": "<value>", "id": "<id>", "modified": 3463.91, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 7762.62, "resolvedDatasetIds": ["<value 1>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 5808.55, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}
+      responses:
+        "200":
+          application/json: {"count": 526685, "items": [{"cacheTTLSeconds": 4088.36, "category": "<value>", "created": 6133.55, "createdBy": "<value>", "description": "plumber hmph upward obnoxiously till square", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"description": "secrecy instruction language carelessly so shrilly gah majestic", "empty": true, "group": "<value>", "hidePanel": false, "horizontalChart": false, "id": "<id>", "index": 2847.58, "inputId": "<id>", "search": {"earliest": 1361.79, "expectedOutputType": "instant", "latest": 4123.74, "queries": [{"alias": "<value>", "localId": "<id>", "query": "<value>"}], "timezone": "Africa/Johannesburg", "type": "metric"}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": true, "url": "https://nautical-tentacle.net/"}, "type": "input.text", "value": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "variant": "input"}], "groups": "<value>", "id": "<id>", "modified": 9012.4, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 7084.97, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 5808.55, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getSearchDashboardById:
+    speakeasy-default-get-search-dashboard-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 617303, "items": [{"cacheTTLSeconds": 4461.56, "category": "<value>", "created": 9389.11, "createdBy": "<value>", "description": "daily above merry outdo viciously gallery", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": "<value>", "id": "<id>", "modified": 1908.38, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 4800.9, "resolvedDatasetIds": ["<value 1>", "<value 2>"], "schedule": {"cronSchedule": "<value>", "enabled": false, "keepLastN": 5125.09, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": false, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateSearchDashboardById:
+    speakeasy-default-update-search-dashboard-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"cacheTTLSeconds": 9322.04, "category": "<value>", "created": 6422.42, "createdBy": "<value>", "description": "likewise skean meh operating miserably", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"description": "indeed unsteady ack", "empty": true, "group": "<value>", "hidePanel": true, "horizontalChart": true, "id": "<id>", "index": 2248.23, "inputId": "<id>", "search": {"type": "values", "values": ["<value 1>", "<value 2>", "<value 3>"]}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": false, "url": "https://dim-flint.org"}, "type": "input.dropdown", "value": {"key": "<value>"}, "variant": "input"}], "groups": "<value>", "id": "<id>", "modified": 6530.86, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 2181.71, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 5089.02, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}
+      responses:
+        "200":
+          application/json: {"count": 421510, "items": [{"cacheTTLSeconds": 4099.55, "category": "<value>", "created": 9019.26, "createdBy": "<value>", "description": "mosh putrefy duh seldom ocelot sundae wholly and", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": "<value>", "id": "<id>", "modified": 9750.32, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 4572.37, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 5089.02, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  deleteSearchDashboardById:
+    speakeasy-default-delete-search-dashboard-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 392159, "items": [{"cacheTTLSeconds": 1197.7, "category": "<value>", "created": 5900.35, "createdBy": "<value>", "description": "knottily duh huzzah manipulate", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"config": "<value>", "description": "safely needily weakly versus before er quaff in ha immediately", "empty": true, "group": "<value>", "hidePanel": true, "horizontalChart": true, "id": "<id>", "index": 9189.46, "search": {"type": "empty"}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": false, "url": "https://hospitable-jacket.info"}, "type": "custom.throughputMetrics", "variant": "visualization"}], "groups": "<value>", "id": "<id>", "modified": 5521.11, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 7044.16, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 4576.06, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>", "<value 3>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getSearchDashboardSearchByPack:
+    speakeasy-default-get-search-dashboard-search-by-pack:
+      parameters:
+        path:
+          pack: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 863705, "items": [{"cacheTTLSeconds": 1336.29, "category": "<value>", "created": 3759.07, "createdBy": "<value>", "description": "likewise oof saloon", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": "<value>", "id": "<id>", "modified": 9285.39, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 4382.05, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": false, "keepLastN": 5788.56, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createSearchDashboardSearchByPack:
+    speakeasy-default-create-search-dashboard-search-by-pack:
+      parameters:
+        path:
+          pack: "<value>"
+      requestBody:
+        application/json: {"cacheTTLSeconds": 4841.75, "category": "<value>", "created": 5403.43, "createdBy": "<value>", "description": "overconfidently ick yowza so a while whoever zowie reckon", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"config": {"markdown": "<value>"}, "description": "overload concerning messy till turbulent for barring ha cruelty furthermore", "empty": true, "group": "<value>", "hidePanel": false, "horizontalChart": false, "id": "<id>", "index": 7446.02, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": true, "url": "https://unlined-tarragon.name/"}, "type": "markdown.copilot", "variant": "markdown"}], "groups": "<value>", "id": "<id>", "modified": 9788.79, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 3834.66, "resolvedDatasetIds": ["<value 1>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 8531.9, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}
+      responses:
+        "200":
+          application/json: {"count": 153385, "items": [{"cacheTTLSeconds": 5676.16, "category": "<value>", "created": 3652.02, "createdBy": "<value>", "description": "aha without mid intently and pfft yearly those", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": "<value>", "id": "<id>", "modified": 6537.11, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 6268.55, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 8531.9, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getSearchDashboardSearchByPackAndId:
+    speakeasy-default-get-search-dashboard-search-by-pack-and-id:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 313027, "items": [{"cacheTTLSeconds": 6530.61, "category": "<value>", "created": 4441.14, "createdBy": "<value>", "description": "sure-footed so hmph down", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"config": "<value>", "description": "volunteer till likewise however", "empty": true, "group": "<value>", "hidePanel": false, "horizontalChart": true, "id": "<id>", "index": 519.46, "search": {"query": "<value>", "queryId": "<id>", "runMode": "lastRun", "type": "saved"}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": false, "url": "https://short-rationale.name"}, "type": "custom.flowMatrix", "variant": "visualization"}], "groups": "<value>", "id": "<id>", "modified": 1597.35, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 9751.97, "resolvedDatasetIds": ["<value 1>"], "schedule": {"cronSchedule": "<value>", "enabled": false, "keepLastN": 9484.55, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>", "<value 3>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": false, "resumeOnBoot": false, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateSearchDashboardSearchByPackAndId:
+    speakeasy-default-update-search-dashboard-search-by-pack-and-id:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"cacheTTLSeconds": 393.4, "category": "<value>", "created": 6118.43, "createdBy": "<value>", "description": "than yawningly psst", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": "<value>", "id": "<id>", "modified": 7903.21, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 9468.28, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 9815.47, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}
+      responses:
+        "200":
+          application/json: {"count": 765214, "items": [{"cacheTTLSeconds": 2565.67, "category": "<value>", "created": 7644.6, "createdBy": "<value>", "description": "electric gallery boo for oh", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"config": "<value>", "description": "below incidentally deeply rightfully solidly dissemble till vivaciously for amid", "empty": true, "group": "<value>", "hidePanel": true, "horizontalChart": true, "id": "<id>", "index": 4013.54, "search": {"type": "values", "values": ["<value 1>"]}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": false, "url": "https://secret-valentine.net"}, "type": "custom.throughputMetrics", "variant": "visualization"}], "groups": "<value>", "id": "<id>", "modified": 8841.37, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 6637.4, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 9815.47, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  deleteSearchDashboardSearchByPackAndId:
+    speakeasy-default-delete-search-dashboard-search-by-pack-and-id:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 917586, "items": [{"cacheTTLSeconds": 3895.13, "category": "<value>", "created": 4000.58, "createdBy": "<value>", "description": "fibre if factorize when surface", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": "<value>", "id": "<id>", "modified": 2422.84, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 5829.53, "resolvedDatasetIds": ["<value 1>", "<value 2>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 5585.15, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:03:38+02:00"
@@ -3319,6 +3526,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `criblcontrolplane.nodes.list()`:  `response.items.[].info.cribl.disableSniRouting` **Added**
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.sources.create()`: \n  *  `request.[inputModelDrivenTelemetry].tls.passphrase` **Added**\n  *  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.search.dashboards.delete()`: **Added**\n* `criblcontrolplane.packs.search.dashboards.list()`: **Added**\n* `criblcontrolplane.packs.search.dashboards.create()`: **Added**\n* `criblcontrolplane.packs.search.dashboards.get()`: **Added**\n* `criblcontrolplane.packs.search.dashboards.update()`: **Added**\n* `criblcontrolplane.packs.search.dashboards.delete()`: **Added**\n* `criblcontrolplane.search.dashboards.list()`: **Added**\n* `criblcontrolplane.search.dashboards.update()`: **Added**\n* `criblcontrolplane.sources.get()`:  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.[inputModelDrivenTelemetry].tls.passphrase` **Added**\n  *  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.sources.delete()`:  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.search.dashboards.get()`: **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.search.dashboards.create()`: **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n"

@@ -11,8 +11,14 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PacksSearch } from "./packssearch.js";
 
 export class Packs extends ClientSDK {
+  private _search?: PacksSearch;
+  get search(): PacksSearch {
+    return (this._search ??= new PacksSearch(this._options));
+  }
+
   /**
    * Create or install a Pack
    *
