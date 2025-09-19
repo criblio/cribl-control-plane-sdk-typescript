@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 1212b32a477327a41f38b48ca964301c
-  docVersion: 4.14.0-alpha.1757673007102-5d0e07e7
+  docChecksum: 0c45762d1c7f05ccca71a32eff80a6a6
+  docVersion: 4.14.0-837595d5
   speakeasyVersion: 1.613.0
   generationVersion: 2.696.0
-  releaseVersion: 0.0.52
-  configChecksum: 78e47e0cb44f8317f59c0a90b5358ebc
+  releaseVersion: 0.0.53
+  configChecksum: ede70d3a15fc8ca0e02128a23014caee
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3319,6 +3319,3 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `criblcontrolplane.nodes.list()`:  `response.items.[].info.cribl.disableSniRouting` **Added**
