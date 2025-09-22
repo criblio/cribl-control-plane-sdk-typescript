@@ -4,7 +4,11 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -33,7 +37,7 @@ export const MasterWorkerEntryType = {
   Req: "req",
   Resp: "resp",
 } as const;
-export type MasterWorkerEntryType = ClosedEnum<typeof MasterWorkerEntryType>;
+export type MasterWorkerEntryType = OpenEnum<typeof MasterWorkerEntryType>;
 
 export type MasterWorkerEntryWorkers = {
   count: number;
@@ -101,14 +105,25 @@ export function lastMetricsFromJSON(
 }
 
 /** @internal */
-export const MasterWorkerEntryType$inboundSchema: z.ZodNativeEnum<
-  typeof MasterWorkerEntryType
-> = z.nativeEnum(MasterWorkerEntryType);
+export const MasterWorkerEntryType$inboundSchema: z.ZodType<
+  MasterWorkerEntryType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(MasterWorkerEntryType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const MasterWorkerEntryType$outboundSchema: z.ZodNativeEnum<
-  typeof MasterWorkerEntryType
-> = MasterWorkerEntryType$inboundSchema;
+export const MasterWorkerEntryType$outboundSchema: z.ZodType<
+  MasterWorkerEntryType,
+  z.ZodTypeDef,
+  MasterWorkerEntryType
+> = z.union([
+  z.nativeEnum(MasterWorkerEntryType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

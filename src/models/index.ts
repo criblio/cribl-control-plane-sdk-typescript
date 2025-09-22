@@ -3,7 +3,6 @@
  */
 
 export * from "./addhectokenrequest.js";
-export * from "./appmode.js";
 export * from "./authtoken.js";
 export * from "./branchinfo.js";
 export * from "./cacheconnection.js";
@@ -187,7 +186,6 @@ export * from "./pipelinefunctionconf.js";
 export * from "./productscore.js";
 export * from "./rbacresource.js";
 export * from "./resourcepolicy.js";
-export * from "./routecloneconf.js";
 export * from "./routeconf.js";
 export * from "./routes.js";
 export * from "./routesroute.js";
