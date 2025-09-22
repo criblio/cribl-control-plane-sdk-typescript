@@ -3,7 +3,11 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 
 export const CacheConnectionBackfillStatus = {
   Scheduled: "scheduled",
@@ -12,19 +16,30 @@ export const CacheConnectionBackfillStatus = {
   Finished: "finished",
   Incomplete: "incomplete",
 } as const;
-export type CacheConnectionBackfillStatus = ClosedEnum<
+export type CacheConnectionBackfillStatus = OpenEnum<
   typeof CacheConnectionBackfillStatus
 >;
 
 /** @internal */
-export const CacheConnectionBackfillStatus$inboundSchema: z.ZodNativeEnum<
-  typeof CacheConnectionBackfillStatus
-> = z.nativeEnum(CacheConnectionBackfillStatus);
+export const CacheConnectionBackfillStatus$inboundSchema: z.ZodType<
+  CacheConnectionBackfillStatus,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(CacheConnectionBackfillStatus),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const CacheConnectionBackfillStatus$outboundSchema: z.ZodNativeEnum<
-  typeof CacheConnectionBackfillStatus
-> = CacheConnectionBackfillStatus$inboundSchema;
+export const CacheConnectionBackfillStatus$outboundSchema: z.ZodType<
+  CacheConnectionBackfillStatus,
+  z.ZodTypeDef,
+  CacheConnectionBackfillStatus
+> = z.union([
+  z.nativeEnum(CacheConnectionBackfillStatus),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

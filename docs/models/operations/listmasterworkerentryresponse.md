@@ -20,6 +20,7 @@ let value: ListMasterWorkerEntryResponse = {
         architecture: "<value>",
         aws: {
           enabled: true,
+          instanceId: "<id>",
           region: "<value>",
           tags: {},
           type: "<value>",
@@ -37,7 +38,7 @@ let value: ListMasterWorkerEntryResponse = {
           },
           deploymentId: "<id>",
           disableSNIRouting: false,
-          distMode: "edge",
+          distMode: "managed-edge",
           edgeNodes: 6064.13,
           group: "<value>",
           guid: "<id>",
@@ -81,6 +82,7 @@ let value: ListMasterWorkerEntryResponse = {
         metadata: {
           aws: {
             enabled: false,
+            instanceId: "<id>",
             region: "<value>",
             tags: {},
             type: "<value>",
@@ -132,6 +134,7 @@ let value: ListMasterWorkerEntryResponse = {
       metadata: {
         aws: {
           enabled: false,
+          instanceId: "<id>",
           region: "<value>",
           tags: {},
           type: "<value>",

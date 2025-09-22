@@ -15,6 +15,7 @@ let value: MasterWorkerEntry = {
     architecture: "<value>",
     aws: {
       enabled: true,
+      instanceId: "<id>",
       region: "<value>",
       tags: {},
       type: "<value>",
@@ -32,7 +33,7 @@ let value: MasterWorkerEntry = {
       },
       deploymentId: "<id>",
       disableSNIRouting: false,
-      distMode: "edge",
+      distMode: "managed-edge",
       edgeNodes: 6064.13,
       group: "<value>",
       guid: "<id>",
@@ -76,6 +77,7 @@ let value: MasterWorkerEntry = {
     metadata: {
       aws: {
         enabled: false,
+        instanceId: "<id>",
         region: "<value>",
         tags: {},
         type: "<value>",
@@ -127,6 +129,7 @@ let value: MasterWorkerEntry = {
   metadata: {
     aws: {
       enabled: false,
+      instanceId: "<id>",
       region: "<value>",
       tags: {},
       type: "<value>",
