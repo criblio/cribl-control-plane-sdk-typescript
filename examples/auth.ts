@@ -14,6 +14,9 @@ import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import { CriblControlPlane } from 'cribl-control-plane';
 
+// Re-export CriblControlPlane for use in examples
+export { CriblControlPlane };
+
 const envPath = path.resolve(process.cwd(), '.env');
 const sleep = async (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
