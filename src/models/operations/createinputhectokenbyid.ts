@@ -21,14 +21,14 @@ export type CreateInputHecTokenByIdRequest = {
 };
 
 /**
- * a list of any objects
+ * a list of InputSplunkHec objects
  */
 export type CreateInputHecTokenByIdResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.InputSplunkHec> | undefined;
 };
 
 /** @internal */
@@ -105,13 +105,13 @@ export const CreateInputHecTokenByIdResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.InputSplunkHec$inboundSchema).optional(),
 });
 
 /** @internal */
 export type CreateInputHecTokenByIdResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.InputSplunkHec$Outbound> | undefined;
 };
 
 /** @internal */
@@ -121,7 +121,7 @@ export const CreateInputHecTokenByIdResponse$outboundSchema: z.ZodType<
   CreateInputHecTokenByIdResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.InputSplunkHec$outboundSchema).optional(),
 });
 
 /**

@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputKubeLogsMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputKubeLogsMode = ClosedEnum<typeof InputKubeLogsMode>;
+export type InputKubeLogsMode = OpenEnum<typeof InputKubeLogsMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputKubeLogsPqCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputKubeLogsPqCompression = ClosedEnum<
+export type InputKubeLogsPqCompression = OpenEnum<
   typeof InputKubeLogsPqCompression
 >;
 
@@ -107,7 +112,7 @@ export const InputKubeLogsPersistenceCompression = {
 /**
  * Data compression format. Default is gzip.
  */
-export type InputKubeLogsPersistenceCompression = ClosedEnum<
+export type InputKubeLogsPersistenceCompression = OpenEnum<
   typeof InputKubeLogsPersistenceCompression
 >;
 
@@ -277,14 +282,25 @@ export function inputKubeLogsConnectionFromJSON(
 }
 
 /** @internal */
-export const InputKubeLogsMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsMode
-> = z.nativeEnum(InputKubeLogsMode);
+export const InputKubeLogsMode$inboundSchema: z.ZodType<
+  InputKubeLogsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeLogsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeLogsMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsMode
-> = InputKubeLogsMode$inboundSchema;
+export const InputKubeLogsMode$outboundSchema: z.ZodType<
+  InputKubeLogsMode,
+  z.ZodTypeDef,
+  InputKubeLogsMode
+> = z.union([
+  z.nativeEnum(InputKubeLogsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -298,14 +314,25 @@ export namespace InputKubeLogsMode$ {
 }
 
 /** @internal */
-export const InputKubeLogsPqCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsPqCompression
-> = z.nativeEnum(InputKubeLogsPqCompression);
+export const InputKubeLogsPqCompression$inboundSchema: z.ZodType<
+  InputKubeLogsPqCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeLogsPqCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeLogsPqCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsPqCompression
-> = InputKubeLogsPqCompression$inboundSchema;
+export const InputKubeLogsPqCompression$outboundSchema: z.ZodType<
+  InputKubeLogsPqCompression,
+  z.ZodTypeDef,
+  InputKubeLogsPqCompression
+> = z.union([
+  z.nativeEnum(InputKubeLogsPqCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -554,14 +581,25 @@ export function inputKubeLogsMetadatumFromJSON(
 }
 
 /** @internal */
-export const InputKubeLogsPersistenceCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsPersistenceCompression
-> = z.nativeEnum(InputKubeLogsPersistenceCompression);
+export const InputKubeLogsPersistenceCompression$inboundSchema: z.ZodType<
+  InputKubeLogsPersistenceCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeLogsPersistenceCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeLogsPersistenceCompression$outboundSchema:
-  z.ZodNativeEnum<typeof InputKubeLogsPersistenceCompression> =
-    InputKubeLogsPersistenceCompression$inboundSchema;
+export const InputKubeLogsPersistenceCompression$outboundSchema: z.ZodType<
+  InputKubeLogsPersistenceCompression,
+  z.ZodTypeDef,
+  InputKubeLogsPersistenceCompression
+> = z.union([
+  z.nativeEnum(InputKubeLogsPersistenceCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

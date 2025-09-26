@@ -12,6 +12,8 @@ let value: OutputS3CompressionLevel = "normal";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"best_speed" | "normal" | "best_compression"
+"best_speed" | "normal" | "best_compression" | Unrecognized<string>
 ```

@@ -9,6 +9,7 @@ let value: NodeProvidedInfo = {
   architecture: "<value>",
   aws: {
     enabled: true,
+    instanceId: "<id>",
     region: "<value>",
     tags: {},
     type: "<value>",
@@ -26,7 +27,7 @@ let value: NodeProvidedInfo = {
     },
     deploymentId: "<id>",
     disableSNIRouting: false,
-    distMode: "edge",
+    distMode: "managed-edge",
     edgeNodes: 6064.13,
     group: "<value>",
     guid: "<id>",
@@ -39,7 +40,8 @@ let value: NodeProvidedInfo = {
       tls: true,
     },
     pid: 5354.01,
-    startTime: 8148.45,
+    socksEnabled: false,
+    startTime: 2370.83,
     tags: [],
     version: "<value>",
   },
@@ -48,15 +50,16 @@ let value: NodeProvidedInfo = {
     addresses: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
-    enabled: false,
+    enabled: true,
     id: "<id>",
     version: "<value>",
   },
   hostname: "round-squid.org",
   isSaasWorker: true,
   kube: {
-    enabled: true,
+    enabled: false,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -70,6 +73,7 @@ let value: NodeProvidedInfo = {
   metadata: {
     aws: {
       enabled: false,
+      instanceId: "<id>",
       region: "<value>",
       tags: {},
       type: "<value>",
@@ -79,13 +83,14 @@ let value: NodeProvidedInfo = {
       addresses: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       enabled: false,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: false,
+      enabled: true,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -96,8 +101,12 @@ let value: NodeProvidedInfo = {
       source: "<value>",
     },
     os: {
-      addresses: [],
-      enabled: false,
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
@@ -106,6 +115,8 @@ let value: NodeProvidedInfo = {
   os: {
     addresses: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     enabled: false,
     id: "<id>",
