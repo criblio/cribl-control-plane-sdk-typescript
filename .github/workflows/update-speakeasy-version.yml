@@ -1,4 +1,4 @@
-name: Update Speakeasy Version
+name: Update Speakeasy
 
 on:
   workflow_dispatch:
@@ -106,20 +106,7 @@ jobs:
           # Create pull request using GitHub CLI
           gh pr create \
             --title "Update Speakeasy version to ${{ steps.speakeasy-version.outputs.version }}" \
-            --body "**Automated Speakeasy Version Update**
-
-This pull request updates the Speakeasy version in \`.speakeasy/workflow.yaml\`.
-
-## Changes
-- **Previous Version:** ${{ steps.current-version.outputs.version }}
-- **New Version:** ${{ steps.speakeasy-version.outputs.version }}
-- **Release Tag:** ${{ steps.speakeasy-version.outputs.tag_name }}
-
-## Release Notes
-View the latest Speakeasy release: https://github.com/speakeasy-api/speakeasy/releases/tag/${{ steps.speakeasy-version.outputs.tag_name }}
-
----
-*This PR was created automatically by the Update Speakeasy Version workflow.*" \
+            --body "Updates Speakeasy version from ${{ steps.current-version.outputs.version }} to ${{ steps.speakeasy-version.outputs.version }}." \
             --head "$branch_name" \
             --base main
         env:
