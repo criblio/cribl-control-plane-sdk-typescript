@@ -12,6 +12,8 @@ let value: InputKinesisRecordDataFormat = "cloudwatch";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"cribl" | "ndjson" | "cloudwatch" | "line"
+"cribl" | "ndjson" | "cloudwatch" | "line" | Unrecognized<string>
 ```
