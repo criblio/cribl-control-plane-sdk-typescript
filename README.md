@@ -48,10 +48,7 @@ bun add cribl-control-plane
 ### Yarn
 
 ```bash
-yarn add cribl-control-plane zod
-
-# Note that Yarn does not install peer dependencies automatically. You will need
-# to install zod as shown above.
+yarn add cribl-control-plane
 ```
 
 > [!NOTE]
@@ -790,7 +787,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new CriblControlPlane({ httpClient });
+const sdk = new CriblControlPlane({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
