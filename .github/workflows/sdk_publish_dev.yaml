@@ -1,4 +1,4 @@
-name: Publish prerelease SDK
+name: Publish Prerelease SDK (alpha/beta/rc)
 permissions:
   checks: write
   contents: write
