@@ -31,7 +31,7 @@ jobs:
             exit 1
           fi
 
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
   publish:
     needs: generate-and-push
