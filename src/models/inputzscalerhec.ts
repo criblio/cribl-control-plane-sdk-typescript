@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputZscalerHecMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputZscalerHecMode = ClosedEnum<typeof InputZscalerHecMode>;
+export type InputZscalerHecMode = OpenEnum<typeof InputZscalerHecMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputZscalerHecCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputZscalerHecCompression = ClosedEnum<
+export type InputZscalerHecCompression = OpenEnum<
   typeof InputZscalerHecCompression
 >;
 
@@ -88,7 +93,7 @@ export const InputZscalerHecAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type InputZscalerHecAuthenticationMethod = ClosedEnum<
+export type InputZscalerHecAuthenticationMethod = OpenEnum<
   typeof InputZscalerHecAuthenticationMethod
 >;
 
@@ -125,7 +130,7 @@ export const InputZscalerHecMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputZscalerHecMinimumTLSVersion = ClosedEnum<
+export type InputZscalerHecMinimumTLSVersion = OpenEnum<
   typeof InputZscalerHecMinimumTLSVersion
 >;
 
@@ -135,7 +140,7 @@ export const InputZscalerHecMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputZscalerHecMaximumTLSVersion = ClosedEnum<
+export type InputZscalerHecMaximumTLSVersion = OpenEnum<
   typeof InputZscalerHecMaximumTLSVersion
 >;
 
@@ -375,14 +380,25 @@ export function inputZscalerHecConnectionFromJSON(
 }
 
 /** @internal */
-export const InputZscalerHecMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecMode
-> = z.nativeEnum(InputZscalerHecMode);
+export const InputZscalerHecMode$inboundSchema: z.ZodType<
+  InputZscalerHecMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputZscalerHecMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputZscalerHecMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecMode
-> = InputZscalerHecMode$inboundSchema;
+export const InputZscalerHecMode$outboundSchema: z.ZodType<
+  InputZscalerHecMode,
+  z.ZodTypeDef,
+  InputZscalerHecMode
+> = z.union([
+  z.nativeEnum(InputZscalerHecMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -396,14 +412,25 @@ export namespace InputZscalerHecMode$ {
 }
 
 /** @internal */
-export const InputZscalerHecCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecCompression
-> = z.nativeEnum(InputZscalerHecCompression);
+export const InputZscalerHecCompression$inboundSchema: z.ZodType<
+  InputZscalerHecCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputZscalerHecCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputZscalerHecCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecCompression
-> = InputZscalerHecCompression$inboundSchema;
+export const InputZscalerHecCompression$outboundSchema: z.ZodType<
+  InputZscalerHecCompression,
+  z.ZodTypeDef,
+  InputZscalerHecCompression
+> = z.union([
+  z.nativeEnum(InputZscalerHecCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -540,14 +567,25 @@ export function inputZscalerHecPqFromJSON(
 }
 
 /** @internal */
-export const InputZscalerHecAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecAuthenticationMethod
-> = z.nativeEnum(InputZscalerHecAuthenticationMethod);
+export const InputZscalerHecAuthenticationMethod$inboundSchema: z.ZodType<
+  InputZscalerHecAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputZscalerHecAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputZscalerHecAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof InputZscalerHecAuthenticationMethod> =
-    InputZscalerHecAuthenticationMethod$inboundSchema;
+export const InputZscalerHecAuthenticationMethod$outboundSchema: z.ZodType<
+  InputZscalerHecAuthenticationMethod,
+  z.ZodTypeDef,
+  InputZscalerHecAuthenticationMethod
+> = z.union([
+  z.nativeEnum(InputZscalerHecAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -701,14 +739,25 @@ export function inputZscalerHecAuthTokenFromJSON(
 }
 
 /** @internal */
-export const InputZscalerHecMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecMinimumTLSVersion
-> = z.nativeEnum(InputZscalerHecMinimumTLSVersion);
+export const InputZscalerHecMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputZscalerHecMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputZscalerHecMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputZscalerHecMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecMinimumTLSVersion
-> = InputZscalerHecMinimumTLSVersion$inboundSchema;
+export const InputZscalerHecMinimumTLSVersion$outboundSchema: z.ZodType<
+  InputZscalerHecMinimumTLSVersion,
+  z.ZodTypeDef,
+  InputZscalerHecMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(InputZscalerHecMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -722,14 +771,25 @@ export namespace InputZscalerHecMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputZscalerHecMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecMaximumTLSVersion
-> = z.nativeEnum(InputZscalerHecMaximumTLSVersion);
+export const InputZscalerHecMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputZscalerHecMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputZscalerHecMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputZscalerHecMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecMaximumTLSVersion
-> = InputZscalerHecMaximumTLSVersion$inboundSchema;
+export const InputZscalerHecMaximumTLSVersion$outboundSchema: z.ZodType<
+  InputZscalerHecMaximumTLSVersion,
+  z.ZodTypeDef,
+  InputZscalerHecMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(InputZscalerHecMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

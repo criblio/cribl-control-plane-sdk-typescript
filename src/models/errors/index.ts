@@ -3,6 +3,7 @@
  */
 
 export * from "./criblcontrolplanedefaulterror.js";
+export * from "./criblcontrolplaneerror.js";
 export * from "./error.js";
 export * from "./healthstatuserror.js";
 export * from "./httpclienterrors.js";

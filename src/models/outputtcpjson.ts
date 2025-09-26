@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -23,7 +28,7 @@ export const OutputTcpjsonCompression = {
 /**
  * Codec to use to compress the data before sending
  */
-export type OutputTcpjsonCompression = ClosedEnum<
+export type OutputTcpjsonCompression = OpenEnum<
   typeof OutputTcpjsonCompression
 >;
 
@@ -33,7 +38,7 @@ export const OutputTcpjsonMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputTcpjsonMinimumTLSVersion = ClosedEnum<
+export type OutputTcpjsonMinimumTLSVersion = OpenEnum<
   typeof OutputTcpjsonMinimumTLSVersion
 >;
 
@@ -43,7 +48,7 @@ export const OutputTcpjsonMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputTcpjsonMaximumTLSVersion = ClosedEnum<
+export type OutputTcpjsonMaximumTLSVersion = OpenEnum<
   typeof OutputTcpjsonMaximumTLSVersion
 >;
 
@@ -95,7 +100,7 @@ export const OutputTcpjsonBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputTcpjsonBackpressureBehavior = ClosedEnum<
+export type OutputTcpjsonBackpressureBehavior = OpenEnum<
   typeof OutputTcpjsonBackpressureBehavior
 >;
 
@@ -109,7 +114,7 @@ export const OutputTcpjsonAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type OutputTcpjsonAuthenticationMethod = ClosedEnum<
+export type OutputTcpjsonAuthenticationMethod = OpenEnum<
   typeof OutputTcpjsonAuthenticationMethod
 >;
 
@@ -123,7 +128,7 @@ export const OutputTcpjsonTLS = {
 /**
  * Whether to inherit TLS configs from group setting or disable TLS
  */
-export type OutputTcpjsonTLS = ClosedEnum<typeof OutputTcpjsonTLS>;
+export type OutputTcpjsonTLS = OpenEnum<typeof OutputTcpjsonTLS>;
 
 export type OutputTcpjsonHost = {
   /**
@@ -158,7 +163,7 @@ export const OutputTcpjsonPqCompressCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputTcpjsonPqCompressCompression = ClosedEnum<
+export type OutputTcpjsonPqCompressCompression = OpenEnum<
   typeof OutputTcpjsonPqCompressCompression
 >;
 
@@ -172,7 +177,7 @@ export const OutputTcpjsonQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputTcpjsonQueueFullBehavior = ClosedEnum<
+export type OutputTcpjsonQueueFullBehavior = OpenEnum<
   typeof OutputTcpjsonQueueFullBehavior
 >;
 
@@ -187,7 +192,7 @@ export const OutputTcpjsonMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputTcpjsonMode = ClosedEnum<typeof OutputTcpjsonMode>;
+export type OutputTcpjsonMode = OpenEnum<typeof OutputTcpjsonMode>;
 
 export type OutputTcpjsonPqControls = {};
 
@@ -340,14 +345,25 @@ export namespace OutputTcpjsonType$ {
 }
 
 /** @internal */
-export const OutputTcpjsonCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonCompression
-> = z.nativeEnum(OutputTcpjsonCompression);
+export const OutputTcpjsonCompression$inboundSchema: z.ZodType<
+  OutputTcpjsonCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonCompression
-> = OutputTcpjsonCompression$inboundSchema;
+export const OutputTcpjsonCompression$outboundSchema: z.ZodType<
+  OutputTcpjsonCompression,
+  z.ZodTypeDef,
+  OutputTcpjsonCompression
+> = z.union([
+  z.nativeEnum(OutputTcpjsonCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -361,14 +377,25 @@ export namespace OutputTcpjsonCompression$ {
 }
 
 /** @internal */
-export const OutputTcpjsonMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonMinimumTLSVersion
-> = z.nativeEnum(OutputTcpjsonMinimumTLSVersion);
+export const OutputTcpjsonMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputTcpjsonMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonMinimumTLSVersion
-> = OutputTcpjsonMinimumTLSVersion$inboundSchema;
+export const OutputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodType<
+  OutputTcpjsonMinimumTLSVersion,
+  z.ZodTypeDef,
+  OutputTcpjsonMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputTcpjsonMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -382,14 +409,25 @@ export namespace OutputTcpjsonMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const OutputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonMaximumTLSVersion
-> = z.nativeEnum(OutputTcpjsonMaximumTLSVersion);
+export const OutputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputTcpjsonMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonMaximumTLSVersion
-> = OutputTcpjsonMaximumTLSVersion$inboundSchema;
+export const OutputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodType<
+  OutputTcpjsonMaximumTLSVersion,
+  z.ZodTypeDef,
+  OutputTcpjsonMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputTcpjsonMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -488,14 +526,25 @@ export function outputTcpjsonTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputTcpjsonBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonBackpressureBehavior
-> = z.nativeEnum(OutputTcpjsonBackpressureBehavior);
+export const OutputTcpjsonBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputTcpjsonBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonBackpressureBehavior
-> = OutputTcpjsonBackpressureBehavior$inboundSchema;
+export const OutputTcpjsonBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputTcpjsonBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputTcpjsonBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputTcpjsonBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -510,14 +559,25 @@ export namespace OutputTcpjsonBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputTcpjsonAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonAuthenticationMethod
-> = z.nativeEnum(OutputTcpjsonAuthenticationMethod);
+export const OutputTcpjsonAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputTcpjsonAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonAuthenticationMethod
-> = OutputTcpjsonAuthenticationMethod$inboundSchema;
+export const OutputTcpjsonAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputTcpjsonAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputTcpjsonAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputTcpjsonAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -532,14 +592,25 @@ export namespace OutputTcpjsonAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputTcpjsonTLS$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonTLS
-> = z.nativeEnum(OutputTcpjsonTLS);
+export const OutputTcpjsonTLS$inboundSchema: z.ZodType<
+  OutputTcpjsonTLS,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonTLS),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonTLS$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonTLS
-> = OutputTcpjsonTLS$inboundSchema;
+export const OutputTcpjsonTLS$outboundSchema: z.ZodType<
+  OutputTcpjsonTLS,
+  z.ZodTypeDef,
+  OutputTcpjsonTLS
+> = z.union([
+  z.nativeEnum(OutputTcpjsonTLS),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -619,14 +690,25 @@ export function outputTcpjsonHostFromJSON(
 }
 
 /** @internal */
-export const OutputTcpjsonPqCompressCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonPqCompressCompression
-> = z.nativeEnum(OutputTcpjsonPqCompressCompression);
+export const OutputTcpjsonPqCompressCompression$inboundSchema: z.ZodType<
+  OutputTcpjsonPqCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonPqCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonPqCompressCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonPqCompressCompression
-> = OutputTcpjsonPqCompressCompression$inboundSchema;
+export const OutputTcpjsonPqCompressCompression$outboundSchema: z.ZodType<
+  OutputTcpjsonPqCompressCompression,
+  z.ZodTypeDef,
+  OutputTcpjsonPqCompressCompression
+> = z.union([
+  z.nativeEnum(OutputTcpjsonPqCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -641,14 +723,25 @@ export namespace OutputTcpjsonPqCompressCompression$ {
 }
 
 /** @internal */
-export const OutputTcpjsonQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonQueueFullBehavior
-> = z.nativeEnum(OutputTcpjsonQueueFullBehavior);
+export const OutputTcpjsonQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputTcpjsonQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonQueueFullBehavior
-> = OutputTcpjsonQueueFullBehavior$inboundSchema;
+export const OutputTcpjsonQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputTcpjsonQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputTcpjsonQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputTcpjsonQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -662,14 +755,25 @@ export namespace OutputTcpjsonQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputTcpjsonMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonMode
-> = z.nativeEnum(OutputTcpjsonMode);
+export const OutputTcpjsonMode$inboundSchema: z.ZodType<
+  OutputTcpjsonMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputTcpjsonMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonMode
-> = OutputTcpjsonMode$inboundSchema;
+export const OutputTcpjsonMode$outboundSchema: z.ZodType<
+  OutputTcpjsonMode,
+  z.ZodTypeDef,
+  OutputTcpjsonMode
+> = z.union([
+  z.nativeEnum(OutputTcpjsonMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

@@ -12,6 +12,8 @@ let value: ServerSideEncryption = "AES256";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"AES256"
+"AES256" | Unrecognized<string>
 ```
