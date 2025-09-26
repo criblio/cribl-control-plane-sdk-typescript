@@ -1,4 +1,4 @@
-name: Generate Dev SDK
+name: Generate Stage SDK
 permissions:
   checks: write
   contents: write
@@ -12,14 +12,14 @@ jobs:
   check-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Ensure workflow is run from dev branch
+      - name: Ensure workflow is run from stage branch
         run: |
-          if [[ "${GITHUB_REF_NAME}" != "dev" ]]; then
-            echo "This workflow can only be run from the dev branch."
+          if [[ "${GITHUB_REF_NAME}" != "stage" ]]; then
+            echo "This workflow can only be run from the stage branch."
             echo "Current branch: ${GITHUB_REF_NAME}"
             exit 1
           fi
-          echo "Running from dev branch: ${GITHUB_REF_NAME}"
+          echo "Running from stage branch: ${GITHUB_REF_NAME}"
 
   compute-version:
     needs: check-branch
@@ -27,10 +27,10 @@ jobs:
     outputs:
       version: ${{ steps.ver.outputs.version }}
     steps:
-      - name: Checkout dev branch
+      - name: Checkout stage branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          ref: dev
+          ref: stage
           fetch-depth: 0
 
       - name: Install required tools
@@ -39,7 +39,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq
 
-      - name: Compute beta version from latest GitHub release
+      - name: Compute alpha version from latest GitHub release
         id: ver
         run: |
           set -euo pipefail
@@ -69,11 +69,11 @@ jobs:
           NEW_BASE="${major}.${minor}.0"
           echo "Bumped to new minor base: ${NEW_BASE}"
 
-          # Fetch tags to check existing betas
+          # Fetch tags to check existing alphas
           git fetch --tags --quiet || true
 
-          # Find next available beta number for this base
-          PREFIX="${NEW_BASE}-beta."
+          # Find next available alpha number for this base
+          PREFIX="${NEW_BASE}-alpha."
           
           # Helper to check tag existence with/without 'v'
           tag_exists() {
@@ -81,7 +81,7 @@ jobs:
               | grep -qx -e "${1}" -e "v${1}"
           }
 
-          # Find next available beta number
+          # Find next available alpha number
           n=1
           while tag_exists "${PREFIX}${n}"; do
             echo "Tag already exists: ${PREFIX}${n}, trying next..."
@@ -89,7 +89,7 @@ jobs:
           done
 
           FINAL="${PREFIX}${n}"
-          echo "Computed dev beta version: ${FINAL}"
+          echo "Computed stage alpha version: ${FINAL}"
           echo "version=${FINAL}" >> "$GITHUB_OUTPUT"
 
   generate:
