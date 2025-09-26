@@ -4,7 +4,11 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CacheConnection,
@@ -25,7 +29,7 @@ export const CriblLakeDatasetFormat = {
   Ddss: "ddss",
   Parquet: "parquet",
 } as const;
-export type CriblLakeDatasetFormat = ClosedEnum<typeof CriblLakeDatasetFormat>;
+export type CriblLakeDatasetFormat = OpenEnum<typeof CriblLakeDatasetFormat>;
 
 export type CriblLakeDataset = {
   acceleratedFields?: Array<string> | undefined;
@@ -43,14 +47,25 @@ export type CriblLakeDataset = {
 };
 
 /** @internal */
-export const CriblLakeDatasetFormat$inboundSchema: z.ZodNativeEnum<
-  typeof CriblLakeDatasetFormat
-> = z.nativeEnum(CriblLakeDatasetFormat);
+export const CriblLakeDatasetFormat$inboundSchema: z.ZodType<
+  CriblLakeDatasetFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(CriblLakeDatasetFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const CriblLakeDatasetFormat$outboundSchema: z.ZodNativeEnum<
-  typeof CriblLakeDatasetFormat
-> = CriblLakeDatasetFormat$inboundSchema;
+export const CriblLakeDatasetFormat$outboundSchema: z.ZodType<
+  CriblLakeDatasetFormat,
+  z.ZodTypeDef,
+  CriblLakeDatasetFormat
+> = z.union([
+  z.nativeEnum(CriblLakeDatasetFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

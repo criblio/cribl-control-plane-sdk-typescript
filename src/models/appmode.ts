@@ -3,7 +3,11 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 
 export const AppMode = {
   Single: "single",
@@ -13,15 +17,22 @@ export const AppMode = {
   ManagedEdge: "managed-edge",
   Outpost: "outpost",
 } as const;
-export type AppMode = ClosedEnum<typeof AppMode>;
+export type AppMode = OpenEnum<typeof AppMode>;
 
 /** @internal */
-export const AppMode$inboundSchema: z.ZodNativeEnum<typeof AppMode> = z
-  .nativeEnum(AppMode);
+export const AppMode$inboundSchema: z.ZodType<AppMode, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(AppMode),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
-export const AppMode$outboundSchema: z.ZodNativeEnum<typeof AppMode> =
-  AppMode$inboundSchema;
+export const AppMode$outboundSchema: z.ZodType<AppMode, z.ZodTypeDef, AppMode> =
+  z.union([
+    z.nativeEnum(AppMode),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
