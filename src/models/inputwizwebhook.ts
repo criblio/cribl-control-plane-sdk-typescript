@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputWizWebhookMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputWizWebhookMode = ClosedEnum<typeof InputWizWebhookMode>;
+export type InputWizWebhookMode = OpenEnum<typeof InputWizWebhookMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputWizWebhookCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputWizWebhookCompression = ClosedEnum<
+export type InputWizWebhookCompression = OpenEnum<
   typeof InputWizWebhookCompression
 >;
 
@@ -84,7 +89,7 @@ export const InputWizWebhookMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputWizWebhookMinimumTLSVersion = ClosedEnum<
+export type InputWizWebhookMinimumTLSVersion = OpenEnum<
   typeof InputWizWebhookMinimumTLSVersion
 >;
 
@@ -94,7 +99,7 @@ export const InputWizWebhookMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputWizWebhookMaximumTLSVersion = ClosedEnum<
+export type InputWizWebhookMaximumTLSVersion = OpenEnum<
   typeof InputWizWebhookMaximumTLSVersion
 >;
 
@@ -353,14 +358,25 @@ export function inputWizWebhookConnectionFromJSON(
 }
 
 /** @internal */
-export const InputWizWebhookMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookMode
-> = z.nativeEnum(InputWizWebhookMode);
+export const InputWizWebhookMode$inboundSchema: z.ZodType<
+  InputWizWebhookMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWizWebhookMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWizWebhookMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookMode
-> = InputWizWebhookMode$inboundSchema;
+export const InputWizWebhookMode$outboundSchema: z.ZodType<
+  InputWizWebhookMode,
+  z.ZodTypeDef,
+  InputWizWebhookMode
+> = z.union([
+  z.nativeEnum(InputWizWebhookMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -374,14 +390,25 @@ export namespace InputWizWebhookMode$ {
 }
 
 /** @internal */
-export const InputWizWebhookCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookCompression
-> = z.nativeEnum(InputWizWebhookCompression);
+export const InputWizWebhookCompression$inboundSchema: z.ZodType<
+  InputWizWebhookCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWizWebhookCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWizWebhookCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookCompression
-> = InputWizWebhookCompression$inboundSchema;
+export const InputWizWebhookCompression$outboundSchema: z.ZodType<
+  InputWizWebhookCompression,
+  z.ZodTypeDef,
+  InputWizWebhookCompression
+> = z.union([
+  z.nativeEnum(InputWizWebhookCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -518,14 +545,25 @@ export function inputWizWebhookPqFromJSON(
 }
 
 /** @internal */
-export const InputWizWebhookMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookMinimumTLSVersion
-> = z.nativeEnum(InputWizWebhookMinimumTLSVersion);
+export const InputWizWebhookMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputWizWebhookMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWizWebhookMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWizWebhookMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookMinimumTLSVersion
-> = InputWizWebhookMinimumTLSVersion$inboundSchema;
+export const InputWizWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
+  InputWizWebhookMinimumTLSVersion,
+  z.ZodTypeDef,
+  InputWizWebhookMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(InputWizWebhookMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -539,14 +577,25 @@ export namespace InputWizWebhookMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputWizWebhookMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookMaximumTLSVersion
-> = z.nativeEnum(InputWizWebhookMaximumTLSVersion);
+export const InputWizWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputWizWebhookMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWizWebhookMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWizWebhookMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookMaximumTLSVersion
-> = InputWizWebhookMaximumTLSVersion$inboundSchema;
+export const InputWizWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
+  InputWizWebhookMaximumTLSVersion,
+  z.ZodTypeDef,
+  InputWizWebhookMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(InputWizWebhookMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

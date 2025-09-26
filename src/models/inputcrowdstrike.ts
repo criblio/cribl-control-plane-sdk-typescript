@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputCrowdstrikeMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputCrowdstrikeMode = ClosedEnum<typeof InputCrowdstrikeMode>;
+export type InputCrowdstrikeMode = OpenEnum<typeof InputCrowdstrikeMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputCrowdstrikeCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputCrowdstrikeCompression = ClosedEnum<
+export type InputCrowdstrikeCompression = OpenEnum<
   typeof InputCrowdstrikeCompression
 >;
 
@@ -89,7 +94,7 @@ export const InputCrowdstrikeAuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type InputCrowdstrikeAuthenticationMethod = ClosedEnum<
+export type InputCrowdstrikeAuthenticationMethod = OpenEnum<
   typeof InputCrowdstrikeAuthenticationMethod
 >;
 
@@ -103,7 +108,7 @@ export const InputCrowdstrikeSignatureVersion = {
 /**
  * Signature version to use for signing S3 requests
  */
-export type InputCrowdstrikeSignatureVersion = ClosedEnum<
+export type InputCrowdstrikeSignatureVersion = OpenEnum<
   typeof InputCrowdstrikeSignatureVersion
 >;
 
@@ -142,7 +147,7 @@ export const InputCrowdstrikeTagAfterProcessing = {
   False: "false",
   True: "true",
 } as const;
-export type InputCrowdstrikeTagAfterProcessing = ClosedEnum<
+export type InputCrowdstrikeTagAfterProcessing = OpenEnum<
   typeof InputCrowdstrikeTagAfterProcessing
 >;
 
@@ -377,14 +382,25 @@ export function inputCrowdstrikeConnectionFromJSON(
 }
 
 /** @internal */
-export const InputCrowdstrikeMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeMode
-> = z.nativeEnum(InputCrowdstrikeMode);
+export const InputCrowdstrikeMode$inboundSchema: z.ZodType<
+  InputCrowdstrikeMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCrowdstrikeMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCrowdstrikeMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeMode
-> = InputCrowdstrikeMode$inboundSchema;
+export const InputCrowdstrikeMode$outboundSchema: z.ZodType<
+  InputCrowdstrikeMode,
+  z.ZodTypeDef,
+  InputCrowdstrikeMode
+> = z.union([
+  z.nativeEnum(InputCrowdstrikeMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -398,14 +414,25 @@ export namespace InputCrowdstrikeMode$ {
 }
 
 /** @internal */
-export const InputCrowdstrikeCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeCompression
-> = z.nativeEnum(InputCrowdstrikeCompression);
+export const InputCrowdstrikeCompression$inboundSchema: z.ZodType<
+  InputCrowdstrikeCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCrowdstrikeCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCrowdstrikeCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeCompression
-> = InputCrowdstrikeCompression$inboundSchema;
+export const InputCrowdstrikeCompression$outboundSchema: z.ZodType<
+  InputCrowdstrikeCompression,
+  z.ZodTypeDef,
+  InputCrowdstrikeCompression
+> = z.union([
+  z.nativeEnum(InputCrowdstrikeCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -543,15 +570,25 @@ export function inputCrowdstrikePqFromJSON(
 }
 
 /** @internal */
-export const InputCrowdstrikeAuthenticationMethod$inboundSchema:
-  z.ZodNativeEnum<typeof InputCrowdstrikeAuthenticationMethod> = z.nativeEnum(
-    InputCrowdstrikeAuthenticationMethod,
-  );
+export const InputCrowdstrikeAuthenticationMethod$inboundSchema: z.ZodType<
+  InputCrowdstrikeAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCrowdstrikeAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCrowdstrikeAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof InputCrowdstrikeAuthenticationMethod> =
-    InputCrowdstrikeAuthenticationMethod$inboundSchema;
+export const InputCrowdstrikeAuthenticationMethod$outboundSchema: z.ZodType<
+  InputCrowdstrikeAuthenticationMethod,
+  z.ZodTypeDef,
+  InputCrowdstrikeAuthenticationMethod
+> = z.union([
+  z.nativeEnum(InputCrowdstrikeAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -567,14 +604,25 @@ export namespace InputCrowdstrikeAuthenticationMethod$ {
 }
 
 /** @internal */
-export const InputCrowdstrikeSignatureVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeSignatureVersion
-> = z.nativeEnum(InputCrowdstrikeSignatureVersion);
+export const InputCrowdstrikeSignatureVersion$inboundSchema: z.ZodType<
+  InputCrowdstrikeSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCrowdstrikeSignatureVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCrowdstrikeSignatureVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeSignatureVersion
-> = InputCrowdstrikeSignatureVersion$inboundSchema;
+export const InputCrowdstrikeSignatureVersion$outboundSchema: z.ZodType<
+  InputCrowdstrikeSignatureVersion,
+  z.ZodTypeDef,
+  InputCrowdstrikeSignatureVersion
+> = z.union([
+  z.nativeEnum(InputCrowdstrikeSignatureVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -764,14 +812,25 @@ export function inputCrowdstrikeCheckpointingFromJSON(
 }
 
 /** @internal */
-export const InputCrowdstrikeTagAfterProcessing$inboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeTagAfterProcessing
-> = z.nativeEnum(InputCrowdstrikeTagAfterProcessing);
+export const InputCrowdstrikeTagAfterProcessing$inboundSchema: z.ZodType<
+  InputCrowdstrikeTagAfterProcessing,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCrowdstrikeTagAfterProcessing),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCrowdstrikeTagAfterProcessing$outboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeTagAfterProcessing
-> = InputCrowdstrikeTagAfterProcessing$inboundSchema;
+export const InputCrowdstrikeTagAfterProcessing$outboundSchema: z.ZodType<
+  InputCrowdstrikeTagAfterProcessing,
+  z.ZodTypeDef,
+  InputCrowdstrikeTagAfterProcessing
+> = z.union([
+  z.nativeEnum(InputCrowdstrikeTagAfterProcessing),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

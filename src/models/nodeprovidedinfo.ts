@@ -24,6 +24,7 @@ export type NodeProvidedInfoTags = {};
 
 export type NodeProvidedInfoAws = {
   enabled: boolean;
+  instanceId: string;
   region: string;
   tags?: NodeProvidedInfoTags | undefined;
   type: string;
@@ -140,6 +141,7 @@ export const NodeProvidedInfoAws$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean(),
+  instanceId: z.string(),
   region: z.string(),
   tags: z.lazy(() => NodeProvidedInfoTags$inboundSchema).optional(),
   type: z.string(),
@@ -149,6 +151,7 @@ export const NodeProvidedInfoAws$inboundSchema: z.ZodType<
 /** @internal */
 export type NodeProvidedInfoAws$Outbound = {
   enabled: boolean;
+  instanceId: string;
   region: string;
   tags?: NodeProvidedInfoTags$Outbound | undefined;
   type: string;
@@ -162,6 +165,7 @@ export const NodeProvidedInfoAws$outboundSchema: z.ZodType<
   NodeProvidedInfoAws
 > = z.object({
   enabled: z.boolean(),
+  instanceId: z.string(),
   region: z.string(),
   tags: z.lazy(() => NodeProvidedInfoTags$outboundSchema).optional(),
   type: z.string(),
