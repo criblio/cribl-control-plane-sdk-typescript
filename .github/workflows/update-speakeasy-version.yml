@@ -77,12 +77,16 @@ jobs:
             exit 1
           fi
 
-      - name: Commit and push changes
+      - name: Create pull request with changes
         if: steps.check-update.outputs.needs_update == 'true'
         run: |
           # Configure git
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config user.name "SyncUpBot"
+          git config user.email "syncupbot@users.noreply.github.com"
+          
+          # Create a new branch for the update
+          branch_name="update-speakeasy-version-${{ steps.speakeasy-version.outputs.version }}"
+          git checkout -b "$branch_name"
           
           # Add changes
           git add .speakeasy/workflow.yaml
@@ -96,8 +100,30 @@ jobs:
           # Commit changes
           git commit -m "$commit_message"
           
-          # Push changes
-          git push
+          # Push the new branch
+          git push origin "$branch_name"
+          
+          # Create pull request using GitHub CLI
+          gh pr create \
+            --title "Update Speakeasy version to ${{ steps.speakeasy-version.outputs.version }}" \
+            --body "**Automated Speakeasy Version Update**
+
+This pull request updates the Speakeasy version in \`.speakeasy/workflow.yaml\`.
+
+## Changes
+- **Previous Version:** ${{ steps.current-version.outputs.version }}
+- **New Version:** ${{ steps.speakeasy-version.outputs.version }}
+- **Release Tag:** ${{ steps.speakeasy-version.outputs.tag_name }}
+
+## Release Notes
+View the latest Speakeasy release: https://github.com/speakeasy-api/speakeasy/releases/tag/${{ steps.speakeasy-version.outputs.tag_name }}
+
+---
+*This PR was created automatically by the Update Speakeasy Version workflow.*" \
+            --head "$branch_name" \
+            --base main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create summary
         run: |
@@ -105,11 +131,14 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           
           if [ "${{ steps.check-update.outputs.needs_update }}" = "true" ]; then
-            echo "### Successfully Updated" >> $GITHUB_STEP_SUMMARY
+            echo "### Pull Request Created" >> $GITHUB_STEP_SUMMARY
             echo "- **Previous Version:** ${{ steps.current-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
             echo "- **New Version:** ${{ steps.speakeasy-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
             echo "- **Release Tag:** ${{ steps.speakeasy-version.outputs.tag_name }}" >> $GITHUB_STEP_SUMMARY
             echo "- **File Updated:** \`.speakeasy/workflow.yaml\`" >> $GITHUB_STEP_SUMMARY
+            echo "- **Branch:** \`update-speakeasy-version-${{ steps.speakeasy-version.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "A pull request has been created with the version update. Please review and merge it to apply the changes." >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "[View latest Speakeasy release](https://github.com/speakeasy-api/speakeasy/releases/tag/${{ steps.speakeasy-version.outputs.tag_name }})" >> $GITHUB_STEP_SUMMARY
           else
