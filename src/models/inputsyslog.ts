@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputSyslogMode2 = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSyslogMode2 = ClosedEnum<typeof InputSyslogMode2>;
+export type InputSyslogMode2 = OpenEnum<typeof InputSyslogMode2>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,9 +45,7 @@ export const InputSyslogCompression2 = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSyslogCompression2 = ClosedEnum<
-  typeof InputSyslogCompression2
->;
+export type InputSyslogCompression2 = OpenEnum<typeof InputSyslogCompression2>;
 
 export type InputSyslogPqControls2 = {};
 
@@ -84,7 +87,7 @@ export const InputSyslogMinimumTLSVersion2 = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputSyslogMinimumTLSVersion2 = ClosedEnum<
+export type InputSyslogMinimumTLSVersion2 = OpenEnum<
   typeof InputSyslogMinimumTLSVersion2
 >;
 
@@ -94,7 +97,7 @@ export const InputSyslogMaximumTLSVersion2 = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputSyslogMaximumTLSVersion2 = ClosedEnum<
+export type InputSyslogMaximumTLSVersion2 = OpenEnum<
   typeof InputSyslogMaximumTLSVersion2
 >;
 
@@ -278,7 +281,7 @@ export const InputSyslogMode1 = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSyslogMode1 = ClosedEnum<typeof InputSyslogMode1>;
+export type InputSyslogMode1 = OpenEnum<typeof InputSyslogMode1>;
 
 /**
  * Codec to use to compress the persisted data
@@ -290,9 +293,7 @@ export const InputSyslogCompression1 = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSyslogCompression1 = ClosedEnum<
-  typeof InputSyslogCompression1
->;
+export type InputSyslogCompression1 = OpenEnum<typeof InputSyslogCompression1>;
 
 export type InputSyslogPqControls1 = {};
 
@@ -334,7 +335,7 @@ export const InputSyslogMinimumTLSVersion1 = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputSyslogMinimumTLSVersion1 = ClosedEnum<
+export type InputSyslogMinimumTLSVersion1 = OpenEnum<
   typeof InputSyslogMinimumTLSVersion1
 >;
 
@@ -344,7 +345,7 @@ export const InputSyslogMaximumTLSVersion1 = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputSyslogMaximumTLSVersion1 = ClosedEnum<
+export type InputSyslogMaximumTLSVersion1 = OpenEnum<
   typeof InputSyslogMaximumTLSVersion1
 >;
 
@@ -589,14 +590,25 @@ export function inputSyslogConnection2FromJSON(
 }
 
 /** @internal */
-export const InputSyslogMode2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMode2
-> = z.nativeEnum(InputSyslogMode2);
+export const InputSyslogMode2$inboundSchema: z.ZodType<
+  InputSyslogMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSyslogMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSyslogMode2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMode2
-> = InputSyslogMode2$inboundSchema;
+export const InputSyslogMode2$outboundSchema: z.ZodType<
+  InputSyslogMode2,
+  z.ZodTypeDef,
+  InputSyslogMode2
+> = z.union([
+  z.nativeEnum(InputSyslogMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -610,14 +622,25 @@ export namespace InputSyslogMode2$ {
 }
 
 /** @internal */
-export const InputSyslogCompression2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogCompression2
-> = z.nativeEnum(InputSyslogCompression2);
+export const InputSyslogCompression2$inboundSchema: z.ZodType<
+  InputSyslogCompression2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSyslogCompression2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSyslogCompression2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogCompression2
-> = InputSyslogCompression2$inboundSchema;
+export const InputSyslogCompression2$outboundSchema: z.ZodType<
+  InputSyslogCompression2,
+  z.ZodTypeDef,
+  InputSyslogCompression2
+> = z.union([
+  z.nativeEnum(InputSyslogCompression2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -750,14 +773,25 @@ export function inputSyslogPq2FromJSON(
 }
 
 /** @internal */
-export const InputSyslogMinimumTLSVersion2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMinimumTLSVersion2
-> = z.nativeEnum(InputSyslogMinimumTLSVersion2);
+export const InputSyslogMinimumTLSVersion2$inboundSchema: z.ZodType<
+  InputSyslogMinimumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSyslogMinimumTLSVersion2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSyslogMinimumTLSVersion2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMinimumTLSVersion2
-> = InputSyslogMinimumTLSVersion2$inboundSchema;
+export const InputSyslogMinimumTLSVersion2$outboundSchema: z.ZodType<
+  InputSyslogMinimumTLSVersion2,
+  z.ZodTypeDef,
+  InputSyslogMinimumTLSVersion2
+> = z.union([
+  z.nativeEnum(InputSyslogMinimumTLSVersion2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -771,14 +805,25 @@ export namespace InputSyslogMinimumTLSVersion2$ {
 }
 
 /** @internal */
-export const InputSyslogMaximumTLSVersion2$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMaximumTLSVersion2
-> = z.nativeEnum(InputSyslogMaximumTLSVersion2);
+export const InputSyslogMaximumTLSVersion2$inboundSchema: z.ZodType<
+  InputSyslogMaximumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSyslogMaximumTLSVersion2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSyslogMaximumTLSVersion2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMaximumTLSVersion2
-> = InputSyslogMaximumTLSVersion2$inboundSchema;
+export const InputSyslogMaximumTLSVersion2$outboundSchema: z.ZodType<
+  InputSyslogMaximumTLSVersion2,
+  z.ZodTypeDef,
+  InputSyslogMaximumTLSVersion2
+> = z.union([
+  z.nativeEnum(InputSyslogMaximumTLSVersion2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1169,14 +1214,25 @@ export function inputSyslogConnection1FromJSON(
 }
 
 /** @internal */
-export const InputSyslogMode1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMode1
-> = z.nativeEnum(InputSyslogMode1);
+export const InputSyslogMode1$inboundSchema: z.ZodType<
+  InputSyslogMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSyslogMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSyslogMode1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMode1
-> = InputSyslogMode1$inboundSchema;
+export const InputSyslogMode1$outboundSchema: z.ZodType<
+  InputSyslogMode1,
+  z.ZodTypeDef,
+  InputSyslogMode1
+> = z.union([
+  z.nativeEnum(InputSyslogMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1190,14 +1246,25 @@ export namespace InputSyslogMode1$ {
 }
 
 /** @internal */
-export const InputSyslogCompression1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogCompression1
-> = z.nativeEnum(InputSyslogCompression1);
+export const InputSyslogCompression1$inboundSchema: z.ZodType<
+  InputSyslogCompression1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSyslogCompression1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSyslogCompression1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogCompression1
-> = InputSyslogCompression1$inboundSchema;
+export const InputSyslogCompression1$outboundSchema: z.ZodType<
+  InputSyslogCompression1,
+  z.ZodTypeDef,
+  InputSyslogCompression1
+> = z.union([
+  z.nativeEnum(InputSyslogCompression1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1330,14 +1397,25 @@ export function inputSyslogPq1FromJSON(
 }
 
 /** @internal */
-export const InputSyslogMinimumTLSVersion1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMinimumTLSVersion1
-> = z.nativeEnum(InputSyslogMinimumTLSVersion1);
+export const InputSyslogMinimumTLSVersion1$inboundSchema: z.ZodType<
+  InputSyslogMinimumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSyslogMinimumTLSVersion1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSyslogMinimumTLSVersion1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMinimumTLSVersion1
-> = InputSyslogMinimumTLSVersion1$inboundSchema;
+export const InputSyslogMinimumTLSVersion1$outboundSchema: z.ZodType<
+  InputSyslogMinimumTLSVersion1,
+  z.ZodTypeDef,
+  InputSyslogMinimumTLSVersion1
+> = z.union([
+  z.nativeEnum(InputSyslogMinimumTLSVersion1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1351,14 +1429,25 @@ export namespace InputSyslogMinimumTLSVersion1$ {
 }
 
 /** @internal */
-export const InputSyslogMaximumTLSVersion1$inboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMaximumTLSVersion1
-> = z.nativeEnum(InputSyslogMaximumTLSVersion1);
+export const InputSyslogMaximumTLSVersion1$inboundSchema: z.ZodType<
+  InputSyslogMaximumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSyslogMaximumTLSVersion1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSyslogMaximumTLSVersion1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogMaximumTLSVersion1
-> = InputSyslogMaximumTLSVersion1$inboundSchema;
+export const InputSyslogMaximumTLSVersion1$outboundSchema: z.ZodType<
+  InputSyslogMaximumTLSVersion1,
+  z.ZodTypeDef,
+  InputSyslogMaximumTLSVersion1
+> = z.union([
+  z.nativeEnum(InputSyslogMaximumTLSVersion1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

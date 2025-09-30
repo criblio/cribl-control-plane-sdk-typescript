@@ -73,6 +73,12 @@ import {
   OutputCrowdstrikeNextGenSiem$outboundSchema,
 } from "./outputcrowdstrikenextgensiem.js";
 import {
+  OutputDatabricks,
+  OutputDatabricks$inboundSchema,
+  OutputDatabricks$Outbound,
+  OutputDatabricks$outboundSchema,
+} from "./outputdatabricks.js";
+import {
   OutputDatadog,
   OutputDatadog$inboundSchema,
   OutputDatadog$Outbound,
@@ -455,6 +461,7 @@ export type Output =
   | OutputXsiam
   | OutputDynatraceHttp
   | OutputSentinelOneAiSiem
+  | OutputDatabricks
   | OutputGrafanaCloud;
 
 /** @internal */
@@ -523,6 +530,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputXsiam$inboundSchema,
     OutputDynatraceHttp$inboundSchema,
     OutputSentinelOneAiSiem$inboundSchema,
+    OutputDatabricks$inboundSchema,
     OutputGrafanaCloud$inboundSchema,
   ]);
 
@@ -591,6 +599,7 @@ export type Output$Outbound =
   | OutputXsiam$Outbound
   | OutputDynatraceHttp$Outbound
   | OutputSentinelOneAiSiem$Outbound
+  | OutputDatabricks$Outbound
   | OutputGrafanaCloud$Outbound;
 
 /** @internal */
@@ -662,6 +671,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputXsiam$outboundSchema,
   OutputDynatraceHttp$outboundSchema,
   OutputSentinelOneAiSiem$outboundSchema,
+  OutputDatabricks$outboundSchema,
   OutputGrafanaCloud$outboundSchema,
 ]);
 
