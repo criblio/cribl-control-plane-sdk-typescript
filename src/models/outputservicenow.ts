@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -22,7 +27,7 @@ export const OutputServiceNowOTLPVersion = {
 /**
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
-export type OutputServiceNowOTLPVersion = ClosedEnum<
+export type OutputServiceNowOTLPVersion = OpenEnum<
   typeof OutputServiceNowOTLPVersion
 >;
 
@@ -36,7 +41,7 @@ export const OutputServiceNowProtocol = {
 /**
  * Select a transport option for OpenTelemetry
  */
-export type OutputServiceNowProtocol = ClosedEnum<
+export type OutputServiceNowProtocol = OpenEnum<
   typeof OutputServiceNowProtocol
 >;
 
@@ -51,7 +56,7 @@ export const OutputServiceNowCompressCompression = {
 /**
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
-export type OutputServiceNowCompressCompression = ClosedEnum<
+export type OutputServiceNowCompressCompression = OpenEnum<
   typeof OutputServiceNowCompressCompression
 >;
 
@@ -65,7 +70,7 @@ export const OutputServiceNowHttpCompressCompression = {
 /**
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
-export type OutputServiceNowHttpCompressCompression = ClosedEnum<
+export type OutputServiceNowHttpCompressCompression = OpenEnum<
   typeof OutputServiceNowHttpCompressCompression
 >;
 
@@ -85,7 +90,7 @@ export const OutputServiceNowFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputServiceNowFailedRequestLoggingMode = ClosedEnum<
+export type OutputServiceNowFailedRequestLoggingMode = OpenEnum<
   typeof OutputServiceNowFailedRequestLoggingMode
 >;
 
@@ -100,7 +105,7 @@ export const OutputServiceNowBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputServiceNowBackpressureBehavior = ClosedEnum<
+export type OutputServiceNowBackpressureBehavior = OpenEnum<
   typeof OutputServiceNowBackpressureBehavior
 >;
 
@@ -150,7 +155,7 @@ export const OutputServiceNowMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputServiceNowMinimumTLSVersion = ClosedEnum<
+export type OutputServiceNowMinimumTLSVersion = OpenEnum<
   typeof OutputServiceNowMinimumTLSVersion
 >;
 
@@ -160,7 +165,7 @@ export const OutputServiceNowMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputServiceNowMaximumTLSVersion = ClosedEnum<
+export type OutputServiceNowMaximumTLSVersion = OpenEnum<
   typeof OutputServiceNowMaximumTLSVersion
 >;
 
@@ -207,7 +212,7 @@ export const OutputServiceNowPqCompressCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputServiceNowPqCompressCompression = ClosedEnum<
+export type OutputServiceNowPqCompressCompression = OpenEnum<
   typeof OutputServiceNowPqCompressCompression
 >;
 
@@ -221,7 +226,7 @@ export const OutputServiceNowQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputServiceNowQueueFullBehavior = ClosedEnum<
+export type OutputServiceNowQueueFullBehavior = OpenEnum<
   typeof OutputServiceNowQueueFullBehavior
 >;
 
@@ -236,7 +241,7 @@ export const OutputServiceNowMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputServiceNowMode = ClosedEnum<typeof OutputServiceNowMode>;
+export type OutputServiceNowMode = OpenEnum<typeof OutputServiceNowMode>;
 
 export type OutputServiceNowPqControls = {};
 
@@ -423,14 +428,25 @@ export namespace OutputServiceNowType$ {
 }
 
 /** @internal */
-export const OutputServiceNowOTLPVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowOTLPVersion
-> = z.nativeEnum(OutputServiceNowOTLPVersion);
+export const OutputServiceNowOTLPVersion$inboundSchema: z.ZodType<
+  OutputServiceNowOTLPVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowOTLPVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowOTLPVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowOTLPVersion
-> = OutputServiceNowOTLPVersion$inboundSchema;
+export const OutputServiceNowOTLPVersion$outboundSchema: z.ZodType<
+  OutputServiceNowOTLPVersion,
+  z.ZodTypeDef,
+  OutputServiceNowOTLPVersion
+> = z.union([
+  z.nativeEnum(OutputServiceNowOTLPVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -444,14 +460,25 @@ export namespace OutputServiceNowOTLPVersion$ {
 }
 
 /** @internal */
-export const OutputServiceNowProtocol$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowProtocol
-> = z.nativeEnum(OutputServiceNowProtocol);
+export const OutputServiceNowProtocol$inboundSchema: z.ZodType<
+  OutputServiceNowProtocol,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowProtocol),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowProtocol$outboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowProtocol
-> = OutputServiceNowProtocol$inboundSchema;
+export const OutputServiceNowProtocol$outboundSchema: z.ZodType<
+  OutputServiceNowProtocol,
+  z.ZodTypeDef,
+  OutputServiceNowProtocol
+> = z.union([
+  z.nativeEnum(OutputServiceNowProtocol),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -465,14 +492,25 @@ export namespace OutputServiceNowProtocol$ {
 }
 
 /** @internal */
-export const OutputServiceNowCompressCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowCompressCompression
-> = z.nativeEnum(OutputServiceNowCompressCompression);
+export const OutputServiceNowCompressCompression$inboundSchema: z.ZodType<
+  OutputServiceNowCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowCompressCompression$outboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowCompressCompression> =
-    OutputServiceNowCompressCompression$inboundSchema;
+export const OutputServiceNowCompressCompression$outboundSchema: z.ZodType<
+  OutputServiceNowCompressCompression,
+  z.ZodTypeDef,
+  OutputServiceNowCompressCompression
+> = z.union([
+  z.nativeEnum(OutputServiceNowCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -488,14 +526,25 @@ export namespace OutputServiceNowCompressCompression$ {
 }
 
 /** @internal */
-export const OutputServiceNowHttpCompressCompression$inboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowHttpCompressCompression> = z
-    .nativeEnum(OutputServiceNowHttpCompressCompression);
+export const OutputServiceNowHttpCompressCompression$inboundSchema: z.ZodType<
+  OutputServiceNowHttpCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowHttpCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowHttpCompressCompression$outboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowHttpCompressCompression> =
-    OutputServiceNowHttpCompressCompression$inboundSchema;
+export const OutputServiceNowHttpCompressCompression$outboundSchema: z.ZodType<
+  OutputServiceNowHttpCompressCompression,
+  z.ZodTypeDef,
+  OutputServiceNowHttpCompressCompression
+> = z.union([
+  z.nativeEnum(OutputServiceNowHttpCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -568,14 +617,25 @@ export function outputServiceNowMetadatumFromJSON(
 }
 
 /** @internal */
-export const OutputServiceNowFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowFailedRequestLoggingMode> = z
-    .nativeEnum(OutputServiceNowFailedRequestLoggingMode);
+export const OutputServiceNowFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputServiceNowFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowFailedRequestLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowFailedRequestLoggingMode> =
-    OutputServiceNowFailedRequestLoggingMode$inboundSchema;
+export const OutputServiceNowFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  OutputServiceNowFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  OutputServiceNowFailedRequestLoggingMode
+> = z.union([
+  z.nativeEnum(OutputServiceNowFailedRequestLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -591,15 +651,25 @@ export namespace OutputServiceNowFailedRequestLoggingMode$ {
 }
 
 /** @internal */
-export const OutputServiceNowBackpressureBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowBackpressureBehavior> = z.nativeEnum(
-    OutputServiceNowBackpressureBehavior,
-  );
+export const OutputServiceNowBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputServiceNowBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowBackpressureBehavior> =
-    OutputServiceNowBackpressureBehavior$inboundSchema;
+export const OutputServiceNowBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputServiceNowBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputServiceNowBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputServiceNowBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -810,14 +880,25 @@ export function outputServiceNowTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputServiceNowMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowMinimumTLSVersion
-> = z.nativeEnum(OutputServiceNowMinimumTLSVersion);
+export const OutputServiceNowMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputServiceNowMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowMinimumTLSVersion
-> = OutputServiceNowMinimumTLSVersion$inboundSchema;
+export const OutputServiceNowMinimumTLSVersion$outboundSchema: z.ZodType<
+  OutputServiceNowMinimumTLSVersion,
+  z.ZodTypeDef,
+  OutputServiceNowMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputServiceNowMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -832,14 +913,25 @@ export namespace OutputServiceNowMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const OutputServiceNowMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowMaximumTLSVersion
-> = z.nativeEnum(OutputServiceNowMaximumTLSVersion);
+export const OutputServiceNowMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputServiceNowMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowMaximumTLSVersion
-> = OutputServiceNowMaximumTLSVersion$inboundSchema;
+export const OutputServiceNowMaximumTLSVersion$outboundSchema: z.ZodType<
+  OutputServiceNowMaximumTLSVersion,
+  z.ZodTypeDef,
+  OutputServiceNowMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputServiceNowMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -937,15 +1029,25 @@ export function outputServiceNowTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputServiceNowPqCompressCompression$inboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowPqCompressCompression> = z.nativeEnum(
-    OutputServiceNowPqCompressCompression,
-  );
+export const OutputServiceNowPqCompressCompression$inboundSchema: z.ZodType<
+  OutputServiceNowPqCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowPqCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowPqCompressCompression$outboundSchema:
-  z.ZodNativeEnum<typeof OutputServiceNowPqCompressCompression> =
-    OutputServiceNowPqCompressCompression$inboundSchema;
+export const OutputServiceNowPqCompressCompression$outboundSchema: z.ZodType<
+  OutputServiceNowPqCompressCompression,
+  z.ZodTypeDef,
+  OutputServiceNowPqCompressCompression
+> = z.union([
+  z.nativeEnum(OutputServiceNowPqCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -961,14 +1063,25 @@ export namespace OutputServiceNowPqCompressCompression$ {
 }
 
 /** @internal */
-export const OutputServiceNowQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowQueueFullBehavior
-> = z.nativeEnum(OutputServiceNowQueueFullBehavior);
+export const OutputServiceNowQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputServiceNowQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowQueueFullBehavior
-> = OutputServiceNowQueueFullBehavior$inboundSchema;
+export const OutputServiceNowQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputServiceNowQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputServiceNowQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputServiceNowQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -983,14 +1096,25 @@ export namespace OutputServiceNowQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputServiceNowMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowMode
-> = z.nativeEnum(OutputServiceNowMode);
+export const OutputServiceNowMode$inboundSchema: z.ZodType<
+  OutputServiceNowMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputServiceNowMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowMode
-> = OutputServiceNowMode$inboundSchema;
+export const OutputServiceNowMode$outboundSchema: z.ZodType<
+  OutputServiceNowMode,
+  z.ZodTypeDef,
+  OutputServiceNowMode
+> = z.union([
+  z.nativeEnum(OutputServiceNowMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

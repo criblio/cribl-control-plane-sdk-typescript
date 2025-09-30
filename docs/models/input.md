@@ -2417,6 +2417,7 @@ const value: models.InputModelDrivenTelemetry = {
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
+    passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     rejectUnauthorized: "<value>",
