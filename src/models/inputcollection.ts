@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputCollectionMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputCollectionMode = ClosedEnum<typeof InputCollectionMode>;
+export type InputCollectionMode = OpenEnum<typeof InputCollectionMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputCollectionCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputCollectionCompression = ClosedEnum<
+export type InputCollectionCompression = OpenEnum<
   typeof InputCollectionCompression
 >;
 
@@ -232,14 +237,25 @@ export function inputCollectionConnectionFromJSON(
 }
 
 /** @internal */
-export const InputCollectionMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionMode
-> = z.nativeEnum(InputCollectionMode);
+export const InputCollectionMode$inboundSchema: z.ZodType<
+  InputCollectionMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCollectionMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCollectionMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionMode
-> = InputCollectionMode$inboundSchema;
+export const InputCollectionMode$outboundSchema: z.ZodType<
+  InputCollectionMode,
+  z.ZodTypeDef,
+  InputCollectionMode
+> = z.union([
+  z.nativeEnum(InputCollectionMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -253,14 +269,25 @@ export namespace InputCollectionMode$ {
 }
 
 /** @internal */
-export const InputCollectionCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionCompression
-> = z.nativeEnum(InputCollectionCompression);
+export const InputCollectionCompression$inboundSchema: z.ZodType<
+  InputCollectionCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCollectionCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCollectionCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionCompression
-> = InputCollectionCompression$inboundSchema;
+export const InputCollectionCompression$outboundSchema: z.ZodType<
+  InputCollectionCompression,
+  z.ZodTypeDef,
+  InputCollectionCompression
+> = z.union([
+  z.nativeEnum(InputCollectionCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

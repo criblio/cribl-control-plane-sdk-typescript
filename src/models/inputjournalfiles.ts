@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputJournalFilesMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputJournalFilesMode = ClosedEnum<typeof InputJournalFilesMode>;
+export type InputJournalFilesMode = OpenEnum<typeof InputJournalFilesMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputJournalFilesCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputJournalFilesCompression = ClosedEnum<
+export type InputJournalFilesCompression = OpenEnum<
   typeof InputJournalFilesCompression
 >;
 
@@ -241,14 +246,25 @@ export function inputJournalFilesConnectionFromJSON(
 }
 
 /** @internal */
-export const InputJournalFilesMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputJournalFilesMode
-> = z.nativeEnum(InputJournalFilesMode);
+export const InputJournalFilesMode$inboundSchema: z.ZodType<
+  InputJournalFilesMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputJournalFilesMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputJournalFilesMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputJournalFilesMode
-> = InputJournalFilesMode$inboundSchema;
+export const InputJournalFilesMode$outboundSchema: z.ZodType<
+  InputJournalFilesMode,
+  z.ZodTypeDef,
+  InputJournalFilesMode
+> = z.union([
+  z.nativeEnum(InputJournalFilesMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -262,14 +278,25 @@ export namespace InputJournalFilesMode$ {
 }
 
 /** @internal */
-export const InputJournalFilesCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputJournalFilesCompression
-> = z.nativeEnum(InputJournalFilesCompression);
+export const InputJournalFilesCompression$inboundSchema: z.ZodType<
+  InputJournalFilesCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputJournalFilesCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputJournalFilesCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputJournalFilesCompression
-> = InputJournalFilesCompression$inboundSchema;
+export const InputJournalFilesCompression$outboundSchema: z.ZodType<
+  InputJournalFilesCompression,
+  z.ZodTypeDef,
+  InputJournalFilesCompression
+> = z.union([
+  z.nativeEnum(InputJournalFilesCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

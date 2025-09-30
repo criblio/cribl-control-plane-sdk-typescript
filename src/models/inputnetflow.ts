@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputNetflowMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputNetflowMode = ClosedEnum<typeof InputNetflowMode>;
+export type InputNetflowMode = OpenEnum<typeof InputNetflowMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,9 +45,7 @@ export const InputNetflowCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputNetflowCompression = ClosedEnum<
-  typeof InputNetflowCompression
->;
+export type InputNetflowCompression = OpenEnum<typeof InputNetflowCompression>;
 
 export type InputNetflowPqControls = {};
 
@@ -244,14 +247,25 @@ export function inputNetflowConnectionFromJSON(
 }
 
 /** @internal */
-export const InputNetflowMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputNetflowMode
-> = z.nativeEnum(InputNetflowMode);
+export const InputNetflowMode$inboundSchema: z.ZodType<
+  InputNetflowMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputNetflowMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputNetflowMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputNetflowMode
-> = InputNetflowMode$inboundSchema;
+export const InputNetflowMode$outboundSchema: z.ZodType<
+  InputNetflowMode,
+  z.ZodTypeDef,
+  InputNetflowMode
+> = z.union([
+  z.nativeEnum(InputNetflowMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -265,14 +279,25 @@ export namespace InputNetflowMode$ {
 }
 
 /** @internal */
-export const InputNetflowCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputNetflowCompression
-> = z.nativeEnum(InputNetflowCompression);
+export const InputNetflowCompression$inboundSchema: z.ZodType<
+  InputNetflowCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputNetflowCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputNetflowCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputNetflowCompression
-> = InputNetflowCompression$inboundSchema;
+export const InputNetflowCompression$outboundSchema: z.ZodType<
+  InputNetflowCompression,
+  z.ZodTypeDef,
+  InputNetflowCompression
+> = z.union([
+  z.nativeEnum(InputNetflowCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

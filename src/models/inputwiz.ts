@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputWizMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputWizMode = ClosedEnum<typeof InputWizMode>;
+export type InputWizMode = OpenEnum<typeof InputWizMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputWizCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputWizCompression = ClosedEnum<typeof InputWizCompression>;
+export type InputWizCompression = OpenEnum<typeof InputWizCompression>;
 
 export type InputWizPqControls = {};
 
@@ -104,7 +109,7 @@ export const InputWizRetryType = {
 /**
  * The algorithm to use when performing HTTP retries
  */
-export type InputWizRetryType = ClosedEnum<typeof InputWizRetryType>;
+export type InputWizRetryType = OpenEnum<typeof InputWizRetryType>;
 
 export type InputWizRetryRules = {
   /**
@@ -151,7 +156,7 @@ export const InputWizAuthenticationMethod = {
 /**
  * Enter client secret directly, or select a stored secret
  */
-export type InputWizAuthenticationMethod = ClosedEnum<
+export type InputWizAuthenticationMethod = OpenEnum<
   typeof InputWizAuthenticationMethod
 >;
 
@@ -321,12 +326,25 @@ export function inputWizConnectionFromJSON(
 }
 
 /** @internal */
-export const InputWizMode$inboundSchema: z.ZodNativeEnum<typeof InputWizMode> =
-  z.nativeEnum(InputWizMode);
+export const InputWizMode$inboundSchema: z.ZodType<
+  InputWizMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWizMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWizMode$outboundSchema: z.ZodNativeEnum<typeof InputWizMode> =
-  InputWizMode$inboundSchema;
+export const InputWizMode$outboundSchema: z.ZodType<
+  InputWizMode,
+  z.ZodTypeDef,
+  InputWizMode
+> = z.union([
+  z.nativeEnum(InputWizMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -340,14 +358,25 @@ export namespace InputWizMode$ {
 }
 
 /** @internal */
-export const InputWizCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputWizCompression
-> = z.nativeEnum(InputWizCompression);
+export const InputWizCompression$inboundSchema: z.ZodType<
+  InputWizCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWizCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWizCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputWizCompression
-> = InputWizCompression$inboundSchema;
+export const InputWizCompression$outboundSchema: z.ZodType<
+  InputWizCompression,
+  z.ZodTypeDef,
+  InputWizCompression
+> = z.union([
+  z.nativeEnum(InputWizCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -597,14 +626,25 @@ export function inputWizMetadatumFromJSON(
 }
 
 /** @internal */
-export const InputWizRetryType$inboundSchema: z.ZodNativeEnum<
-  typeof InputWizRetryType
-> = z.nativeEnum(InputWizRetryType);
+export const InputWizRetryType$inboundSchema: z.ZodType<
+  InputWizRetryType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWizRetryType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWizRetryType$outboundSchema: z.ZodNativeEnum<
-  typeof InputWizRetryType
-> = InputWizRetryType$inboundSchema;
+export const InputWizRetryType$outboundSchema: z.ZodType<
+  InputWizRetryType,
+  z.ZodTypeDef,
+  InputWizRetryType
+> = z.union([
+  z.nativeEnum(InputWizRetryType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -693,14 +733,25 @@ export function inputWizRetryRulesFromJSON(
 }
 
 /** @internal */
-export const InputWizAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof InputWizAuthenticationMethod
-> = z.nativeEnum(InputWizAuthenticationMethod);
+export const InputWizAuthenticationMethod$inboundSchema: z.ZodType<
+  InputWizAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWizAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWizAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof InputWizAuthenticationMethod
-> = InputWizAuthenticationMethod$inboundSchema;
+export const InputWizAuthenticationMethod$outboundSchema: z.ZodType<
+  InputWizAuthenticationMethod,
+  z.ZodTypeDef,
+  InputWizAuthenticationMethod
+> = z.union([
+  z.nativeEnum(InputWizAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

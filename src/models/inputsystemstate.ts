@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputSystemStateMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSystemStateMode = ClosedEnum<typeof InputSystemStateMode>;
+export type InputSystemStateMode = OpenEnum<typeof InputSystemStateMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputSystemStateCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSystemStateCompression = ClosedEnum<
+export type InputSystemStateCompression = OpenEnum<
   typeof InputSystemStateCompression
 >;
 
@@ -214,7 +219,7 @@ export const InputSystemStateDataCompressionFormat = {
   None: "none",
   Gzip: "gzip",
 } as const;
-export type InputSystemStateDataCompressionFormat = ClosedEnum<
+export type InputSystemStateDataCompressionFormat = OpenEnum<
   typeof InputSystemStateDataCompressionFormat
 >;
 
@@ -370,14 +375,25 @@ export function inputSystemStateConnectionFromJSON(
 }
 
 /** @internal */
-export const InputSystemStateMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateMode
-> = z.nativeEnum(InputSystemStateMode);
+export const InputSystemStateMode$inboundSchema: z.ZodType<
+  InputSystemStateMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemStateMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSystemStateMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateMode
-> = InputSystemStateMode$inboundSchema;
+export const InputSystemStateMode$outboundSchema: z.ZodType<
+  InputSystemStateMode,
+  z.ZodTypeDef,
+  InputSystemStateMode
+> = z.union([
+  z.nativeEnum(InputSystemStateMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -391,14 +407,25 @@ export namespace InputSystemStateMode$ {
 }
 
 /** @internal */
-export const InputSystemStateCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateCompression
-> = z.nativeEnum(InputSystemStateCompression);
+export const InputSystemStateCompression$inboundSchema: z.ZodType<
+  InputSystemStateCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemStateCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSystemStateCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateCompression
-> = InputSystemStateCompression$inboundSchema;
+export const InputSystemStateCompression$outboundSchema: z.ZodType<
+  InputSystemStateCompression,
+  z.ZodTypeDef,
+  InputSystemStateCompression
+> = z.union([
+  z.nativeEnum(InputSystemStateCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1225,15 +1252,25 @@ export function collectorsFromJSON(
 }
 
 /** @internal */
-export const InputSystemStateDataCompressionFormat$inboundSchema:
-  z.ZodNativeEnum<typeof InputSystemStateDataCompressionFormat> = z.nativeEnum(
-    InputSystemStateDataCompressionFormat,
-  );
+export const InputSystemStateDataCompressionFormat$inboundSchema: z.ZodType<
+  InputSystemStateDataCompressionFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemStateDataCompressionFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSystemStateDataCompressionFormat$outboundSchema:
-  z.ZodNativeEnum<typeof InputSystemStateDataCompressionFormat> =
-    InputSystemStateDataCompressionFormat$inboundSchema;
+export const InputSystemStateDataCompressionFormat$outboundSchema: z.ZodType<
+  InputSystemStateDataCompressionFormat,
+  z.ZodTypeDef,
+  InputSystemStateDataCompressionFormat
+> = z.union([
+  z.nativeEnum(InputSystemStateDataCompressionFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
