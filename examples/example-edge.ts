@@ -146,16 +146,15 @@ async function main() {
   await cribl.routes.update({ id: routes.id, routes }, { serverURL: groupUrl });
   console.log(`✅ Route added: ${route.id}`);
 
-  // Deploy configuration changes
-  const response = await cribl.groups.configs.versions.get({
-    id: myFleet.id,
-    product: "edge",
+  // Commit configuration changes
+  const commitResponse = await cribl.versions.commits.create({ groupId: myFleet.id, gitCommitParams: {
+    message: "Commit for Edge example", effective: true, files: ["."]}
   });
-  if (!response.items) {
-    throw new Error("No version found");
-  }
-  const version: string = response.items[0];
 
+  const version: string = commitResponse.items![0].commit;
+  console.log(`✅ Committed configuration changes to the fleet: ${myFleet.id}, commit ID: ${version}`);
+
+  // Deploy configuration changes
   await cribl.groups.deploy({
     product: "edge",
     id: myFleet.id,
