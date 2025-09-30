@@ -10,6 +10,8 @@ let value: WorkerTypes = "managed-edge";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"worker" | "managed-edge"
+"worker" | "managed-edge" | Unrecognized<string>
 ```

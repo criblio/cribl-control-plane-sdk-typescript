@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputWinEventLogsMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputWinEventLogsMode = ClosedEnum<typeof InputWinEventLogsMode>;
+export type InputWinEventLogsMode = OpenEnum<typeof InputWinEventLogsMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputWinEventLogsCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputWinEventLogsCompression = ClosedEnum<
+export type InputWinEventLogsCompression = OpenEnum<
   typeof InputWinEventLogsCompression
 >;
 
@@ -88,7 +93,7 @@ export const ReadMode = {
 /**
  * Read all stored and future event logs, or only future events
  */
-export type ReadMode = ClosedEnum<typeof ReadMode>;
+export type ReadMode = OpenEnum<typeof ReadMode>;
 
 /**
  * Format of individual events
@@ -100,7 +105,7 @@ export const EventFormat = {
 /**
  * Format of individual events
  */
-export type EventFormat = ClosedEnum<typeof EventFormat>;
+export type EventFormat = OpenEnum<typeof EventFormat>;
 
 export type InputWinEventLogsMetadatum = {
   name: string;
@@ -258,14 +263,25 @@ export function inputWinEventLogsConnectionFromJSON(
 }
 
 /** @internal */
-export const InputWinEventLogsMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputWinEventLogsMode
-> = z.nativeEnum(InputWinEventLogsMode);
+export const InputWinEventLogsMode$inboundSchema: z.ZodType<
+  InputWinEventLogsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWinEventLogsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWinEventLogsMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputWinEventLogsMode
-> = InputWinEventLogsMode$inboundSchema;
+export const InputWinEventLogsMode$outboundSchema: z.ZodType<
+  InputWinEventLogsMode,
+  z.ZodTypeDef,
+  InputWinEventLogsMode
+> = z.union([
+  z.nativeEnum(InputWinEventLogsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -279,14 +295,25 @@ export namespace InputWinEventLogsMode$ {
 }
 
 /** @internal */
-export const InputWinEventLogsCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputWinEventLogsCompression
-> = z.nativeEnum(InputWinEventLogsCompression);
+export const InputWinEventLogsCompression$inboundSchema: z.ZodType<
+  InputWinEventLogsCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWinEventLogsCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputWinEventLogsCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputWinEventLogsCompression
-> = InputWinEventLogsCompression$inboundSchema;
+export const InputWinEventLogsCompression$outboundSchema: z.ZodType<
+  InputWinEventLogsCompression,
+  z.ZodTypeDef,
+  InputWinEventLogsCompression
+> = z.union([
+  z.nativeEnum(InputWinEventLogsCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -427,12 +454,25 @@ export function inputWinEventLogsPqFromJSON(
 }
 
 /** @internal */
-export const ReadMode$inboundSchema: z.ZodNativeEnum<typeof ReadMode> = z
-  .nativeEnum(ReadMode);
+export const ReadMode$inboundSchema: z.ZodType<
+  ReadMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReadMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const ReadMode$outboundSchema: z.ZodNativeEnum<typeof ReadMode> =
-  ReadMode$inboundSchema;
+export const ReadMode$outboundSchema: z.ZodType<
+  ReadMode,
+  z.ZodTypeDef,
+  ReadMode
+> = z.union([
+  z.nativeEnum(ReadMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -446,12 +486,25 @@ export namespace ReadMode$ {
 }
 
 /** @internal */
-export const EventFormat$inboundSchema: z.ZodNativeEnum<typeof EventFormat> = z
-  .nativeEnum(EventFormat);
+export const EventFormat$inboundSchema: z.ZodType<
+  EventFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EventFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const EventFormat$outboundSchema: z.ZodNativeEnum<typeof EventFormat> =
-  EventFormat$inboundSchema;
+export const EventFormat$outboundSchema: z.ZodType<
+  EventFormat,
+  z.ZodTypeDef,
+  EventFormat
+> = z.union([
+  z.nativeEnum(EventFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
