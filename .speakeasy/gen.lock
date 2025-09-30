@@ -3,10 +3,10 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 2bde1728e7e8cedb080adc4cf5fbe15c
   docVersion: 4.14.1-alpha.1758626754698-b3680673
-  speakeasyVersion: 1.630.0
-  generationVersion: 2.716.10
-  releaseVersion: 0.1.0-alpha.1
-  configChecksum: fab03b69fb403a6929a6420fbf029fdc
+  speakeasyVersion: 1.631.5
+  generationVersion: 2.716.16
+  releaseVersion: 0.1.0-alpha.2
+  configChecksum: 78972d60ea26df9978b368afe3b805bd
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3328,4 +3328,3 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.push()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.health.get()`:  `response.status[default]` **Added** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.[inputModelDrivenTelemetry].tls.passphrase` **Added**\n  *  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.sources.get()`:  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n* `criblcontrolplane.sources.create()`: \n  *  `request.[inputModelDrivenTelemetry].tls.passphrase` **Added**\n  *  `response.items.[].[inputModelDrivenTelemetry].tls.passphrase` **Added**\n"
