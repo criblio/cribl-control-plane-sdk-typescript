@@ -6,6 +6,7 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetVersionShowRequest = {
   /**
@@ -27,14 +28,14 @@ export type GetVersionShowRequest = {
 };
 
 /**
- * a list of any objects
+ * a list of GitShowResult objects
  */
 export type GetVersionShowResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.GitShowResult> | undefined;
 };
 
 /** @internal */
@@ -107,13 +108,13 @@ export const GetVersionShowResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.GitShowResult$inboundSchema).optional(),
 });
 
 /** @internal */
 export type GetVersionShowResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<models.GitShowResult$Outbound> | undefined;
 };
 
 /** @internal */
@@ -123,7 +124,7 @@ export const GetVersionShowResponse$outboundSchema: z.ZodType<
   GetVersionShowResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(models.GitShowResult$outboundSchema).optional(),
 });
 
 /**

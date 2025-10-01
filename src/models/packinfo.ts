@@ -16,6 +16,7 @@ export type PackInfoTags = {
 
 export type PackInfo = {
   author?: string | undefined;
+  dependencies?: { [k: string]: string } | undefined;
   description?: string | undefined;
   displayName?: string | undefined;
   exports?: Array<string> | undefined;
@@ -97,6 +98,7 @@ export const PackInfo$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   author: z.string().optional(),
+  dependencies: z.record(z.string()).optional(),
   description: z.string().optional(),
   displayName: z.string().optional(),
   exports: z.array(z.string()).optional(),
@@ -115,6 +117,7 @@ export const PackInfo$inboundSchema: z.ZodType<
 /** @internal */
 export type PackInfo$Outbound = {
   author?: string | undefined;
+  dependencies?: { [k: string]: string } | undefined;
   description?: string | undefined;
   displayName?: string | undefined;
   exports?: Array<string> | undefined;
@@ -137,6 +140,7 @@ export const PackInfo$outboundSchema: z.ZodType<
   PackInfo
 > = z.object({
   author: z.string().optional(),
+  dependencies: z.record(z.string()).optional(),
   description: z.string().optional(),
   displayName: z.string().optional(),
   exports: z.array(z.string()).optional(),
