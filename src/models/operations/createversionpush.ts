@@ -8,14 +8,14 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * a list of any objects
+ * a list of string objects
  */
 export type CreateVersionPushResponse = {
   /**
    * number of items present in the items array
    */
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -25,13 +25,13 @@ export const CreateVersionPushResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type CreateVersionPushResponse$Outbound = {
   count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
+  items?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -41,7 +41,7 @@ export const CreateVersionPushResponse$outboundSchema: z.ZodType<
   CreateVersionPushResponse
 > = z.object({
   count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
+  items: z.array(z.string()).optional(),
 });
 
 /**

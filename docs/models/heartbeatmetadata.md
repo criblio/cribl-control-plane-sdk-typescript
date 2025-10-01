@@ -17,8 +17,9 @@ let value: HeartbeatMetadata = {
     addresses: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
-    enabled: false,
+    enabled: true,
     id: "<id>",
     version: "<value>",
   },
@@ -35,7 +36,7 @@ let value: HeartbeatMetadata = {
   },
   os: {
     addresses: [],
-    enabled: false,
+    enabled: true,
     id: "<id>",
     version: "<value>",
   },

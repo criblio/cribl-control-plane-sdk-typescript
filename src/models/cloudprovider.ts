@@ -3,23 +3,38 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 
 export const CloudProvider = {
   Aws: "aws",
   Azure: "azure",
 } as const;
-export type CloudProvider = ClosedEnum<typeof CloudProvider>;
+export type CloudProvider = OpenEnum<typeof CloudProvider>;
 
 /** @internal */
-export const CloudProvider$inboundSchema: z.ZodNativeEnum<
-  typeof CloudProvider
-> = z.nativeEnum(CloudProvider);
+export const CloudProvider$inboundSchema: z.ZodType<
+  CloudProvider,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(CloudProvider),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const CloudProvider$outboundSchema: z.ZodNativeEnum<
-  typeof CloudProvider
-> = CloudProvider$inboundSchema;
+export const CloudProvider$outboundSchema: z.ZodType<
+  CloudProvider,
+  z.ZodTypeDef,
+  CloudProvider
+> = z.union([
+  z.nativeEnum(CloudProvider),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

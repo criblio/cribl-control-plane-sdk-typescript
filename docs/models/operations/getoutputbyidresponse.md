@@ -27,6 +27,7 @@ let value: GetOutputByIdResponse = {
       ],
       logLocationType: "project",
       logNameExpression: "<value>",
+      sanitizeLogNames: false,
       payloadFormat: "text",
       logLabels: [
         {

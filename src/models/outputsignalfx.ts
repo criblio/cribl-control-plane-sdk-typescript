@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -23,7 +28,7 @@ export const OutputSignalfxAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type OutputSignalfxAuthenticationMethod = ClosedEnum<
+export type OutputSignalfxAuthenticationMethod = OpenEnum<
   typeof OutputSignalfxAuthenticationMethod
 >;
 
@@ -43,7 +48,7 @@ export const OutputSignalfxFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputSignalfxFailedRequestLoggingMode = ClosedEnum<
+export type OutputSignalfxFailedRequestLoggingMode = OpenEnum<
   typeof OutputSignalfxFailedRequestLoggingMode
 >;
 
@@ -93,7 +98,7 @@ export const OutputSignalfxBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputSignalfxBackpressureBehavior = ClosedEnum<
+export type OutputSignalfxBackpressureBehavior = OpenEnum<
   typeof OutputSignalfxBackpressureBehavior
 >;
 
@@ -107,7 +112,7 @@ export const OutputSignalfxCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputSignalfxCompression = ClosedEnum<
+export type OutputSignalfxCompression = OpenEnum<
   typeof OutputSignalfxCompression
 >;
 
@@ -121,7 +126,7 @@ export const OutputSignalfxQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputSignalfxQueueFullBehavior = ClosedEnum<
+export type OutputSignalfxQueueFullBehavior = OpenEnum<
   typeof OutputSignalfxQueueFullBehavior
 >;
 
@@ -136,7 +141,7 @@ export const OutputSignalfxMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputSignalfxMode = ClosedEnum<typeof OutputSignalfxMode>;
+export type OutputSignalfxMode = OpenEnum<typeof OutputSignalfxMode>;
 
 export type OutputSignalfxPqControls = {};
 
@@ -289,14 +294,25 @@ export namespace OutputSignalfxType$ {
 }
 
 /** @internal */
-export const OutputSignalfxAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxAuthenticationMethod
-> = z.nativeEnum(OutputSignalfxAuthenticationMethod);
+export const OutputSignalfxAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputSignalfxAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSignalfxAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSignalfxAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxAuthenticationMethod
-> = OutputSignalfxAuthenticationMethod$inboundSchema;
+export const OutputSignalfxAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputSignalfxAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputSignalfxAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputSignalfxAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -370,15 +386,25 @@ export function outputSignalfxExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputSignalfxFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputSignalfxFailedRequestLoggingMode> = z.nativeEnum(
-    OutputSignalfxFailedRequestLoggingMode,
-  );
+export const OutputSignalfxFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputSignalfxFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSignalfxFailedRequestLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSignalfxFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputSignalfxFailedRequestLoggingMode> =
-    OutputSignalfxFailedRequestLoggingMode$inboundSchema;
+export const OutputSignalfxFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  OutputSignalfxFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  OutputSignalfxFailedRequestLoggingMode
+> = z.union([
+  z.nativeEnum(OutputSignalfxFailedRequestLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -528,14 +554,25 @@ export function outputSignalfxTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputSignalfxBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxBackpressureBehavior
-> = z.nativeEnum(OutputSignalfxBackpressureBehavior);
+export const OutputSignalfxBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputSignalfxBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSignalfxBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSignalfxBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxBackpressureBehavior
-> = OutputSignalfxBackpressureBehavior$inboundSchema;
+export const OutputSignalfxBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputSignalfxBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputSignalfxBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputSignalfxBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -550,14 +587,25 @@ export namespace OutputSignalfxBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputSignalfxCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxCompression
-> = z.nativeEnum(OutputSignalfxCompression);
+export const OutputSignalfxCompression$inboundSchema: z.ZodType<
+  OutputSignalfxCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSignalfxCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSignalfxCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxCompression
-> = OutputSignalfxCompression$inboundSchema;
+export const OutputSignalfxCompression$outboundSchema: z.ZodType<
+  OutputSignalfxCompression,
+  z.ZodTypeDef,
+  OutputSignalfxCompression
+> = z.union([
+  z.nativeEnum(OutputSignalfxCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -571,14 +619,25 @@ export namespace OutputSignalfxCompression$ {
 }
 
 /** @internal */
-export const OutputSignalfxQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxQueueFullBehavior
-> = z.nativeEnum(OutputSignalfxQueueFullBehavior);
+export const OutputSignalfxQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSignalfxQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSignalfxQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSignalfxQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxQueueFullBehavior
-> = OutputSignalfxQueueFullBehavior$inboundSchema;
+export const OutputSignalfxQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputSignalfxQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputSignalfxQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputSignalfxQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -592,14 +651,25 @@ export namespace OutputSignalfxQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputSignalfxMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxMode
-> = z.nativeEnum(OutputSignalfxMode);
+export const OutputSignalfxMode$inboundSchema: z.ZodType<
+  OutputSignalfxMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSignalfxMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSignalfxMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxMode
-> = OutputSignalfxMode$inboundSchema;
+export const OutputSignalfxMode$outboundSchema: z.ZodType<
+  OutputSignalfxMode,
+  z.ZodTypeDef,
+  OutputSignalfxMode
+> = z.union([
+  z.nativeEnum(OutputSignalfxMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

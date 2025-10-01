@@ -39,24 +39,26 @@ let value: NodeProvidedInfo = {
       tls: true,
     },
     pid: 5354.01,
-    startTime: 8148.45,
+    socksEnabled: false,
+    startTime: 2370.83,
     tags: [],
     version: "<value>",
   },
-  freeDiskSpace: 6220.45,
+  env: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
+  freeDiskSpace: 6937.14,
   hostOs: {
-    addresses: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    enabled: false,
+    addresses: [],
+    enabled: true,
     id: "<id>",
     version: "<value>",
   },
-  hostname: "round-squid.org",
+  hostname: "tender-thigh.com",
   isSaasWorker: true,
   kube: {
-    enabled: true,
+    enabled: false,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -66,7 +68,7 @@ let value: NodeProvidedInfo = {
     pod: "<value>",
     source: "<value>",
   },
-  localTime: 1451.52,
+  localTime: 813.42,
   metadata: {
     aws: {
       enabled: false,
@@ -79,8 +81,9 @@ let value: NodeProvidedInfo = {
       addresses: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
@@ -97,7 +100,7 @@ let value: NodeProvidedInfo = {
     },
     os: {
       addresses: [],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
@@ -106,15 +109,14 @@ let value: NodeProvidedInfo = {
   os: {
     addresses: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
-    enabled: false,
-    id: "<id>",
-    version: "<value>",
   },
   platform: "<value>",
   release: "<value>",
-  totalDiskSpace: 7682.09,
-  totalmem: 4145.33,
+  totalDiskSpace: 4145.33,
+  totalmem: 5590.59,
 };
 ```
 
@@ -127,6 +129,7 @@ let value: NodeProvidedInfo = {
 | `connIp`                                                             | *string*                                                             | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `cpus`                                                               | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `cribl`                                                              | [models.HBCriblInfo](../models/hbcriblinfo.md)                       | :heavy_check_mark:                                                   | N/A                                                                  |
+| `env`                                                                | Record<string, *string*>                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `freeDiskSpace`                                                      | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `hostOs`                                                             | [models.NodeProvidedInfoHostOs](../models/nodeprovidedinfohostos.md) | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `hostname`                                                           | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
