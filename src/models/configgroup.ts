@@ -30,6 +30,19 @@ import {
 } from "./configgrouplookups.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+export const EstimatedIngestRate = {
+  OneThousandAndTwentyFour: 1024,
+  FourThousandAndNinetySix: 4096,
+  TenThousandTwoHundredAndForty: 10240,
+  TwoThousandAndFortyEight: 2048,
+  ThreeThousandAndSeventyTwo: 3072,
+  FiveThousandOneHundredAndTwenty: 5120,
+  SevenThousandOneHundredAndSixtyEight: 7168,
+  ThirteenThousandThreeHundredAndTwelve: 13312,
+  FifteenThousandThreeHundredAndSixty: 15360,
+} as const;
+export type EstimatedIngestRate = OpenEnum<typeof EstimatedIngestRate>;
+
 export type Git = {
   commit?: string | undefined;
   localChanges?: number | undefined;
@@ -46,7 +59,7 @@ export type ConfigGroup = {
   configVersion?: string | undefined;
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
-  estimatedIngestRate?: number | undefined;
+  estimatedIngestRate?: EstimatedIngestRate | undefined;
   git?: Git | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
@@ -65,6 +78,38 @@ export type ConfigGroup = {
   workerCount?: number | undefined;
   workerRemoteAccess?: boolean | undefined;
 };
+
+/** @internal */
+export const EstimatedIngestRate$inboundSchema: z.ZodType<
+  EstimatedIngestRate,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EstimatedIngestRate),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const EstimatedIngestRate$outboundSchema: z.ZodType<
+  EstimatedIngestRate,
+  z.ZodTypeDef,
+  EstimatedIngestRate
+> = z.union([
+  z.nativeEnum(EstimatedIngestRate),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace EstimatedIngestRate$ {
+  /** @deprecated use `EstimatedIngestRate$inboundSchema` instead. */
+  export const inboundSchema = EstimatedIngestRate$inboundSchema;
+  /** @deprecated use `EstimatedIngestRate$outboundSchema` instead. */
+  export const outboundSchema = EstimatedIngestRate$outboundSchema;
+}
 
 /** @internal */
 export const Git$inboundSchema: z.ZodType<Git, z.ZodTypeDef, unknown> = z
@@ -158,7 +203,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: z.number().optional(),
+  estimatedIngestRate: EstimatedIngestRate$inboundSchema.optional(),
   git: z.lazy(() => Git$inboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
@@ -214,7 +259,7 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: z.number().optional(),
+  estimatedIngestRate: EstimatedIngestRate$outboundSchema.optional(),
   git: z.lazy(() => Git$outboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),

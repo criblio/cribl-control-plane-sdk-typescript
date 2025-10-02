@@ -75,69 +75,6 @@ export type OutputDatabricksAuthenticationMethod = OpenEnum<
   typeof OutputDatabricksAuthenticationMethod
 >;
 
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputDatabricksCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputDatabricksCompression = OpenEnum<
-  typeof OutputDatabricksCompression
->;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputDatabricksCompressionLevel = {
-  BestSpeed: "best_speed",
-  Normal: "normal",
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputDatabricksCompressionLevel = OpenEnum<
-  typeof OutputDatabricksCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputDatabricksParquetVersion = {
-  Parquet10: "PARQUET_1_0",
-  Parquet24: "PARQUET_2_4",
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputDatabricksParquetVersion = OpenEnum<
-  typeof OutputDatabricksParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputDatabricksDataPageVersion = {
-  DataPageV1: "DATA_PAGE_V1",
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputDatabricksDataPageVersion = OpenEnum<
-  typeof OutputDatabricksDataPageVersion
->;
-
-export type OutputDatabricksKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
 export type OutputDatabricks = {
   /**
    * Unique ID for this output
@@ -235,19 +172,7 @@ export type OutputDatabricks = {
   /**
    * URL for Unity Catalog OAuth token endpoint (example: 'https://your-workspace.cloud.databricks.com/oauth/token')
    */
-  loginUrl?: string | undefined;
-  /**
-   * JavaScript expression to compute the OAuth client ID for Unity Catalog authentication. Can be a constant.
-   */
-  clientId?: string | undefined;
-  /**
-   * JavaScript expression to compute the OAuth client secret for Unity Catalog authentication. Can be a constant.
-   */
-  clientSecret?: string | undefined;
-  /**
-   * Select or create a stored secret that references your Client ID and Client Secret
-   */
-  clientTextSecret?: string | undefined;
+  loginUrl: string;
   /**
    * OAuth scope for Unity Catalog authentication
    */
@@ -269,70 +194,22 @@ export type OutputDatabricks = {
    */
   eventsVolumeName?: string | undefined;
   /**
+   * JavaScript expression to compute the OAuth client ID for Unity Catalog authentication. Can be a constant.
+   */
+  clientId: string;
+  /**
    * Uploaded files should be overwritten if they already exist. If disabled, upload will fail if a file already exists.
    */
   overWriteFiles?: boolean | undefined;
   description?: string | undefined;
   /**
-   * Data compression format to apply to HTTP content before it is delivered
+   * JavaScript expression to compute the OAuth client secret for Unity Catalog authentication. Can be a constant.
    */
-  compress?: OutputDatabricksCompression | undefined;
+  clientSecret?: string | undefined;
   /**
-   * Compression level to apply before moving files to final destination
+   * Select or create a stored text secret
    */
-  compressionLevel?: OutputDatabricksCompressionLevel | undefined;
-  /**
-   * Automatically calculate the schema based on the events of each Parquet file generated
-   */
-  automaticSchema?: boolean | undefined;
-  /**
-   * Determines which data types are supported and how they are represented
-   */
-  parquetVersion?: OutputDatabricksParquetVersion | undefined;
-  /**
-   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
-   */
-  parquetDataPageVersion?: OutputDatabricksDataPageVersion | undefined;
-  /**
-   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
-   */
-  parquetRowGroupLength?: number | undefined;
-  /**
-   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
-   */
-  parquetPageSize?: string | undefined;
-  /**
-   * Log up to 3 rows that @{product} skips due to data mismatch
-   */
-  shouldLogInvalidRows?: boolean | undefined;
-  /**
-   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-   */
-  keyValueMetadata?: Array<OutputDatabricksKeyValueMetadatum> | undefined;
-  /**
-   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
-   */
-  enableStatistics?: boolean | undefined;
-  /**
-   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
-   */
-  enableWritePageIndex?: boolean | undefined;
-  /**
-   * Parquet tools can use the checksum of a Parquet page to verify data integrity
-   */
-  enablePageChecksum?: boolean | undefined;
-  /**
-   * How frequently, in seconds, to clean up empty directories
-   */
-  emptyDirCleanupSec?: number | undefined;
-  /**
-   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
-   */
-  deadletterPath?: string | undefined;
-  /**
-   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
-   */
-  maxRetryNum?: number | undefined;
+  clientTextSecret?: string | undefined;
 };
 
 /** @internal */
@@ -491,194 +368,6 @@ export namespace OutputDatabricksAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputDatabricksCompression$inboundSchema: z.ZodType<
-  OutputDatabricksCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatabricksCompression$outboundSchema: z.ZodType<
-  OutputDatabricksCompression,
-  z.ZodTypeDef,
-  OutputDatabricksCompression
-> = z.union([
-  z.nativeEnum(OutputDatabricksCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksCompression$ {
-  /** @deprecated use `OutputDatabricksCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksCompression$inboundSchema;
-  /** @deprecated use `OutputDatabricksCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatabricksCompressionLevel$inboundSchema: z.ZodType<
-  OutputDatabricksCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatabricksCompressionLevel$outboundSchema: z.ZodType<
-  OutputDatabricksCompressionLevel,
-  z.ZodTypeDef,
-  OutputDatabricksCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputDatabricksCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksCompressionLevel$ {
-  /** @deprecated use `OutputDatabricksCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputDatabricksCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksCompressionLevel$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatabricksParquetVersion$inboundSchema: z.ZodType<
-  OutputDatabricksParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatabricksParquetVersion$outboundSchema: z.ZodType<
-  OutputDatabricksParquetVersion,
-  z.ZodTypeDef,
-  OutputDatabricksParquetVersion
-> = z.union([
-  z.nativeEnum(OutputDatabricksParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksParquetVersion$ {
-  /** @deprecated use `OutputDatabricksParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksParquetVersion$inboundSchema;
-  /** @deprecated use `OutputDatabricksParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksParquetVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatabricksDataPageVersion$inboundSchema: z.ZodType<
-  OutputDatabricksDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatabricksDataPageVersion$outboundSchema: z.ZodType<
-  OutputDatabricksDataPageVersion,
-  z.ZodTypeDef,
-  OutputDatabricksDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputDatabricksDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksDataPageVersion$ {
-  /** @deprecated use `OutputDatabricksDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputDatabricksDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksDataPageVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatabricksKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputDatabricksKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputDatabricksKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputDatabricksKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputDatabricksKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputDatabricksKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksKeyValueMetadatum$ {
-  /** @deprecated use `OutputDatabricksKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputDatabricksKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatabricksKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputDatabricksKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputDatabricksKeyValueMetadatum$Outbound;
-}
-
-export function outputDatabricksKeyValueMetadatumToJSON(
-  outputDatabricksKeyValueMetadatum: OutputDatabricksKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputDatabricksKeyValueMetadatum$outboundSchema.parse(
-      outputDatabricksKeyValueMetadatum,
-    ),
-  );
-}
-
-export function outputDatabricksKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatabricksKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatabricksKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatabricksKeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const OutputDatabricks$inboundSchema: z.ZodType<
   OutputDatabricks,
   z.ZodTypeDef,
@@ -717,40 +406,17 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   unityAuthMethod: OutputDatabricksAuthenticationMethod$inboundSchema.default(
     "manual",
   ),
-  loginUrl: z.string().optional(),
-  clientId: z.string().optional(),
-  clientSecret: z.string().optional(),
-  clientTextSecret: z.string().optional(),
+  loginUrl: z.string(),
   scope: z.string().default("all-apis"),
   tokenTimeoutSecs: z.number().default(3600),
   defaultCatalog: z.string().default("main"),
   defaultSchema: z.string().default("external"),
   eventsVolumeName: z.string().default("events"),
+  clientId: z.string(),
   overWriteFiles: z.boolean().default(false),
   description: z.string().optional(),
-  compress: OutputDatabricksCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputDatabricksCompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputDatabricksParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputDatabricksDataPageVersion$inboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputDatabricksKeyValueMetadatum$inboundSchema),
-  ).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  clientSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
 });
 
 /** @internal */
@@ -779,34 +445,17 @@ export type OutputDatabricks$Outbound = {
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
   unityAuthMethod: string;
-  loginUrl?: string | undefined;
-  clientId?: string | undefined;
-  clientSecret?: string | undefined;
-  clientTextSecret?: string | undefined;
+  loginUrl: string;
   scope: string;
   tokenTimeoutSecs: number;
   defaultCatalog: string;
   defaultSchema: string;
   eventsVolumeName: string;
+  clientId: string;
   overWriteFiles: boolean;
   description?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
-  shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputDatabricksKeyValueMetadatum$Outbound>
-    | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  clientSecret?: string | undefined;
+  clientTextSecret?: string | undefined;
 };
 
 /** @internal */
@@ -848,39 +497,17 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   unityAuthMethod: OutputDatabricksAuthenticationMethod$outboundSchema.default(
     "manual",
   ),
-  loginUrl: z.string().optional(),
-  clientId: z.string().optional(),
-  clientSecret: z.string().optional(),
-  clientTextSecret: z.string().optional(),
+  loginUrl: z.string(),
   scope: z.string().default("all-apis"),
   tokenTimeoutSecs: z.number().default(3600),
   defaultCatalog: z.string().default("main"),
   defaultSchema: z.string().default("external"),
   eventsVolumeName: z.string().default("events"),
+  clientId: z.string(),
   overWriteFiles: z.boolean().default(false),
   description: z.string().optional(),
-  compress: OutputDatabricksCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputDatabricksCompressionLevel$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputDatabricksParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputDatabricksDataPageVersion$outboundSchema
-    .default("DATA_PAGE_V2"),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputDatabricksKeyValueMetadatum$outboundSchema),
-  ).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  clientSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
 });
 
 /**
