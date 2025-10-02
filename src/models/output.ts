@@ -415,6 +415,7 @@ export type Output =
   | OutputNewrelicEvents
   | OutputMinio
   | OutputSns
+  | OutputDatabricks
   | OutputDefault
   | OutputSplunk
   | OutputSplunkLb
@@ -461,7 +462,6 @@ export type Output =
   | OutputXsiam
   | OutputDynatraceHttp
   | OutputSentinelOneAiSiem
-  | OutputDatabricks
   | OutputGrafanaCloud;
 
 /** @internal */
@@ -484,6 +484,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputNewrelicEvents$inboundSchema,
     OutputMinio$inboundSchema,
     OutputSns$inboundSchema,
+    OutputDatabricks$inboundSchema,
     OutputDefault$inboundSchema,
     OutputSplunk$inboundSchema,
     OutputSplunkLb$inboundSchema,
@@ -530,7 +531,6 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputXsiam$inboundSchema,
     OutputDynatraceHttp$inboundSchema,
     OutputSentinelOneAiSiem$inboundSchema,
-    OutputDatabricks$inboundSchema,
     OutputGrafanaCloud$inboundSchema,
   ]);
 
@@ -553,6 +553,7 @@ export type Output$Outbound =
   | OutputNewrelicEvents$Outbound
   | OutputMinio$Outbound
   | OutputSns$Outbound
+  | OutputDatabricks$Outbound
   | OutputDefault$Outbound
   | OutputSplunk$Outbound
   | OutputSplunkLb$Outbound
@@ -599,7 +600,6 @@ export type Output$Outbound =
   | OutputXsiam$Outbound
   | OutputDynatraceHttp$Outbound
   | OutputSentinelOneAiSiem$Outbound
-  | OutputDatabricks$Outbound
   | OutputGrafanaCloud$Outbound;
 
 /** @internal */
@@ -625,6 +625,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputNewrelicEvents$outboundSchema,
   OutputMinio$outboundSchema,
   OutputSns$outboundSchema,
+  OutputDatabricks$outboundSchema,
   OutputDefault$outboundSchema,
   OutputSplunk$outboundSchema,
   OutputSplunkLb$outboundSchema,
@@ -671,7 +672,6 @@ export const Output$outboundSchema: z.ZodType<
   OutputXsiam$outboundSchema,
   OutputDynatraceHttp$outboundSchema,
   OutputSentinelOneAiSiem$outboundSchema,
-  OutputDatabricks$outboundSchema,
   OutputGrafanaCloud$outboundSchema,
 ]);
 
