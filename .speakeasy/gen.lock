@@ -5,8 +5,8 @@ management:
   docVersion: 4.14.0-837595d5
   speakeasyVersion: 1.634.1
   generationVersion: 2.721.0
-  releaseVersion: 0.0.57
-  configChecksum: 4cf2c863eef6771764916f4457d5145f
+  releaseVersion: 0.0.58
+  configChecksum: 00213efe658351d615a0cca91d8cee65
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
