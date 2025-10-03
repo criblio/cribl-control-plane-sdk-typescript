@@ -18,7 +18,7 @@ let value: UpdateConfigGroupByProductAndIdResponse = {
       configVersion: "<value>",
       deployingWorkerCount: 4577.19,
       description: "woot and acidly puny curl smoke pfft ew qua",
-      estimatedIngestRate: 8354.1,
+      estimatedIngestRate: 13312,
       git: {
         commit: "<value>",
         localChanges: 470.66,

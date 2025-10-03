@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -30,7 +35,7 @@ export const OutputSentinelOneAiSiemRegion = {
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export type OutputSentinelOneAiSiemRegion = ClosedEnum<
+export type OutputSentinelOneAiSiemRegion = OpenEnum<
   typeof OutputSentinelOneAiSiemRegion
 >;
 
@@ -44,7 +49,7 @@ export const AISIEMEndpointPath = {
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export type AISIEMEndpointPath = ClosedEnum<typeof AISIEMEndpointPath>;
+export type AISIEMEndpointPath = OpenEnum<typeof AISIEMEndpointPath>;
 
 export type OutputSentinelOneAiSiemExtraHttpHeader = {
   name?: string | undefined;
@@ -62,7 +67,7 @@ export const OutputSentinelOneAiSiemFailedRequestLoggingMode = {
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputSentinelOneAiSiemFailedRequestLoggingMode = ClosedEnum<
+export type OutputSentinelOneAiSiemFailedRequestLoggingMode = OpenEnum<
   typeof OutputSentinelOneAiSiemFailedRequestLoggingMode
 >;
 
@@ -76,7 +81,7 @@ export const OutputSentinelOneAiSiemAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type OutputSentinelOneAiSiemAuthenticationMethod = ClosedEnum<
+export type OutputSentinelOneAiSiemAuthenticationMethod = OpenEnum<
   typeof OutputSentinelOneAiSiemAuthenticationMethod
 >;
 
@@ -126,7 +131,7 @@ export const OutputSentinelOneAiSiemBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputSentinelOneAiSiemBackpressureBehavior = ClosedEnum<
+export type OutputSentinelOneAiSiemBackpressureBehavior = OpenEnum<
   typeof OutputSentinelOneAiSiemBackpressureBehavior
 >;
 
@@ -140,7 +145,7 @@ export const OutputSentinelOneAiSiemCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputSentinelOneAiSiemCompression = ClosedEnum<
+export type OutputSentinelOneAiSiemCompression = OpenEnum<
   typeof OutputSentinelOneAiSiemCompression
 >;
 
@@ -154,7 +159,7 @@ export const OutputSentinelOneAiSiemQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputSentinelOneAiSiemQueueFullBehavior = ClosedEnum<
+export type OutputSentinelOneAiSiemQueueFullBehavior = OpenEnum<
   typeof OutputSentinelOneAiSiemQueueFullBehavior
 >;
 
@@ -169,7 +174,7 @@ export const OutputSentinelOneAiSiemMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputSentinelOneAiSiemMode = ClosedEnum<
+export type OutputSentinelOneAiSiemMode = OpenEnum<
   typeof OutputSentinelOneAiSiemMode
 >;
 
@@ -390,14 +395,25 @@ export namespace OutputSentinelOneAiSiemType$ {
 }
 
 /** @internal */
-export const OutputSentinelOneAiSiemRegion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelOneAiSiemRegion
-> = z.nativeEnum(OutputSentinelOneAiSiemRegion);
+export const OutputSentinelOneAiSiemRegion$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemRegion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelOneAiSiemRegion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSentinelOneAiSiemRegion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelOneAiSiemRegion
-> = OutputSentinelOneAiSiemRegion$inboundSchema;
+export const OutputSentinelOneAiSiemRegion$outboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemRegion,
+  z.ZodTypeDef,
+  OutputSentinelOneAiSiemRegion
+> = z.union([
+  z.nativeEnum(OutputSentinelOneAiSiemRegion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -411,14 +427,25 @@ export namespace OutputSentinelOneAiSiemRegion$ {
 }
 
 /** @internal */
-export const AISIEMEndpointPath$inboundSchema: z.ZodNativeEnum<
-  typeof AISIEMEndpointPath
-> = z.nativeEnum(AISIEMEndpointPath);
+export const AISIEMEndpointPath$inboundSchema: z.ZodType<
+  AISIEMEndpointPath,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AISIEMEndpointPath),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const AISIEMEndpointPath$outboundSchema: z.ZodNativeEnum<
-  typeof AISIEMEndpointPath
-> = AISIEMEndpointPath$inboundSchema;
+export const AISIEMEndpointPath$outboundSchema: z.ZodType<
+  AISIEMEndpointPath,
+  z.ZodTypeDef,
+  AISIEMEndpointPath
+> = z.union([
+  z.nativeEnum(AISIEMEndpointPath),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -496,13 +523,26 @@ export function outputSentinelOneAiSiemExtraHttpHeaderFromJSON(
 
 /** @internal */
 export const OutputSentinelOneAiSiemFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputSentinelOneAiSiemFailedRequestLoggingMode> = z
-    .nativeEnum(OutputSentinelOneAiSiemFailedRequestLoggingMode);
+  z.ZodType<
+    OutputSentinelOneAiSiemFailedRequestLoggingMode,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputSentinelOneAiSiemFailedRequestLoggingMode),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputSentinelOneAiSiemFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputSentinelOneAiSiemFailedRequestLoggingMode> =
-    OutputSentinelOneAiSiemFailedRequestLoggingMode$inboundSchema;
+  z.ZodType<
+    OutputSentinelOneAiSiemFailedRequestLoggingMode,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemFailedRequestLoggingMode
+  > = z.union([
+    z.nativeEnum(OutputSentinelOneAiSiemFailedRequestLoggingMode),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -519,13 +559,26 @@ export namespace OutputSentinelOneAiSiemFailedRequestLoggingMode$ {
 
 /** @internal */
 export const OutputSentinelOneAiSiemAuthenticationMethod$inboundSchema:
-  z.ZodNativeEnum<typeof OutputSentinelOneAiSiemAuthenticationMethod> = z
-    .nativeEnum(OutputSentinelOneAiSiemAuthenticationMethod);
+  z.ZodType<
+    OutputSentinelOneAiSiemAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputSentinelOneAiSiemAuthenticationMethod),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputSentinelOneAiSiemAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof OutputSentinelOneAiSiemAuthenticationMethod> =
-    OutputSentinelOneAiSiemAuthenticationMethod$inboundSchema;
+  z.ZodType<
+    OutputSentinelOneAiSiemAuthenticationMethod,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(OutputSentinelOneAiSiemAuthenticationMethod),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -694,13 +747,26 @@ export function outputSentinelOneAiSiemTimeoutRetrySettingsFromJSON(
 
 /** @internal */
 export const OutputSentinelOneAiSiemBackpressureBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputSentinelOneAiSiemBackpressureBehavior> = z
-    .nativeEnum(OutputSentinelOneAiSiemBackpressureBehavior);
+  z.ZodType<
+    OutputSentinelOneAiSiemBackpressureBehavior,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputSentinelOneAiSiemBackpressureBehavior),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputSentinelOneAiSiemBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputSentinelOneAiSiemBackpressureBehavior> =
-    OutputSentinelOneAiSiemBackpressureBehavior$inboundSchema;
+  z.ZodType<
+    OutputSentinelOneAiSiemBackpressureBehavior,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemBackpressureBehavior
+  > = z.union([
+    z.nativeEnum(OutputSentinelOneAiSiemBackpressureBehavior),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -716,14 +782,25 @@ export namespace OutputSentinelOneAiSiemBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputSentinelOneAiSiemCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelOneAiSiemCompression
-> = z.nativeEnum(OutputSentinelOneAiSiemCompression);
+export const OutputSentinelOneAiSiemCompression$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelOneAiSiemCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSentinelOneAiSiemCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelOneAiSiemCompression
-> = OutputSentinelOneAiSiemCompression$inboundSchema;
+export const OutputSentinelOneAiSiemCompression$outboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemCompression,
+  z.ZodTypeDef,
+  OutputSentinelOneAiSiemCompression
+> = z.union([
+  z.nativeEnum(OutputSentinelOneAiSiemCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -738,14 +815,25 @@ export namespace OutputSentinelOneAiSiemCompression$ {
 }
 
 /** @internal */
-export const OutputSentinelOneAiSiemQueueFullBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputSentinelOneAiSiemQueueFullBehavior> = z
-    .nativeEnum(OutputSentinelOneAiSiemQueueFullBehavior);
+export const OutputSentinelOneAiSiemQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelOneAiSiemQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSentinelOneAiSiemQueueFullBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputSentinelOneAiSiemQueueFullBehavior> =
-    OutputSentinelOneAiSiemQueueFullBehavior$inboundSchema;
+export const OutputSentinelOneAiSiemQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputSentinelOneAiSiemQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputSentinelOneAiSiemQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -761,14 +849,25 @@ export namespace OutputSentinelOneAiSiemQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputSentinelOneAiSiemMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelOneAiSiemMode
-> = z.nativeEnum(OutputSentinelOneAiSiemMode);
+export const OutputSentinelOneAiSiemMode$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelOneAiSiemMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSentinelOneAiSiemMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelOneAiSiemMode
-> = OutputSentinelOneAiSiemMode$inboundSchema;
+export const OutputSentinelOneAiSiemMode$outboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemMode,
+  z.ZodTypeDef,
+  OutputSentinelOneAiSiemMode
+> = z.union([
+  z.nativeEnum(OutputSentinelOneAiSiemMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

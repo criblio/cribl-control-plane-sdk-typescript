@@ -12,7 +12,7 @@ let value: CreateOutputResponse = {
   items: [
     {
       id: "<id>",
-      type: "elastic",
+      type: "elastic_cloud",
       pipeline: "<value>",
       systemFields: [
         "<value 1>",
@@ -22,9 +22,8 @@ let value: CreateOutputResponse = {
         "<value 1>",
         "<value 2>",
       ],
-      loadBalanced: true,
+      url: "https://ruddy-cutover.net/",
       index: "<value>",
-      docType: "<value>",
       concurrency: 5,
       maxPayloadSizeKB: 4096,
       maxPayloadEvents: 0,
@@ -41,10 +40,24 @@ let value: CreateOutputResponse = {
       failedRequestLoggingMode: "none",
       safeHeaders: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
+      extraParams: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      auth: {
+        disabled: false,
+        authType: "manual",
+      },
+      elasticPipeline: "<value>",
+      includeDocId: true,
       responseRetrySettings: [
         {
-          httpStatus: 6978.08,
+          httpStatus: 5869.12,
           initialBackoff: 1000,
           backoffRate: 2,
           maxBackoff: 10000,
@@ -57,34 +70,9 @@ let value: CreateOutputResponse = {
         maxBackoff: 10000,
       },
       responseHonorRetryAfterHeader: true,
-      extraParams: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      auth: {
-        disabled: true,
-        authType: "manual",
-      },
-      elasticVersion: "auto",
-      elasticPipeline: "<value>",
-      includeDocId: false,
-      writeAction: "create",
-      retryPartialErrors: false,
       onBackpressure: "block",
-      description: "climb that miserly mechanically",
-      url: "https://likable-tomatillo.name",
-      useRoundRobinDns: false,
-      excludeSelf: false,
-      urls: [
-        {
-          url: "https://triangular-vista.net/",
-          weight: 1,
-        },
-      ],
-      dnsResolvePeriodSec: 600,
-      loadBalanceStatsPeriodSec: 300,
+      description:
+        "upward profuse charming mould excitedly for and mammoth valiantly",
       pqMaxFileSize: "1 MB",
       pqMaxSize: "5GB",
       pqPath: "$CRIBL_HOME/state/queues",
