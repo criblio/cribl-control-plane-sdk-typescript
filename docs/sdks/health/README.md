@@ -69,7 +69,7 @@ run();
 
 ### Response
 
-**Promise\<[models.HealthStatus](../../models/healthstatus.md)\>**
+**Promise\<[operations.GetHealthInfoResponse](../../models/operations/gethealthinforesponse.md)\>**
 
 ### Errors
 
