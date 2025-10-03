@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 2bde1728e7e8cedb080adc4cf5fbe15c
-  docVersion: 4.14.1-alpha.1758626754698-b3680673
-  speakeasyVersion: 1.631.5
-  generationVersion: 2.716.16
-  releaseVersion: 0.1.0-alpha.2
-  configChecksum: 78972d60ea26df9978b368afe3b805bd
+  docChecksum: 3e4881b4057fbb6524188ccdc34a991b
+  docVersion: 4.14.1-alpha.1759348021885-ce0ae185
+  speakeasyVersion: 1.634.1
+  generationVersion: 2.721.0
+  releaseVersion: 0.1.0-alpha.3
+  configChecksum: 6fe640d79514a39c3c115a5cd05af3a9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.12
-    core: 3.21.25
+    core: 3.21.26
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -32,7 +32,7 @@ features:
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
-    unions: 2.85.12
+    unions: 2.86.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -1902,6 +1902,7 @@ generatedFiles:
   - docs/models/rbacresource.md
   - docs/models/readmode.md
   - docs/models/remote.md
+  - docs/models/remoteenum.md
   - docs/models/renamed.md
   - docs/models/reportlevel.md
   - docs/models/reportmethod.md
@@ -2736,7 +2737,7 @@ examples:
     speakeasy-default-get-version-info:
       responses:
         "200":
-          application/json: {"count": 716855, "items": [{"remote": true, "versioning": false}]}
+          application/json: {"count": 716855, "items": [{"remote": "false", "versioning": false}]}
         "500":
           application/json: {"message": "<value>"}
   createVersionPush:
@@ -3073,7 +3074,7 @@ examples:
           filter: "<value>"
       responses:
         "200":
-          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
+          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
         "500":
           application/json: {"message": "<value>"}
   getMasterWorkerEntry:
@@ -3328,3 +3329,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n  *  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n  *  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.nodes.list()`:  `response.items.[].info.cribl.socksEnabled` **Added**\n* `criblcontrolplane.versions.configs.get()`:  `response.items.[].remote` **Changed**\n"

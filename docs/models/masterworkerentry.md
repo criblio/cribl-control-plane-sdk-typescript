@@ -45,24 +45,26 @@ let value: MasterWorkerEntry = {
         tls: true,
       },
       pid: 5354.01,
-      startTime: 8148.45,
+      socksEnabled: false,
+      startTime: 2370.83,
       tags: [],
       version: "<value>",
     },
-    freeDiskSpace: 1669.24,
+    freeDiskSpace: 6007.7,
     hostOs: {
       addresses: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
-    hostname: "colorful-horde.com",
+    hostname: "interesting-cinder.info",
     isSaasWorker: true,
     kube: {
-      enabled: true,
+      enabled: false,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -72,7 +74,7 @@ let value: MasterWorkerEntry = {
       pod: "<value>",
       source: "<value>",
     },
-    localTime: 7937.45,
+    localTime: 6997.29,
     metadata: {
       aws: {
         enabled: false,
@@ -85,13 +87,14 @@ let value: MasterWorkerEntry = {
         addresses: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
         enabled: false,
         id: "<id>",
         version: "<value>",
       },
       kube: {
-        enabled: false,
+        enabled: true,
         namespace: "<value>",
         node: "<value>",
         owner: {
@@ -102,8 +105,12 @@ let value: MasterWorkerEntry = {
         source: "<value>",
       },
       os: {
-        addresses: [],
-        enabled: false,
+        addresses: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        enabled: true,
         id: "<id>",
         version: "<value>",
       },
@@ -112,6 +119,8 @@ let value: MasterWorkerEntry = {
     os: {
       addresses: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
       enabled: false,
       id: "<id>",
@@ -119,8 +128,8 @@ let value: MasterWorkerEntry = {
     },
     platform: "<value>",
     release: "<value>",
-    totalDiskSpace: 9688.14,
-    totalmem: 774.32,
+    totalDiskSpace: 774.32,
+    totalmem: 6947.29,
   },
   lastMetrics: {},
   lastMsgTime: 7161.68,
@@ -136,13 +145,14 @@ let value: MasterWorkerEntry = {
       addresses: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       enabled: false,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: false,
+      enabled: true,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -153,24 +163,28 @@ let value: MasterWorkerEntry = {
       source: "<value>",
     },
     os: {
-      addresses: [],
-      enabled: false,
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
   },
   nodeUpgradeStatus: {
-    active: 1,
-    failed: 0,
-    skipped: 2,
-    state: 1,
-    timestamp: 7677.66,
+    active: 0,
+    failed: 1,
+    skipped: 1,
+    state: 3,
+    timestamp: 7875.25,
   },
   status: "<value>",
   type: "resp",
   workerProcesses: 3638.57,
   workers: {
-    count: 7274.85,
+    count: 5559.98,
   },
 };
 ```

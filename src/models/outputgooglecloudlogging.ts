@@ -161,9 +161,10 @@ export type OutputGoogleCloudLogging = {
   streamtags?: Array<string> | undefined;
   logLocationType: LogLocationType;
   /**
-   * JavaScript expression to compute the value of the log name.
+   * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
   logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
   /**
    * Format to use when sending payload. Defaults to Text.
    */
@@ -352,7 +353,7 @@ export type OutputGoogleCloudLogging = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   /**
-   * JavaScript expression to compute the value of the folder ID with which log entries should be associated.
+   * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
   logLocationExpression: string;
   /**
@@ -820,6 +821,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$inboundSchema,
   logNameExpression: z.string(),
+  sanitizeLogNames: z.boolean().default(false),
   payloadFormat: PayloadFormat$inboundSchema.default("text"),
   logLabels: z.array(z.lazy(() => LogLabel$inboundSchema)).optional(),
   resourceTypeExpression: z.string().optional(),
@@ -895,6 +897,7 @@ export type OutputGoogleCloudLogging$Outbound = {
   streamtags?: Array<string> | undefined;
   logLocationType: string;
   logNameExpression: string;
+  sanitizeLogNames: boolean;
   payloadFormat: string;
   logLabels?: Array<LogLabel$Outbound> | undefined;
   resourceTypeExpression?: string | undefined;
@@ -967,6 +970,7 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$outboundSchema,
   logNameExpression: z.string(),
+  sanitizeLogNames: z.boolean().default(false),
   payloadFormat: PayloadFormat$outboundSchema.default("text"),
   logLabels: z.array(z.lazy(() => LogLabel$outboundSchema)).optional(),
   resourceTypeExpression: z.string().optional(),
