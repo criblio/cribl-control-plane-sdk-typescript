@@ -3,10 +3,10 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 0c45762d1c7f05ccca71a32eff80a6a6
   docVersion: 4.14.0-837595d5
-  speakeasyVersion: 1.634.1
-  generationVersion: 2.721.0
-  releaseVersion: 0.0.59
-  configChecksum: 82b9850d63b4ee95ee51246f562fb0ab
+  speakeasyVersion: 1.636.3
+  generationVersion: 2.723.11
+  releaseVersion: 0.0.60
+  configChecksum: 19a35ecd7baaa66a4f8c9edead38bd0d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -23,11 +23,11 @@ features:
     globalSecurity: 2.82.14
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
-    groups: 2.81.2
+    groups: 2.81.3
     methodArguments: 0.1.2
     nameOverrides: 2.81.2
     nullables: 0.1.1
-    oauth2ClientCredentials: 0.5.0
+    oauth2ClientCredentials: 1.1.0
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
@@ -1974,11 +1974,9 @@ generatedFiles:
   - docs/models/workertypes.md
   - docs/models/writeaction.md
   - docs/sdks/acl/README.md
-  - docs/sdks/auth/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
-  - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
@@ -1996,7 +1994,6 @@ generatedFiles:
   - docs/sdks/summaries/README.md
   - docs/sdks/teams/README.md
   - docs/sdks/tokens/README.md
-  - docs/sdks/versions/README.md
   - docs/sdks/versionsconfigs/README.md
   - eslint.config.mjs
   - jsr.json
@@ -2079,6 +2076,7 @@ generatedFiles:
   - src/lib/is-plain-object.ts
   - src/lib/logger.ts
   - src/lib/matchers.ts
+  - src/lib/oauth2-sessions.ts
   - src/lib/primitives.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts
