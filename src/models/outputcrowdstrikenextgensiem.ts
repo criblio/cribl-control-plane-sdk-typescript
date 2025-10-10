@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -24,14 +29,23 @@ export type OutputCrowdstrikeNextGenSiemExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = ClosedEnum<
+export type OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = OpenEnum<
   typeof OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode
 >;
 
@@ -39,13 +53,19 @@ export type OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode = ClosedEnum<
  * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
  */
 export const OutputCrowdstrikeNextGenSiemRequestFormat = {
+  /**
+   * JSON
+   */
   Json: "JSON",
+  /**
+   * Raw
+   */
   Raw: "raw",
 } as const;
 /**
  * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
  */
-export type OutputCrowdstrikeNextGenSiemRequestFormat = ClosedEnum<
+export type OutputCrowdstrikeNextGenSiemRequestFormat = OpenEnum<
   typeof OutputCrowdstrikeNextGenSiemRequestFormat
 >;
 
@@ -59,7 +79,7 @@ export const OutputCrowdstrikeNextGenSiemAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type OutputCrowdstrikeNextGenSiemAuthenticationMethod = ClosedEnum<
+export type OutputCrowdstrikeNextGenSiemAuthenticationMethod = OpenEnum<
   typeof OutputCrowdstrikeNextGenSiemAuthenticationMethod
 >;
 
@@ -102,14 +122,23 @@ export type OutputCrowdstrikeNextGenSiemTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputCrowdstrikeNextGenSiemBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputCrowdstrikeNextGenSiemBackpressureBehavior = ClosedEnum<
+export type OutputCrowdstrikeNextGenSiemBackpressureBehavior = OpenEnum<
   typeof OutputCrowdstrikeNextGenSiemBackpressureBehavior
 >;
 
@@ -117,13 +146,19 @@ export type OutputCrowdstrikeNextGenSiemBackpressureBehavior = ClosedEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputCrowdstrikeNextGenSiemCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputCrowdstrikeNextGenSiemCompression = ClosedEnum<
+export type OutputCrowdstrikeNextGenSiemCompression = OpenEnum<
   typeof OutputCrowdstrikeNextGenSiemCompression
 >;
 
@@ -131,13 +166,19 @@ export type OutputCrowdstrikeNextGenSiemCompression = ClosedEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputCrowdstrikeNextGenSiemQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputCrowdstrikeNextGenSiemQueueFullBehavior = ClosedEnum<
+export type OutputCrowdstrikeNextGenSiemQueueFullBehavior = OpenEnum<
   typeof OutputCrowdstrikeNextGenSiemQueueFullBehavior
 >;
 
@@ -145,14 +186,23 @@ export type OutputCrowdstrikeNextGenSiemQueueFullBehavior = ClosedEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputCrowdstrikeNextGenSiemMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputCrowdstrikeNextGenSiemMode = ClosedEnum<
+export type OutputCrowdstrikeNextGenSiemMode = OpenEnum<
   typeof OutputCrowdstrikeNextGenSiemMode
 >;
 
@@ -390,13 +440,26 @@ export function outputCrowdstrikeNextGenSiemExtraHttpHeaderFromJSON(
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode> =
-    z.nativeEnum(OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode);
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode> =
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$inboundSchema;
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode,
+    z.ZodTypeDef,
+    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode
+  > = z.union([
+    z.nativeEnum(OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -412,14 +475,26 @@ export namespace OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$ {
 }
 
 /** @internal */
-export const OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemRequestFormat> = z
-    .nativeEnum(OutputCrowdstrikeNextGenSiemRequestFormat);
+export const OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema: z.ZodType<
+  OutputCrowdstrikeNextGenSiemRequestFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCrowdstrikeNextGenSiemRequestFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemRequestFormat$outboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemRequestFormat> =
-    OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema;
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemRequestFormat,
+    z.ZodTypeDef,
+    OutputCrowdstrikeNextGenSiemRequestFormat
+  > = z.union([
+    z.nativeEnum(OutputCrowdstrikeNextGenSiemRequestFormat),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -436,13 +511,26 @@ export namespace OutputCrowdstrikeNextGenSiemRequestFormat$ {
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemAuthenticationMethod> = z
-    .nativeEnum(OutputCrowdstrikeNextGenSiemAuthenticationMethod);
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputCrowdstrikeNextGenSiemAuthenticationMethod),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemAuthenticationMethod> =
-    OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema;
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemAuthenticationMethod,
+    z.ZodTypeDef,
+    OutputCrowdstrikeNextGenSiemAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(OutputCrowdstrikeNextGenSiemAuthenticationMethod),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -613,13 +701,26 @@ export function outputCrowdstrikeNextGenSiemTimeoutRetrySettingsFromJSON(
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemBackpressureBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemBackpressureBehavior> = z
-    .nativeEnum(OutputCrowdstrikeNextGenSiemBackpressureBehavior);
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemBackpressureBehavior,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputCrowdstrikeNextGenSiemBackpressureBehavior),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemBackpressureBehavior> =
-    OutputCrowdstrikeNextGenSiemBackpressureBehavior$inboundSchema;
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemBackpressureBehavior,
+    z.ZodTypeDef,
+    OutputCrowdstrikeNextGenSiemBackpressureBehavior
+  > = z.union([
+    z.nativeEnum(OutputCrowdstrikeNextGenSiemBackpressureBehavior),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -635,14 +736,25 @@ export namespace OutputCrowdstrikeNextGenSiemBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputCrowdstrikeNextGenSiemCompression$inboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemCompression> = z
-    .nativeEnum(OutputCrowdstrikeNextGenSiemCompression);
+export const OutputCrowdstrikeNextGenSiemCompression$inboundSchema: z.ZodType<
+  OutputCrowdstrikeNextGenSiemCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCrowdstrikeNextGenSiemCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputCrowdstrikeNextGenSiemCompression$outboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemCompression> =
-    OutputCrowdstrikeNextGenSiemCompression$inboundSchema;
+export const OutputCrowdstrikeNextGenSiemCompression$outboundSchema: z.ZodType<
+  OutputCrowdstrikeNextGenSiemCompression,
+  z.ZodTypeDef,
+  OutputCrowdstrikeNextGenSiemCompression
+> = z.union([
+  z.nativeEnum(OutputCrowdstrikeNextGenSiemCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -659,13 +771,26 @@ export namespace OutputCrowdstrikeNextGenSiemCompression$ {
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemQueueFullBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemQueueFullBehavior> = z
-    .nativeEnum(OutputCrowdstrikeNextGenSiemQueueFullBehavior);
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemQueueFullBehavior,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputCrowdstrikeNextGenSiemQueueFullBehavior),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemQueueFullBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputCrowdstrikeNextGenSiemQueueFullBehavior> =
-    OutputCrowdstrikeNextGenSiemQueueFullBehavior$inboundSchema;
+  z.ZodType<
+    OutputCrowdstrikeNextGenSiemQueueFullBehavior,
+    z.ZodTypeDef,
+    OutputCrowdstrikeNextGenSiemQueueFullBehavior
+  > = z.union([
+    z.nativeEnum(OutputCrowdstrikeNextGenSiemQueueFullBehavior),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -681,14 +806,25 @@ export namespace OutputCrowdstrikeNextGenSiemQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputCrowdstrikeNextGenSiemMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCrowdstrikeNextGenSiemMode
-> = z.nativeEnum(OutputCrowdstrikeNextGenSiemMode);
+export const OutputCrowdstrikeNextGenSiemMode$inboundSchema: z.ZodType<
+  OutputCrowdstrikeNextGenSiemMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCrowdstrikeNextGenSiemMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputCrowdstrikeNextGenSiemMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCrowdstrikeNextGenSiemMode
-> = OutputCrowdstrikeNextGenSiemMode$inboundSchema;
+export const OutputCrowdstrikeNextGenSiemMode$outboundSchema: z.ZodType<
+  OutputCrowdstrikeNextGenSiemMode,
+  z.ZodTypeDef,
+  OutputCrowdstrikeNextGenSiemMode
+> = z.union([
+  z.nativeEnum(OutputCrowdstrikeNextGenSiemMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

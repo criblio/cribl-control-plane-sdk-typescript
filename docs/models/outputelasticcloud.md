@@ -41,11 +41,11 @@ let value: OutputElasticCloud = {
   elasticPipeline: "<value>",
   responseRetrySettings: [
     {
-      httpStatus: 4806.39,
+      httpStatus: 5869.12,
     },
   ],
   timeoutRetrySettings: {},
-  description: "kookily arrogantly ah phew bah blacken uncomfortable",
+  description: "cheerfully arrange lest circa yet quirkily",
   pqControls: {},
 };
 ```
