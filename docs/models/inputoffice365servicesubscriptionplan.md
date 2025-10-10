@@ -12,6 +12,8 @@ let value: InputOffice365ServiceSubscriptionPlan = "gcc_high";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"enterprise_gcc" | "gcc" | "gcc_high" | "dod"
+"enterprise_gcc" | "gcc" | "gcc_high" | "dod" | Unrecognized<string>
 ```

@@ -3,21 +3,38 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 
 export const WorkerTypes = {
   Worker: "worker",
   ManagedEdge: "managed-edge",
 } as const;
-export type WorkerTypes = ClosedEnum<typeof WorkerTypes>;
+export type WorkerTypes = OpenEnum<typeof WorkerTypes>;
 
 /** @internal */
-export const WorkerTypes$inboundSchema: z.ZodNativeEnum<typeof WorkerTypes> = z
-  .nativeEnum(WorkerTypes);
+export const WorkerTypes$inboundSchema: z.ZodType<
+  WorkerTypes,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(WorkerTypes),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const WorkerTypes$outboundSchema: z.ZodNativeEnum<typeof WorkerTypes> =
-  WorkerTypes$inboundSchema;
+export const WorkerTypes$outboundSchema: z.ZodType<
+  WorkerTypes,
+  z.ZodTypeDef,
+  WorkerTypes
+> = z.union([
+  z.nativeEnum(WorkerTypes),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

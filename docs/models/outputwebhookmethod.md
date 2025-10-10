@@ -12,6 +12,8 @@ let value: OutputWebhookMethod = "PATCH";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"POST" | "PUT" | "PATCH"
+"POST" | "PUT" | "PATCH" | Unrecognized<string>
 ```

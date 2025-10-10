@@ -12,6 +12,8 @@ let value: OutputGrafanaCloudMessageFormat1 = "protobuf";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"protobuf" | "json"
+"protobuf" | "json" | Unrecognized<string>
 ```

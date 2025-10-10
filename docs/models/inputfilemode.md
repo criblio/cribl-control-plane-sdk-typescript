@@ -12,6 +12,8 @@ let value: InputFileMode = "manual";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"auto" | "manual"
+"auto" | "manual" | Unrecognized<string>
 ```

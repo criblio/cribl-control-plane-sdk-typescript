@@ -12,6 +12,8 @@ let value: ElasticVersion = "7";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"auto" | "6" | "7"
+"auto" | "6" | "7" | Unrecognized<string>
 ```

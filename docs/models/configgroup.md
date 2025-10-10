@@ -13,7 +13,7 @@ let value: ConfigGroup = {
   configVersion: "<value>",
   deployingWorkerCount: 8637.12,
   description: "toe grandiose on",
-  estimatedIngestRate: 5282.1,
+  estimatedIngestRate: 3072,
   git: {
     commit: "<value>",
     localChanges: 470.66,
@@ -68,7 +68,7 @@ let value: ConfigGroup = {
 | `configVersion`                                                | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
 | `deployingWorkerCount`                                         | *number*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
 | `description`                                                  | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
-| `estimatedIngestRate`                                          | *number*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
+| `estimatedIngestRate`                                          | [models.EstimatedIngestRate](../models/estimatedingestrate.md) | :heavy_minus_sign:                                             | N/A                                                            |
 | `git`                                                          | [models.Git](../models/git.md)                                 | :heavy_minus_sign:                                             | N/A                                                            |
 | `id`                                                           | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
 | `incompatibleWorkerCount`                                      | *number*                                                       | :heavy_minus_sign:                                             | N/A                                                            |

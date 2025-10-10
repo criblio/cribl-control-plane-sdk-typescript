@@ -12,6 +12,8 @@ let value: InputWefAuthenticationMethod = "kerberos";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"clientCert" | "kerberos"
+"clientCert" | "kerberos" | Unrecognized<string>
 ```

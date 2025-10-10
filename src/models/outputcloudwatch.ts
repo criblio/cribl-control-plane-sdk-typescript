@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -17,14 +22,23 @@ export type OutputCloudwatchType = ClosedEnum<typeof OutputCloudwatchType>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputCloudwatchAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type OutputCloudwatchAuthenticationMethod = ClosedEnum<
+export type OutputCloudwatchAuthenticationMethod = OpenEnum<
   typeof OutputCloudwatchAuthenticationMethod
 >;
 
@@ -32,14 +46,23 @@ export type OutputCloudwatchAuthenticationMethod = ClosedEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputCloudwatchBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputCloudwatchBackpressureBehavior = ClosedEnum<
+export type OutputCloudwatchBackpressureBehavior = OpenEnum<
   typeof OutputCloudwatchBackpressureBehavior
 >;
 
@@ -47,13 +70,19 @@ export type OutputCloudwatchBackpressureBehavior = ClosedEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputCloudwatchCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputCloudwatchCompression = ClosedEnum<
+export type OutputCloudwatchCompression = OpenEnum<
   typeof OutputCloudwatchCompression
 >;
 
@@ -61,13 +90,19 @@ export type OutputCloudwatchCompression = ClosedEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputCloudwatchQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputCloudwatchQueueFullBehavior = ClosedEnum<
+export type OutputCloudwatchQueueFullBehavior = OpenEnum<
   typeof OutputCloudwatchQueueFullBehavior
 >;
 
@@ -75,14 +110,23 @@ export type OutputCloudwatchQueueFullBehavior = ClosedEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputCloudwatchMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputCloudwatchMode = ClosedEnum<typeof OutputCloudwatchMode>;
+export type OutputCloudwatchMode = OpenEnum<typeof OutputCloudwatchMode>;
 
 export type OutputCloudwatchPqControls = {};
 
@@ -224,15 +268,25 @@ export namespace OutputCloudwatchType$ {
 }
 
 /** @internal */
-export const OutputCloudwatchAuthenticationMethod$inboundSchema:
-  z.ZodNativeEnum<typeof OutputCloudwatchAuthenticationMethod> = z.nativeEnum(
-    OutputCloudwatchAuthenticationMethod,
-  );
+export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputCloudwatchAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCloudwatchAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputCloudwatchAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof OutputCloudwatchAuthenticationMethod> =
-    OutputCloudwatchAuthenticationMethod$inboundSchema;
+export const OutputCloudwatchAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputCloudwatchAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputCloudwatchAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputCloudwatchAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -248,15 +302,25 @@ export namespace OutputCloudwatchAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputCloudwatchBackpressureBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputCloudwatchBackpressureBehavior> = z.nativeEnum(
-    OutputCloudwatchBackpressureBehavior,
-  );
+export const OutputCloudwatchBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputCloudwatchBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCloudwatchBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputCloudwatchBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputCloudwatchBackpressureBehavior> =
-    OutputCloudwatchBackpressureBehavior$inboundSchema;
+export const OutputCloudwatchBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputCloudwatchBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputCloudwatchBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputCloudwatchBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -272,14 +336,25 @@ export namespace OutputCloudwatchBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputCloudwatchCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchCompression
-> = z.nativeEnum(OutputCloudwatchCompression);
+export const OutputCloudwatchCompression$inboundSchema: z.ZodType<
+  OutputCloudwatchCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCloudwatchCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputCloudwatchCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchCompression
-> = OutputCloudwatchCompression$inboundSchema;
+export const OutputCloudwatchCompression$outboundSchema: z.ZodType<
+  OutputCloudwatchCompression,
+  z.ZodTypeDef,
+  OutputCloudwatchCompression
+> = z.union([
+  z.nativeEnum(OutputCloudwatchCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -293,14 +368,25 @@ export namespace OutputCloudwatchCompression$ {
 }
 
 /** @internal */
-export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchQueueFullBehavior
-> = z.nativeEnum(OutputCloudwatchQueueFullBehavior);
+export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputCloudwatchQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCloudwatchQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchQueueFullBehavior
-> = OutputCloudwatchQueueFullBehavior$inboundSchema;
+export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputCloudwatchQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputCloudwatchQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputCloudwatchQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -315,14 +401,25 @@ export namespace OutputCloudwatchQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputCloudwatchMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchMode
-> = z.nativeEnum(OutputCloudwatchMode);
+export const OutputCloudwatchMode$inboundSchema: z.ZodType<
+  OutputCloudwatchMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCloudwatchMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputCloudwatchMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchMode
-> = OutputCloudwatchMode$inboundSchema;
+export const OutputCloudwatchMode$outboundSchema: z.ZodType<
+  OutputCloudwatchMode,
+  z.ZodTypeDef,
+  OutputCloudwatchMode
+> = z.union([
+  z.nativeEnum(OutputCloudwatchMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

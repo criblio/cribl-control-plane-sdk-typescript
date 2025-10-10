@@ -401,7 +401,7 @@ const value: models.InputSplunkHec = {
     {
       tokenSecret: "<value>",
       token: "<value>",
-      description: "throbbing sting sore",
+      description: "seemingly yogurt gee yawningly meander zowie",
       allowedIndexesAtToken: [
         "<value 1>",
       ],
@@ -421,8 +421,8 @@ const value: models.InputSplunkHec = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   enableHealthCheck: "<value>",
   metadata: [
@@ -433,13 +433,9 @@ const value: models.InputSplunkHec = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
@@ -448,9 +444,9 @@ const value: models.InputSplunkHec = {
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "what mockingly excluding",
+  description:
+    "brr plump vainly reprove dismal whoa best-seller mushy underpants suspiciously",
 };
 ```
 
@@ -2417,6 +2413,7 @@ const value: models.InputModelDrivenTelemetry = {
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
+    passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     rejectUnauthorized: "<value>",
@@ -2458,6 +2455,7 @@ const value: models.InputSqs = {
     pqControls: {},
   },
   queueName: "<value>",
+  queueType: "fifo",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -2471,7 +2469,7 @@ const value: models.InputSqs = {
     },
   ],
   description:
-    "animated memorise urgently quarrelsomely out woeful whereas sauerkraut",
+    "righteously poetry wherever interviewer cuddly favorable boohoo since",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

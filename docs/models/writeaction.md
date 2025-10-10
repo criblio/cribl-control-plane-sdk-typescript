@@ -12,6 +12,8 @@ let value: WriteAction = "create";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"index" | "create"
+"index" | "create" | Unrecognized<string>
 ```

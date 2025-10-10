@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -17,13 +22,19 @@ export type OutputSplunkType = ClosedEnum<typeof OutputSplunkType>;
  * How to serialize nested fields into index-time fields
  */
 export const OutputSplunkNestedFieldSerialization = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
  * How to serialize nested fields into index-time fields
  */
-export type OutputSplunkNestedFieldSerialization = ClosedEnum<
+export type OutputSplunkNestedFieldSerialization = OpenEnum<
   typeof OutputSplunkNestedFieldSerialization
 >;
 
@@ -33,7 +44,7 @@ export const OutputSplunkMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputSplunkMinimumTLSVersion = ClosedEnum<
+export type OutputSplunkMinimumTLSVersion = OpenEnum<
   typeof OutputSplunkMinimumTLSVersion
 >;
 
@@ -43,7 +54,7 @@ export const OutputSplunkMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputSplunkMaximumTLSVersion = ClosedEnum<
+export type OutputSplunkMaximumTLSVersion = OpenEnum<
   typeof OutputSplunkMaximumTLSVersion
 >;
 
@@ -94,7 +105,7 @@ export const OutputSplunkMaxS2SVersion = {
 /**
  * The highest S2S protocol version to advertise during handshake
  */
-export type OutputSplunkMaxS2SVersion = ClosedEnum<
+export type OutputSplunkMaxS2SVersion = OpenEnum<
   typeof OutputSplunkMaxS2SVersion
 >;
 
@@ -102,14 +113,23 @@ export type OutputSplunkMaxS2SVersion = ClosedEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputSplunkBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputSplunkBackpressureBehavior = ClosedEnum<
+export type OutputSplunkBackpressureBehavior = OpenEnum<
   typeof OutputSplunkBackpressureBehavior
 >;
 
@@ -123,7 +143,7 @@ export const OutputSplunkAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type OutputSplunkAuthenticationMethod = ClosedEnum<
+export type OutputSplunkAuthenticationMethod = OpenEnum<
   typeof OutputSplunkAuthenticationMethod
 >;
 
@@ -131,14 +151,23 @@ export type OutputSplunkAuthenticationMethod = ClosedEnum<
  * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
  */
 export const OutputSplunkCompressCompression = {
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
+  /**
+   * Automatic
+   */
   Auto: "auto",
+  /**
+   * Always
+   */
   Always: "always",
 } as const;
 /**
  * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
  */
-export type OutputSplunkCompressCompression = ClosedEnum<
+export type OutputSplunkCompressCompression = OpenEnum<
   typeof OutputSplunkCompressCompression
 >;
 
@@ -146,13 +175,19 @@ export type OutputSplunkCompressCompression = ClosedEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputSplunkPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputSplunkPqCompressCompression = ClosedEnum<
+export type OutputSplunkPqCompressCompression = OpenEnum<
   typeof OutputSplunkPqCompressCompression
 >;
 
@@ -160,13 +195,19 @@ export type OutputSplunkPqCompressCompression = ClosedEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputSplunkQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputSplunkQueueFullBehavior = ClosedEnum<
+export type OutputSplunkQueueFullBehavior = OpenEnum<
   typeof OutputSplunkQueueFullBehavior
 >;
 
@@ -174,14 +215,23 @@ export type OutputSplunkQueueFullBehavior = ClosedEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputSplunkMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputSplunkMode = ClosedEnum<typeof OutputSplunkMode>;
+export type OutputSplunkMode = OpenEnum<typeof OutputSplunkMode>;
 
 export type OutputSplunkPqControls = {};
 
@@ -322,15 +372,25 @@ export namespace OutputSplunkType$ {
 }
 
 /** @internal */
-export const OutputSplunkNestedFieldSerialization$inboundSchema:
-  z.ZodNativeEnum<typeof OutputSplunkNestedFieldSerialization> = z.nativeEnum(
-    OutputSplunkNestedFieldSerialization,
-  );
+export const OutputSplunkNestedFieldSerialization$inboundSchema: z.ZodType<
+  OutputSplunkNestedFieldSerialization,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkNestedFieldSerialization),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkNestedFieldSerialization$outboundSchema:
-  z.ZodNativeEnum<typeof OutputSplunkNestedFieldSerialization> =
-    OutputSplunkNestedFieldSerialization$inboundSchema;
+export const OutputSplunkNestedFieldSerialization$outboundSchema: z.ZodType<
+  OutputSplunkNestedFieldSerialization,
+  z.ZodTypeDef,
+  OutputSplunkNestedFieldSerialization
+> = z.union([
+  z.nativeEnum(OutputSplunkNestedFieldSerialization),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -346,14 +406,25 @@ export namespace OutputSplunkNestedFieldSerialization$ {
 }
 
 /** @internal */
-export const OutputSplunkMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkMinimumTLSVersion
-> = z.nativeEnum(OutputSplunkMinimumTLSVersion);
+export const OutputSplunkMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputSplunkMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkMinimumTLSVersion
-> = OutputSplunkMinimumTLSVersion$inboundSchema;
+export const OutputSplunkMinimumTLSVersion$outboundSchema: z.ZodType<
+  OutputSplunkMinimumTLSVersion,
+  z.ZodTypeDef,
+  OutputSplunkMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputSplunkMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -367,14 +438,25 @@ export namespace OutputSplunkMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const OutputSplunkMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkMaximumTLSVersion
-> = z.nativeEnum(OutputSplunkMaximumTLSVersion);
+export const OutputSplunkMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputSplunkMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkMaximumTLSVersion
-> = OutputSplunkMaximumTLSVersion$inboundSchema;
+export const OutputSplunkMaximumTLSVersion$outboundSchema: z.ZodType<
+  OutputSplunkMaximumTLSVersion,
+  z.ZodTypeDef,
+  OutputSplunkMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputSplunkMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -472,14 +554,25 @@ export function outputSplunkTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputSplunkMaxS2SVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkMaxS2SVersion
-> = z.nativeEnum(OutputSplunkMaxS2SVersion);
+export const OutputSplunkMaxS2SVersion$inboundSchema: z.ZodType<
+  OutputSplunkMaxS2SVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkMaxS2SVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkMaxS2SVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkMaxS2SVersion
-> = OutputSplunkMaxS2SVersion$inboundSchema;
+export const OutputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
+  OutputSplunkMaxS2SVersion,
+  z.ZodTypeDef,
+  OutputSplunkMaxS2SVersion
+> = z.union([
+  z.nativeEnum(OutputSplunkMaxS2SVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -493,14 +586,25 @@ export namespace OutputSplunkMaxS2SVersion$ {
 }
 
 /** @internal */
-export const OutputSplunkBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkBackpressureBehavior
-> = z.nativeEnum(OutputSplunkBackpressureBehavior);
+export const OutputSplunkBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputSplunkBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkBackpressureBehavior
-> = OutputSplunkBackpressureBehavior$inboundSchema;
+export const OutputSplunkBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputSplunkBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputSplunkBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputSplunkBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -514,14 +618,25 @@ export namespace OutputSplunkBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputSplunkAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkAuthenticationMethod
-> = z.nativeEnum(OutputSplunkAuthenticationMethod);
+export const OutputSplunkAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputSplunkAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkAuthenticationMethod
-> = OutputSplunkAuthenticationMethod$inboundSchema;
+export const OutputSplunkAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputSplunkAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputSplunkAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputSplunkAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -535,14 +650,25 @@ export namespace OutputSplunkAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputSplunkCompressCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkCompressCompression
-> = z.nativeEnum(OutputSplunkCompressCompression);
+export const OutputSplunkCompressCompression$inboundSchema: z.ZodType<
+  OutputSplunkCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkCompressCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkCompressCompression
-> = OutputSplunkCompressCompression$inboundSchema;
+export const OutputSplunkCompressCompression$outboundSchema: z.ZodType<
+  OutputSplunkCompressCompression,
+  z.ZodTypeDef,
+  OutputSplunkCompressCompression
+> = z.union([
+  z.nativeEnum(OutputSplunkCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -556,14 +682,25 @@ export namespace OutputSplunkCompressCompression$ {
 }
 
 /** @internal */
-export const OutputSplunkPqCompressCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkPqCompressCompression
-> = z.nativeEnum(OutputSplunkPqCompressCompression);
+export const OutputSplunkPqCompressCompression$inboundSchema: z.ZodType<
+  OutputSplunkPqCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkPqCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkPqCompressCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkPqCompressCompression
-> = OutputSplunkPqCompressCompression$inboundSchema;
+export const OutputSplunkPqCompressCompression$outboundSchema: z.ZodType<
+  OutputSplunkPqCompressCompression,
+  z.ZodTypeDef,
+  OutputSplunkPqCompressCompression
+> = z.union([
+  z.nativeEnum(OutputSplunkPqCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -578,14 +715,25 @@ export namespace OutputSplunkPqCompressCompression$ {
 }
 
 /** @internal */
-export const OutputSplunkQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkQueueFullBehavior
-> = z.nativeEnum(OutputSplunkQueueFullBehavior);
+export const OutputSplunkQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSplunkQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkQueueFullBehavior
-> = OutputSplunkQueueFullBehavior$inboundSchema;
+export const OutputSplunkQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputSplunkQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputSplunkQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputSplunkQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -599,14 +747,25 @@ export namespace OutputSplunkQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputSplunkMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkMode
-> = z.nativeEnum(OutputSplunkMode);
+export const OutputSplunkMode$inboundSchema: z.ZodType<
+  OutputSplunkMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputSplunkMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkMode
-> = OutputSplunkMode$inboundSchema;
+export const OutputSplunkMode$outboundSchema: z.ZodType<
+  OutputSplunkMode,
+  z.ZodTypeDef,
+  OutputSplunkMode
+> = z.union([
+  z.nativeEnum(OutputSplunkMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

@@ -12,6 +12,8 @@ let value: InputPrometheusDiscoveryType = "ec2";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"static" | "dns" | "ec2"
+"static" | "dns" | "ec2" | Unrecognized<string>
 ```

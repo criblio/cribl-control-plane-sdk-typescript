@@ -74,7 +74,7 @@ run();
 
 ### Response
 
-**Promise\<[models.AuthToken](../../models/authtoken.md)\>**
+**Promise\<[operations.LoginResponse](../../models/operations/loginresponse.md)\>**
 
 ### Errors
 

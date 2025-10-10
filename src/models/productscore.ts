@@ -3,21 +3,38 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 
 export const ProductsCore = {
   Stream: "stream",
   Edge: "edge",
 } as const;
-export type ProductsCore = ClosedEnum<typeof ProductsCore>;
+export type ProductsCore = OpenEnum<typeof ProductsCore>;
 
 /** @internal */
-export const ProductsCore$inboundSchema: z.ZodNativeEnum<typeof ProductsCore> =
-  z.nativeEnum(ProductsCore);
+export const ProductsCore$inboundSchema: z.ZodType<
+  ProductsCore,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ProductsCore),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const ProductsCore$outboundSchema: z.ZodNativeEnum<typeof ProductsCore> =
-  ProductsCore$inboundSchema;
+export const ProductsCore$outboundSchema: z.ZodType<
+  ProductsCore,
+  z.ZodTypeDef,
+  ProductsCore
+> = z.union([
+  z.nativeEnum(ProductsCore),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

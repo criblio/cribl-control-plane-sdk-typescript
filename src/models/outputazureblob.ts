@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -17,14 +22,23 @@ export type OutputAzureBlobType = ClosedEnum<typeof OutputAzureBlobType>;
  * Format of the output data
  */
 export const OutputAzureBlobDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
  * Format of the output data
  */
-export type OutputAzureBlobDataFormat = ClosedEnum<
+export type OutputAzureBlobDataFormat = OpenEnum<
   typeof OutputAzureBlobDataFormat
 >;
 
@@ -32,13 +46,19 @@ export type OutputAzureBlobDataFormat = ClosedEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputAzureBlobBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputAzureBlobBackpressureBehavior = ClosedEnum<
+export type OutputAzureBlobBackpressureBehavior = OpenEnum<
   typeof OutputAzureBlobBackpressureBehavior
 >;
 
@@ -46,13 +66,19 @@ export type OutputAzureBlobBackpressureBehavior = ClosedEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputAzureBlobDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
-export type OutputAzureBlobDiskSpaceProtection = ClosedEnum<
+export type OutputAzureBlobDiskSpaceProtection = OpenEnum<
   typeof OutputAzureBlobDiskSpaceProtection
 >;
 
@@ -62,18 +88,33 @@ export const OutputAzureBlobAuthenticationMethod = {
   ClientSecret: "clientSecret",
   ClientCert: "clientCert",
 } as const;
-export type OutputAzureBlobAuthenticationMethod = ClosedEnum<
+export type OutputAzureBlobAuthenticationMethod = OpenEnum<
   typeof OutputAzureBlobAuthenticationMethod
 >;
 
 export const BlobAccessTier = {
+  /**
+   * Default account access tier
+   */
   Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
   Hot: "Hot",
+  /**
+   * Cool tier
+   */
   Cool: "Cool",
+  /**
+   * Cold tier
+   */
   Cold: "Cold",
+  /**
+   * Archive tier
+   */
   Archive: "Archive",
 } as const;
-export type BlobAccessTier = ClosedEnum<typeof BlobAccessTier>;
+export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
 
 /**
  * Data compression format to apply to HTTP content before it is delivered
@@ -85,7 +126,7 @@ export const OutputAzureBlobCompression = {
 /**
  * Data compression format to apply to HTTP content before it is delivered
  */
-export type OutputAzureBlobCompression = ClosedEnum<
+export type OutputAzureBlobCompression = OpenEnum<
   typeof OutputAzureBlobCompression
 >;
 
@@ -93,14 +134,23 @@ export type OutputAzureBlobCompression = ClosedEnum<
  * Compression level to apply before moving files to final destination
  */
 export const OutputAzureBlobCompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
  * Compression level to apply before moving files to final destination
  */
-export type OutputAzureBlobCompressionLevel = ClosedEnum<
+export type OutputAzureBlobCompressionLevel = OpenEnum<
   typeof OutputAzureBlobCompressionLevel
 >;
 
@@ -108,14 +158,23 @@ export type OutputAzureBlobCompressionLevel = ClosedEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputAzureBlobParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
  * Determines which data types are supported and how they are represented
  */
-export type OutputAzureBlobParquetVersion = ClosedEnum<
+export type OutputAzureBlobParquetVersion = OpenEnum<
   typeof OutputAzureBlobParquetVersion
 >;
 
@@ -123,13 +182,19 @@ export type OutputAzureBlobParquetVersion = ClosedEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputAzureBlobDataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
-export type OutputAzureBlobDataPageVersion = ClosedEnum<
+export type OutputAzureBlobDataPageVersion = OpenEnum<
   typeof OutputAzureBlobDataPageVersion
 >;
 
@@ -367,14 +432,25 @@ export namespace OutputAzureBlobType$ {
 }
 
 /** @internal */
-export const OutputAzureBlobDataFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobDataFormat
-> = z.nativeEnum(OutputAzureBlobDataFormat);
+export const OutputAzureBlobDataFormat$inboundSchema: z.ZodType<
+  OutputAzureBlobDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureBlobDataFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureBlobDataFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobDataFormat
-> = OutputAzureBlobDataFormat$inboundSchema;
+export const OutputAzureBlobDataFormat$outboundSchema: z.ZodType<
+  OutputAzureBlobDataFormat,
+  z.ZodTypeDef,
+  OutputAzureBlobDataFormat
+> = z.union([
+  z.nativeEnum(OutputAzureBlobDataFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -388,14 +464,25 @@ export namespace OutputAzureBlobDataFormat$ {
 }
 
 /** @internal */
-export const OutputAzureBlobBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobBackpressureBehavior
-> = z.nativeEnum(OutputAzureBlobBackpressureBehavior);
+export const OutputAzureBlobBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputAzureBlobBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureBlobBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureBlobBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputAzureBlobBackpressureBehavior> =
-    OutputAzureBlobBackpressureBehavior$inboundSchema;
+export const OutputAzureBlobBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputAzureBlobBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputAzureBlobBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputAzureBlobBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -411,14 +498,25 @@ export namespace OutputAzureBlobBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputAzureBlobDiskSpaceProtection$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobDiskSpaceProtection
-> = z.nativeEnum(OutputAzureBlobDiskSpaceProtection);
+export const OutputAzureBlobDiskSpaceProtection$inboundSchema: z.ZodType<
+  OutputAzureBlobDiskSpaceProtection,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureBlobDiskSpaceProtection),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureBlobDiskSpaceProtection$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobDiskSpaceProtection
-> = OutputAzureBlobDiskSpaceProtection$inboundSchema;
+export const OutputAzureBlobDiskSpaceProtection$outboundSchema: z.ZodType<
+  OutputAzureBlobDiskSpaceProtection,
+  z.ZodTypeDef,
+  OutputAzureBlobDiskSpaceProtection
+> = z.union([
+  z.nativeEnum(OutputAzureBlobDiskSpaceProtection),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -433,14 +531,25 @@ export namespace OutputAzureBlobDiskSpaceProtection$ {
 }
 
 /** @internal */
-export const OutputAzureBlobAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobAuthenticationMethod
-> = z.nativeEnum(OutputAzureBlobAuthenticationMethod);
+export const OutputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputAzureBlobAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureBlobAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureBlobAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof OutputAzureBlobAuthenticationMethod> =
-    OutputAzureBlobAuthenticationMethod$inboundSchema;
+export const OutputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputAzureBlobAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputAzureBlobAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputAzureBlobAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -456,14 +565,25 @@ export namespace OutputAzureBlobAuthenticationMethod$ {
 }
 
 /** @internal */
-export const BlobAccessTier$inboundSchema: z.ZodNativeEnum<
-  typeof BlobAccessTier
-> = z.nativeEnum(BlobAccessTier);
+export const BlobAccessTier$inboundSchema: z.ZodType<
+  BlobAccessTier,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const BlobAccessTier$outboundSchema: z.ZodNativeEnum<
-  typeof BlobAccessTier
-> = BlobAccessTier$inboundSchema;
+export const BlobAccessTier$outboundSchema: z.ZodType<
+  BlobAccessTier,
+  z.ZodTypeDef,
+  BlobAccessTier
+> = z.union([
+  z.nativeEnum(BlobAccessTier),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -477,14 +597,25 @@ export namespace BlobAccessTier$ {
 }
 
 /** @internal */
-export const OutputAzureBlobCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobCompression
-> = z.nativeEnum(OutputAzureBlobCompression);
+export const OutputAzureBlobCompression$inboundSchema: z.ZodType<
+  OutputAzureBlobCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureBlobCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureBlobCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobCompression
-> = OutputAzureBlobCompression$inboundSchema;
+export const OutputAzureBlobCompression$outboundSchema: z.ZodType<
+  OutputAzureBlobCompression,
+  z.ZodTypeDef,
+  OutputAzureBlobCompression
+> = z.union([
+  z.nativeEnum(OutputAzureBlobCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -498,14 +629,25 @@ export namespace OutputAzureBlobCompression$ {
 }
 
 /** @internal */
-export const OutputAzureBlobCompressionLevel$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobCompressionLevel
-> = z.nativeEnum(OutputAzureBlobCompressionLevel);
+export const OutputAzureBlobCompressionLevel$inboundSchema: z.ZodType<
+  OutputAzureBlobCompressionLevel,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureBlobCompressionLevel),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureBlobCompressionLevel$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobCompressionLevel
-> = OutputAzureBlobCompressionLevel$inboundSchema;
+export const OutputAzureBlobCompressionLevel$outboundSchema: z.ZodType<
+  OutputAzureBlobCompressionLevel,
+  z.ZodTypeDef,
+  OutputAzureBlobCompressionLevel
+> = z.union([
+  z.nativeEnum(OutputAzureBlobCompressionLevel),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -519,14 +661,25 @@ export namespace OutputAzureBlobCompressionLevel$ {
 }
 
 /** @internal */
-export const OutputAzureBlobParquetVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobParquetVersion
-> = z.nativeEnum(OutputAzureBlobParquetVersion);
+export const OutputAzureBlobParquetVersion$inboundSchema: z.ZodType<
+  OutputAzureBlobParquetVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureBlobParquetVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureBlobParquetVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobParquetVersion
-> = OutputAzureBlobParquetVersion$inboundSchema;
+export const OutputAzureBlobParquetVersion$outboundSchema: z.ZodType<
+  OutputAzureBlobParquetVersion,
+  z.ZodTypeDef,
+  OutputAzureBlobParquetVersion
+> = z.union([
+  z.nativeEnum(OutputAzureBlobParquetVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -540,14 +693,25 @@ export namespace OutputAzureBlobParquetVersion$ {
 }
 
 /** @internal */
-export const OutputAzureBlobDataPageVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobDataPageVersion
-> = z.nativeEnum(OutputAzureBlobDataPageVersion);
+export const OutputAzureBlobDataPageVersion$inboundSchema: z.ZodType<
+  OutputAzureBlobDataPageVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureBlobDataPageVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureBlobDataPageVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobDataPageVersion
-> = OutputAzureBlobDataPageVersion$inboundSchema;
+export const OutputAzureBlobDataPageVersion$outboundSchema: z.ZodType<
+  OutputAzureBlobDataPageVersion,
+  z.ZodTypeDef,
+  OutputAzureBlobDataPageVersion
+> = z.union([
+  z.nativeEnum(OutputAzureBlobDataPageVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

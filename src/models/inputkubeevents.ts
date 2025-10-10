@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -22,25 +27,37 @@ export type InputKubeEventsConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputKubeEventsMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputKubeEventsMode = ClosedEnum<typeof InputKubeEventsMode>;
+export type InputKubeEventsMode = OpenEnum<typeof InputKubeEventsMode>;
 
 /**
  * Codec to use to compress the persisted data
  */
 export const InputKubeEventsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type InputKubeEventsCompression = ClosedEnum<
+export type InputKubeEventsCompression = OpenEnum<
   typeof InputKubeEventsCompression
 >;
 
@@ -219,14 +236,25 @@ export function inputKubeEventsConnectionFromJSON(
 }
 
 /** @internal */
-export const InputKubeEventsMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsMode
-> = z.nativeEnum(InputKubeEventsMode);
+export const InputKubeEventsMode$inboundSchema: z.ZodType<
+  InputKubeEventsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeEventsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeEventsMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsMode
-> = InputKubeEventsMode$inboundSchema;
+export const InputKubeEventsMode$outboundSchema: z.ZodType<
+  InputKubeEventsMode,
+  z.ZodTypeDef,
+  InputKubeEventsMode
+> = z.union([
+  z.nativeEnum(InputKubeEventsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -240,14 +268,25 @@ export namespace InputKubeEventsMode$ {
 }
 
 /** @internal */
-export const InputKubeEventsCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsCompression
-> = z.nativeEnum(InputKubeEventsCompression);
+export const InputKubeEventsCompression$inboundSchema: z.ZodType<
+  InputKubeEventsCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputKubeEventsCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputKubeEventsCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsCompression
-> = InputKubeEventsCompression$inboundSchema;
+export const InputKubeEventsCompression$outboundSchema: z.ZodType<
+  InputKubeEventsCompression,
+  z.ZodTypeDef,
+  InputKubeEventsCompression
+> = z.union([
+  z.nativeEnum(InputKubeEventsCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

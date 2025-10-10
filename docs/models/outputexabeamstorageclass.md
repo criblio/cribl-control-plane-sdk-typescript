@@ -12,6 +12,8 @@ let value: OutputExabeamStorageClass = "ARCHIVE";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"STANDARD" | "NEARLINE" | "COLDLINE" | "ARCHIVE"
+"STANDARD" | "NEARLINE" | "COLDLINE" | "ARCHIVE" | Unrecognized<string>
 ```

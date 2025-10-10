@@ -31,7 +31,7 @@ let value: OutputElastic = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6978.08,
+      httpStatus: 7430.05,
     },
   ],
   timeoutRetrySettings: {},
@@ -43,11 +43,11 @@ let value: OutputElastic = {
   ],
   auth: {},
   elasticPipeline: "<value>",
-  description: "wing gosh attest catalyze waist eek jaggedly woot",
-  url: "https://brisk-marathon.biz",
+  description: "challenge although ugh hydrolyse adolescent graceful",
+  url: "https://worldly-behest.net",
   urls: [
     {
-      url: "https://triangular-vista.net/",
+      url: "https://hospitable-zebra.net/",
     },
   ],
   pqControls: {},

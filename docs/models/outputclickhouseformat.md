@@ -12,6 +12,8 @@ let value: OutputClickHouseFormat = "json-compact-each-row-with-names";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"json-compact-each-row-with-names" | "json-each-row"
+"json-compact-each-row-with-names" | "json-each-row" | Unrecognized<string>
 ```

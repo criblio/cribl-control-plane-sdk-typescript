@@ -12,6 +12,8 @@ let value: TimestampPrecision = "m";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"ns" | "u" | "ms" | "s" | "m" | "h"
+"ns" | "u" | "ms" | "s" | "m" | "h" | Unrecognized<string>
 ```

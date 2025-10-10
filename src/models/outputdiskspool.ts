@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -23,7 +28,7 @@ export const OutputDiskSpoolCompression = {
 /**
  * Data compression format. Default is gzip.
  */
-export type OutputDiskSpoolCompression = ClosedEnum<
+export type OutputDiskSpoolCompression = OpenEnum<
   typeof OutputDiskSpoolCompression
 >;
 
@@ -94,14 +99,25 @@ export namespace OutputDiskSpoolType$ {
 }
 
 /** @internal */
-export const OutputDiskSpoolCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDiskSpoolCompression
-> = z.nativeEnum(OutputDiskSpoolCompression);
+export const OutputDiskSpoolCompression$inboundSchema: z.ZodType<
+  OutputDiskSpoolCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDiskSpoolCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputDiskSpoolCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDiskSpoolCompression
-> = OutputDiskSpoolCompression$inboundSchema;
+export const OutputDiskSpoolCompression$outboundSchema: z.ZodType<
+  OutputDiskSpoolCompression,
+  z.ZodTypeDef,
+  OutputDiskSpoolCompression
+> = z.union([
+  z.nativeEnum(OutputDiskSpoolCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

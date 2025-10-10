@@ -12,6 +12,8 @@ let value: OutputXsiamFailedRequestLoggingMode = "payloadAndHeaders";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"payload" | "payloadAndHeaders" | "none"
+"payload" | "payloadAndHeaders" | "none" | Unrecognized<string>
 ```

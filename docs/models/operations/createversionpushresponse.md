@@ -1,6 +1,6 @@
 # CreateVersionPushResponse
 
-a list of any objects
+a list of string objects
 
 ## Example Usage
 
@@ -10,9 +10,7 @@ import { CreateVersionPushResponse } from "cribl-control-plane/models/operations
 let value: CreateVersionPushResponse = {
   count: 803133,
   items: [
-    {
-      "key": "<value>",
-    },
+    "<value 1>",
   ],
 };
 ```
@@ -22,4 +20,4 @@ let value: CreateVersionPushResponse = {
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | Record<string, *any*>[]                    | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | *string*[]                                 | :heavy_minus_sign:                         | N/A                                        |

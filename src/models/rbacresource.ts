@@ -3,7 +3,11 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 
 export const RbacResource = {
   Groups: "groups",
@@ -14,15 +18,28 @@ export const RbacResource = {
   Macros: "macros",
   Notebooks: "notebooks",
 } as const;
-export type RbacResource = ClosedEnum<typeof RbacResource>;
+export type RbacResource = OpenEnum<typeof RbacResource>;
 
 /** @internal */
-export const RbacResource$inboundSchema: z.ZodNativeEnum<typeof RbacResource> =
-  z.nativeEnum(RbacResource);
+export const RbacResource$inboundSchema: z.ZodType<
+  RbacResource,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RbacResource),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const RbacResource$outboundSchema: z.ZodNativeEnum<typeof RbacResource> =
-  RbacResource$inboundSchema;
+export const RbacResource$outboundSchema: z.ZodType<
+  RbacResource,
+  z.ZodTypeDef,
+  RbacResource
+> = z.union([
+  z.nativeEnum(RbacResource),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

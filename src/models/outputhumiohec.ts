@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -22,14 +27,23 @@ export type OutputHumioHecExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputHumioHecFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputHumioHecFailedRequestLoggingMode = ClosedEnum<
+export type OutputHumioHecFailedRequestLoggingMode = OpenEnum<
   typeof OutputHumioHecFailedRequestLoggingMode
 >;
 
@@ -37,13 +51,19 @@ export type OutputHumioHecFailedRequestLoggingMode = ClosedEnum<
  * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
  */
 export const OutputHumioHecRequestFormat = {
+  /**
+   * JSON
+   */
   Json: "JSON",
+  /**
+   * Raw
+   */
   Raw: "raw",
 } as const;
 /**
  * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
  */
-export type OutputHumioHecRequestFormat = ClosedEnum<
+export type OutputHumioHecRequestFormat = OpenEnum<
   typeof OutputHumioHecRequestFormat
 >;
 
@@ -57,7 +77,7 @@ export const OutputHumioHecAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type OutputHumioHecAuthenticationMethod = ClosedEnum<
+export type OutputHumioHecAuthenticationMethod = OpenEnum<
   typeof OutputHumioHecAuthenticationMethod
 >;
 
@@ -100,14 +120,23 @@ export type OutputHumioHecTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputHumioHecBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputHumioHecBackpressureBehavior = ClosedEnum<
+export type OutputHumioHecBackpressureBehavior = OpenEnum<
   typeof OutputHumioHecBackpressureBehavior
 >;
 
@@ -115,13 +144,19 @@ export type OutputHumioHecBackpressureBehavior = ClosedEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputHumioHecCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputHumioHecCompression = ClosedEnum<
+export type OutputHumioHecCompression = OpenEnum<
   typeof OutputHumioHecCompression
 >;
 
@@ -129,13 +164,19 @@ export type OutputHumioHecCompression = ClosedEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputHumioHecQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputHumioHecQueueFullBehavior = ClosedEnum<
+export type OutputHumioHecQueueFullBehavior = OpenEnum<
   typeof OutputHumioHecQueueFullBehavior
 >;
 
@@ -143,14 +184,23 @@ export type OutputHumioHecQueueFullBehavior = ClosedEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputHumioHecMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputHumioHecMode = ClosedEnum<typeof OutputHumioHecMode>;
+export type OutputHumioHecMode = OpenEnum<typeof OutputHumioHecMode>;
 
 export type OutputHumioHecPqControls = {};
 
@@ -366,15 +416,25 @@ export function outputHumioHecExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputHumioHecFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputHumioHecFailedRequestLoggingMode> = z.nativeEnum(
-    OutputHumioHecFailedRequestLoggingMode,
-  );
+export const OutputHumioHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputHumioHecFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecFailedRequestLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHumioHecFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputHumioHecFailedRequestLoggingMode> =
-    OutputHumioHecFailedRequestLoggingMode$inboundSchema;
+export const OutputHumioHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  OutputHumioHecFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  OutputHumioHecFailedRequestLoggingMode
+> = z.union([
+  z.nativeEnum(OutputHumioHecFailedRequestLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -390,14 +450,25 @@ export namespace OutputHumioHecFailedRequestLoggingMode$ {
 }
 
 /** @internal */
-export const OutputHumioHecRequestFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecRequestFormat
-> = z.nativeEnum(OutputHumioHecRequestFormat);
+export const OutputHumioHecRequestFormat$inboundSchema: z.ZodType<
+  OutputHumioHecRequestFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecRequestFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHumioHecRequestFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecRequestFormat
-> = OutputHumioHecRequestFormat$inboundSchema;
+export const OutputHumioHecRequestFormat$outboundSchema: z.ZodType<
+  OutputHumioHecRequestFormat,
+  z.ZodTypeDef,
+  OutputHumioHecRequestFormat
+> = z.union([
+  z.nativeEnum(OutputHumioHecRequestFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -411,14 +482,25 @@ export namespace OutputHumioHecRequestFormat$ {
 }
 
 /** @internal */
-export const OutputHumioHecAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecAuthenticationMethod
-> = z.nativeEnum(OutputHumioHecAuthenticationMethod);
+export const OutputHumioHecAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputHumioHecAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHumioHecAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecAuthenticationMethod
-> = OutputHumioHecAuthenticationMethod$inboundSchema;
+export const OutputHumioHecAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputHumioHecAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputHumioHecAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputHumioHecAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -567,14 +649,25 @@ export function outputHumioHecTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputHumioHecBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecBackpressureBehavior
-> = z.nativeEnum(OutputHumioHecBackpressureBehavior);
+export const OutputHumioHecBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputHumioHecBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHumioHecBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecBackpressureBehavior
-> = OutputHumioHecBackpressureBehavior$inboundSchema;
+export const OutputHumioHecBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputHumioHecBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputHumioHecBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputHumioHecBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -589,14 +682,25 @@ export namespace OutputHumioHecBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputHumioHecCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecCompression
-> = z.nativeEnum(OutputHumioHecCompression);
+export const OutputHumioHecCompression$inboundSchema: z.ZodType<
+  OutputHumioHecCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHumioHecCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecCompression
-> = OutputHumioHecCompression$inboundSchema;
+export const OutputHumioHecCompression$outboundSchema: z.ZodType<
+  OutputHumioHecCompression,
+  z.ZodTypeDef,
+  OutputHumioHecCompression
+> = z.union([
+  z.nativeEnum(OutputHumioHecCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -610,14 +714,25 @@ export namespace OutputHumioHecCompression$ {
 }
 
 /** @internal */
-export const OutputHumioHecQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecQueueFullBehavior
-> = z.nativeEnum(OutputHumioHecQueueFullBehavior);
+export const OutputHumioHecQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputHumioHecQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHumioHecQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecQueueFullBehavior
-> = OutputHumioHecQueueFullBehavior$inboundSchema;
+export const OutputHumioHecQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputHumioHecQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputHumioHecQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputHumioHecQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -631,14 +746,25 @@ export namespace OutputHumioHecQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputHumioHecMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecMode
-> = z.nativeEnum(OutputHumioHecMode);
+export const OutputHumioHecMode$inboundSchema: z.ZodType<
+  OutputHumioHecMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHumioHecMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecMode
-> = OutputHumioHecMode$inboundSchema;
+export const OutputHumioHecMode$outboundSchema: z.ZodType<
+  OutputHumioHecMode,
+  z.ZodTypeDef,
+  OutputHumioHecMode
+> = z.union([
+  z.nativeEnum(OutputHumioHecMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

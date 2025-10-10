@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -16,24 +21,42 @@ export type OutputGoogleCloudLoggingType = ClosedEnum<
 >;
 
 export const LogLocationType = {
+  /**
+   * Project
+   */
   Project: "project",
+  /**
+   * Organization
+   */
   Organization: "organization",
+  /**
+   * Billing Account
+   */
   BillingAccount: "billingAccount",
+  /**
+   * Folder
+   */
   Folder: "folder",
 } as const;
-export type LogLocationType = ClosedEnum<typeof LogLocationType>;
+export type LogLocationType = OpenEnum<typeof LogLocationType>;
 
 /**
  * Format to use when sending payload. Defaults to Text.
  */
 export const PayloadFormat = {
+  /**
+   * Text
+   */
   Text: "text",
+  /**
+   * JSON
+   */
   Json: "json",
 } as const;
 /**
  * Format to use when sending payload. Defaults to Text.
  */
-export type PayloadFormat = ClosedEnum<typeof PayloadFormat>;
+export type PayloadFormat = OpenEnum<typeof PayloadFormat>;
 
 export type LogLabel = {
   /**
@@ -61,14 +84,23 @@ export type ResourceTypeLabel = {
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
 export const OutputGoogleCloudLoggingGoogleAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret
+   */
   Secret: "secret",
 } as const;
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
-export type OutputGoogleCloudLoggingGoogleAuthenticationMethod = ClosedEnum<
+export type OutputGoogleCloudLoggingGoogleAuthenticationMethod = OpenEnum<
   typeof OutputGoogleCloudLoggingGoogleAuthenticationMethod
 >;
 
@@ -76,14 +108,23 @@ export type OutputGoogleCloudLoggingGoogleAuthenticationMethod = ClosedEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGoogleCloudLoggingBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputGoogleCloudLoggingBackpressureBehavior = ClosedEnum<
+export type OutputGoogleCloudLoggingBackpressureBehavior = OpenEnum<
   typeof OutputGoogleCloudLoggingBackpressureBehavior
 >;
 
@@ -91,13 +132,19 @@ export type OutputGoogleCloudLoggingBackpressureBehavior = ClosedEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputGoogleCloudLoggingCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputGoogleCloudLoggingCompression = ClosedEnum<
+export type OutputGoogleCloudLoggingCompression = OpenEnum<
   typeof OutputGoogleCloudLoggingCompression
 >;
 
@@ -105,13 +152,19 @@ export type OutputGoogleCloudLoggingCompression = ClosedEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputGoogleCloudLoggingQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputGoogleCloudLoggingQueueFullBehavior = ClosedEnum<
+export type OutputGoogleCloudLoggingQueueFullBehavior = OpenEnum<
   typeof OutputGoogleCloudLoggingQueueFullBehavior
 >;
 
@@ -119,14 +172,23 @@ export type OutputGoogleCloudLoggingQueueFullBehavior = ClosedEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputGoogleCloudLoggingMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputGoogleCloudLoggingMode = ClosedEnum<
+export type OutputGoogleCloudLoggingMode = OpenEnum<
   typeof OutputGoogleCloudLoggingMode
 >;
 
@@ -156,9 +218,10 @@ export type OutputGoogleCloudLogging = {
   streamtags?: Array<string> | undefined;
   logLocationType: LogLocationType;
   /**
-   * JavaScript expression to compute the value of the log name.
+   * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
   logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
   /**
    * Format to use when sending payload. Defaults to Text.
    */
@@ -347,7 +410,7 @@ export type OutputGoogleCloudLogging = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   /**
-   * JavaScript expression to compute the value of the folder ID with which log entries should be associated.
+   * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
   logLocationExpression: string;
   /**
@@ -403,14 +466,25 @@ export namespace OutputGoogleCloudLoggingType$ {
 }
 
 /** @internal */
-export const LogLocationType$inboundSchema: z.ZodNativeEnum<
-  typeof LogLocationType
-> = z.nativeEnum(LogLocationType);
+export const LogLocationType$inboundSchema: z.ZodType<
+  LogLocationType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(LogLocationType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const LogLocationType$outboundSchema: z.ZodNativeEnum<
-  typeof LogLocationType
-> = LogLocationType$inboundSchema;
+export const LogLocationType$outboundSchema: z.ZodType<
+  LogLocationType,
+  z.ZodTypeDef,
+  LogLocationType
+> = z.union([
+  z.nativeEnum(LogLocationType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -424,14 +498,25 @@ export namespace LogLocationType$ {
 }
 
 /** @internal */
-export const PayloadFormat$inboundSchema: z.ZodNativeEnum<
-  typeof PayloadFormat
-> = z.nativeEnum(PayloadFormat);
+export const PayloadFormat$inboundSchema: z.ZodType<
+  PayloadFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PayloadFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const PayloadFormat$outboundSchema: z.ZodNativeEnum<
-  typeof PayloadFormat
-> = PayloadFormat$inboundSchema;
+export const PayloadFormat$outboundSchema: z.ZodType<
+  PayloadFormat,
+  z.ZodTypeDef,
+  PayloadFormat
+> = z.union([
+  z.nativeEnum(PayloadFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -556,13 +641,26 @@ export function resourceTypeLabelFromJSON(
 
 /** @internal */
 export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGoogleCloudLoggingGoogleAuthenticationMethod> = z
-    .nativeEnum(OutputGoogleCloudLoggingGoogleAuthenticationMethod);
+  z.ZodType<
+    OutputGoogleCloudLoggingGoogleAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGoogleCloudLoggingGoogleAuthenticationMethod),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGoogleCloudLoggingGoogleAuthenticationMethod> =
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod$inboundSchema;
+  z.ZodType<
+    OutputGoogleCloudLoggingGoogleAuthenticationMethod,
+    z.ZodTypeDef,
+    OutputGoogleCloudLoggingGoogleAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(OutputGoogleCloudLoggingGoogleAuthenticationMethod),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -579,13 +677,26 @@ export namespace OutputGoogleCloudLoggingGoogleAuthenticationMethod$ {
 
 /** @internal */
 export const OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGoogleCloudLoggingBackpressureBehavior> = z
-    .nativeEnum(OutputGoogleCloudLoggingBackpressureBehavior);
+  z.ZodType<
+    OutputGoogleCloudLoggingBackpressureBehavior,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputGoogleCloudLoggingBackpressureBehavior),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputGoogleCloudLoggingBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGoogleCloudLoggingBackpressureBehavior> =
-    OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema;
+  z.ZodType<
+    OutputGoogleCloudLoggingBackpressureBehavior,
+    z.ZodTypeDef,
+    OutputGoogleCloudLoggingBackpressureBehavior
+  > = z.union([
+    z.nativeEnum(OutputGoogleCloudLoggingBackpressureBehavior),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -601,14 +712,25 @@ export namespace OutputGoogleCloudLoggingBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputGoogleCloudLoggingCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudLoggingCompression
-> = z.nativeEnum(OutputGoogleCloudLoggingCompression);
+export const OutputGoogleCloudLoggingCompression$inboundSchema: z.ZodType<
+  OutputGoogleCloudLoggingCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleCloudLoggingCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGoogleCloudLoggingCompression$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGoogleCloudLoggingCompression> =
-    OutputGoogleCloudLoggingCompression$inboundSchema;
+export const OutputGoogleCloudLoggingCompression$outboundSchema: z.ZodType<
+  OutputGoogleCloudLoggingCompression,
+  z.ZodTypeDef,
+  OutputGoogleCloudLoggingCompression
+> = z.union([
+  z.nativeEnum(OutputGoogleCloudLoggingCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -624,14 +746,26 @@ export namespace OutputGoogleCloudLoggingCompression$ {
 }
 
 /** @internal */
-export const OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputGoogleCloudLoggingQueueFullBehavior> = z
-    .nativeEnum(OutputGoogleCloudLoggingQueueFullBehavior);
+export const OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputGoogleCloudLoggingQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleCloudLoggingQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
 export const OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputGoogleCloudLoggingQueueFullBehavior> =
-    OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema;
+  z.ZodType<
+    OutputGoogleCloudLoggingQueueFullBehavior,
+    z.ZodTypeDef,
+    OutputGoogleCloudLoggingQueueFullBehavior
+  > = z.union([
+    z.nativeEnum(OutputGoogleCloudLoggingQueueFullBehavior),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -647,14 +781,25 @@ export namespace OutputGoogleCloudLoggingQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputGoogleCloudLoggingMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudLoggingMode
-> = z.nativeEnum(OutputGoogleCloudLoggingMode);
+export const OutputGoogleCloudLoggingMode$inboundSchema: z.ZodType<
+  OutputGoogleCloudLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleCloudLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputGoogleCloudLoggingMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudLoggingMode
-> = OutputGoogleCloudLoggingMode$inboundSchema;
+export const OutputGoogleCloudLoggingMode$outboundSchema: z.ZodType<
+  OutputGoogleCloudLoggingMode,
+  z.ZodTypeDef,
+  OutputGoogleCloudLoggingMode
+> = z.union([
+  z.nativeEnum(OutputGoogleCloudLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -733,6 +878,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$inboundSchema,
   logNameExpression: z.string(),
+  sanitizeLogNames: z.boolean().default(false),
   payloadFormat: PayloadFormat$inboundSchema.default("text"),
   logLabels: z.array(z.lazy(() => LogLabel$inboundSchema)).optional(),
   resourceTypeExpression: z.string().optional(),
@@ -808,6 +954,7 @@ export type OutputGoogleCloudLogging$Outbound = {
   streamtags?: Array<string> | undefined;
   logLocationType: string;
   logNameExpression: string;
+  sanitizeLogNames: boolean;
   payloadFormat: string;
   logLabels?: Array<LogLabel$Outbound> | undefined;
   resourceTypeExpression?: string | undefined;
@@ -880,6 +1027,7 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$outboundSchema,
   logNameExpression: z.string(),
+  sanitizeLogNames: z.boolean().default(false),
   payloadFormat: PayloadFormat$outboundSchema.default("text"),
   logLabels: z.array(z.lazy(() => LogLabel$outboundSchema)).optional(),
   resourceTypeExpression: z.string().optional(),

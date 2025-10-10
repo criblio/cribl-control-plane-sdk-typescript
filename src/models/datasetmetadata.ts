@@ -4,7 +4,11 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DatasetMetadataRunInfo,
@@ -18,7 +22,7 @@ export const ScanMode = {
   Detailed: "detailed",
   Quick: "quick",
 } as const;
-export type ScanMode = ClosedEnum<typeof ScanMode>;
+export type ScanMode = OpenEnum<typeof ScanMode>;
 
 export type DatasetMetadata = {
   earliest: string;
@@ -29,12 +33,25 @@ export type DatasetMetadata = {
 };
 
 /** @internal */
-export const ScanMode$inboundSchema: z.ZodNativeEnum<typeof ScanMode> = z
-  .nativeEnum(ScanMode);
+export const ScanMode$inboundSchema: z.ZodType<
+  ScanMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ScanMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const ScanMode$outboundSchema: z.ZodNativeEnum<typeof ScanMode> =
-  ScanMode$inboundSchema;
+export const ScanMode$outboundSchema: z.ZodType<
+  ScanMode,
+  z.ZodTypeDef,
+  ScanMode
+> = z.union([
+  z.nativeEnum(ScanMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
