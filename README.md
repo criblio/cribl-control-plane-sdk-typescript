@@ -227,21 +227,9 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [auth](docs/sdks/auth/README.md)
-
-
 #### [auth.tokens](docs/sdks/tokens/README.md)
 
 * [get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
-
-
-### [destinations](docs/sdks/destinations/README.md)
-
-* [list](docs/sdks/destinations/README.md#list) - List all Destinations
-* [create](docs/sdks/destinations/README.md#create) - Create a Destination
-* [get](docs/sdks/destinations/README.md#get) - Get a Destination
-* [update](docs/sdks/destinations/README.md#update) - Update a Destination
-* [delete](docs/sdks/destinations/README.md#delete) - Delete a Destination
 
 #### [destinations.pq](docs/sdks/pq/README.md)
 
@@ -331,9 +319,6 @@ run();
 * [create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
-### [versions](docs/sdks/versions/README.md)
-
-
 #### [versions.branches](docs/sdks/branches/README.md)
 
 * [list](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
@@ -381,15 +366,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`authTokensGet`](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
-- [`destinationsCreate`](docs/sdks/destinations/README.md#create) - Create a Destination
-- [`destinationsDelete`](docs/sdks/destinations/README.md#delete) - Delete a Destination
-- [`destinationsGet`](docs/sdks/destinations/README.md#get) - Get a Destination
-- [`destinationsList`](docs/sdks/destinations/README.md#list) - List all Destinations
 - [`destinationsPqClear`](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
 - [`destinationsPqGet`](docs/sdks/pq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 - [`destinationsSamplesCreate`](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 - [`destinationsSamplesGet`](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
-- [`destinationsUpdate`](docs/sdks/destinations/README.md#update) - Update a Destination
 - [`groupsAclGet`](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
 - [`groupsAclTeamsGet`](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 - [`groupsConfigsVersionsGet`](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
@@ -734,7 +714,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 62 methods.*
+* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 57 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

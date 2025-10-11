@@ -6,7 +6,7 @@
 import { GitInfo } from "cribl-control-plane/models";
 
 let value: GitInfo = {
-  remote: false,
+  remote: "false",
   versioning: false,
 };
 ```

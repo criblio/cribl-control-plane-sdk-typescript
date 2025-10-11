@@ -27,7 +27,13 @@ export type InputFileConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputFilePqMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputFilePqMode = OpenEnum<typeof InputFilePqMode>;
  * Codec to use to compress the persisted data
  */
 export const InputFileCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -85,7 +97,13 @@ export type InputFilePq = {
  * Choose how to discover files to monitor
  */
 export const InputFileMode = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
 } as const;
 /**

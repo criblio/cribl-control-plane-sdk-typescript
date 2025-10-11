@@ -27,7 +27,13 @@ export type InputOpenTelemetryConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputOpenTelemetryMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputOpenTelemetryMode = OpenEnum<typeof InputOpenTelemetryMode>;
  * Codec to use to compress the persisted data
  */
 export const InputOpenTelemetryCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -139,7 +151,13 @@ export type InputOpenTelemetryTLSSettingsServerSide = {
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
 export const InputOpenTelemetryProtocol = {
+  /**
+   * gRPC
+   */
   Grpc: "grpc",
+  /**
+   * HTTP
+   */
   Http: "http",
 } as const;
 /**
@@ -153,7 +171,13 @@ export type InputOpenTelemetryProtocol = OpenEnum<
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
 export const InputOpenTelemetryOTLPVersion = {
+  /**
+   * 0.10.0
+   */
   ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
   OneDot3Dot1: "1.3.1",
 } as const;
 /**

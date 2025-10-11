@@ -28,7 +28,13 @@ export type InputPrometheusConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputPrometheusMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -40,7 +46,13 @@ export type InputPrometheusMode = OpenEnum<typeof InputPrometheusMode>;
  * Codec to use to compress the persisted data
  */
 export const InputPrometheusCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -88,8 +100,17 @@ export type InputPrometheusPq = {
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
 export const InputPrometheusDiscoveryType = {
+  /**
+   * Static
+   */
   Static: "static",
+  /**
+   * DNS
+   */
   Dns: "dns",
+  /**
+   * AWS EC2
+   */
   Ec2: "ec2",
 } as const;
 /**
@@ -177,8 +198,17 @@ export type InputPrometheusSearchFilter = {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**

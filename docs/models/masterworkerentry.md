@@ -51,19 +51,19 @@ let value: MasterWorkerEntry = {
       tags: [],
       version: "<value>",
     },
-    freeDiskSpace: 6007.7,
+    env: {
+      "key": "<value>",
+      "key1": "<value>",
+    },
+    freeDiskSpace: 8973.47,
     hostOs: {
-      addresses: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
+      addresses: [],
       enabled: true,
       id: "<id>",
       version: "<value>",
     },
-    hostname: "interesting-cinder.info",
-    isSaasWorker: true,
+    hostname: "criminal-handle.info",
+    isSaasWorker: false,
     kube: {
       enabled: false,
       namespace: "<value>",
@@ -75,7 +75,7 @@ let value: MasterWorkerEntry = {
       pod: "<value>",
       source: "<value>",
     },
-    localTime: 6997.29,
+    localTime: 5361.11,
     metadata: {
       aws: {
         enabled: false,
@@ -91,12 +91,12 @@ let value: MasterWorkerEntry = {
           "<value 2>",
           "<value 3>",
         ],
-        enabled: false,
+        enabled: true,
         id: "<id>",
         version: "<value>",
       },
       kube: {
-        enabled: true,
+        enabled: false,
         namespace: "<value>",
         node: "<value>",
         owner: {
@@ -107,11 +107,7 @@ let value: MasterWorkerEntry = {
         source: "<value>",
       },
       os: {
-        addresses: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
+        addresses: [],
         enabled: true,
         id: "<id>",
         version: "<value>",
@@ -124,9 +120,6 @@ let value: MasterWorkerEntry = {
         "<value 2>",
         "<value 3>",
       ],
-      enabled: false,
-      id: "<id>",
-      version: "<value>",
     },
     platform: "<value>",
     release: "<value>",
@@ -150,12 +143,12 @@ let value: MasterWorkerEntry = {
         "<value 2>",
         "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: true,
+      enabled: false,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -166,11 +159,7 @@ let value: MasterWorkerEntry = {
       source: "<value>",
     },
     os: {
-      addresses: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
+      addresses: [],
       enabled: true,
       id: "<id>",
       version: "<value>",
