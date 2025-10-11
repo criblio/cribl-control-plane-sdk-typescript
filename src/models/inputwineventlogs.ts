@@ -27,7 +27,13 @@ export type InputWinEventLogsConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputWinEventLogsMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputWinEventLogsMode = OpenEnum<typeof InputWinEventLogsMode>;
  * Codec to use to compress the persisted data
  */
 export const InputWinEventLogsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -87,7 +99,13 @@ export type InputWinEventLogsPq = {
  * Read all stored and future event logs, or only future events
  */
 export const ReadMode = {
+  /**
+   * Entire log
+   */
   Oldest: "oldest",
+  /**
+   * From last entry
+   */
   Newest: "newest",
 } as const;
 /**
@@ -99,7 +117,13 @@ export type ReadMode = OpenEnum<typeof ReadMode>;
  * Format of individual events
  */
 export const EventFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * XML
+   */
   Xml: "xml",
 } as const;
 /**

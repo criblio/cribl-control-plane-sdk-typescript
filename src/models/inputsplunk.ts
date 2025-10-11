@@ -27,7 +27,13 @@ export type InputSplunkConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputSplunkMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputSplunkMode = OpenEnum<typeof InputSplunkMode>;
  * Codec to use to compress the persisted data
  */
 export const InputSplunkPqCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -155,7 +167,13 @@ export type InputSplunkAuthToken = {
  * The highest S2S protocol version to advertise during handshake
  */
 export const InputSplunkMaxS2SVersion = {
+  /**
+   * v3
+   */
   V3: "v3",
+  /**
+   * v4
+   */
   V4: "v4",
 } as const;
 /**
@@ -169,8 +187,17 @@ export type InputSplunkMaxS2SVersion = OpenEnum<
  * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
  */
 export const InputSplunkCompression = {
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
+  /**
+   * Automatic
+   */
   Auto: "auto",
+  /**
+   * Always
+   */
   Always: "always",
 } as const;
 /**

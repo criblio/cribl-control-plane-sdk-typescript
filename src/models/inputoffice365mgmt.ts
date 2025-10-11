@@ -27,7 +27,13 @@ export type InputOffice365MgmtConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputOffice365MgmtMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputOffice365MgmtMode = OpenEnum<typeof InputOffice365MgmtMode>;
  * Codec to use to compress the persisted data
  */
 export const InputOffice365MgmtCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -87,9 +99,21 @@ export type InputOffice365MgmtPq = {
  * Office 365 subscription plan for your organization, typically Office 365 Enterprise
  */
 export const InputOffice365MgmtSubscriptionPlan = {
+  /**
+   * Office 365 Enterprise
+   */
   EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Office 365 GCC
+   */
   Gcc: "gcc",
+  /**
+   * Office 365 GCC High
+   */
   GccHigh: "gcc_high",
+  /**
+   * Office 365 DoD
+   */
   Dod: "dod",
 } as const;
 /**
@@ -144,8 +168,17 @@ export type InputOffice365MgmtContentConfig = {
  * The algorithm to use when performing HTTP retries
  */
 export const InputOffice365MgmtRetryType = {
+  /**
+   * Disabled
+   */
   None: "none",
+  /**
+   * Backoff
+   */
   Backoff: "backoff",
+  /**
+   * Static
+   */
   Static: "static",
 } as const;
 /**

@@ -27,7 +27,13 @@ export type InputSplunkSearchConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputSplunkSearchMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputSplunkSearchMode = OpenEnum<typeof InputSplunkSearchMode>;
  * Codec to use to compress the persisted data
  */
 export const InputSplunkSearchCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -139,8 +151,17 @@ export type InputSplunkSearchMetadatum = {
  * The algorithm to use when performing HTTP retries
  */
 export const InputSplunkSearchRetryType = {
+  /**
+   * Disabled
+   */
   None: "none",
+  /**
+   * Backoff
+   */
   Backoff: "backoff",
+  /**
+   * Static
+   */
   Static: "static",
 } as const;
 /**

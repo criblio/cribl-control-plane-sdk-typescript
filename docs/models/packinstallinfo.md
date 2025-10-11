@@ -7,35 +7,36 @@ import { PackInstallInfo } from "cribl-control-plane/models";
 
 let value: PackInstallInfo = {
   author: "<value>",
-  description: "celebrated supposing underneath",
-  displayName: "Julie.Larson43",
+  dependencies: {
+    "key": "<value>",
+  },
+  description: "yearningly however into amid",
+  displayName: "Brice_Luettgen95",
   exports: [
     "<value 1>",
   ],
   id: "<id>",
-  inputs: 1173.85,
+  inputs: 4660,
   isDisabled: true,
   minLogStreamVersion: "<value>",
-  outputs: 4525.11,
+  outputs: 6880.63,
   settings: {
     "key": "<value>",
     "key1": "<value>",
+    "key2": "<value>",
   },
   source: "<value>",
   spec: "<value>",
   tags: {
-    dataType: [
-      "decimal",
-      "boolean",
-    ],
+    dataType: [],
     domain: [
-      "hungry-scaffold.name",
-      "unfit-hovercraft.info",
-      "yummy-signature.com",
+      "authentic-coil.name",
+      "fearless-vista.info",
     ],
     streamtags: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     technology: [
       "<value 1>",
@@ -46,7 +47,6 @@ let value: PackInstallInfo = {
   warnings: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
 };
 ```
@@ -56,6 +56,7 @@ let value: PackInstallInfo = {
 | Field                                                          | Type                                                           | Required                                                       | Description                                                    |
 | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
 | `author`                                                       | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
+| `dependencies`                                                 | Record<string, *string*>                                       | :heavy_minus_sign:                                             | N/A                                                            |
 | `description`                                                  | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
 | `displayName`                                                  | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
 | `exports`                                                      | *string*[]                                                     | :heavy_minus_sign:                                             | N/A                                                            |

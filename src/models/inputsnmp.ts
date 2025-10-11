@@ -27,7 +27,13 @@ export type InputSnmpConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputSnmpMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputSnmpMode = OpenEnum<typeof InputSnmpMode>;
  * Codec to use to compress the persisted data
  */
 export const InputSnmpCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -82,12 +94,33 @@ export type InputSnmpPq = {
 };
 
 export const AuthenticationProtocol = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * MD5
+   */
   Md5: "md5",
+  /**
+   * SHA1
+   */
   Sha: "sha",
+  /**
+   * SHA224
+   */
   Sha224: "sha224",
+  /**
+   * SHA256
+   */
   Sha256: "sha256",
+  /**
+   * SHA384
+   */
   Sha384: "sha384",
+  /**
+   * SHA512
+   */
   Sha512: "sha512",
 } as const;
 export type AuthenticationProtocol = OpenEnum<typeof AuthenticationProtocol>;
