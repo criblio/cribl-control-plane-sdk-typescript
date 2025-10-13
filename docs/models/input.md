@@ -2455,6 +2455,7 @@ const value: models.InputSqs = {
     pqControls: {},
   },
   queueName: "<value>",
+  queueType: "fifo",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
   region: "<value>",
@@ -2468,7 +2469,7 @@ const value: models.InputSqs = {
     },
   ],
   description:
-    "animated memorise urgently quarrelsomely out woeful whereas sauerkraut",
+    "righteously poetry wherever interviewer cuddly favorable boohoo since",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 3e4881b4057fbb6524188ccdc34a991b
-  docVersion: 4.14.1-alpha.1759348021885-ce0ae185
-  speakeasyVersion: 1.634.1
-  generationVersion: 2.721.0
-  releaseVersion: 0.1.0-alpha.3
-  configChecksum: 6fe640d79514a39c3c115a5cd05af3a9
+  docChecksum: 3164fed83164519108036c787db77406
+  docVersion: 4.14.1-alpha.1760352614113-66cf8b7e
+  speakeasyVersion: 1.636.3
+  generationVersion: 2.723.11
+  releaseVersion: 0.2.0-alpha.1
+  configChecksum: b2ab9f6d2ff254a80fa6506829fae4e0
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -23,11 +23,11 @@ features:
     globalSecurity: 2.82.14
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
-    groups: 2.81.2
+    groups: 2.81.3
     methodArguments: 0.1.2
     nameOverrides: 2.81.2
     nullables: 0.1.1
-    oauth2ClientCredentials: 0.5.0
+    oauth2ClientCredentials: 1.1.0
     openEnums: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
@@ -82,8 +82,9 @@ generatedFiles:
   - docs/models/criblevent.md
   - docs/models/cribllakedataset.md
   - docs/models/cribllakedatasetformat.md
+  - docs/models/cribllakedatasetupdate.md
+  - docs/models/cribllakedatasetupdateformat.md
   - docs/models/currentbranchresult.md
-  - docs/models/customlabel.md
   - docs/models/datadogsite.md
   - docs/models/datasetmetadata.md
   - docs/models/datasetmetadataruninfo.md
@@ -1121,6 +1122,19 @@ generatedFiles:
   - docs/models/outputazurelogsresponseretrysetting.md
   - docs/models/outputazurelogstimeoutretrysettings.md
   - docs/models/outputazurelogstype.md
+  - docs/models/outputchronicle.md
+  - docs/models/outputchronicleauthenticationmethod.md
+  - docs/models/outputchroniclebackpressurebehavior.md
+  - docs/models/outputchroniclecompression.md
+  - docs/models/outputchroniclecustomlabel.md
+  - docs/models/outputchronicleextrahttpheader.md
+  - docs/models/outputchroniclefailedrequestloggingmode.md
+  - docs/models/outputchroniclemode.md
+  - docs/models/outputchroniclepqcontrols.md
+  - docs/models/outputchroniclequeuefullbehavior.md
+  - docs/models/outputchronicleresponseretrysetting.md
+  - docs/models/outputchronicletimeoutretrysettings.md
+  - docs/models/outputchronicletype.md
   - docs/models/outputclickhouse.md
   - docs/models/outputclickhouseauthenticationtype.md
   - docs/models/outputclickhousebackpressurebehavior.md
@@ -1348,6 +1362,7 @@ generatedFiles:
   - docs/models/outputgooglechronicleauthenticationmethod.md
   - docs/models/outputgooglechroniclebackpressurebehavior.md
   - docs/models/outputgooglechroniclecompression.md
+  - docs/models/outputgooglechroniclecustomlabel.md
   - docs/models/outputgooglechronicleextrahttpheader.md
   - docs/models/outputgooglechroniclefailedrequestloggingmode.md
   - docs/models/outputgooglechroniclemode.md
@@ -1979,11 +1994,9 @@ generatedFiles:
   - docs/models/workertypes.md
   - docs/models/writeaction.md
   - docs/sdks/acl/README.md
-  - docs/sdks/auth/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
-  - docs/sdks/criblcontrolplane/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
@@ -2001,7 +2014,6 @@ generatedFiles:
   - docs/sdks/summaries/README.md
   - docs/sdks/teams/README.md
   - docs/sdks/tokens/README.md
-  - docs/sdks/versions/README.md
   - docs/sdks/versionsconfigs/README.md
   - eslint.config.mjs
   - jsr.json
@@ -2084,6 +2096,7 @@ generatedFiles:
   - src/lib/is-plain-object.ts
   - src/lib/logger.ts
   - src/lib/matchers.ts
+  - src/lib/oauth2-sessions.ts
   - src/lib/primitives.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts
@@ -2103,6 +2116,7 @@ generatedFiles:
   - src/models/configgrouplookups.ts
   - src/models/criblevent.ts
   - src/models/cribllakedataset.ts
+  - src/models/cribllakedatasetupdate.ts
   - src/models/currentbranchresult.ts
   - src/models/datasetmetadata.ts
   - src/models/datasetmetadataruninfo.ts
@@ -2275,6 +2289,7 @@ generatedFiles:
   - src/models/outputazuredataexplorer.ts
   - src/models/outputazureeventhub.ts
   - src/models/outputazurelogs.ts
+  - src/models/outputchronicle.ts
   - src/models/outputclickhouse.ts
   - src/models/outputcloudwatch.ts
   - src/models/outputconfluentcloud.ts
@@ -3329,4 +3344,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n  *  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n  *  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[outputGoogleCloudLogging].sanitizeLogNames` **Added**\n* `criblcontrolplane.nodes.list()`:  `response.items.[].info.cribl.socksEnabled` **Added**\n* `criblcontrolplane.versions.configs.get()`:  `response.items.[].remote` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.lakeDatasets.update()`:  `request` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request.[inputSqs].queueType` **Changed** **Breaking** :warning:\n  *  `response.items.[].[inputSqs].queueType` **Changed**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.[inputSqs].queueType` **Changed** **Breaking** :warning:\n  *  `response.items.[].[inputSqs].queueType` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[].[inputSqs].queueType` **Changed**\n* `criblcontrolplane.sources.get()`:  `response.items.[].[inputSqs].queueType` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[].[inputSqs].queueType` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n"

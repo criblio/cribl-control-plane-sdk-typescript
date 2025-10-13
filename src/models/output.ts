@@ -31,6 +31,12 @@ import {
   OutputAzureLogs$outboundSchema,
 } from "./outputazurelogs.js";
 import {
+  OutputChronicle,
+  OutputChronicle$inboundSchema,
+  OutputChronicle$Outbound,
+  OutputChronicle$outboundSchema,
+} from "./outputchronicle.js";
+import {
   OutputClickHouse,
   OutputClickHouse$inboundSchema,
   OutputClickHouse$Outbound,
@@ -394,6 +400,7 @@ import {
 export type Output =
   | OutputAzureDataExplorer
   | OutputSecurityLake
+  | OutputChronicle
   | OutputSentinel
   | OutputGoogleCloudLogging
   | OutputExabeam
@@ -409,6 +416,7 @@ export type Output =
   | OutputNewrelicEvents
   | OutputMinio
   | OutputSns
+  | OutputSqs
   | OutputDefault
   | OutputSplunk
   | OutputSplunkLb
@@ -423,7 +431,6 @@ export type Output =
   | OutputStatsdExt
   | OutputGraphite
   | OutputRouter
-  | OutputSqs
   | OutputSnmp
   | OutputSumoLogic
   | OutputLoki
@@ -462,6 +469,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
   .union([
     OutputAzureDataExplorer$inboundSchema,
     OutputSecurityLake$inboundSchema,
+    OutputChronicle$inboundSchema,
     OutputSentinel$inboundSchema,
     OutputGoogleCloudLogging$inboundSchema,
     OutputExabeam$inboundSchema,
@@ -477,6 +485,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputNewrelicEvents$inboundSchema,
     OutputMinio$inboundSchema,
     OutputSns$inboundSchema,
+    OutputSqs$inboundSchema,
     OutputDefault$inboundSchema,
     OutputSplunk$inboundSchema,
     OutputSplunkLb$inboundSchema,
@@ -491,7 +500,6 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputStatsdExt$inboundSchema,
     OutputGraphite$inboundSchema,
     OutputRouter$inboundSchema,
-    OutputSqs$inboundSchema,
     OutputSnmp$inboundSchema,
     OutputSumoLogic$inboundSchema,
     OutputLoki$inboundSchema,
@@ -530,6 +538,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
 export type Output$Outbound =
   | OutputAzureDataExplorer$Outbound
   | OutputSecurityLake$Outbound
+  | OutputChronicle$Outbound
   | OutputSentinel$Outbound
   | OutputGoogleCloudLogging$Outbound
   | OutputExabeam$Outbound
@@ -545,6 +554,7 @@ export type Output$Outbound =
   | OutputNewrelicEvents$Outbound
   | OutputMinio$Outbound
   | OutputSns$Outbound
+  | OutputSqs$Outbound
   | OutputDefault$Outbound
   | OutputSplunk$Outbound
   | OutputSplunkLb$Outbound
@@ -559,7 +569,6 @@ export type Output$Outbound =
   | OutputStatsdExt$Outbound
   | OutputGraphite$Outbound
   | OutputRouter$Outbound
-  | OutputSqs$Outbound
   | OutputSnmp$Outbound
   | OutputSumoLogic$Outbound
   | OutputLoki$Outbound
@@ -601,6 +610,7 @@ export const Output$outboundSchema: z.ZodType<
 > = z.union([
   OutputAzureDataExplorer$outboundSchema,
   OutputSecurityLake$outboundSchema,
+  OutputChronicle$outboundSchema,
   OutputSentinel$outboundSchema,
   OutputGoogleCloudLogging$outboundSchema,
   OutputExabeam$outboundSchema,
@@ -616,6 +626,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputNewrelicEvents$outboundSchema,
   OutputMinio$outboundSchema,
   OutputSns$outboundSchema,
+  OutputSqs$outboundSchema,
   OutputDefault$outboundSchema,
   OutputSplunk$outboundSchema,
   OutputSplunkLb$outboundSchema,
@@ -630,7 +641,6 @@ export const Output$outboundSchema: z.ZodType<
   OutputStatsdExt$outboundSchema,
   OutputGraphite$outboundSchema,
   OutputRouter$outboundSchema,
-  OutputSqs$outboundSchema,
   OutputSnmp$outboundSchema,
   OutputSumoLogic$outboundSchema,
   OutputLoki$outboundSchema,
