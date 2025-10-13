@@ -29,7 +29,13 @@ export type InputWindowsMetricsConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputWindowsMetricsPqMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -43,7 +49,13 @@ export type InputWindowsMetricsPqMode = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const InputWindowsMetricsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -91,9 +103,21 @@ export type InputWindowsMetricsPq = {
  * Select level of detail for host metrics
  */
 export const InputWindowsMetricsHostMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -107,9 +131,21 @@ export type InputWindowsMetricsHostMode = OpenEnum<
  * Select the level of details for system metrics
  */
 export const InputWindowsMetricsSystemMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -134,9 +170,21 @@ export type InputWindowsMetricsSystem = {
  * Select the level of details for CPU metrics
  */
 export const InputWindowsMetricsCpuMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -169,9 +217,21 @@ export type InputWindowsMetricsCpu = {
  * Select the level of details for memory metrics
  */
 export const InputWindowsMetricsMemoryMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -196,9 +256,21 @@ export type InputWindowsMetricsMemory = {
  * Select the level of details for network metrics
  */
 export const InputWindowsMetricsNetworkMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -231,9 +303,21 @@ export type InputWindowsMetricsNetwork = {
  * Select the level of details for disk metrics
  */
 export const InputWindowsMetricsDiskMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**

@@ -21,9 +21,21 @@ export type OutputGoogleCloudLoggingType = ClosedEnum<
 >;
 
 export const LogLocationType = {
+  /**
+   * Project
+   */
   Project: "project",
+  /**
+   * Organization
+   */
   Organization: "organization",
+  /**
+   * Billing Account
+   */
   BillingAccount: "billingAccount",
+  /**
+   * Folder
+   */
   Folder: "folder",
 } as const;
 export type LogLocationType = OpenEnum<typeof LogLocationType>;
@@ -32,7 +44,13 @@ export type LogLocationType = OpenEnum<typeof LogLocationType>;
  * Format to use when sending payload. Defaults to Text.
  */
 export const PayloadFormat = {
+  /**
+   * Text
+   */
   Text: "text",
+  /**
+   * JSON
+   */
   Json: "json",
 } as const;
 /**
@@ -66,8 +84,17 @@ export type ResourceTypeLabel = {
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
 export const OutputGoogleCloudLoggingGoogleAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret
+   */
   Secret: "secret",
 } as const;
 /**
@@ -81,8 +108,17 @@ export type OutputGoogleCloudLoggingGoogleAuthenticationMethod = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGoogleCloudLoggingBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -96,7 +132,13 @@ export type OutputGoogleCloudLoggingBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputGoogleCloudLoggingCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -110,7 +152,13 @@ export type OutputGoogleCloudLoggingCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputGoogleCloudLoggingQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -124,8 +172,17 @@ export type OutputGoogleCloudLoggingQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputGoogleCloudLoggingMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -161,9 +218,10 @@ export type OutputGoogleCloudLogging = {
   streamtags?: Array<string> | undefined;
   logLocationType: LogLocationType;
   /**
-   * JavaScript expression to compute the value of the log name.
+   * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
   logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
   /**
    * Format to use when sending payload. Defaults to Text.
    */
@@ -352,7 +410,7 @@ export type OutputGoogleCloudLogging = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   /**
-   * JavaScript expression to compute the value of the folder ID with which log entries should be associated.
+   * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
   logLocationExpression: string;
   /**
@@ -820,6 +878,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$inboundSchema,
   logNameExpression: z.string(),
+  sanitizeLogNames: z.boolean().default(false),
   payloadFormat: PayloadFormat$inboundSchema.default("text"),
   logLabels: z.array(z.lazy(() => LogLabel$inboundSchema)).optional(),
   resourceTypeExpression: z.string().optional(),
@@ -895,6 +954,7 @@ export type OutputGoogleCloudLogging$Outbound = {
   streamtags?: Array<string> | undefined;
   logLocationType: string;
   logNameExpression: string;
+  sanitizeLogNames: boolean;
   payloadFormat: string;
   logLabels?: Array<LogLabel$Outbound> | undefined;
   resourceTypeExpression?: string | undefined;
@@ -967,6 +1027,7 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$outboundSchema,
   logNameExpression: z.string(),
+  sanitizeLogNames: z.boolean().default(false),
   payloadFormat: PayloadFormat$outboundSchema.default("text"),
   logLabels: z.array(z.lazy(() => LogLabel$outboundSchema)).optional(),
   resourceTypeExpression: z.string().optional(),

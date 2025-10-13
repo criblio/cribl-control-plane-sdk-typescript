@@ -29,7 +29,13 @@ export type InputConfluentCloudConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputConfluentCloudMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -41,7 +47,13 @@ export type InputConfluentCloudMode = OpenEnum<typeof InputConfluentCloudMode>;
  * Codec to use to compress the persisted data
  */
 export const InputConfluentCloudCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -240,9 +252,21 @@ export type InputConfluentCloudKafkaSchemaRegistryAuthentication = {
 };
 
 export const InputConfluentCloudSASLMechanism = {
+  /**
+   * PLAIN
+   */
   Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
   ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
   ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
   Kerberos: "kerberos",
 } as const;
 export type InputConfluentCloudSASLMechanism = OpenEnum<

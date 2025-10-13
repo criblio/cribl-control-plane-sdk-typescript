@@ -21,7 +21,13 @@ export type OutputGoogleChronicleType = ClosedEnum<
 >;
 
 export const OutputGoogleChronicleAPIVersion = {
+  /**
+   * V1
+   */
   V1: "v1",
+  /**
+   * V2
+   */
   V2: "v2",
 } as const;
 export type OutputGoogleChronicleAPIVersion = OpenEnum<
@@ -29,9 +35,21 @@ export type OutputGoogleChronicleAPIVersion = OpenEnum<
 >;
 
 export const OutputGoogleChronicleAuthenticationMethod = {
+  /**
+   * API key
+   */
   Manual: "manual",
+  /**
+   * API key secret
+   */
   Secret: "secret",
+  /**
+   * Service account credentials
+   */
   ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
 export type OutputGoogleChronicleAuthenticationMethod = OpenEnum<
@@ -74,7 +92,13 @@ export type OutputGoogleChronicleTimeoutRetrySettings = {
 };
 
 export const SendEventsAs = {
+  /**
+   * Unstructured
+   */
   Unstructured: "unstructured",
+  /**
+   * UDM
+   */
   Udm: "udm",
 } as const;
 export type SendEventsAs = OpenEnum<typeof SendEventsAs>;
@@ -88,8 +112,17 @@ export type OutputGoogleChronicleExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputGoogleChronicleFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -103,8 +136,17 @@ export type OutputGoogleChronicleFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGoogleChronicleBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -119,7 +161,7 @@ export type ExtraLogType = {
   description?: string | undefined;
 };
 
-export type CustomLabel = {
+export type OutputGoogleChronicleCustomLabel = {
   key: string;
   value: string;
 };
@@ -128,7 +170,13 @@ export type CustomLabel = {
  * Codec to use to compress the persisted data
  */
 export const OutputGoogleChronicleCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -142,7 +190,13 @@ export type OutputGoogleChronicleCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputGoogleChronicleQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -156,8 +210,17 @@ export type OutputGoogleChronicleQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputGoogleChronicleMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -291,7 +354,7 @@ export type OutputGoogleChronicle = {
   /**
    * Custom labels to be added to every batch
    */
-  customLabels?: Array<CustomLabel> | undefined;
+  customLabels?: Array<OutputGoogleChronicleCustomLabel> | undefined;
   /**
    * Organization's API key in Google SecOps
    */
@@ -792,8 +855,8 @@ export function extraLogTypeFromJSON(
 }
 
 /** @internal */
-export const CustomLabel$inboundSchema: z.ZodType<
-  CustomLabel,
+export const OutputGoogleChronicleCustomLabel$inboundSchema: z.ZodType<
+  OutputGoogleChronicleCustomLabel,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -802,16 +865,16 @@ export const CustomLabel$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type CustomLabel$Outbound = {
+export type OutputGoogleChronicleCustomLabel$Outbound = {
   key: string;
   value: string;
 };
 
 /** @internal */
-export const CustomLabel$outboundSchema: z.ZodType<
-  CustomLabel$Outbound,
+export const OutputGoogleChronicleCustomLabel$outboundSchema: z.ZodType<
+  OutputGoogleChronicleCustomLabel$Outbound,
   z.ZodTypeDef,
-  CustomLabel
+  OutputGoogleChronicleCustomLabel
 > = z.object({
   key: z.string(),
   value: z.string(),
@@ -821,26 +884,32 @@ export const CustomLabel$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace CustomLabel$ {
-  /** @deprecated use `CustomLabel$inboundSchema` instead. */
-  export const inboundSchema = CustomLabel$inboundSchema;
-  /** @deprecated use `CustomLabel$outboundSchema` instead. */
-  export const outboundSchema = CustomLabel$outboundSchema;
-  /** @deprecated use `CustomLabel$Outbound` instead. */
-  export type Outbound = CustomLabel$Outbound;
+export namespace OutputGoogleChronicleCustomLabel$ {
+  /** @deprecated use `OutputGoogleChronicleCustomLabel$inboundSchema` instead. */
+  export const inboundSchema = OutputGoogleChronicleCustomLabel$inboundSchema;
+  /** @deprecated use `OutputGoogleChronicleCustomLabel$outboundSchema` instead. */
+  export const outboundSchema = OutputGoogleChronicleCustomLabel$outboundSchema;
+  /** @deprecated use `OutputGoogleChronicleCustomLabel$Outbound` instead. */
+  export type Outbound = OutputGoogleChronicleCustomLabel$Outbound;
 }
 
-export function customLabelToJSON(customLabel: CustomLabel): string {
-  return JSON.stringify(CustomLabel$outboundSchema.parse(customLabel));
+export function outputGoogleChronicleCustomLabelToJSON(
+  outputGoogleChronicleCustomLabel: OutputGoogleChronicleCustomLabel,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleCustomLabel$outboundSchema.parse(
+      outputGoogleChronicleCustomLabel,
+    ),
+  );
 }
 
-export function customLabelFromJSON(
+export function outputGoogleChronicleCustomLabelFromJSON(
   jsonString: string,
-): SafeParseResult<CustomLabel, SDKValidationError> {
+): SafeParseResult<OutputGoogleChronicleCustomLabel, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CustomLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CustomLabel' from JSON`,
+    (x) => OutputGoogleChronicleCustomLabel$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleCustomLabel' from JSON`,
   );
 }
 
@@ -1039,7 +1108,9 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
-  customLabels: z.array(z.lazy(() => CustomLabel$inboundSchema)).optional(),
+  customLabels: z.array(
+    z.lazy(() => OutputGoogleChronicleCustomLabel$inboundSchema),
+  ).optional(),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
@@ -1095,7 +1166,7 @@ export type OutputGoogleChronicle$Outbound = {
   logTextField?: string | undefined;
   customerId?: string | undefined;
   namespace?: string | undefined;
-  customLabels?: Array<CustomLabel$Outbound> | undefined;
+  customLabels?: Array<OutputGoogleChronicleCustomLabel$Outbound> | undefined;
   apiKey?: string | undefined;
   apiKeySecret?: string | undefined;
   serviceAccountCredentials?: string | undefined;
@@ -1158,7 +1229,9 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
-  customLabels: z.array(z.lazy(() => CustomLabel$outboundSchema)).optional(),
+  customLabels: z.array(
+    z.lazy(() => OutputGoogleChronicleCustomLabel$outboundSchema),
+  ).optional(),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),

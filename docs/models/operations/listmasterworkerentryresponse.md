@@ -56,19 +56,19 @@ let value: ListMasterWorkerEntryResponse = {
           tags: [],
           version: "<value>",
         },
-        freeDiskSpace: 6007.7,
+        env: {
+          "key": "<value>",
+          "key1": "<value>",
+        },
+        freeDiskSpace: 8973.47,
         hostOs: {
-          addresses: [
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-          ],
+          addresses: [],
           enabled: true,
           id: "<id>",
           version: "<value>",
         },
-        hostname: "interesting-cinder.info",
-        isSaasWorker: true,
+        hostname: "criminal-handle.info",
+        isSaasWorker: false,
         kube: {
           enabled: false,
           namespace: "<value>",
@@ -80,7 +80,7 @@ let value: ListMasterWorkerEntryResponse = {
           pod: "<value>",
           source: "<value>",
         },
-        localTime: 6997.29,
+        localTime: 5361.11,
         metadata: {
           aws: {
             enabled: false,
@@ -96,12 +96,12 @@ let value: ListMasterWorkerEntryResponse = {
               "<value 2>",
               "<value 3>",
             ],
-            enabled: false,
+            enabled: true,
             id: "<id>",
             version: "<value>",
           },
           kube: {
-            enabled: true,
+            enabled: false,
             namespace: "<value>",
             node: "<value>",
             owner: {
@@ -112,11 +112,7 @@ let value: ListMasterWorkerEntryResponse = {
             source: "<value>",
           },
           os: {
-            addresses: [
-              "<value 1>",
-              "<value 2>",
-              "<value 3>",
-            ],
+            addresses: [],
             enabled: true,
             id: "<id>",
             version: "<value>",
@@ -129,9 +125,6 @@ let value: ListMasterWorkerEntryResponse = {
             "<value 2>",
             "<value 3>",
           ],
-          enabled: false,
-          id: "<id>",
-          version: "<value>",
         },
         platform: "<value>",
         release: "<value>",
@@ -155,12 +148,12 @@ let value: ListMasterWorkerEntryResponse = {
             "<value 2>",
             "<value 3>",
           ],
-          enabled: false,
+          enabled: true,
           id: "<id>",
           version: "<value>",
         },
         kube: {
-          enabled: true,
+          enabled: false,
           namespace: "<value>",
           node: "<value>",
           owner: {
@@ -171,11 +164,7 @@ let value: ListMasterWorkerEntryResponse = {
           source: "<value>",
         },
         os: {
-          addresses: [
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
-          ],
+          addresses: [],
           enabled: true,
           id: "<id>",
           version: "<value>",
