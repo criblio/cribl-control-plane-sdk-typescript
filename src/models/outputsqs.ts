@@ -144,7 +144,7 @@ export type OutputSqs = {
   /**
    * The queue type used (or created). Defaults to Standard.
    */
-  queueType?: OutputSqsQueueType | undefined;
+  queueType: OutputSqsQueueType;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -557,7 +557,7 @@ export const OutputSqs$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   queueName: z.string(),
-  queueType: OutputSqsQueueType$inboundSchema.default("standard"),
+  queueType: OutputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
   messageGroupId: z.string().default("cribl"),
   createQueue: z.boolean().default(true),
@@ -645,7 +645,7 @@ export const OutputSqs$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   queueName: z.string(),
-  queueType: OutputSqsQueueType$outboundSchema.default("standard"),
+  queueType: OutputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   messageGroupId: z.string().default("cribl"),
   createQueue: z.boolean().default(true),

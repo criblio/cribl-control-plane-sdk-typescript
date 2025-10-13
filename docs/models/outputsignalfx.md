@@ -31,11 +31,12 @@ let value: OutputSignalfx = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 9115.44,
+      httpStatus: 9599.18,
     },
   ],
   timeoutRetrySettings: {},
-  description: "about roughly which promise untidy a jovially",
+  description:
+    "since furthermore zowie rust stable dream an greedily far which",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},

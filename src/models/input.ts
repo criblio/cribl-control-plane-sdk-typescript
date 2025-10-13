@@ -370,6 +370,7 @@ export type Input =
   | InputOffice365Service
   | InputEventhub
   | InputKinesis
+  | InputSqs
   | InputJournalFiles
   | InputHttp
   | InputSplunk
@@ -392,7 +393,6 @@ export type Input =
   | InputHttpRaw
   | InputS3
   | InputS3Inventory
-  | InputSqs
   | InputTcp
   | InputWef
   | InputWinEventLogs
@@ -433,6 +433,7 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     InputOffice365Service$inboundSchema,
     InputEventhub$inboundSchema,
     InputKinesis$inboundSchema,
+    InputSqs$inboundSchema,
     InputJournalFiles$inboundSchema,
     InputHttp$inboundSchema,
     InputSplunk$inboundSchema,
@@ -455,7 +456,6 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     InputHttpRaw$inboundSchema,
     InputS3$inboundSchema,
     InputS3Inventory$inboundSchema,
-    InputSqs$inboundSchema,
     InputTcp$inboundSchema,
     InputWef$inboundSchema,
     InputWinEventLogs$inboundSchema,
@@ -496,6 +496,7 @@ export type Input$Outbound =
   | InputOffice365Service$Outbound
   | InputEventhub$Outbound
   | InputKinesis$Outbound
+  | InputSqs$Outbound
   | InputJournalFiles$Outbound
   | InputHttp$Outbound
   | InputSplunk$Outbound
@@ -518,7 +519,6 @@ export type Input$Outbound =
   | InputHttpRaw$Outbound
   | InputS3$Outbound
   | InputS3Inventory$Outbound
-  | InputSqs$Outbound
   | InputTcp$Outbound
   | InputWef$Outbound
   | InputWinEventLogs$Outbound
@@ -562,6 +562,7 @@ export const Input$outboundSchema: z.ZodType<
   InputOffice365Service$outboundSchema,
   InputEventhub$outboundSchema,
   InputKinesis$outboundSchema,
+  InputSqs$outboundSchema,
   InputJournalFiles$outboundSchema,
   InputHttp$outboundSchema,
   InputSplunk$outboundSchema,
@@ -584,7 +585,6 @@ export const Input$outboundSchema: z.ZodType<
   InputHttpRaw$outboundSchema,
   InputS3$outboundSchema,
   InputS3Inventory$outboundSchema,
-  InputSqs$outboundSchema,
   InputTcp$outboundSchema,
   InputWef$outboundSchema,
   InputWinEventLogs$outboundSchema,

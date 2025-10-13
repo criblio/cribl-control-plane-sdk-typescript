@@ -169,7 +169,7 @@ export type InputSqs = {
   /**
    * The queue type used (or created)
    */
-  queueType?: InputSqsQueueType | undefined;
+  queueType: InputSqsQueueType;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -677,7 +677,7 @@ export const InputSqs$inboundSchema: z.ZodType<
     .optional(),
   pq: z.lazy(() => InputSqsPq$inboundSchema).optional(),
   queueName: z.string(),
-  queueType: InputSqsQueueType$inboundSchema.default("standard"),
+  queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
   awsAuthenticationMethod: InputSqsAuthenticationMethod$inboundSchema.default(
@@ -758,7 +758,7 @@ export const InputSqs$outboundSchema: z.ZodType<
     .optional(),
   pq: z.lazy(() => InputSqsPq$outboundSchema).optional(),
   queueName: z.string(),
-  queueType: InputSqsQueueType$outboundSchema.default("standard"),
+  queueType: InputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
   awsAuthenticationMethod: InputSqsAuthenticationMethod$outboundSchema.default(
