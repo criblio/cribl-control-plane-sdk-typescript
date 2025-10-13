@@ -647,11 +647,11 @@ const value: models.OutputAzureLogs = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6609.99,
+      httpStatus: 6704.51,
     },
   ],
   timeoutRetrySettings: {},
-  description: "whoa through broadly aside fooey triumphantly tarry ghost",
+  description: "elver growing aha gallery monthly jot",
   pqControls: {},
   workspaceId: "<id>",
   workspaceKey: "<value>",
@@ -1592,13 +1592,14 @@ const value: models.OutputSqs = {
     "<value 1>",
   ],
   queueName: "<value>",
+  queueType: "standard",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  description: "versus gracefully cornet",
+  description: "except besides dreamily likewise hammock uh-huh publicity",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   pqControls: {},
@@ -2689,13 +2690,65 @@ const value: models.OutputSentinelOneAiSiem = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 3993.7,
+      httpStatus: 3766.68,
     },
   ],
   timeoutRetrySettings: {},
-  description: "blissfully mousse sleepily serpentine seriously fluff",
+  description: "which unselfish how raw congregate drat aw",
   token: "<value>",
   textSecret: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputChronicle`
+
+```typescript
+const value: models.OutputChronicle = {
+  id: "<id>",
+  type: "chronicle",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 823.16,
+    },
+  ],
+  timeoutRetrySettings: {},
+  region: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  totalMemoryLimitKB: 2245.68,
+  namespace: "<value>",
+  logType: "<value>",
+  logTextField: "<value>",
+  gcpProjectId: "<id>",
+  gcpInstance: "<value>",
+  customLabels: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "skyscraper since colon attribute",
+  serviceAccountCredentials: "<value>",
+  serviceAccountCredentialsSecret: "<value>",
   pqControls: {},
 };
 ```

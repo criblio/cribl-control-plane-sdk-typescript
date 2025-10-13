@@ -22,8 +22,17 @@ export type OutputDlS3Type = ClosedEnum<typeof OutputDlS3Type>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputDlS3AuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -51,12 +60,33 @@ export type OutputDlS3SignatureVersion = OpenEnum<
  * Object ACL to assign to uploaded objects
  */
 export const OutputDlS3ObjectACL = {
+  /**
+   * Private
+   */
   Private: "private",
+  /**
+   * Public Read Only
+   */
   PublicRead: "public-read",
+  /**
+   * Public Read/Write
+   */
   PublicReadWrite: "public-read-write",
+  /**
+   * Authenticated Read Only
+   */
   AuthenticatedRead: "authenticated-read",
+  /**
+   * AWS EC2 AMI Read Only
+   */
   AwsExecRead: "aws-exec-read",
+  /**
+   * Bucket Owner Read Only
+   */
   BucketOwnerRead: "bucket-owner-read",
+  /**
+   * Bucket Owner Full Control
+   */
   BucketOwnerFullControl: "bucket-owner-full-control",
 } as const;
 /**
@@ -68,13 +98,37 @@ export type OutputDlS3ObjectACL = OpenEnum<typeof OutputDlS3ObjectACL>;
  * Storage class to select for uploaded objects
  */
 export const OutputDlS3StorageClass = {
+  /**
+   * Standard
+   */
   Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
   ReducedRedundancy: "REDUCED_REDUNDANCY",
+  /**
+   * Standard, Infrequent Access
+   */
   StandardIa: "STANDARD_IA",
+  /**
+   * One Zone, Infrequent Access
+   */
   OnezoneIa: "ONEZONE_IA",
+  /**
+   * Intelligent Tiering
+   */
   IntelligentTiering: "INTELLIGENT_TIERING",
+  /**
+   * Glacier Flexible Retrieval
+   */
   Glacier: "GLACIER",
+  /**
+   * Glacier Instant Retrieval
+   */
   GlacierIr: "GLACIER_IR",
+  /**
+   * Glacier Deep Archive
+   */
   DeepArchive: "DEEP_ARCHIVE",
 } as const;
 /**
@@ -83,7 +137,13 @@ export const OutputDlS3StorageClass = {
 export type OutputDlS3StorageClass = OpenEnum<typeof OutputDlS3StorageClass>;
 
 export const OutputDlS3ServerSideEncryptionForUploadedObjects = {
+  /**
+   * Amazon S3 Managed Key
+   */
   Aes256: "AES256",
+  /**
+   * AWS KMS Managed Key
+   */
   AwsKms: "aws:kms",
 } as const;
 export type OutputDlS3ServerSideEncryptionForUploadedObjects = OpenEnum<
@@ -94,8 +154,17 @@ export type OutputDlS3ServerSideEncryptionForUploadedObjects = OpenEnum<
  * Format of the output data
  */
 export const OutputDlS3DataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -107,7 +176,13 @@ export type OutputDlS3DataFormat = OpenEnum<typeof OutputDlS3DataFormat>;
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputDlS3BackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -121,7 +196,13 @@ export type OutputDlS3BackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputDlS3DiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -147,8 +228,17 @@ export type OutputDlS3Compression = OpenEnum<typeof OutputDlS3Compression>;
  * Compression level to apply before moving files to final destination
  */
 export const OutputDlS3CompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
@@ -162,8 +252,17 @@ export type OutputDlS3CompressionLevel = OpenEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputDlS3ParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
@@ -177,7 +276,13 @@ export type OutputDlS3ParquetVersion = OpenEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputDlS3DataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**

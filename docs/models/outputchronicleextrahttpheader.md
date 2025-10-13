@@ -1,12 +1,12 @@
-# CustomLabel
+# OutputChronicleExtraHttpHeader
 
 ## Example Usage
 
 ```typescript
-import { CustomLabel } from "cribl-control-plane/models";
+import { OutputChronicleExtraHttpHeader } from "cribl-control-plane/models";
 
-let value: CustomLabel = {
-  key: "<key>",
+let value: OutputChronicleExtraHttpHeader = {
+  name: "<value>",
   value: "<value>",
 };
 ```
@@ -15,5 +15,5 @@ let value: CustomLabel = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `key`              | *string*           | :heavy_check_mark: | N/A                |
+| `name`             | *string*           | :heavy_minus_sign: | N/A                |
 | `value`            | *string*           | :heavy_check_mark: | N/A                |

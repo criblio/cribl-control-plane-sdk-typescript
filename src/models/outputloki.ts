@@ -22,7 +22,13 @@ export type OutputLokiType = ClosedEnum<typeof OutputLokiType>;
  * Format to use when sending logs to Loki (Protobuf or JSON)
  */
 export const OutputLokiMessageFormat = {
+  /**
+   * Protobuf
+   */
   Protobuf: "protobuf",
+  /**
+   * JSON
+   */
   Json: "json",
 } as const;
 /**
@@ -36,10 +42,25 @@ export type OutputLokiLabel = {
 };
 
 export const OutputLokiAuthenticationType = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Auth token
+   */
   Token: "token",
+  /**
+   * Auth token (text secret)
+   */
   TextSecret: "textSecret",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
 } as const;
 export type OutputLokiAuthenticationType = OpenEnum<
@@ -55,8 +76,17 @@ export type OutputLokiExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputLokiFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -105,8 +135,17 @@ export type OutputLokiTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputLokiBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -120,7 +159,13 @@ export type OutputLokiBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputLokiCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -132,7 +177,13 @@ export type OutputLokiCompression = OpenEnum<typeof OutputLokiCompression>;
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputLokiQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -146,8 +197,17 @@ export type OutputLokiQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputLokiMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**

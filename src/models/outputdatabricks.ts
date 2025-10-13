@@ -22,8 +22,17 @@ export type OutputDatabricksType = ClosedEnum<typeof OutputDatabricksType>;
  * Format of the output data
  */
 export const OutputDatabricksDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -37,7 +46,13 @@ export type OutputDatabricksDataFormat = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputDatabricksBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -51,7 +66,13 @@ export type OutputDatabricksBackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputDatabricksDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -65,7 +86,13 @@ export type OutputDatabricksDiskSpaceProtection = OpenEnum<
  * Unity Catalog authentication method. Choose Manual to enter credentials directly, or Secret to use a stored secret.
  */
 export const OutputDatabricksAuthenticationMethod = {
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**

@@ -22,7 +22,13 @@ export type OutputSqsType = ClosedEnum<typeof OutputSqsType>;
  * The queue type used (or created). Defaults to Standard.
  */
 export const OutputSqsQueueType = {
+  /**
+   * Standard
+   */
   Standard: "standard",
+  /**
+   * FIFO
+   */
   Fifo: "fifo",
 } as const;
 /**
@@ -34,8 +40,17 @@ export type OutputSqsQueueType = OpenEnum<typeof OutputSqsQueueType>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputSqsAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -63,8 +78,17 @@ export type OutputSqsSignatureVersion = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputSqsBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -78,7 +102,13 @@ export type OutputSqsBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputSqsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -90,7 +120,13 @@ export type OutputSqsCompression = OpenEnum<typeof OutputSqsCompression>;
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputSqsQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -104,8 +140,17 @@ export type OutputSqsQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputSqsMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -144,7 +189,7 @@ export type OutputSqs = {
   /**
    * The queue type used (or created). Defaults to Standard.
    */
-  queueType?: OutputSqsQueueType | undefined;
+  queueType: OutputSqsQueueType;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -557,7 +602,7 @@ export const OutputSqs$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   queueName: z.string(),
-  queueType: OutputSqsQueueType$inboundSchema.default("standard"),
+  queueType: OutputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
   messageGroupId: z.string().default("cribl"),
   createQueue: z.boolean().default(true),
@@ -645,7 +690,7 @@ export const OutputSqs$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   queueName: z.string(),
-  queueType: OutputSqsQueueType$outboundSchema.default("standard"),
+  queueType: OutputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   messageGroupId: z.string().default("cribl"),
   createQueue: z.boolean().default(true),

@@ -22,8 +22,17 @@ export type OutputKafkaType = ClosedEnum<typeof OutputKafkaType>;
  * Control the number of required acknowledgments.
  */
 export const OutputKafkaAcknowledgments = {
+  /**
+   * Leader
+   */
   One: 1,
+  /**
+   * None
+   */
   Zero: 0,
+  /**
+   * All
+   */
   Minus1: -1,
 } as const;
 /**
@@ -37,8 +46,17 @@ export type OutputKafkaAcknowledgments = OpenEnum<
  * Format to use to serialize events before writing to Kafka.
  */
 export const OutputKafkaRecordDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Field _raw
+   */
   Raw: "raw",
+  /**
+   * Protobuf
+   */
   Protobuf: "protobuf",
 } as const;
 /**
@@ -52,9 +70,21 @@ export type OutputKafkaRecordDataFormat = OpenEnum<
  * Codec to use to compress the data before sending to Kafka
  */
 export const OutputKafkaCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
+  /**
+   * Snappy
+   */
   Snappy: "snappy",
+  /**
+   * LZ4
+   */
   Lz4: "lz4",
 } as const;
 /**
@@ -164,9 +194,21 @@ export type OutputKafkaKafkaSchemaRegistryAuthentication = {
 };
 
 export const OutputKafkaSASLMechanism = {
+  /**
+   * PLAIN
+   */
   Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
   ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
   ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
   Kerberos: "kerberos",
 } as const;
 export type OutputKafkaSASLMechanism = OpenEnum<
@@ -246,8 +288,17 @@ export type OutputKafkaTLSSettingsClientSide = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputKafkaBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -261,7 +312,13 @@ export type OutputKafkaBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputKafkaPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -275,7 +332,13 @@ export type OutputKafkaPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputKafkaQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -289,8 +352,17 @@ export type OutputKafkaQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputKafkaMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
