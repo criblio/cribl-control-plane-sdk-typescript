@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 6a9833956a1790cfabfb6ad9ac3251fd
-  docVersion: 4.15.0-alpha.1760451417353-c4fefd9b
+  docChecksum: 1e2d30b7a85391bc454b66c06ad9c4a4
+  docVersion: 4.15.0-alpha.1760464789107-7d63bffb
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.1.1-rc.3
-  configChecksum: 444fe440eb36df3d06779bc92ed36dcd
+  releaseVersion: 0.1.1-rc.4
+  configChecksum: 61c391fdd00329937f9c7dc9db834ef3
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3353,8 +3353,8 @@ generatedTests:
   updateGroupsById: "2025-08-01T20:03:31Z"
 releaseNotes: |
   ## Typescript SDK Changes Detected:
-  * `criblcontrolplane.packs.install()`:  `response.items.[].tags.technology` **Changed**
-  * `criblcontrolplane.packs.list()`:  `response.items.[].tags.technology` **Changed**
-  * `criblcontrolplane.packs.delete()`:  `response.items.[].tags.technology` **Changed**
-  * `criblcontrolplane.packs.get()`:  `response.items.[].tags.technology` **Changed**
-  * `criblcontrolplane.packs.update()`:  `response.items.[].tags.technology` **Changed**
+  * `criblcontrolplane.packs.install()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.packs.list()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.packs.delete()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.packs.get()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.packs.update()`:  `response.items.[].tags.dataType` **Changed**

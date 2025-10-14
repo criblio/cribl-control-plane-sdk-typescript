@@ -34,10 +34,12 @@ let value: GetPacksByIdResponse = {
       source: "<value>",
       spec: "<value>",
       tags: {
-        dataType: [],
+        dataType: [
+          "double",
+        ],
         domain: [
-          "known-sailor.name",
-          "austere-calculus.net",
+          "sophisticated-pepper.com",
+          "cheerful-printer.net",
         ],
         streamtags: [
           "<value 1>",
@@ -46,8 +48,6 @@ let value: GetPacksByIdResponse = {
         ],
         technology: [
           "<value 1>",
-          "<value 2>",
-          "<value 3>",
         ],
       },
       version: "<value>",
