@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: a3ddd76d19682d8ef44871a3afb238c9
-  docVersion: 4.15.0-alpha.1760137873808-498c0e83
+  docChecksum: 2752f659b3044a4b69db70deeeceff93
+  docVersion: 4.15.0-alpha.1760439571529-8891ea6f
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.1
-  configChecksum: 8d99cf13333df369350477223935f20f
+  releaseVersion: 0.2.0-beta.2
+  configChecksum: 891025fdf20972bf8364533b4edc02dc
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -81,6 +81,8 @@ generatedFiles:
   - docs/models/criblevent.md
   - docs/models/cribllakedataset.md
   - docs/models/cribllakedatasetformat.md
+  - docs/models/cribllakedatasetupdate.md
+  - docs/models/cribllakedatasetupdateformat.md
   - docs/models/currentbranchresult.md
   - docs/models/datadogsite.md
   - docs/models/datasetmetadata.md
@@ -2113,6 +2115,7 @@ generatedFiles:
   - src/models/configgrouplookups.ts
   - src/models/criblevent.ts
   - src/models/cribllakedataset.ts
+  - src/models/cribllakedatasetupdate.ts
   - src/models/currentbranchresult.ts
   - src/models/datasetmetadata.ts
   - src/models/datasetmetadataruninfo.ts
@@ -3340,4 +3343,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.versions.commits.undo()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.pq.get()`:  `response.items.[].stats` **Added**\n* `criblcontrolplane.nodes.summaries.get()`:  `response.items.[].groups` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.nodes.list()`:  `response.items.[].info.env` **Added**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.packs.install()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.list()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.delete()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.get()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.update()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.versions.configs.get()`:  `response.items.[].remote` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `criblcontrolplane.lakeDatasets.update()`:  `request` **Changed** **Breaking** :warning:
