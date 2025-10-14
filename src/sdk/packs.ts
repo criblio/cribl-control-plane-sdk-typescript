@@ -49,15 +49,15 @@ export class Packs extends ClientSDK {
   }
 
   /**
-   * Upload a Pack
+   * Upload a Pack file
    *
    * @remarks
-   * Upload Pack
+   * Upload a Pack file for import. Returns a source identifier that must be used in the subsequent import POST request to complete the pack installation.
    */
   async upload(
     request: operations.UpdatePacksRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdatePacksResponse> {
+  ): Promise<models.UploadPackResponse> {
     return unwrapAsync(packsUpload(
       this,
       request,

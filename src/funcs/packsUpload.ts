@@ -21,15 +21,16 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Upload a Pack
+ * Upload a Pack file
  *
  * @remarks
- * Upload Pack
+ * Upload a Pack file for import. Returns a source identifier that must be used in the subsequent import POST request to complete the pack installation.
  */
 export function packsUpload(
   client: CriblControlPlaneCore,
@@ -37,7 +38,7 @@ export function packsUpload(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdatePacksResponse,
+    models.UploadPackResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -63,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.UpdatePacksResponse,
+      models.UploadPackResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -149,7 +150,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdatePacksResponse,
+    models.UploadPackResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -160,7 +161,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.UpdatePacksResponse$inboundSchema),
+    M.json(200, models.UploadPackResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),
