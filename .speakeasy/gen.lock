@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 22abc65d0f38303ec7507a81417d368f
-  docVersion: 4.15.0-alpha.1760436453076-ea359d16
+  docChecksum: 181bb44c06fd63ce996c23dd0a660f5e
+  docVersion: 4.15.0-alpha.1760439369062-366c2353
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.1.1-rc.1
-  configChecksum: 4ed1475d4815b0f65a0640cccacbfdd4
+  releaseVersion: 0.1.1-rc.2
+  configChecksum: 9c396dacbfeb7e3711111e3e098dcaad
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -1066,7 +1066,6 @@ generatedFiles:
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
   - docs/models/operations/updatepacksrequest.md
-  - docs/models/operations/updatepacksresponse.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updateroutesbyidrequest.md
@@ -1990,6 +1989,7 @@ generatedFiles:
   - docs/models/timestampprecision.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
+  - docs/models/uploadpackresponse.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
@@ -2378,6 +2378,7 @@ generatedFiles:
   - src/models/security.ts
   - src/models/teamaccesscontrollist.ts
   - src/models/updatehectokenrequest.ts
+  - src/models/uploadpackresponse.ts
   - src/models/useraccesscontrollist.ts
   - src/models/workertypes.ts
   - src/sdk/acl.ts
@@ -2997,7 +2998,7 @@ examples:
         application/octet-stream: "x-file: example.file"
       responses:
         "200":
-          application/json: {"count": 779474, "items": [{}, {"key": "<value>"}]}
+          application/json: {"source": "<value>"}
         "500":
           application/json: {"message": "<value>"}
   deleteCriblLakeDatasetByLakeIdAndId:
@@ -3350,4 +3351,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.versions.commits.push()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.groups.get()`:  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.groups.deploy()`:  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.groups.delete()`:  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.groups.update()`: \n  *  `request.configGroup.estimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.health.get()`:  `response.status[default]` **Added** **Breaking** :warning:\n* `criblcontrolplane.groups.create()`: \n  *  `request.configGroup.estimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.groups.list()`:  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.undo()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.routes.append()`: \n  *  `request.requestBody.[].clones.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.lakeDatasets.update()`:  `request` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.packs.install()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.list()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.delete()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.get()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.update()`:  `response.items.[].dependencies` **Added**\n* `criblcontrolplane.packs.upload()`: **Added**\n* `criblcontrolplane.nodes.summaries.get()`:  `response.items.[].groups` **Changed**\n* `criblcontrolplane.destinations.pq.get()`:  `response.items.[].stats` **Added**\n* `criblcontrolplane.versions.configs.get()`:  `response.items.[].remote` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.nodes.list()`:  `response.items.[].info` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `criblcontrolplane.packs.upload()`:  `response` **Changed** **Breaking** :warning:

@@ -9,7 +9,7 @@ Actions related to Packs
 
 * [install](#install) - Create or install a Pack
 * [list](#list) - List all Packs
-* [upload](#upload) - Upload a Pack
+* [upload](#upload) - Upload a Pack file
 * [delete](#delete) - Uninstall a Pack
 * [get](#get) - Get a Pack
 * [update](#update) - Upgrade a Pack
@@ -216,7 +216,7 @@ run();
 
 ## upload
 
-Upload Pack
+Upload a Pack file for import. Returns a source identifier that must be used in the subsequent import POST request to complete the pack installation.
 
 ### Example Usage
 
@@ -289,7 +289,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdatePacksResponse](../../models/operations/updatepacksresponse.md)\>**
+**Promise\<[models.UploadPackResponse](../../models/uploadpackresponse.md)\>**
 
 ### Errors
 

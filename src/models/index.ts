@@ -202,5 +202,6 @@ export * from "./schemeclientoauth.js";
 export * from "./security.js";
 export * from "./teamaccesscontrollist.js";
 export * from "./updatehectokenrequest.js";
+export * from "./uploadpackresponse.js";
 export * from "./useraccesscontrollist.js";
 export * from "./workertypes.js";

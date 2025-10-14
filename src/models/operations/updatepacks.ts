@@ -10,24 +10,13 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdatePacksRequest = {
   /**
-   * the file to upload
+   * Filename of the pack file to upload
    */
   filename: string;
   /**
    * Binary file content
    */
   requestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
-};
-
-/**
- * a list of any objects
- */
-export type UpdatePacksResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
 };
 
 /** @internal */
@@ -102,62 +91,5 @@ export function updatePacksRequestFromJSON(
     jsonString,
     (x) => UpdatePacksRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdatePacksRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdatePacksResponse$inboundSchema: z.ZodType<
-  UpdatePacksResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
-});
-
-/** @internal */
-export type UpdatePacksResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
-};
-
-/** @internal */
-export const UpdatePacksResponse$outboundSchema: z.ZodType<
-  UpdatePacksResponse$Outbound,
-  z.ZodTypeDef,
-  UpdatePacksResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePacksResponse$ {
-  /** @deprecated use `UpdatePacksResponse$inboundSchema` instead. */
-  export const inboundSchema = UpdatePacksResponse$inboundSchema;
-  /** @deprecated use `UpdatePacksResponse$outboundSchema` instead. */
-  export const outboundSchema = UpdatePacksResponse$outboundSchema;
-  /** @deprecated use `UpdatePacksResponse$Outbound` instead. */
-  export type Outbound = UpdatePacksResponse$Outbound;
-}
-
-export function updatePacksResponseToJSON(
-  updatePacksResponse: UpdatePacksResponse,
-): string {
-  return JSON.stringify(
-    UpdatePacksResponse$outboundSchema.parse(updatePacksResponse),
-  );
-}
-
-export function updatePacksResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePacksResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePacksResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePacksResponse' from JSON`,
   );
 }

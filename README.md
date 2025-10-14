@@ -305,7 +305,7 @@ run();
 
 * [install](docs/sdks/packs/README.md#install) - Create or install a Pack
 * [list](docs/sdks/packs/README.md#list) - List all Packs
-* [upload](docs/sdks/packs/README.md#upload) - Upload a Pack
+* [upload](docs/sdks/packs/README.md#upload) - Upload a Pack file
 * [delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 * [get](docs/sdks/packs/README.md#get) - Get a Pack
 * [update](docs/sdks/packs/README.md#update) - Upgrade a Pack
@@ -417,7 +417,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsInstall`](docs/sdks/packs/README.md#install) - Create or install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
-- [`packsUpload`](docs/sdks/packs/README.md#upload) - Upload a Pack
+- [`packsUpload`](docs/sdks/packs/README.md#upload) - Upload a Pack file
 - [`pipelinesCreate`](docs/sdks/pipelines/README.md#create) - Create a Pipeline
 - [`pipelinesDelete`](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 - [`pipelinesGet`](docs/sdks/pipelines/README.md#get) - Get a Pipeline
