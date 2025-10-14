@@ -28,4 +28,4 @@ let value: PackInstallInfoTags = {
 | `dataType`         | *string*[]         | :heavy_check_mark: | N/A                |
 | `domain`           | *string*[]         | :heavy_minus_sign: | N/A                |
 | `streamtags`       | *string*[]         | :heavy_minus_sign: | N/A                |
-| `technology`       | *string*[]         | :heavy_check_mark: | N/A                |
+| `technology`       | *string*[]         | :heavy_minus_sign: | N/A                |
