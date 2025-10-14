@@ -28,10 +28,11 @@ let value: PackInstallInfo = {
   source: "<value>",
   spec: "<value>",
   tags: {
-    dataType: [],
+    dataType: [
+      "int",
+    ],
     domain: [
-      "authentic-coil.name",
-      "fearless-vista.info",
+      "damp-legging.biz",
     ],
     streamtags: [
       "<value 1>",
@@ -41,7 +42,6 @@ let value: PackInstallInfo = {
     technology: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
   version: "<value>",
