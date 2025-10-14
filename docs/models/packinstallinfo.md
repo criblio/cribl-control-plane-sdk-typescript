@@ -41,6 +41,7 @@ let value: PackInstallInfo = {
     technology: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
   version: "<value>",
