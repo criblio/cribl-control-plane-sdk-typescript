@@ -12,6 +12,8 @@ let value: RunnableJobCollectionMode = "preview";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"list" | "preview" | "run"
+"list" | "preview" | "run" | Unrecognized<string>
 ```

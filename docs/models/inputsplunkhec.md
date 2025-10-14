@@ -29,7 +29,7 @@ let value: InputSplunkHec = {
     {
       tokenSecret: "<value>",
       token: "<value>",
-      description: "throbbing sting sore",
+      description: "seemingly yogurt gee yawningly meander zowie",
       allowedIndexesAtToken: [
         "<value 1>",
       ],
@@ -49,8 +49,8 @@ let value: InputSplunkHec = {
     caPath: "<value>",
     rejectUnauthorized: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
   },
   enableHealthCheck: "<value>",
   metadata: [
@@ -61,13 +61,9 @@ let value: InputSplunkHec = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
@@ -76,9 +72,9 @@ let value: InputSplunkHec = {
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "what mockingly excluding",
+  description:
+    "brr plump vainly reprove dismal whoa best-seller mushy underpants suspiciously",
 };
 ```
 

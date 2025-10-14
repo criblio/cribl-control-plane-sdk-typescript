@@ -440,11 +440,12 @@ const value: models.OutputSignalfx = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 9115.44,
+      httpStatus: 9599.18,
     },
   ],
   timeoutRetrySettings: {},
-  description: "about roughly which promise untidy a jovially",
+  description:
+    "since furthermore zowie rust stable dream an greedily far which",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},
@@ -646,11 +647,11 @@ const value: models.OutputAzureLogs = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6609.99,
+      httpStatus: 6704.51,
     },
   ],
   timeoutRetrySettings: {},
-  description: "whoa through broadly aside fooey triumphantly tarry ghost",
+  description: "elver growing aha gallery monthly jot",
   pqControls: {},
   workspaceId: "<id>",
   workspaceKey: "<value>",
@@ -1170,7 +1171,7 @@ const value: models.OutputElastic = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6978.08,
+      httpStatus: 7430.05,
     },
   ],
   timeoutRetrySettings: {},
@@ -1182,11 +1183,11 @@ const value: models.OutputElastic = {
   ],
   auth: {},
   elasticPipeline: "<value>",
-  description: "wing gosh attest catalyze waist eek jaggedly woot",
-  url: "https://brisk-marathon.biz",
+  description: "challenge although ugh hydrolyse adolescent graceful",
+  url: "https://worldly-behest.net",
   urls: [
     {
-      url: "https://triangular-vista.net/",
+      url: "https://hospitable-zebra.net/",
     },
   ],
   pqControls: {},
@@ -1232,11 +1233,11 @@ const value: models.OutputElasticCloud = {
   elasticPipeline: "<value>",
   responseRetrySettings: [
     {
-      httpStatus: 4806.39,
+      httpStatus: 5869.12,
     },
   ],
   timeoutRetrySettings: {},
-  description: "kookily arrogantly ah phew bah blacken uncomfortable",
+  description: "cheerfully arrange lest circa yet quirkily",
   pqControls: {},
 };
 ```
@@ -1591,13 +1592,14 @@ const value: models.OutputSqs = {
     "<value 1>",
   ],
   queueName: "<value>",
+  queueType: "standard",
   awsAccountId: "<id>",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  description: "versus gracefully cornet",
+  description: "except besides dreamily likewise hammock uh-huh publicity",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   pqControls: {},
@@ -2653,7 +2655,7 @@ const value: models.OutputDynatraceOtlp = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 9514.43,
+      httpStatus: 3110.41,
     },
   ],
   timeoutRetrySettings: {},
@@ -2696,6 +2698,83 @@ const value: models.OutputSentinelOneAiSiem = {
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},
+};
+```
+
+### `models.OutputChronicle`
+
+```typescript
+const value: models.OutputChronicle = {
+  id: "<id>",
+  type: "chronicle",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 823.16,
+    },
+  ],
+  timeoutRetrySettings: {},
+  region: "<value>",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  totalMemoryLimitKB: 2245.68,
+  namespace: "<value>",
+  logType: "<value>",
+  logTextField: "<value>",
+  gcpProjectId: "<id>",
+  gcpInstance: "<value>",
+  customLabels: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "skyscraper since colon attribute",
+  serviceAccountCredentials: "<value>",
+  serviceAccountCredentialsSecret: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputDatabricks`
+
+```typescript
+const value: models.OutputDatabricks = {
+  id: "<id>",
+  type: "databricks",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  loginUrl: "https://pleasant-ceramic.info/",
+  clientId: "<id>",
+  description:
+    "brr explode during beside overload while ick drag intellect who",
+  clientSecret: "<value>",
+  clientTextSecret: "<value>",
 };
 ```
 

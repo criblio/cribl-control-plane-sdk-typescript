@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -22,25 +27,37 @@ export type InputCriblmetricsConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputCriblmetricsMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputCriblmetricsMode = ClosedEnum<typeof InputCriblmetricsMode>;
+export type InputCriblmetricsMode = OpenEnum<typeof InputCriblmetricsMode>;
 
 /**
  * Codec to use to compress the persisted data
  */
 export const InputCriblmetricsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type InputCriblmetricsCompression = ClosedEnum<
+export type InputCriblmetricsCompression = OpenEnum<
   typeof InputCriblmetricsCompression
 >;
 
@@ -214,14 +231,25 @@ export function inputCriblmetricsConnectionFromJSON(
 }
 
 /** @internal */
-export const InputCriblmetricsMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblmetricsMode
-> = z.nativeEnum(InputCriblmetricsMode);
+export const InputCriblmetricsMode$inboundSchema: z.ZodType<
+  InputCriblmetricsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCriblmetricsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCriblmetricsMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblmetricsMode
-> = InputCriblmetricsMode$inboundSchema;
+export const InputCriblmetricsMode$outboundSchema: z.ZodType<
+  InputCriblmetricsMode,
+  z.ZodTypeDef,
+  InputCriblmetricsMode
+> = z.union([
+  z.nativeEnum(InputCriblmetricsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -235,14 +263,25 @@ export namespace InputCriblmetricsMode$ {
 }
 
 /** @internal */
-export const InputCriblmetricsCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblmetricsCompression
-> = z.nativeEnum(InputCriblmetricsCompression);
+export const InputCriblmetricsCompression$inboundSchema: z.ZodType<
+  InputCriblmetricsCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputCriblmetricsCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputCriblmetricsCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblmetricsCompression
-> = InputCriblmetricsCompression$inboundSchema;
+export const InputCriblmetricsCompression$outboundSchema: z.ZodType<
+  InputCriblmetricsCompression,
+  z.ZodTypeDef,
+  InputCriblmetricsCompression
+> = z.union([
+  z.nativeEnum(InputCriblmetricsCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

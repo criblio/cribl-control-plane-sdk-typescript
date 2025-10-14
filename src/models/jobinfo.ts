@@ -23,6 +23,7 @@ export type JobInfo = {
   args: RunnableJob;
   id: string;
   keep?: boolean | undefined;
+  stats: { [k: string]: number };
   status: JobStatus;
 };
 
@@ -32,6 +33,7 @@ export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
     args: RunnableJob$inboundSchema,
     id: z.string(),
     keep: z.boolean().optional(),
+    stats: z.record(z.number()),
     status: JobStatus$inboundSchema,
   });
 
@@ -40,6 +42,7 @@ export type JobInfo$Outbound = {
   args: RunnableJob$Outbound;
   id: string;
   keep?: boolean | undefined;
+  stats: { [k: string]: number };
   status: JobStatus$Outbound;
 };
 
@@ -52,6 +55,7 @@ export const JobInfo$outboundSchema: z.ZodType<
   args: RunnableJob$outboundSchema,
   id: z.string(),
   keep: z.boolean().optional(),
+  stats: z.record(z.number()),
   status: JobStatus$outboundSchema,
 });
 

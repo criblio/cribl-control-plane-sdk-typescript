@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -22,14 +27,23 @@ export type OutputHoneycombExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputHoneycombFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputHoneycombFailedRequestLoggingMode = ClosedEnum<
+export type OutputHoneycombFailedRequestLoggingMode = OpenEnum<
   typeof OutputHoneycombFailedRequestLoggingMode
 >;
 
@@ -72,14 +86,23 @@ export type OutputHoneycombTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputHoneycombBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputHoneycombBackpressureBehavior = ClosedEnum<
+export type OutputHoneycombBackpressureBehavior = OpenEnum<
   typeof OutputHoneycombBackpressureBehavior
 >;
 
@@ -93,7 +116,7 @@ export const OutputHoneycombAuthenticationMethod = {
 /**
  * Enter API key directly, or select a stored secret
  */
-export type OutputHoneycombAuthenticationMethod = ClosedEnum<
+export type OutputHoneycombAuthenticationMethod = OpenEnum<
   typeof OutputHoneycombAuthenticationMethod
 >;
 
@@ -101,13 +124,19 @@ export type OutputHoneycombAuthenticationMethod = ClosedEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputHoneycombCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputHoneycombCompression = ClosedEnum<
+export type OutputHoneycombCompression = OpenEnum<
   typeof OutputHoneycombCompression
 >;
 
@@ -115,13 +144,19 @@ export type OutputHoneycombCompression = ClosedEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputHoneycombQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputHoneycombQueueFullBehavior = ClosedEnum<
+export type OutputHoneycombQueueFullBehavior = OpenEnum<
   typeof OutputHoneycombQueueFullBehavior
 >;
 
@@ -129,14 +164,23 @@ export type OutputHoneycombQueueFullBehavior = ClosedEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputHoneycombMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputHoneycombMode = ClosedEnum<typeof OutputHoneycombMode>;
+export type OutputHoneycombMode = OpenEnum<typeof OutputHoneycombMode>;
 
 export type OutputHoneycombPqControls = {};
 
@@ -352,14 +396,25 @@ export function outputHoneycombExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputHoneycombFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputHoneycombFailedRequestLoggingMode> = z
-    .nativeEnum(OutputHoneycombFailedRequestLoggingMode);
+export const OutputHoneycombFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputHoneycombFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHoneycombFailedRequestLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHoneycombFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputHoneycombFailedRequestLoggingMode> =
-    OutputHoneycombFailedRequestLoggingMode$inboundSchema;
+export const OutputHoneycombFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  OutputHoneycombFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  OutputHoneycombFailedRequestLoggingMode
+> = z.union([
+  z.nativeEnum(OutputHoneycombFailedRequestLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -511,14 +566,25 @@ export function outputHoneycombTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputHoneycombBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombBackpressureBehavior
-> = z.nativeEnum(OutputHoneycombBackpressureBehavior);
+export const OutputHoneycombBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputHoneycombBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHoneycombBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHoneycombBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputHoneycombBackpressureBehavior> =
-    OutputHoneycombBackpressureBehavior$inboundSchema;
+export const OutputHoneycombBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputHoneycombBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputHoneycombBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputHoneycombBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -534,14 +600,25 @@ export namespace OutputHoneycombBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputHoneycombAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombAuthenticationMethod
-> = z.nativeEnum(OutputHoneycombAuthenticationMethod);
+export const OutputHoneycombAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputHoneycombAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHoneycombAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHoneycombAuthenticationMethod$outboundSchema:
-  z.ZodNativeEnum<typeof OutputHoneycombAuthenticationMethod> =
-    OutputHoneycombAuthenticationMethod$inboundSchema;
+export const OutputHoneycombAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputHoneycombAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputHoneycombAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputHoneycombAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -557,14 +634,25 @@ export namespace OutputHoneycombAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputHoneycombCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombCompression
-> = z.nativeEnum(OutputHoneycombCompression);
+export const OutputHoneycombCompression$inboundSchema: z.ZodType<
+  OutputHoneycombCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHoneycombCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHoneycombCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombCompression
-> = OutputHoneycombCompression$inboundSchema;
+export const OutputHoneycombCompression$outboundSchema: z.ZodType<
+  OutputHoneycombCompression,
+  z.ZodTypeDef,
+  OutputHoneycombCompression
+> = z.union([
+  z.nativeEnum(OutputHoneycombCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -578,14 +666,25 @@ export namespace OutputHoneycombCompression$ {
 }
 
 /** @internal */
-export const OutputHoneycombQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombQueueFullBehavior
-> = z.nativeEnum(OutputHoneycombQueueFullBehavior);
+export const OutputHoneycombQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputHoneycombQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHoneycombQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHoneycombQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombQueueFullBehavior
-> = OutputHoneycombQueueFullBehavior$inboundSchema;
+export const OutputHoneycombQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputHoneycombQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputHoneycombQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputHoneycombQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -599,14 +698,25 @@ export namespace OutputHoneycombQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputHoneycombMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombMode
-> = z.nativeEnum(OutputHoneycombMode);
+export const OutputHoneycombMode$inboundSchema: z.ZodType<
+  OutputHoneycombMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHoneycombMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputHoneycombMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombMode
-> = OutputHoneycombMode$inboundSchema;
+export const OutputHoneycombMode$outboundSchema: z.ZodType<
+  OutputHoneycombMode,
+  z.ZodTypeDef,
+  OutputHoneycombMode
+> = z.union([
+  z.nativeEnum(OutputHoneycombMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -13,7 +18,7 @@ export const RunnableJobExecutorJobType = {
   Executor: "executor",
   ScheduledSearch: "scheduledSearch",
 } as const;
-export type RunnableJobExecutorJobType = ClosedEnum<
+export type RunnableJobExecutorJobType = OpenEnum<
   typeof RunnableJobExecutorJobType
 >;
 
@@ -149,7 +154,7 @@ export const RunnableJobExecutorLogLevel = {
 /**
  * Level at which to set task logging
  */
-export type RunnableJobExecutorLogLevel = ClosedEnum<
+export type RunnableJobExecutorLogLevel = OpenEnum<
   typeof RunnableJobExecutorLogLevel
 >;
 
@@ -212,14 +217,25 @@ export type RunnableJobExecutor = {
 };
 
 /** @internal */
-export const RunnableJobExecutorJobType$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobExecutorJobType
-> = z.nativeEnum(RunnableJobExecutorJobType);
+export const RunnableJobExecutorJobType$inboundSchema: z.ZodType<
+  RunnableJobExecutorJobType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RunnableJobExecutorJobType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const RunnableJobExecutorJobType$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobExecutorJobType
-> = RunnableJobExecutorJobType$inboundSchema;
+export const RunnableJobExecutorJobType$outboundSchema: z.ZodType<
+  RunnableJobExecutorJobType,
+  z.ZodTypeDef,
+  RunnableJobExecutorJobType
+> = z.union([
+  z.nativeEnum(RunnableJobExecutorJobType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -599,14 +615,25 @@ export function executorFromJSON(
 }
 
 /** @internal */
-export const RunnableJobExecutorLogLevel$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobExecutorLogLevel
-> = z.nativeEnum(RunnableJobExecutorLogLevel);
+export const RunnableJobExecutorLogLevel$inboundSchema: z.ZodType<
+  RunnableJobExecutorLogLevel,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RunnableJobExecutorLogLevel),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const RunnableJobExecutorLogLevel$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobExecutorLogLevel
-> = RunnableJobExecutorLogLevel$inboundSchema;
+export const RunnableJobExecutorLogLevel$outboundSchema: z.ZodType<
+  RunnableJobExecutorLogLevel,
+  z.ZodTypeDef,
+  RunnableJobExecutorLogLevel
+> = z.union([
+  z.nativeEnum(RunnableJobExecutorLogLevel),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
