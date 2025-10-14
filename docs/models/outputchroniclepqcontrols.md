@@ -1,11 +1,11 @@
-# RouteCloneConf
+# OutputChroniclePqControls
 
 ## Example Usage
 
 ```typescript
-import { RouteCloneConf } from "cribl-control-plane/models";
+import { OutputChroniclePqControls } from "cribl-control-plane/models";
 
-let value: RouteCloneConf = {};
+let value: OutputChroniclePqControls = {};
 ```
 
 ## Fields

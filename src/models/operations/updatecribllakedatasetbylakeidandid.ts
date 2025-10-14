@@ -19,9 +19,9 @@ export type UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
    */
   id: string;
   /**
-   * CriblLakeDataset object
+   * CriblLakeDatasetUpdate object
    */
-  criblLakeDataset: models.CriblLakeDataset;
+  criblLakeDatasetUpdate: models.CriblLakeDatasetUpdate;
 };
 
 /**
@@ -41,10 +41,10 @@ export const UpdateCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema:
     z.object({
       lakeId: z.string(),
       id: z.string(),
-      CriblLakeDataset: models.CriblLakeDataset$inboundSchema,
+      CriblLakeDatasetUpdate: models.CriblLakeDatasetUpdate$inboundSchema,
     }).transform((v) => {
       return remap$(v, {
-        "CriblLakeDataset": "criblLakeDataset",
+        "CriblLakeDatasetUpdate": "criblLakeDatasetUpdate",
       });
     });
 
@@ -52,7 +52,7 @@ export const UpdateCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema:
 export type UpdateCriblLakeDatasetByLakeIdAndIdRequest$Outbound = {
   lakeId: string;
   id: string;
-  CriblLakeDataset: models.CriblLakeDataset$Outbound;
+  CriblLakeDatasetUpdate: models.CriblLakeDatasetUpdate$Outbound;
 };
 
 /** @internal */
@@ -64,10 +64,10 @@ export const UpdateCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema:
   > = z.object({
     lakeId: z.string(),
     id: z.string(),
-    criblLakeDataset: models.CriblLakeDataset$outboundSchema,
+    criblLakeDatasetUpdate: models.CriblLakeDatasetUpdate$outboundSchema,
   }).transform((v) => {
     return remap$(v, {
-      criblLakeDataset: "CriblLakeDataset",
+      criblLakeDatasetUpdate: "CriblLakeDatasetUpdate",
     });
   });
 

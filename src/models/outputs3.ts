@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -17,14 +22,23 @@ export type OutputS3Type = ClosedEnum<typeof OutputS3Type>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputS3AuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type OutputS3AuthenticationMethod = ClosedEnum<
+export type OutputS3AuthenticationMethod = OpenEnum<
   typeof OutputS3AuthenticationMethod
 >;
 
@@ -38,7 +52,7 @@ export const OutputS3SignatureVersion = {
 /**
  * Signature version to use for signing S3 requests
  */
-export type OutputS3SignatureVersion = ClosedEnum<
+export type OutputS3SignatureVersion = OpenEnum<
   typeof OutputS3SignatureVersion
 >;
 
@@ -46,42 +60,93 @@ export type OutputS3SignatureVersion = ClosedEnum<
  * Object ACL to assign to uploaded objects
  */
 export const OutputS3ObjectACL = {
+  /**
+   * Private
+   */
   Private: "private",
+  /**
+   * Public Read Only
+   */
   PublicRead: "public-read",
+  /**
+   * Public Read/Write
+   */
   PublicReadWrite: "public-read-write",
+  /**
+   * Authenticated Read Only
+   */
   AuthenticatedRead: "authenticated-read",
+  /**
+   * AWS EC2 AMI Read Only
+   */
   AwsExecRead: "aws-exec-read",
+  /**
+   * Bucket Owner Read Only
+   */
   BucketOwnerRead: "bucket-owner-read",
+  /**
+   * Bucket Owner Full Control
+   */
   BucketOwnerFullControl: "bucket-owner-full-control",
 } as const;
 /**
  * Object ACL to assign to uploaded objects
  */
-export type OutputS3ObjectACL = ClosedEnum<typeof OutputS3ObjectACL>;
+export type OutputS3ObjectACL = OpenEnum<typeof OutputS3ObjectACL>;
 
 /**
  * Storage class to select for uploaded objects
  */
 export const OutputS3StorageClass = {
+  /**
+   * Standard
+   */
   Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
   ReducedRedundancy: "REDUCED_REDUNDANCY",
+  /**
+   * Standard, Infrequent Access
+   */
   StandardIa: "STANDARD_IA",
+  /**
+   * One Zone, Infrequent Access
+   */
   OnezoneIa: "ONEZONE_IA",
+  /**
+   * Intelligent Tiering
+   */
   IntelligentTiering: "INTELLIGENT_TIERING",
+  /**
+   * Glacier Flexible Retrieval
+   */
   Glacier: "GLACIER",
+  /**
+   * Glacier Instant Retrieval
+   */
   GlacierIr: "GLACIER_IR",
+  /**
+   * Glacier Deep Archive
+   */
   DeepArchive: "DEEP_ARCHIVE",
 } as const;
 /**
  * Storage class to select for uploaded objects
  */
-export type OutputS3StorageClass = ClosedEnum<typeof OutputS3StorageClass>;
+export type OutputS3StorageClass = OpenEnum<typeof OutputS3StorageClass>;
 
 export const OutputS3ServerSideEncryptionForUploadedObjects = {
+  /**
+   * Amazon S3 Managed Key
+   */
   Aes256: "AES256",
+  /**
+   * AWS KMS Managed Key
+   */
   AwsKms: "aws:kms",
 } as const;
-export type OutputS3ServerSideEncryptionForUploadedObjects = ClosedEnum<
+export type OutputS3ServerSideEncryptionForUploadedObjects = OpenEnum<
   typeof OutputS3ServerSideEncryptionForUploadedObjects
 >;
 
@@ -89,26 +154,41 @@ export type OutputS3ServerSideEncryptionForUploadedObjects = ClosedEnum<
  * Format of the output data
  */
 export const OutputS3DataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
  * Format of the output data
  */
-export type OutputS3DataFormat = ClosedEnum<typeof OutputS3DataFormat>;
+export type OutputS3DataFormat = OpenEnum<typeof OutputS3DataFormat>;
 
 /**
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputS3BackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputS3BackpressureBehavior = ClosedEnum<
+export type OutputS3BackpressureBehavior = OpenEnum<
   typeof OutputS3BackpressureBehavior
 >;
 
@@ -116,13 +196,19 @@ export type OutputS3BackpressureBehavior = ClosedEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputS3DiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
-export type OutputS3DiskSpaceProtection = ClosedEnum<
+export type OutputS3DiskSpaceProtection = OpenEnum<
   typeof OutputS3DiskSpaceProtection
 >;
 
@@ -136,20 +222,29 @@ export const OutputS3Compression = {
 /**
  * Data compression format to apply to HTTP content before it is delivered
  */
-export type OutputS3Compression = ClosedEnum<typeof OutputS3Compression>;
+export type OutputS3Compression = OpenEnum<typeof OutputS3Compression>;
 
 /**
  * Compression level to apply before moving files to final destination
  */
 export const OutputS3CompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
  * Compression level to apply before moving files to final destination
  */
-export type OutputS3CompressionLevel = ClosedEnum<
+export type OutputS3CompressionLevel = OpenEnum<
   typeof OutputS3CompressionLevel
 >;
 
@@ -157,28 +252,41 @@ export type OutputS3CompressionLevel = ClosedEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputS3ParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
  * Determines which data types are supported and how they are represented
  */
-export type OutputS3ParquetVersion = ClosedEnum<typeof OutputS3ParquetVersion>;
+export type OutputS3ParquetVersion = OpenEnum<typeof OutputS3ParquetVersion>;
 
 /**
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputS3DataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
-export type OutputS3DataPageVersion = ClosedEnum<
-  typeof OutputS3DataPageVersion
->;
+export type OutputS3DataPageVersion = OpenEnum<typeof OutputS3DataPageVersion>;
 
 export type OutputS3KeyValueMetadatum = {
   key?: string | undefined;
@@ -441,14 +549,25 @@ export namespace OutputS3Type$ {
 }
 
 /** @internal */
-export const OutputS3AuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3AuthenticationMethod
-> = z.nativeEnum(OutputS3AuthenticationMethod);
+export const OutputS3AuthenticationMethod$inboundSchema: z.ZodType<
+  OutputS3AuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3AuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3AuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3AuthenticationMethod
-> = OutputS3AuthenticationMethod$inboundSchema;
+export const OutputS3AuthenticationMethod$outboundSchema: z.ZodType<
+  OutputS3AuthenticationMethod,
+  z.ZodTypeDef,
+  OutputS3AuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputS3AuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -462,14 +581,25 @@ export namespace OutputS3AuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputS3SignatureVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3SignatureVersion
-> = z.nativeEnum(OutputS3SignatureVersion);
+export const OutputS3SignatureVersion$inboundSchema: z.ZodType<
+  OutputS3SignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3SignatureVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3SignatureVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3SignatureVersion
-> = OutputS3SignatureVersion$inboundSchema;
+export const OutputS3SignatureVersion$outboundSchema: z.ZodType<
+  OutputS3SignatureVersion,
+  z.ZodTypeDef,
+  OutputS3SignatureVersion
+> = z.union([
+  z.nativeEnum(OutputS3SignatureVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -483,14 +613,25 @@ export namespace OutputS3SignatureVersion$ {
 }
 
 /** @internal */
-export const OutputS3ObjectACL$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3ObjectACL
-> = z.nativeEnum(OutputS3ObjectACL);
+export const OutputS3ObjectACL$inboundSchema: z.ZodType<
+  OutputS3ObjectACL,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3ObjectACL),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3ObjectACL$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3ObjectACL
-> = OutputS3ObjectACL$inboundSchema;
+export const OutputS3ObjectACL$outboundSchema: z.ZodType<
+  OutputS3ObjectACL,
+  z.ZodTypeDef,
+  OutputS3ObjectACL
+> = z.union([
+  z.nativeEnum(OutputS3ObjectACL),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -504,14 +645,25 @@ export namespace OutputS3ObjectACL$ {
 }
 
 /** @internal */
-export const OutputS3StorageClass$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3StorageClass
-> = z.nativeEnum(OutputS3StorageClass);
+export const OutputS3StorageClass$inboundSchema: z.ZodType<
+  OutputS3StorageClass,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3StorageClass),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3StorageClass$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3StorageClass
-> = OutputS3StorageClass$inboundSchema;
+export const OutputS3StorageClass$outboundSchema: z.ZodType<
+  OutputS3StorageClass,
+  z.ZodTypeDef,
+  OutputS3StorageClass
+> = z.union([
+  z.nativeEnum(OutputS3StorageClass),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -526,13 +678,26 @@ export namespace OutputS3StorageClass$ {
 
 /** @internal */
 export const OutputS3ServerSideEncryptionForUploadedObjects$inboundSchema:
-  z.ZodNativeEnum<typeof OutputS3ServerSideEncryptionForUploadedObjects> = z
-    .nativeEnum(OutputS3ServerSideEncryptionForUploadedObjects);
+  z.ZodType<
+    OutputS3ServerSideEncryptionForUploadedObjects,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputS3ServerSideEncryptionForUploadedObjects),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputS3ServerSideEncryptionForUploadedObjects$outboundSchema:
-  z.ZodNativeEnum<typeof OutputS3ServerSideEncryptionForUploadedObjects> =
-    OutputS3ServerSideEncryptionForUploadedObjects$inboundSchema;
+  z.ZodType<
+    OutputS3ServerSideEncryptionForUploadedObjects,
+    z.ZodTypeDef,
+    OutputS3ServerSideEncryptionForUploadedObjects
+  > = z.union([
+    z.nativeEnum(OutputS3ServerSideEncryptionForUploadedObjects),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -548,14 +713,25 @@ export namespace OutputS3ServerSideEncryptionForUploadedObjects$ {
 }
 
 /** @internal */
-export const OutputS3DataFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3DataFormat
-> = z.nativeEnum(OutputS3DataFormat);
+export const OutputS3DataFormat$inboundSchema: z.ZodType<
+  OutputS3DataFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3DataFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3DataFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3DataFormat
-> = OutputS3DataFormat$inboundSchema;
+export const OutputS3DataFormat$outboundSchema: z.ZodType<
+  OutputS3DataFormat,
+  z.ZodTypeDef,
+  OutputS3DataFormat
+> = z.union([
+  z.nativeEnum(OutputS3DataFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -569,14 +745,25 @@ export namespace OutputS3DataFormat$ {
 }
 
 /** @internal */
-export const OutputS3BackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3BackpressureBehavior
-> = z.nativeEnum(OutputS3BackpressureBehavior);
+export const OutputS3BackpressureBehavior$inboundSchema: z.ZodType<
+  OutputS3BackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3BackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3BackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3BackpressureBehavior
-> = OutputS3BackpressureBehavior$inboundSchema;
+export const OutputS3BackpressureBehavior$outboundSchema: z.ZodType<
+  OutputS3BackpressureBehavior,
+  z.ZodTypeDef,
+  OutputS3BackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputS3BackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -590,14 +777,25 @@ export namespace OutputS3BackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputS3DiskSpaceProtection$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3DiskSpaceProtection
-> = z.nativeEnum(OutputS3DiskSpaceProtection);
+export const OutputS3DiskSpaceProtection$inboundSchema: z.ZodType<
+  OutputS3DiskSpaceProtection,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3DiskSpaceProtection),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3DiskSpaceProtection$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3DiskSpaceProtection
-> = OutputS3DiskSpaceProtection$inboundSchema;
+export const OutputS3DiskSpaceProtection$outboundSchema: z.ZodType<
+  OutputS3DiskSpaceProtection,
+  z.ZodTypeDef,
+  OutputS3DiskSpaceProtection
+> = z.union([
+  z.nativeEnum(OutputS3DiskSpaceProtection),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -611,14 +809,25 @@ export namespace OutputS3DiskSpaceProtection$ {
 }
 
 /** @internal */
-export const OutputS3Compression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3Compression
-> = z.nativeEnum(OutputS3Compression);
+export const OutputS3Compression$inboundSchema: z.ZodType<
+  OutputS3Compression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3Compression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3Compression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3Compression
-> = OutputS3Compression$inboundSchema;
+export const OutputS3Compression$outboundSchema: z.ZodType<
+  OutputS3Compression,
+  z.ZodTypeDef,
+  OutputS3Compression
+> = z.union([
+  z.nativeEnum(OutputS3Compression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -632,14 +841,25 @@ export namespace OutputS3Compression$ {
 }
 
 /** @internal */
-export const OutputS3CompressionLevel$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3CompressionLevel
-> = z.nativeEnum(OutputS3CompressionLevel);
+export const OutputS3CompressionLevel$inboundSchema: z.ZodType<
+  OutputS3CompressionLevel,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3CompressionLevel),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3CompressionLevel$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3CompressionLevel
-> = OutputS3CompressionLevel$inboundSchema;
+export const OutputS3CompressionLevel$outboundSchema: z.ZodType<
+  OutputS3CompressionLevel,
+  z.ZodTypeDef,
+  OutputS3CompressionLevel
+> = z.union([
+  z.nativeEnum(OutputS3CompressionLevel),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -653,14 +873,25 @@ export namespace OutputS3CompressionLevel$ {
 }
 
 /** @internal */
-export const OutputS3ParquetVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3ParquetVersion
-> = z.nativeEnum(OutputS3ParquetVersion);
+export const OutputS3ParquetVersion$inboundSchema: z.ZodType<
+  OutputS3ParquetVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3ParquetVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3ParquetVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3ParquetVersion
-> = OutputS3ParquetVersion$inboundSchema;
+export const OutputS3ParquetVersion$outboundSchema: z.ZodType<
+  OutputS3ParquetVersion,
+  z.ZodTypeDef,
+  OutputS3ParquetVersion
+> = z.union([
+  z.nativeEnum(OutputS3ParquetVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -674,14 +905,25 @@ export namespace OutputS3ParquetVersion$ {
 }
 
 /** @internal */
-export const OutputS3DataPageVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputS3DataPageVersion
-> = z.nativeEnum(OutputS3DataPageVersion);
+export const OutputS3DataPageVersion$inboundSchema: z.ZodType<
+  OutputS3DataPageVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputS3DataPageVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputS3DataPageVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputS3DataPageVersion
-> = OutputS3DataPageVersion$inboundSchema;
+export const OutputS3DataPageVersion$outboundSchema: z.ZodType<
+  OutputS3DataPageVersion,
+  z.ZodTypeDef,
+  OutputS3DataPageVersion
+> = z.union([
+  z.nativeEnum(OutputS3DataPageVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
