@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 983797f74c4ab5bbaa842873f437946d
+  docChecksum: 55f2c1b59f274948fdc572a79f59dcc1
   docVersion: 4.15.0-alpha.1760486888592-e1e43793
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.3
-  configChecksum: 1f8438c6cece41318d975442d6d8fc2d
+  releaseVersion: 0.2.0-beta.4
+  configChecksum: 3181de2965d2f6e62899700b6d069119
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -1050,7 +1050,6 @@ generatedFiles:
   - docs/models/operations/listoutputresponse.md
   - docs/models/operations/listpipelineresponse.md
   - docs/models/operations/listroutesresponse.md
-  - docs/models/operations/loginresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
@@ -2275,7 +2274,6 @@ generatedFiles:
   - src/models/operations/listoutput.ts
   - src/models/operations/listpipeline.ts
   - src/models/operations/listroutes.ts
-  - src/models/operations/login.ts
   - src/models/operations/updateconfiggroupbyproductandid.ts
   - src/models/operations/updateconfiggroupdeploybyproductandid.ts
   - src/models/operations/updatecribllakedatasetbylakeidandid.ts
@@ -3345,10 +3343,3 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `criblcontrolplane.packs.install()`:  `response.items.[].tags.technology` **Changed**
-  * `criblcontrolplane.packs.list()`:  `response.items.[].tags.technology` **Changed**
-  * `criblcontrolplane.packs.delete()`:  `response.items.[].tags.technology` **Changed**
-  * `criblcontrolplane.packs.get()`:  `response.items.[].tags.technology` **Changed**
-  * `criblcontrolplane.packs.update()`:  `response.items.[].tags.technology` **Changed**
