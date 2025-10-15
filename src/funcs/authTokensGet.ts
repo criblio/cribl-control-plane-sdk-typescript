@@ -20,6 +20,7 @@ import {
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -35,7 +36,7 @@ export function authTokensGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.AuthToken,
+    operations.LoginResponse,
     | CriblControlPlaneError
     | ResponseValidationError
     | ConnectionError
@@ -60,7 +61,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.AuthToken,
+      operations.LoginResponse,
       | CriblControlPlaneError
       | ResponseValidationError
       | ConnectionError
@@ -131,8 +132,12 @@ async function $do(
   }
   const response = doResult.value;
 
+  const responseFields = {
+    HttpMeta: { Response: response, Request: req },
+  };
+
   const [result] = await M.match<
-    models.AuthToken,
+    operations.LoginResponse,
     | CriblControlPlaneError
     | ResponseValidationError
     | ConnectionError
@@ -142,10 +147,11 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.AuthToken$inboundSchema),
-    M.fail([401, 403, 429, "4XX"]),
+    M.json(200, operations.LoginResponse$inboundSchema, { key: "Result" }),
+    M.fail(429),
+    M.fail([401, 403, "4XX"]),
     M.fail("5XX"),
-  )(response, req);
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }
