@@ -15,10 +15,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Packs extends ClientSDK {
   /**
-   * Create or install a Pack
+   * Install a Pack
    *
    * @remarks
-   * Create or install a Pack.
+   * Install a Pack.<br><br>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
    */
   async install(
     request: models.PackRequestBodyUnion,
@@ -52,7 +52,7 @@ export class Packs extends ClientSDK {
    * Upload a Pack file
    *
    * @remarks
-   * Upload a Pack file. Returns a source identifier that can be used to install the pack via the install a Pack endpoint.
+   * Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</source>, which you must call separately.
    */
   async upload(
     request: operations.UpdatePacksRequest,
@@ -103,7 +103,7 @@ export class Packs extends ClientSDK {
    * Upgrade a Pack
    *
    * @remarks
-   * Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack. Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
+   * Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack.Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
    */
   async update(
     request: operations.UpdatePacksByIdRequest,

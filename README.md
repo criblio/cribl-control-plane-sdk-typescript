@@ -303,7 +303,7 @@ run();
 
 ### [packs](docs/sdks/packs/README.md)
 
-* [install](docs/sdks/packs/README.md#install) - Create or install a Pack
+* [install](docs/sdks/packs/README.md#install) - Install a Pack
 * [list](docs/sdks/packs/README.md#list) - List all Packs
 * [upload](docs/sdks/packs/README.md#upload) - Upload a Pack file
 * [delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
@@ -414,7 +414,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
-- [`packsInstall`](docs/sdks/packs/README.md#install) - Create or install a Pack
+- [`packsInstall`](docs/sdks/packs/README.md#install) - Install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
 - [`packsUpload`](docs/sdks/packs/README.md#upload) - Upload a Pack file

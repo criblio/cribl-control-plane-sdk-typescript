@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Upload a Pack file
  *
  * @remarks
- * Upload a Pack file. Returns a source identifier that can be used to install the pack via the install a Pack endpoint.
+ * Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</source>, which you must call separately.
  */
 export function packsUpload(
   client: CriblControlPlaneCore,
