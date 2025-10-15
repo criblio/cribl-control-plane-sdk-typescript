@@ -11,7 +11,7 @@ export type PackInstallInfoTags = {
   dataType: Array<string>;
   domain?: Array<string> | undefined;
   streamtags?: Array<string> | undefined;
-  technology: Array<string>;
+  technology?: Array<string> | undefined;
 };
 
 export type PackInstallInfo = {
@@ -42,7 +42,7 @@ export const PackInstallInfoTags$inboundSchema: z.ZodType<
   dataType: z.array(z.string()),
   domain: z.array(z.string()).optional(),
   streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()),
+  technology: z.array(z.string()).optional(),
 });
 
 /** @internal */
@@ -50,7 +50,7 @@ export type PackInstallInfoTags$Outbound = {
   dataType: Array<string>;
   domain?: Array<string> | undefined;
   streamtags?: Array<string> | undefined;
-  technology: Array<string>;
+  technology?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -62,7 +62,7 @@ export const PackInstallInfoTags$outboundSchema: z.ZodType<
   dataType: z.array(z.string()),
   domain: z.array(z.string()).optional(),
   streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()),
+  technology: z.array(z.string()).optional(),
 });
 
 /**
