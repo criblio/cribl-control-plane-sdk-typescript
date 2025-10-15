@@ -10,7 +10,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdatePacksRequest = {
   /**
-   * Filename of the pack file to upload
+   * Filename of the Pack file to upload.
    */
   filename: string;
   /**
