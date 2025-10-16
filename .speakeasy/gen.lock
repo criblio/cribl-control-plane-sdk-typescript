@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 55f2c1b59f274948fdc572a79f59dcc1
-  docVersion: 4.15.0-alpha.1760486888592-e1e43793
+  docChecksum: a36d607d60e776a4c9cc735310b933ee
+  docVersion: 4.15.0-alpha.1760569726872-c3466a59
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.4
-  configChecksum: 3181de2965d2f6e62899700b6d069119
+  releaseVersion: 0.2.0-beta.5
+  configChecksum: cd9ffae081b3cf85d6d8da772ee72275
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -33,6 +33,7 @@ features:
     retries: 2.83.0
     sdkHooks: 0.3.0
     unions: 2.86.0
+    uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -1064,6 +1065,7 @@ generatedFiles:
   - docs/models/operations/updateoutputbyidresponse.md
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
+  - docs/models/operations/updatepacksrequest.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updateroutesbyidrequest.md
@@ -1987,6 +1989,7 @@ generatedFiles:
   - docs/models/timestampprecision.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
+  - docs/models/uploadpackresponse.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
@@ -2052,6 +2055,7 @@ generatedFiles:
   - src/funcs/packsInstall.ts
   - src/funcs/packsList.ts
   - src/funcs/packsUpdate.ts
+  - src/funcs/packsUpload.ts
   - src/funcs/pipelinesCreate.ts
   - src/funcs/pipelinesDelete.ts
   - src/funcs/pipelinesGet.ts
@@ -2280,6 +2284,7 @@ generatedFiles:
   - src/models/operations/updateinputbyid.ts
   - src/models/operations/updateinputhectokenbyidandtoken.ts
   - src/models/operations/updateoutputbyid.ts
+  - src/models/operations/updatepacks.ts
   - src/models/operations/updatepacksbyid.ts
   - src/models/operations/updatepipelinebyid.ts
   - src/models/operations/updateroutesbyid.ts
@@ -2373,6 +2378,7 @@ generatedFiles:
   - src/models/security.ts
   - src/models/teamaccesscontrollist.ts
   - src/models/updatehectokenrequest.ts
+  - src/models/uploadpackresponse.ts
   - src/models/useraccesscontrollist.ts
   - src/models/workertypes.ts
   - src/sdk/acl.ts
@@ -2988,9 +2994,11 @@ examples:
       parameters:
         query:
           filename: "example.file"
+      requestBody:
+        application/octet-stream: "x-file: example.file"
       responses:
         "200":
-          application/json: {"count": 779474, "items": [{}, {"key": "<value>"}]}
+          application/json: {"source": "<value>"}
         "500":
           application/json: {"message": "<value>"}
   deleteCriblLakeDatasetByLakeIdAndId:
@@ -3343,3 +3351,11 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `criblcontrolplane.packs.upload()`: **Added**
+  * `criblcontrolplane.packs.install()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.packs.list()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.packs.delete()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.packs.get()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.packs.update()`:  `response.items.[].tags.dataType` **Changed**
