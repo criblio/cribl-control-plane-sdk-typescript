@@ -52,7 +52,7 @@ export class Packs extends ClientSDK {
    * Upload a Pack file
    *
    * @remarks
-   * Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</source>, which you must call separately.
+   * Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs source</code>, which you must call separately.
    */
   async upload(
     request: operations.UpdatePacksRequest,
