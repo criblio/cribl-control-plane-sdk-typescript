@@ -53,6 +53,7 @@ export * from "./listmasterworkerentry.js";
 export * from "./listoutput.js";
 export * from "./listpipeline.js";
 export * from "./listroutes.js";
+export * from "./login.js";
 export * from "./updateconfiggroupbyproductandid.js";
 export * from "./updateconfiggroupdeploybyproductandid.js";
 export * from "./updatecribllakedatasetbylakeidandid.js";
