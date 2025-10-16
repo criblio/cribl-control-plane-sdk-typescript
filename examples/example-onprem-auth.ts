@@ -29,14 +29,14 @@ const BASE_URL: string = `${ONPREM_SERVER_URL}/api/v1`;
 async function main() {
   // Retrieve Bearer token for authentication
   let client = new CriblControlPlane({ serverURL: BASE_URL });
-  const { token } = await client.auth.tokens.get({
+  const { result } = await client.auth.tokens.get({
     username: ONPREM_USERNAME,
     password: ONPREM_PASSWORD,
   });
-  console.log(`✅ Authenticated with on-prem server. Token: ${token}`);
+  console.log(`✅ Authenticated with on-prem server. Token: ${result.token}`);
 
   // Create authenticated SDK client
-  client = new CriblControlPlane({ serverURL: BASE_URL, security: { bearerAuth: token }});
+  client = new CriblControlPlane({ serverURL: BASE_URL, security: { bearerAuth: result.token }});
   console.log(`✅ Cribl SDK client created for on-prem server`);
 
   // Validate connection and list all git branches

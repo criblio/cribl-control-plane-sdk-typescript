@@ -5,6 +5,7 @@
 import { authTokensGet } from "../funcs/authTokensGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Tokens extends ClientSDK {
@@ -17,7 +18,7 @@ export class Tokens extends ClientSDK {
   async get(
     request: models.LoginInfo,
     options?: RequestOptions,
-  ): Promise<models.AuthToken> {
+  ): Promise<operations.LoginResponse> {
     return unwrapAsync(authTokensGet(
       this,
       request,
