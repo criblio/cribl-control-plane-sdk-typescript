@@ -37,30 +37,23 @@ async function run() {
     spec: "<value>",
     version: "<value>",
     minLogStreamVersion: "<value>",
-    displayName: "June30",
+    displayName: "Myah14",
     author: "<value>",
-    description: "and banish crossly abacus",
-    source: "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl",
+    description: "premeditation coincide although",
+    source: "<value>",
     tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
+      dataType: [],
+      domain: [],
       technology: [
         "<value 1>",
       ],
       streamtags: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
     },
-    allowCustomFunctions: true,
-    force: true,
+    allowCustomFunctions: false,
+    force: false,
   });
 
   console.log(result);
@@ -92,30 +85,23 @@ async function run() {
     spec: "<value>",
     version: "<value>",
     minLogStreamVersion: "<value>",
-    displayName: "June30",
+    displayName: "Myah14",
     author: "<value>",
-    description: "and banish crossly abacus",
-    source: "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl",
+    description: "premeditation coincide although",
+    source: "<value>",
     tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
+      dataType: [],
+      domain: [],
       technology: [
         "<value 1>",
       ],
       streamtags: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
     },
-    allowCustomFunctions: true,
-    force: true,
+    allowCustomFunctions: false,
+    force: false,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -230,7 +216,7 @@ run();
 
 ## upload
 
-Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs source</code>, which you must call separately.
+Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</source>, which you must call separately.
 
 ### Example Usage
 
