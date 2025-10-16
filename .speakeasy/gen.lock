@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 3ce8e7e8d6960ec2415b14c009e61a4d
-  docVersion: 4.15.0-alpha.1760607052180-31a53a17
+  docChecksum: 43a7f22a60efdf139b617415b96b28d2
+  docVersion: 4.15.0-alpha.1760636051511-e9367475
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.1.1-rc.7
-  configChecksum: f16e41623b49c2e9cdf19964b1af39c3
+  releaseVersion: 0.1.1-rc.8
+  configChecksum: e3d7f3cd33d6c07a7df4b3d684c47b18
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -1051,7 +1051,6 @@ generatedFiles:
   - docs/models/operations/listoutputresponse.md
   - docs/models/operations/listpipelineresponse.md
   - docs/models/operations/listroutesresponse.md
-  - docs/models/operations/loginresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
@@ -2279,7 +2278,6 @@ generatedFiles:
   - src/models/operations/listoutput.ts
   - src/models/operations/listpipeline.ts
   - src/models/operations/listroutes.ts
-  - src/models/operations/login.ts
   - src/models/operations/updateconfiggroupbyproductandid.ts
   - src/models/operations/updateconfiggroupdeploybyproductandid.ts
   - src/models/operations/updatecribllakedatasetbylakeidandid.ts
@@ -3395,4 +3393,4 @@ generatedTests:
   updateGroupsById: "2025-08-01T20:03:31Z"
 releaseNotes: |
   ## Typescript SDK Changes Detected:
-  * `criblcontrolplane.auth.tokens.get()`:  `response.forcepasswordchange` **Added**
+  * `criblcontrolplane.auth.tokens.get()`:  `response.forcepasswordchange` **Changed**

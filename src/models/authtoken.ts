@@ -9,7 +9,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AuthToken = {
   token: string;
-  forcePasswordChange: boolean;
+  forcePasswordChange?: boolean | undefined;
 };
 
 /** @internal */
@@ -19,13 +19,13 @@ export const AuthToken$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   token: z.string(),
-  forcePasswordChange: z.boolean(),
+  forcePasswordChange: z.boolean().optional(),
 });
 
 /** @internal */
 export type AuthToken$Outbound = {
   token: string;
-  forcePasswordChange: boolean;
+  forcePasswordChange?: boolean | undefined;
 };
 
 /** @internal */
@@ -35,7 +35,7 @@ export const AuthToken$outboundSchema: z.ZodType<
   AuthToken
 > = z.object({
   token: z.string(),
-  forcePasswordChange: z.boolean(),
+  forcePasswordChange: z.boolean().optional(),
 });
 
 /**

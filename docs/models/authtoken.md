@@ -16,4 +16,4 @@ let value: AuthToken = {
 | Field                 | Type                  | Required              | Description           |
 | --------------------- | --------------------- | --------------------- | --------------------- |
 | `token`               | *string*              | :heavy_check_mark:    | N/A                   |
-| `forcePasswordChange` | *boolean*             | :heavy_check_mark:    | N/A                   |
+| `forcePasswordChange` | *boolean*             | :heavy_minus_sign:    | N/A                   |
