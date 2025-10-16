@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PackInfoTags = {
-  dataType: Array<string>;
+  dataType?: Array<string> | undefined;
   domain?: Array<string> | undefined;
   streamtags?: Array<string> | undefined;
   technology?: Array<string> | undefined;
@@ -38,7 +38,7 @@ export const PackInfoTags$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dataType: z.array(z.string()),
+  dataType: z.array(z.string()).optional(),
   domain: z.array(z.string()).optional(),
   streamtags: z.array(z.string()).optional(),
   technology: z.array(z.string()).optional(),
@@ -46,7 +46,7 @@ export const PackInfoTags$inboundSchema: z.ZodType<
 
 /** @internal */
 export type PackInfoTags$Outbound = {
-  dataType: Array<string>;
+  dataType?: Array<string> | undefined;
   domain?: Array<string> | undefined;
   streamtags?: Array<string> | undefined;
   technology?: Array<string> | undefined;
@@ -58,7 +58,7 @@ export const PackInfoTags$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PackInfoTags
 > = z.object({
-  dataType: z.array(z.string()),
+  dataType: z.array(z.string()).optional(),
   domain: z.array(z.string()).optional(),
   streamtags: z.array(z.string()).optional(),
   technology: z.array(z.string()).optional(),

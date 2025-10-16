@@ -35,10 +35,11 @@ let value: DeletePacksByIdResponse = {
       source: "<value>",
       spec: "<value>",
       tags: {
-        dataType: [],
+        dataType: [
+          "int",
+        ],
         domain: [
-          "authentic-coil.name",
-          "fearless-vista.info",
+          "damp-legging.biz",
         ],
         streamtags: [
           "<value 1>",
@@ -48,7 +49,6 @@ let value: DeletePacksByIdResponse = {
         technology: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
       },
       version: "<value>",

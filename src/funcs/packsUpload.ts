@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,18 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Install a Pack
+ * Upload a Pack file
  *
  * @remarks
- * Install a Pack.<br><br>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
+ * Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</source>, which you must call separately.
  */
-export function packsInstall(
+export function packsUpload(
   client: CriblControlPlaneCore,
-  request: models.PackRequestBodyUnion,
+  request: operations.UpdatePacksRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreatePacksResponse,
+    models.UploadPackResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -59,12 +59,12 @@ export function packsInstall(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.PackRequestBodyUnion,
+  request: operations.UpdatePacksRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreatePacksResponse,
+      models.UploadPackResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,19 +80,23 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.PackRequestBodyUnion$outboundSchema.parse(value),
+    (value) => operations.UpdatePacksRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload, { explode: true });
+  const body = payload.RequestBody;
 
   const path = pathToFunc("/packs")();
 
+  const query = encodeFormQuery({
+    "filename": payload.filename,
+  });
+
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
+    "Content-Type": "application/octet-stream",
     Accept: "application/json",
   }));
 
@@ -102,7 +106,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createPacks",
+    operationID: "updatePacks",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -116,10 +120,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "PUT",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -145,7 +150,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreatePacksResponse,
+    models.UploadPackResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -156,7 +161,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreatePacksResponse$inboundSchema),
+    M.json(200, models.UploadPackResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),
