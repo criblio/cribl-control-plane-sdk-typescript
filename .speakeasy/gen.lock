@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: a36d607d60e776a4c9cc735310b933ee
-  docVersion: 4.15.0-alpha.1760569726872-c3466a59
+  docChecksum: 059a018b0f15f27cb7b208a2ca9338b0
+  docVersion: 4.15.0-alpha.1760742316222-ce9b582f
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.5
-  configChecksum: cd9ffae081b3cf85d6d8da772ee72275
+  releaseVersion: 0.2.0-beta.6
+  configChecksum: 0a0e03534913b143c2456d8fffe6b4a1
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -2434,7 +2434,7 @@ examples:
         application/json: {"username": "Nikko.Connelly", "password": "Ljp4BunfMR9hNyM"}
       responses:
         "200":
-          application/json: {"token": "<value>"}
+          application/json: {"token": "<value>", "forcePasswordChange": false}
   listInput:
     speakeasy-default-list-input:
       responses:
@@ -3353,9 +3353,4 @@ generatedTests:
   updateGroupsById: "2025-08-01T20:03:31Z"
 releaseNotes: |
   ## Typescript SDK Changes Detected:
-  * `criblcontrolplane.packs.upload()`: **Added**
-  * `criblcontrolplane.packs.install()`:  `response.items.[].tags.dataType` **Changed**
-  * `criblcontrolplane.packs.list()`:  `response.items.[].tags.dataType` **Changed**
-  * `criblcontrolplane.packs.delete()`:  `response.items.[].tags.dataType` **Changed**
-  * `criblcontrolplane.packs.get()`:  `response.items.[].tags.dataType` **Changed**
-  * `criblcontrolplane.packs.update()`:  `response.items.[].tags.dataType` **Changed**
+  * `criblcontrolplane.auth.tokens.get()`:  `response.forcepasswordchange` **Added**
