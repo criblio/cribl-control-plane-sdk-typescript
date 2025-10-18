@@ -58,6 +58,10 @@ let value: JobInfo = {
   },
   id: "<id>",
   keep: true,
+  stats: {
+    "key": 4311.98,
+    "key1": 280.71,
+  },
   status: {
     reason: {
       "key": "<value>",
@@ -74,4 +78,5 @@ let value: JobInfo = {
 | `args`                                     | *models.RunnableJob*                       | :heavy_check_mark:                         | N/A                                        |
 | `id`                                       | *string*                                   | :heavy_check_mark:                         | N/A                                        |
 | `keep`                                     | *boolean*                                  | :heavy_minus_sign:                         | N/A                                        |
+| `stats`                                    | Record<string, *number*>                   | :heavy_check_mark:                         | N/A                                        |
 | `status`                                   | [models.JobStatus](../models/jobstatus.md) | :heavy_check_mark:                         | N/A                                        |

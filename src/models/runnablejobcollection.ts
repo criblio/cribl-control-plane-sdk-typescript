@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -13,7 +18,7 @@ export const RunnableJobCollectionJobType = {
   Executor: "executor",
   ScheduledSearch: "scheduledSearch",
 } as const;
-export type RunnableJobCollectionJobType = ClosedEnum<
+export type RunnableJobCollectionJobType = OpenEnum<
   typeof RunnableJobCollectionJobType
 >;
 
@@ -140,12 +145,10 @@ export type Collector = {
   encoding?: string | undefined;
 };
 
-export const RunnableJobCollectionType = {
+export const InputType = {
   Collection: "collection",
 } as const;
-export type RunnableJobCollectionType = ClosedEnum<
-  typeof RunnableJobCollectionType
->;
+export type InputType = OpenEnum<typeof InputType>;
 
 export type RunnableJobCollectionPreprocess = {
   disabled?: boolean | undefined;
@@ -168,7 +171,7 @@ export type RunnableJobCollectionMetadatum = {
 };
 
 export type RunnableJobCollectionInput = {
-  type?: RunnableJobCollectionType | undefined;
+  type?: InputType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -213,7 +216,7 @@ export const RunnableJobCollectionLogLevel = {
 /**
  * Level at which to set task logging
  */
-export type RunnableJobCollectionLogLevel = ClosedEnum<
+export type RunnableJobCollectionLogLevel = OpenEnum<
   typeof RunnableJobCollectionLogLevel
 >;
 
@@ -228,7 +231,7 @@ export const RunnableJobCollectionMode = {
 /**
  * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
  */
-export type RunnableJobCollectionMode = ClosedEnum<
+export type RunnableJobCollectionMode = OpenEnum<
   typeof RunnableJobCollectionMode
 >;
 
@@ -236,17 +239,29 @@ export const TimeRange = {
   Absolute: "absolute",
   Relative: "relative",
 } as const;
-export type TimeRange = ClosedEnum<typeof TimeRange>;
+export type TimeRange = OpenEnum<typeof TimeRange>;
 
 export type RunnableJobCollectionTimeWarning = {};
 
 export const WhereToCapture = {
+  /**
+   * 1. Before pre-processing Pipeline
+   */
   Zero: 0,
+  /**
+   * 2. Before the Routes
+   */
   One: 1,
+  /**
+   * 3. Before post-processing Pipeline
+   */
   Two: 2,
+  /**
+   * 4. Before the Destination
+   */
   Three: 3,
 } as const;
-export type WhereToCapture = ClosedEnum<typeof WhereToCapture>;
+export type WhereToCapture = OpenEnum<typeof WhereToCapture>;
 
 export type CaptureSettings = {
   /**
@@ -367,14 +382,25 @@ export type RunnableJobCollection = {
 };
 
 /** @internal */
-export const RunnableJobCollectionJobType$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionJobType
-> = z.nativeEnum(RunnableJobCollectionJobType);
+export const RunnableJobCollectionJobType$inboundSchema: z.ZodType<
+  RunnableJobCollectionJobType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RunnableJobCollectionJobType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const RunnableJobCollectionJobType$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionJobType
-> = RunnableJobCollectionJobType$inboundSchema;
+export const RunnableJobCollectionJobType$outboundSchema: z.ZodType<
+  RunnableJobCollectionJobType,
+  z.ZodTypeDef,
+  RunnableJobCollectionJobType
+> = z.union([
+  z.nativeEnum(RunnableJobCollectionJobType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -771,24 +797,35 @@ export function collectorFromJSON(
 }
 
 /** @internal */
-export const RunnableJobCollectionType$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionType
-> = z.nativeEnum(RunnableJobCollectionType);
+export const InputType$inboundSchema: z.ZodType<
+  InputType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const RunnableJobCollectionType$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionType
-> = RunnableJobCollectionType$inboundSchema;
+export const InputType$outboundSchema: z.ZodType<
+  InputType,
+  z.ZodTypeDef,
+  InputType
+> = z.union([
+  z.nativeEnum(InputType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace RunnableJobCollectionType$ {
-  /** @deprecated use `RunnableJobCollectionType$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionType$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionType$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionType$outboundSchema;
+export namespace InputType$ {
+  /** @deprecated use `InputType$inboundSchema` instead. */
+  export const inboundSchema = InputType$inboundSchema;
+  /** @deprecated use `InputType$outboundSchema` instead. */
+  export const outboundSchema = InputType$outboundSchema;
 }
 
 /** @internal */
@@ -918,7 +955,7 @@ export const RunnableJobCollectionInput$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RunnableJobCollectionType$inboundSchema.default("collection"),
+  type: InputType$inboundSchema.default("collection"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   sendToRoutes: z.boolean().default(true),
@@ -950,7 +987,7 @@ export const RunnableJobCollectionInput$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RunnableJobCollectionInput
 > = z.object({
-  type: RunnableJobCollectionType$outboundSchema.default("collection"),
+  type: InputType$outboundSchema.default("collection"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   sendToRoutes: z.boolean().default(true),
@@ -995,14 +1032,25 @@ export function runnableJobCollectionInputFromJSON(
 }
 
 /** @internal */
-export const RunnableJobCollectionLogLevel$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionLogLevel
-> = z.nativeEnum(RunnableJobCollectionLogLevel);
+export const RunnableJobCollectionLogLevel$inboundSchema: z.ZodType<
+  RunnableJobCollectionLogLevel,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RunnableJobCollectionLogLevel),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const RunnableJobCollectionLogLevel$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionLogLevel
-> = RunnableJobCollectionLogLevel$inboundSchema;
+export const RunnableJobCollectionLogLevel$outboundSchema: z.ZodType<
+  RunnableJobCollectionLogLevel,
+  z.ZodTypeDef,
+  RunnableJobCollectionLogLevel
+> = z.union([
+  z.nativeEnum(RunnableJobCollectionLogLevel),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1016,14 +1064,25 @@ export namespace RunnableJobCollectionLogLevel$ {
 }
 
 /** @internal */
-export const RunnableJobCollectionMode$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionMode
-> = z.nativeEnum(RunnableJobCollectionMode);
+export const RunnableJobCollectionMode$inboundSchema: z.ZodType<
+  RunnableJobCollectionMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RunnableJobCollectionMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const RunnableJobCollectionMode$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionMode
-> = RunnableJobCollectionMode$inboundSchema;
+export const RunnableJobCollectionMode$outboundSchema: z.ZodType<
+  RunnableJobCollectionMode,
+  z.ZodTypeDef,
+  RunnableJobCollectionMode
+> = z.union([
+  z.nativeEnum(RunnableJobCollectionMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1037,12 +1096,25 @@ export namespace RunnableJobCollectionMode$ {
 }
 
 /** @internal */
-export const TimeRange$inboundSchema: z.ZodNativeEnum<typeof TimeRange> = z
-  .nativeEnum(TimeRange);
+export const TimeRange$inboundSchema: z.ZodType<
+  TimeRange,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimeRange),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const TimeRange$outboundSchema: z.ZodNativeEnum<typeof TimeRange> =
-  TimeRange$inboundSchema;
+export const TimeRange$outboundSchema: z.ZodType<
+  TimeRange,
+  z.ZodTypeDef,
+  TimeRange
+> = z.union([
+  z.nativeEnum(TimeRange),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1106,14 +1178,25 @@ export function runnableJobCollectionTimeWarningFromJSON(
 }
 
 /** @internal */
-export const WhereToCapture$inboundSchema: z.ZodNativeEnum<
-  typeof WhereToCapture
-> = z.nativeEnum(WhereToCapture);
+export const WhereToCapture$inboundSchema: z.ZodType<
+  WhereToCapture,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(WhereToCapture),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const WhereToCapture$outboundSchema: z.ZodNativeEnum<
-  typeof WhereToCapture
-> = WhereToCapture$inboundSchema;
+export const WhereToCapture$outboundSchema: z.ZodType<
+  WhereToCapture,
+  z.ZodTypeDef,
+  WhereToCapture
+> = z.union([
+  z.nativeEnum(WhereToCapture),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
 
 /**
  * @internal

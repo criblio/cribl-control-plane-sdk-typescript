@@ -12,6 +12,8 @@ let value: OutputDynatraceOTLPOTLPVersion = "1.3.1";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"1.3.1"
+"1.3.1" | Unrecognized<string>
 ```

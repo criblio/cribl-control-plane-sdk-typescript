@@ -8,14 +8,15 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PackInstallInfoTags = {
-  dataType: Array<string>;
+  dataType?: Array<string> | undefined;
   domain?: Array<string> | undefined;
   streamtags?: Array<string> | undefined;
-  technology: Array<string>;
+  technology?: Array<string> | undefined;
 };
 
 export type PackInstallInfo = {
   author?: string | undefined;
+  dependencies?: { [k: string]: string } | undefined;
   description?: string | undefined;
   displayName?: string | undefined;
   exports?: Array<string> | undefined;
@@ -38,18 +39,18 @@ export const PackInstallInfoTags$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dataType: z.array(z.string()),
+  dataType: z.array(z.string()).optional(),
   domain: z.array(z.string()).optional(),
   streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()),
+  technology: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type PackInstallInfoTags$Outbound = {
-  dataType: Array<string>;
+  dataType?: Array<string> | undefined;
   domain?: Array<string> | undefined;
   streamtags?: Array<string> | undefined;
-  technology: Array<string>;
+  technology?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -58,10 +59,10 @@ export const PackInstallInfoTags$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PackInstallInfoTags
 > = z.object({
-  dataType: z.array(z.string()),
+  dataType: z.array(z.string()).optional(),
   domain: z.array(z.string()).optional(),
   streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()),
+  technology: z.array(z.string()).optional(),
 });
 
 /**
@@ -102,6 +103,7 @@ export const PackInstallInfo$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   author: z.string().optional(),
+  dependencies: z.record(z.string()).optional(),
   description: z.string().optional(),
   displayName: z.string().optional(),
   exports: z.array(z.string()).optional(),
@@ -121,6 +123,7 @@ export const PackInstallInfo$inboundSchema: z.ZodType<
 /** @internal */
 export type PackInstallInfo$Outbound = {
   author?: string | undefined;
+  dependencies?: { [k: string]: string } | undefined;
   description?: string | undefined;
   displayName?: string | undefined;
   exports?: Array<string> | undefined;
@@ -144,6 +147,7 @@ export const PackInstallInfo$outboundSchema: z.ZodType<
   PackInstallInfo
 > = z.object({
   author: z.string().optional(),
+  dependencies: z.record(z.string()).optional(),
   description: z.string().optional(),
   displayName: z.string().optional(),
   exports: z.array(z.string()).optional(),

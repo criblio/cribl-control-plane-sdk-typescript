@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -17,17 +22,35 @@ export type OutputInfluxdbType = ClosedEnum<typeof OutputInfluxdbType>;
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
 export const TimestampPrecision = {
+  /**
+   * Nanoseconds
+   */
   Ns: "ns",
+  /**
+   * Microseconds
+   */
   U: "u",
+  /**
+   * Milliseconds
+   */
   Ms: "ms",
+  /**
+   * Seconds
+   */
   S: "s",
+  /**
+   * Minutes
+   */
   M: "m",
+  /**
+   * Hours
+   */
   H: "h",
 } as const;
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export type TimestampPrecision = ClosedEnum<typeof TimestampPrecision>;
+export type TimestampPrecision = OpenEnum<typeof TimestampPrecision>;
 
 export type OutputInfluxdbExtraHttpHeader = {
   name?: string | undefined;
@@ -38,14 +61,23 @@ export type OutputInfluxdbExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputInfluxdbFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
-export type OutputInfluxdbFailedRequestLoggingMode = ClosedEnum<
+export type OutputInfluxdbFailedRequestLoggingMode = OpenEnum<
   typeof OutputInfluxdbFailedRequestLoggingMode
 >;
 
@@ -88,14 +120,23 @@ export type OutputInfluxdbTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputInfluxdbBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputInfluxdbBackpressureBehavior = ClosedEnum<
+export type OutputInfluxdbBackpressureBehavior = OpenEnum<
   typeof OutputInfluxdbBackpressureBehavior
 >;
 
@@ -113,7 +154,7 @@ export const OutputInfluxdbAuthenticationType = {
 /**
  * InfluxDB authentication type
  */
-export type OutputInfluxdbAuthenticationType = ClosedEnum<
+export type OutputInfluxdbAuthenticationType = OpenEnum<
   typeof OutputInfluxdbAuthenticationType
 >;
 
@@ -121,13 +162,19 @@ export type OutputInfluxdbAuthenticationType = ClosedEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputInfluxdbCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputInfluxdbCompression = ClosedEnum<
+export type OutputInfluxdbCompression = OpenEnum<
   typeof OutputInfluxdbCompression
 >;
 
@@ -135,13 +182,19 @@ export type OutputInfluxdbCompression = ClosedEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputInfluxdbQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputInfluxdbQueueFullBehavior = ClosedEnum<
+export type OutputInfluxdbQueueFullBehavior = OpenEnum<
   typeof OutputInfluxdbQueueFullBehavior
 >;
 
@@ -149,14 +202,23 @@ export type OutputInfluxdbQueueFullBehavior = ClosedEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputInfluxdbMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputInfluxdbMode = ClosedEnum<typeof OutputInfluxdbMode>;
+export type OutputInfluxdbMode = OpenEnum<typeof OutputInfluxdbMode>;
 
 export type OutputInfluxdbPqControls = {};
 
@@ -397,14 +459,25 @@ export namespace OutputInfluxdbType$ {
 }
 
 /** @internal */
-export const TimestampPrecision$inboundSchema: z.ZodNativeEnum<
-  typeof TimestampPrecision
-> = z.nativeEnum(TimestampPrecision);
+export const TimestampPrecision$inboundSchema: z.ZodType<
+  TimestampPrecision,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const TimestampPrecision$outboundSchema: z.ZodNativeEnum<
-  typeof TimestampPrecision
-> = TimestampPrecision$inboundSchema;
+export const TimestampPrecision$outboundSchema: z.ZodType<
+  TimestampPrecision,
+  z.ZodTypeDef,
+  TimestampPrecision
+> = z.union([
+  z.nativeEnum(TimestampPrecision),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -477,15 +550,25 @@ export function outputInfluxdbExtraHttpHeaderFromJSON(
 }
 
 /** @internal */
-export const OutputInfluxdbFailedRequestLoggingMode$inboundSchema:
-  z.ZodNativeEnum<typeof OutputInfluxdbFailedRequestLoggingMode> = z.nativeEnum(
-    OutputInfluxdbFailedRequestLoggingMode,
-  );
+export const OutputInfluxdbFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputInfluxdbFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputInfluxdbFailedRequestLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputInfluxdbFailedRequestLoggingMode$outboundSchema:
-  z.ZodNativeEnum<typeof OutputInfluxdbFailedRequestLoggingMode> =
-    OutputInfluxdbFailedRequestLoggingMode$inboundSchema;
+export const OutputInfluxdbFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  OutputInfluxdbFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  OutputInfluxdbFailedRequestLoggingMode
+> = z.union([
+  z.nativeEnum(OutputInfluxdbFailedRequestLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -635,14 +718,25 @@ export function outputInfluxdbTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
-export const OutputInfluxdbBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbBackpressureBehavior
-> = z.nativeEnum(OutputInfluxdbBackpressureBehavior);
+export const OutputInfluxdbBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputInfluxdbBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputInfluxdbBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputInfluxdbBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbBackpressureBehavior
-> = OutputInfluxdbBackpressureBehavior$inboundSchema;
+export const OutputInfluxdbBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputInfluxdbBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputInfluxdbBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputInfluxdbBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -657,14 +751,25 @@ export namespace OutputInfluxdbBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputInfluxdbAuthenticationType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbAuthenticationType
-> = z.nativeEnum(OutputInfluxdbAuthenticationType);
+export const OutputInfluxdbAuthenticationType$inboundSchema: z.ZodType<
+  OutputInfluxdbAuthenticationType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputInfluxdbAuthenticationType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputInfluxdbAuthenticationType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbAuthenticationType
-> = OutputInfluxdbAuthenticationType$inboundSchema;
+export const OutputInfluxdbAuthenticationType$outboundSchema: z.ZodType<
+  OutputInfluxdbAuthenticationType,
+  z.ZodTypeDef,
+  OutputInfluxdbAuthenticationType
+> = z.union([
+  z.nativeEnum(OutputInfluxdbAuthenticationType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -678,14 +783,25 @@ export namespace OutputInfluxdbAuthenticationType$ {
 }
 
 /** @internal */
-export const OutputInfluxdbCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbCompression
-> = z.nativeEnum(OutputInfluxdbCompression);
+export const OutputInfluxdbCompression$inboundSchema: z.ZodType<
+  OutputInfluxdbCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputInfluxdbCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputInfluxdbCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbCompression
-> = OutputInfluxdbCompression$inboundSchema;
+export const OutputInfluxdbCompression$outboundSchema: z.ZodType<
+  OutputInfluxdbCompression,
+  z.ZodTypeDef,
+  OutputInfluxdbCompression
+> = z.union([
+  z.nativeEnum(OutputInfluxdbCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -699,14 +815,25 @@ export namespace OutputInfluxdbCompression$ {
 }
 
 /** @internal */
-export const OutputInfluxdbQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbQueueFullBehavior
-> = z.nativeEnum(OutputInfluxdbQueueFullBehavior);
+export const OutputInfluxdbQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputInfluxdbQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputInfluxdbQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputInfluxdbQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbQueueFullBehavior
-> = OutputInfluxdbQueueFullBehavior$inboundSchema;
+export const OutputInfluxdbQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputInfluxdbQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputInfluxdbQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputInfluxdbQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -720,14 +847,25 @@ export namespace OutputInfluxdbQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputInfluxdbMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbMode
-> = z.nativeEnum(OutputInfluxdbMode);
+export const OutputInfluxdbMode$inboundSchema: z.ZodType<
+  OutputInfluxdbMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputInfluxdbMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputInfluxdbMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbMode
-> = OutputInfluxdbMode$inboundSchema;
+export const OutputInfluxdbMode$outboundSchema: z.ZodType<
+  OutputInfluxdbMode,
+  z.ZodTypeDef,
+  OutputInfluxdbMode
+> = z.union([
+  z.nativeEnum(OutputInfluxdbMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
