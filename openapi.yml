@@ -4,7 +4,7 @@ servers:
 info:
   title: Cribl API Reference
   description: This API Reference lists available REST endpoints, along with their supported operations for accessing, creating, updating, or deleting resources. See our complementary product documentation at [docs.cribl.io](http://docs.cribl.io).
-  version: 4.15.0-alpha.1760790547109-e85ff476
+  version: 4.15.0-alpha.1760873991291-89daace9
   contact:
     name: Support
     url: https://portal.support.cribl.io
@@ -392,6 +392,325 @@ components:
           type: string
         viewName:
           type: string
+    AreaStyleOption:
+      type: object
+      properties:
+        opacity:
+          type: number
+        shadowBlur:
+          type: number
+        shadowColor:
+          type: string
+        shadowOffsetX:
+          type: number
+        shadowOffsetY:
+          type: number
+    ChartData:
+      type: array
+      items:
+        type: object
+    ChartType:
+      type: string
+      enum:
+        - area
+        - column
+        - events
+        - funnel
+        - gauge
+        - horizontalBar
+        - line
+        - map
+        - pie
+        - scatter
+        - single
+        - table
+      x-speakeasy-unknown-values: allow
+    ChartSeries:
+      type: object
+      properties:
+        areaStyle:
+          $ref: "#/components/schemas/AreaStyleOption"
+        color:
+          type: string
+        data:
+          $ref: "#/components/schemas/ChartData"
+        map:
+          type: string
+        name:
+          type: string
+        type:
+          $ref: "#/components/schemas/ChartType"
+        yAxisField:
+          type: string
+      required:
+        - name
+    CPUTimeMetric:
+      type: object
+      properties:
+        billableCPUSeconds:
+          type: number
+        executorsCPUSeconds:
+          type: object
+          additionalProperties:
+            type: number
+        totalCPUSeconds:
+          type: number
+        totalExecCPUSeconds:
+          type: number
+      required:
+        - executorsCPUSeconds
+        - totalCPUSeconds
+        - totalExecCPUSeconds
+    EventBreakerRuleset:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          title: ID
+          pattern: ^[a-zA-Z0-9\-_ ]+$
+        lib:
+          type: string
+          title: Library
+          enum:
+            - custom
+            - cribl-custom
+          default: custom
+          x-speakeasy-unknown-values: allow
+        description:
+          type: string
+          title: Description
+        tags:
+          type: string
+          title: Tags
+        minRawLength:
+          type: number
+          title: Min raw length
+          description: The  minimum number of characters in _raw to determine which rule to use
+          default: 256
+          minimum: 50
+          maximum: 100000
+        rules:
+          type: array
+          title: Rules
+          description: A list of rules that will be applied, in order, to the input data stream
+          items:
+            type: object
+            required:
+              - name
+              - type
+              - condition
+              - timestampAnchorRegex
+              - timestamp
+            properties:
+              name:
+                type: string
+                title: Name
+              condition:
+                type: string
+                title: Filter condition
+                description: JavaScript expression applied to the beginning of a file or object, to determine whether the rule applies to all contained events.
+                default: "true"
+              type:
+                type: string
+                title: Event Breaker type
+                enum:
+                  - regex
+                  - json
+                  - json_array
+                  - header
+                  - timestamp
+                  - csv
+                  - aws_cloudtrail
+                  - aws_vpcflow
+                x-speakeasy-enum-descriptions:
+                  - Regex
+                  - JSON Newline Delimited
+                  - JSON Array
+                  - File Header
+                  - Timestamp
+                  - CSV
+                  - AWS CloudTrail
+                  - AWS VPC Flow Log
+                x-speakeasy-unknown-values: allow
+                default: regex
+              timestampAnchorRegex:
+                type: string
+                title: Timestamp anchor
+                description: The regex to match before attempting timestamp extraction. Use $ (end-of-string anchor) to prevent extraction.
+                default: /^/
+              timestamp:
+                type: object
+                required:
+                  - type
+                title: Timestamp format
+                description: Auto, manual format (strptime), or current time
+                properties:
+                  type:
+                    type: string
+                    title: Timestamp type
+                    default: auto
+                    enum:
+                      - auto
+                      - format
+                      - current
+                    x-speakeasy-unknown-values: allow
+                  length:
+                    type: number
+                    title: Length
+                    minimum: 2
+                    default: 150
+                  format:
+                    type: string
+                    title: Format
+              timestampTimezone:
+                type: string
+                title: Default timezone
+                description: Timezone to assign to timestamps without timezone info
+                default: local
+              timestampEarliest:
+                title: Earliest timestamp allowed
+                description: "The earliest timestamp value allowed relative to now. Example: -42years. Parsed values prior to this date will be set to current time."
+                type: string
+                default: -420weeks
+              timestampLatest:
+                title: Future timestamp allowed
+                description: "The latest timestamp value allowed relative to now. Example: +42days. Parsed values after this date will be set to current time."
+                type: string
+                default: +1week
+              maxEventBytes:
+                type: number
+                title: Max event bytes
+                description: The maximum number of bytes in an event before it is flushed to the pipelines
+                default: 51200
+                minimum: 1
+                maximum: 134217728
+              fields:
+                title: Fields
+                description: Key-value pairs to be added to each event
+                type: array
+                items:
+                  type: object
+                  required:
+                    - value
+                  properties:
+                    name:
+                      type: string
+                      title: Name
+                    value:
+                      type: string
+                      title: Value expression
+                      description: The JavaScript expression used to compute the field's value (can be constant)
+              disabled:
+                title: Disabled
+                type: boolean
+                default: false
+                description: Disable this breaker rule (enabled by default)
+              parserEnabled:
+                title: Parser
+                type: boolean
+                default: false
+              shouldUseDataRaw:
+                title: Data _raw
+                type: boolean
+                default: false
+                description: Enable to set an internal field on events indicating that the field in the data called _raw should be used. This can be useful for post processors that want to use that field for event._raw, instead of replacing it with the actual raw event.
+    DatatypeOverrides:
+      type: object
+      properties:
+        breakerRulesets:
+          type: array
+          items:
+            $ref: "#/components/schemas/EventBreakerRuleset"
+        disableBreakers:
+          type: boolean
+      required:
+        - disableBreakers
+    SearchJobErrorStateConfig:
+      type: object
+      properties:
+        coordinated:
+          type: boolean
+        errorMessages:
+          type: array
+          items:
+            type: string
+      required:
+        - coordinated
+        - errorMessages
+    SearchJobMetadata:
+      type: object
+      properties:
+        arguments:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              additionalProperties:
+                type: string
+        computeTypes:
+          type: object
+          properties:
+            v1:
+              type: number
+            v2:
+              type: number
+            lakehouse:
+              type: number
+        datasets:
+          type: object
+          additionalProperties:
+            type: number
+        functions:
+          type: object
+          additionalProperties:
+            type: number
+        operators:
+          type: object
+          additionalProperties:
+            type: number
+        providerTypes:
+          type: object
+          additionalProperties:
+            type: number
+        providers:
+          type: object
+          additionalProperties:
+            type: number
+    SearchParameterValue:
+      oneOf:
+        - type: string
+        - type: number
+        - type: boolean
+    SearchParameterType:
+      type: string
+      enum:
+        - string
+        - number
+        - boolean
+      x-speakeasy-unknown-values: allow
+    SearchParameter:
+      type: object
+      properties:
+        defaultValue:
+          $ref: "#/components/schemas/SearchParameterValue"
+        name:
+          type: string
+        type:
+          $ref: "#/components/schemas/SearchParameterType"
+      required:
+        - name
+        - type
+    SearchParameters:
+      type: object
+      additionalProperties:
+        oneOf:
+          - type: string
+          - type: number
+          - type: boolean
     CacheStatusByDatasetId:
       type: object
       additionalProperties:
@@ -417,6 +736,65 @@ components:
             required:
               - reason
               - usedCache
+    StageId:
+      type: string
+    StageDependencyType:
+      type: string
+      enum:
+        - stage
+        - stage-scalar
+      x-speakeasy-unknown-values: allow
+    StageDependency:
+      type: object
+      properties:
+        dependentFields:
+          type: array
+          items:
+            type: string
+        id:
+          $ref: "#/components/schemas/StageId"
+        type:
+          $ref: "#/components/schemas/StageDependencyType"
+      required:
+        - id
+        - type
+    JobExecutionWarning:
+      type: object
+      properties:
+        text:
+          type: string
+        type:
+          type: string
+      required:
+        - type
+    LogicalPlanNodeType:
+      type: string
+      enum:
+        - aggregate
+        - dedup
+        - distinct
+        - extract
+        - filter
+        - limit
+        - mv-pull
+        - noop
+        - pivot
+        - project
+        - sort
+      x-speakeasy-unknown-values: allow
+    LogicalPlan:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: object
+          properties:
+            isPreviewableOperation:
+              type: boolean
+            type:
+              $ref: "#/components/schemas/LogicalPlanNodeType"
+          required:
+            - type
     PipelineFunctionConf:
       type: object
       required:
@@ -511,6 +889,602 @@ components:
                     type: boolean
                     title: Disabled
                     description: Whether this group is disabled
+    ColumnPath:
+      type: array
+      items:
+        type: string
+    SearchTerm:
+      type: object
+      properties:
+        isCaseSensitive:
+          type: boolean
+        term:
+          type: string
+      required:
+        - isCaseSensitive
+        - term
+    SortByField:
+      type: object
+      properties:
+        direction:
+          type: string
+          enum:
+            - ascending
+            - descending
+          x-speakeasy-unknown-values: allow
+        fieldName:
+          type: string
+        nullPosition:
+          type: string
+          enum:
+            - nullsFirst
+            - nullsLast
+          x-speakeasy-unknown-values: allow
+      required:
+        - direction
+        - fieldName
+        - nullPosition
+    SearchConfig:
+      type: object
+      properties:
+        canComputeMetadataDistributively:
+          type: boolean
+        datasets:
+          type: array
+          items:
+            type: string
+        hasSendOperator:
+          type: boolean
+        logicalPlans:
+          type: object
+          properties:
+            Combined:
+              $ref: "#/components/schemas/LogicalPlan"
+            Coordinated:
+              $ref: "#/components/schemas/LogicalPlan"
+            Federated:
+              $ref: "#/components/schemas/LogicalPlan"
+        orderedFieldNames:
+          type: array
+          items:
+            type: string
+        pipelines:
+          type: object
+          properties:
+            Combined:
+              $ref: "#/components/schemas/Pipeline"
+            Coordinated:
+              $ref: "#/components/schemas/Pipeline"
+            Federated:
+              $ref: "#/components/schemas/Pipeline"
+        referencedColumnPaths:
+          type: array
+          items:
+            $ref: "#/components/schemas/ColumnPath"
+        searchTerms:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchTerm"
+        sortFields:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortByField"
+        useFormattedVisualization:
+          type: boolean
+      required:
+        - datasets
+        - hasSendOperator
+        - logicalPlans
+        - orderedFieldNames
+        - pipelines
+        - searchTerms
+        - useFormattedVisualization
+    SearchJobStageConfig:
+      type: object
+      properties:
+        cacheStatusByDatasetId:
+          $ref: "#/components/schemas/CacheStatusByDatasetId"
+        dependencies:
+          type: array
+          items:
+            $ref: "#/components/schemas/StageDependency"
+        earliest:
+          oneOf:
+            - type: string
+            - type: number
+        executionWarnings:
+          type: array
+          items:
+            $ref: "#/components/schemas/JobExecutionWarning"
+        filter:
+          type: string
+        id:
+          type: string
+        latest:
+          oneOf:
+            - type: string
+            - type: number
+        resolvedDatasetIds:
+          type: array
+          items:
+            type: string
+        searchConfig:
+          $ref: "#/components/schemas/SearchConfig"
+        status:
+          type: string
+          enum:
+            - failed
+            - new
+            - running
+            - completed
+            - canceled
+            - queued
+          x-speakeasy-unknown-values: allow
+        subQueryText:
+          type: string
+      required:
+        - dependencies
+        - filter
+        - id
+        - resolvedDatasetIds
+        - searchConfig
+        - status
+        - subQueryText
+    ColumnSetting:
+      type: object
+      additionalProperties: true
+    ColumnFilterSettings:
+      type: object
+      properties:
+        contains:
+          $ref: "#/components/schemas/ColumnSetting"
+      required:
+        - contains
+    ColumnFormatSettings:
+      type: object
+      properties:
+        palette:
+          $ref: "#/components/schemas/ColumnSetting"
+        precision:
+          $ref: "#/components/schemas/ColumnSetting"
+        prefix:
+          $ref: "#/components/schemas/ColumnSetting"
+        suffix:
+          $ref: "#/components/schemas/ColumnSetting"
+      required:
+        - palette
+        - precision
+        - prefix
+        - suffix
+    ColumnOrderSettings:
+      type: object
+      properties:
+        order:
+          $ref: "#/components/schemas/ColumnSetting"
+      required:
+        - order
+    ColumnSortSettings:
+      type: object
+      properties:
+        sort:
+          $ref: "#/components/schemas/ColumnSetting"
+      required:
+        - sort
+    TableViewSettings:
+      type: object
+      properties:
+        columnFilterSettings:
+          $ref: "#/components/schemas/ColumnFilterSettings"
+        columnFormatSettings:
+          $ref: "#/components/schemas/ColumnFormatSettings"
+        columnOrderSettings:
+          $ref: "#/components/schemas/ColumnOrderSettings"
+        columnSortSettings:
+          $ref: "#/components/schemas/ColumnSortSettings"
+        eventDetailsPanel:
+          type: boolean
+        eventTableFields:
+          type: array
+          items:
+            type: string
+        rowNumberColumnWidth:
+          type: number
+        showColumnTotals:
+          type: boolean
+        showColumnTotalsPinned:
+          type: boolean
+        showRowNumbers:
+          type: boolean
+        showRowTotals:
+          type: boolean
+        showRowTotalsPinned:
+          type: boolean
+        wrapCells:
+          type: boolean
+      required:
+        - showColumnTotals
+        - showColumnTotalsPinned
+        - showRowNumbers
+        - showRowTotals
+        - showRowTotalsPinned
+        - wrapCells
+    SearchAuditMetrics:
+      type: object
+      properties:
+        bytesIn:
+          type: number
+        bytesOut:
+          type: number
+        eventsIn:
+          type: number
+        eventsOut:
+          type: number
+        objects:
+          type: object
+          properties:
+            discovered:
+              type: number
+            scanned:
+              type: number
+            skipped:
+              type: number
+          required:
+            - discovered
+            - scanned
+            - skipped
+        tasks:
+          type: object
+          properties:
+            largeFileTaskCount:
+              type: number
+            standardTaskCount:
+              type: number
+          required:
+            - largeFileTaskCount
+            - standardTaskCount
+        time:
+          type: object
+          properties:
+            queuedSec:
+              type: number
+            runningSec:
+              type: number
+            taskCompletionTotalSec:
+              type: number
+            taskReceivingTotalSec:
+              type: number
+          required:
+            - queuedSec
+            - runningSec
+            - taskCompletionTotalSec
+            - taskReceivingTotalSec
+      required:
+        - bytesIn
+        - bytesOut
+        - eventsIn
+        - eventsOut
+        - objects
+        - time
+    SearchJob:
+      type: object
+      properties:
+        accelerated:
+          type: boolean
+        aliasOfOriginalJobId:
+          type: string
+        chartConfig:
+          type: object
+          properties:
+            applyThreshold:
+              type: boolean
+            axis:
+              type: object
+              properties:
+                xAxis:
+                  type: string
+                yAxis:
+                  type: array
+                  items:
+                    type: string
+                yAxisExcluded:
+                  type: array
+                  items:
+                    type: string
+            color:
+              type: string
+            colorPalette:
+              type: number
+            colorPaletteReversed:
+              type: boolean
+            colorThresholds:
+              type: object
+              properties:
+                thresholds:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      color:
+                        type: string
+                      threshold:
+                        type: number
+                    required:
+                      - color
+                      - threshold
+              required:
+                - thresholds
+            customData:
+              type: object
+              properties:
+                connectNulls:
+                  type: string
+                dataFields:
+                  type: array
+                  items:
+                    type: string
+                isPointColor:
+                  type: boolean
+                limitToTopN:
+                  type: number
+                lines:
+                  type: boolean
+                nameField:
+                  type: string
+                pointColorPalette:
+                  type: number
+                pointColorPaletteReversed:
+                  type: boolean
+                pointScale:
+                  oneOf:
+                    - type: string
+                    - type: number
+                pointScaleDataField:
+                  type: string
+                seriesCount:
+                  type: number
+                splitBy:
+                  type: string
+                stack:
+                  type: boolean
+                summarizeOthers:
+                  type: boolean
+                trellis:
+                  type: boolean
+            decimals:
+              type: number
+            label:
+              type: string
+            legend:
+              type: object
+              properties:
+                position:
+                  type: string
+                selected:
+                  type: object
+                  additionalProperties:
+                    type: boolean
+                truncate:
+                  type: boolean
+            mapDetails:
+              type: object
+              properties:
+                latitudeField:
+                  type: string
+                longitudeField:
+                  type: string
+                mapSourceID:
+                  type: string
+                mapType:
+                  type: string
+                nameField:
+                  type: string
+                pointScale:
+                  oneOf:
+                    - type: string
+                    - type: number
+                valueField:
+                  type: string
+            onClickAction:
+              type: object
+              properties:
+                search:
+                  type: string
+                selectedDashboardId:
+                  type: string
+                selectedInputId:
+                  type: string
+                selectedLinkId:
+                  type: string
+                selectedTimerangeInputId:
+                  type: string
+                type:
+                  type: string
+            prefix:
+              type: string
+            separator:
+              type: boolean
+            series:
+              type: array
+              items:
+                $ref: "#/components/schemas/ChartSeries"
+            seriesInfo:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/ChartType"
+            shouldApplyUserChartSettings:
+              type: boolean
+            style:
+              type: boolean
+            suffix:
+              type: string
+            type:
+              type: string
+            xAxis:
+              type: object
+              properties:
+                dataField:
+                  type: string
+                inverse:
+                  type: boolean
+                labelInterval:
+                  type: string
+                labelOrientation:
+                  type: number
+                name:
+                  type: string
+                offset:
+                  type: number
+                position:
+                  type: string
+                type:
+                  type: string
+            yAxis:
+              type: object
+              properties:
+                dataField:
+                  type: array
+                  items:
+                    type: string
+                interval:
+                  type: number
+                max:
+                  type: number
+                min:
+                  type: number
+                position:
+                  type: string
+                scale:
+                  type: string
+                splitLine:
+                  type: boolean
+                type:
+                  type: string
+        compatibilityChecks:
+          type: object
+          properties:
+            datatypes:
+              type: boolean
+            stageIds:
+              type: array
+              items:
+                type: string
+        completionInfo:
+          type: string
+        context:
+          type: string
+        correlationId:
+          type: string
+        cpuMetrics:
+          $ref: "#/components/schemas/CPUTimeMetric"
+        datatypeOverrides:
+          $ref: "#/components/schemas/DatatypeOverrides"
+        disableNotifications:
+          type: boolean
+        displayUsername:
+          type: string
+        earliest:
+          oneOf:
+            - type: string
+            - type: number
+        earliestEpoch:
+          type: number
+        errorStateConfig:
+          $ref: "#/components/schemas/SearchJobErrorStateConfig"
+        group:
+          type: string
+        id:
+          type: string
+        isPrivate:
+          type: boolean
+        latest:
+          oneOf:
+            - type: string
+            - type: number
+        latestEpoch:
+          type: number
+        metadata:
+          $ref: "#/components/schemas/SearchJobMetadata"
+        notebookId:
+          type: string
+        numEventsAfter:
+          type: number
+        numEventsBefore:
+          type: number
+        query:
+          type: string
+        queryWithMacrosResolved:
+          type: string
+        sampleRate:
+          type: number
+        savedQueryName:
+          type: string
+        searchParameterDeclarations:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchParameter"
+        searchParameterValues:
+          $ref: "#/components/schemas/SearchParameters"
+        setOptions:
+          type: object
+          additionalProperties:
+            oneOf:
+              - type: string
+              - type: number
+        stages:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchJobStageConfig"
+        status:
+          type: string
+          enum:
+            - failed
+            - new
+            - running
+            - completed
+            - canceled
+            - queued
+          x-speakeasy-unknown-values: allow
+        tableConfig:
+          $ref: "#/components/schemas/TableViewSettings"
+        targetEventTime:
+          type: number
+        timeCompleted:
+          type: number
+        timeCreated:
+          type: number
+        timeStarted:
+          type: number
+        timeToFirstByte:
+          type: number
+        totalBytesScanned:
+          type: number
+        totalEventCount:
+          type: number
+        type:
+          type: string
+          enum:
+            - command
+            - scheduled
+            - standard
+            - datatypePreview
+            - dashboard
+            - notebook
+            - systemInsights
+          x-speakeasy-unknown-values: allow
+        usageGroupId:
+          type: string
+        usageMetrics:
+          $ref: "#/components/schemas/SearchAuditMetrics"
+        user:
+          type: string
+      required:
+        - displayUsername
+        - group
+        - id
+        - query
+        - status
+        - timeCreated
+        - user
     StatusResponse:
       type: object
       properties:
@@ -42623,6 +43597,45 @@ paths:
           schema:
             type: string
           description: The <code>id</code> of the Lake Dataset to update.
+  /search/jobs:
+    post:
+      operationId: createSearchJob
+      x-speakeasy-name-override: create
+      x-speakeasy-group: search.jobs
+      tags:
+        - search
+      summary: Create a new search job
+      description: Create a new search job
+      requestBody:
+        description: New SearchJob object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SearchJob"
+      responses:
+        "200":
+          description: a list of SearchJob objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: number of items present in the items array
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SearchJob"
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /search/jobs/{id}/status:
     get:
       operationId: getSearchJobStatusById
@@ -43859,13 +44872,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       requestBody:
-        description: Binary file content
         required: true
         content:
           application/octet-stream:
             schema:
               type: string
               format: binary
+              description: Pack file upload
       parameters:
         - name: filename
           in: query
@@ -44112,7 +45125,7 @@ paths:
           schema:
             type: string
           description: The <code>id</code> of the Worker Group or Edge Fleet to get the count for.
-        - name: ID
+        - name: commit
           in: query
           required: false
           schema:
@@ -44238,7 +45251,7 @@ paths:
           schema:
             type: string
           description: The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for.
-        - name: ID
+        - name: commit
           in: query
           required: false
           schema:
@@ -44535,85 +45548,6 @@ paths:
           schema:
             type: string
           description: The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for.
-  /search/query:
-    get:
-      operationId: getSearchQuery
-      tags:
-        - query
-      x-speakeasy-group: search.queries
-      x-speakeasy-name-override: create
-      summary: Runs the query and returns the results
-      description: Runs the query and returns the results
-      responses:
-        "200":
-          description: SearchResultsResults for the Search /results and /results-poll endpoints. object
-          content:
-            application/x-ndjson:
-              schema:
-                $ref: "#/components/schemas/SearchJobResults"
-        "401":
-          description: Unauthorized
-        "500":
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-      parameters:
-        - name: queryId
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Saved query ID
-        - name: jobId
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Job ID
-        - name: query
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Search query string
-        - name: earliest
-          in: query
-          required: false
-          schema:
-            type: number
-          description: Beginning of query time range, inclusive, in a relative time format or seconds
-        - name: latest
-          in: query
-          required: false
-          schema:
-            type: number
-          description: End of query time range, exclusive, in a relative time format or seconds
-        - name: sampleRate
-          in: query
-          required: false
-          schema:
-            type: number
-          description: Number between 0-1 to sample events during search
-        - name: force
-          in: query
-          required: false
-          schema:
-            type: boolean
-          description: When true, forces to run the scheduled query
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: number
-          description: Pagination offset
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: number
-          description: Pagination limit - maximum number of events to return
   /search/jobs/{id}/results:
     get:
       operationId: getSearchJobsResultsById
@@ -44729,7 +45663,7 @@ paths:
           required: false
           schema:
             type: string
-          description: last known status of the Search Job. Used to return immediatelyupon status change if the status was queued.
+          description: last known status of the Search Job. Used to return immediately upon status change if the status was queued.
   /master/workers:
     get:
       operationId: listMasterWorkerEntry
@@ -44871,18 +45805,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       parameters:
-        - name: fields
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
         - name: product
           in: path
           required: true
           schema:
             $ref: "#/components/schemas/ProductsCore"
           description: Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+        - name: fields
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
     post:
       operationId: createConfigGroupByProduct
       x-speakeasy-name-override: create
