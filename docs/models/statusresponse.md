@@ -39,10 +39,10 @@ let value: StatusResponse = {
     },
   ],
   status: "running",
-  timeCompleted: 5582.89,
-  timeCreated: 5074.27,
-  timeNow: 5893.49,
-  timeStarted: 8555.42,
+  timeCompleted: 3441.31,
+  timeCreated: 5582.89,
+  timeNow: 5074.27,
+  timeStarted: 5893.49,
 };
 ```
 

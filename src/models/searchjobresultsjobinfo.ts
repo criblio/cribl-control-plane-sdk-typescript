@@ -12,9 +12,9 @@ import {
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type Earliest = string | number;
+export type SearchJobResultsJobInfoEarliest = string | number;
 
-export type Latest = string | number;
+export type SearchJobResultsJobInfoLatest = string | number;
 
 export const SearchJobResultsJobInfoStatus = {
   Failed: "failed",
@@ -40,87 +40,102 @@ export type SearchJobResultsJobInfo = {
 };
 
 /** @internal */
-export const Earliest$inboundSchema: z.ZodType<
-  Earliest,
+export const SearchJobResultsJobInfoEarliest$inboundSchema: z.ZodType<
+  SearchJobResultsJobInfoEarliest,
   z.ZodTypeDef,
   unknown
 > = z.union([z.string(), z.number()]);
 
 /** @internal */
-export type Earliest$Outbound = string | number;
+export type SearchJobResultsJobInfoEarliest$Outbound = string | number;
 
 /** @internal */
-export const Earliest$outboundSchema: z.ZodType<
-  Earliest$Outbound,
+export const SearchJobResultsJobInfoEarliest$outboundSchema: z.ZodType<
+  SearchJobResultsJobInfoEarliest$Outbound,
   z.ZodTypeDef,
-  Earliest
+  SearchJobResultsJobInfoEarliest
 > = z.union([z.string(), z.number()]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Earliest$ {
-  /** @deprecated use `Earliest$inboundSchema` instead. */
-  export const inboundSchema = Earliest$inboundSchema;
-  /** @deprecated use `Earliest$outboundSchema` instead. */
-  export const outboundSchema = Earliest$outboundSchema;
-  /** @deprecated use `Earliest$Outbound` instead. */
-  export type Outbound = Earliest$Outbound;
+export namespace SearchJobResultsJobInfoEarliest$ {
+  /** @deprecated use `SearchJobResultsJobInfoEarliest$inboundSchema` instead. */
+  export const inboundSchema = SearchJobResultsJobInfoEarliest$inboundSchema;
+  /** @deprecated use `SearchJobResultsJobInfoEarliest$outboundSchema` instead. */
+  export const outboundSchema = SearchJobResultsJobInfoEarliest$outboundSchema;
+  /** @deprecated use `SearchJobResultsJobInfoEarliest$Outbound` instead. */
+  export type Outbound = SearchJobResultsJobInfoEarliest$Outbound;
 }
 
-export function earliestToJSON(earliest: Earliest): string {
-  return JSON.stringify(Earliest$outboundSchema.parse(earliest));
+export function searchJobResultsJobInfoEarliestToJSON(
+  searchJobResultsJobInfoEarliest: SearchJobResultsJobInfoEarliest,
+): string {
+  return JSON.stringify(
+    SearchJobResultsJobInfoEarliest$outboundSchema.parse(
+      searchJobResultsJobInfoEarliest,
+    ),
+  );
 }
 
-export function earliestFromJSON(
+export function searchJobResultsJobInfoEarliestFromJSON(
   jsonString: string,
-): SafeParseResult<Earliest, SDKValidationError> {
+): SafeParseResult<SearchJobResultsJobInfoEarliest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Earliest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Earliest' from JSON`,
+    (x) => SearchJobResultsJobInfoEarliest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchJobResultsJobInfoEarliest' from JSON`,
   );
 }
 
 /** @internal */
-export const Latest$inboundSchema: z.ZodType<Latest, z.ZodTypeDef, unknown> = z
-  .union([z.string(), z.number()]);
-
-/** @internal */
-export type Latest$Outbound = string | number;
-
-/** @internal */
-export const Latest$outboundSchema: z.ZodType<
-  Latest$Outbound,
+export const SearchJobResultsJobInfoLatest$inboundSchema: z.ZodType<
+  SearchJobResultsJobInfoLatest,
   z.ZodTypeDef,
-  Latest
+  unknown
+> = z.union([z.string(), z.number()]);
+
+/** @internal */
+export type SearchJobResultsJobInfoLatest$Outbound = string | number;
+
+/** @internal */
+export const SearchJobResultsJobInfoLatest$outboundSchema: z.ZodType<
+  SearchJobResultsJobInfoLatest$Outbound,
+  z.ZodTypeDef,
+  SearchJobResultsJobInfoLatest
 > = z.union([z.string(), z.number()]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Latest$ {
-  /** @deprecated use `Latest$inboundSchema` instead. */
-  export const inboundSchema = Latest$inboundSchema;
-  /** @deprecated use `Latest$outboundSchema` instead. */
-  export const outboundSchema = Latest$outboundSchema;
-  /** @deprecated use `Latest$Outbound` instead. */
-  export type Outbound = Latest$Outbound;
+export namespace SearchJobResultsJobInfoLatest$ {
+  /** @deprecated use `SearchJobResultsJobInfoLatest$inboundSchema` instead. */
+  export const inboundSchema = SearchJobResultsJobInfoLatest$inboundSchema;
+  /** @deprecated use `SearchJobResultsJobInfoLatest$outboundSchema` instead. */
+  export const outboundSchema = SearchJobResultsJobInfoLatest$outboundSchema;
+  /** @deprecated use `SearchJobResultsJobInfoLatest$Outbound` instead. */
+  export type Outbound = SearchJobResultsJobInfoLatest$Outbound;
 }
 
-export function latestToJSON(latest: Latest): string {
-  return JSON.stringify(Latest$outboundSchema.parse(latest));
+export function searchJobResultsJobInfoLatestToJSON(
+  searchJobResultsJobInfoLatest: SearchJobResultsJobInfoLatest,
+): string {
+  return JSON.stringify(
+    SearchJobResultsJobInfoLatest$outboundSchema.parse(
+      searchJobResultsJobInfoLatest,
+    ),
+  );
 }
 
-export function latestFromJSON(
+export function searchJobResultsJobInfoLatestFromJSON(
   jsonString: string,
-): SafeParseResult<Latest, SDKValidationError> {
+): SafeParseResult<SearchJobResultsJobInfoLatest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Latest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Latest' from JSON`,
+    (x) => SearchJobResultsJobInfoLatest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchJobResultsJobInfoLatest' from JSON`,
   );
 }
 

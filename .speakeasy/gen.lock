@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 41887f3d78e2e84681afc5121fbdd006
-  docVersion: 4.15.0-alpha.1760790547109-e85ff476
+  docChecksum: 40c699c1cdc9fed7fc068caf775126fe
+  docVersion: 4.15.0-alpha.1760873991291-89daace9
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.1.1-rc.9
-  configChecksum: d1b2a0587e79888986dc850790015515
+  releaseVersion: 0.1.1-rc.10
+  configChecksum: 3bad4b29dcdb3e1c41377a4ec4643699
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -50,12 +50,14 @@ generatedFiles:
   - docs/models/additionalproperty.md
   - docs/models/aisiemendpointpath.md
   - docs/models/allow.md
+  - docs/models/areastyleoption.md
   - docs/models/audit.md
   - docs/models/authenticationprotocol.md
   - docs/models/author.md
   - docs/models/authtoken.md
   - docs/models/authtype.md
   - docs/models/awsauthenticationmethod.md
+  - docs/models/axis.md
   - docs/models/blobaccesstier.md
   - docs/models/block.md
   - docs/models/branchinfo.md
@@ -69,14 +71,25 @@ generatedFiles:
   - docs/models/cachestatusesbystageidunion.md
   - docs/models/capturesettings.md
   - docs/models/certoptions.md
+  - docs/models/chartconfig.md
+  - docs/models/chartdata.md
+  - docs/models/chartseries.md
+  - docs/models/charttype.md
   - docs/models/checksumbefore.md
   - docs/models/cloudprovider.md
   - docs/models/collector.md
   - docs/models/collectors.md
   - docs/models/collectorspecificsettings.md
+  - docs/models/colorthresholds.md
+  - docs/models/columnfiltersettings.md
+  - docs/models/columnformatsettings.md
   - docs/models/columnmapping.md
+  - docs/models/columnordersettings.md
+  - docs/models/columnsortsettings.md
   - docs/models/comment.md
   - docs/models/commit.md
+  - docs/models/compatibilitychecks.md
+  - docs/models/computetypes.md
   - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
@@ -86,27 +99,31 @@ generatedFiles:
   - docs/models/configgrouptype.md
   - docs/models/container.md
   - docs/models/containermode.md
+  - docs/models/cputimemetric.md
   - docs/models/criblevent.md
   - docs/models/cribllakedataset.md
   - docs/models/cribllakedatasetformat.md
   - docs/models/cribllakedatasetupdate.md
   - docs/models/cribllakedatasetupdateformat.md
   - docs/models/currentbranchresult.md
+  - docs/models/customdata.md
+  - docs/models/customdatapointscale.md
   - docs/models/datadogsite.md
   - docs/models/datasetmetadata.md
   - docs/models/datasetmetadataruninfo.md
   - docs/models/datasetsite.md
+  - docs/models/datatypeoverrides.md
   - docs/models/deployrequest.md
   - docs/models/deployrequestlookups.md
   - docs/models/deployrequestlookupslookup.md
   - docs/models/difffiles.md
+  - docs/models/direction.md
   - docs/models/disksandfilesystems.md
   - docs/models/distmode.md
   - docs/models/distributedsummary.md
   - docs/models/distributedsummarygroups.md
   - docs/models/distributedsummaryworkers.md
   - docs/models/dns.md
-  - docs/models/earliest.md
   - docs/models/elasticsearchmetadata.md
   - docs/models/elasticversion.md
   - docs/models/endpoint.md
@@ -118,12 +135,17 @@ generatedFiles:
   - docs/models/errors/healthstatuserror.md
   - docs/models/errort.md
   - docs/models/estimatedingestrate.md
+  - docs/models/eventbreakerruleset.md
+  - docs/models/eventbreakerrulesetrule.md
+  - docs/models/eventbreakerrulesettimestampformat.md
+  - docs/models/eventbreakertype.md
   - docs/models/eventformat.md
   - docs/models/executor.md
   - docs/models/executorspecificsettings.md
   - docs/models/extenttag.md
   - docs/models/extralogtype.md
   - docs/models/facility.md
+  - docs/models/field.md
   - docs/models/fieldname.md
   - docs/models/filet.md
   - docs/models/firewall.md
@@ -930,18 +952,23 @@ generatedFiles:
   - docs/models/inputzscalerhectlssettingsserverside.md
   - docs/models/inputzscalerhectype.md
   - docs/models/interfaces.md
+  - docs/models/jobexecutionwarning.md
   - docs/models/jobinfo.md
   - docs/models/jobstatus.md
   - docs/models/lakedatasetsearchconfig.md
   - docs/models/lakehouseconnectiontype.md
   - docs/models/lastmetrics.md
-  - docs/models/latest.md
+  - docs/models/legend.md
+  - docs/models/library.md
   - docs/models/line1.md
   - docs/models/line2.md
   - docs/models/line3.md
   - docs/models/lineunion.md
   - docs/models/listeningports.md
   - docs/models/loggedinusers.md
+  - docs/models/logicalplan.md
+  - docs/models/logicalplannodetype.md
+  - docs/models/logicalplans.md
   - docs/models/logininfo.md
   - docs/models/loglabel.md
   - docs/models/loglocationtype.md
@@ -950,6 +977,8 @@ generatedFiles:
   - docs/models/lokiauthoauthparam1.md
   - docs/models/lokiauthoauthparam2.md
   - docs/models/lookupversions.md
+  - docs/models/mapdetails.md
+  - docs/models/mapdetailspointscale.md
   - docs/models/mappingtype.md
   - docs/models/masterworkerentry.md
   - docs/models/masterworkerentrytype.md
@@ -970,7 +999,10 @@ generatedFiles:
   - docs/models/nodeskippedupgradestatus.md
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
+  - docs/models/nullposition.md
+  - docs/models/objects.md
   - docs/models/oldmode.md
+  - docs/models/onclickaction.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
@@ -985,6 +1017,7 @@ generatedFiles:
   - docs/models/operations/createpipelineresponse.md
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
+  - docs/models/operations/createsearchjobresponse.md
   - docs/models/operations/createversioncommitrequest.md
   - docs/models/operations/createversioncommitresponse.md
   - docs/models/operations/createversionpushresponse.md
@@ -1040,7 +1073,6 @@ generatedFiles:
   - docs/models/operations/getsearchjobsresultsbyidrequest.md
   - docs/models/operations/getsearchjobsresultspollbyidrequest.md
   - docs/models/operations/getsearchjobstatusbyidrequest.md
-  - docs/models/operations/getsearchqueryrequest.md
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
   - docs/models/operations/getversionbranchresponse.md
@@ -1923,6 +1955,7 @@ generatedFiles:
   - docs/models/pipeline.md
   - docs/models/pipelinefunctionconf.md
   - docs/models/pipelinegroups.md
+  - docs/models/pipelines.md
   - docs/models/podfilter.md
   - docs/models/prefixoptional.md
   - docs/models/productscore.md
@@ -1981,18 +2014,42 @@ generatedFiles:
   - docs/models/scheduletype.md
   - docs/models/schemeclientoauth.md
   - docs/models/scrapeprotocolprotocol.md
+  - docs/models/searchauditmetrics.md
+  - docs/models/searchconfig.md
+  - docs/models/searchjob.md
+  - docs/models/searchjobearliest.md
+  - docs/models/searchjoberrorstateconfig.md
+  - docs/models/searchjoblatest.md
+  - docs/models/searchjobmetadata.md
   - docs/models/searchjobresults.md
   - docs/models/searchjobresultsjobinfo.md
+  - docs/models/searchjobresultsjobinfoearliest.md
+  - docs/models/searchjobresultsjobinfolatest.md
   - docs/models/searchjobresultsjobinfostatus.md
+  - docs/models/searchjobstageconfig.md
+  - docs/models/searchjobstageconfigearliest.md
+  - docs/models/searchjobstageconfiglatest.md
+  - docs/models/searchjobstageconfigstatus.md
+  - docs/models/searchjobstatus.md
+  - docs/models/searchjobtype.md
+  - docs/models/searchparameter.md
+  - docs/models/searchparameters.md
+  - docs/models/searchparametertype.md
+  - docs/models/searchparametervalue.md
+  - docs/models/searchterm.md
   - docs/models/security.md
   - docs/models/sendeventsas.md
   - docs/models/sendlogsas.md
   - docs/models/serversideencryption.md
   - docs/models/services.md
+  - docs/models/setoptions.md
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
   - docs/models/snmpv3authentication.md
+  - docs/models/sortbyfield.md
   - docs/models/splunkhecmetadata.md
+  - docs/models/stagedependency.md
+  - docs/models/stagedependencytype.md
   - docs/models/stagedetail.md
   - docs/models/stagedetailstatus.md
   - docs/models/statusresponse.md
@@ -2000,13 +2057,18 @@ generatedFiles:
   - docs/models/subscription.md
   - docs/models/subscriptionmetadatum.md
   - docs/models/summary.md
+  - docs/models/tableviewsettings.md
   - docs/models/target.md
   - docs/models/targetprotocol.md
+  - docs/models/tasks.md
   - docs/models/teamaccesscontrollist.md
   - docs/models/telemetrytype.md
+  - docs/models/threshold.md
+  - docs/models/time.md
   - docs/models/timerange.md
-  - docs/models/timestampformat.md
+  - docs/models/timestampformatenum.md
   - docs/models/timestampprecision.md
+  - docs/models/timestamptype.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
   - docs/models/uploadpackresponse.md
@@ -2016,6 +2078,8 @@ generatedFiles:
   - docs/models/wheretocapture.md
   - docs/models/workertypes.md
   - docs/models/writeaction.md
+  - docs/models/xaxis.md
+  - docs/models/yaxis.md
   - docs/sdks/acl/README.md
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
@@ -2025,13 +2089,13 @@ generatedFiles:
   - docs/sdks/groups/README.md
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
+  - docs/sdks/jobs/README.md
   - docs/sdks/jobsstatuses/README.md
   - docs/sdks/lakedatasets/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
   - docs/sdks/pq/README.md
-  - docs/sdks/queries/README.md
   - docs/sdks/results/README.md
   - docs/sdks/routes/README.md
   - docs/sdks/samples/README.md
@@ -2088,10 +2152,10 @@ generatedFiles:
   - src/funcs/routesGet.ts
   - src/funcs/routesList.ts
   - src/funcs/routesUpdate.ts
+  - src/funcs/searchJobsCreate.ts
   - src/funcs/searchJobsResultsGet.ts
   - src/funcs/searchJobsResultsPoll.ts
   - src/funcs/searchJobsStatusesGet.ts
-  - src/funcs/searchQueriesCreate.ts
   - src/funcs/sourcesCreate.ts
   - src/funcs/sourcesDelete.ts
   - src/funcs/sourcesGet.ts
@@ -2136,22 +2200,32 @@ generatedFiles:
   - src/lib/security.ts
   - src/lib/url.ts
   - src/models/addhectokenrequest.ts
+  - src/models/areastyleoption.ts
   - src/models/authtoken.ts
   - src/models/branchinfo.ts
   - src/models/cacheconnection.ts
   - src/models/cacheconnectionbackfillstatus.ts
   - src/models/cachestatusbydatasetidunion.ts
+  - src/models/chartdata.ts
+  - src/models/chartseries.ts
+  - src/models/charttype.ts
   - src/models/cloudprovider.ts
+  - src/models/columnfiltersettings.ts
+  - src/models/columnformatsettings.ts
+  - src/models/columnordersettings.ts
+  - src/models/columnsortsettings.ts
   - src/models/commit.ts
   - src/models/configgroup.ts
   - src/models/configgroupcloud.ts
   - src/models/configgrouplookups.ts
+  - src/models/cputimemetric.ts
   - src/models/criblevent.ts
   - src/models/cribllakedataset.ts
   - src/models/cribllakedatasetupdate.ts
   - src/models/currentbranchresult.ts
   - src/models/datasetmetadata.ts
   - src/models/datasetmetadataruninfo.ts
+  - src/models/datatypeoverrides.ts
   - src/models/deployrequest.ts
   - src/models/deployrequestlookups.ts
   - src/models/difffiles.ts
@@ -2165,6 +2239,7 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkvalidationerror.ts
+  - src/models/eventbreakerruleset.ts
   - src/models/gitcommitparams.ts
   - src/models/gitcommitsummary.ts
   - src/models/gitcountresult.ts
@@ -2242,10 +2317,13 @@ generatedFiles:
   - src/models/inputwiz.ts
   - src/models/inputwizwebhook.ts
   - src/models/inputzscalerhec.ts
+  - src/models/jobexecutionwarning.ts
   - src/models/jobinfo.ts
   - src/models/jobstatus.ts
   - src/models/lakedatasetsearchconfig.ts
   - src/models/lakehouseconnectiontype.ts
+  - src/models/logicalplan.ts
+  - src/models/logicalplannodetype.ts
   - src/models/logininfo.ts
   - src/models/lookupversions.ts
   - src/models/masterworkerentry.ts
@@ -2264,6 +2342,7 @@ generatedFiles:
   - src/models/operations/createpacks.ts
   - src/models/operations/createpipeline.ts
   - src/models/operations/createroutesappendbyid.ts
+  - src/models/operations/createsearchjob.ts
   - src/models/operations/createversioncommit.ts
   - src/models/operations/createversionpush.ts
   - src/models/operations/createversionrevert.ts
@@ -2294,7 +2373,6 @@ generatedFiles:
   - src/models/operations/getsearchjobsresultsbyid.ts
   - src/models/operations/getsearchjobsresultspollbyid.ts
   - src/models/operations/getsearchjobstatusbyid.ts
-  - src/models/operations/getsearchquery.ts
   - src/models/operations/getsummary.ts
   - src/models/operations/getversion.ts
   - src/models/operations/getversionbranch.ts
@@ -2408,10 +2486,25 @@ generatedFiles:
   - src/models/runnablejobexecutor.ts
   - src/models/runnablejobscheduledsearch.ts
   - src/models/schemeclientoauth.ts
+  - src/models/searchauditmetrics.ts
+  - src/models/searchconfig.ts
+  - src/models/searchjob.ts
+  - src/models/searchjoberrorstateconfig.ts
+  - src/models/searchjobmetadata.ts
   - src/models/searchjobresults.ts
   - src/models/searchjobresultsjobinfo.ts
+  - src/models/searchjobstageconfig.ts
+  - src/models/searchparameter.ts
+  - src/models/searchparameters.ts
+  - src/models/searchparametertype.ts
+  - src/models/searchparametervalue.ts
+  - src/models/searchterm.ts
   - src/models/security.ts
+  - src/models/sortbyfield.ts
+  - src/models/stagedependency.ts
+  - src/models/stagedependencytype.ts
   - src/models/statusresponse.ts
+  - src/models/tableviewsettings.ts
   - src/models/teamaccesscontrollist.ts
   - src/models/updatehectokenrequest.ts
   - src/models/uploadpackresponse.ts
@@ -2436,7 +2529,6 @@ generatedFiles:
   - src/sdk/packs.ts
   - src/sdk/pipelines.ts
   - src/sdk/pq.ts
-  - src/sdk/queries.ts
   - src/sdk/results.ts
   - src/sdk/routes.ts
   - src/sdk/samples.ts
@@ -2756,6 +2848,7 @@ examples:
           group: "<value>"
           ID: "<id>"
           groupId: "<id>"
+          commit: "<value>"
       responses:
         "200":
           application/json: {"count": 856007, "items": [{"count": 8560.07}]}
@@ -2789,6 +2882,7 @@ examples:
           group: "<value>"
           ID: "<id>"
           groupId: "<id>"
+          commit: "<value>"
       responses:
         "200":
           application/json: {"count": 710228, "items": [{"commitMessage": {"key": "<value>"}, "count": 81.98, "items": []}]}
@@ -3378,6 +3472,15 @@ examples:
           offset: 6530.23
           limit: 49.47
       responses:
+        "500":
+          application/json: {"message": "<value>"}
+  createSearchJob:
+    speakeasy-default-create-search-job:
+      requestBody:
+        application/json: {"accelerated": false, "aliasOfOriginalJobId": "<id>", "chartConfig": {"applyThreshold": true, "axis": {"xAxis": "<value>", "yAxis": ["<value 1>", "<value 2>"], "yAxisExcluded": ["<value 1>"]}, "color": "lime", "colorPalette": 1185.65, "colorPaletteReversed": false, "colorThresholds": {"thresholds": [{"color": "silver", "threshold": 140.04}]}, "customData": {"connectNulls": "<value>", "dataFields": ["<value 1>", "<value 2>"], "isPointColor": true, "limitToTopN": 7391.45, "lines": false, "nameField": "<value>", "pointColorPalette": 8976.86, "pointColorPaletteReversed": false, "pointScale": 4169.02, "pointScaleDataField": "<value>", "seriesCount": 6435.95, "splitBy": "<value>", "stack": false, "summarizeOthers": true, "trellis": false}, "decimals": 6777.04, "label": "<value>", "legend": {"position": "<value>", "selected": {"key": true}, "truncate": false}, "mapDetails": {"latitudeField": "<value>", "longitudeField": "<value>", "mapSourceID": "<id>", "mapType": "<value>", "nameField": "<value>", "pointScale": 5924.41, "valueField": "<value>"}, "onClickAction": {"search": "<value>", "selectedDashboardId": "<id>", "selectedInputId": "<id>", "selectedLinkId": "<id>", "selectedTimerangeInputId": "<id>", "type": "<value>"}, "prefix": "<value>", "separator": false, "series": [{"areaStyle": {"opacity": 5361.84, "shadowBlur": 5481.86, "shadowColor": "<value>", "shadowOffsetX": 8299.93, "shadowOffsetY": 5023.46}, "color": "olive", "data": [{}], "map": "<value>", "name": "<value>", "type": "area", "yAxisField": "<value>"}], "seriesInfo": {"key": "map"}, "shouldApplyUserChartSettings": false, "style": false, "suffix": "<value>", "type": "<value>", "xAxis": {"dataField": "<value>", "inverse": true, "labelInterval": "<value>", "labelOrientation": 9759.25, "name": "<value>", "offset": 9136.96, "position": "<value>", "type": "<value>"}, "yAxis": {"dataField": ["<value 1>"], "interval": 6216.81, "max": 1587.99, "min": 3943.41, "position": "<value>", "scale": "<value>", "splitLine": false, "type": "<value>"}}, "compatibilityChecks": {"datatypes": false, "stageIds": ["<value 1>", "<value 2>"]}, "completionInfo": "<value>", "context": "<value>", "correlationId": "<id>", "cpuMetrics": {"billableCPUSeconds": 2389.99, "executorsCPUSeconds": {"key": 9873.22}, "totalCPUSeconds": 17.99, "totalExecCPUSeconds": 6284.95}, "datatypeOverrides": {"breakerRulesets": [{"id": "<id>", "lib": "custom", "description": "boohoo tomorrow daddy near phew crank innocently exhausted", "tags": "<value>", "minRawLength": 256, "rules": [{"name": "<value>", "condition": "true", "type": "regex", "timestampAnchorRegex": "/^/", "timestamp": {"type": "auto", "length": 150, "format": "<value>"}, "timestampTimezone": "local", "timestampEarliest": "-420weeks", "timestampLatest": "+1week", "maxEventBytes": 51200, "fields": [{"name": "<value>", "value": "<value>"}], "disabled": false, "parserEnabled": false, "shouldUseDataRaw": false}]}], "disableBreakers": false}, "disableNotifications": false, "displayUsername": "<value>", "earliest": 5397.97, "earliestEpoch": 5254.63, "errorStateConfig": {"coordinated": false, "errorMessages": []}, "group": "<value>", "id": "<id>", "isPrivate": false, "latest": 7604.97, "latestEpoch": 1956.27, "metadata": {"arguments": {"key": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>", "key1": "<value>"}], "key1": [{"key": "<value>"}, {"key": "<value>"}], "key2": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}]}, "computeTypes": {"v1": 743.66, "v2": 69.38, "lakehouse": 2944.95}, "datasets": {"key": 5835.17, "key1": 25.06}, "functions": {"key": 5994.2, "key1": 9986.22, "key2": 2057.77}, "operators": {"key": 9427.4, "key1": 1328.67, "key2": 9572.64}, "providerTypes": {"key": 4692.87, "key1": 1947.58}, "providers": {"key": 4559.78, "key1": 8394.39, "key2": 2333.48}}, "notebookId": "<id>", "numEventsAfter": 2095.17, "numEventsBefore": 2739.13, "query": "<value>", "queryWithMacrosResolved": "<value>", "sampleRate": 454.08, "savedQueryName": "<value>", "searchParameterDeclarations": [{"defaultValue": "<value>", "name": "<value>", "type": "number"}], "searchParameterValues": {"key": true}, "setOptions": {"key": 3958.46}, "stages": [{"cacheStatusByDatasetId": {"key": {"usedCache": true}}, "dependencies": [{"dependentFields": ["<value 1>"], "id": "<id>", "type": "stage-scalar"}], "earliest": "<value>", "executionWarnings": [{"text": "<value>", "type": "<value>"}], "filter": "<value>", "id": "<id>", "latest": "<value>", "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "searchConfig": {"canComputeMetadataDistributively": true, "datasets": [], "hasSendOperator": true, "logicalPlans": {"Combined": {"key": [{"isPreviewableOperation": true, "type": "filter"}], "key1": []}, "Coordinated": {"isPreviewableOperation": true, "type": "dedup"}, "Federated": {"isPreviewableOperation": true, "type": "pivot"}}, "orderedFieldNames": [], "pipelines": {"Combined": {"id": "<id>", "conf": {"asyncFuncTimeout": 561075, "output": "default", "description": "unnecessarily unruly abaft", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "chip cloudy woot willow till inasmuch", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "ha expansion when hmph rigidly carefully welcome whose anenst", "disabled": false}}}}, "Coordinated": {"id": "<id>", "conf": {"asyncFuncTimeout": 561075, "output": "default", "description": "unnecessarily unruly abaft", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "chip cloudy woot willow till inasmuch", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "ha expansion when hmph rigidly carefully welcome whose anenst", "disabled": false}}}}, "Federated": {"id": "<id>", "conf": {"asyncFuncTimeout": 561075, "output": "default", "description": "unnecessarily unruly abaft", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "chip cloudy woot willow till inasmuch", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "ha expansion when hmph rigidly carefully welcome whose anenst", "disabled": false}}}}}, "referencedColumnPaths": [["<value 1>", "<value 2>", "<value 3>"]], "searchTerms": [], "sortFields": [{"direction": "ascending", "fieldName": "<value>", "nullPosition": "nullsLast"}], "useFormattedVisualization": true}, "status": "running", "subQueryText": "<value>"}], "status": "completed", "tableConfig": {"columnFilterSettings": {"contains": {"key": "<value>"}}, "columnFormatSettings": {"palette": {"key": "<value>"}, "precision": {"key": "<value>"}, "prefix": {"key": "<value>", "key1": "<value>"}, "suffix": {"key": "<value>"}}, "columnOrderSettings": {"order": {"key": "<value>"}}, "columnSortSettings": {"sort": {"key": "<value>"}}, "eventDetailsPanel": false, "eventTableFields": ["<value 1>", "<value 2>"], "rowNumberColumnWidth": 435.17, "showColumnTotals": true, "showColumnTotalsPinned": false, "showRowNumbers": false, "showRowTotals": false, "showRowTotalsPinned": true, "wrapCells": false}, "targetEventTime": 705.04, "timeCompleted": 6359.11, "timeCreated": 4023.22, "timeStarted": 8231.48, "timeToFirstByte": 6869.03, "totalBytesScanned": 701.61, "totalEventCount": 9257.01, "type": "scheduled", "usageGroupId": "<id>", "usageMetrics": {"bytesIn": 4960.75, "bytesOut": 9231.92, "eventsIn": 5037.87, "eventsOut": 6581.9, "objects": {"discovered": 8768.62, "scanned": 2490.57, "skipped": 3273.37}, "tasks": {"largeFileTaskCount": 1043.86, "standardTaskCount": 6922.38}, "time": {"queuedSec": 4270.1, "runningSec": 3965.86, "taskCompletionTotalSec": 446.05, "taskReceivingTotalSec": 9309.24}}, "user": "Jace.Kub54"}
+      responses:
+        "200":
+          application/json: {"count": 566990, "items": [{"accelerated": false, "aliasOfOriginalJobId": "<id>", "chartConfig": {"applyThreshold": true, "axis": {"xAxis": "<value>", "yAxis": ["<value 1>", "<value 2>"], "yAxisExcluded": ["<value 1>"]}, "color": "lime", "colorPalette": 1185.65, "colorPaletteReversed": false, "colorThresholds": {"thresholds": [{"color": "silver", "threshold": 140.04}]}, "customData": {"connectNulls": "<value>", "dataFields": ["<value 1>", "<value 2>"], "isPointColor": true, "limitToTopN": 7391.45, "lines": false, "nameField": "<value>", "pointColorPalette": 8976.86, "pointColorPaletteReversed": false, "pointScale": 4169.02, "pointScaleDataField": "<value>", "seriesCount": 6435.95, "splitBy": "<value>", "stack": false, "summarizeOthers": true, "trellis": false}, "decimals": 6777.04, "label": "<value>", "legend": {"position": "<value>", "selected": {"key": true}, "truncate": false}, "mapDetails": {"latitudeField": "<value>", "longitudeField": "<value>", "mapSourceID": "<id>", "mapType": "<value>", "nameField": "<value>", "pointScale": 5924.41, "valueField": "<value>"}, "onClickAction": {"search": "<value>", "selectedDashboardId": "<id>", "selectedInputId": "<id>", "selectedLinkId": "<id>", "selectedTimerangeInputId": "<id>", "type": "<value>"}, "prefix": "<value>", "separator": false, "series": [{"areaStyle": {"opacity": 5361.84, "shadowBlur": 5481.86, "shadowColor": "<value>", "shadowOffsetX": 8299.93, "shadowOffsetY": 5023.46}, "color": "olive", "data": [{}], "map": "<value>", "name": "<value>", "type": "area", "yAxisField": "<value>"}], "seriesInfo": {"key": "map"}, "shouldApplyUserChartSettings": false, "style": false, "suffix": "<value>", "type": "<value>", "xAxis": {"dataField": "<value>", "inverse": true, "labelInterval": "<value>", "labelOrientation": 9759.25, "name": "<value>", "offset": 9136.96, "position": "<value>", "type": "<value>"}, "yAxis": {"dataField": ["<value 1>"], "interval": 6216.81, "max": 1587.99, "min": 3943.41, "position": "<value>", "scale": "<value>", "splitLine": false, "type": "<value>"}}, "compatibilityChecks": {"datatypes": false, "stageIds": ["<value 1>", "<value 2>"]}, "completionInfo": "<value>", "context": "<value>", "correlationId": "<id>", "cpuMetrics": {"billableCPUSeconds": 2389.99, "executorsCPUSeconds": {"key": 9873.22}, "totalCPUSeconds": 17.99, "totalExecCPUSeconds": 6284.95}, "datatypeOverrides": {"breakerRulesets": [{"id": "<id>", "lib": "custom", "description": "boohoo tomorrow daddy near phew crank innocently exhausted", "tags": "<value>", "minRawLength": 256, "rules": [{"name": "<value>", "condition": "true", "type": "regex", "timestampAnchorRegex": "/^/", "timestamp": {"type": "auto", "length": 150, "format": "<value>"}, "timestampTimezone": "local", "timestampEarliest": "-420weeks", "timestampLatest": "+1week", "maxEventBytes": 51200, "fields": [{"name": "<value>", "value": "<value>"}], "disabled": false, "parserEnabled": false, "shouldUseDataRaw": false}]}], "disableBreakers": false}, "disableNotifications": true, "displayUsername": "<value>", "earliest": 6042.31, "earliestEpoch": 2218.87, "errorStateConfig": {"coordinated": false, "errorMessages": []}, "group": "<value>", "id": "<id>", "isPrivate": true, "latest": 1723.64, "latestEpoch": 7557.82, "metadata": {"arguments": {"key": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>", "key1": "<value>"}], "key1": [{"key": "<value>"}, {"key": "<value>"}], "key2": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}]}, "computeTypes": {"v1": 743.66, "v2": 69.38, "lakehouse": 2944.95}, "datasets": {"key": 5835.17, "key1": 25.06}, "functions": {"key": 5994.2, "key1": 9986.22, "key2": 2057.77}, "operators": {"key": 9427.4, "key1": 1328.67, "key2": 9572.64}, "providerTypes": {"key": 4692.87, "key1": 1947.58}, "providers": {"key": 4559.78, "key1": 8394.39, "key2": 2333.48}}, "notebookId": "<id>", "numEventsAfter": 1073.88, "numEventsBefore": 7154.51, "query": "<value>", "queryWithMacrosResolved": "<value>", "sampleRate": 4400.62, "savedQueryName": "<value>", "searchParameterDeclarations": [{"defaultValue": "<value>", "name": "<value>", "type": "number"}], "searchParameterValues": {"key": 3646.09}, "setOptions": {"key": 4925.62}, "stages": [{"cacheStatusByDatasetId": {"key": {"usedCache": true}}, "dependencies": [{"dependentFields": ["<value 1>"], "id": "<id>", "type": "stage-scalar"}], "earliest": "<value>", "executionWarnings": [{"text": "<value>", "type": "<value>"}], "filter": "<value>", "id": "<id>", "latest": "<value>", "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "searchConfig": {"canComputeMetadataDistributively": true, "datasets": [], "hasSendOperator": true, "logicalPlans": {"Combined": {"key": [{"isPreviewableOperation": true, "type": "filter"}], "key1": []}, "Coordinated": {"isPreviewableOperation": true, "type": "dedup"}, "Federated": {"isPreviewableOperation": true, "type": "pivot"}}, "orderedFieldNames": [], "pipelines": {"Combined": {"id": "<id>", "conf": {"asyncFuncTimeout": 561075, "output": "default", "description": "unnecessarily unruly abaft", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "chip cloudy woot willow till inasmuch", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "ha expansion when hmph rigidly carefully welcome whose anenst", "disabled": false}}}}, "Coordinated": {"id": "<id>", "conf": {"asyncFuncTimeout": 561075, "output": "default", "description": "unnecessarily unruly abaft", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "chip cloudy woot willow till inasmuch", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "ha expansion when hmph rigidly carefully welcome whose anenst", "disabled": false}}}}, "Federated": {"id": "<id>", "conf": {"asyncFuncTimeout": 561075, "output": "default", "description": "unnecessarily unruly abaft", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "<id>", "description": "chip cloudy woot willow till inasmuch", "disabled": true, "final": true, "conf": {}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "ha expansion when hmph rigidly carefully welcome whose anenst", "disabled": false}}}}}, "referencedColumnPaths": [["<value 1>", "<value 2>", "<value 3>"]], "searchTerms": [], "sortFields": [{"direction": "ascending", "fieldName": "<value>", "nullPosition": "nullsLast"}], "useFormattedVisualization": true}, "status": "running", "subQueryText": "<value>"}], "status": "new", "tableConfig": {"columnFilterSettings": {"contains": {"key": "<value>"}}, "columnFormatSettings": {"palette": {"key": "<value>"}, "precision": {"key": "<value>"}, "prefix": {"key": "<value>", "key1": "<value>"}, "suffix": {"key": "<value>"}}, "columnOrderSettings": {"order": {"key": "<value>"}}, "columnSortSettings": {"sort": {"key": "<value>"}}, "eventDetailsPanel": false, "eventTableFields": ["<value 1>", "<value 2>"], "rowNumberColumnWidth": 435.17, "showColumnTotals": true, "showColumnTotalsPinned": false, "showRowNumbers": false, "showRowTotals": false, "showRowTotalsPinned": true, "wrapCells": false}, "targetEventTime": 6332.63, "timeCompleted": 5793.66, "timeCreated": 1934.57, "timeStarted": 6923.58, "timeToFirstByte": 8098.91, "totalBytesScanned": 6338.35, "totalEventCount": 3662.9, "type": "command", "usageGroupId": "<id>", "usageMetrics": {"bytesIn": 4960.75, "bytesOut": 9231.92, "eventsIn": 5037.87, "eventsOut": 6581.9, "objects": {"discovered": 8768.62, "scanned": 2490.57, "skipped": 3273.37}, "tasks": {"largeFileTaskCount": 1043.86, "standardTaskCount": 6922.38}, "time": {"queuedSec": 4270.1, "runningSec": 3965.86, "taskCompletionTotalSec": 446.05, "taskReceivingTotalSec": 9309.24}}, "user": "Dena.Schinner"}]}
         "500":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2

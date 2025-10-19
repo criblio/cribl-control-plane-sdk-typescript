@@ -8,8 +8,8 @@ import { Pipeline } from "cribl-control-plane/models";
 let value: Pipeline = {
   id: "<id>",
   conf: {
-    asyncFuncTimeout: 963474,
-    description: "shinny where seldom",
+    asyncFuncTimeout: 930714,
+    description: "independence mad spring owlishly expert yowza",
     streamtags: [
       "<value 1>",
       "<value 2>",
@@ -17,8 +17,8 @@ let value: Pipeline = {
     functions: [
       {
         id: "<id>",
-        description: "regarding structure but squiggly soupy equally",
-        disabled: false,
+        description: "poorly huzzah disinherit considering pomelo barring",
+        disabled: true,
         final: true,
         conf: {},
         groupId: "<id>",
@@ -27,7 +27,7 @@ let value: Pipeline = {
     groups: {
       "key": {
         name: "<value>",
-        description: "dream wildly but rag boohoo fondly huff",
+        description: "bah out great",
         disabled: false,
       },
     },

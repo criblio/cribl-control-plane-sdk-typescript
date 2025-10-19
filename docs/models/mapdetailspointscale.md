@@ -1,4 +1,4 @@
-# Latest
+# MapDetailsPointScale
 
 
 ## Supported Types

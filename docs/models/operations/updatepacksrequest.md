@@ -13,4 +13,4 @@ import { UpdatePacksRequest } from "cribl-control-plane/models/operations";
 | Field                                | Type                                 | Required                             | Description                          |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | `filename`                           | *string*                             | :heavy_check_mark:                   | Filename of the Pack file to upload. |
-| `requestBody`                        | *ReadableStream<Uint8Array>*         | :heavy_check_mark:                   | Binary file content                  |
+| `requestBody`                        | *ReadableStream<Uint8Array>*         | :heavy_check_mark:                   | N/A                                  |

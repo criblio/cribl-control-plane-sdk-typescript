@@ -29,7 +29,7 @@ export type GetSearchJobsResultsPollByIdRequest = {
    */
   upperBound?: number | undefined;
   /**
-   * last known status of the Search Job. Used to return immediatelyupon status change if the status was queued.
+   * last known status of the Search Job. Used to return immediately upon status change if the status was queued.
    */
   lastJobStatus?: string | undefined;
 };

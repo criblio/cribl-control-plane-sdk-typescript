@@ -133,7 +133,7 @@ export type OutputSyslogMessageFormat = OpenEnum<
 /**
  * Timestamp format to use when serializing event's time field
  */
-export const TimestampFormat = {
+export const TimestampFormatEnum = {
   /**
    * Syslog
    */
@@ -146,7 +146,7 @@ export const TimestampFormat = {
 /**
  * Timestamp format to use when serializing event's time field
  */
-export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+export type TimestampFormatEnum = OpenEnum<typeof TimestampFormatEnum>;
 
 export const OutputSyslogMinimumTLSVersion = {
   TLSv1: "TLSv1",
@@ -371,7 +371,7 @@ export type OutputSyslog = {
   /**
    * Timestamp format to use when serializing event's time field
    */
-  timestampFormat?: TimestampFormat | undefined;
+  timestampFormat?: TimestampFormatEnum | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -615,23 +615,23 @@ export namespace OutputSyslogMessageFormat$ {
 }
 
 /** @internal */
-export const TimestampFormat$inboundSchema: z.ZodType<
-  TimestampFormat,
+export const TimestampFormatEnum$inboundSchema: z.ZodType<
+  TimestampFormatEnum,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(TimestampFormat),
+    z.nativeEnum(TimestampFormatEnum),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const TimestampFormat$outboundSchema: z.ZodType<
-  TimestampFormat,
+export const TimestampFormatEnum$outboundSchema: z.ZodType<
+  TimestampFormatEnum,
   z.ZodTypeDef,
-  TimestampFormat
+  TimestampFormatEnum
 > = z.union([
-  z.nativeEnum(TimestampFormat),
+  z.nativeEnum(TimestampFormatEnum),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -639,11 +639,11 @@ export const TimestampFormat$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace TimestampFormat$ {
-  /** @deprecated use `TimestampFormat$inboundSchema` instead. */
-  export const inboundSchema = TimestampFormat$inboundSchema;
-  /** @deprecated use `TimestampFormat$outboundSchema` instead. */
-  export const outboundSchema = TimestampFormat$outboundSchema;
+export namespace TimestampFormatEnum$ {
+  /** @deprecated use `TimestampFormatEnum$inboundSchema` instead. */
+  export const inboundSchema = TimestampFormatEnum$inboundSchema;
+  /** @deprecated use `TimestampFormatEnum$outboundSchema` instead. */
+  export const outboundSchema = TimestampFormatEnum$outboundSchema;
 }
 
 /** @internal */
@@ -1074,7 +1074,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   severity: OutputSyslogSeverity$inboundSchema.default(5),
   appName: z.string().default("Cribl"),
   messageFormat: OutputSyslogMessageFormat$inboundSchema.default("rfc3164"),
-  timestampFormat: TimestampFormat$inboundSchema.default("syslog"),
+  timestampFormat: TimestampFormatEnum$inboundSchema.default("syslog"),
   throttleRatePerSec: z.string().default("0"),
   octetCountFraming: z.boolean().optional(),
   logFailedRequests: z.boolean().default(false),
@@ -1164,7 +1164,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   severity: OutputSyslogSeverity$outboundSchema.default(5),
   appName: z.string().default("Cribl"),
   messageFormat: OutputSyslogMessageFormat$outboundSchema.default("rfc3164"),
-  timestampFormat: TimestampFormat$outboundSchema.default("syslog"),
+  timestampFormat: TimestampFormatEnum$outboundSchema.default("syslog"),
   throttleRatePerSec: z.string().default("0"),
   octetCountFraming: z.boolean().optional(),
   logFailedRequests: z.boolean().default(false),

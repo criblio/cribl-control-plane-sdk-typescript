@@ -8,7 +8,7 @@ import { StageDetail } from "cribl-control-plane/models";
 let value: StageDetail = {
   cacheStatusByDatasetId: {
     "key": {
-      usedCache: true,
+      usedCache: false,
     },
   },
   stageId: "<id>",

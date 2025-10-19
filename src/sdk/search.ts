@@ -4,16 +4,10 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Jobs } from "./jobs.js";
-import { Queries } from "./queries.js";
 
 export class Search extends ClientSDK {
   private _jobs?: Jobs;
   get jobs(): Jobs {
     return (this._jobs ??= new Jobs(this._options));
-  }
-
-  private _queries?: Queries;
-  get queries(): Queries {
-    return (this._queries ??= new Queries(this._options));
   }
 }

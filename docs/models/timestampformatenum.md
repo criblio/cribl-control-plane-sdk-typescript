@@ -1,13 +1,13 @@
-# TimestampFormat
+# TimestampFormatEnum
 
 Timestamp format to use when serializing event's time field
 
 ## Example Usage
 
 ```typescript
-import { TimestampFormat } from "cribl-control-plane/models";
+import { TimestampFormatEnum } from "cribl-control-plane/models";
 
-let value: TimestampFormat = "syslog";
+let value: TimestampFormatEnum = "iso8601";
 ```
 
 ## Values

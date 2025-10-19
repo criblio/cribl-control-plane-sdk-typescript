@@ -14,8 +14,8 @@ let value: Conf = {
   functions: [
     {
       id: "<id>",
-      description: "regarding structure but squiggly soupy equally",
-      disabled: false,
+      description: "poorly huzzah disinherit considering pomelo barring",
+      disabled: true,
       final: true,
       conf: {},
       groupId: "<id>",
@@ -24,7 +24,7 @@ let value: Conf = {
   groups: {
     "key": {
       name: "<value>",
-      description: "dream wildly but rag boohoo fondly huff",
+      description: "bah out great",
       disabled: false,
     },
   },

@@ -326,6 +326,10 @@ run();
 * [update](docs/sdks/routes/README.md#update) - Update a Route
 * [append](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
 
+#### [search.jobs](docs/sdks/jobs/README.md)
+
+* [create](docs/sdks/jobs/README.md#create) - Create a new search job
+
 #### [search.jobs.results](docs/sdks/results/README.md)
 
 * [get](docs/sdks/results/README.md#get) - List search results, when lower/upper bound is provided, offset is relative to the time range.
@@ -334,10 +338,6 @@ run();
 #### [search.jobs.statuses](docs/sdks/jobsstatuses/README.md)
 
 * [get](docs/sdks/jobsstatuses/README.md#get) - Get job status
-
-#### [search.queries](docs/sdks/queries/README.md)
-
-* [create](docs/sdks/queries/README.md#create) - Runs the query and returns the results
 
 ### [sources](docs/sdks/sources/README.md)
 
@@ -441,10 +441,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`routesGet`](docs/sdks/routes/README.md#get) - Get a Routing table
 - [`routesList`](docs/sdks/routes/README.md#list) - List all Routes
 - [`routesUpdate`](docs/sdks/routes/README.md#update) - Update a Route
+- [`searchJobsCreate`](docs/sdks/jobs/README.md#create) - Create a new search job
 - [`searchJobsResultsGet`](docs/sdks/results/README.md#get) - List search results, when lower/upper bound is provided, offset is relative to the time range.
 - [`searchJobsResultsPoll`](docs/sdks/results/README.md#poll) - List search results
 - [`searchJobsStatusesGet`](docs/sdks/jobsstatuses/README.md#get) - Get job status
-- [`searchQueriesCreate`](docs/sdks/queries/README.md#create) - Runs the query and returns the results
 - [`sourcesCreate`](docs/sdks/sources/README.md#create) - Create a Source
 - [`sourcesDelete`](docs/sdks/sources/README.md#delete) - Delete a Source
 - [`sourcesGet`](docs/sdks/sources/README.md#get) - Get a Source
