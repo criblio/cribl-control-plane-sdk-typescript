@@ -37,23 +37,30 @@ async function run() {
     spec: "<value>",
     version: "<value>",
     minLogStreamVersion: "<value>",
-    displayName: "Myah14",
+    displayName: "June30",
     author: "<value>",
-    description: "premeditation coincide although",
-    source: "<value>",
+    description: "and banish crossly abacus",
+    source: "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl",
     tags: {
-      dataType: [],
-      domain: [],
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
       technology: [
         "<value 1>",
       ],
       streamtags: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
     },
-    allowCustomFunctions: false,
-    force: false,
+    allowCustomFunctions: true,
+    force: true,
   });
 
   console.log(result);
@@ -85,23 +92,30 @@ async function run() {
     spec: "<value>",
     version: "<value>",
     minLogStreamVersion: "<value>",
-    displayName: "Myah14",
+    displayName: "June30",
     author: "<value>",
-    description: "premeditation coincide although",
-    source: "<value>",
+    description: "and banish crossly abacus",
+    source: "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl",
     tags: {
-      dataType: [],
-      domain: [],
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
       technology: [
         "<value 1>",
       ],
       streamtags: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
     },
-    allowCustomFunctions: false,
-    force: false,
+    allowCustomFunctions: true,
+    force: true,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -216,7 +230,7 @@ run();
 
 ## upload
 
-Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</source>, which you must call separately.
+Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs source</code>, which you must call separately.
 
 ### Example Usage
 
@@ -481,7 +495,7 @@ async function run() {
     packUpgradeRequest: {
       allowCustomFunctions: true,
       minor: "<value>",
-      source: "<value>",
+      source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
       spec: "<value>",
     },
   });
@@ -515,7 +529,7 @@ async function run() {
     packUpgradeRequest: {
       allowCustomFunctions: true,
       minor: "<value>",
-      source: "<value>",
+      source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
       spec: "<value>",
     },
   });

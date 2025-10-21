@@ -124,7 +124,7 @@ async function run() {
       configVersion: "<value>",
       deployingWorkerCount: 393.49,
       description: "ack before fondly scent because gee without where exactly",
-      estimatedIngestRate: 5120,
+      estimatedIngest: 5120,
       git: {
         commit: "<value>",
         localChanges: 5255.51,
@@ -201,7 +201,7 @@ async function run() {
       configVersion: "<value>",
       deployingWorkerCount: 393.49,
       description: "ack before fondly scent because gee without where exactly",
-      estimatedIngestRate: 5120,
+      estimatedIngest: 5120,
       git: {
         commit: "<value>",
         localChanges: 5255.51,
@@ -387,7 +387,7 @@ async function run() {
       configVersion: "<value>",
       deployingWorkerCount: 7451.49,
       description: "verbally feminize harmful prance really",
-      estimatedIngestRate: 13312,
+      estimatedIngest: 13312,
       git: {
         commit: "<value>",
         localChanges: 4475.22,
@@ -470,7 +470,7 @@ async function run() {
       configVersion: "<value>",
       deployingWorkerCount: 7451.49,
       description: "verbally feminize harmful prance really",
-      estimatedIngestRate: 13312,
+      estimatedIngest: 13312,
       git: {
         commit: "<value>",
         localChanges: 4475.22,

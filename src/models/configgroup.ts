@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import {
   catchUnrecognizedEnum,
@@ -30,18 +31,51 @@ import {
 } from "./configgrouplookups.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const EstimatedIngestRate = {
-  OneThousandAndTwentyFour: 1024,
-  FourThousandAndNinetySix: 4096,
-  TenThousandTwoHundredAndForty: 10240,
-  TwoThousandAndFortyEight: 2048,
-  ThreeThousandAndSeventyTwo: 3072,
-  FiveThousandOneHundredAndTwenty: 5120,
-  SevenThousandOneHundredAndSixtyEight: 7168,
-  ThirteenThousandThreeHundredAndTwelve: 13312,
-  FifteenThousandThreeHundredAndSixty: 15360,
+/**
+ * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+ */
+export const EstimatedIngest = {
+  /**
+   * 12 MB/sec
+   */
+  Rate12MBPerSec: 1024,
+  /**
+   * 24 MB/sec
+   */
+  Rate24MBPerSec: 2048,
+  /**
+   * 36 MB/sec
+   */
+  Rate36MBPerSec: 3072,
+  /**
+   * 48 MB/sec
+   */
+  Rate48MBPerSec: 4096,
+  /**
+   * 60 MB/sec
+   */
+  Rate60MBPerSec: 5120,
+  /**
+   * 84 MB/sec
+   */
+  Rate84MBPerSec: 7168,
+  /**
+   * 120 MB/sec
+   */
+  Rate120MBPerSec: 10240,
+  /**
+   * 156 MB/sec
+   */
+  Rate156MBPerSec: 13312,
+  /**
+   * 180 MB/sec
+   */
+  Rate180MBPerSec: 15360,
 } as const;
-export type EstimatedIngestRate = OpenEnum<typeof EstimatedIngestRate>;
+/**
+ * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+ */
+export type EstimatedIngest = OpenEnum<typeof EstimatedIngest>;
 
 export type Git = {
   commit?: string | undefined;
@@ -59,7 +93,10 @@ export type ConfigGroup = {
   configVersion?: string | undefined;
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
-  estimatedIngestRate?: EstimatedIngestRate | undefined;
+  /**
+   * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+   */
+  estimatedIngest?: EstimatedIngest | undefined;
   git?: Git | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
@@ -80,23 +117,23 @@ export type ConfigGroup = {
 };
 
 /** @internal */
-export const EstimatedIngestRate$inboundSchema: z.ZodType<
-  EstimatedIngestRate,
+export const EstimatedIngest$inboundSchema: z.ZodType<
+  EstimatedIngest,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(EstimatedIngestRate),
+    z.nativeEnum(EstimatedIngest),
     z.number().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const EstimatedIngestRate$outboundSchema: z.ZodType<
-  EstimatedIngestRate,
+export const EstimatedIngest$outboundSchema: z.ZodType<
+  EstimatedIngest,
   z.ZodTypeDef,
-  EstimatedIngestRate
+  EstimatedIngest
 > = z.union([
-  z.nativeEnum(EstimatedIngestRate),
+  z.nativeEnum(EstimatedIngest),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
 
@@ -104,11 +141,11 @@ export const EstimatedIngestRate$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EstimatedIngestRate$ {
-  /** @deprecated use `EstimatedIngestRate$inboundSchema` instead. */
-  export const inboundSchema = EstimatedIngestRate$inboundSchema;
-  /** @deprecated use `EstimatedIngestRate$outboundSchema` instead. */
-  export const outboundSchema = EstimatedIngestRate$outboundSchema;
+export namespace EstimatedIngest$ {
+  /** @deprecated use `EstimatedIngest$inboundSchema` instead. */
+  export const inboundSchema = EstimatedIngest$inboundSchema;
+  /** @deprecated use `EstimatedIngest$outboundSchema` instead. */
+  export const outboundSchema = EstimatedIngest$outboundSchema;
 }
 
 /** @internal */
@@ -203,7 +240,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: EstimatedIngestRate$inboundSchema.optional(),
+  estimatedIngestRate: EstimatedIngest$inboundSchema.optional(),
   git: z.lazy(() => Git$inboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
@@ -221,6 +258,10 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "estimatedIngestRate": "estimatedIngest",
+  });
 });
 
 /** @internal */
@@ -259,7 +300,7 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: EstimatedIngestRate$outboundSchema.optional(),
+  estimatedIngest: EstimatedIngest$outboundSchema.optional(),
   git: z.lazy(() => Git$outboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
@@ -277,6 +318,10 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    estimatedIngest: "estimatedIngestRate",
+  });
 });
 
 /**
