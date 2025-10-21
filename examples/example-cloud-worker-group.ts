@@ -46,7 +46,7 @@ const group: ConfigGroup = {
   provisioned: false,
   isFleet: false,
   isSearch: false,
-  estimatedIngestRate: 2048, // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
+  estimatedIngest: 2048, // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
   id: WORKER_GROUP_ID,
   name: "my-aws-worker-group",
 };
@@ -72,7 +72,7 @@ async function main() {
   console.log(`✅ Worker Group created: ${group.id}`);
 
   // Scale and provision the Worker Group
-  group.estimatedIngestRate = 4096; // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
+  group.estimatedIngest = 4096; // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
   group.provisioned = true;
   await cribl.groups.update({ product: "stream", id: group.id, configGroup: group });
   console.log(`✅ Worker Group scaled and provisioned: ${group.id}`);
