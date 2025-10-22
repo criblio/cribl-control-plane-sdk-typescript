@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -17,14 +22,23 @@ export type OutputMinioType = ClosedEnum<typeof OutputMinioType>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputMinioAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type OutputMinioAuthenticationMethod = ClosedEnum<
+export type OutputMinioAuthenticationMethod = OpenEnum<
   typeof OutputMinioAuthenticationMethod
 >;
 
@@ -38,7 +52,7 @@ export const OutputMinioSignatureVersion = {
 /**
  * Signature version to use for signing MinIO requests
  */
-export type OutputMinioSignatureVersion = ClosedEnum<
+export type OutputMinioSignatureVersion = OpenEnum<
   typeof OutputMinioSignatureVersion
 >;
 
@@ -46,68 +60,111 @@ export type OutputMinioSignatureVersion = ClosedEnum<
  * Object ACL to assign to uploaded objects
  */
 export const OutputMinioObjectACL = {
+  /**
+   * Private
+   */
   Private: "private",
+  /**
+   * Public Read Only
+   */
   PublicRead: "public-read",
+  /**
+   * Public Read/Write
+   */
   PublicReadWrite: "public-read-write",
+  /**
+   * Authenticated Read Only
+   */
   AuthenticatedRead: "authenticated-read",
+  /**
+   * AWS EC2 AMI Read Only
+   */
   AwsExecRead: "aws-exec-read",
+  /**
+   * Bucket Owner Read Only
+   */
   BucketOwnerRead: "bucket-owner-read",
+  /**
+   * Bucket Owner Full Control
+   */
   BucketOwnerFullControl: "bucket-owner-full-control",
 } as const;
 /**
  * Object ACL to assign to uploaded objects
  */
-export type OutputMinioObjectACL = ClosedEnum<typeof OutputMinioObjectACL>;
+export type OutputMinioObjectACL = OpenEnum<typeof OutputMinioObjectACL>;
 
 /**
  * Storage class to select for uploaded objects
  */
 export const OutputMinioStorageClass = {
+  /**
+   * Standard
+   */
   Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
   ReducedRedundancy: "REDUCED_REDUNDANCY",
 } as const;
 /**
  * Storage class to select for uploaded objects
  */
-export type OutputMinioStorageClass = ClosedEnum<
-  typeof OutputMinioStorageClass
->;
+export type OutputMinioStorageClass = OpenEnum<typeof OutputMinioStorageClass>;
 
 /**
  * Server-side encryption for uploaded objects
  */
 export const ServerSideEncryption = {
+  /**
+   * Amazon S3 Managed Key
+   */
   Aes256: "AES256",
 } as const;
 /**
  * Server-side encryption for uploaded objects
  */
-export type ServerSideEncryption = ClosedEnum<typeof ServerSideEncryption>;
+export type ServerSideEncryption = OpenEnum<typeof ServerSideEncryption>;
 
 /**
  * Format of the output data
  */
 export const OutputMinioDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
  * Format of the output data
  */
-export type OutputMinioDataFormat = ClosedEnum<typeof OutputMinioDataFormat>;
+export type OutputMinioDataFormat = OpenEnum<typeof OutputMinioDataFormat>;
 
 /**
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputMinioBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputMinioBackpressureBehavior = ClosedEnum<
+export type OutputMinioBackpressureBehavior = OpenEnum<
   typeof OutputMinioBackpressureBehavior
 >;
 
@@ -115,13 +172,19 @@ export type OutputMinioBackpressureBehavior = ClosedEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputMinioDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
-export type OutputMinioDiskSpaceProtection = ClosedEnum<
+export type OutputMinioDiskSpaceProtection = OpenEnum<
   typeof OutputMinioDiskSpaceProtection
 >;
 
@@ -135,20 +198,29 @@ export const OutputMinioCompression = {
 /**
  * Data compression format to apply to HTTP content before it is delivered
  */
-export type OutputMinioCompression = ClosedEnum<typeof OutputMinioCompression>;
+export type OutputMinioCompression = OpenEnum<typeof OutputMinioCompression>;
 
 /**
  * Compression level to apply before moving files to final destination
  */
 export const OutputMinioCompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
  * Compression level to apply before moving files to final destination
  */
-export type OutputMinioCompressionLevel = ClosedEnum<
+export type OutputMinioCompressionLevel = OpenEnum<
   typeof OutputMinioCompressionLevel
 >;
 
@@ -156,14 +228,23 @@ export type OutputMinioCompressionLevel = ClosedEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputMinioParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
  * Determines which data types are supported and how they are represented
  */
-export type OutputMinioParquetVersion = ClosedEnum<
+export type OutputMinioParquetVersion = OpenEnum<
   typeof OutputMinioParquetVersion
 >;
 
@@ -171,13 +252,19 @@ export type OutputMinioParquetVersion = ClosedEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputMinioDataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
-export type OutputMinioDataPageVersion = ClosedEnum<
+export type OutputMinioDataPageVersion = OpenEnum<
   typeof OutputMinioDataPageVersion
 >;
 
@@ -421,14 +508,25 @@ export namespace OutputMinioType$ {
 }
 
 /** @internal */
-export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioAuthenticationMethod
-> = z.nativeEnum(OutputMinioAuthenticationMethod);
+export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputMinioAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioAuthenticationMethod
-> = OutputMinioAuthenticationMethod$inboundSchema;
+export const OutputMinioAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputMinioAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputMinioAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputMinioAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -442,14 +540,25 @@ export namespace OutputMinioAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputMinioSignatureVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioSignatureVersion
-> = z.nativeEnum(OutputMinioSignatureVersion);
+export const OutputMinioSignatureVersion$inboundSchema: z.ZodType<
+  OutputMinioSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioSignatureVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioSignatureVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioSignatureVersion
-> = OutputMinioSignatureVersion$inboundSchema;
+export const OutputMinioSignatureVersion$outboundSchema: z.ZodType<
+  OutputMinioSignatureVersion,
+  z.ZodTypeDef,
+  OutputMinioSignatureVersion
+> = z.union([
+  z.nativeEnum(OutputMinioSignatureVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -463,14 +572,25 @@ export namespace OutputMinioSignatureVersion$ {
 }
 
 /** @internal */
-export const OutputMinioObjectACL$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioObjectACL
-> = z.nativeEnum(OutputMinioObjectACL);
+export const OutputMinioObjectACL$inboundSchema: z.ZodType<
+  OutputMinioObjectACL,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioObjectACL),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioObjectACL$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioObjectACL
-> = OutputMinioObjectACL$inboundSchema;
+export const OutputMinioObjectACL$outboundSchema: z.ZodType<
+  OutputMinioObjectACL,
+  z.ZodTypeDef,
+  OutputMinioObjectACL
+> = z.union([
+  z.nativeEnum(OutputMinioObjectACL),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -484,14 +604,25 @@ export namespace OutputMinioObjectACL$ {
 }
 
 /** @internal */
-export const OutputMinioStorageClass$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioStorageClass
-> = z.nativeEnum(OutputMinioStorageClass);
+export const OutputMinioStorageClass$inboundSchema: z.ZodType<
+  OutputMinioStorageClass,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioStorageClass),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioStorageClass$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioStorageClass
-> = OutputMinioStorageClass$inboundSchema;
+export const OutputMinioStorageClass$outboundSchema: z.ZodType<
+  OutputMinioStorageClass,
+  z.ZodTypeDef,
+  OutputMinioStorageClass
+> = z.union([
+  z.nativeEnum(OutputMinioStorageClass),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -505,14 +636,25 @@ export namespace OutputMinioStorageClass$ {
 }
 
 /** @internal */
-export const ServerSideEncryption$inboundSchema: z.ZodNativeEnum<
-  typeof ServerSideEncryption
-> = z.nativeEnum(ServerSideEncryption);
+export const ServerSideEncryption$inboundSchema: z.ZodType<
+  ServerSideEncryption,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const ServerSideEncryption$outboundSchema: z.ZodNativeEnum<
-  typeof ServerSideEncryption
-> = ServerSideEncryption$inboundSchema;
+export const ServerSideEncryption$outboundSchema: z.ZodType<
+  ServerSideEncryption,
+  z.ZodTypeDef,
+  ServerSideEncryption
+> = z.union([
+  z.nativeEnum(ServerSideEncryption),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -526,14 +668,25 @@ export namespace ServerSideEncryption$ {
 }
 
 /** @internal */
-export const OutputMinioDataFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioDataFormat
-> = z.nativeEnum(OutputMinioDataFormat);
+export const OutputMinioDataFormat$inboundSchema: z.ZodType<
+  OutputMinioDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioDataFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioDataFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioDataFormat
-> = OutputMinioDataFormat$inboundSchema;
+export const OutputMinioDataFormat$outboundSchema: z.ZodType<
+  OutputMinioDataFormat,
+  z.ZodTypeDef,
+  OutputMinioDataFormat
+> = z.union([
+  z.nativeEnum(OutputMinioDataFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -547,14 +700,25 @@ export namespace OutputMinioDataFormat$ {
 }
 
 /** @internal */
-export const OutputMinioBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioBackpressureBehavior
-> = z.nativeEnum(OutputMinioBackpressureBehavior);
+export const OutputMinioBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputMinioBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioBackpressureBehavior
-> = OutputMinioBackpressureBehavior$inboundSchema;
+export const OutputMinioBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputMinioBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputMinioBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputMinioBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -568,14 +732,25 @@ export namespace OutputMinioBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputMinioDiskSpaceProtection$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioDiskSpaceProtection
-> = z.nativeEnum(OutputMinioDiskSpaceProtection);
+export const OutputMinioDiskSpaceProtection$inboundSchema: z.ZodType<
+  OutputMinioDiskSpaceProtection,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioDiskSpaceProtection),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioDiskSpaceProtection$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioDiskSpaceProtection
-> = OutputMinioDiskSpaceProtection$inboundSchema;
+export const OutputMinioDiskSpaceProtection$outboundSchema: z.ZodType<
+  OutputMinioDiskSpaceProtection,
+  z.ZodTypeDef,
+  OutputMinioDiskSpaceProtection
+> = z.union([
+  z.nativeEnum(OutputMinioDiskSpaceProtection),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -589,14 +764,25 @@ export namespace OutputMinioDiskSpaceProtection$ {
 }
 
 /** @internal */
-export const OutputMinioCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioCompression
-> = z.nativeEnum(OutputMinioCompression);
+export const OutputMinioCompression$inboundSchema: z.ZodType<
+  OutputMinioCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioCompression
-> = OutputMinioCompression$inboundSchema;
+export const OutputMinioCompression$outboundSchema: z.ZodType<
+  OutputMinioCompression,
+  z.ZodTypeDef,
+  OutputMinioCompression
+> = z.union([
+  z.nativeEnum(OutputMinioCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -610,14 +796,25 @@ export namespace OutputMinioCompression$ {
 }
 
 /** @internal */
-export const OutputMinioCompressionLevel$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioCompressionLevel
-> = z.nativeEnum(OutputMinioCompressionLevel);
+export const OutputMinioCompressionLevel$inboundSchema: z.ZodType<
+  OutputMinioCompressionLevel,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioCompressionLevel),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioCompressionLevel$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioCompressionLevel
-> = OutputMinioCompressionLevel$inboundSchema;
+export const OutputMinioCompressionLevel$outboundSchema: z.ZodType<
+  OutputMinioCompressionLevel,
+  z.ZodTypeDef,
+  OutputMinioCompressionLevel
+> = z.union([
+  z.nativeEnum(OutputMinioCompressionLevel),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -631,14 +828,25 @@ export namespace OutputMinioCompressionLevel$ {
 }
 
 /** @internal */
-export const OutputMinioParquetVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioParquetVersion
-> = z.nativeEnum(OutputMinioParquetVersion);
+export const OutputMinioParquetVersion$inboundSchema: z.ZodType<
+  OutputMinioParquetVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioParquetVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioParquetVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioParquetVersion
-> = OutputMinioParquetVersion$inboundSchema;
+export const OutputMinioParquetVersion$outboundSchema: z.ZodType<
+  OutputMinioParquetVersion,
+  z.ZodTypeDef,
+  OutputMinioParquetVersion
+> = z.union([
+  z.nativeEnum(OutputMinioParquetVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -652,14 +860,25 @@ export namespace OutputMinioParquetVersion$ {
 }
 
 /** @internal */
-export const OutputMinioDataPageVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioDataPageVersion
-> = z.nativeEnum(OutputMinioDataPageVersion);
+export const OutputMinioDataPageVersion$inboundSchema: z.ZodType<
+  OutputMinioDataPageVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMinioDataPageVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMinioDataPageVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioDataPageVersion
-> = OutputMinioDataPageVersion$inboundSchema;
+export const OutputMinioDataPageVersion$outboundSchema: z.ZodType<
+  OutputMinioDataPageVersion,
+  z.ZodTypeDef,
+  OutputMinioDataPageVersion
+> = z.union([
+  z.nativeEnum(OutputMinioDataPageVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

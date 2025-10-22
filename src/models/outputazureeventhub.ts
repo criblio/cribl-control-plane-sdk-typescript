@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -19,14 +24,23 @@ export type OutputAzureEventhubType = ClosedEnum<
  * Control the number of required acknowledgments
  */
 export const OutputAzureEventhubAcknowledgments = {
+  /**
+   * Leader
+   */
   One: 1,
+  /**
+   * None
+   */
   Zero: 0,
+  /**
+   * All
+   */
   Minus1: -1,
 } as const;
 /**
  * Control the number of required acknowledgments
  */
-export type OutputAzureEventhubAcknowledgments = ClosedEnum<
+export type OutputAzureEventhubAcknowledgments = OpenEnum<
   typeof OutputAzureEventhubAcknowledgments
 >;
 
@@ -34,21 +48,33 @@ export type OutputAzureEventhubAcknowledgments = ClosedEnum<
  * Format to use to serialize events before writing to the Event Hubs Kafka brokers
  */
 export const OutputAzureEventhubRecordDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Field _raw
+   */
   Raw: "raw",
 } as const;
 /**
  * Format to use to serialize events before writing to the Event Hubs Kafka brokers
  */
-export type OutputAzureEventhubRecordDataFormat = ClosedEnum<
+export type OutputAzureEventhubRecordDataFormat = OpenEnum<
   typeof OutputAzureEventhubRecordDataFormat
 >;
 
 export const OutputAzureEventhubSASLMechanism = {
+  /**
+   * PLAIN
+   */
   Plain: "plain",
+  /**
+   * OAUTHBEARER
+   */
   Oauthbearer: "oauthbearer",
 } as const;
-export type OutputAzureEventhubSASLMechanism = ClosedEnum<
+export type OutputAzureEventhubSASLMechanism = OpenEnum<
   typeof OutputAzureEventhubSASLMechanism
 >;
 
@@ -72,14 +98,23 @@ export type OutputAzureEventhubTLSSettingsClientSide = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputAzureEventhubBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputAzureEventhubBackpressureBehavior = ClosedEnum<
+export type OutputAzureEventhubBackpressureBehavior = OpenEnum<
   typeof OutputAzureEventhubBackpressureBehavior
 >;
 
@@ -87,13 +122,19 @@ export type OutputAzureEventhubBackpressureBehavior = ClosedEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputAzureEventhubCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputAzureEventhubCompression = ClosedEnum<
+export type OutputAzureEventhubCompression = OpenEnum<
   typeof OutputAzureEventhubCompression
 >;
 
@@ -101,13 +142,19 @@ export type OutputAzureEventhubCompression = ClosedEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputAzureEventhubQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputAzureEventhubQueueFullBehavior = ClosedEnum<
+export type OutputAzureEventhubQueueFullBehavior = OpenEnum<
   typeof OutputAzureEventhubQueueFullBehavior
 >;
 
@@ -115,16 +162,23 @@ export type OutputAzureEventhubQueueFullBehavior = ClosedEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputAzureEventhubMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputAzureEventhubMode = ClosedEnum<
-  typeof OutputAzureEventhubMode
->;
+export type OutputAzureEventhubMode = OpenEnum<typeof OutputAzureEventhubMode>;
 
 export type OutputAzureEventhubPqControls = {};
 
@@ -269,14 +323,25 @@ export namespace OutputAzureEventhubType$ {
 }
 
 /** @internal */
-export const OutputAzureEventhubAcknowledgments$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubAcknowledgments
-> = z.nativeEnum(OutputAzureEventhubAcknowledgments);
+export const OutputAzureEventhubAcknowledgments$inboundSchema: z.ZodType<
+  OutputAzureEventhubAcknowledgments,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureEventhubAcknowledgments),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureEventhubAcknowledgments$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubAcknowledgments
-> = OutputAzureEventhubAcknowledgments$inboundSchema;
+export const OutputAzureEventhubAcknowledgments$outboundSchema: z.ZodType<
+  OutputAzureEventhubAcknowledgments,
+  z.ZodTypeDef,
+  OutputAzureEventhubAcknowledgments
+> = z.union([
+  z.nativeEnum(OutputAzureEventhubAcknowledgments),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
 
 /**
  * @internal
@@ -291,14 +356,25 @@ export namespace OutputAzureEventhubAcknowledgments$ {
 }
 
 /** @internal */
-export const OutputAzureEventhubRecordDataFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubRecordDataFormat
-> = z.nativeEnum(OutputAzureEventhubRecordDataFormat);
+export const OutputAzureEventhubRecordDataFormat$inboundSchema: z.ZodType<
+  OutputAzureEventhubRecordDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureEventhubRecordDataFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureEventhubRecordDataFormat$outboundSchema:
-  z.ZodNativeEnum<typeof OutputAzureEventhubRecordDataFormat> =
-    OutputAzureEventhubRecordDataFormat$inboundSchema;
+export const OutputAzureEventhubRecordDataFormat$outboundSchema: z.ZodType<
+  OutputAzureEventhubRecordDataFormat,
+  z.ZodTypeDef,
+  OutputAzureEventhubRecordDataFormat
+> = z.union([
+  z.nativeEnum(OutputAzureEventhubRecordDataFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -314,14 +390,25 @@ export namespace OutputAzureEventhubRecordDataFormat$ {
 }
 
 /** @internal */
-export const OutputAzureEventhubSASLMechanism$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubSASLMechanism
-> = z.nativeEnum(OutputAzureEventhubSASLMechanism);
+export const OutputAzureEventhubSASLMechanism$inboundSchema: z.ZodType<
+  OutputAzureEventhubSASLMechanism,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureEventhubSASLMechanism),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureEventhubSASLMechanism$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubSASLMechanism
-> = OutputAzureEventhubSASLMechanism$inboundSchema;
+export const OutputAzureEventhubSASLMechanism$outboundSchema: z.ZodType<
+  OutputAzureEventhubSASLMechanism,
+  z.ZodTypeDef,
+  OutputAzureEventhubSASLMechanism
+> = z.union([
+  z.nativeEnum(OutputAzureEventhubSASLMechanism),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -463,14 +550,25 @@ export function outputAzureEventhubTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputAzureEventhubBackpressureBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputAzureEventhubBackpressureBehavior> = z
-    .nativeEnum(OutputAzureEventhubBackpressureBehavior);
+export const OutputAzureEventhubBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputAzureEventhubBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureEventhubBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureEventhubBackpressureBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputAzureEventhubBackpressureBehavior> =
-    OutputAzureEventhubBackpressureBehavior$inboundSchema;
+export const OutputAzureEventhubBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputAzureEventhubBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputAzureEventhubBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputAzureEventhubBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -486,14 +584,25 @@ export namespace OutputAzureEventhubBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputAzureEventhubCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubCompression
-> = z.nativeEnum(OutputAzureEventhubCompression);
+export const OutputAzureEventhubCompression$inboundSchema: z.ZodType<
+  OutputAzureEventhubCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureEventhubCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureEventhubCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubCompression
-> = OutputAzureEventhubCompression$inboundSchema;
+export const OutputAzureEventhubCompression$outboundSchema: z.ZodType<
+  OutputAzureEventhubCompression,
+  z.ZodTypeDef,
+  OutputAzureEventhubCompression
+> = z.union([
+  z.nativeEnum(OutputAzureEventhubCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -507,15 +616,25 @@ export namespace OutputAzureEventhubCompression$ {
 }
 
 /** @internal */
-export const OutputAzureEventhubQueueFullBehavior$inboundSchema:
-  z.ZodNativeEnum<typeof OutputAzureEventhubQueueFullBehavior> = z.nativeEnum(
-    OutputAzureEventhubQueueFullBehavior,
-  );
+export const OutputAzureEventhubQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputAzureEventhubQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureEventhubQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureEventhubQueueFullBehavior$outboundSchema:
-  z.ZodNativeEnum<typeof OutputAzureEventhubQueueFullBehavior> =
-    OutputAzureEventhubQueueFullBehavior$inboundSchema;
+export const OutputAzureEventhubQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputAzureEventhubQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputAzureEventhubQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputAzureEventhubQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -531,14 +650,25 @@ export namespace OutputAzureEventhubQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputAzureEventhubMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubMode
-> = z.nativeEnum(OutputAzureEventhubMode);
+export const OutputAzureEventhubMode$inboundSchema: z.ZodType<
+  OutputAzureEventhubMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureEventhubMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputAzureEventhubMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubMode
-> = OutputAzureEventhubMode$inboundSchema;
+export const OutputAzureEventhubMode$outboundSchema: z.ZodType<
+  OutputAzureEventhubMode,
+  z.ZodTypeDef,
+  OutputAzureEventhubMode
+> = z.union([
+  z.nativeEnum(OutputAzureEventhubMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

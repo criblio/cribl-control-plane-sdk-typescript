@@ -24,6 +24,7 @@ export type NodeProvidedInfoTags = {};
 
 export type NodeProvidedInfoAws = {
   enabled: boolean;
+  instanceId: string;
   region: string;
   tags?: NodeProvidedInfoTags | undefined;
   type: string;
@@ -70,6 +71,7 @@ export type NodeProvidedInfo = {
   connIp?: string | undefined;
   cpus: number;
   cribl: HBCriblInfo;
+  env: { [k: string]: string };
   freeDiskSpace: number;
   hostOs?: NodeProvidedInfoHostOs | undefined;
   hostname: string;
@@ -140,6 +142,7 @@ export const NodeProvidedInfoAws$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean(),
+  instanceId: z.string(),
   region: z.string(),
   tags: z.lazy(() => NodeProvidedInfoTags$inboundSchema).optional(),
   type: z.string(),
@@ -149,6 +152,7 @@ export const NodeProvidedInfoAws$inboundSchema: z.ZodType<
 /** @internal */
 export type NodeProvidedInfoAws$Outbound = {
   enabled: boolean;
+  instanceId: string;
   region: string;
   tags?: NodeProvidedInfoTags$Outbound | undefined;
   type: string;
@@ -162,6 +166,7 @@ export const NodeProvidedInfoAws$outboundSchema: z.ZodType<
   NodeProvidedInfoAws
 > = z.object({
   enabled: z.boolean(),
+  instanceId: z.string(),
   region: z.string(),
   tags: z.lazy(() => NodeProvidedInfoTags$outboundSchema).optional(),
   type: z.string(),
@@ -561,6 +566,7 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   conn_ip: z.string().optional(),
   cpus: z.number(),
   cribl: HBCriblInfo$inboundSchema,
+  env: z.record(z.string()),
   freeDiskSpace: z.number(),
   hostOs: z.lazy(() => NodeProvidedInfoHostOs$inboundSchema).optional(),
   hostname: z.string(),
@@ -590,6 +596,7 @@ export type NodeProvidedInfo$Outbound = {
   conn_ip?: string | undefined;
   cpus: number;
   cribl: HBCriblInfo$Outbound;
+  env: { [k: string]: string };
   freeDiskSpace: number;
   hostOs?: NodeProvidedInfoHostOs$Outbound | undefined;
   hostname: string;
@@ -616,6 +623,7 @@ export const NodeProvidedInfo$outboundSchema: z.ZodType<
   connIp: z.string().optional(),
   cpus: z.number(),
   cribl: HBCriblInfo$outboundSchema,
+  env: z.record(z.string()),
   freeDiskSpace: z.number(),
   hostOs: z.lazy(() => NodeProvidedInfoHostOs$outboundSchema).optional(),
   hostname: z.string(),

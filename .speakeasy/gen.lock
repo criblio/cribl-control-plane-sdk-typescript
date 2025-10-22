@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 0c45762d1c7f05ccca71a32eff80a6a6
-  docVersion: 4.14.0-837595d5
+  docChecksum: d7a8cf2bc5198015a77153f311240845
+  docVersion: 4.15.0-alpha.1761116150568-ad105cff
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.1.0
-  configChecksum: 95d250b216db7fcc6c812d992d2c8288
+  releaseVersion: 0.1.1-rc.11
+  configChecksum: 5454946bc9d86bdbfcbfd423d119e6a4
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -28,10 +28,12 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.1.1
     oauth2ClientCredentials: 1.1.0
+    openEnums: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
     unions: 2.86.0
+    uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -42,17 +44,19 @@ generatedFiles:
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
+  - docs/models/action.md
   - docs/models/addhectokenrequest.md
   - docs/models/addhectokenrequestmetadatum.md
   - docs/models/additionalproperty.md
   - docs/models/aisiemendpointpath.md
   - docs/models/allow.md
-  - docs/models/appmode.md
   - docs/models/audit.md
   - docs/models/authenticationprotocol.md
   - docs/models/author.md
   - docs/models/authtoken.md
   - docs/models/authtype.md
+  - docs/models/autoapplymode.md
+  - docs/models/autoapplyurlsync.md
   - docs/models/awsauthenticationmethod.md
   - docs/models/blobaccesstier.md
   - docs/models/block.md
@@ -69,6 +73,7 @@ generatedFiles:
   - docs/models/columnmapping.md
   - docs/models/comment.md
   - docs/models/commit.md
+  - docs/models/conditionspecificconfigs.md
   - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
@@ -81,8 +86,15 @@ generatedFiles:
   - docs/models/criblevent.md
   - docs/models/cribllakedataset.md
   - docs/models/cribllakedatasetformat.md
+  - docs/models/cribllakedatasetupdate.md
+  - docs/models/cribllakedatasetupdateformat.md
   - docs/models/currentbranchresult.md
-  - docs/models/customlabel.md
+  - docs/models/dashboardelement1.md
+  - docs/models/dashboardelement2.md
+  - docs/models/dashboardelement3.md
+  - docs/models/dashboardelementunion.md
+  - docs/models/dashboardgroups.md
+  - docs/models/dashboardlayout.md
   - docs/models/datadogsite.md
   - docs/models/datasetmetadata.md
   - docs/models/datasetmetadataruninfo.md
@@ -92,12 +104,16 @@ generatedFiles:
   - docs/models/deployrequestlookupslookup.md
   - docs/models/difffiles.md
   - docs/models/disksandfilesystems.md
+  - docs/models/distmode.md
   - docs/models/distributedsummary.md
   - docs/models/distributedsummarygroups.md
   - docs/models/distributedsummaryworkers.md
   - docs/models/dns.md
+  - docs/models/earliest1.md
+  - docs/models/earliest2.md
   - docs/models/elasticsearchmetadata.md
   - docs/models/elasticversion.md
+  - docs/models/emailrecipient.md
   - docs/models/endpoint.md
   - docs/models/endpointconfiguration.md
   - docs/models/endpointheader.md
@@ -105,9 +121,12 @@ generatedFiles:
   - docs/models/endpointtype.md
   - docs/models/errors/errort.md
   - docs/models/errors/healthstatuserror.md
+  - docs/models/errort.md
+  - docs/models/estimatedingestrate.md
   - docs/models/eventformat.md
   - docs/models/executor.md
   - docs/models/executorspecificsettings.md
+  - docs/models/expectedoutputtype.md
   - docs/models/extenttag.md
   - docs/models/extralogtype.md
   - docs/models/facility.md
@@ -128,6 +147,7 @@ generatedFiles:
   - docs/models/gitrevertparams.md
   - docs/models/gitrevertresult.md
   - docs/models/gitrevertresultfiles.md
+  - docs/models/gitshowresult.md
   - docs/models/gitstatusresult.md
   - docs/models/hbcriblinfo.md
   - docs/models/hbleaderinfo.md
@@ -197,7 +217,6 @@ generatedFiles:
   - docs/models/inputconfluentcloudpq.md
   - docs/models/inputconfluentcloudpqcontrols.md
   - docs/models/inputconfluentcloudsaslmechanism.md
-  - docs/models/inputconfluentcloudschematype.md
   - docs/models/inputconfluentcloudtlssettingsclientside.md
   - docs/models/inputconfluentcloudtype.md
   - docs/models/inputcribl.md
@@ -316,6 +335,7 @@ generatedFiles:
   - docs/models/inputelasticproxymode.md
   - docs/models/inputelastictlssettingsserverside.md
   - docs/models/inputelastictype.md
+  - docs/models/inputelementtype.md
   - docs/models/inputeventhub.md
   - docs/models/inputeventhubauthentication.md
   - docs/models/inputeventhubcompression.md
@@ -446,7 +466,6 @@ generatedFiles:
   - docs/models/inputkafkapq.md
   - docs/models/inputkafkapqcontrols.md
   - docs/models/inputkafkasaslmechanism.md
-  - docs/models/inputkafkaschematype.md
   - docs/models/inputkafkatlssettingsclientside.md
   - docs/models/inputkafkatype.md
   - docs/models/inputkinesis.md
@@ -542,7 +561,6 @@ generatedFiles:
   - docs/models/inputmskmode.md
   - docs/models/inputmskpq.md
   - docs/models/inputmskpqcontrols.md
-  - docs/models/inputmskschematype.md
   - docs/models/inputmsksignatureversion.md
   - docs/models/inputmsktlssettingsclientside.md
   - docs/models/inputmsktype.md
@@ -832,6 +850,7 @@ generatedFiles:
   - docs/models/inputtcppreprocess.md
   - docs/models/inputtcptlssettingsserverside.md
   - docs/models/inputtcptype.md
+  - docs/models/inputtype.md
   - docs/models/inputwef.md
   - docs/models/inputwefauthenticationmethod.md
   - docs/models/inputwefcompression.md
@@ -922,6 +941,8 @@ generatedFiles:
   - docs/models/lakedatasetsearchconfig.md
   - docs/models/lakehouseconnectiontype.md
   - docs/models/lastmetrics.md
+  - docs/models/latest1.md
+  - docs/models/latest2.md
   - docs/models/line1.md
   - docs/models/line2.md
   - docs/models/line3.md
@@ -937,6 +958,8 @@ generatedFiles:
   - docs/models/lokiauthoauthparam2.md
   - docs/models/lookupversions.md
   - docs/models/mappingtype.md
+  - docs/models/markdownelementconfig.md
+  - docs/models/markdownelementtype.md
   - docs/models/masterworkerentry.md
   - docs/models/masterworkerentrytype.md
   - docs/models/masterworkerentryworkers.md
@@ -956,6 +979,10 @@ generatedFiles:
   - docs/models/nodeskippedupgradestatus.md
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
+  - docs/models/notification.md
+  - docs/models/notificationconfigforsmtptarget.md
+  - docs/models/notificationmetadatum.md
+  - docs/models/notifications.md
   - docs/models/oldmode.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
@@ -971,6 +998,7 @@ generatedFiles:
   - docs/models/operations/createpipelineresponse.md
   - docs/models/operations/createroutesappendbyidrequest.md
   - docs/models/operations/createroutesappendbyidresponse.md
+  - docs/models/operations/createsearchdashboardresponse.md
   - docs/models/operations/createversioncommitrequest.md
   - docs/models/operations/createversioncommitresponse.md
   - docs/models/operations/createversionpushresponse.md
@@ -992,6 +1020,8 @@ generatedFiles:
   - docs/models/operations/deletepacksbyidresponse.md
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
+  - docs/models/operations/deletesearchdashboardbyidrequest.md
+  - docs/models/operations/deletesearchdashboardbyidresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
@@ -1004,6 +1034,7 @@ generatedFiles:
   - docs/models/operations/getcribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
   - docs/models/operations/getcribllakedatasetbylakeidresponse.md
+  - docs/models/operations/gethealthinforesponse.md
   - docs/models/operations/getinputbyidrequest.md
   - docs/models/operations/getinputbyidresponse.md
   - docs/models/operations/getmasterworkerentryrequest.md
@@ -1022,6 +1053,8 @@ generatedFiles:
   - docs/models/operations/getpipelinebyidresponse.md
   - docs/models/operations/getroutesbyidrequest.md
   - docs/models/operations/getroutesbyidresponse.md
+  - docs/models/operations/getsearchdashboardbyidrequest.md
+  - docs/models/operations/getsearchdashboardbyidresponse.md
   - docs/models/operations/getsummaryrequest.md
   - docs/models/operations/getsummaryresponse.md
   - docs/models/operations/getversionbranchresponse.md
@@ -1046,6 +1079,8 @@ generatedFiles:
   - docs/models/operations/listoutputresponse.md
   - docs/models/operations/listpipelineresponse.md
   - docs/models/operations/listroutesresponse.md
+  - docs/models/operations/listsearchdashboardresponse.md
+  - docs/models/operations/loginresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
@@ -1060,10 +1095,13 @@ generatedFiles:
   - docs/models/operations/updateoutputbyidresponse.md
   - docs/models/operations/updatepacksbyidrequest.md
   - docs/models/operations/updatepacksbyidresponse.md
+  - docs/models/operations/updatepacksrequest.md
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/operations/updateroutesbyidresponse.md
+  - docs/models/operations/updatesearchdashboardbyidrequest.md
+  - docs/models/operations/updatesearchdashboardbyidresponse.md
   - docs/models/os.md
   - docs/models/output.md
   - docs/models/outputazureblob.md
@@ -1116,6 +1154,19 @@ generatedFiles:
   - docs/models/outputazurelogsresponseretrysetting.md
   - docs/models/outputazurelogstimeoutretrysettings.md
   - docs/models/outputazurelogstype.md
+  - docs/models/outputchronicle.md
+  - docs/models/outputchronicleauthenticationmethod.md
+  - docs/models/outputchroniclebackpressurebehavior.md
+  - docs/models/outputchroniclecompression.md
+  - docs/models/outputchroniclecustomlabel.md
+  - docs/models/outputchronicleextrahttpheader.md
+  - docs/models/outputchroniclefailedrequestloggingmode.md
+  - docs/models/outputchroniclemode.md
+  - docs/models/outputchroniclepqcontrols.md
+  - docs/models/outputchroniclequeuefullbehavior.md
+  - docs/models/outputchronicleresponseretrysetting.md
+  - docs/models/outputchronicletimeoutretrysettings.md
+  - docs/models/outputchronicletype.md
   - docs/models/outputclickhouse.md
   - docs/models/outputclickhouseauthenticationtype.md
   - docs/models/outputclickhousebackpressurebehavior.md
@@ -1160,7 +1211,6 @@ generatedFiles:
   - docs/models/outputconfluentcloudqueuefullbehavior.md
   - docs/models/outputconfluentcloudrecorddataformat.md
   - docs/models/outputconfluentcloudsaslmechanism.md
-  - docs/models/outputconfluentcloudschematype.md
   - docs/models/outputconfluentcloudtlssettingsclientside.md
   - docs/models/outputconfluentcloudtype.md
   - docs/models/outputcriblhttp.md
@@ -1214,6 +1264,12 @@ generatedFiles:
   - docs/models/outputcrowdstrikenextgensiemresponseretrysetting.md
   - docs/models/outputcrowdstrikenextgensiemtimeoutretrysettings.md
   - docs/models/outputcrowdstrikenextgensiemtype.md
+  - docs/models/outputdatabricks.md
+  - docs/models/outputdatabricksauthenticationmethod.md
+  - docs/models/outputdatabricksbackpressurebehavior.md
+  - docs/models/outputdatabricksdataformat.md
+  - docs/models/outputdatabricksdiskspaceprotection.md
+  - docs/models/outputdatabrickstype.md
   - docs/models/outputdatadog.md
   - docs/models/outputdatadogauthenticationmethod.md
   - docs/models/outputdatadogbackpressurebehavior.md
@@ -1343,6 +1399,7 @@ generatedFiles:
   - docs/models/outputgooglechronicleauthenticationmethod.md
   - docs/models/outputgooglechroniclebackpressurebehavior.md
   - docs/models/outputgooglechroniclecompression.md
+  - docs/models/outputgooglechroniclecustomlabel.md
   - docs/models/outputgooglechronicleextrahttpheader.md
   - docs/models/outputgooglechroniclefailedrequestloggingmode.md
   - docs/models/outputgooglechroniclemode.md
@@ -1481,7 +1538,6 @@ generatedFiles:
   - docs/models/outputkafkaqueuefullbehavior.md
   - docs/models/outputkafkarecorddataformat.md
   - docs/models/outputkafkasaslmechanism.md
-  - docs/models/outputkafkaschematype.md
   - docs/models/outputkafkatlssettingsclientside.md
   - docs/models/outputkafkatype.md
   - docs/models/outputkinesis.md
@@ -1540,7 +1596,6 @@ generatedFiles:
   - docs/models/outputmskpqcontrols.md
   - docs/models/outputmskqueuefullbehavior.md
   - docs/models/outputmskrecorddataformat.md
-  - docs/models/outputmskschematype.md
   - docs/models/outputmsksignatureversion.md
   - docs/models/outputmsktlssettingsclientside.md
   - docs/models/outputmsktype.md
@@ -1882,6 +1937,7 @@ generatedFiles:
   - docs/models/packrequestbodytags2.md
   - docs/models/packrequestbodyunion.md
   - docs/models/packupgraderequest.md
+  - docs/models/panelquerydefinition.md
   - docs/models/payloadformat.md
   - docs/models/pipeline.md
   - docs/models/pipelinefunctionconf.md
@@ -1897,13 +1953,13 @@ generatedFiles:
   - docs/models/rbacresource.md
   - docs/models/readmode.md
   - docs/models/remote.md
+  - docs/models/remoteenum.md
   - docs/models/renamed.md
   - docs/models/reportlevel.md
   - docs/models/reportmethod.md
   - docs/models/resourcepolicy.md
   - docs/models/resourcetypelabel.md
   - docs/models/role.md
-  - docs/models/routecloneconf.md
   - docs/models/routeconf.md
   - docs/models/routes.md
   - docs/models/routesgroups.md
@@ -1923,7 +1979,6 @@ generatedFiles:
   - docs/models/runnablejobcollectionscheduleloglevel.md
   - docs/models/runnablejobcollectionscheduletimewarning.md
   - docs/models/runnablejobcollectiontimewarning.md
-  - docs/models/runnablejobcollectiontype.md
   - docs/models/runnablejobexecutor.md
   - docs/models/runnablejobexecutorjobtype.md
   - docs/models/runnablejobexecutorloglevel.md
@@ -1941,10 +1996,24 @@ generatedFiles:
   - docs/models/runnablejobscheduledsearchtimewarning.md
   - docs/models/runnablejobscheduledsearchtype.md
   - docs/models/sample.md
+  - docs/models/savedqueryschedule.md
+  - docs/models/savessearchrunmode.md
   - docs/models/scanmode.md
   - docs/models/scheduletype.md
   - docs/models/schemeclientoauth.md
   - docs/models/scrapeprotocolprotocol.md
+  - docs/models/searchdashboard.md
+  - docs/models/searchquery1.md
+  - docs/models/searchquery2.md
+  - docs/models/searchquery3.md
+  - docs/models/searchquery4.md
+  - docs/models/searchquery5.md
+  - docs/models/searchquerytype1.md
+  - docs/models/searchquerytype2.md
+  - docs/models/searchquerytype3.md
+  - docs/models/searchquerytype4.md
+  - docs/models/searchquerytype5.md
+  - docs/models/searchqueryunion.md
   - docs/models/security.md
   - docs/models/sendeventsas.md
   - docs/models/sendlogsas.md
@@ -1959,17 +2028,28 @@ generatedFiles:
   - docs/models/subscriptionmetadatum.md
   - docs/models/summary.md
   - docs/models/target.md
+  - docs/models/targetconfig.md
+  - docs/models/targetconfigunion.md
   - docs/models/targetprotocol.md
   - docs/models/teamaccesscontrollist.md
   - docs/models/telemetrytype.md
   - docs/models/timerange.md
   - docs/models/timestampformat.md
   - docs/models/timestampprecision.md
+  - docs/models/titleaction.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
+  - docs/models/uploadpackresponse.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
+  - docs/models/variant1.md
+  - docs/models/variant2.md
+  - docs/models/variant3.md
+  - docs/models/visualizationelementtype.md
+  - docs/models/visualizationelementtypeenum1.md
+  - docs/models/visualizationelementtypeenum2.md
+  - docs/models/visualizationelementtypeenum3.md
   - docs/models/wheretocapture.md
   - docs/models/workertypes.md
   - docs/models/writeaction.md
@@ -1977,6 +2057,7 @@ generatedFiles:
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
+  - docs/sdks/dashboards/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
@@ -2032,6 +2113,7 @@ generatedFiles:
   - src/funcs/packsInstall.ts
   - src/funcs/packsList.ts
   - src/funcs/packsUpdate.ts
+  - src/funcs/packsUpload.ts
   - src/funcs/pipelinesCreate.ts
   - src/funcs/pipelinesDelete.ts
   - src/funcs/pipelinesGet.ts
@@ -2041,6 +2123,11 @@ generatedFiles:
   - src/funcs/routesGet.ts
   - src/funcs/routesList.ts
   - src/funcs/routesUpdate.ts
+  - src/funcs/searchDashboardsCreate.ts
+  - src/funcs/searchDashboardsDelete.ts
+  - src/funcs/searchDashboardsGet.ts
+  - src/funcs/searchDashboardsList.ts
+  - src/funcs/searchDashboardsUpdate.ts
   - src/funcs/sourcesCreate.ts
   - src/funcs/sourcesDelete.ts
   - src/funcs/sourcesGet.ts
@@ -2084,7 +2171,6 @@ generatedFiles:
   - src/lib/security.ts
   - src/lib/url.ts
   - src/models/addhectokenrequest.ts
-  - src/models/appmode.ts
   - src/models/authtoken.ts
   - src/models/branchinfo.ts
   - src/models/cacheconnection.ts
@@ -2096,13 +2182,18 @@ generatedFiles:
   - src/models/configgrouplookups.ts
   - src/models/criblevent.ts
   - src/models/cribllakedataset.ts
+  - src/models/cribllakedatasetupdate.ts
   - src/models/currentbranchresult.ts
+  - src/models/dashboardelementunion.ts
+  - src/models/dashboardgroups.ts
+  - src/models/dashboardlayout.ts
   - src/models/datasetmetadata.ts
   - src/models/datasetmetadataruninfo.ts
   - src/models/deployrequest.ts
   - src/models/deployrequestlookups.ts
   - src/models/difffiles.ts
   - src/models/distributedsummary.ts
+  - src/models/error.ts
   - src/models/errors/criblcontrolplanedefaulterror.ts
   - src/models/errors/criblcontrolplaneerror.ts
   - src/models/errors/error.ts
@@ -2111,6 +2202,7 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkvalidationerror.ts
+  - src/models/expectedoutputtype.ts
   - src/models/gitcommitparams.ts
   - src/models/gitcommitsummary.ts
   - src/models/gitcountresult.ts
@@ -2121,6 +2213,7 @@ generatedFiles:
   - src/models/gitlogresult.ts
   - src/models/gitrevertparams.ts
   - src/models/gitrevertresult.ts
+  - src/models/gitshowresult.ts
   - src/models/gitstatusresult.ts
   - src/models/hbcriblinfo.ts
   - src/models/hbleaderinfo.ts
@@ -2142,6 +2235,7 @@ generatedFiles:
   - src/models/inputdatagen.ts
   - src/models/inputedgeprometheus.ts
   - src/models/inputelastic.ts
+  - src/models/inputelementtype.ts
   - src/models/inputeventhub.ts
   - src/models/inputexec.ts
   - src/models/inputfile.ts
@@ -2193,6 +2287,8 @@ generatedFiles:
   - src/models/lakehouseconnectiontype.ts
   - src/models/logininfo.ts
   - src/models/lookupversions.ts
+  - src/models/markdownelementconfig.ts
+  - src/models/markdownelementtype.ts
   - src/models/masterworkerentry.ts
   - src/models/nodeactiveupgradestatus.ts
   - src/models/nodefailedupgradestatus.ts
@@ -2200,6 +2296,7 @@ generatedFiles:
   - src/models/nodeskippedupgradestatus.ts
   - src/models/nodeupgradestate.ts
   - src/models/nodeupgradestatus.ts
+  - src/models/notification.ts
   - src/models/operations/createconfiggroupbyproduct.ts
   - src/models/operations/createcribllakedatasetbylakeid.ts
   - src/models/operations/createinput.ts
@@ -2209,6 +2306,7 @@ generatedFiles:
   - src/models/operations/createpacks.ts
   - src/models/operations/createpipeline.ts
   - src/models/operations/createroutesappendbyid.ts
+  - src/models/operations/createsearchdashboard.ts
   - src/models/operations/createversioncommit.ts
   - src/models/operations/createversionpush.ts
   - src/models/operations/createversionrevert.ts
@@ -2220,12 +2318,14 @@ generatedFiles:
   - src/models/operations/deleteoutputpqbyid.ts
   - src/models/operations/deletepacksbyid.ts
   - src/models/operations/deletepipelinebyid.ts
+  - src/models/operations/deletesearchdashboardbyid.ts
   - src/models/operations/getconfiggroupaclbyproductandid.ts
   - src/models/operations/getconfiggroupaclteamsbyproductandid.ts
   - src/models/operations/getconfiggroupbyproductandid.ts
   - src/models/operations/getconfiggroupconfigversionbyproductandid.ts
   - src/models/operations/getcribllakedatasetbylakeid.ts
   - src/models/operations/getcribllakedatasetbylakeidandid.ts
+  - src/models/operations/gethealthinfo.ts
   - src/models/operations/getinputbyid.ts
   - src/models/operations/getmasterworkerentry.ts
   - src/models/operations/getoutputbyid.ts
@@ -2235,6 +2335,7 @@ generatedFiles:
   - src/models/operations/getpacksbyid.ts
   - src/models/operations/getpipelinebyid.ts
   - src/models/operations/getroutesbyid.ts
+  - src/models/operations/getsearchdashboardbyid.ts
   - src/models/operations/getsummary.ts
   - src/models/operations/getversion.ts
   - src/models/operations/getversionbranch.ts
@@ -2251,20 +2352,25 @@ generatedFiles:
   - src/models/operations/listoutput.ts
   - src/models/operations/listpipeline.ts
   - src/models/operations/listroutes.ts
+  - src/models/operations/listsearchdashboard.ts
+  - src/models/operations/login.ts
   - src/models/operations/updateconfiggroupbyproductandid.ts
   - src/models/operations/updateconfiggroupdeploybyproductandid.ts
   - src/models/operations/updatecribllakedatasetbylakeidandid.ts
   - src/models/operations/updateinputbyid.ts
   - src/models/operations/updateinputhectokenbyidandtoken.ts
   - src/models/operations/updateoutputbyid.ts
+  - src/models/operations/updatepacks.ts
   - src/models/operations/updatepacksbyid.ts
   - src/models/operations/updatepipelinebyid.ts
   - src/models/operations/updateroutesbyid.ts
+  - src/models/operations/updatesearchdashboardbyid.ts
   - src/models/output.ts
   - src/models/outputazureblob.ts
   - src/models/outputazuredataexplorer.ts
   - src/models/outputazureeventhub.ts
   - src/models/outputazurelogs.ts
+  - src/models/outputchronicle.ts
   - src/models/outputclickhouse.ts
   - src/models/outputcloudwatch.ts
   - src/models/outputconfluentcloud.ts
@@ -2272,6 +2378,7 @@ generatedFiles:
   - src/models/outputcribllake.ts
   - src/models/outputcribltcp.ts
   - src/models/outputcrowdstrikenextgensiem.ts
+  - src/models/outputdatabricks.ts
   - src/models/outputdatadog.ts
   - src/models/outputdataset.ts
   - src/models/outputdefault.ts
@@ -2332,12 +2439,12 @@ generatedFiles:
   - src/models/packinstallinfo.ts
   - src/models/packrequestbodyunion.ts
   - src/models/packupgraderequest.ts
+  - src/models/panelquerydefinition.ts
   - src/models/pipeline.ts
   - src/models/pipelinefunctionconf.ts
   - src/models/productscore.ts
   - src/models/rbacresource.ts
   - src/models/resourcepolicy.ts
-  - src/models/routecloneconf.ts
   - src/models/routeconf.ts
   - src/models/routes.ts
   - src/models/routesroute.ts
@@ -2345,17 +2452,25 @@ generatedFiles:
   - src/models/runnablejobcollection.ts
   - src/models/runnablejobexecutor.ts
   - src/models/runnablejobscheduledsearch.ts
+  - src/models/savedqueryschedule.ts
+  - src/models/savessearchrunmode.ts
   - src/models/schemeclientoauth.ts
+  - src/models/searchdashboard.ts
+  - src/models/searchqueryunion.ts
   - src/models/security.ts
   - src/models/teamaccesscontrollist.ts
+  - src/models/titleaction.ts
   - src/models/updatehectokenrequest.ts
+  - src/models/uploadpackresponse.ts
   - src/models/useraccesscontrollist.ts
+  - src/models/visualizationelementtype.ts
   - src/models/workertypes.ts
   - src/sdk/acl.ts
   - src/sdk/auth.ts
   - src/sdk/branches.ts
   - src/sdk/commits.ts
   - src/sdk/configsversions.ts
+  - src/sdk/dashboards.ts
   - src/sdk/destinations.ts
   - src/sdk/files.ts
   - src/sdk/groups.ts
@@ -2371,6 +2486,7 @@ generatedFiles:
   - src/sdk/routes.ts
   - src/sdk/samples.ts
   - src/sdk/sdk.ts
+  - src/sdk/search.ts
   - src/sdk/sources.ts
   - src/sdk/statuses.ts
   - src/sdk/summaries.ts
@@ -2396,13 +2512,15 @@ examples:
           application/json: {"role": "standby", "status": "standby", "startTime": 8399.98}
         "420":
           application/json: {"role": "standby", "status": "healthy", "startTime": 893.91}
+        default:
+          application/json: {"message": "<value>"}
   login:
     speakeasy-default-login:
       requestBody:
         application/json: {"username": "Nikko.Connelly", "password": "Ljp4BunfMR9hNyM"}
       responses:
         "200":
-          application/json: {"token": "<value>"}
+          application/json: {"token": "<value>", "forcePasswordChange": false}
   listInput:
     speakeasy-default-list-input:
       responses:
@@ -2460,7 +2578,7 @@ examples:
         application/json: {"description": "bah ick stingy", "enabled": false, "metadata": [{"name": "<value>", "value": "<value>"}], "token": "<value>"}
       responses:
         "200":
-          application/json: {"count": 827610, "items": [{}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}]}
+          application/json: {"count": 827610, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8836.4, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>"], "emitTokenMetrics": false, "description": "boohoo uh-huh buzzing"}, {"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 8957.05, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "awful functional sure-footed at", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.1"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>", "<value 3>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>", "<value 2>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>", "<value 3>"], "emitTokenMetrics": false, "description": "beyond and whopping brief zowie icy meanwhile"}]}
         "500":
           application/json: {"message": "<value>"}
   updateInputHecTokenByIdAndToken:
@@ -2473,7 +2591,7 @@ examples:
         application/json: {"description": "by bleakly fortunately phew barring", "enabled": false, "metadata": [{"name": "<value>", "value": "<value>"}]}
       responses:
         "200":
-          application/json: {"count": 116091, "items": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}]}
+          application/json: {"count": 116091, "items": [{"id": "<id>", "type": "splunk_hec", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 9953.77, "authTokens": [{"authType": "manual", "tokenSecret": "<value>", "token": "<value>", "enabled": true, "description": "bowler reproachfully blossom junior whoa yuck", "allowedIndexesAtToken": ["<value 1>", "<value 2>", "<value 3>"], "metadata": [{"name": "<value>", "value": "<value>"}]}], "tls": {"disabled": true, "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "requestCert": false, "rejectUnauthorized": "<value>", "commonNameRegex": "<value>", "minVersion": "TLSv1.2", "maxVersion": "TLSv1.2"}, "maxActiveReq": 256, "maxRequestsPerSocket": 0, "enableProxyHeader": false, "captureHeaders": false, "activityLogSampleRate": 100, "requestTimeout": 0, "socketTimeout": 0, "keepAliveTimeout": 5, "enableHealthCheck": "<value>", "ipAllowlistRegex": "/.*/", "ipDenylistRegex": "/^$/", "splunkHecAPI": "/services/collector", "metadata": [{"name": "<value>", "value": "<value>"}], "allowedIndexes": ["<value 1>", "<value 2>"], "splunkHecAcks": false, "breakerRulesets": ["<value 1>", "<value 2>", "<value 3>"], "staleChannelFlushMs": 10000, "useFwdTimezone": true, "dropControlFields": true, "extractMetrics": false, "accessControlAllowOrigin": ["<value 1>"], "accessControlAllowHeaders": ["<value 1>", "<value 2>"], "emitTokenMetrics": false, "description": "sermon circulate grouper doing"}]}
         "500":
           application/json: {"message": "<value>"}
   listOutput:
@@ -2543,7 +2661,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
+          application/json: {"count": 375693, "items": [{"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": true, "stats": {"key": 9134.23}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "custom invite intensely lamp round clamp recommendation about unit enlightened", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 9266.9, "latest": 7210.98, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>"], "executor": {"type": "<value>", "storeTaskResults": true, "conf": {}}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0"}}, "id": "<id>", "keep": false, "stats": {"key": 2179.01, "key1": 3145, "key2": 9277.24}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}, {"args": {"id": "<id>", "description": "decode unnaturally duh because quiet primary", "type": "executor", "ttl": "4h", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>", "<value 2>", "<value 3>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "cronSchedule": "*/5 * * * *", "maxConcurrentRuns": 1, "skippable": true, "resumeMissed": "<value>", "run": {"type": "collection", "rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 959.28, "latest": 7372.4, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB"}}, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "workerAffinity": false, "collector": {"type": "<value>", "conf": {}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "sendToRoutes": true, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>", "<value 3>"]}, "throttleRatePerSec": "0", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}, "run": {"rescheduleDroppedTasks": true, "maxTaskReschedule": 1, "logLevel": "info", "jobTimeout": "0", "mode": "list", "timeRangeType": "relative", "earliest": 5769.57, "latest": 5859.59, "timestampTimezone": "UTC", "timeWarning": {}, "expression": "true", "minTaskSize": "1MB", "maxTaskSize": "10MB", "discoverToRoutes": false, "capture": {"duration": 60, "maxEvents": 100, "level": 0}}}, "id": "<id>", "keep": false, "stats": {}, "status": {"reason": {"key": "<value>", "key1": "<value>"}, "state": {"key": "Mississippi", "key1": "Mississippi"}}}]}
         "500":
           application/json: {"message": "<value>"}
   getOutputSamplesById:
@@ -2725,14 +2843,14 @@ examples:
     speakeasy-default-get-version-info:
       responses:
         "200":
-          application/json: {"count": 716855, "items": [{"remote": true, "versioning": false}]}
+          application/json: {"count": 716855, "items": [{"remote": "false", "versioning": false}]}
         "500":
           application/json: {"message": "<value>"}
   createVersionPush:
     speakeasy-default-create-version-push:
       responses:
         "200":
-          application/json: {"count": 108085, "items": [{"key": "<value>"}, {}]}
+          application/json: {"count": 108085, "items": ["{\"key\":\"<value>\"}", "{}"]}
         "500":
           application/json: {"message": "<value>"}
   createVersionRevert:
@@ -2759,7 +2877,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 969040, "items": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}, {}]}
+          application/json: {"count": 969040, "items": [{"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"content": "<value>", "oldNumber": 3887.81}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}, {"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"content": "<value>", "oldNumber": 3887.81}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionStatus:
@@ -2788,7 +2906,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 219852, "items": ["<value 1>", "<value 2>"]}
+          application/json: {"count": 219852, "items": [{}, {"key": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   getSummaryWorkers:
@@ -2830,7 +2948,7 @@ examples:
           mode: "worker"
       responses:
         "200":
-          application/json: {"count": 364904, "items": [{"groups": {"count": 8128.38, "destinations": 4945.73, "pipelines": 6352.87, "routes": 7792.08, "sources": 6593.6}, "workers": {"alive": 2322.36, "confVersions": 8794.87, "count": 2533.57, "disconnectedCount": 4548.69, "groups": 9336.99, "softwareVersions": 2351.1, "unhealthy": 8264.2}}]}
+          application/json: {"count": 364904, "items": [{"groups": {"count": 8128.38, "destinations": 4945.73, "packs": 798.01, "pipelines": 6352.87, "quickConnects": 3649.04, "routes": 7792.08, "sources": 6593.6}, "workers": {"alive": 2322.36, "confVersions": 8794.87, "count": 2533.57, "disconnectedCount": 4548.69, "groups": 9336.99, "softwareVersions": 2351.1, "unhealthy": 8264.2}}]}
         "500":
           application/json: {"message": "<value>"}
   getGroupsConfigVersionById:
@@ -2944,7 +3062,7 @@ examples:
         application/json: {"id": "<id>", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Myah14", "author": "<value>", "description": "premeditation coincide although", "source": "<value>", "tags": {"dataType": [], "domain": [], "technology": ["<value 1>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": false}
       responses:
         "200":
-          application/json: {"count": 182030, "items": [{"author": "<value>", "description": "card fen soon inquisitively anti oddly winged", "displayName": "Leila.Nikolaus29", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 5672.33, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 8346.66, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["decimal"], "domain": ["lawful-flu.net", "royal-litter.org", "submissive-pantyhose.org"], "streamtags": [], "technology": []}, "version": "<value>", "warnings": ["<value>"]}]}
+          application/json: {"count": 182030, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "card fen soon inquisitively anti oddly winged", "displayName": "Leila.Nikolaus29", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 5672.33, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 8346.66, "settings": {"key": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["decimal"], "domain": ["lawful-flu.net", "royal-litter.org", "submissive-pantyhose.org"], "streamtags": [], "technology": []}, "version": "<value>", "warnings": ["<value>"]}]}
         "500":
           application/json: {"message": "<value>"}
   getPacks:
@@ -2954,7 +3072,7 @@ examples:
           with: "<value>"
       responses:
         "200":
-          application/json: {"count": 77148, "items": [{"author": "<value>", "description": "dearly astride that augment interchange", "displayName": "Diego.Heller64", "exports": ["<value 1>"], "id": "<id>", "inputs": 6114.86, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5459.84, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["timestamp", "double", "varchar"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>", "<value 3>"]}, "version": "<value>"}]}
+          application/json: {"count": 77148, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "dearly astride that augment interchange", "displayName": "Diego.Heller64", "exports": ["<value 1>"], "id": "<id>", "inputs": 6114.86, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5459.84, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["timestamp", "double", "varchar"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>", "<value 3>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updatePacks:
@@ -2962,9 +3080,11 @@ examples:
       parameters:
         query:
           filename: "example.file"
+      requestBody:
+        application/octet-stream: "x-file: example.file"
       responses:
         "200":
-          application/json: {"count": 779474, "items": [{}, {"key": "<value>"}]}
+          application/json: {"source": "<value>"}
         "500":
           application/json: {"message": "<value>"}
   deleteCriblLakeDatasetByLakeIdAndId:
@@ -3009,7 +3129,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 248535, "items": [{"author": "<value>", "description": "pace forsaken why mom fooey", "displayName": "Joelle.Murray", "exports": ["<value 1>"], "id": "<id>", "inputs": 1143.81, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 7704.62, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": ["soggy-coliseum.com", "nice-footrest.biz", "well-to-do-massage.org"], "streamtags": ["<value 1>"], "technology": ["<value 1>"]}, "version": "<value>", "warnings": ["<value>"]}]}
+          application/json: {"count": 248535, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "pace forsaken why mom fooey", "displayName": "Joelle.Murray", "exports": ["<value 1>"], "id": "<id>", "inputs": 1143.81, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 7704.62, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": [], "domain": ["soggy-coliseum.com", "nice-footrest.biz", "well-to-do-massage.org"], "streamtags": ["<value 1>"], "technology": ["<value 1>"]}, "version": "<value>", "warnings": ["<value>"]}]}
         "500":
           application/json: {"message": "<value>"}
   updatePacksById:
@@ -3025,7 +3145,7 @@ examples:
         application/json: {"allowCustomFunctions": true, "minor": "<value>", "source": "<value>", "spec": "<value>"}
       responses:
         "200":
-          application/json: {"count": 338042, "items": [{"author": "<value>", "description": "squirm mentor amid reluctantly case valiantly clonk satirise", "displayName": "Osbaldo_Murphy", "exports": ["<value 1>", "<value 2>"], "id": "<id>", "inputs": 4495.78, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 4165.86, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["float"], "domain": ["able-strait.info", "whimsical-marimba.info", "chilly-instance.com"], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}]}
+          application/json: {"count": 338042, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "squirm mentor amid reluctantly case valiantly clonk satirise", "displayName": "Osbaldo_Murphy", "exports": ["<value 1>", "<value 2>"], "id": "<id>", "inputs": 4495.78, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 4165.86, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["float"], "domain": ["able-strait.info", "whimsical-marimba.info", "chilly-instance.com"], "streamtags": ["<value 1>", "<value 2>"], "technology": ["<value 1>"]}, "version": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteGroupsById:
@@ -3062,7 +3182,7 @@ examples:
           filter: "<value>"
       responses:
         "200":
-          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
+          application/json: {"count": 522765, "items": [{"deployable": true, "disconnected": true, "firstMsgTime": 5145.29, "group": "<value>", "id": "<id>", "info": {"architecture": "<value>", "aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "conn_ip": "<value>", "cpus": 587.99, "cribl": {"config": {"featuresRev": "<value>", "hbPeriodSeconds": 7254.06, "logStreamEnv": "<value>", "policyRev": "<value>", "version": "<value>"}, "deploymentId": "<id>", "disableSNIRouting": false, "distMode": "worker", "edgeNodes": 5669.89, "group": "<value>", "guid": "<id>", "installType": "<value>", "lookupVersions": {}, "master": {"host": "clear-cut-armoire.com", "port": 8378.36, "servername": "<value>", "tls": true}, "pid": 5481.66, "socksEnabled": false, "startTime": 2054.83, "tags": ["<value 1>"], "version": "<value>"}, "env": {"key": "<value>"}, "freeDiskSpace": 5289.31, "hostOs": {"addresses": ["<value 1>", "<value 2>", "<value 3>"], "enabled": false, "id": "<id>", "version": "<value>"}, "hostname": "huge-mathematics.org", "isSaasWorker": true, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "localTime": 396.28, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "node": "<value>", "os": {"addresses": ["<value 1>"], "enabled": true, "id": "<id>", "version": "<value>"}, "platform": "<value>", "release": "<value>", "totalDiskSpace": 3554.6, "totalmem": 2822.63}, "lastMetrics": {}, "lastMsgTime": 1368.76, "metadata": {"aws": {"enabled": true, "instanceId": "<id>", "region": "<value>", "tags": {}, "type": "<value>", "zone": "<value>"}, "hostOs": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}, "kube": {"enabled": true, "namespace": "<value>", "node": "<value>", "owner": {"kind": "<value>", "name": "<value>"}, "pod": "<value>", "source": "<value>"}, "os": {"addresses": [], "enabled": true, "id": "<id>", "version": "<value>"}}, "nodeUpgradeStatus": {"active": 0, "failed": 1, "skipped": 3, "state": 2, "timestamp": 962.97}, "status": "<value>", "type": "resp", "workerProcesses": 571.25, "workers": {"count": 4154.46}}]}
         "500":
           application/json: {"message": "<value>"}
   getMasterWorkerEntry:
@@ -3084,7 +3204,7 @@ examples:
           fields: "<value>"
       responses:
         "200":
-          application/json: {"count": 790422, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7819.54, "description": "finally exaggerate coolly grade", "estimatedIngestRate": 5993.3, "git": {"commit": "<value>", "localChanges": 7873.79, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-08", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2891.32, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 2257.24, "workerRemoteAccess": false}]}
+          application/json: {"count": 790422, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7819.54, "description": "finally exaggerate coolly grade", "estimatedIngestRate": 7168, "git": {"commit": "<value>", "localChanges": 7873.79, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-08", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2891.32, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 2257.24, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   createConfigGroupByProduct:
@@ -3093,10 +3213,10 @@ examples:
         path:
           product: "edge"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 346.37, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 393.49, "description": "ack before fondly scent because gee without where exactly", "estimatedIngestRate": 5120, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5613.31, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3050.1, "workerRemoteAccess": false}
       responses:
         "200":
-          application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 7643.22, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
+          application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
   getConfigGroupByProductAndId:
@@ -3109,7 +3229,7 @@ examples:
           fields: "<value>"
       responses:
         "200":
-          application/json: {"count": 847568, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 9897.69, "description": "inure hope kissingly why", "estimatedIngestRate": 3832.46, "git": {"commit": "<value>", "localChanges": 3058.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-02-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 9309.45, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7512.21, "workerRemoteAccess": true}]}
+          application/json: {"count": 847568, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 9897.69, "description": "inure hope kissingly why", "estimatedIngestRate": 13312, "git": {"commit": "<value>", "localChanges": 3058.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-02-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 9309.45, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7512.21, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
   updateConfigGroupByProductAndId:
@@ -3119,10 +3239,10 @@ examples:
           product: "stream"
           id: "<id>"
       requestBody:
-        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7451.49, "description": "verbally feminize harmful prance really", "estimatedIngestRate": 6748.35, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1557.82, "workerRemoteAccess": false}
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 7451.49, "description": "verbally feminize harmful prance really", "estimatedIngestRate": 13312, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1557.82, "workerRemoteAccess": false}
       responses:
         "200":
-          application/json: {"count": 231540, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6457.67, "description": "who lace supposing gosh rout since horn provided bah categorise", "estimatedIngestRate": 3702.49, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 1689.16, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 6988.23, "workerRemoteAccess": false}]}
+          application/json: {"count": 231540, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6457.67, "description": "who lace supposing gosh rout since horn provided bah categorise", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 1689.16, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 6988.23, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   deleteConfigGroupByProductAndId:
@@ -3133,7 +3253,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 581023, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8537.63, "description": "after jealous revitalise noxious whenever intervention over now upwardly sailor", "estimatedIngestRate": 9667.42, "git": {"commit": "<value>", "localChanges": 3514.19, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 409.64, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 298.57, "workerRemoteAccess": false}]}
+          application/json: {"count": 581023, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8537.63, "description": "after jealous revitalise noxious whenever intervention over now upwardly sailor", "estimatedIngestRate": 15360, "git": {"commit": "<value>", "localChanges": 3514.19, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-16", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 409.64, "inherits": "<value>", "isFleet": false, "isSearch": true, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 298.57, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   updateConfigGroupDeployByProductAndId:
@@ -3146,7 +3266,7 @@ examples:
         application/json: {"lookups": [{"context": "<value>", "lookups": []}], "version": "<value>"}
       responses:
         "200":
-          application/json: {"count": 274503, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 3445.97, "description": "while ad tune", "estimatedIngestRate": 6207.5, "git": {"commit": "<value>", "localChanges": 8464.16, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-07-23", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 4511.88, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7143.25, "workerRemoteAccess": false}]}
+          application/json: {"count": 274503, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 3445.97, "description": "while ad tune", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 8464.16, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-07-23", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 4511.88, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 7143.25, "workerRemoteAccess": false}]}
         "500":
           application/json: {"message": "<value>"}
   getConfigGroupConfigVersionByProductAndId:
@@ -3249,7 +3369,55 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 163235, "items": [{"author": "<value>", "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
+          application/json: {"count": 163235, "items": [{"author": "<value>", "dependencies": {"key": "<value>"}, "description": "round at outside round terribly direct trolley into", "displayName": "Everett_Emmerich", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 6850.5, "isDisabled": false, "minLogStreamVersion": "<value>", "outputs": 2014.93, "settings": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["boolean"], "domain": [], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
+  listSearchDashboard:
+    speakeasy-default-list-search-dashboard:
+      responses:
+        "200":
+          application/json: {"count": 968523, "items": [{"autoApplyDebounceMs": 530.7, "autoApplyMode": "metric", "autoApplyUrlSync": "push", "cacheTTLSeconds": 2642.91, "category": "<value>", "created": 819.78, "createdBy": "<value>", "description": "yahoo toward engage confute psst possible fervently parade", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": {"key": {"action": {"label": "<value>", "params": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "target": "<value>"}, "collapsed": false, "inputId": "<id>", "title": "<value>"}}, "id": "<id>", "modified": 613.2, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 1326.69, "resolvedDatasetIds": ["<value 1>", "<value 2>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 6157.58, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>", "<value 3>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": false, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createSearchDashboard:
+    speakeasy-default-create-search-dashboard:
+      requestBody:
+        application/json: {"autoApplyDebounceMs": 9377.15, "autoApplyMode": "metric", "autoApplyUrlSync": "off", "cacheTTLSeconds": 5003.17, "category": "<value>", "created": 3536.4, "createdBy": "<value>", "description": "frankly impanel gah", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"config": {"key": "<value>"}, "description": "lecture readily beside lest like interior plumber hmph upward", "empty": true, "group": "<value>", "hidePanel": false, "horizontalChart": true, "id": "<id>", "index": 112.45, "layout": {"h": 885.33, "w": 2567.8, "x": 5381.27, "y": 6823.76}, "search": {"type": "empty"}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": false, "url": "https://cooperative-vanadyl.net/"}, "type": "chart.funnel", "variant": "visualization"}], "groups": {"key": {"action": {"label": "<value>", "params": {"key": "<value>", "key1": "<value>"}, "target": "<value>"}, "collapsed": true, "inputId": "<id>", "title": "<value>"}}, "id": "<id>", "modified": 8273.36, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 5056.85, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": false, "keepLastN": 3748.46, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}
+      responses:
+        "200":
+          application/json: {"count": 314121, "items": [{"autoApplyDebounceMs": 5942.28, "autoApplyMode": "off", "autoApplyUrlSync": "off", "cacheTTLSeconds": 3026.32, "category": "<value>", "created": 2245.17, "createdBy": "<value>", "description": "babyish huzzah intently swordfish curse terraform when", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": {"key": {"action": {"label": "<value>", "params": {"key": "<value>", "key1": "<value>"}, "target": "<value>"}, "collapsed": true, "inputId": "<id>", "title": "<value>"}}, "id": "<id>", "modified": 9074.69, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 9711.53, "resolvedDatasetIds": ["<value 1>"], "schedule": {"cronSchedule": "<value>", "enabled": false, "keepLastN": 3748.46, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getSearchDashboardById:
+    speakeasy-default-get-search-dashboard-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 617303, "items": [{"autoApplyDebounceMs": 4461.56, "autoApplyMode": "all", "autoApplyUrlSync": "replace", "cacheTTLSeconds": 1108.93, "category": "<value>", "created": 4908.03, "createdBy": "<value>", "description": "remark till softly cod indeed meh impeccable livid zany", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": {"key": {"action": {"label": "<value>", "params": {"key": "<value>", "key1": "<value>"}, "target": "<value>"}, "collapsed": false, "inputId": "<id>", "title": "<value>"}}, "id": "<id>", "modified": 7146.13, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 302.32, "resolvedDatasetIds": ["<value 1>", "<value 2>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 7481.03, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": false, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateSearchDashboardById:
+    speakeasy-default-update-search-dashboard-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"autoApplyDebounceMs": 9322.04, "autoApplyMode": "metric", "autoApplyUrlSync": "push", "cacheTTLSeconds": 639.57, "category": "<value>", "created": 6274.13, "createdBy": "<value>", "description": "of guilty boohoo duh bus", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"config": {"markdown": "<value>"}, "description": "aw fraternise concerning", "empty": true, "group": "<value>", "hidePanel": true, "horizontalChart": false, "id": "<id>", "index": 9412.09, "layout": {"h": 5606.75, "w": 1941.27, "x": 3429.19, "y": 9886.65}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": true, "url": "https://quarrelsome-dandelion.org/"}, "type": "markdown.copilot", "variant": "markdown"}], "groups": {"key": {"action": {"label": "<value>", "params": {"key": "<value>", "key1": "<value>"}, "target": "<value>"}, "collapsed": false, "inputId": "<id>", "title": "<value>"}}, "id": "<id>", "modified": 4253.67, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 2465.82, "resolvedDatasetIds": ["<value 1>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 4099.55, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}
+      responses:
+        "200":
+          application/json: {"count": 713853, "items": [{"autoApplyDebounceMs": 9514.19, "autoApplyMode": "off", "autoApplyUrlSync": "off", "cacheTTLSeconds": 5345.72, "category": "<value>", "created": 8183.01, "createdBy": "<value>", "description": "woot monstrous petty", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [], "groups": {"key": {"action": {"label": "<value>", "params": {"key": "<value>", "key1": "<value>"}, "target": "<value>"}, "collapsed": false, "inputId": "<id>", "title": "<value>"}}, "id": "<id>", "modified": 2623.74, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 6537.92, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": true, "keepLastN": 4099.55, "notifications": {"disabled": false, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>", "<value 2>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": true, "tz": "<value>"}}]}
+        "500":
+          application/json: {"message": "<value>"}
+  deleteSearchDashboardById:
+    speakeasy-default-delete-search-dashboard-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"count": 392159, "items": [{"autoApplyDebounceMs": 1197.7, "autoApplyMode": "metric", "autoApplyUrlSync": "push", "cacheTTLSeconds": 400.07, "category": "<value>", "created": 9014.55, "createdBy": "<value>", "description": "starch faint amidst via safely needily weakly versus before", "displayCreatedBy": "<value>", "displayModifiedBy": "<value>", "elements": [{"config": {"key": "<value>"}, "description": "barring rim inexperienced unless", "empty": true, "group": "<value>", "hidePanel": true, "horizontalChart": true, "id": "<id>", "index": 4493.37, "layout": {"h": 1654.16, "w": 2650.54, "x": 9189.46, "y": 6322.96}, "search": {"earliest": 3740.24, "expectedOutputType": "range", "latest": "<value>", "queries": [{"alias": "<value>", "localId": "<id>", "query": "<value>"}], "timezone": "America/Paramaribo", "type": "metric"}, "title": "<value>", "titleAction": {"label": "<value>", "openInNewTab": false, "url": "https://second-hand-backburn.info"}, "type": "list.table", "variant": "visualization"}], "groups": {"key": {"action": {"label": "<value>", "params": {"key": "<value>", "key1": "<value>"}, "target": "<value>"}, "collapsed": true, "inputId": "<id>", "title": "<value>"}}, "id": "<id>", "modified": 1016.89, "modifiedBy": "<value>", "name": "<value>", "packId": "<id>", "refreshRate": 9814.87, "resolvedDatasetIds": ["<value 1>", "<value 2>", "<value 3>"], "schedule": {"cronSchedule": "<value>", "enabled": false, "keepLastN": 4395.45, "notifications": {"disabled": true, "items": [{"id": "<id>", "disabled": false, "condition": "<value>", "targets": ["<value 1>"], "targetConfigs": [{"conf": {"subject": "<value>", "body": "<value>", "emailRecipient": {"to": "<value>", "cc": "<value>", "bcc": "<value>"}}, "id": "<id>"}], "conf": {}, "metadata": [{"name": "<value>", "value": "<value>"}]}]}, "resumeMissed": true, "resumeOnBoot": false, "tz": "<value>"}}]}
         "500":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2

@@ -12,6 +12,7 @@ import { Nodes } from "./nodes.js";
 import { Packs } from "./packs.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
+import { Search } from "./search.js";
 import { Sources } from "./sources.js";
 import { Versions } from "./versions.js";
 
@@ -19,6 +20,11 @@ export class CriblControlPlane extends ClientSDK {
   private _lakeDatasets?: LakeDatasets;
   get lakeDatasets(): LakeDatasets {
     return (this._lakeDatasets ??= new LakeDatasets(this._options));
+  }
+
+  private _search?: Search;
+  get search(): Search {
+    return (this._search ??= new Search(this._options));
   }
 
   private _sources?: Sources;
