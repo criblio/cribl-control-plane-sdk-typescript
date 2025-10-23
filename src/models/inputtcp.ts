@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputTcpMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputTcpMode = ClosedEnum<typeof InputTcpMode>;
+export type InputTcpMode = OpenEnum<typeof InputTcpMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputTcpCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputTcpCompression = ClosedEnum<typeof InputTcpCompression>;
+export type InputTcpCompression = OpenEnum<typeof InputTcpCompression>;
 
 export type InputTcpPqControls = {};
 
@@ -82,7 +87,7 @@ export const InputTcpMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputTcpMinimumTLSVersion = ClosedEnum<
+export type InputTcpMinimumTLSVersion = OpenEnum<
   typeof InputTcpMinimumTLSVersion
 >;
 
@@ -92,7 +97,7 @@ export const InputTcpMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputTcpMaximumTLSVersion = ClosedEnum<
+export type InputTcpMaximumTLSVersion = OpenEnum<
   typeof InputTcpMaximumTLSVersion
 >;
 
@@ -158,7 +163,7 @@ export const InputTcpAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type InputTcpAuthenticationMethod = ClosedEnum<
+export type InputTcpAuthenticationMethod = OpenEnum<
   typeof InputTcpAuthenticationMethod
 >;
 
@@ -328,12 +333,25 @@ export function inputTcpConnectionFromJSON(
 }
 
 /** @internal */
-export const InputTcpMode$inboundSchema: z.ZodNativeEnum<typeof InputTcpMode> =
-  z.nativeEnum(InputTcpMode);
+export const InputTcpMode$inboundSchema: z.ZodType<
+  InputTcpMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputTcpMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputTcpMode$outboundSchema: z.ZodNativeEnum<typeof InputTcpMode> =
-  InputTcpMode$inboundSchema;
+export const InputTcpMode$outboundSchema: z.ZodType<
+  InputTcpMode,
+  z.ZodTypeDef,
+  InputTcpMode
+> = z.union([
+  z.nativeEnum(InputTcpMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -347,14 +365,25 @@ export namespace InputTcpMode$ {
 }
 
 /** @internal */
-export const InputTcpCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputTcpCompression
-> = z.nativeEnum(InputTcpCompression);
+export const InputTcpCompression$inboundSchema: z.ZodType<
+  InputTcpCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputTcpCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputTcpCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputTcpCompression
-> = InputTcpCompression$inboundSchema;
+export const InputTcpCompression$outboundSchema: z.ZodType<
+  InputTcpCompression,
+  z.ZodTypeDef,
+  InputTcpCompression
+> = z.union([
+  z.nativeEnum(InputTcpCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -487,14 +516,25 @@ export function inputTcpPqFromJSON(
 }
 
 /** @internal */
-export const InputTcpMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputTcpMinimumTLSVersion
-> = z.nativeEnum(InputTcpMinimumTLSVersion);
+export const InputTcpMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputTcpMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputTcpMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputTcpMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputTcpMinimumTLSVersion
-> = InputTcpMinimumTLSVersion$inboundSchema;
+export const InputTcpMinimumTLSVersion$outboundSchema: z.ZodType<
+  InputTcpMinimumTLSVersion,
+  z.ZodTypeDef,
+  InputTcpMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(InputTcpMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -508,14 +548,25 @@ export namespace InputTcpMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputTcpMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputTcpMaximumTLSVersion
-> = z.nativeEnum(InputTcpMaximumTLSVersion);
+export const InputTcpMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputTcpMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputTcpMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputTcpMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputTcpMaximumTLSVersion
-> = InputTcpMaximumTLSVersion$inboundSchema;
+export const InputTcpMaximumTLSVersion$outboundSchema: z.ZodType<
+  InputTcpMaximumTLSVersion,
+  z.ZodTypeDef,
+  InputTcpMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(InputTcpMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -732,14 +783,25 @@ export function inputTcpPreprocessFromJSON(
 }
 
 /** @internal */
-export const InputTcpAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof InputTcpAuthenticationMethod
-> = z.nativeEnum(InputTcpAuthenticationMethod);
+export const InputTcpAuthenticationMethod$inboundSchema: z.ZodType<
+  InputTcpAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputTcpAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputTcpAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof InputTcpAuthenticationMethod
-> = InputTcpAuthenticationMethod$inboundSchema;
+export const InputTcpAuthenticationMethod$outboundSchema: z.ZodType<
+  InputTcpAuthenticationMethod,
+  z.ZodTypeDef,
+  InputTcpAuthenticationMethod
+> = z.union([
+  z.nativeEnum(InputTcpAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputAppscopeMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputAppscopeMode = ClosedEnum<typeof InputAppscopeMode>;
+export type InputAppscopeMode = OpenEnum<typeof InputAppscopeMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputAppscopeCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputAppscopeCompression = ClosedEnum<
+export type InputAppscopeCompression = OpenEnum<
   typeof InputAppscopeCompression
 >;
 
@@ -116,7 +121,7 @@ export const InputAppscopeDataCompressionFormat = {
   None: "none",
   Gzip: "gzip",
 } as const;
-export type InputAppscopeDataCompressionFormat = ClosedEnum<
+export type InputAppscopeDataCompressionFormat = OpenEnum<
   typeof InputAppscopeDataCompressionFormat
 >;
 
@@ -154,7 +159,7 @@ export const InputAppscopeAuthenticationMethod = {
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type InputAppscopeAuthenticationMethod = ClosedEnum<
+export type InputAppscopeAuthenticationMethod = OpenEnum<
   typeof InputAppscopeAuthenticationMethod
 >;
 
@@ -164,7 +169,7 @@ export const InputAppscopeMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputAppscopeMinimumTLSVersion = ClosedEnum<
+export type InputAppscopeMinimumTLSVersion = OpenEnum<
   typeof InputAppscopeMinimumTLSVersion
 >;
 
@@ -174,7 +179,7 @@ export const InputAppscopeMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputAppscopeMaximumTLSVersion = ClosedEnum<
+export type InputAppscopeMaximumTLSVersion = OpenEnum<
   typeof InputAppscopeMaximumTLSVersion
 >;
 
@@ -395,14 +400,25 @@ export function inputAppscopeConnectionFromJSON(
 }
 
 /** @internal */
-export const InputAppscopeMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeMode
-> = z.nativeEnum(InputAppscopeMode);
+export const InputAppscopeMode$inboundSchema: z.ZodType<
+  InputAppscopeMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputAppscopeMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputAppscopeMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeMode
-> = InputAppscopeMode$inboundSchema;
+export const InputAppscopeMode$outboundSchema: z.ZodType<
+  InputAppscopeMode,
+  z.ZodTypeDef,
+  InputAppscopeMode
+> = z.union([
+  z.nativeEnum(InputAppscopeMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -416,14 +432,25 @@ export namespace InputAppscopeMode$ {
 }
 
 /** @internal */
-export const InputAppscopeCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeCompression
-> = z.nativeEnum(InputAppscopeCompression);
+export const InputAppscopeCompression$inboundSchema: z.ZodType<
+  InputAppscopeCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputAppscopeCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputAppscopeCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeCompression
-> = InputAppscopeCompression$inboundSchema;
+export const InputAppscopeCompression$outboundSchema: z.ZodType<
+  InputAppscopeCompression,
+  z.ZodTypeDef,
+  InputAppscopeCompression
+> = z.union([
+  z.nativeEnum(InputAppscopeCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -725,14 +752,25 @@ export function inputAppscopeFilterFromJSON(
 }
 
 /** @internal */
-export const InputAppscopeDataCompressionFormat$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeDataCompressionFormat
-> = z.nativeEnum(InputAppscopeDataCompressionFormat);
+export const InputAppscopeDataCompressionFormat$inboundSchema: z.ZodType<
+  InputAppscopeDataCompressionFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputAppscopeDataCompressionFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputAppscopeDataCompressionFormat$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeDataCompressionFormat
-> = InputAppscopeDataCompressionFormat$inboundSchema;
+export const InputAppscopeDataCompressionFormat$outboundSchema: z.ZodType<
+  InputAppscopeDataCompressionFormat,
+  z.ZodTypeDef,
+  InputAppscopeDataCompressionFormat
+> = z.union([
+  z.nativeEnum(InputAppscopeDataCompressionFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -816,14 +854,25 @@ export function inputAppscopePersistenceFromJSON(
 }
 
 /** @internal */
-export const InputAppscopeAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeAuthenticationMethod
-> = z.nativeEnum(InputAppscopeAuthenticationMethod);
+export const InputAppscopeAuthenticationMethod$inboundSchema: z.ZodType<
+  InputAppscopeAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputAppscopeAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputAppscopeAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeAuthenticationMethod
-> = InputAppscopeAuthenticationMethod$inboundSchema;
+export const InputAppscopeAuthenticationMethod$outboundSchema: z.ZodType<
+  InputAppscopeAuthenticationMethod,
+  z.ZodTypeDef,
+  InputAppscopeAuthenticationMethod
+> = z.union([
+  z.nativeEnum(InputAppscopeAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -838,14 +887,25 @@ export namespace InputAppscopeAuthenticationMethod$ {
 }
 
 /** @internal */
-export const InputAppscopeMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeMinimumTLSVersion
-> = z.nativeEnum(InputAppscopeMinimumTLSVersion);
+export const InputAppscopeMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputAppscopeMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputAppscopeMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputAppscopeMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeMinimumTLSVersion
-> = InputAppscopeMinimumTLSVersion$inboundSchema;
+export const InputAppscopeMinimumTLSVersion$outboundSchema: z.ZodType<
+  InputAppscopeMinimumTLSVersion,
+  z.ZodTypeDef,
+  InputAppscopeMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(InputAppscopeMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -859,14 +919,25 @@ export namespace InputAppscopeMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputAppscopeMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeMaximumTLSVersion
-> = z.nativeEnum(InputAppscopeMaximumTLSVersion);
+export const InputAppscopeMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputAppscopeMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputAppscopeMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputAppscopeMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeMaximumTLSVersion
-> = InputAppscopeMaximumTLSVersion$inboundSchema;
+export const InputAppscopeMaximumTLSVersion$outboundSchema: z.ZodType<
+  InputAppscopeMaximumTLSVersion,
+  z.ZodTypeDef,
+  InputAppscopeMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(InputAppscopeMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

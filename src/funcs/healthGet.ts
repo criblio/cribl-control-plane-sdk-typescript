@@ -18,7 +18,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -30,7 +30,7 @@ export function healthGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.HealthStatus,
+    operations.GetHealthInfoResponse,
     | errors.HealthStatusError
     | CriblControlPlaneError
     | ResponseValidationError
@@ -54,7 +54,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.HealthStatus,
+      operations.GetHealthInfoResponse,
       | errors.HealthStatusError
       | CriblControlPlaneError
       | ResponseValidationError
@@ -118,7 +118,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.HealthStatus,
+    operations.GetHealthInfoResponse,
     | errors.HealthStatusError
     | CriblControlPlaneError
     | ResponseValidationError
@@ -129,10 +129,11 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.HealthStatus$inboundSchema),
+    M.json(200, operations.GetHealthInfoResponse$inboundSchema),
     M.jsonErr(420, errors.HealthStatusError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
+    M.json("default", operations.GetHealthInfoResponse$inboundSchema),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];

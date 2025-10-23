@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputSplunkMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSplunkMode = ClosedEnum<typeof InputSplunkMode>;
+export type InputSplunkMode = OpenEnum<typeof InputSplunkMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputSplunkPqCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSplunkPqCompression = ClosedEnum<
+export type InputSplunkPqCompression = OpenEnum<
   typeof InputSplunkPqCompression
 >;
 
@@ -84,7 +89,7 @@ export const InputSplunkMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputSplunkMinimumTLSVersion = ClosedEnum<
+export type InputSplunkMinimumTLSVersion = OpenEnum<
   typeof InputSplunkMinimumTLSVersion
 >;
 
@@ -94,7 +99,7 @@ export const InputSplunkMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputSplunkMaximumTLSVersion = ClosedEnum<
+export type InputSplunkMaximumTLSVersion = OpenEnum<
   typeof InputSplunkMaximumTLSVersion
 >;
 
@@ -156,7 +161,7 @@ export const InputSplunkMaxS2SVersion = {
 /**
  * The highest S2S protocol version to advertise during handshake
  */
-export type InputSplunkMaxS2SVersion = ClosedEnum<
+export type InputSplunkMaxS2SVersion = OpenEnum<
   typeof InputSplunkMaxS2SVersion
 >;
 
@@ -171,7 +176,7 @@ export const InputSplunkCompression = {
 /**
  * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
  */
-export type InputSplunkCompression = ClosedEnum<typeof InputSplunkCompression>;
+export type InputSplunkCompression = OpenEnum<typeof InputSplunkCompression>;
 
 export type InputSplunk = {
   /**
@@ -356,14 +361,25 @@ export function inputSplunkConnectionFromJSON(
 }
 
 /** @internal */
-export const InputSplunkMode$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkMode
-> = z.nativeEnum(InputSplunkMode);
+export const InputSplunkMode$inboundSchema: z.ZodType<
+  InputSplunkMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSplunkMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSplunkMode$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkMode
-> = InputSplunkMode$inboundSchema;
+export const InputSplunkMode$outboundSchema: z.ZodType<
+  InputSplunkMode,
+  z.ZodTypeDef,
+  InputSplunkMode
+> = z.union([
+  z.nativeEnum(InputSplunkMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -377,14 +393,25 @@ export namespace InputSplunkMode$ {
 }
 
 /** @internal */
-export const InputSplunkPqCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkPqCompression
-> = z.nativeEnum(InputSplunkPqCompression);
+export const InputSplunkPqCompression$inboundSchema: z.ZodType<
+  InputSplunkPqCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSplunkPqCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSplunkPqCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkPqCompression
-> = InputSplunkPqCompression$inboundSchema;
+export const InputSplunkPqCompression$outboundSchema: z.ZodType<
+  InputSplunkPqCompression,
+  z.ZodTypeDef,
+  InputSplunkPqCompression
+> = z.union([
+  z.nativeEnum(InputSplunkPqCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -517,14 +544,25 @@ export function inputSplunkPqFromJSON(
 }
 
 /** @internal */
-export const InputSplunkMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkMinimumTLSVersion
-> = z.nativeEnum(InputSplunkMinimumTLSVersion);
+export const InputSplunkMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputSplunkMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSplunkMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSplunkMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkMinimumTLSVersion
-> = InputSplunkMinimumTLSVersion$inboundSchema;
+export const InputSplunkMinimumTLSVersion$outboundSchema: z.ZodType<
+  InputSplunkMinimumTLSVersion,
+  z.ZodTypeDef,
+  InputSplunkMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(InputSplunkMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -538,14 +576,25 @@ export namespace InputSplunkMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const InputSplunkMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkMaximumTLSVersion
-> = z.nativeEnum(InputSplunkMaximumTLSVersion);
+export const InputSplunkMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputSplunkMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSplunkMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSplunkMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkMaximumTLSVersion
-> = InputSplunkMaximumTLSVersion$inboundSchema;
+export const InputSplunkMaximumTLSVersion$outboundSchema: z.ZodType<
+  InputSplunkMaximumTLSVersion,
+  z.ZodTypeDef,
+  InputSplunkMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(InputSplunkMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -759,14 +808,25 @@ export function inputSplunkAuthTokenFromJSON(
 }
 
 /** @internal */
-export const InputSplunkMaxS2SVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkMaxS2SVersion
-> = z.nativeEnum(InputSplunkMaxS2SVersion);
+export const InputSplunkMaxS2SVersion$inboundSchema: z.ZodType<
+  InputSplunkMaxS2SVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSplunkMaxS2SVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSplunkMaxS2SVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkMaxS2SVersion
-> = InputSplunkMaxS2SVersion$inboundSchema;
+export const InputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
+  InputSplunkMaxS2SVersion,
+  z.ZodTypeDef,
+  InputSplunkMaxS2SVersion
+> = z.union([
+  z.nativeEnum(InputSplunkMaxS2SVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -780,14 +840,25 @@ export namespace InputSplunkMaxS2SVersion$ {
 }
 
 /** @internal */
-export const InputSplunkCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkCompression
-> = z.nativeEnum(InputSplunkCompression);
+export const InputSplunkCompression$inboundSchema: z.ZodType<
+  InputSplunkCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSplunkCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSplunkCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkCompression
-> = InputSplunkCompression$inboundSchema;
+export const InputSplunkCompression$outboundSchema: z.ZodType<
+  InputSplunkCompression,
+  z.ZodTypeDef,
+  InputSplunkCompression
+> = z.union([
+  z.nativeEnum(InputSplunkCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

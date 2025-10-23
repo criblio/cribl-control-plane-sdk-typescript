@@ -450,7 +450,7 @@ async function run() {
   const result = await criblControlPlane.lakeDatasets.update({
     lakeId: "<id>",
     id: "<id>",
-    criblLakeDataset: {
+    criblLakeDatasetUpdate: {
       acceleratedFields: [
         "<value 1>",
         "<value 2>",
@@ -527,7 +527,7 @@ async function run() {
   const res = await lakeDatasetsUpdate(criblControlPlane, {
     lakeId: "<id>",
     id: "<id>",
-    criblLakeDataset: {
+    criblLakeDatasetUpdate: {
       acceleratedFields: [
         "<value 1>",
         "<value 2>",

@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,7 +33,7 @@ export const InputSqsMode = {
 /**
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
-export type InputSqsMode = ClosedEnum<typeof InputSqsMode>;
+export type InputSqsMode = OpenEnum<typeof InputSqsMode>;
 
 /**
  * Codec to use to compress the persisted data
@@ -40,7 +45,7 @@ export const InputSqsCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type InputSqsCompression = ClosedEnum<typeof InputSqsCompression>;
+export type InputSqsCompression = OpenEnum<typeof InputSqsCompression>;
 
 export type InputSqsPqControls = {};
 
@@ -86,7 +91,7 @@ export const InputSqsQueueType = {
 /**
  * The queue type used (or created)
  */
-export type InputSqsQueueType = ClosedEnum<typeof InputSqsQueueType>;
+export type InputSqsQueueType = OpenEnum<typeof InputSqsQueueType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -99,7 +104,7 @@ export const InputSqsAuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type InputSqsAuthenticationMethod = ClosedEnum<
+export type InputSqsAuthenticationMethod = OpenEnum<
   typeof InputSqsAuthenticationMethod
 >;
 
@@ -113,7 +118,7 @@ export const InputSqsSignatureVersion = {
 /**
  * Signature version to use for signing SQS requests
  */
-export type InputSqsSignatureVersion = ClosedEnum<
+export type InputSqsSignatureVersion = OpenEnum<
   typeof InputSqsSignatureVersion
 >;
 
@@ -164,7 +169,7 @@ export type InputSqs = {
   /**
    * The queue type used (or created)
    */
-  queueType?: InputSqsQueueType | undefined;
+  queueType: InputSqsQueueType;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -319,12 +324,25 @@ export function inputSqsConnectionFromJSON(
 }
 
 /** @internal */
-export const InputSqsMode$inboundSchema: z.ZodNativeEnum<typeof InputSqsMode> =
-  z.nativeEnum(InputSqsMode);
+export const InputSqsMode$inboundSchema: z.ZodType<
+  InputSqsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSqsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSqsMode$outboundSchema: z.ZodNativeEnum<typeof InputSqsMode> =
-  InputSqsMode$inboundSchema;
+export const InputSqsMode$outboundSchema: z.ZodType<
+  InputSqsMode,
+  z.ZodTypeDef,
+  InputSqsMode
+> = z.union([
+  z.nativeEnum(InputSqsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -338,14 +356,25 @@ export namespace InputSqsMode$ {
 }
 
 /** @internal */
-export const InputSqsCompression$inboundSchema: z.ZodNativeEnum<
-  typeof InputSqsCompression
-> = z.nativeEnum(InputSqsCompression);
+export const InputSqsCompression$inboundSchema: z.ZodType<
+  InputSqsCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSqsCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSqsCompression$outboundSchema: z.ZodNativeEnum<
-  typeof InputSqsCompression
-> = InputSqsCompression$inboundSchema;
+export const InputSqsCompression$outboundSchema: z.ZodType<
+  InputSqsCompression,
+  z.ZodTypeDef,
+  InputSqsCompression
+> = z.union([
+  z.nativeEnum(InputSqsCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -478,14 +507,25 @@ export function inputSqsPqFromJSON(
 }
 
 /** @internal */
-export const InputSqsQueueType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSqsQueueType
-> = z.nativeEnum(InputSqsQueueType);
+export const InputSqsQueueType$inboundSchema: z.ZodType<
+  InputSqsQueueType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSqsQueueType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSqsQueueType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSqsQueueType
-> = InputSqsQueueType$inboundSchema;
+export const InputSqsQueueType$outboundSchema: z.ZodType<
+  InputSqsQueueType,
+  z.ZodTypeDef,
+  InputSqsQueueType
+> = z.union([
+  z.nativeEnum(InputSqsQueueType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -499,14 +539,25 @@ export namespace InputSqsQueueType$ {
 }
 
 /** @internal */
-export const InputSqsAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof InputSqsAuthenticationMethod
-> = z.nativeEnum(InputSqsAuthenticationMethod);
+export const InputSqsAuthenticationMethod$inboundSchema: z.ZodType<
+  InputSqsAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSqsAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSqsAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof InputSqsAuthenticationMethod
-> = InputSqsAuthenticationMethod$inboundSchema;
+export const InputSqsAuthenticationMethod$outboundSchema: z.ZodType<
+  InputSqsAuthenticationMethod,
+  z.ZodTypeDef,
+  InputSqsAuthenticationMethod
+> = z.union([
+  z.nativeEnum(InputSqsAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -520,14 +571,25 @@ export namespace InputSqsAuthenticationMethod$ {
 }
 
 /** @internal */
-export const InputSqsSignatureVersion$inboundSchema: z.ZodNativeEnum<
-  typeof InputSqsSignatureVersion
-> = z.nativeEnum(InputSqsSignatureVersion);
+export const InputSqsSignatureVersion$inboundSchema: z.ZodType<
+  InputSqsSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSqsSignatureVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const InputSqsSignatureVersion$outboundSchema: z.ZodNativeEnum<
-  typeof InputSqsSignatureVersion
-> = InputSqsSignatureVersion$inboundSchema;
+export const InputSqsSignatureVersion$outboundSchema: z.ZodType<
+  InputSqsSignatureVersion,
+  z.ZodTypeDef,
+  InputSqsSignatureVersion
+> = z.union([
+  z.nativeEnum(InputSqsSignatureVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -615,7 +677,7 @@ export const InputSqs$inboundSchema: z.ZodType<
     .optional(),
   pq: z.lazy(() => InputSqsPq$inboundSchema).optional(),
   queueName: z.string(),
-  queueType: InputSqsQueueType$inboundSchema.default("standard"),
+  queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
   awsAuthenticationMethod: InputSqsAuthenticationMethod$inboundSchema.default(
@@ -696,7 +758,7 @@ export const InputSqs$outboundSchema: z.ZodType<
     .optional(),
   pq: z.lazy(() => InputSqsPq$outboundSchema).optional(),
   queueName: z.string(),
-  queueType: InputSqsQueueType$outboundSchema.default("standard"),
+  queueType: InputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
   awsAuthenticationMethod: InputSqsAuthenticationMethod$outboundSchema.default(
