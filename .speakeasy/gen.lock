@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: b0f99a1dfc700a2b32b34eeeeef487c4
-  docVersion: 4.15.0-alpha.1761042093526-c9108b5e
+  docChecksum: 35503ffb91958739470a3a4a304c8300
+  docVersion: 4.15.0-alpha.1761174335818-8b3b1a8b
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.2.0-beta.7
-  configChecksum: 59ef521db9e1538b39afcea3c1833f82
+  releaseVersion: 0.2.0-beta.8
+  configChecksum: d06afc079358cecde9b8acdd5721567b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -110,7 +110,7 @@ generatedFiles:
   - docs/models/errors/errort.md
   - docs/models/errors/healthstatuserror.md
   - docs/models/errort.md
-  - docs/models/estimatedingest.md
+  - docs/models/estimatedingestrate.md
   - docs/models/eventformat.md
   - docs/models/executor.md
   - docs/models/executorspecificsettings.md

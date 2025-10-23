@@ -15,7 +15,7 @@ let value: CreateConfigGroupByProductRequest = {
     configVersion: "<value>",
     deployingWorkerCount: 1686.56,
     description: "reorient honestly bewail yummy athwart",
-    estimatedIngest: 5120,
+    estimatedIngestRate: 5120,
     git: {
       commit: "<value>",
       localChanges: 470.66,

@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import {
   catchUnrecognizedEnum,
@@ -34,7 +33,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
  */
-export const EstimatedIngest = {
+export const EstimatedIngestRate = {
   /**
    * 12 MB/sec
    */
@@ -75,7 +74,7 @@ export const EstimatedIngest = {
 /**
  * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
  */
-export type EstimatedIngest = OpenEnum<typeof EstimatedIngest>;
+export type EstimatedIngestRate = OpenEnum<typeof EstimatedIngestRate>;
 
 export type Git = {
   commit?: string | undefined;
@@ -96,7 +95,7 @@ export type ConfigGroup = {
   /**
    * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
    */
-  estimatedIngest?: EstimatedIngest | undefined;
+  estimatedIngestRate?: EstimatedIngestRate | undefined;
   git?: Git | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
@@ -117,23 +116,23 @@ export type ConfigGroup = {
 };
 
 /** @internal */
-export const EstimatedIngest$inboundSchema: z.ZodType<
-  EstimatedIngest,
+export const EstimatedIngestRate$inboundSchema: z.ZodType<
+  EstimatedIngestRate,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(EstimatedIngest),
+    z.nativeEnum(EstimatedIngestRate),
     z.number().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const EstimatedIngest$outboundSchema: z.ZodType<
-  EstimatedIngest,
+export const EstimatedIngestRate$outboundSchema: z.ZodType<
+  EstimatedIngestRate,
   z.ZodTypeDef,
-  EstimatedIngest
+  EstimatedIngestRate
 > = z.union([
-  z.nativeEnum(EstimatedIngest),
+  z.nativeEnum(EstimatedIngestRate),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
 
@@ -141,11 +140,11 @@ export const EstimatedIngest$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace EstimatedIngest$ {
-  /** @deprecated use `EstimatedIngest$inboundSchema` instead. */
-  export const inboundSchema = EstimatedIngest$inboundSchema;
-  /** @deprecated use `EstimatedIngest$outboundSchema` instead. */
-  export const outboundSchema = EstimatedIngest$outboundSchema;
+export namespace EstimatedIngestRate$ {
+  /** @deprecated use `EstimatedIngestRate$inboundSchema` instead. */
+  export const inboundSchema = EstimatedIngestRate$inboundSchema;
+  /** @deprecated use `EstimatedIngestRate$outboundSchema` instead. */
+  export const outboundSchema = EstimatedIngestRate$outboundSchema;
 }
 
 /** @internal */
@@ -240,7 +239,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: EstimatedIngest$inboundSchema.optional(),
+  estimatedIngestRate: EstimatedIngestRate$inboundSchema.optional(),
   git: z.lazy(() => Git$inboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
@@ -258,10 +257,6 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "estimatedIngestRate": "estimatedIngest",
-  });
 });
 
 /** @internal */
@@ -300,7 +295,7 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngest: EstimatedIngest$outboundSchema.optional(),
+  estimatedIngestRate: EstimatedIngestRate$outboundSchema.optional(),
   git: z.lazy(() => Git$outboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
@@ -318,10 +313,6 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    estimatedIngest: "estimatedIngestRate",
-  });
 });
 
 /**

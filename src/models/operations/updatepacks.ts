@@ -13,9 +13,6 @@ export type UpdatePacksRequest = {
    * Filename of the Pack file to upload.
    */
   filename: string;
-  /**
-   * Binary file content
-   */
   requestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
