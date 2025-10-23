@@ -4,7 +4,7 @@
 
 import { healthGet } from "../funcs/healthGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Health extends ClientSDK {
@@ -13,7 +13,7 @@ export class Health extends ClientSDK {
    */
   async get(
     options?: RequestOptions,
-  ): Promise<models.HealthStatus> {
+  ): Promise<operations.GetHealthInfoResponse> {
     return unwrapAsync(healthGet(
       this,
       options,

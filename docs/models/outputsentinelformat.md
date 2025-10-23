@@ -10,6 +10,8 @@ let value: OutputSentinelFormat = "ndjson";
 
 ## Values
 
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
 ```typescript
-"ndjson" | "json_array" | "custom" | "advanced"
+"ndjson" | "json_array" | "custom" | "advanced" | Unrecognized<string>
 ```

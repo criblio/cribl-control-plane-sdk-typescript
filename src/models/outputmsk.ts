@@ -4,7 +4,12 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  catchUnrecognizedEnum,
+  ClosedEnum,
+  OpenEnum,
+  Unrecognized,
+} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -24,7 +29,7 @@ export const OutputMskAcknowledgments = {
 /**
  * Control the number of required acknowledgments.
  */
-export type OutputMskAcknowledgments = ClosedEnum<
+export type OutputMskAcknowledgments = OpenEnum<
   typeof OutputMskAcknowledgments
 >;
 
@@ -39,7 +44,7 @@ export const OutputMskRecordDataFormat = {
 /**
  * Format to use to serialize events before writing to Kafka.
  */
-export type OutputMskRecordDataFormat = ClosedEnum<
+export type OutputMskRecordDataFormat = OpenEnum<
   typeof OutputMskRecordDataFormat
 >;
 
@@ -55,7 +60,7 @@ export const OutputMskCompression = {
 /**
  * Codec to use to compress the data before sending to Kafka
  */
-export type OutputMskCompression = ClosedEnum<typeof OutputMskCompression>;
+export type OutputMskCompression = OpenEnum<typeof OutputMskCompression>;
 
 /**
  * The schema format used to encode and decode event data
@@ -67,7 +72,7 @@ export const OutputMskSchemaType = {
 /**
  * The schema format used to encode and decode event data
  */
-export type OutputMskSchemaType = ClosedEnum<typeof OutputMskSchemaType>;
+export type OutputMskSchemaType = OpenEnum<typeof OutputMskSchemaType>;
 
 /**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -86,7 +91,7 @@ export const OutputMskKafkaSchemaRegistryMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputMskKafkaSchemaRegistryMinimumTLSVersion = ClosedEnum<
+export type OutputMskKafkaSchemaRegistryMinimumTLSVersion = OpenEnum<
   typeof OutputMskKafkaSchemaRegistryMinimumTLSVersion
 >;
 
@@ -96,7 +101,7 @@ export const OutputMskKafkaSchemaRegistryMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputMskKafkaSchemaRegistryMaximumTLSVersion = ClosedEnum<
+export type OutputMskKafkaSchemaRegistryMaximumTLSVersion = OpenEnum<
   typeof OutputMskKafkaSchemaRegistryMaximumTLSVersion
 >;
 
@@ -185,7 +190,7 @@ export const OutputMskAuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type OutputMskAuthenticationMethod = ClosedEnum<
+export type OutputMskAuthenticationMethod = OpenEnum<
   typeof OutputMskAuthenticationMethod
 >;
 
@@ -199,7 +204,7 @@ export const OutputMskSignatureVersion = {
 /**
  * Signature version to use for signing MSK cluster requests
  */
-export type OutputMskSignatureVersion = ClosedEnum<
+export type OutputMskSignatureVersion = OpenEnum<
   typeof OutputMskSignatureVersion
 >;
 
@@ -209,7 +214,7 @@ export const OutputMskMinimumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputMskMinimumTLSVersion = ClosedEnum<
+export type OutputMskMinimumTLSVersion = OpenEnum<
   typeof OutputMskMinimumTLSVersion
 >;
 
@@ -219,7 +224,7 @@ export const OutputMskMaximumTLSVersion = {
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type OutputMskMaximumTLSVersion = ClosedEnum<
+export type OutputMskMaximumTLSVersion = OpenEnum<
   typeof OutputMskMaximumTLSVersion
 >;
 
@@ -271,7 +276,7 @@ export const OutputMskBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputMskBackpressureBehavior = ClosedEnum<
+export type OutputMskBackpressureBehavior = OpenEnum<
   typeof OutputMskBackpressureBehavior
 >;
 
@@ -285,7 +290,7 @@ export const OutputMskPqCompressCompression = {
 /**
  * Codec to use to compress the persisted data
  */
-export type OutputMskPqCompressCompression = ClosedEnum<
+export type OutputMskPqCompressCompression = OpenEnum<
   typeof OutputMskPqCompressCompression
 >;
 
@@ -299,7 +304,7 @@ export const OutputMskQueueFullBehavior = {
 /**
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
-export type OutputMskQueueFullBehavior = ClosedEnum<
+export type OutputMskQueueFullBehavior = OpenEnum<
   typeof OutputMskQueueFullBehavior
 >;
 
@@ -314,7 +319,7 @@ export const OutputMskMode = {
 /**
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
-export type OutputMskMode = ClosedEnum<typeof OutputMskMode>;
+export type OutputMskMode = OpenEnum<typeof OutputMskMode>;
 
 export type OutputMskPqControls = {};
 
@@ -510,14 +515,25 @@ export namespace OutputMskType$ {
 }
 
 /** @internal */
-export const OutputMskAcknowledgments$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskAcknowledgments
-> = z.nativeEnum(OutputMskAcknowledgments);
+export const OutputMskAcknowledgments$inboundSchema: z.ZodType<
+  OutputMskAcknowledgments,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskAcknowledgments),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskAcknowledgments$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskAcknowledgments
-> = OutputMskAcknowledgments$inboundSchema;
+export const OutputMskAcknowledgments$outboundSchema: z.ZodType<
+  OutputMskAcknowledgments,
+  z.ZodTypeDef,
+  OutputMskAcknowledgments
+> = z.union([
+  z.nativeEnum(OutputMskAcknowledgments),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
 
 /**
  * @internal
@@ -531,14 +547,25 @@ export namespace OutputMskAcknowledgments$ {
 }
 
 /** @internal */
-export const OutputMskRecordDataFormat$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskRecordDataFormat
-> = z.nativeEnum(OutputMskRecordDataFormat);
+export const OutputMskRecordDataFormat$inboundSchema: z.ZodType<
+  OutputMskRecordDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskRecordDataFormat),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskRecordDataFormat$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskRecordDataFormat
-> = OutputMskRecordDataFormat$inboundSchema;
+export const OutputMskRecordDataFormat$outboundSchema: z.ZodType<
+  OutputMskRecordDataFormat,
+  z.ZodTypeDef,
+  OutputMskRecordDataFormat
+> = z.union([
+  z.nativeEnum(OutputMskRecordDataFormat),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -552,14 +579,25 @@ export namespace OutputMskRecordDataFormat$ {
 }
 
 /** @internal */
-export const OutputMskCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskCompression
-> = z.nativeEnum(OutputMskCompression);
+export const OutputMskCompression$inboundSchema: z.ZodType<
+  OutputMskCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskCompression
-> = OutputMskCompression$inboundSchema;
+export const OutputMskCompression$outboundSchema: z.ZodType<
+  OutputMskCompression,
+  z.ZodTypeDef,
+  OutputMskCompression
+> = z.union([
+  z.nativeEnum(OutputMskCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -573,14 +611,25 @@ export namespace OutputMskCompression$ {
 }
 
 /** @internal */
-export const OutputMskSchemaType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskSchemaType
-> = z.nativeEnum(OutputMskSchemaType);
+export const OutputMskSchemaType$inboundSchema: z.ZodType<
+  OutputMskSchemaType,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskSchemaType),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskSchemaType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskSchemaType
-> = OutputMskSchemaType$inboundSchema;
+export const OutputMskSchemaType$outboundSchema: z.ZodType<
+  OutputMskSchemaType,
+  z.ZodTypeDef,
+  OutputMskSchemaType
+> = z.union([
+  z.nativeEnum(OutputMskSchemaType),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -648,13 +697,26 @@ export function outputMskAuthFromJSON(
 
 /** @internal */
 export const OutputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
-  z.ZodNativeEnum<typeof OutputMskKafkaSchemaRegistryMinimumTLSVersion> = z
-    .nativeEnum(OutputMskKafkaSchemaRegistryMinimumTLSVersion);
+  z.ZodType<
+    OutputMskKafkaSchemaRegistryMinimumTLSVersion,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputMskKafkaSchemaRegistryMinimumTLSVersion),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
-  z.ZodNativeEnum<typeof OutputMskKafkaSchemaRegistryMinimumTLSVersion> =
-    OutputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema;
+  z.ZodType<
+    OutputMskKafkaSchemaRegistryMinimumTLSVersion,
+    z.ZodTypeDef,
+    OutputMskKafkaSchemaRegistryMinimumTLSVersion
+  > = z.union([
+    z.nativeEnum(OutputMskKafkaSchemaRegistryMinimumTLSVersion),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -671,13 +733,26 @@ export namespace OutputMskKafkaSchemaRegistryMinimumTLSVersion$ {
 
 /** @internal */
 export const OutputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
-  z.ZodNativeEnum<typeof OutputMskKafkaSchemaRegistryMaximumTLSVersion> = z
-    .nativeEnum(OutputMskKafkaSchemaRegistryMaximumTLSVersion);
+  z.ZodType<
+    OutputMskKafkaSchemaRegistryMaximumTLSVersion,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputMskKafkaSchemaRegistryMaximumTLSVersion),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
 
 /** @internal */
 export const OutputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
-  z.ZodNativeEnum<typeof OutputMskKafkaSchemaRegistryMaximumTLSVersion> =
-    OutputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema;
+  z.ZodType<
+    OutputMskKafkaSchemaRegistryMaximumTLSVersion,
+    z.ZodTypeDef,
+    OutputMskKafkaSchemaRegistryMaximumTLSVersion
+  > = z.union([
+    z.nativeEnum(OutputMskKafkaSchemaRegistryMaximumTLSVersion),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /**
  * @internal
@@ -887,14 +962,25 @@ export function outputMskKafkaSchemaRegistryAuthenticationFromJSON(
 }
 
 /** @internal */
-export const OutputMskAuthenticationMethod$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskAuthenticationMethod
-> = z.nativeEnum(OutputMskAuthenticationMethod);
+export const OutputMskAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputMskAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskAuthenticationMethod$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskAuthenticationMethod
-> = OutputMskAuthenticationMethod$inboundSchema;
+export const OutputMskAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputMskAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputMskAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputMskAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -908,14 +994,25 @@ export namespace OutputMskAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputMskSignatureVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskSignatureVersion
-> = z.nativeEnum(OutputMskSignatureVersion);
+export const OutputMskSignatureVersion$inboundSchema: z.ZodType<
+  OutputMskSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskSignatureVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskSignatureVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskSignatureVersion
-> = OutputMskSignatureVersion$inboundSchema;
+export const OutputMskSignatureVersion$outboundSchema: z.ZodType<
+  OutputMskSignatureVersion,
+  z.ZodTypeDef,
+  OutputMskSignatureVersion
+> = z.union([
+  z.nativeEnum(OutputMskSignatureVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -929,14 +1026,25 @@ export namespace OutputMskSignatureVersion$ {
 }
 
 /** @internal */
-export const OutputMskMinimumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskMinimumTLSVersion
-> = z.nativeEnum(OutputMskMinimumTLSVersion);
+export const OutputMskMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputMskMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskMinimumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskMinimumTLSVersion
-> = OutputMskMinimumTLSVersion$inboundSchema;
+export const OutputMskMinimumTLSVersion$outboundSchema: z.ZodType<
+  OutputMskMinimumTLSVersion,
+  z.ZodTypeDef,
+  OutputMskMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputMskMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -950,14 +1058,25 @@ export namespace OutputMskMinimumTLSVersion$ {
 }
 
 /** @internal */
-export const OutputMskMaximumTLSVersion$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskMaximumTLSVersion
-> = z.nativeEnum(OutputMskMaximumTLSVersion);
+export const OutputMskMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputMskMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskMaximumTLSVersion$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskMaximumTLSVersion
-> = OutputMskMaximumTLSVersion$inboundSchema;
+export const OutputMskMaximumTLSVersion$outboundSchema: z.ZodType<
+  OutputMskMaximumTLSVersion,
+  z.ZodTypeDef,
+  OutputMskMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputMskMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1054,14 +1173,25 @@ export function outputMskTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputMskBackpressureBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskBackpressureBehavior
-> = z.nativeEnum(OutputMskBackpressureBehavior);
+export const OutputMskBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputMskBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskBackpressureBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskBackpressureBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskBackpressureBehavior
-> = OutputMskBackpressureBehavior$inboundSchema;
+export const OutputMskBackpressureBehavior$outboundSchema: z.ZodType<
+  OutputMskBackpressureBehavior,
+  z.ZodTypeDef,
+  OutputMskBackpressureBehavior
+> = z.union([
+  z.nativeEnum(OutputMskBackpressureBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1075,14 +1205,25 @@ export namespace OutputMskBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputMskPqCompressCompression$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskPqCompressCompression
-> = z.nativeEnum(OutputMskPqCompressCompression);
+export const OutputMskPqCompressCompression$inboundSchema: z.ZodType<
+  OutputMskPqCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskPqCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskPqCompressCompression$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskPqCompressCompression
-> = OutputMskPqCompressCompression$inboundSchema;
+export const OutputMskPqCompressCompression$outboundSchema: z.ZodType<
+  OutputMskPqCompressCompression,
+  z.ZodTypeDef,
+  OutputMskPqCompressCompression
+> = z.union([
+  z.nativeEnum(OutputMskPqCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1096,14 +1237,25 @@ export namespace OutputMskPqCompressCompression$ {
 }
 
 /** @internal */
-export const OutputMskQueueFullBehavior$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskQueueFullBehavior
-> = z.nativeEnum(OutputMskQueueFullBehavior);
+export const OutputMskQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputMskQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskQueueFullBehavior$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskQueueFullBehavior
-> = OutputMskQueueFullBehavior$inboundSchema;
+export const OutputMskQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputMskQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputMskQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputMskQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal
@@ -1117,14 +1269,25 @@ export namespace OutputMskQueueFullBehavior$ {
 }
 
 /** @internal */
-export const OutputMskMode$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskMode
-> = z.nativeEnum(OutputMskMode);
+export const OutputMskMode$inboundSchema: z.ZodType<
+  OutputMskMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export const OutputMskMode$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskMode
-> = OutputMskMode$inboundSchema;
+export const OutputMskMode$outboundSchema: z.ZodType<
+  OutputMskMode,
+  z.ZodTypeDef,
+  OutputMskMode
+> = z.union([
+  z.nativeEnum(OutputMskMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /**
  * @internal

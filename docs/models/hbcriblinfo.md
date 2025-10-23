@@ -28,12 +28,9 @@ let value: HBCriblInfo = {
     tls: true,
   },
   pid: 8614.45,
-  startTime: 2035.4,
-  tags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+  socksEnabled: true,
+  startTime: 9709.17,
+  tags: [],
   version: "<value>",
 };
 ```
@@ -53,6 +50,7 @@ let value: HBCriblInfo = {
 | `lookupVersions`                                     | [models.LookupVersions](../models/lookupversions.md) | :heavy_minus_sign:                                   | N/A                                                  |
 | `master`                                             | [models.HBLeaderInfo](../models/hbleaderinfo.md)     | :heavy_minus_sign:                                   | N/A                                                  |
 | `pid`                                                | *number*                                             | :heavy_minus_sign:                                   | N/A                                                  |
+| `socksEnabled`                                       | *boolean*                                            | :heavy_minus_sign:                                   | N/A                                                  |
 | `startTime`                                          | *number*                                             | :heavy_check_mark:                                   | N/A                                                  |
 | `tags`                                               | *string*[]                                           | :heavy_check_mark:                                   | N/A                                                  |
 | `version`                                            | *string*                                             | :heavy_minus_sign:                                   | N/A                                                  |

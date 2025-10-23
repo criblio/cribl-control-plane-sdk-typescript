@@ -9,9 +9,9 @@
 const value: string = "<value>";
 ```
 
-### `boolean`
+### `models.RemoteEnum`
 
 ```typescript
-const value: boolean = true;
+const value: models.RemoteEnum = "false";
 ```
 
