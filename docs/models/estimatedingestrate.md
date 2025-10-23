@@ -1,13 +1,13 @@
-# EstimatedIngest
+# EstimatedIngestRate
 
 Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
 
 ## Example Usage
 
 ```typescript
-import { EstimatedIngest } from "cribl-control-plane/models";
+import { EstimatedIngestRate } from "cribl-control-plane/models";
 
-let value: EstimatedIngest = 13312;
+let value: EstimatedIngestRate = 7168;
 ```
 
 ## Values
