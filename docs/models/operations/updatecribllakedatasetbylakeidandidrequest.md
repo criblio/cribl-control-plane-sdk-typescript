@@ -8,7 +8,7 @@ import { UpdateCriblLakeDatasetByLakeIdAndIdRequest } from "cribl-control-plane/
 let value: UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
   lakeId: "<id>",
   id: "<id>",
-  criblLakeDataset: {
+  criblLakeDatasetUpdate: {
     acceleratedFields: [
       "<value 1>",
     ],
@@ -26,12 +26,12 @@ let value: UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
       migrationQueryId: "<id>",
       retentionInDays: 5606.92,
     },
-    deletionStartedAt: 9246.95,
-    description: "suspiciously rudely squirm chops",
-    format: "ddss",
-    httpDAUsed: false,
+    deletionStartedAt: 4673.39,
+    description: "circa disposer honesty voluminous",
+    format: "json",
+    httpDAUsed: true,
     id: "<id>",
-    retentionPeriodInDays: 7990.13,
+    retentionPeriodInDays: 798.24,
     searchConfig: {
       datatypes: [
         "<value 1>",
@@ -64,4 +64,4 @@ let value: UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `lakeId`                                                                  | *string*                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake that contains the Lake Dataset to update. |
 | `id`                                                                      | *string*                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake Dataset to update.                        |
-| `criblLakeDataset`                                                        | [models.CriblLakeDataset](../../models/cribllakedataset.md)               | :heavy_check_mark:                                                        | CriblLakeDataset object                                                   |
+| `criblLakeDatasetUpdate`                                                  | [models.CriblLakeDatasetUpdate](../../models/cribllakedatasetupdate.md)   | :heavy_check_mark:                                                        | CriblLakeDatasetUpdate object                                             |

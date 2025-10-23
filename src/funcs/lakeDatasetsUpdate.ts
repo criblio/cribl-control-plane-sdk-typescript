@@ -88,7 +88,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.CriblLakeDataset, { explode: true });
+  const body = encodeJSON("body", payload.CriblLakeDatasetUpdate, {
+    explode: true,
+  });
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {

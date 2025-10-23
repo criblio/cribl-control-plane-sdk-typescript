@@ -44,6 +44,7 @@ export type HBCriblInfo = {
   lookupVersions?: LookupVersions | undefined;
   master?: HBLeaderInfo | undefined;
   pid?: number | undefined;
+  socksEnabled?: boolean | undefined;
   startTime: number;
   tags: Array<string>;
   version?: string | undefined;
@@ -125,6 +126,7 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   lookupVersions: LookupVersions$inboundSchema.optional(),
   master: HBLeaderInfo$inboundSchema.optional(),
   pid: z.number().optional(),
+  socksEnabled: z.boolean().optional(),
   startTime: z.number(),
   tags: z.array(z.string()),
   version: z.string().optional(),
@@ -143,6 +145,7 @@ export type HBCriblInfo$Outbound = {
   lookupVersions?: LookupVersions$Outbound | undefined;
   master?: HBLeaderInfo$Outbound | undefined;
   pid?: number | undefined;
+  socksEnabled?: boolean | undefined;
   startTime: number;
   tags: Array<string>;
   version?: string | undefined;
@@ -165,6 +168,7 @@ export const HBCriblInfo$outboundSchema: z.ZodType<
   lookupVersions: LookupVersions$outboundSchema.optional(),
   master: HBLeaderInfo$outboundSchema.optional(),
   pid: z.number().optional(),
+  socksEnabled: z.boolean().optional(),
   startTime: z.number(),
   tags: z.array(z.string()),
   version: z.string().optional(),
