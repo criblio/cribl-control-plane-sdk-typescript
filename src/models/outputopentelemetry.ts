@@ -24,7 +24,13 @@ export type OutputOpenTelemetryType = ClosedEnum<
  * Select a transport option for OpenTelemetry
  */
 export const OutputOpenTelemetryProtocol = {
+  /**
+   * gRPC
+   */
   Grpc: "grpc",
+  /**
+   * HTTP
+   */
   Http: "http",
 } as const;
 /**
@@ -38,7 +44,13 @@ export type OutputOpenTelemetryProtocol = OpenEnum<
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
 export const OutputOpenTelemetryOTLPVersion = {
+  /**
+   * 0.10.0
+   */
   ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
   OneDot3Dot1: "1.3.1",
 } as const;
 /**
@@ -52,8 +64,17 @@ export type OutputOpenTelemetryOTLPVersion = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputOpenTelemetryCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Deflate
+   */
   Deflate: "deflate",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -67,7 +88,13 @@ export type OutputOpenTelemetryCompressCompression = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputOpenTelemetryHttpCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -104,8 +131,17 @@ export type OutputOpenTelemetryMetadatum = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputOpenTelemetryFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -119,8 +155,17 @@ export type OutputOpenTelemetryFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputOpenTelemetryBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -249,7 +294,13 @@ export type OutputOpenTelemetryTLSSettingsClientSide = {
  * Codec to use to compress the persisted data
  */
 export const OutputOpenTelemetryPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -263,7 +314,13 @@ export type OutputOpenTelemetryPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputOpenTelemetryQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -277,8 +334,17 @@ export type OutputOpenTelemetryQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputOpenTelemetryMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**

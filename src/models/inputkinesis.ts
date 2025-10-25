@@ -27,7 +27,13 @@ export type InputKinesisConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputKinesisMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputKinesisMode = OpenEnum<typeof InputKinesisMode>;
  * Codec to use to compress the persisted data
  */
 export const InputKinesisCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -85,7 +97,13 @@ export type InputKinesisPq = {
  * Location at which to start reading a shard for the first time
  */
 export const ShardIteratorStart = {
+  /**
+   * Earliest record
+   */
   TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
   Latest: "LATEST",
 } as const;
 /**
@@ -97,9 +115,21 @@ export type ShardIteratorStart = OpenEnum<typeof ShardIteratorStart>;
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
 export const InputKinesisRecordDataFormat = {
+  /**
+   * Cribl
+   */
   Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
   Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
   Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
   Line: "line",
 } as const;
 /**
@@ -113,7 +143,13 @@ export type InputKinesisRecordDataFormat = OpenEnum<
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
 export const ShardLoadBalancing = {
+  /**
+   * Consistent Hashing
+   */
   ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
   RoundRobin: "RoundRobin",
 } as const;
 /**
@@ -125,8 +161,17 @@ export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const InputKinesisAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**

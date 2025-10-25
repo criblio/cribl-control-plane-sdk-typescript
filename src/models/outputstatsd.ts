@@ -22,7 +22,13 @@ export type OutputStatsdType = ClosedEnum<typeof OutputStatsdType>;
  * Protocol to use when communicating with the destination.
  */
 export const OutputStatsdDestinationProtocol = {
+  /**
+   * UDP
+   */
   Udp: "udp",
+  /**
+   * TCP
+   */
   Tcp: "tcp",
 } as const;
 /**
@@ -36,8 +42,17 @@ export type OutputStatsdDestinationProtocol = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputStatsdBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -51,7 +66,13 @@ export type OutputStatsdBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputStatsdCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -63,7 +84,13 @@ export type OutputStatsdCompression = OpenEnum<typeof OutputStatsdCompression>;
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputStatsdQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -77,8 +104,17 @@ export type OutputStatsdQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputStatsdMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**

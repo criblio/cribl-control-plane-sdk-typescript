@@ -10,9 +10,18 @@ import { CreateVersionUndoResponse } from "cribl-control-plane/models/operations
 let value: CreateVersionUndoResponse = {
   count: 796584,
   items: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
+    {
+      "key": "<value>",
+    },
+    {
+      "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
+    },
+    {
+      "key": "<value>",
+      "key1": "<value>",
+    },
   ],
 };
 ```
@@ -22,4 +31,4 @@ let value: CreateVersionUndoResponse = {
 | Field                                      | Type                                       | Required                                   | Description                                |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | `count`                                    | *number*                                   | :heavy_minus_sign:                         | number of items present in the items array |
-| `items`                                    | *string*[]                                 | :heavy_minus_sign:                         | N/A                                        |
+| `items`                                    | Record<string, *any*>[]                    | :heavy_minus_sign:                         | N/A                                        |

@@ -647,11 +647,11 @@ const value: models.OutputAzureLogs = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6609.99,
+      httpStatus: 6704.51,
     },
   ],
   timeoutRetrySettings: {},
-  description: "whoa through broadly aside fooey triumphantly tarry ghost",
+  description: "elver growing aha gallery monthly jot",
   pqControls: {},
   workspaceId: "<id>",
   workspaceKey: "<value>",
@@ -2690,11 +2690,11 @@ const value: models.OutputSentinelOneAiSiem = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 3993.7,
+      httpStatus: 3766.68,
     },
   ],
   timeoutRetrySettings: {},
-  description: "blissfully mousse sleepily serpentine seriously fluff",
+  description: "which unselfish how raw congregate drat aw",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},
@@ -2719,7 +2719,7 @@ const value: models.OutputChronicle = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 4950.39,
+      httpStatus: 823.16,
     },
   ],
   timeoutRetrySettings: {},
@@ -2732,8 +2732,9 @@ const value: models.OutputChronicle = {
   ],
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
-  totalMemoryLimitKB: 1431.94,
+  totalMemoryLimitKB: 2245.68,
   namespace: "<value>",
   logType: "<value>",
   logTextField: "<value>",
@@ -2745,10 +2746,39 @@ const value: models.OutputChronicle = {
       value: "<value>",
     },
   ],
-  description: "onset enlightened yippee meh inside",
+  description: "skyscraper since colon attribute",
   serviceAccountCredentials: "<value>",
   serviceAccountCredentialsSecret: "<value>",
   pqControls: {},
+};
+```
+
+### `models.OutputDatabricks`
+
+```typescript
+const value: models.OutputDatabricks = {
+  id: "<id>",
+  type: "databricks",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  workspaceId: "<id>",
+  clientId: "<id>",
+  clientSecret: "<value>",
+  description: "loosely unpleasant anenst",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 

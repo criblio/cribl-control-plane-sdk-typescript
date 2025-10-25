@@ -22,8 +22,17 @@ export type OutputKinesisType = ClosedEnum<typeof OutputKinesisType>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputKinesisAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -51,7 +60,13 @@ export type OutputKinesisSignatureVersion = OpenEnum<
  * Compression type to use for records
  */
 export const OutputKinesisCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -65,8 +80,17 @@ export type OutputKinesisCompression = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputKinesisBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -80,7 +104,13 @@ export type OutputKinesisBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputKinesisPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -94,7 +124,13 @@ export type OutputKinesisPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputKinesisQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -108,8 +144,17 @@ export type OutputKinesisQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputKinesisMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**

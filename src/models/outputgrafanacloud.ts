@@ -24,7 +24,13 @@ export type OutputGrafanaCloudType2 = ClosedEnum<
  * Format to use when sending logs to Loki (Protobuf or JSON)
  */
 export const OutputGrafanaCloudMessageFormat2 = {
+  /**
+   * Protobuf
+   */
   Protobuf: "protobuf",
+  /**
+   * JSON
+   */
   Json: "json",
 } as const;
 /**
@@ -40,10 +46,25 @@ export type OutputGrafanaCloudLabel2 = {
 };
 
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType2 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Auth token
+   */
   Token: "token",
+  /**
+   * Auth token (text secret)
+   */
   TextSecret: "textSecret",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
 } as const;
 export type OutputGrafanaCloudPrometheusAuthAuthenticationType2 = OpenEnum<
@@ -75,10 +96,25 @@ export type OutputGrafanaCloudPrometheusAuth2 = {
 };
 
 export const OutputGrafanaCloudLokiAuthAuthenticationType2 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Auth token
+   */
   Token: "token",
+  /**
+   * Auth token (text secret)
+   */
   TextSecret: "textSecret",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
 } as const;
 export type OutputGrafanaCloudLokiAuthAuthenticationType2 = OpenEnum<
@@ -118,8 +154,17 @@ export type OutputGrafanaCloudExtraHttpHeader2 = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputGrafanaCloudFailedRequestLoggingMode2 = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -168,8 +213,17 @@ export type OutputGrafanaCloudTimeoutRetrySettings2 = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGrafanaCloudBackpressureBehavior2 = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -183,7 +237,13 @@ export type OutputGrafanaCloudBackpressureBehavior2 = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputGrafanaCloudCompression2 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -197,7 +257,13 @@ export type OutputGrafanaCloudCompression2 = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputGrafanaCloudQueueFullBehavior2 = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -211,8 +277,17 @@ export type OutputGrafanaCloudQueueFullBehavior2 = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputGrafanaCloudMode2 = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -374,7 +449,13 @@ export type OutputGrafanaCloudType1 = ClosedEnum<
  * Format to use when sending logs to Loki (Protobuf or JSON)
  */
 export const OutputGrafanaCloudMessageFormat1 = {
+  /**
+   * Protobuf
+   */
   Protobuf: "protobuf",
+  /**
+   * JSON
+   */
   Json: "json",
 } as const;
 /**
@@ -390,10 +471,25 @@ export type OutputGrafanaCloudLabel1 = {
 };
 
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType1 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Auth token
+   */
   Token: "token",
+  /**
+   * Auth token (text secret)
+   */
   TextSecret: "textSecret",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
 } as const;
 export type OutputGrafanaCloudPrometheusAuthAuthenticationType1 = OpenEnum<
@@ -425,10 +521,25 @@ export type OutputGrafanaCloudPrometheusAuth1 = {
 };
 
 export const OutputGrafanaCloudLokiAuthAuthenticationType1 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Auth token
+   */
   Token: "token",
+  /**
+   * Auth token (text secret)
+   */
   TextSecret: "textSecret",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
 } as const;
 export type OutputGrafanaCloudLokiAuthAuthenticationType1 = OpenEnum<
@@ -468,8 +579,17 @@ export type OutputGrafanaCloudExtraHttpHeader1 = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputGrafanaCloudFailedRequestLoggingMode1 = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -518,8 +638,17 @@ export type OutputGrafanaCloudTimeoutRetrySettings1 = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGrafanaCloudBackpressureBehavior1 = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -533,7 +662,13 @@ export type OutputGrafanaCloudBackpressureBehavior1 = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputGrafanaCloudCompression1 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -547,7 +682,13 @@ export type OutputGrafanaCloudCompression1 = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputGrafanaCloudQueueFullBehavior1 = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -561,8 +702,17 @@ export type OutputGrafanaCloudQueueFullBehavior1 = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputGrafanaCloudMode1 = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**

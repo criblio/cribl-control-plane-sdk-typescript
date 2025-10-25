@@ -22,8 +22,17 @@ export type OutputKafkaType = ClosedEnum<typeof OutputKafkaType>;
  * Control the number of required acknowledgments.
  */
 export const OutputKafkaAcknowledgments = {
+  /**
+   * Leader
+   */
   One: 1,
+  /**
+   * None
+   */
   Zero: 0,
+  /**
+   * All
+   */
   Minus1: -1,
 } as const;
 /**
@@ -37,8 +46,17 @@ export type OutputKafkaAcknowledgments = OpenEnum<
  * Format to use to serialize events before writing to Kafka.
  */
 export const OutputKafkaRecordDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Field _raw
+   */
   Raw: "raw",
+  /**
+   * Protobuf
+   */
   Protobuf: "protobuf",
 } as const;
 /**
@@ -52,27 +70,27 @@ export type OutputKafkaRecordDataFormat = OpenEnum<
  * Codec to use to compress the data before sending to Kafka
  */
 export const OutputKafkaCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
+  /**
+   * Snappy
+   */
   Snappy: "snappy",
+  /**
+   * LZ4
+   */
   Lz4: "lz4",
 } as const;
 /**
  * Codec to use to compress the data before sending to Kafka
  */
 export type OutputKafkaCompression = OpenEnum<typeof OutputKafkaCompression>;
-
-/**
- * The schema format used to encode and decode event data
- */
-export const OutputKafkaSchemaType = {
-  Avro: "avro",
-  Json: "json",
-} as const;
-/**
- * The schema format used to encode and decode event data
- */
-export type OutputKafkaSchemaType = OpenEnum<typeof OutputKafkaSchemaType>;
 
 /**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -149,10 +167,6 @@ export type OutputKafkaKafkaSchemaRegistryAuthentication = {
    */
   schemaRegistryURL?: string | undefined;
   /**
-   * The schema format used to encode and decode event data
-   */
-  schemaType?: OutputKafkaSchemaType | undefined;
-  /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
   connectionTimeout?: number | undefined;
@@ -180,9 +194,21 @@ export type OutputKafkaKafkaSchemaRegistryAuthentication = {
 };
 
 export const OutputKafkaSASLMechanism = {
+  /**
+   * PLAIN
+   */
   Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
   ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
   ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
   Kerberos: "kerberos",
 } as const;
 export type OutputKafkaSASLMechanism = OpenEnum<
@@ -262,8 +288,17 @@ export type OutputKafkaTLSSettingsClientSide = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputKafkaBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -277,7 +312,13 @@ export type OutputKafkaBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputKafkaPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -291,7 +332,13 @@ export type OutputKafkaPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputKafkaQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -305,8 +352,17 @@ export type OutputKafkaQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputKafkaMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -564,38 +620,6 @@ export namespace OutputKafkaCompression$ {
 }
 
 /** @internal */
-export const OutputKafkaSchemaType$inboundSchema: z.ZodType<
-  OutputKafkaSchemaType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKafkaSchemaType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKafkaSchemaType$outboundSchema: z.ZodType<
-  OutputKafkaSchemaType,
-  z.ZodTypeDef,
-  OutputKafkaSchemaType
-> = z.union([
-  z.nativeEnum(OutputKafkaSchemaType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKafkaSchemaType$ {
-  /** @deprecated use `OutputKafkaSchemaType$inboundSchema` instead. */
-  export const inboundSchema = OutputKafkaSchemaType$inboundSchema;
-  /** @deprecated use `OutputKafkaSchemaType$outboundSchema` instead. */
-  export const outboundSchema = OutputKafkaSchemaType$outboundSchema;
-}
-
-/** @internal */
 export const OutputKafkaAuth$inboundSchema: z.ZodType<
   OutputKafkaAuth,
   z.ZodTypeDef,
@@ -830,7 +854,6 @@ export const OutputKafkaKafkaSchemaRegistryAuthentication$inboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: OutputKafkaSchemaType$inboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
@@ -846,7 +869,6 @@ export const OutputKafkaKafkaSchemaRegistryAuthentication$inboundSchema:
 export type OutputKafkaKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
-  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -867,7 +889,6 @@ export const OutputKafkaKafkaSchemaRegistryAuthentication$outboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: OutputKafkaSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
