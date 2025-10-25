@@ -413,6 +413,7 @@ export type Output =
   | (OutputMsk & { type: "msk" })
   | (OutputCloudwatch & { type: "cloudwatch" })
   | (OutputClickHouse & { type: "click_house" })
+  | (OutputDatabricks & { type: "databricks" })
   | (OutputKinesis & { type: "kinesis" })
   | (OutputAzureEventhub & { type: "azure_eventhub" })
   | (OutputGoogleCloudStorage & { type: "google_cloud_storage" })
@@ -423,7 +424,6 @@ export type Output =
   | (OutputMinio & { type: "minio" })
   | (OutputSns & { type: "sns" })
   | (OutputSqs & { type: "sqs" })
-  | (OutputDatabricks & { type: "databricks" })
   | (OutputDefault & { type: "default" })
   | (OutputSplunk & { type: "splunk" })
   | (OutputSplunkLb & { type: "splunk_lb" })
@@ -517,6 +517,11 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
         type: v.type,
       })),
     ),
+    OutputDatabricks$inboundSchema.and(
+      z.object({ type: z.literal("databricks") }).transform((v) => ({
+        type: v.type,
+      })),
+    ),
     OutputKinesis$inboundSchema.and(
       z.object({ type: z.literal("kinesis") }).transform((v) => ({
         type: v.type,
@@ -562,11 +567,6 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     ),
     OutputSqs$inboundSchema.and(
       z.object({ type: z.literal("sqs") }).transform((v) => ({ type: v.type })),
-    ),
-    OutputDatabricks$inboundSchema.and(
-      z.object({ type: z.literal("databricks") }).transform((v) => ({
-        type: v.type,
-      })),
     ),
     OutputDefault$inboundSchema.and(
       z.object({ type: z.literal("default") }).transform((v) => ({
@@ -809,6 +809,7 @@ export type Output$Outbound =
   | (OutputMsk$Outbound & { type: "msk" })
   | (OutputCloudwatch$Outbound & { type: "cloudwatch" })
   | (OutputClickHouse$Outbound & { type: "click_house" })
+  | (OutputDatabricks$Outbound & { type: "databricks" })
   | (OutputKinesis$Outbound & { type: "kinesis" })
   | (OutputAzureEventhub$Outbound & { type: "azure_eventhub" })
   | (OutputGoogleCloudStorage$Outbound & { type: "google_cloud_storage" })
@@ -819,7 +820,6 @@ export type Output$Outbound =
   | (OutputMinio$Outbound & { type: "minio" })
   | (OutputSns$Outbound & { type: "sns" })
   | (OutputSqs$Outbound & { type: "sqs" })
-  | (OutputDatabricks$Outbound & { type: "databricks" })
   | (OutputDefault$Outbound & { type: "default" })
   | (OutputSplunk$Outbound & { type: "splunk" })
   | (OutputSplunkLb$Outbound & { type: "splunk_lb" })
@@ -918,6 +918,11 @@ export const Output$outboundSchema: z.ZodType<
       type: v.type,
     })),
   ),
+  OutputDatabricks$outboundSchema.and(
+    z.object({ type: z.literal("databricks") }).transform((v) => ({
+      type: v.type,
+    })),
+  ),
   OutputKinesis$outboundSchema.and(
     z.object({ type: z.literal("kinesis") }).transform((v) => ({
       type: v.type,
@@ -959,11 +964,6 @@ export const Output$outboundSchema: z.ZodType<
   ),
   OutputSqs$outboundSchema.and(
     z.object({ type: z.literal("sqs") }).transform((v) => ({ type: v.type })),
-  ),
-  OutputDatabricks$outboundSchema.and(
-    z.object({ type: z.literal("databricks") }).transform((v) => ({
-      type: v.type,
-    })),
   ),
   OutputDefault$outboundSchema.and(
     z.object({ type: z.literal("default") }).transform((v) => ({

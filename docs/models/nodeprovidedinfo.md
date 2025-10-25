@@ -115,6 +115,10 @@ let value: NodeProvidedInfo = {
       "<value 3>",
     ],
   },
+  outpost: {
+    guid: "<id>",
+    host: "bogus-populist.info",
+  },
   platform: "<value>",
   release: "<value>",
   totalDiskSpace: 4145.33,
@@ -141,6 +145,7 @@ let value: NodeProvidedInfo = {
 | `metadata`                                                           | [models.HeartbeatMetadata](../models/heartbeatmetadata.md)           | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `node`                                                               | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `os`                                                                 | *models.Os*                                                          | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `outpost`                                                            | [models.OutpostNodeInfo](../models/outpostnodeinfo.md)               | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `platform`                                                           | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `release`                                                            | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `totalDiskSpace`                                                     | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |

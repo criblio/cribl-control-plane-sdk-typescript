@@ -112,6 +112,7 @@ export * from "./nodeprovidedinfo.js";
 export * from "./nodeskippedupgradestatus.js";
 export * from "./nodeupgradestate.js";
 export * from "./nodeupgradestatus.js";
+export * from "./outpostnodeinfo.js";
 export * from "./output.js";
 export * from "./outputazureblob.js";
 export * from "./outputazuredataexplorer.js";

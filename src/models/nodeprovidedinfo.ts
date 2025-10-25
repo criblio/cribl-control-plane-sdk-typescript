@@ -19,6 +19,12 @@ import {
   HeartbeatMetadata$Outbound,
   HeartbeatMetadata$outboundSchema,
 } from "./heartbeatmetadata.js";
+import {
+  OutpostNodeInfo,
+  OutpostNodeInfo$inboundSchema,
+  OutpostNodeInfo$Outbound,
+  OutpostNodeInfo$outboundSchema,
+} from "./outpostnodeinfo.js";
 
 export type NodeProvidedInfoTags = {};
 
@@ -81,6 +87,7 @@ export type NodeProvidedInfo = {
   metadata?: HeartbeatMetadata | undefined;
   node: string;
   os?: NodeProvidedInfoOs1 | NodeProvidedInfoOs2 | undefined;
+  outpost?: OutpostNodeInfo | undefined;
   platform: string;
   release: string;
   totalDiskSpace: number;
@@ -579,6 +586,7 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
     z.lazy(() => NodeProvidedInfoOs1$inboundSchema),
     z.lazy(() => NodeProvidedInfoOs2$inboundSchema),
   ]).optional(),
+  outpost: OutpostNodeInfo$inboundSchema.optional(),
   platform: z.string(),
   release: z.string(),
   totalDiskSpace: z.number(),
@@ -606,6 +614,7 @@ export type NodeProvidedInfo$Outbound = {
   metadata?: HeartbeatMetadata$Outbound | undefined;
   node: string;
   os?: NodeProvidedInfoOs1$Outbound | NodeProvidedInfoOs2$Outbound | undefined;
+  outpost?: OutpostNodeInfo$Outbound | undefined;
   platform: string;
   release: string;
   totalDiskSpace: number;
@@ -636,6 +645,7 @@ export const NodeProvidedInfo$outboundSchema: z.ZodType<
     z.lazy(() => NodeProvidedInfoOs1$outboundSchema),
     z.lazy(() => NodeProvidedInfoOs2$outboundSchema),
   ]).optional(),
+  outpost: OutpostNodeInfo$outboundSchema.optional(),
   platform: z.string(),
   release: z.string(),
   totalDiskSpace: z.number(),
