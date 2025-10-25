@@ -12,34 +12,39 @@ let value: DeletePacksByIdResponse = {
   items: [
     {
       author: "<value>",
-      description: "confusion unaccountably dispense hmph",
-      displayName: "Jace.OKon",
+      dependencies: {
+        "key": "<value>",
+      },
+      description: "helplessly though past nor below slowly yak parody gah eek",
+      displayName: "Mable.Johnson",
       exports: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
       id: "<id>",
-      inputs: 2931.37,
-      isDisabled: false,
+      inputs: 9461.44,
+      isDisabled: true,
       minLogStreamVersion: "<value>",
-      outputs: 9390.12,
+      outputs: 6574.27,
       settings: {
         "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
       source: "<value>",
       spec: "<value>",
       tags: {
         dataType: [
-          "decimal",
-          "boolean",
+          "int",
         ],
         domain: [
-          "hungry-scaffold.name",
-          "unfit-hovercraft.info",
-          "yummy-signature.com",
+          "damp-legging.biz",
         ],
         streamtags: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
         technology: [
           "<value 1>",

@@ -9,6 +9,7 @@ let value: NodeProvidedInfo = {
   architecture: "<value>",
   aws: {
     enabled: true,
+    instanceId: "<id>",
     region: "<value>",
     tags: {},
     type: "<value>",
@@ -26,7 +27,7 @@ let value: NodeProvidedInfo = {
     },
     deploymentId: "<id>",
     disableSNIRouting: false,
-    distMode: "edge",
+    distMode: "managed-edge",
     edgeNodes: 6064.13,
     group: "<value>",
     guid: "<id>",
@@ -44,18 +45,18 @@ let value: NodeProvidedInfo = {
     tags: [],
     version: "<value>",
   },
-  freeDiskSpace: 6220.45,
+  env: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
+  freeDiskSpace: 6937.14,
   hostOs: {
-    addresses: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
+    addresses: [],
     enabled: true,
     id: "<id>",
     version: "<value>",
   },
-  hostname: "round-squid.org",
+  hostname: "tender-thigh.com",
   isSaasWorker: true,
   kube: {
     enabled: false,
@@ -68,10 +69,11 @@ let value: NodeProvidedInfo = {
     pod: "<value>",
     source: "<value>",
   },
-  localTime: 1451.52,
+  localTime: 813.42,
   metadata: {
     aws: {
       enabled: false,
+      instanceId: "<id>",
       region: "<value>",
       tags: {},
       type: "<value>",
@@ -83,12 +85,12 @@ let value: NodeProvidedInfo = {
         "<value 2>",
         "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: true,
+      enabled: false,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -99,11 +101,7 @@ let value: NodeProvidedInfo = {
       source: "<value>",
     },
     os: {
-      addresses: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
+      addresses: [],
       enabled: true,
       id: "<id>",
       version: "<value>",
@@ -116,14 +114,15 @@ let value: NodeProvidedInfo = {
       "<value 2>",
       "<value 3>",
     ],
-    enabled: false,
-    id: "<id>",
-    version: "<value>",
+  },
+  outpost: {
+    guid: "<id>",
+    host: "bogus-populist.info",
   },
   platform: "<value>",
   release: "<value>",
-  totalDiskSpace: 7682.09,
-  totalmem: 4145.33,
+  totalDiskSpace: 4145.33,
+  totalmem: 5590.59,
 };
 ```
 
@@ -136,6 +135,7 @@ let value: NodeProvidedInfo = {
 | `connIp`                                                             | *string*                                                             | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `cpus`                                                               | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `cribl`                                                              | [models.HBCriblInfo](../models/hbcriblinfo.md)                       | :heavy_check_mark:                                                   | N/A                                                                  |
+| `env`                                                                | Record<string, *string*>                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `freeDiskSpace`                                                      | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `hostOs`                                                             | [models.NodeProvidedInfoHostOs](../models/nodeprovidedinfohostos.md) | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `hostname`                                                           | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
@@ -145,6 +145,7 @@ let value: NodeProvidedInfo = {
 | `metadata`                                                           | [models.HeartbeatMetadata](../models/heartbeatmetadata.md)           | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `node`                                                               | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `os`                                                                 | *models.Os*                                                          | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `outpost`                                                            | [models.OutpostNodeInfo](../models/outpostnodeinfo.md)               | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `platform`                                                           | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `release`                                                            | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `totalDiskSpace`                                                     | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |

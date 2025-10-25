@@ -63,6 +63,7 @@ let value: GetOutputPqByIdResponse = {
       },
       id: "<id>",
       keep: true,
+      stats: {},
       status: {
         reason: {
           "key": "<value>",
