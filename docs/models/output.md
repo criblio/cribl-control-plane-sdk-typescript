@@ -2769,12 +2769,16 @@ const value: models.OutputDatabricks = {
     "<value 1>",
     "<value 2>",
   ],
-  loginUrl: "https://pleasant-ceramic.info/",
+  workspaceId: "<id>",
   clientId: "<id>",
-  description:
-    "brr explode during beside overload while ick drag intellect who",
   clientSecret: "<value>",
-  clientTextSecret: "<value>",
+  description: "loosely unpleasant anenst",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 
