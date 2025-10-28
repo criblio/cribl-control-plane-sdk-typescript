@@ -1,15 +1,17 @@
-# Conf
+# PipelineConf
 
 ## Example Usage
 
 ```typescript
-import { Conf } from "cribl-control-plane/models";
+import { PipelineConf } from "cribl-control-plane/models";
 
-let value: Conf = {
-  asyncFuncTimeout: 645963,
-  description: "against with birth when",
+let value: PipelineConf = {
+  asyncFuncTimeout: 543977,
+  description: "draft however spew speedily fly marten total spellcheck",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   functions: [
     {

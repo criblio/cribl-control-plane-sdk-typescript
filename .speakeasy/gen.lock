@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 880def652e799eed9b092cf41ce68b2a
-  docVersion: 4.15.0-alpha.1761606328595-4d5d0f38
+  docChecksum: a007c4cb667183aae8befae764c565ac
+  docVersion: 4.15.0-alpha.1761655977097-59e6cf2e
   speakeasyVersion: 1.639.3
   generationVersion: 2.730.5
-  releaseVersion: 0.2.1-rc.2
-  configChecksum: 616761497232d6bd46d1ff2935ee4bb1
+  releaseVersion: 0.2.1-rc.3
+  configChecksum: 33c3dc47ff3852513afba68077038ce9
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -71,7 +71,6 @@ generatedFiles:
   - docs/models/columnmapping.md
   - docs/models/comment.md
   - docs/models/commit.md
-  - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
   - docs/models/configgroupcloud.md
@@ -965,6 +964,8 @@ generatedFiles:
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
   - docs/models/oldmode.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductrequest.md
+  - docs/models/operations/createadminproductsmappingsactivatebyproductresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
@@ -1915,6 +1916,7 @@ generatedFiles:
   - docs/models/packupgraderequest.md
   - docs/models/payloadformat.md
   - docs/models/pipeline.md
+  - docs/models/pipelineconf.md
   - docs/models/pipelinefunctionconf.md
   - docs/models/pipelinegroups.md
   - docs/models/podfilter.md
@@ -1939,6 +1941,7 @@ generatedFiles:
   - docs/models/routes.md
   - docs/models/routesgroups.md
   - docs/models/routesroute.md
+  - docs/models/rulesetid.md
   - docs/models/runnablejob.md
   - docs/models/runnablejobcollection.md
   - docs/models/runnablejobcollectioninput.md
@@ -2014,6 +2017,7 @@ generatedFiles:
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
+  - docs/sdks/mappings/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
@@ -2048,6 +2052,7 @@ generatedFiles:
   - src/funcs/groupsDeploy.ts
   - src/funcs/groupsGet.ts
   - src/funcs/groupsList.ts
+  - src/funcs/groupsMappingsActivate.ts
   - src/funcs/groupsUpdate.ts
   - src/funcs/healthGet.ts
   - src/funcs/lakeDatasetsCreate.ts
@@ -2234,6 +2239,7 @@ generatedFiles:
   - src/models/nodeskippedupgradestatus.ts
   - src/models/nodeupgradestate.ts
   - src/models/nodeupgradestatus.ts
+  - src/models/operations/createadminproductsmappingsactivatebyproduct.ts
   - src/models/operations/createconfiggroupbyproduct.ts
   - src/models/operations/createcribllakedatasetbylakeid.ts
   - src/models/operations/createinput.ts
@@ -2378,6 +2384,7 @@ generatedFiles:
   - src/models/routeconf.ts
   - src/models/routes.ts
   - src/models/routesroute.ts
+  - src/models/rulesetid.ts
   - src/models/runnablejob.ts
   - src/models/runnablejobcollection.ts
   - src/models/runnablejobexecutor.ts
@@ -2402,6 +2409,7 @@ generatedFiles:
   - src/sdk/hectokens.ts
   - src/sdk/index.ts
   - src/sdk/lakedatasets.ts
+  - src/sdk/mappings.ts
   - src/sdk/nodes.ts
   - src/sdk/packs.ts
   - src/sdk/pipelines.ts
@@ -3363,6 +3371,18 @@ examples:
           application/json: {"role": "standby", "startTime": 7966.74, "status": "healthy"}
         "500":
           application/json: {"message": "<value>"}
+  createAdminProductsMappingsActivateByProduct:
+    MappingRulesetActivateExamplesActivate:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"id": "default"}
+      responses:
+        "200":
+          application/json: {"count": 845678, "items": [{"id": "<id>"}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:03:38+02:00"
@@ -3428,4 +3448,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.health.get()`: \n  *  `response.status[default]` **Removed** **Breaking** :warning:\n  *  `error.status[500]` **Added**\n* `criblcontrolplane.groups.deploy()`:  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.groups.delete()`:  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.groups.update()`: \n  *  `request.configGroup.estimatedIngestRate` **Changed** **Breaking** :warning:\n  *  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.groups.get()`:  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.groups.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.groups.list()`:  `response.items.[].estimatedIngestRate` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.undo()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.routes.append()`: \n  *  `request.requestBody.[].clones.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.auth.tokens.get()`: \n  *  `response.forcepasswordchange` **Added**\n  *  `error` **Changed** **Breaking** :warning:\n* `criblcontrolplane.nodes.list()`:  `response.items.[].info` **Changed**\n* `criblcontrolplane.packs.update()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.packs.upload()`: **Added**\n* `criblcontrolplane.packs.install()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.packs.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.packs.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.packs.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.nodes.summaries.get()`:  `response.items.[].groups` **Changed**\n* `criblcontrolplane.destinations.pq.get()`:  `response.items.[].stats` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `criblcontrolplane.groups.mappings.activate()`: **Added**
