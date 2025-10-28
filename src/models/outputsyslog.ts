@@ -22,7 +22,13 @@ export type OutputSyslogType = ClosedEnum<typeof OutputSyslogType>;
  * The network protocol to use for sending out syslog messages
  */
 export const OutputSyslogProtocol = {
+  /**
+   * TCP
+   */
   Tcp: "tcp",
+  /**
+   * UDP
+   */
   Udp: "udp",
 } as const;
 /**
@@ -66,13 +72,37 @@ export type Facility = OpenEnum<typeof Facility>;
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
 export const OutputSyslogSeverity = {
+  /**
+   * emergency
+   */
   Zero: 0,
+  /**
+   * alert
+   */
   One: 1,
+  /**
+   * critical
+   */
   Two: 2,
+  /**
+   * error
+   */
   Three: 3,
+  /**
+   * warning
+   */
   Four: 4,
+  /**
+   * notice
+   */
   Five: 5,
+  /**
+   * info
+   */
   Six: 6,
+  /**
+   * debug
+   */
   Seven: 7,
 } as const;
 /**
@@ -84,7 +114,13 @@ export type OutputSyslogSeverity = OpenEnum<typeof OutputSyslogSeverity>;
  * The syslog message format depending on the receiver's support
  */
 export const OutputSyslogMessageFormat = {
+  /**
+   * RFC3164
+   */
   Rfc3164: "rfc3164",
+  /**
+   * RFC5424
+   */
   Rfc5424: "rfc5424",
 } as const;
 /**
@@ -98,7 +134,13 @@ export type OutputSyslogMessageFormat = OpenEnum<
  * Timestamp format to use when serializing event's time field
  */
 export const TimestampFormat = {
+  /**
+   * Syslog
+   */
   Syslog: "syslog",
+  /**
+   * ISO8601
+   */
   Iso8601: "iso8601",
 } as const;
 /**
@@ -167,8 +209,17 @@ export type OutputSyslogTLSSettingsClientSide = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputSyslogBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -182,7 +233,13 @@ export type OutputSyslogBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputSyslogCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -194,7 +251,13 @@ export type OutputSyslogCompression = OpenEnum<typeof OutputSyslogCompression>;
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputSyslogQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -208,8 +271,17 @@ export type OutputSyslogQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputSyslogMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**

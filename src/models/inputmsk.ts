@@ -27,7 +27,13 @@ export type InputMskConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputMskMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputMskMode = OpenEnum<typeof InputMskMode>;
  * Codec to use to compress the persisted data
  */
 export const InputMskCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -88,18 +100,6 @@ export type InputMskMetadatum = {
    */
   value: string;
 };
-
-/**
- * The schema format used to encode and decode event data
- */
-export const InputMskSchemaType = {
-  Avro: "avro",
-  Json: "json",
-} as const;
-/**
- * The schema format used to encode and decode event data
- */
-export type InputMskSchemaType = OpenEnum<typeof InputMskSchemaType>;
 
 /**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -176,10 +176,6 @@ export type InputMskKafkaSchemaRegistryAuthentication = {
    */
   schemaRegistryURL?: string | undefined;
   /**
-   * The schema format used to encode and decode event data
-   */
-  schemaType?: InputMskSchemaType | undefined;
-  /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
   connectionTimeout?: number | undefined;
@@ -202,8 +198,17 @@ export type InputMskKafkaSchemaRegistryAuthentication = {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const InputMskAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -782,38 +787,6 @@ export function inputMskMetadatumFromJSON(
 }
 
 /** @internal */
-export const InputMskSchemaType$inboundSchema: z.ZodType<
-  InputMskSchemaType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputMskSchemaType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputMskSchemaType$outboundSchema: z.ZodType<
-  InputMskSchemaType,
-  z.ZodTypeDef,
-  InputMskSchemaType
-> = z.union([
-  z.nativeEnum(InputMskSchemaType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskSchemaType$ {
-  /** @deprecated use `InputMskSchemaType$inboundSchema` instead. */
-  export const inboundSchema = InputMskSchemaType$inboundSchema;
-  /** @deprecated use `InputMskSchemaType$outboundSchema` instead. */
-  export const outboundSchema = InputMskSchemaType$outboundSchema;
-}
-
-/** @internal */
 export const InputMskAuth$inboundSchema: z.ZodType<
   InputMskAuth,
   z.ZodTypeDef,
@@ -1045,7 +1018,6 @@ export const InputMskKafkaSchemaRegistryAuthentication$inboundSchema: z.ZodType<
 > = z.object({
   disabled: z.boolean().default(true),
   schemaRegistryURL: z.string().default("http://localhost:8081"),
-  schemaType: InputMskSchemaType$inboundSchema.default("avro"),
   connectionTimeout: z.number().default(30000),
   requestTimeout: z.number().default(30000),
   maxRetries: z.number().default(1),
@@ -1059,7 +1031,6 @@ export const InputMskKafkaSchemaRegistryAuthentication$inboundSchema: z.ZodType<
 export type InputMskKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
-  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -1076,7 +1047,6 @@ export const InputMskKafkaSchemaRegistryAuthentication$outboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: InputMskSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),

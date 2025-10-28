@@ -13,22 +13,22 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const Role = {
-  Primary: "primary",
   Standby: "standby",
+  Primary: "primary",
 } as const;
 export type Role = OpenEnum<typeof Role>;
 
 export const Status = {
-  Healthy: "healthy",
   ShuttingDown: "shutting down",
+  Healthy: "healthy",
   Standby: "standby",
 } as const;
 export type Status = OpenEnum<typeof Status>;
 
-export type HealthStatus = {
+export type HealthServerStatus = {
   role?: Role | undefined;
-  status: Status;
   startTime: number;
+  status: Status;
 };
 
 /** @internal */
@@ -83,57 +83,61 @@ export namespace Status$ {
 }
 
 /** @internal */
-export const HealthStatus$inboundSchema: z.ZodType<
-  HealthStatus,
+export const HealthServerStatus$inboundSchema: z.ZodType<
+  HealthServerStatus,
   z.ZodTypeDef,
   unknown
 > = z.object({
   role: Role$inboundSchema.optional(),
-  status: Status$inboundSchema,
   startTime: z.number(),
+  status: Status$inboundSchema,
 });
 
 /** @internal */
-export type HealthStatus$Outbound = {
+export type HealthServerStatus$Outbound = {
   role?: string | undefined;
-  status: string;
   startTime: number;
+  status: string;
 };
 
 /** @internal */
-export const HealthStatus$outboundSchema: z.ZodType<
-  HealthStatus$Outbound,
+export const HealthServerStatus$outboundSchema: z.ZodType<
+  HealthServerStatus$Outbound,
   z.ZodTypeDef,
-  HealthStatus
+  HealthServerStatus
 > = z.object({
   role: Role$outboundSchema.optional(),
-  status: Status$outboundSchema,
   startTime: z.number(),
+  status: Status$outboundSchema,
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace HealthStatus$ {
-  /** @deprecated use `HealthStatus$inboundSchema` instead. */
-  export const inboundSchema = HealthStatus$inboundSchema;
-  /** @deprecated use `HealthStatus$outboundSchema` instead. */
-  export const outboundSchema = HealthStatus$outboundSchema;
-  /** @deprecated use `HealthStatus$Outbound` instead. */
-  export type Outbound = HealthStatus$Outbound;
+export namespace HealthServerStatus$ {
+  /** @deprecated use `HealthServerStatus$inboundSchema` instead. */
+  export const inboundSchema = HealthServerStatus$inboundSchema;
+  /** @deprecated use `HealthServerStatus$outboundSchema` instead. */
+  export const outboundSchema = HealthServerStatus$outboundSchema;
+  /** @deprecated use `HealthServerStatus$Outbound` instead. */
+  export type Outbound = HealthServerStatus$Outbound;
 }
 
-export function healthStatusToJSON(healthStatus: HealthStatus): string {
-  return JSON.stringify(HealthStatus$outboundSchema.parse(healthStatus));
+export function healthServerStatusToJSON(
+  healthServerStatus: HealthServerStatus,
+): string {
+  return JSON.stringify(
+    HealthServerStatus$outboundSchema.parse(healthServerStatus),
+  );
 }
 
-export function healthStatusFromJSON(
+export function healthServerStatusFromJSON(
   jsonString: string,
-): SafeParseResult<HealthStatus, SDKValidationError> {
+): SafeParseResult<HealthServerStatus, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => HealthStatus$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HealthStatus' from JSON`,
+    (x) => HealthServerStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HealthServerStatus' from JSON`,
   );
 }

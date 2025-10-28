@@ -22,8 +22,17 @@ export type OutputCloudwatchType = ClosedEnum<typeof OutputCloudwatchType>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputCloudwatchAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -37,8 +46,17 @@ export type OutputCloudwatchAuthenticationMethod = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputCloudwatchBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -52,7 +70,13 @@ export type OutputCloudwatchBackpressureBehavior = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputCloudwatchCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -66,7 +90,13 @@ export type OutputCloudwatchCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputCloudwatchQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -80,8 +110,17 @@ export type OutputCloudwatchQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputCloudwatchMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
