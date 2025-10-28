@@ -314,7 +314,7 @@ run();
 * [list](docs/sdks/routes/README.md#list) - List all Routes
 * [get](docs/sdks/routes/README.md#get) - Get a Routing table
 * [update](docs/sdks/routes/README.md#update) - Update a Route
-* [append](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
+* [append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [sources](docs/sdks/sources/README.md)
 
@@ -414,7 +414,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`pipelinesGet`](docs/sdks/pipelines/README.md#get) - Get a Pipeline
 - [`pipelinesList`](docs/sdks/pipelines/README.md#list) - List all Pipelines
 - [`pipelinesUpdate`](docs/sdks/pipelines/README.md#update) - Update a Pipeline
-- [`routesAppend`](docs/sdks/routes/README.md#append) - Append a Route to the end of the Routing table
+- [`routesAppend`](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 - [`routesGet`](docs/sdks/routes/README.md#get) - Get a Routing table
 - [`routesList`](docs/sdks/routes/README.md#list) - List all Routes
 - [`routesUpdate`](docs/sdks/routes/README.md#update) - Update a Route
@@ -754,7 +754,7 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts): The base class for HTTP error responses.
-  * [`ErrorT`](./src/models/errors/errort.ts): Unexpected error. Status code `500`. *
+  * [`ErrorT`](./src/models/errors/errort.ts): Unexpected error. Status code `500`.
 
 <details><summary>Less common errors (7)</summary>
 
@@ -769,7 +769,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthStatusError`](./src/models/errors/healthstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 63 methods.*
+* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 63 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

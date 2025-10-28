@@ -11,7 +11,7 @@ import * as models from "../index.js";
 
 export type CreateRoutesAppendByIdRequest = {
   /**
-   * The <code>id</code> of the Routing table to append the Route to. The supported value is <code>default</code>.
+   * The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>.
    */
   id: string;
   /**

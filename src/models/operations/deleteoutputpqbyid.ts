@@ -15,7 +15,7 @@ export type DeleteOutputPqByIdRequest = {
 };
 
 /**
- * a list of string objects
+ * A list of job ids for the background job that clears the persistent queue
  */
 export type DeleteOutputPqByIdResponse = {
   /**

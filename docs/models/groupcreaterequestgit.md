@@ -1,13 +1,13 @@
-# Git
+# GroupCreateRequestGit
 
 ## Example Usage
 
 ```typescript
-import { Git } from "cribl-control-plane/models";
+import { GroupCreateRequestGit } from "cribl-control-plane/models";
 
-let value: Git = {
+let value: GroupCreateRequestGit = {
   commit: "<value>",
-  localChanges: 5693.65,
+  localChanges: 3782.84,
   log: [
     {
       authorEmail: "<value>",
