@@ -6,8 +6,8 @@
 import { AuthToken } from "cribl-control-plane/models";
 
 let value: AuthToken = {
-  token: "<value>",
   forcePasswordChange: false,
+  token: "<value>",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: AuthToken = {
 
 | Field                 | Type                  | Required              | Description           |
 | --------------------- | --------------------- | --------------------- | --------------------- |
+| `forcePasswordChange` | *boolean*             | :heavy_check_mark:    | N/A                   |
 | `token`               | *string*              | :heavy_check_mark:    | N/A                   |
-| `forcePasswordChange` | *boolean*             | :heavy_minus_sign:    | N/A                   |

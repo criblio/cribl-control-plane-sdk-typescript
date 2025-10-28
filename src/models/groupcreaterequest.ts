@@ -33,7 +33,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
  */
-export const ConfigGroupEstimatedIngestRate = {
+export const GroupCreateRequestEstimatedIngestRate = {
   /**
    * 12 MB/sec
    */
@@ -74,31 +74,30 @@ export const ConfigGroupEstimatedIngestRate = {
 /**
  * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
  */
-export type ConfigGroupEstimatedIngestRate = OpenEnum<
-  typeof ConfigGroupEstimatedIngestRate
+export type GroupCreateRequestEstimatedIngestRate = OpenEnum<
+  typeof GroupCreateRequestEstimatedIngestRate
 >;
 
-export type ConfigGroupGit = {
+export type GroupCreateRequestGit = {
   commit?: string | undefined;
   localChanges?: number | undefined;
   log?: Array<Commit> | undefined;
 };
 
-export const ConfigGroupType = {
+export const GroupCreateRequestType = {
   LakeAccess: "lake_access",
 } as const;
-export type ConfigGroupType = OpenEnum<typeof ConfigGroupType>;
+export type GroupCreateRequestType = OpenEnum<typeof GroupCreateRequestType>;
 
-export type ConfigGroup = {
+export type GroupCreateRequest = {
   cloud?: ConfigGroupCloud | undefined;
-  configVersion?: string | undefined;
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   /**
    * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
    */
-  estimatedIngestRate?: ConfigGroupEstimatedIngestRate | undefined;
-  git?: ConfigGroupGit | undefined;
+  estimatedIngestRate?: GroupCreateRequestEstimatedIngestRate | undefined;
+  git?: GroupCreateRequestGit | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -109,32 +108,33 @@ export type ConfigGroup = {
   name?: string | undefined;
   onPrem?: boolean | undefined;
   provisioned?: boolean | undefined;
+  sourceGroupId?: string | undefined;
   streamtags?: Array<string> | undefined;
   tags?: string | undefined;
-  type?: ConfigGroupType | undefined;
+  type?: GroupCreateRequestType | undefined;
   upgradeVersion?: string | undefined;
   workerCount?: number | undefined;
   workerRemoteAccess?: boolean | undefined;
 };
 
 /** @internal */
-export const ConfigGroupEstimatedIngestRate$inboundSchema: z.ZodType<
-  ConfigGroupEstimatedIngestRate,
+export const GroupCreateRequestEstimatedIngestRate$inboundSchema: z.ZodType<
+  GroupCreateRequestEstimatedIngestRate,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(ConfigGroupEstimatedIngestRate),
+    z.nativeEnum(GroupCreateRequestEstimatedIngestRate),
     z.number().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const ConfigGroupEstimatedIngestRate$outboundSchema: z.ZodType<
-  ConfigGroupEstimatedIngestRate,
+export const GroupCreateRequestEstimatedIngestRate$outboundSchema: z.ZodType<
+  GroupCreateRequestEstimatedIngestRate,
   z.ZodTypeDef,
-  ConfigGroupEstimatedIngestRate
+  GroupCreateRequestEstimatedIngestRate
 > = z.union([
-  z.nativeEnum(ConfigGroupEstimatedIngestRate),
+  z.nativeEnum(GroupCreateRequestEstimatedIngestRate),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
 
@@ -142,16 +142,18 @@ export const ConfigGroupEstimatedIngestRate$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ConfigGroupEstimatedIngestRate$ {
-  /** @deprecated use `ConfigGroupEstimatedIngestRate$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupEstimatedIngestRate$inboundSchema;
-  /** @deprecated use `ConfigGroupEstimatedIngestRate$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupEstimatedIngestRate$outboundSchema;
+export namespace GroupCreateRequestEstimatedIngestRate$ {
+  /** @deprecated use `GroupCreateRequestEstimatedIngestRate$inboundSchema` instead. */
+  export const inboundSchema =
+    GroupCreateRequestEstimatedIngestRate$inboundSchema;
+  /** @deprecated use `GroupCreateRequestEstimatedIngestRate$outboundSchema` instead. */
+  export const outboundSchema =
+    GroupCreateRequestEstimatedIngestRate$outboundSchema;
 }
 
 /** @internal */
-export const ConfigGroupGit$inboundSchema: z.ZodType<
-  ConfigGroupGit,
+export const GroupCreateRequestGit$inboundSchema: z.ZodType<
+  GroupCreateRequestGit,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -161,17 +163,17 @@ export const ConfigGroupGit$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type ConfigGroupGit$Outbound = {
+export type GroupCreateRequestGit$Outbound = {
   commit?: string | undefined;
   localChanges?: number | undefined;
   log?: Array<Commit$Outbound> | undefined;
 };
 
 /** @internal */
-export const ConfigGroupGit$outboundSchema: z.ZodType<
-  ConfigGroupGit$Outbound,
+export const GroupCreateRequestGit$outboundSchema: z.ZodType<
+  GroupCreateRequestGit$Outbound,
   z.ZodTypeDef,
-  ConfigGroupGit
+  GroupCreateRequestGit
 > = z.object({
   commit: z.string().optional(),
   localChanges: z.number().optional(),
@@ -182,47 +184,51 @@ export const ConfigGroupGit$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ConfigGroupGit$ {
-  /** @deprecated use `ConfigGroupGit$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupGit$inboundSchema;
-  /** @deprecated use `ConfigGroupGit$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupGit$outboundSchema;
-  /** @deprecated use `ConfigGroupGit$Outbound` instead. */
-  export type Outbound = ConfigGroupGit$Outbound;
+export namespace GroupCreateRequestGit$ {
+  /** @deprecated use `GroupCreateRequestGit$inboundSchema` instead. */
+  export const inboundSchema = GroupCreateRequestGit$inboundSchema;
+  /** @deprecated use `GroupCreateRequestGit$outboundSchema` instead. */
+  export const outboundSchema = GroupCreateRequestGit$outboundSchema;
+  /** @deprecated use `GroupCreateRequestGit$Outbound` instead. */
+  export type Outbound = GroupCreateRequestGit$Outbound;
 }
 
-export function configGroupGitToJSON(configGroupGit: ConfigGroupGit): string {
-  return JSON.stringify(ConfigGroupGit$outboundSchema.parse(configGroupGit));
+export function groupCreateRequestGitToJSON(
+  groupCreateRequestGit: GroupCreateRequestGit,
+): string {
+  return JSON.stringify(
+    GroupCreateRequestGit$outboundSchema.parse(groupCreateRequestGit),
+  );
 }
 
-export function configGroupGitFromJSON(
+export function groupCreateRequestGitFromJSON(
   jsonString: string,
-): SafeParseResult<ConfigGroupGit, SDKValidationError> {
+): SafeParseResult<GroupCreateRequestGit, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ConfigGroupGit$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ConfigGroupGit' from JSON`,
+    (x) => GroupCreateRequestGit$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GroupCreateRequestGit' from JSON`,
   );
 }
 
 /** @internal */
-export const ConfigGroupType$inboundSchema: z.ZodType<
-  ConfigGroupType,
+export const GroupCreateRequestType$inboundSchema: z.ZodType<
+  GroupCreateRequestType,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(ConfigGroupType),
+    z.nativeEnum(GroupCreateRequestType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 
 /** @internal */
-export const ConfigGroupType$outboundSchema: z.ZodType<
-  ConfigGroupType,
+export const GroupCreateRequestType$outboundSchema: z.ZodType<
+  GroupCreateRequestType,
   z.ZodTypeDef,
-  ConfigGroupType
+  GroupCreateRequestType
 > = z.union([
-  z.nativeEnum(ConfigGroupType),
+  z.nativeEnum(GroupCreateRequestType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -230,25 +236,25 @@ export const ConfigGroupType$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ConfigGroupType$ {
-  /** @deprecated use `ConfigGroupType$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupType$inboundSchema;
-  /** @deprecated use `ConfigGroupType$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupType$outboundSchema;
+export namespace GroupCreateRequestType$ {
+  /** @deprecated use `GroupCreateRequestType$inboundSchema` instead. */
+  export const inboundSchema = GroupCreateRequestType$inboundSchema;
+  /** @deprecated use `GroupCreateRequestType$outboundSchema` instead. */
+  export const outboundSchema = GroupCreateRequestType$outboundSchema;
 }
 
 /** @internal */
-export const ConfigGroup$inboundSchema: z.ZodType<
-  ConfigGroup,
+export const GroupCreateRequest$inboundSchema: z.ZodType<
+  GroupCreateRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   cloud: ConfigGroupCloud$inboundSchema.optional(),
-  configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: ConfigGroupEstimatedIngestRate$inboundSchema.optional(),
-  git: z.lazy(() => ConfigGroupGit$inboundSchema).optional(),
+  estimatedIngestRate: GroupCreateRequestEstimatedIngestRate$inboundSchema
+    .optional(),
+  git: z.lazy(() => GroupCreateRequestGit$inboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
   inherits: z.string().optional(),
@@ -259,22 +265,22 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   name: z.string().optional(),
   onPrem: z.boolean().optional(),
   provisioned: z.boolean().optional(),
+  sourceGroupId: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   tags: z.string().optional(),
-  type: ConfigGroupType$inboundSchema.optional(),
+  type: GroupCreateRequestType$inboundSchema.optional(),
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
 });
 
 /** @internal */
-export type ConfigGroup$Outbound = {
+export type GroupCreateRequest$Outbound = {
   cloud?: ConfigGroupCloud$Outbound | undefined;
-  configVersion?: string | undefined;
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
-  git?: ConfigGroupGit$Outbound | undefined;
+  git?: GroupCreateRequestGit$Outbound | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -285,6 +291,7 @@ export type ConfigGroup$Outbound = {
   name?: string | undefined;
   onPrem?: boolean | undefined;
   provisioned?: boolean | undefined;
+  sourceGroupId?: string | undefined;
   streamtags?: Array<string> | undefined;
   tags?: string | undefined;
   type?: string | undefined;
@@ -294,17 +301,17 @@ export type ConfigGroup$Outbound = {
 };
 
 /** @internal */
-export const ConfigGroup$outboundSchema: z.ZodType<
-  ConfigGroup$Outbound,
+export const GroupCreateRequest$outboundSchema: z.ZodType<
+  GroupCreateRequest$Outbound,
   z.ZodTypeDef,
-  ConfigGroup
+  GroupCreateRequest
 > = z.object({
   cloud: ConfigGroupCloud$outboundSchema.optional(),
-  configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: ConfigGroupEstimatedIngestRate$outboundSchema.optional(),
-  git: z.lazy(() => ConfigGroupGit$outboundSchema).optional(),
+  estimatedIngestRate: GroupCreateRequestEstimatedIngestRate$outboundSchema
+    .optional(),
+  git: z.lazy(() => GroupCreateRequestGit$outboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
   inherits: z.string().optional(),
@@ -315,9 +322,10 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   name: z.string().optional(),
   onPrem: z.boolean().optional(),
   provisioned: z.boolean().optional(),
+  sourceGroupId: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   tags: z.string().optional(),
-  type: ConfigGroupType$outboundSchema.optional(),
+  type: GroupCreateRequestType$outboundSchema.optional(),
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
@@ -327,25 +335,29 @@ export const ConfigGroup$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ConfigGroup$ {
-  /** @deprecated use `ConfigGroup$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroup$inboundSchema;
-  /** @deprecated use `ConfigGroup$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroup$outboundSchema;
-  /** @deprecated use `ConfigGroup$Outbound` instead. */
-  export type Outbound = ConfigGroup$Outbound;
+export namespace GroupCreateRequest$ {
+  /** @deprecated use `GroupCreateRequest$inboundSchema` instead. */
+  export const inboundSchema = GroupCreateRequest$inboundSchema;
+  /** @deprecated use `GroupCreateRequest$outboundSchema` instead. */
+  export const outboundSchema = GroupCreateRequest$outboundSchema;
+  /** @deprecated use `GroupCreateRequest$Outbound` instead. */
+  export type Outbound = GroupCreateRequest$Outbound;
 }
 
-export function configGroupToJSON(configGroup: ConfigGroup): string {
-  return JSON.stringify(ConfigGroup$outboundSchema.parse(configGroup));
+export function groupCreateRequestToJSON(
+  groupCreateRequest: GroupCreateRequest,
+): string {
+  return JSON.stringify(
+    GroupCreateRequest$outboundSchema.parse(groupCreateRequest),
+  );
 }
 
-export function configGroupFromJSON(
+export function groupCreateRequestFromJSON(
   jsonString: string,
-): SafeParseResult<ConfigGroup, SDKValidationError> {
+): SafeParseResult<GroupCreateRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ConfigGroup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ConfigGroup' from JSON`,
+    (x) => GroupCreateRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GroupCreateRequest' from JSON`,
   );
 }

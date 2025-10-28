@@ -116,12 +116,11 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.groups.create({
     product: "edge",
-    configGroup: {
+    groupCreateRequest: {
       cloud: {
         provider: "aws",
         region: "<value>",
       },
-      configVersion: "<value>",
       deployingWorkerCount: 393.49,
       description: "ack before fondly scent because gee without where exactly",
       estimatedIngestRate: 5120,
@@ -154,6 +153,7 @@ async function run() {
       name: "<value>",
       onPrem: false,
       provisioned: true,
+      sourceGroupId: "<id>",
       streamtags: [
         "<value 1>",
         "<value 2>",
@@ -193,12 +193,11 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await groupsCreate(criblControlPlane, {
     product: "edge",
-    configGroup: {
+    groupCreateRequest: {
       cloud: {
         provider: "aws",
         region: "<value>",
       },
-      configVersion: "<value>",
       deployingWorkerCount: 393.49,
       description: "ack before fondly scent because gee without where exactly",
       estimatedIngestRate: 5120,
@@ -231,6 +230,7 @@ async function run() {
       name: "<value>",
       onPrem: false,
       provisioned: true,
+      sourceGroupId: "<id>",
       streamtags: [
         "<value 1>",
         "<value 2>",

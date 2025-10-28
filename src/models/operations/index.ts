@@ -28,7 +28,6 @@ export * from "./getconfiggroupbyproductandid.js";
 export * from "./getconfiggroupconfigversionbyproductandid.js";
 export * from "./getcribllakedatasetbylakeid.js";
 export * from "./getcribllakedatasetbylakeidandid.js";
-export * from "./gethealthinfo.js";
 export * from "./getinputbyid.js";
 export * from "./getmasterworkerentry.js";
 export * from "./getoutputbyid.js";

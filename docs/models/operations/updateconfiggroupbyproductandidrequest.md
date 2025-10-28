@@ -14,8 +14,8 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
       region: "<value>",
     },
     configVersion: "<value>",
-    deployingWorkerCount: 1686.56,
-    description: "reorient honestly bewail yummy athwart",
+    deployingWorkerCount: 8420.35,
+    description: "monster off valiantly lest offset highly fatal",
     estimatedIngestRate: 5120,
     git: {
       commit: "<value>",
@@ -32,9 +32,9 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
       ],
     },
     id: "<id>",
-    incompatibleWorkerCount: 4323.13,
+    incompatibleWorkerCount: 4580.35,
     inherits: "<value>",
-    isFleet: true,
+    isFleet: false,
     isSearch: true,
     lookupDeployments: [
       {
@@ -50,18 +50,17 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
     ],
     maxWorkerAge: "<value>",
     name: "<value>",
-    onPrem: false,
-    provisioned: true,
+    onPrem: true,
+    provisioned: false,
     streamtags: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     tags: "<value>",
     type: "lake_access",
     upgradeVersion: "<value>",
-    workerCount: 8028.07,
-    workerRemoteAccess: false,
+    workerCount: 9082.83,
+    workerRemoteAccess: true,
   },
 };
 ```

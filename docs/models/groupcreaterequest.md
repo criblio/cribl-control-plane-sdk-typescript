@@ -1,22 +1,22 @@
-# ConfigGroup
+# GroupCreateRequest
 
 ## Example Usage
 
 ```typescript
-import { ConfigGroup } from "cribl-control-plane/models";
+import { GroupCreateRequest } from "cribl-control-plane/models";
 
-let value: ConfigGroup = {
+let value: GroupCreateRequest = {
   cloud: {
     provider: "aws",
     region: "<value>",
   },
-  configVersion: "<value>",
-  deployingWorkerCount: 8637.12,
-  description: "toe grandiose on",
+  deployingWorkerCount: 9605.52,
+  description:
+    "gosh continually bestride trusting merrily whoa whether gifted even deliberately",
   estimatedIngestRate: 5120,
   git: {
     commit: "<value>",
-    localChanges: 470.66,
+    localChanges: 4323.13,
     log: [
       {
         authorEmail: "<value>",
@@ -29,10 +29,10 @@ let value: ConfigGroup = {
     ],
   },
   id: "<id>",
-  incompatibleWorkerCount: 508.39,
+  incompatibleWorkerCount: 5624.35,
   inherits: "<value>",
-  isFleet: true,
-  isSearch: true,
+  isFleet: false,
+  isSearch: false,
   lookupDeployments: [
     {
       context: "<value>",
@@ -47,15 +47,16 @@ let value: ConfigGroup = {
   ],
   maxWorkerAge: "<value>",
   name: "<value>",
-  onPrem: false,
-  provisioned: true,
+  onPrem: true,
+  provisioned: false,
+  sourceGroupId: "<id>",
   streamtags: [
     "<value 1>",
   ],
   tags: "<value>",
   type: "lake_access",
   upgradeVersion: "<value>",
-  workerCount: 6622.93,
+  workerCount: 8735.59,
   workerRemoteAccess: false,
 };
 ```
@@ -65,11 +66,10 @@ let value: ConfigGroup = {
 | Field                                                                                                                                                     | Type                                                                                                                                                      | Required                                                                                                                                                  | Description                                                                                                                                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `cloud`                                                                                                                                                   | [models.ConfigGroupCloud](../models/configgroupcloud.md)                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
-| `configVersion`                                                                                                                                           | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `deployingWorkerCount`                                                                                                                                    | *number*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `description`                                                                                                                                             | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
-| `estimatedIngestRate`                                                                                                                                     | [models.ConfigGroupEstimatedIngestRate](../models/configgroupestimatedingestrate.md)                                                                      | :heavy_minus_sign:                                                                                                                                        | Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.) |
-| `git`                                                                                                                                                     | [models.ConfigGroupGit](../models/configgroupgit.md)                                                                                                      | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
+| `estimatedIngestRate`                                                                                                                                     | [models.GroupCreateRequestEstimatedIngestRate](../models/groupcreaterequestestimatedingestrate.md)                                                        | :heavy_minus_sign:                                                                                                                                        | Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.) |
+| `git`                                                                                                                                                     | [models.GroupCreateRequestGit](../models/groupcreaterequestgit.md)                                                                                        | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `id`                                                                                                                                                      | *string*                                                                                                                                                  | :heavy_check_mark:                                                                                                                                        | N/A                                                                                                                                                       |
 | `incompatibleWorkerCount`                                                                                                                                 | *number*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `inherits`                                                                                                                                                | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
@@ -80,9 +80,10 @@ let value: ConfigGroup = {
 | `name`                                                                                                                                                    | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `onPrem`                                                                                                                                                  | *boolean*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `provisioned`                                                                                                                                             | *boolean*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
+| `sourceGroupId`                                                                                                                                           | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `streamtags`                                                                                                                                              | *string*[]                                                                                                                                                | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `tags`                                                                                                                                                    | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
-| `type`                                                                                                                                                    | [models.ConfigGroupType](../models/configgrouptype.md)                                                                                                    | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
+| `type`                                                                                                                                                    | [models.GroupCreateRequestType](../models/groupcreaterequesttype.md)                                                                                      | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `upgradeVersion`                                                                                                                                          | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `workerCount`                                                                                                                                             | *number*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |
 | `workerRemoteAccess`                                                                                                                                      | *boolean*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                        | N/A                                                                                                                                                       |

@@ -8,8 +8,8 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AuthToken = {
+  forcePasswordChange: boolean;
   token: string;
-  forcePasswordChange?: boolean | undefined;
 };
 
 /** @internal */
@@ -18,14 +18,14 @@ export const AuthToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  forcePasswordChange: z.boolean(),
   token: z.string(),
-  forcePasswordChange: z.boolean().optional(),
 });
 
 /** @internal */
 export type AuthToken$Outbound = {
+  forcePasswordChange: boolean;
   token: string;
-  forcePasswordChange?: boolean | undefined;
 };
 
 /** @internal */
@@ -34,8 +34,8 @@ export const AuthToken$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthToken
 > = z.object({
+  forcePasswordChange: z.boolean(),
   token: z.string(),
-  forcePasswordChange: z.boolean().optional(),
 });
 
 /**
