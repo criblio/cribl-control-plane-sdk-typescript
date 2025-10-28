@@ -26,7 +26,7 @@
  * .env file configuration.
  */
 
-import { ConfigGroup } from "../dist/esm/models";
+import { ConfigGroup, ConfigGroupEstimatedIngestRate } from "../dist/esm/models";
 import { AuthCloud } from "./auth";
 
 const ORG_ID = 'your-org-id';
@@ -46,7 +46,7 @@ const group: ConfigGroup = {
   provisioned: false,
   isFleet: false,
   isSearch: false,
-  estimatedIngestRate: 2048, // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
+  estimatedIngestRate: ConfigGroupEstimatedIngestRate.Rate24MBPerSec, // Equivalent to 24 MB/s maximum estimated ingest rate with 9 Worker Processes
   id: WORKER_GROUP_ID,
   name: "my-aws-worker-group",
 };
@@ -68,11 +68,11 @@ async function main() {
   }
 
   // Create the Worker Group
-  await cribl.groups.create({ product: "stream", configGroup: group });
+  await cribl.groups.create({ product: "stream", groupCreateRequest: group });
   console.log(`✅ Worker Group created: ${group.id}`);
 
   // Scale and provision the Worker Group
-  group.estimatedIngestRate = 4096; // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
+  group.estimatedIngestRate = ConfigGroupEstimatedIngestRate.Rate48MBPerSec; // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
   group.provisioned = true;
   await cribl.groups.update({ product: "stream", id: group.id, configGroup: group });
   console.log(`✅ Worker Group scaled and provisioned: ${group.id}`);
