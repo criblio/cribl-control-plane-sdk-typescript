@@ -29,7 +29,13 @@ export type InputConfluentCloudConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputConfluentCloudMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -41,7 +47,13 @@ export type InputConfluentCloudMode = OpenEnum<typeof InputConfluentCloudMode>;
  * Codec to use to compress the persisted data
  */
 export const InputConfluentCloudCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -143,20 +155,6 @@ export type InputConfluentCloudTLSSettingsClientSide = {
 };
 
 /**
- * The schema format used to encode and decode event data
- */
-export const InputConfluentCloudSchemaType = {
-  Avro: "avro",
-  Json: "json",
-} as const;
-/**
- * The schema format used to encode and decode event data
- */
-export type InputConfluentCloudSchemaType = OpenEnum<
-  typeof InputConfluentCloudSchemaType
->;
-
-/**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
  */
 export type InputConfluentCloudAuth = {
@@ -235,10 +233,6 @@ export type InputConfluentCloudKafkaSchemaRegistryAuthentication = {
    */
   schemaRegistryURL?: string | undefined;
   /**
-   * The schema format used to encode and decode event data
-   */
-  schemaType?: InputConfluentCloudSchemaType | undefined;
-  /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
   connectionTimeout?: number | undefined;
@@ -258,9 +252,21 @@ export type InputConfluentCloudKafkaSchemaRegistryAuthentication = {
 };
 
 export const InputConfluentCloudSASLMechanism = {
+  /**
+   * PLAIN
+   */
   Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
   ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
   ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
   Kerberos: "kerberos",
 } as const;
 export type InputConfluentCloudSASLMechanism = OpenEnum<
@@ -860,38 +866,6 @@ export function inputConfluentCloudTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const InputConfluentCloudSchemaType$inboundSchema: z.ZodType<
-  InputConfluentCloudSchemaType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputConfluentCloudSchemaType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputConfluentCloudSchemaType$outboundSchema: z.ZodType<
-  InputConfluentCloudSchemaType,
-  z.ZodTypeDef,
-  InputConfluentCloudSchemaType
-> = z.union([
-  z.nativeEnum(InputConfluentCloudSchemaType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputConfluentCloudSchemaType$ {
-  /** @deprecated use `InputConfluentCloudSchemaType$inboundSchema` instead. */
-  export const inboundSchema = InputConfluentCloudSchemaType$inboundSchema;
-  /** @deprecated use `InputConfluentCloudSchemaType$outboundSchema` instead. */
-  export const outboundSchema = InputConfluentCloudSchemaType$outboundSchema;
-}
-
-/** @internal */
 export const InputConfluentCloudAuth$inboundSchema: z.ZodType<
   InputConfluentCloudAuth,
   z.ZodTypeDef,
@@ -1131,7 +1105,6 @@ export const InputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: InputConfluentCloudSchemaType$inboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
@@ -1145,7 +1118,6 @@ export const InputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema:
 export type InputConfluentCloudKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
-  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -1164,7 +1136,6 @@ export const InputConfluentCloudKafkaSchemaRegistryAuthentication$outboundSchema
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: InputConfluentCloudSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),

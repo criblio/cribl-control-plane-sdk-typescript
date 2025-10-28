@@ -22,6 +22,9 @@ export type OutputServiceNowType = ClosedEnum<typeof OutputServiceNowType>;
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
 export const OutputServiceNowOTLPVersion = {
+  /**
+   * 1.3.1
+   */
   OneDot3Dot1: "1.3.1",
 } as const;
 /**
@@ -35,7 +38,13 @@ export type OutputServiceNowOTLPVersion = OpenEnum<
  * Select a transport option for OpenTelemetry
  */
 export const OutputServiceNowProtocol = {
+  /**
+   * gRPC
+   */
   Grpc: "grpc",
+  /**
+   * HTTP
+   */
   Http: "http",
 } as const;
 /**
@@ -49,8 +58,17 @@ export type OutputServiceNowProtocol = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputServiceNowCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Deflate
+   */
   Deflate: "deflate",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -64,7 +82,13 @@ export type OutputServiceNowCompressCompression = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputServiceNowHttpCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -83,8 +107,17 @@ export type OutputServiceNowMetadatum = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputServiceNowFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -98,8 +131,17 @@ export type OutputServiceNowFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputServiceNowBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -206,7 +248,13 @@ export type OutputServiceNowTLSSettingsClientSide = {
  * Codec to use to compress the persisted data
  */
 export const OutputServiceNowPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -220,7 +268,13 @@ export type OutputServiceNowPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputServiceNowQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -234,8 +288,17 @@ export type OutputServiceNowQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputServiceNowMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**

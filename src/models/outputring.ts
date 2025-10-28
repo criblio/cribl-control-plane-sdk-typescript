@@ -42,7 +42,13 @@ export type OutputRingDataCompressionFormat = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputRingBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**

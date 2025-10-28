@@ -10,7 +10,7 @@ Actions related to Routes
 * [list](#list) - List all Routes
 * [get](#get) - Get a Routing table
 * [update](#update) - Update a Route
-* [append](#append) - Append a Route to the end of the Routing table
+* [append](#append) - Add a Route to the end of the Routing table
 
 ## list
 
@@ -281,7 +281,7 @@ run();
 
 ## append
 
-Append a Route to the end of the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to append, in the request body. Cribl removes any omitted Routes and fields in the Routing table when appending the Route.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
+Add a Route to the end of the specified Routing table.
 
 ### Example Usage
 

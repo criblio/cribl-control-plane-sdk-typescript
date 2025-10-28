@@ -7,18 +7,17 @@ import { CreateConfigGroupByProductRequest } from "cribl-control-plane/models/op
 
 let value: CreateConfigGroupByProductRequest = {
   product: "edge",
-  configGroup: {
+  groupCreateRequest: {
     cloud: {
       provider: "aws",
       region: "<value>",
     },
-    configVersion: "<value>",
     deployingWorkerCount: 1686.56,
     description: "reorient honestly bewail yummy athwart",
-    estimatedIngestRate: 4612.22,
+    estimatedIngestRate: 5120,
     git: {
       commit: "<value>",
-      localChanges: 470.66,
+      localChanges: 4323.13,
       log: [
         {
           authorEmail: "<value>",
@@ -31,10 +30,10 @@ let value: CreateConfigGroupByProductRequest = {
       ],
     },
     id: "<id>",
-    incompatibleWorkerCount: 4323.13,
+    incompatibleWorkerCount: 4943.01,
     inherits: "<value>",
     isFleet: true,
-    isSearch: true,
+    isSearch: false,
     lookupDeployments: [
       {
         context: "<value>",
@@ -49,8 +48,9 @@ let value: CreateConfigGroupByProductRequest = {
     ],
     maxWorkerAge: "<value>",
     name: "<value>",
-    onPrem: false,
-    provisioned: true,
+    onPrem: true,
+    provisioned: false,
+    sourceGroupId: "<id>",
     streamtags: [
       "<value 1>",
       "<value 2>",
@@ -59,7 +59,7 @@ let value: CreateConfigGroupByProductRequest = {
     tags: "<value>",
     type: "lake_access",
     upgradeVersion: "<value>",
-    workerCount: 8028.07,
+    workerCount: 5687.41,
     workerRemoteAccess: false,
   },
 };
@@ -70,4 +70,4 @@ let value: CreateConfigGroupByProductRequest = {
 | Field                                                               | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `product`                                                           | [models.ProductsCore](../../models/productscore.md)                 | :heavy_check_mark:                                                  | Name of the Cribl product to add the Worker Group or Edge Fleet to. |
-| `configGroup`                                                       | [models.ConfigGroup](../../models/configgroup.md)                   | :heavy_check_mark:                                                  | ConfigGroup object                                                  |
+| `groupCreateRequest`                                                | [models.GroupCreateRequest](../../models/groupcreaterequest.md)     | :heavy_check_mark:                                                  | GroupCreateRequest object                                           |

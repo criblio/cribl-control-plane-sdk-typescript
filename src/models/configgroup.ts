@@ -30,7 +30,55 @@ import {
 } from "./configgrouplookups.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type Git = {
+/**
+ * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+ */
+export const ConfigGroupEstimatedIngestRate = {
+  /**
+   * 12 MB/sec
+   */
+  Rate12MBPerSec: 1024,
+  /**
+   * 24 MB/sec
+   */
+  Rate24MBPerSec: 2048,
+  /**
+   * 36 MB/sec
+   */
+  Rate36MBPerSec: 3072,
+  /**
+   * 48 MB/sec
+   */
+  Rate48MBPerSec: 4096,
+  /**
+   * 60 MB/sec
+   */
+  Rate60MBPerSec: 5120,
+  /**
+   * 84 MB/sec
+   */
+  Rate84MBPerSec: 7168,
+  /**
+   * 120 MB/sec
+   */
+  Rate120MBPerSec: 10240,
+  /**
+   * 156 MB/sec
+   */
+  Rate156MBPerSec: 13312,
+  /**
+   * 180 MB/sec
+   */
+  Rate180MBPerSec: 15360,
+} as const;
+/**
+ * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+ */
+export type ConfigGroupEstimatedIngestRate = OpenEnum<
+  typeof ConfigGroupEstimatedIngestRate
+>;
+
+export type ConfigGroupGit = {
   commit?: string | undefined;
   localChanges?: number | undefined;
   log?: Array<Commit> | undefined;
@@ -46,8 +94,11 @@ export type ConfigGroup = {
   configVersion?: string | undefined;
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
-  estimatedIngestRate?: number | undefined;
-  git?: Git | undefined;
+  /**
+   * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+   */
+  estimatedIngestRate?: ConfigGroupEstimatedIngestRate | undefined;
+  git?: ConfigGroupGit | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -67,52 +118,90 @@ export type ConfigGroup = {
 };
 
 /** @internal */
-export const Git$inboundSchema: z.ZodType<Git, z.ZodTypeDef, unknown> = z
-  .object({
-    commit: z.string().optional(),
-    localChanges: z.number().optional(),
-    log: z.array(Commit$inboundSchema).optional(),
-  });
+export const ConfigGroupEstimatedIngestRate$inboundSchema: z.ZodType<
+  ConfigGroupEstimatedIngestRate,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ConfigGroupEstimatedIngestRate),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
-export type Git$Outbound = {
+export const ConfigGroupEstimatedIngestRate$outboundSchema: z.ZodType<
+  ConfigGroupEstimatedIngestRate,
+  z.ZodTypeDef,
+  ConfigGroupEstimatedIngestRate
+> = z.union([
+  z.nativeEnum(ConfigGroupEstimatedIngestRate),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ConfigGroupEstimatedIngestRate$ {
+  /** @deprecated use `ConfigGroupEstimatedIngestRate$inboundSchema` instead. */
+  export const inboundSchema = ConfigGroupEstimatedIngestRate$inboundSchema;
+  /** @deprecated use `ConfigGroupEstimatedIngestRate$outboundSchema` instead. */
+  export const outboundSchema = ConfigGroupEstimatedIngestRate$outboundSchema;
+}
+
+/** @internal */
+export const ConfigGroupGit$inboundSchema: z.ZodType<
+  ConfigGroupGit,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  commit: z.string().optional(),
+  localChanges: z.number().optional(),
+  log: z.array(Commit$inboundSchema).optional(),
+});
+
+/** @internal */
+export type ConfigGroupGit$Outbound = {
   commit?: string | undefined;
   localChanges?: number | undefined;
   log?: Array<Commit$Outbound> | undefined;
 };
 
 /** @internal */
-export const Git$outboundSchema: z.ZodType<Git$Outbound, z.ZodTypeDef, Git> = z
-  .object({
-    commit: z.string().optional(),
-    localChanges: z.number().optional(),
-    log: z.array(Commit$outboundSchema).optional(),
-  });
+export const ConfigGroupGit$outboundSchema: z.ZodType<
+  ConfigGroupGit$Outbound,
+  z.ZodTypeDef,
+  ConfigGroupGit
+> = z.object({
+  commit: z.string().optional(),
+  localChanges: z.number().optional(),
+  log: z.array(Commit$outboundSchema).optional(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Git$ {
-  /** @deprecated use `Git$inboundSchema` instead. */
-  export const inboundSchema = Git$inboundSchema;
-  /** @deprecated use `Git$outboundSchema` instead. */
-  export const outboundSchema = Git$outboundSchema;
-  /** @deprecated use `Git$Outbound` instead. */
-  export type Outbound = Git$Outbound;
+export namespace ConfigGroupGit$ {
+  /** @deprecated use `ConfigGroupGit$inboundSchema` instead. */
+  export const inboundSchema = ConfigGroupGit$inboundSchema;
+  /** @deprecated use `ConfigGroupGit$outboundSchema` instead. */
+  export const outboundSchema = ConfigGroupGit$outboundSchema;
+  /** @deprecated use `ConfigGroupGit$Outbound` instead. */
+  export type Outbound = ConfigGroupGit$Outbound;
 }
 
-export function gitToJSON(git: Git): string {
-  return JSON.stringify(Git$outboundSchema.parse(git));
+export function configGroupGitToJSON(configGroupGit: ConfigGroupGit): string {
+  return JSON.stringify(ConfigGroupGit$outboundSchema.parse(configGroupGit));
 }
 
-export function gitFromJSON(
+export function configGroupGitFromJSON(
   jsonString: string,
-): SafeParseResult<Git, SDKValidationError> {
+): SafeParseResult<ConfigGroupGit, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Git$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Git' from JSON`,
+    (x) => ConfigGroupGit$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ConfigGroupGit' from JSON`,
   );
 }
 
@@ -158,8 +247,8 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: z.number().optional(),
-  git: z.lazy(() => Git$inboundSchema).optional(),
+  estimatedIngestRate: ConfigGroupEstimatedIngestRate$inboundSchema.optional(),
+  git: z.lazy(() => ConfigGroupGit$inboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
   inherits: z.string().optional(),
@@ -185,7 +274,7 @@ export type ConfigGroup$Outbound = {
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
-  git?: Git$Outbound | undefined;
+  git?: ConfigGroupGit$Outbound | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -214,8 +303,8 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: z.number().optional(),
-  git: z.lazy(() => Git$outboundSchema).optional(),
+  estimatedIngestRate: ConfigGroupEstimatedIngestRate$outboundSchema.optional(),
+  git: z.lazy(() => ConfigGroupGit$outboundSchema).optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
   inherits: z.string().optional(),

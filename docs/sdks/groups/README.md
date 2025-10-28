@@ -116,15 +116,14 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.groups.create({
     product: "edge",
-    configGroup: {
+    groupCreateRequest: {
       cloud: {
         provider: "aws",
         region: "<value>",
       },
-      configVersion: "<value>",
       deployingWorkerCount: 393.49,
       description: "ack before fondly scent because gee without where exactly",
-      estimatedIngestRate: 346.37,
+      estimatedIngestRate: 7168,
       git: {
         commit: "<value>",
         localChanges: 5255.51,
@@ -154,6 +153,7 @@ async function run() {
       name: "<value>",
       onPrem: false,
       provisioned: true,
+      sourceGroupId: "<id>",
       streamtags: [
         "<value 1>",
         "<value 2>",
@@ -193,15 +193,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await groupsCreate(criblControlPlane, {
     product: "edge",
-    configGroup: {
+    groupCreateRequest: {
       cloud: {
         provider: "aws",
         region: "<value>",
       },
-      configVersion: "<value>",
       deployingWorkerCount: 393.49,
       description: "ack before fondly scent because gee without where exactly",
-      estimatedIngestRate: 346.37,
+      estimatedIngestRate: 7168,
       git: {
         commit: "<value>",
         localChanges: 5255.51,
@@ -231,6 +230,7 @@ async function run() {
       name: "<value>",
       onPrem: false,
       provisioned: true,
+      sourceGroupId: "<id>",
       streamtags: [
         "<value 1>",
         "<value 2>",
@@ -387,7 +387,7 @@ async function run() {
       configVersion: "<value>",
       deployingWorkerCount: 7451.49,
       description: "verbally feminize harmful prance really",
-      estimatedIngestRate: 6748.35,
+      estimatedIngestRate: 13312,
       git: {
         commit: "<value>",
         localChanges: 4475.22,
@@ -470,7 +470,7 @@ async function run() {
       configVersion: "<value>",
       deployingWorkerCount: 7451.49,
       description: "verbally feminize harmful prance really",
-      estimatedIngestRate: 6748.35,
+      estimatedIngestRate: 13312,
       git: {
         commit: "<value>",
         localChanges: 4475.22,

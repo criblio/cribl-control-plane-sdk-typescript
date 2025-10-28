@@ -6,22 +6,22 @@ import * as z from "zod/v3";
 import * as models from "../index.js";
 import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
 
-export type HealthStatusErrorData = {
+export type HealthServerStatusErrorData = {
   role?: models.Role | undefined;
-  status: models.Status;
   startTime: number;
+  status: models.Status;
 };
 
-export class HealthStatusError extends CriblControlPlaneError {
+export class HealthServerStatusError extends CriblControlPlaneError {
   role?: models.Role | undefined;
-  status: models.Status;
   startTime: number;
+  status: models.Status;
 
   /** The original data that was passed to this error instance. */
-  data$: HealthStatusErrorData;
+  data$: HealthServerStatusErrorData;
 
   constructor(
-    err: HealthStatusErrorData,
+    err: HealthServerStatusErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = "message" in err && typeof err.message === "string"
@@ -30,28 +30,28 @@ export class HealthStatusError extends CriblControlPlaneError {
     super(message, httpMeta);
     this.data$ = err;
     if (err.role != null) this.role = err.role;
-    this.status = err.status;
     this.startTime = err.startTime;
+    this.status = err.status;
 
-    this.name = "HealthStatusError";
+    this.name = "HealthServerStatusError";
   }
 }
 
 /** @internal */
-export const HealthStatusError$inboundSchema: z.ZodType<
-  HealthStatusError,
+export const HealthServerStatusError$inboundSchema: z.ZodType<
+  HealthServerStatusError,
   z.ZodTypeDef,
   unknown
 > = z.object({
   role: models.Role$inboundSchema.optional(),
-  status: models.Status$inboundSchema,
   startTime: z.number(),
+  status: models.Status$inboundSchema,
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),
 })
   .transform((v) => {
-    return new HealthStatusError(v, {
+    return new HealthServerStatusError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
@@ -59,34 +59,34 @@ export const HealthStatusError$inboundSchema: z.ZodType<
   });
 
 /** @internal */
-export type HealthStatusError$Outbound = {
+export type HealthServerStatusError$Outbound = {
   role?: string | undefined;
-  status: string;
   startTime: number;
+  status: string;
 };
 
 /** @internal */
-export const HealthStatusError$outboundSchema: z.ZodType<
-  HealthStatusError$Outbound,
+export const HealthServerStatusError$outboundSchema: z.ZodType<
+  HealthServerStatusError$Outbound,
   z.ZodTypeDef,
-  HealthStatusError
-> = z.instanceof(HealthStatusError)
+  HealthServerStatusError
+> = z.instanceof(HealthServerStatusError)
   .transform(v => v.data$)
   .pipe(z.object({
     role: models.Role$outboundSchema.optional(),
-    status: models.Status$outboundSchema,
     startTime: z.number(),
+    status: models.Status$outboundSchema,
   }));
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace HealthStatusError$ {
-  /** @deprecated use `HealthStatusError$inboundSchema` instead. */
-  export const inboundSchema = HealthStatusError$inboundSchema;
-  /** @deprecated use `HealthStatusError$outboundSchema` instead. */
-  export const outboundSchema = HealthStatusError$outboundSchema;
-  /** @deprecated use `HealthStatusError$Outbound` instead. */
-  export type Outbound = HealthStatusError$Outbound;
+export namespace HealthServerStatusError$ {
+  /** @deprecated use `HealthServerStatusError$inboundSchema` instead. */
+  export const inboundSchema = HealthServerStatusError$inboundSchema;
+  /** @deprecated use `HealthServerStatusError$outboundSchema` instead. */
+  export const outboundSchema = HealthServerStatusError$outboundSchema;
+  /** @deprecated use `HealthServerStatusError$Outbound` instead. */
+  export type Outbound = HealthServerStatusError$Outbound;
 }

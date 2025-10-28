@@ -29,11 +29,11 @@ let value: OutputSentinelOneAiSiem = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 3993.7,
+      httpStatus: 3766.68,
     },
   ],
   timeoutRetrySettings: {},
-  description: "blissfully mousse sleepily serpentine seriously fluff",
+  description: "which unselfish how raw congregate drat aw",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},

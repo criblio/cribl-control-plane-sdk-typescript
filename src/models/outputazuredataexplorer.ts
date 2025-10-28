@@ -21,7 +21,13 @@ export type OutputAzureDataExplorerType = ClosedEnum<
 >;
 
 export const IngestionMode = {
+  /**
+   * Batching
+   */
   Batching: "batching",
+  /**
+   * Streaming
+   */
   Streaming: "streaming",
 } as const;
 export type IngestionMode = OpenEnum<typeof IngestionMode>;
@@ -46,8 +52,17 @@ export type MicrosoftEntraIDAuthenticationEndpoint = OpenEnum<
  * The type of OAuth 2.0 client credentials grant flow to use
  */
 export const OutputAzureDataExplorerAuthenticationMethod = {
+  /**
+   * Client secret
+   */
   ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
   ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
   Certificate: "certificate",
 } as const;
 /**
@@ -68,8 +83,17 @@ export type OutputAzureDataExplorerCertificate = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputAzureDataExplorerBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -83,8 +107,17 @@ export type OutputAzureDataExplorerBackpressureBehavior = OpenEnum<
  * Format of the output data
  */
 export const OutputAzureDataExplorerDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -98,7 +131,13 @@ export type OutputAzureDataExplorerDataFormat = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputAzureDataExplorerDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -109,7 +148,13 @@ export type OutputAzureDataExplorerDiskSpaceProtection = OpenEnum<
 >;
 
 export const PrefixOptional = {
+  /**
+   * drop-by
+   */
   DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
   IngestBy: "ingestBy",
 } as const;
 export type PrefixOptional = OpenEnum<typeof PrefixOptional>;
@@ -127,8 +172,17 @@ export type IngestIfNotExist = {
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
 export const ReportLevel = {
+  /**
+   * FailuresOnly
+   */
   FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
   DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
   FailuresAndSuccesses: "failuresAndSuccesses",
 } as const;
 /**
@@ -140,8 +194,17 @@ export type ReportLevel = OpenEnum<typeof ReportLevel>;
  * Target of the ingestion status reporting. Defaults to Queue.
  */
 export const ReportMethod = {
+  /**
+   * Queue
+   */
   Queue: "queue",
+  /**
+   * Table
+   */
   Table: "table",
+  /**
+   * QueueAndTable
+   */
   QueueAndTable: "queueAndTable",
 } as const;
 /**
@@ -207,7 +270,13 @@ export type OutputAzureDataExplorerCompressCompression = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const OutputAzureDataExplorerPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -221,7 +290,13 @@ export type OutputAzureDataExplorerPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputAzureDataExplorerQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -235,8 +310,17 @@ export type OutputAzureDataExplorerQueueFullBehavior = OpenEnum<
  * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
  */
 export const OutputAzureDataExplorerMode = {
+  /**
+   * Error
+   */
   Error: "error",
+  /**
+   * Backpressure
+   */
   Backpressure: "backpressure",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**

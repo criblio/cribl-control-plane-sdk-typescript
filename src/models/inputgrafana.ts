@@ -27,7 +27,13 @@ export type InputGrafanaConnection2 = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputGrafanaMode2 = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputGrafanaMode2 = OpenEnum<typeof InputGrafanaMode2>;
  * Codec to use to compress the persisted data
  */
 export const InputGrafanaCompression2 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -445,7 +457,13 @@ export type InputGrafanaConnection1 = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputGrafanaMode1 = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -457,7 +475,13 @@ export type InputGrafanaMode1 = OpenEnum<typeof InputGrafanaMode1>;
  * Codec to use to compress the persisted data
  */
 export const InputGrafanaCompression1 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**

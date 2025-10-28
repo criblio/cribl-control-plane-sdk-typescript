@@ -27,7 +27,13 @@ export type InputSystemMetricsConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputSystemMetricsPqMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -41,7 +47,13 @@ export type InputSystemMetricsPqMode = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const InputSystemMetricsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -89,9 +101,21 @@ export type InputSystemMetricsPq = {
  * Select level of detail for host metrics
  */
 export const InputSystemMetricsHostMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -105,9 +129,21 @@ export type InputSystemMetricsHostMode = OpenEnum<
  * Select the level of detail for system metrics
  */
 export const InputSystemMetricsSystemMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -132,9 +168,21 @@ export type InputSystemMetricsSystem = {
  * Select the level of detail for CPU metrics
  */
 export const InputSystemMetricsCpuMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -167,9 +215,21 @@ export type InputSystemMetricsCpu = {
  * Select the level of detail for memory metrics
  */
 export const InputSystemMetricsMemoryMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -194,9 +254,21 @@ export type InputSystemMetricsMemory = {
  * Select the level of detail for network metrics
  */
 export const InputSystemMetricsNetworkMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -229,9 +301,21 @@ export type InputSystemMetricsNetwork = {
  * Select the level of detail for disk metrics
  */
 export const InputSystemMetricsDiskMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -301,9 +385,21 @@ export type InputSystemMetricsProcess = {
  * Select the level of detail for container metrics
  */
 export const ContainerMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
