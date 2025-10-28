@@ -121,6 +121,28 @@ export type OutputAzureLogsAuthenticationMethod = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputAzureLogsMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputAzureLogsMode = OpenEnum<typeof OutputAzureLogsMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputAzureLogsCompression = {
@@ -159,28 +181,6 @@ export const OutputAzureLogsQueueFullBehavior = {
 export type OutputAzureLogsQueueFullBehavior = OpenEnum<
   typeof OutputAzureLogsQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputAzureLogsMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Backpressure: "backpressure",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputAzureLogsMode = OpenEnum<typeof OutputAzureLogsMode>;
 
 export type OutputAzureLogsPqControls = {};
 
@@ -286,6 +286,26 @@ export type OutputAzureLogs = {
   authType?: OutputAzureLogsAuthenticationMethod | undefined;
   description?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputAzureLogsMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -305,10 +325,6 @@ export type OutputAzureLogs = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputAzureLogsQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputAzureLogsMode | undefined;
   pqControls?: OutputAzureLogsPqControls | undefined;
   /**
    * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
@@ -643,6 +659,38 @@ export namespace OutputAzureLogsAuthenticationMethod$ {
 }
 
 /** @internal */
+export const OutputAzureLogsMode$inboundSchema: z.ZodType<
+  OutputAzureLogsMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputAzureLogsMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputAzureLogsMode$outboundSchema: z.ZodType<
+  OutputAzureLogsMode,
+  z.ZodTypeDef,
+  OutputAzureLogsMode
+> = z.union([
+  z.nativeEnum(OutputAzureLogsMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputAzureLogsMode$ {
+  /** @deprecated use `OutputAzureLogsMode$inboundSchema` instead. */
+  export const inboundSchema = OutputAzureLogsMode$inboundSchema;
+  /** @deprecated use `OutputAzureLogsMode$outboundSchema` instead. */
+  export const outboundSchema = OutputAzureLogsMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputAzureLogsCompression$inboundSchema: z.ZodType<
   OutputAzureLogsCompression,
   z.ZodTypeDef,
@@ -704,38 +752,6 @@ export namespace OutputAzureLogsQueueFullBehavior$ {
   export const inboundSchema = OutputAzureLogsQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputAzureLogsQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputAzureLogsQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureLogsMode$inboundSchema: z.ZodType<
-  OutputAzureLogsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureLogsMode$outboundSchema: z.ZodType<
-  OutputAzureLogsMode,
-  z.ZodTypeDef,
-  OutputAzureLogsMode
-> = z.union([
-  z.nativeEnum(OutputAzureLogsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsMode$ {
-  /** @deprecated use `OutputAzureLogsMode$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsMode$inboundSchema;
-  /** @deprecated use `OutputAzureLogsMode$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsMode$outboundSchema;
 }
 
 /** @internal */
@@ -827,6 +843,11 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   ),
   authType: OutputAzureLogsAuthenticationMethod$inboundSchema.default("manual"),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputAzureLogsMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -834,7 +855,6 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputAzureLogsQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputAzureLogsMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputAzureLogsPqControls$inboundSchema).optional(),
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
@@ -873,12 +893,16 @@ export type OutputAzureLogs$Outbound = {
   onBackpressure: string;
   authType: string;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputAzureLogsPqControls$Outbound | undefined;
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
@@ -928,6 +952,11 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
     "manual",
   ),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputAzureLogsMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -935,7 +964,6 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputAzureLogsQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputAzureLogsMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputAzureLogsPqControls$outboundSchema).optional(),
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),

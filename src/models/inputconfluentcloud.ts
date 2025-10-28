@@ -251,6 +251,20 @@ export type InputConfluentCloudKafkaSchemaRegistryAuthentication = {
   tls?: InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide | undefined;
 };
 
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputConfluentCloudAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputConfluentCloudAuthenticationMethod = OpenEnum<
+  typeof InputConfluentCloudAuthenticationMethod
+>;
+
 export const InputConfluentCloudSASLMechanism = {
   /**
    * PLAIN
@@ -273,16 +287,69 @@ export type InputConfluentCloudSASLMechanism = OpenEnum<
   typeof InputConfluentCloudSASLMechanism
 >;
 
+export type InputConfluentCloudOauthParam = {
+  name: string;
+  value: string;
+};
+
+export type InputConfluentCloudSaslExtension = {
+  name: string;
+  value: string;
+};
+
 /**
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
  */
 export type InputConfluentCloudAuthentication = {
   disabled?: boolean | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputConfluentCloudAuthenticationMethod | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
   mechanism?: InputConfluentCloudSASLMechanism | undefined;
+  /**
+   * Location of keytab file for authentication principal
+   */
+  keytabLocation?: string | undefined;
+  /**
+   * Authentication principal, such as `kafka_user@example.com`
+   */
+  principal?: string | undefined;
+  /**
+   * Kerberos service class for Kafka brokers, such as `kafka`
+   */
+  brokerServiceClass?: string | undefined;
   /**
    * Enable OAuth authentication
    */
   oauthEnabled?: boolean | undefined;
+  /**
+   * URL of the token endpoint to use for OAuth authentication
+   */
+  tokenUrl?: string | undefined;
+  /**
+   * Client ID to use for OAuth authentication
+   */
+  clientId?: string | undefined;
+  oauthSecretType?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Additional fields to send to the token endpoint, such as scope or audience
+   */
+  oauthParams?: Array<InputConfluentCloudOauthParam> | undefined;
+  /**
+   * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+   */
+  saslExtensions?: Array<InputConfluentCloudSaslExtension> | undefined;
 };
 
 export type InputConfluentCloudMetadatum = {
@@ -1189,6 +1256,40 @@ export function inputConfluentCloudKafkaSchemaRegistryAuthenticationFromJSON(
 }
 
 /** @internal */
+export const InputConfluentCloudAuthenticationMethod$inboundSchema: z.ZodType<
+  InputConfluentCloudAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputConfluentCloudAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const InputConfluentCloudAuthenticationMethod$outboundSchema: z.ZodType<
+  InputConfluentCloudAuthenticationMethod,
+  z.ZodTypeDef,
+  InputConfluentCloudAuthenticationMethod
+> = z.union([
+  z.nativeEnum(InputConfluentCloudAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputConfluentCloudAuthenticationMethod$ {
+  /** @deprecated use `InputConfluentCloudAuthenticationMethod$inboundSchema` instead. */
+  export const inboundSchema =
+    InputConfluentCloudAuthenticationMethod$inboundSchema;
+  /** @deprecated use `InputConfluentCloudAuthenticationMethod$outboundSchema` instead. */
+  export const outboundSchema =
+    InputConfluentCloudAuthenticationMethod$outboundSchema;
+}
+
+/** @internal */
 export const InputConfluentCloudSASLMechanism$inboundSchema: z.ZodType<
   InputConfluentCloudSASLMechanism,
   z.ZodTypeDef,
@@ -1221,21 +1322,171 @@ export namespace InputConfluentCloudSASLMechanism$ {
 }
 
 /** @internal */
+export const InputConfluentCloudOauthParam$inboundSchema: z.ZodType<
+  InputConfluentCloudOauthParam,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/** @internal */
+export type InputConfluentCloudOauthParam$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputConfluentCloudOauthParam$outboundSchema: z.ZodType<
+  InputConfluentCloudOauthParam$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudOauthParam
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputConfluentCloudOauthParam$ {
+  /** @deprecated use `InputConfluentCloudOauthParam$inboundSchema` instead. */
+  export const inboundSchema = InputConfluentCloudOauthParam$inboundSchema;
+  /** @deprecated use `InputConfluentCloudOauthParam$outboundSchema` instead. */
+  export const outboundSchema = InputConfluentCloudOauthParam$outboundSchema;
+  /** @deprecated use `InputConfluentCloudOauthParam$Outbound` instead. */
+  export type Outbound = InputConfluentCloudOauthParam$Outbound;
+}
+
+export function inputConfluentCloudOauthParamToJSON(
+  inputConfluentCloudOauthParam: InputConfluentCloudOauthParam,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudOauthParam$outboundSchema.parse(
+      inputConfluentCloudOauthParam,
+    ),
+  );
+}
+
+export function inputConfluentCloudOauthParamFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudOauthParam, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudOauthParam$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudOauthParam' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudSaslExtension$inboundSchema: z.ZodType<
+  InputConfluentCloudSaslExtension,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/** @internal */
+export type InputConfluentCloudSaslExtension$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputConfluentCloudSaslExtension$outboundSchema: z.ZodType<
+  InputConfluentCloudSaslExtension$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudSaslExtension
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputConfluentCloudSaslExtension$ {
+  /** @deprecated use `InputConfluentCloudSaslExtension$inboundSchema` instead. */
+  export const inboundSchema = InputConfluentCloudSaslExtension$inboundSchema;
+  /** @deprecated use `InputConfluentCloudSaslExtension$outboundSchema` instead. */
+  export const outboundSchema = InputConfluentCloudSaslExtension$outboundSchema;
+  /** @deprecated use `InputConfluentCloudSaslExtension$Outbound` instead. */
+  export type Outbound = InputConfluentCloudSaslExtension$Outbound;
+}
+
+export function inputConfluentCloudSaslExtensionToJSON(
+  inputConfluentCloudSaslExtension: InputConfluentCloudSaslExtension,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudSaslExtension$outboundSchema.parse(
+      inputConfluentCloudSaslExtension,
+    ),
+  );
+}
+
+export function inputConfluentCloudSaslExtensionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudSaslExtension, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudSaslExtension$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudSaslExtension' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputConfluentCloudAuthentication$inboundSchema: z.ZodType<
   InputConfluentCloudAuthentication,
   z.ZodTypeDef,
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: InputConfluentCloudAuthenticationMethod$inboundSchema.default(
+    "manual",
+  ),
+  credentialsSecret: z.string().optional(),
   mechanism: InputConfluentCloudSASLMechanism$inboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
   oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(
+    z.lazy(() => InputConfluentCloudOauthParam$inboundSchema),
+  ).optional(),
+  saslExtensions: z.array(
+    z.lazy(() => InputConfluentCloudSaslExtension$inboundSchema),
+  ).optional(),
 });
 
 /** @internal */
 export type InputConfluentCloudAuthentication$Outbound = {
   disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
+  authType: string;
+  credentialsSecret?: string | undefined;
   mechanism: string;
+  keytabLocation?: string | undefined;
+  principal?: string | undefined;
+  brokerServiceClass?: string | undefined;
   oauthEnabled: boolean;
+  tokenUrl?: string | undefined;
+  clientId?: string | undefined;
+  oauthSecretType: string;
+  clientTextSecret?: string | undefined;
+  oauthParams?: Array<InputConfluentCloudOauthParam$Outbound> | undefined;
+  saslExtensions?: Array<InputConfluentCloudSaslExtension$Outbound> | undefined;
 };
 
 /** @internal */
@@ -1245,8 +1496,27 @@ export const InputConfluentCloudAuthentication$outboundSchema: z.ZodType<
   InputConfluentCloudAuthentication
 > = z.object({
   disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: InputConfluentCloudAuthenticationMethod$outboundSchema.default(
+    "manual",
+  ),
+  credentialsSecret: z.string().optional(),
   mechanism: InputConfluentCloudSASLMechanism$outboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
   oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(
+    z.lazy(() => InputConfluentCloudOauthParam$outboundSchema),
+  ).optional(),
+  saslExtensions: z.array(
+    z.lazy(() => InputConfluentCloudSaslExtension$outboundSchema),
+  ).optional(),
 });
 
 /**

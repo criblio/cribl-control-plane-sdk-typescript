@@ -159,6 +159,28 @@ export type OutputInfluxdbAuthenticationType = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputInfluxdbMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputInfluxdbMode = OpenEnum<typeof OutputInfluxdbMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputInfluxdbCompression = {
@@ -197,28 +219,6 @@ export const OutputInfluxdbQueueFullBehavior = {
 export type OutputInfluxdbQueueFullBehavior = OpenEnum<
   typeof OutputInfluxdbQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputInfluxdbMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Backpressure: "backpressure",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputInfluxdbMode = OpenEnum<typeof OutputInfluxdbMode>;
 
 export type OutputInfluxdbPqControls = {};
 
@@ -365,6 +365,26 @@ export type OutputInfluxdb = {
    */
   org?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputInfluxdbMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -384,10 +404,6 @@ export type OutputInfluxdb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputInfluxdbQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputInfluxdbMode | undefined;
   pqControls?: OutputInfluxdbPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -783,6 +799,38 @@ export namespace OutputInfluxdbAuthenticationType$ {
 }
 
 /** @internal */
+export const OutputInfluxdbMode$inboundSchema: z.ZodType<
+  OutputInfluxdbMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputInfluxdbMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputInfluxdbMode$outboundSchema: z.ZodType<
+  OutputInfluxdbMode,
+  z.ZodTypeDef,
+  OutputInfluxdbMode
+> = z.union([
+  z.nativeEnum(OutputInfluxdbMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputInfluxdbMode$ {
+  /** @deprecated use `OutputInfluxdbMode$inboundSchema` instead. */
+  export const inboundSchema = OutputInfluxdbMode$inboundSchema;
+  /** @deprecated use `OutputInfluxdbMode$outboundSchema` instead. */
+  export const outboundSchema = OutputInfluxdbMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputInfluxdbCompression$inboundSchema: z.ZodType<
   OutputInfluxdbCompression,
   z.ZodTypeDef,
@@ -844,38 +892,6 @@ export namespace OutputInfluxdbQueueFullBehavior$ {
   export const inboundSchema = OutputInfluxdbQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputInfluxdbQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputInfluxdbQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputInfluxdbMode$inboundSchema: z.ZodType<
-  OutputInfluxdbMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputInfluxdbMode$outboundSchema: z.ZodType<
-  OutputInfluxdbMode,
-  z.ZodTypeDef,
-  OutputInfluxdbMode
-> = z.union([
-  z.nativeEnum(OutputInfluxdbMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbMode$ {
-  /** @deprecated use `OutputInfluxdbMode$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbMode$inboundSchema;
-  /** @deprecated use `OutputInfluxdbMode$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbMode$outboundSchema;
 }
 
 /** @internal */
@@ -1086,6 +1102,11 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   database: z.string().optional(),
   bucket: z.string().optional(),
   org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputInfluxdbMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1093,7 +1114,6 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputInfluxdbQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputInfluxdbMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputInfluxdbPqControls$inboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1149,12 +1169,16 @@ export type OutputInfluxdb$Outbound = {
   database?: string | undefined;
   bucket?: string | undefined;
   org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputInfluxdbPqControls$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1217,6 +1241,11 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   database: z.string().optional(),
   bucket: z.string().optional(),
   org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputInfluxdbMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1224,7 +1253,6 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputInfluxdbQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputInfluxdbMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputInfluxdbPqControls$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),

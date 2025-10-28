@@ -25,10 +25,10 @@ let value: GetOutputPqByIdResponse = {
         environment: "<value>",
         schedule: {
           enabled: true,
+          skippable: true,
+          resumeMissed: false,
           cronSchedule: "*/5 * * * *",
           maxConcurrentRuns: 1,
-          skippable: true,
-          resumeMissed: "<value>",
           run: {
             type: "collection",
             rescheduleDroppedTasks: true,

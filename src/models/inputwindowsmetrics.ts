@@ -286,6 +286,14 @@ export type InputWindowsMetricsNetwork = {
    */
   mode?: InputWindowsMetricsNetworkMode | undefined;
   /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
+  /**
    * Network interfaces to include/exclude. All interfaces are included if this list is empty.
    */
   devices?: Array<string> | undefined;
@@ -293,10 +301,6 @@ export type InputWindowsMetricsNetwork = {
    * Generate separate metrics for each interface
    */
   perInterface?: boolean | undefined;
-  /**
-   * Generate full network metrics
-   */
-  detail?: boolean | undefined;
 };
 
 /**
@@ -333,13 +337,17 @@ export type InputWindowsMetricsDisk = {
    */
   mode?: InputWindowsMetricsDiskMode | undefined;
   /**
-   * Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
-   */
-  volumes?: Array<string> | undefined;
-  /**
    * Generate separate metrics for each volume
    */
   perVolume?: boolean | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
+   */
+  volumes?: Array<string> | undefined;
 };
 
 export type InputWindowsMetricsCustom = {
@@ -1076,17 +1084,19 @@ export const InputWindowsMetricsNetwork$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: InputWindowsMetricsNetworkMode$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
 /** @internal */
 export type InputWindowsMetricsNetwork$Outbound = {
   mode: string;
+  detail: boolean;
+  protocols: boolean;
   devices?: Array<string> | undefined;
   perInterface: boolean;
-  detail: boolean;
 };
 
 /** @internal */
@@ -1096,9 +1106,10 @@ export const InputWindowsMetricsNetwork$outboundSchema: z.ZodType<
   InputWindowsMetricsNetwork
 > = z.object({
   mode: InputWindowsMetricsNetworkMode$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
 /**
@@ -1171,15 +1182,17 @@ export const InputWindowsMetricsDisk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: InputWindowsMetricsDiskMode$inboundSchema.default("basic"),
-  volumes: z.array(z.string()).optional(),
   perVolume: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  volumes: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type InputWindowsMetricsDisk$Outbound = {
   mode: string;
-  volumes?: Array<string> | undefined;
   perVolume: boolean;
+  detail: boolean;
+  volumes?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -1189,8 +1202,9 @@ export const InputWindowsMetricsDisk$outboundSchema: z.ZodType<
   InputWindowsMetricsDisk
 > = z.object({
   mode: InputWindowsMetricsDiskMode$outboundSchema.default("basic"),
-  volumes: z.array(z.string()).optional(),
   perVolume: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  volumes: z.array(z.string()).optional(),
 });
 
 /**
