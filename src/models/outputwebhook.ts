@@ -232,6 +232,28 @@ export type OutputWebhookTLSSettingsClientSide = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputWebhookMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputWebhookMode = OpenEnum<typeof OutputWebhookMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputWebhookCompression = {
@@ -270,28 +292,6 @@ export const OutputWebhookQueueFullBehavior = {
 export type OutputWebhookQueueFullBehavior = OpenEnum<
   typeof OutputWebhookQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputWebhookMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Backpressure: "backpressure",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputWebhookMode = OpenEnum<typeof OutputWebhookMode>;
 
 export type OutputWebhookPqControls = {};
 
@@ -470,6 +470,26 @@ export type OutputWebhook = {
    */
   formatPayloadCode?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputWebhookMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -489,10 +509,6 @@ export type OutputWebhook = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputWebhookQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputWebhookMode | undefined;
   pqControls?: OutputWebhookPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1081,6 +1097,38 @@ export function outputWebhookTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
+export const OutputWebhookMode$inboundSchema: z.ZodType<
+  OutputWebhookMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputWebhookMode$outboundSchema: z.ZodType<
+  OutputWebhookMode,
+  z.ZodTypeDef,
+  OutputWebhookMode
+> = z.union([
+  z.nativeEnum(OutputWebhookMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputWebhookMode$ {
+  /** @deprecated use `OutputWebhookMode$inboundSchema` instead. */
+  export const inboundSchema = OutputWebhookMode$inboundSchema;
+  /** @deprecated use `OutputWebhookMode$outboundSchema` instead. */
+  export const outboundSchema = OutputWebhookMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputWebhookCompression$inboundSchema: z.ZodType<
   OutputWebhookCompression,
   z.ZodTypeDef,
@@ -1142,38 +1190,6 @@ export namespace OutputWebhookQueueFullBehavior$ {
   export const inboundSchema = OutputWebhookQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputWebhookQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputWebhookQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputWebhookMode$inboundSchema: z.ZodType<
-  OutputWebhookMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWebhookMode$outboundSchema: z.ZodType<
-  OutputWebhookMode,
-  z.ZodTypeDef,
-  OutputWebhookMode
-> = z.union([
-  z.nativeEnum(OutputWebhookMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookMode$ {
-  /** @deprecated use `OutputWebhookMode$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookMode$inboundSchema;
-  /** @deprecated use `OutputWebhookMode$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookMode$outboundSchema;
 }
 
 /** @internal */
@@ -1448,6 +1464,11 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   advancedContentType: z.string().default("application/json"),
   formatEventCode: z.string().optional(),
   formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputWebhookMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1455,7 +1476,6 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputWebhookQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputWebhookMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputWebhookPqControls$inboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1520,12 +1540,16 @@ export type OutputWebhook$Outbound = {
   advancedContentType: string;
   formatEventCode?: string | undefined;
   formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputWebhookPqControls$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1600,6 +1624,11 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   advancedContentType: z.string().default("application/json"),
   formatEventCode: z.string().optional(),
   formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputWebhookMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1607,7 +1636,6 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputWebhookQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputWebhookMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputWebhookPqControls$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),

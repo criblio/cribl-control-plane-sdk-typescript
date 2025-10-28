@@ -13,14 +13,8 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Acl } from "./acl.js";
 import { GroupsConfigs } from "./groupsconfigs.js";
-import { Mappings } from "./mappings.js";
 
 export class Groups extends ClientSDK {
-  private _mappings?: Mappings;
-  get mappings(): Mappings {
-    return (this._mappings ??= new Mappings(this._options));
-  }
-
   private _configs?: GroupsConfigs;
   get configs(): GroupsConfigs {
     return (this._configs ??= new GroupsConfigs(this._options));

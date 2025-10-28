@@ -273,6 +273,10 @@ export type OutputFilesystem = {
    */
   automaticSchema?: boolean | undefined;
   /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
    * Determines which data types are supported and how they are represented
    */
   parquetVersion?: OutputFilesystemParquetVersion | undefined;
@@ -673,6 +677,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputFilesystemParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -722,6 +727,7 @@ export type OutputFilesystem$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -780,6 +786,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputFilesystemParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),

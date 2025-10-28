@@ -328,6 +328,10 @@ export type OutputAzureBlob = {
    */
   automaticSchema?: boolean | undefined;
   /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
    * Determines which data types are supported and how they are represented
    */
   parquetVersion?: OutputAzureBlobParquetVersion | undefined;
@@ -884,6 +888,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputAzureBlobParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -948,6 +953,7 @@ export type OutputAzureBlob$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -1022,6 +1028,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputAzureBlobParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),

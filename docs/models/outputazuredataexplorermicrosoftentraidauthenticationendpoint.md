@@ -1,13 +1,13 @@
-# MicrosoftEntraIDAuthenticationEndpoint
+# OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint
 
 Endpoint used to acquire authentication tokens from Azure
 
 ## Example Usage
 
 ```typescript
-import { MicrosoftEntraIDAuthenticationEndpoint } from "cribl-control-plane/models";
+import { OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint } from "cribl-control-plane/models";
 
-let value: MicrosoftEntraIDAuthenticationEndpoint =
+let value: OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint =
   "https://login.partner.microsoftonline.cn";
 ```
 

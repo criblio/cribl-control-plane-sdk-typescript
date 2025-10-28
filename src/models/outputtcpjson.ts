@@ -169,6 +169,28 @@ export type OutputTcpjsonHost = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputTcpjsonMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputTcpjsonMode = OpenEnum<typeof OutputTcpjsonMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputTcpjsonPqCompressCompression = {
@@ -207,28 +229,6 @@ export const OutputTcpjsonQueueFullBehavior = {
 export type OutputTcpjsonQueueFullBehavior = OpenEnum<
   typeof OutputTcpjsonQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputTcpjsonMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Backpressure: "backpressure",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputTcpjsonMode = OpenEnum<typeof OutputTcpjsonMode>;
 
 export type OutputTcpjsonPqControls = {};
 
@@ -325,6 +325,26 @@ export type OutputTcpjson = {
    */
   maxConcurrentSenders?: number | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputTcpjsonMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -344,10 +364,6 @@ export type OutputTcpjson = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputTcpjsonQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputTcpjsonMode | undefined;
   pqControls?: OutputTcpjsonPqControls | undefined;
   /**
    * Optional authentication token to include as part of the connection header
@@ -726,6 +742,38 @@ export function outputTcpjsonHostFromJSON(
 }
 
 /** @internal */
+export const OutputTcpjsonMode$inboundSchema: z.ZodType<
+  OutputTcpjsonMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputTcpjsonMode$outboundSchema: z.ZodType<
+  OutputTcpjsonMode,
+  z.ZodTypeDef,
+  OutputTcpjsonMode
+> = z.union([
+  z.nativeEnum(OutputTcpjsonMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputTcpjsonMode$ {
+  /** @deprecated use `OutputTcpjsonMode$inboundSchema` instead. */
+  export const inboundSchema = OutputTcpjsonMode$inboundSchema;
+  /** @deprecated use `OutputTcpjsonMode$outboundSchema` instead. */
+  export const outboundSchema = OutputTcpjsonMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputTcpjsonPqCompressCompression$inboundSchema: z.ZodType<
   OutputTcpjsonPqCompressCompression,
   z.ZodTypeDef,
@@ -788,38 +836,6 @@ export namespace OutputTcpjsonQueueFullBehavior$ {
   export const inboundSchema = OutputTcpjsonQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputTcpjsonQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputTcpjsonQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputTcpjsonMode$inboundSchema: z.ZodType<
-  OutputTcpjsonMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputTcpjsonMode$outboundSchema: z.ZodType<
-  OutputTcpjsonMode,
-  z.ZodTypeDef,
-  OutputTcpjsonMode
-> = z.union([
-  z.nativeEnum(OutputTcpjsonMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonMode$ {
-  /** @deprecated use `OutputTcpjsonMode$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonMode$inboundSchema;
-  /** @deprecated use `OutputTcpjsonMode$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonMode$outboundSchema;
 }
 
 /** @internal */
@@ -904,6 +920,11 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputTcpjsonMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -911,7 +932,6 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputTcpjsonQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputTcpjsonMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputTcpjsonPqControls$inboundSchema).optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
@@ -944,12 +964,16 @@ export type OutputTcpjson$Outbound = {
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
   maxConcurrentSenders: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputTcpjsonPqControls$Outbound | undefined;
   authToken: string;
   textSecret?: string | undefined;
@@ -989,6 +1013,11 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputTcpjsonMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -996,7 +1025,6 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputTcpjsonQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputTcpjsonMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputTcpjsonPqControls$outboundSchema).optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),

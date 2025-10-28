@@ -30,8 +30,6 @@ let value: InputGrafanaGrafana1 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.2",
   },
