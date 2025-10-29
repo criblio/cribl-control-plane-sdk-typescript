@@ -234,28 +234,6 @@ export type OutputGrafanaCloudBackpressureBehavior2 = OpenEnum<
 >;
 
 /**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGrafanaCloudMode2 = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGrafanaCloudMode2 = OpenEnum<typeof OutputGrafanaCloudMode2>;
-
-/**
  * Codec to use to compress the persisted data
  */
 export const OutputGrafanaCloudCompression2 = {
@@ -294,6 +272,28 @@ export const OutputGrafanaCloudQueueFullBehavior2 = {
 export type OutputGrafanaCloudQueueFullBehavior2 = OpenEnum<
   typeof OutputGrafanaCloudQueueFullBehavior2
 >;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputGrafanaCloudMode2 = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Backpressure: "backpressure",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputGrafanaCloudMode2 = OpenEnum<typeof OutputGrafanaCloudMode2>;
 
 export type OutputGrafanaCloudPqControls2 = {};
 
@@ -412,26 +412,6 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    */
   compress?: boolean | undefined;
   /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputGrafanaCloudMode2 | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -451,6 +431,10 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputGrafanaCloudQueueFullBehavior2 | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputGrafanaCloudMode2 | undefined;
   pqControls?: OutputGrafanaCloudPqControls2 | undefined;
 };
 
@@ -675,28 +659,6 @@ export type OutputGrafanaCloudBackpressureBehavior1 = OpenEnum<
 >;
 
 /**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGrafanaCloudMode1 = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGrafanaCloudMode1 = OpenEnum<typeof OutputGrafanaCloudMode1>;
-
-/**
  * Codec to use to compress the persisted data
  */
 export const OutputGrafanaCloudCompression1 = {
@@ -735,6 +697,28 @@ export const OutputGrafanaCloudQueueFullBehavior1 = {
 export type OutputGrafanaCloudQueueFullBehavior1 = OpenEnum<
   typeof OutputGrafanaCloudQueueFullBehavior1
 >;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputGrafanaCloudMode1 = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Backpressure: "backpressure",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputGrafanaCloudMode1 = OpenEnum<typeof OutputGrafanaCloudMode1>;
 
 export type OutputGrafanaCloudPqControls1 = {};
 
@@ -853,26 +837,6 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    */
   compress?: boolean | undefined;
   /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputGrafanaCloudMode1 | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -892,6 +856,10 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputGrafanaCloudQueueFullBehavior1 | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputGrafanaCloudMode1 | undefined;
   pqControls?: OutputGrafanaCloudPqControls1 | undefined;
 };
 
@@ -1509,38 +1477,6 @@ export namespace OutputGrafanaCloudBackpressureBehavior2$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudMode2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudMode2,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudMode2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGrafanaCloudMode2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudMode2,
-  z.ZodTypeDef,
-  OutputGrafanaCloudMode2
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudMode2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudMode2$ {
-  /** @deprecated use `OutputGrafanaCloudMode2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudMode2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudMode2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudMode2$outboundSchema;
-}
-
-/** @internal */
 export const OutputGrafanaCloudCompression2$inboundSchema: z.ZodType<
   OutputGrafanaCloudCompression2,
   z.ZodTypeDef,
@@ -1604,6 +1540,38 @@ export namespace OutputGrafanaCloudQueueFullBehavior2$ {
   /** @deprecated use `OutputGrafanaCloudQueueFullBehavior2$outboundSchema` instead. */
   export const outboundSchema =
     OutputGrafanaCloudQueueFullBehavior2$outboundSchema;
+}
+
+/** @internal */
+export const OutputGrafanaCloudMode2$inboundSchema: z.ZodType<
+  OutputGrafanaCloudMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputGrafanaCloudMode2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudMode2,
+  z.ZodTypeDef,
+  OutputGrafanaCloudMode2
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputGrafanaCloudMode2$ {
+  /** @deprecated use `OutputGrafanaCloudMode2$inboundSchema` instead. */
+  export const inboundSchema = OutputGrafanaCloudMode2$inboundSchema;
+  /** @deprecated use `OutputGrafanaCloudMode2$outboundSchema` instead. */
+  export const outboundSchema = OutputGrafanaCloudMode2$outboundSchema;
 }
 
 /** @internal */
@@ -1705,11 +1673,6 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   ),
   description: z.string().optional(),
   compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGrafanaCloudMode2$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1717,6 +1680,7 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputGrafanaCloudQueueFullBehavior2$inboundSchema.default(
     "block",
   ),
+  pqMode: OutputGrafanaCloudMode2$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$inboundSchema)
     .optional(),
 });
@@ -1759,16 +1723,12 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   onBackpressure: string;
   description?: string | undefined;
   compress: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
+  pqMode: string;
   pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
 };
 
@@ -1820,11 +1780,6 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
     .default("block"),
   description: z.string().optional(),
   compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGrafanaCloudMode2$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1832,6 +1787,7 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputGrafanaCloudQueueFullBehavior2$outboundSchema.default(
     "block",
   ),
+  pqMode: OutputGrafanaCloudMode2$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$outboundSchema)
     .optional(),
 });
@@ -2479,38 +2435,6 @@ export namespace OutputGrafanaCloudBackpressureBehavior1$ {
 }
 
 /** @internal */
-export const OutputGrafanaCloudMode1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudMode1,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudMode1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGrafanaCloudMode1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudMode1,
-  z.ZodTypeDef,
-  OutputGrafanaCloudMode1
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudMode1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudMode1$ {
-  /** @deprecated use `OutputGrafanaCloudMode1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudMode1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudMode1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudMode1$outboundSchema;
-}
-
-/** @internal */
 export const OutputGrafanaCloudCompression1$inboundSchema: z.ZodType<
   OutputGrafanaCloudCompression1,
   z.ZodTypeDef,
@@ -2574,6 +2498,38 @@ export namespace OutputGrafanaCloudQueueFullBehavior1$ {
   /** @deprecated use `OutputGrafanaCloudQueueFullBehavior1$outboundSchema` instead. */
   export const outboundSchema =
     OutputGrafanaCloudQueueFullBehavior1$outboundSchema;
+}
+
+/** @internal */
+export const OutputGrafanaCloudMode1$inboundSchema: z.ZodType<
+  OutputGrafanaCloudMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGrafanaCloudMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputGrafanaCloudMode1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudMode1,
+  z.ZodTypeDef,
+  OutputGrafanaCloudMode1
+> = z.union([
+  z.nativeEnum(OutputGrafanaCloudMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputGrafanaCloudMode1$ {
+  /** @deprecated use `OutputGrafanaCloudMode1$inboundSchema` instead. */
+  export const inboundSchema = OutputGrafanaCloudMode1$inboundSchema;
+  /** @deprecated use `OutputGrafanaCloudMode1$outboundSchema` instead. */
+  export const outboundSchema = OutputGrafanaCloudMode1$outboundSchema;
 }
 
 /** @internal */
@@ -2675,11 +2631,6 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   ),
   description: z.string().optional(),
   compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGrafanaCloudMode1$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -2687,6 +2638,7 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputGrafanaCloudQueueFullBehavior1$inboundSchema.default(
     "block",
   ),
+  pqMode: OutputGrafanaCloudMode1$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$inboundSchema)
     .optional(),
 });
@@ -2729,16 +2681,12 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   onBackpressure: string;
   description?: string | undefined;
   compress: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
+  pqMode: string;
   pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
 };
 
@@ -2790,11 +2738,6 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
     .default("block"),
   description: z.string().optional(),
   compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGrafanaCloudMode1$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -2802,6 +2745,7 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputGrafanaCloudQueueFullBehavior1$outboundSchema.default(
     "block",
   ),
+  pqMode: OutputGrafanaCloudMode1$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$outboundSchema)
     .optional(),
 });

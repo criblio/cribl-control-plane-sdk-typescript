@@ -7,7 +7,7 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 ```typescript
 import { OutputDynatraceHttpMode } from "cribl-control-plane/models";
 
-let value: OutputDynatraceHttpMode = "backpressure";
+let value: OutputDynatraceHttpMode = "always";
 ```
 
 ## Values
@@ -15,5 +15,5 @@ let value: OutputDynatraceHttpMode = "backpressure";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"error" | "always" | "backpressure" | Unrecognized<string>
+"error" | "backpressure" | "always" | Unrecognized<string>
 ```

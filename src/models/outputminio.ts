@@ -437,10 +437,6 @@ export type OutputMinio = {
    */
   automaticSchema?: boolean | undefined;
   /**
-   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-   */
-  parquetSchema?: string | undefined;
-  /**
    * Determines which data types are supported and how they are represented
    */
   parquetVersion?: OutputMinioParquetVersion | undefined;
@@ -1013,7 +1009,6 @@ export const OutputMinio$inboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
-  parquetSchema: z.string().optional(),
   parquetVersion: OutputMinioParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -1078,7 +1073,6 @@ export type OutputMinio$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
-  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -1152,7 +1146,6 @@ export const OutputMinio$outboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
-  parquetSchema: z.string().optional(),
   parquetVersion: OutputMinioParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),

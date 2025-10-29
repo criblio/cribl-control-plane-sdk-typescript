@@ -186,15 +186,6 @@ const value: models.OutputSyslog = {
   ],
   octetCountFraming: true,
   description: "deliberately gadzooks reconsideration",
-  host: "quick-boulevard.name",
-  port: 5929.27,
-  hosts: [
-    {
-      host: "international-orchid.org",
-      port: 6476.63,
-      servername: "<value>",
-    },
-  ],
   tls: {
     servername: "<value>",
     certificateName: "<value>",
@@ -203,9 +194,17 @@ const value: models.OutputSyslog = {
     certPath: "<value>",
     passphrase: "<value>",
     minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
+  host: "poor-mozzarella.info",
+  port: 6265.46,
   pqControls: {},
+  hosts: [
+    {
+      host: "timely-passport.net",
+      servername: "<value>",
+    },
+  ],
 };
 ```
 
@@ -472,7 +471,6 @@ const value: models.OutputFilesystem = {
   destPath: "<value>",
   stagePath: "<value>",
   description: "politely provided generously scary squid blah astride",
-  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -512,7 +510,6 @@ const value: models.OutputS3 = {
   description: "excepting under fatally until below",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -542,7 +539,6 @@ const value: models.OutputAzureBlob = {
   containerName: "<value>",
   destPath: "<value>",
   description: "rigidly off athwart very despite above abaft",
-  parquetSchema: "<value>",
   shouldLogInvalidRows: true,
   keyValueMetadata: [
     {
@@ -589,19 +585,10 @@ const value: models.OutputAzureDataExplorer = {
   certificate: {
     certificateName: "<value>",
   },
-  parquetSchema: "<value>",
-  shouldLogInvalidRows: true,
-  keyValueMetadata: [
-    {
-      value: "<value>",
-    },
-  ],
-  mappingObj: "<value>",
-  mappingRef: "<value>",
-  ingestUrl: "https://dependable-jury.biz/",
+  ingestUrl: "https://alienated-contrail.info/",
   extentTags: [
     {
-      prefix: "ingestBy",
+      prefix: "dropBy",
       value: "<value>",
     },
   ],
@@ -618,10 +605,11 @@ const value: models.OutputAzureDataExplorer = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8438.16,
+      httpStatus: 8928.41,
     },
   ],
   timeoutRetrySettings: {},
+  mappingRef: "<value>",
   pqControls: {},
 };
 ```
@@ -758,22 +746,9 @@ const value: models.OutputAzureEventhub = {
   ],
   brokers: [],
   topic: "<value>",
-  sasl: {
-    password: "7uYd0SdmGoBSlaS",
-    textSecret: "<value>",
-    clientSecret: "<value>",
-    clientTextSecret: "<value>",
-    certificateName: "<value>",
-    certPath: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    clientId: "<id>",
-    tenantId: "<id>",
-    scope: "<value>",
-  },
+  sasl: {},
   tls: {},
-  description:
-    "but atomize like gah smoothly modulo aircraft ouch majestically tousle",
+  description: "per inquisitively with but",
   pqControls: {},
 };
 ```
@@ -856,7 +831,6 @@ const value: models.OutputGoogleCloudStorage = {
   region: "<value>",
   storageClass: "ARCHIVE",
   description: "piglet unnaturally near reassuringly since",
-  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -1036,29 +1010,7 @@ const value: models.OutputKafka = {
     defaultKeySchemaId: 8894.16,
     defaultValueSchemaId: 4585.31,
   },
-  sasl: {
-    username: "Rachelle_Becker93",
-    password: "i89rLQqvdr2DQSX",
-    credentialsSecret: "<value>",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    tokenUrl: "https://wrathful-mixture.biz",
-    clientId: "<id>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
+  sasl: {},
   tls: {
     servername: "<value>",
     certificateName: "<value>",
@@ -1069,9 +1021,8 @@ const value: models.OutputKafka = {
     minVersion: "TLSv1.3",
     maxVersion: "TLSv1.2",
   },
-  description: "allegation owlishly hm",
+  description: "disappointment provider bah",
   protobufLibraryId: "<id>",
-  protobufEncodingId: "<id>",
   pqControls: {},
 };
 ```
@@ -1123,33 +1074,9 @@ const value: models.OutputConfluentCloud = {
     defaultKeySchemaId: 4559.39,
     defaultValueSchemaId: 7875.65,
   },
-  sasl: {
-    username: "Aiden_Hammes",
-    password: "luAZDVuAsgJMmG7",
-    credentialsSecret: "<value>",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    tokenUrl: "https://sizzling-feather.info",
-    clientId: "<id>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  description:
-    "hole pleased mythology uh-huh remand middle even magnetize vice",
+  sasl: {},
+  description: "exacerbate sun overconfidently",
   protobufLibraryId: "<id>",
-  protobufEncodingId: "<id>",
   pqControls: {},
 };
 ```
@@ -1211,7 +1138,6 @@ const value: models.OutputMsk = {
   awsApiKey: "<value>",
   awsSecret: "<value>",
   protobufLibraryId: "<id>",
-  protobufEncodingId: "<id>",
   pqControls: {},
 };
 ```
@@ -1255,19 +1181,13 @@ const value: models.OutputElastic = {
       value: "<value>",
     },
   ],
-  auth: {
-    username: "Jamel39",
-    password: "YcLpzmUAKCdYqdY",
-    credentialsSecret: "<value>",
-    manualAPIKey: "<value>",
-    textSecret: "<value>",
-  },
+  auth: {},
   elasticPipeline: "<value>",
-  description: "blaring corral cruelty gosh",
-  url: "https://substantial-reasoning.biz/",
+  description: "challenge although ugh hydrolyse adolescent graceful",
+  url: "https://worldly-behest.net",
   urls: [
     {
-      url: "https://miserly-hygienic.com/",
+      url: "https://hospitable-zebra.net/",
     },
   ],
   pqControls: {},
@@ -1309,17 +1229,11 @@ const value: models.OutputElasticCloud = {
       value: "<value>",
     },
   ],
-  auth: {
-    username: "Kylie_Harber15",
-    password: "72uE6zafEeRm9Ny",
-    credentialsSecret: "<value>",
-    manualAPIKey: "<value>",
-    textSecret: "<value>",
-  },
+  auth: {},
   elasticPipeline: "<value>",
   responseRetrySettings: [
     {
-      httpStatus: 4676.21,
+      httpStatus: 5869.12,
     },
   ],
   timeoutRetrySettings: {},
@@ -1535,7 +1449,6 @@ const value: models.OutputMinio = {
   description: "yet fidget reassuringly mid worth mountain save haversack",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -1882,16 +1795,12 @@ const value: models.OutputGrafanaCloud = {
   onBackpressure: "block",
   description: "woefully wing whenever overcooked matter how irritably",
   compress: true,
-  pqStrictOrdering: true,
-  pqRatePerSec: 0,
-  pqMode: "error",
-  pqMaxBufferSize: 42,
-  pqMaxBackpressureSec: 30,
   pqMaxFileSize: "1 MB",
   pqMaxSize: "5GB",
   pqPath: "$CRIBL_HOME/state/queues",
   pqCompress: "none",
   pqOnBackpressure: "block",
+  pqMode: "error",
   pqControls: {},
 };
 ```
@@ -2413,7 +2322,6 @@ const value: models.OutputDlS3 = {
     "upside-down incidentally even microblog bleakly triumphantly modulo",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -2865,7 +2773,6 @@ const value: models.OutputDatabricks = {
   clientId: "<id>",
   clientSecret: "<value>",
   description: "loosely unpleasant anenst",
-  parquetSchema: "<value>",
   shouldLogInvalidRows: true,
   keyValueMetadata: [
     {

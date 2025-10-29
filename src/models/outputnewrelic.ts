@@ -159,28 +159,6 @@ export type OutputNewrelicAuthenticationMethod = OpenEnum<
 >;
 
 /**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputNewrelicMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputNewrelicMode = OpenEnum<typeof OutputNewrelicMode>;
-
-/**
  * Codec to use to compress the persisted data
  */
 export const OutputNewrelicCompression = {
@@ -219,6 +197,28 @@ export const OutputNewrelicQueueFullBehavior = {
 export type OutputNewrelicQueueFullBehavior = OpenEnum<
   typeof OutputNewrelicQueueFullBehavior
 >;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputNewrelicMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Backpressure: "backpressure",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputNewrelicMode = OpenEnum<typeof OutputNewrelicMode>;
 
 export type OutputNewrelicPqControls = {};
 
@@ -332,26 +332,6 @@ export type OutputNewrelic = {
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputNewrelicMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -371,6 +351,10 @@ export type OutputNewrelic = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputNewrelicQueueFullBehavior | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputNewrelicMode | undefined;
   pqControls?: OutputNewrelicPqControls | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
@@ -818,38 +802,6 @@ export namespace OutputNewrelicAuthenticationMethod$ {
 }
 
 /** @internal */
-export const OutputNewrelicMode$inboundSchema: z.ZodType<
-  OutputNewrelicMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicMode$outboundSchema: z.ZodType<
-  OutputNewrelicMode,
-  z.ZodTypeDef,
-  OutputNewrelicMode
-> = z.union([
-  z.nativeEnum(OutputNewrelicMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicMode$ {
-  /** @deprecated use `OutputNewrelicMode$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicMode$inboundSchema;
-  /** @deprecated use `OutputNewrelicMode$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicMode$outboundSchema;
-}
-
-/** @internal */
 export const OutputNewrelicCompression$inboundSchema: z.ZodType<
   OutputNewrelicCompression,
   z.ZodTypeDef,
@@ -911,6 +863,38 @@ export namespace OutputNewrelicQueueFullBehavior$ {
   export const inboundSchema = OutputNewrelicQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputNewrelicQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputNewrelicQueueFullBehavior$outboundSchema;
+}
+
+/** @internal */
+export const OutputNewrelicMode$inboundSchema: z.ZodType<
+  OutputNewrelicMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputNewrelicMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputNewrelicMode$outboundSchema: z.ZodType<
+  OutputNewrelicMode,
+  z.ZodTypeDef,
+  OutputNewrelicMode
+> = z.union([
+  z.nativeEnum(OutputNewrelicMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputNewrelicMode$ {
+  /** @deprecated use `OutputNewrelicMode$inboundSchema` instead. */
+  export const inboundSchema = OutputNewrelicMode$inboundSchema;
+  /** @deprecated use `OutputNewrelicMode$outboundSchema` instead. */
+  export const outboundSchema = OutputNewrelicMode$outboundSchema;
 }
 
 /** @internal */
@@ -1006,11 +990,6 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputNewrelicMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1018,6 +997,7 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputNewrelicQueueFullBehavior$inboundSchema.default(
     "block",
   ),
+  pqMode: OutputNewrelicMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputNewrelicPqControls$inboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
@@ -1058,16 +1038,12 @@ export type OutputNewrelic$Outbound = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
+  pqMode: string;
   pqControls?: OutputNewrelicPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -1118,11 +1094,6 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputNewrelicMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1130,6 +1101,7 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputNewrelicQueueFullBehavior$outboundSchema.default(
     "block",
   ),
+  pqMode: OutputNewrelicMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputNewrelicPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),

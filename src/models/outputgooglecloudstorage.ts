@@ -412,10 +412,6 @@ export type OutputGoogleCloudStorage = {
    */
   automaticSchema?: boolean | undefined;
   /**
-   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-   */
-  parquetSchema?: string | undefined;
-  /**
    * Determines which data types are supported and how they are represented
    */
   parquetVersion?: OutputGoogleCloudStorageParquetVersion | undefined;
@@ -1001,7 +997,6 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   compressionLevel: OutputGoogleCloudStorageCompressionLevel$inboundSchema
     .default("best_speed"),
   automaticSchema: z.boolean().default(false),
-  parquetSchema: z.string().optional(),
   parquetVersion: OutputGoogleCloudStorageParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -1063,7 +1058,6 @@ export type OutputGoogleCloudStorage$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
-  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -1139,7 +1133,6 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   compressionLevel: OutputGoogleCloudStorageCompressionLevel$outboundSchema
     .default("best_speed"),
   automaticSchema: z.boolean().default(false),
-  parquetSchema: z.string().optional(),
   parquetVersion: OutputGoogleCloudStorageParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),

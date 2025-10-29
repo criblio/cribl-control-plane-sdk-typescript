@@ -116,18 +116,6 @@ export type InputTcpjsonMaximumTLSVersion = OpenEnum<
 export type InputTcpjsonTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -147,6 +135,12 @@ export type InputTcpjsonTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  rejectUnauthorized?: any | undefined;
+  commonNameRegex?: any | undefined;
   minVersion?: InputTcpjsonMinimumTLSVersion | undefined;
   maxVersion?: InputTcpjsonMaximumTLSVersion | undefined;
 };
@@ -593,14 +587,14 @@ export const InputTcpjsonTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.any().optional(),
+  commonNameRegex: z.any().optional(),
   minVersion: InputTcpjsonMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputTcpjsonMaximumTLSVersion$inboundSchema.optional(),
 });
@@ -608,14 +602,14 @@ export const InputTcpjsonTLSSettingsServerSide$inboundSchema: z.ZodType<
 /** @internal */
 export type InputTcpjsonTLSSettingsServerSide$Outbound = {
   disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
+  requestCert: boolean;
+  rejectUnauthorized?: any | undefined;
+  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -627,14 +621,14 @@ export const InputTcpjsonTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputTcpjsonTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.any().optional(),
+  commonNameRegex: z.any().optional(),
   minVersion: InputTcpjsonMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputTcpjsonMaximumTLSVersion$outboundSchema.optional(),
 });

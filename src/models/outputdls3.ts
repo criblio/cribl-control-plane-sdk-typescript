@@ -484,10 +484,6 @@ export type OutputDlS3 = {
    */
   automaticSchema?: boolean | undefined;
   /**
-   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
-   */
-  parquetSchema?: string | undefined;
-  /**
    * Determines which data types are supported and how they are represented
    */
   parquetVersion?: OutputDlS3ParquetVersion | undefined;
@@ -1068,7 +1064,6 @@ export const OutputDlS3$inboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
-  parquetSchema: z.string().optional(),
   parquetVersion: OutputDlS3ParquetVersion$inboundSchema.default("PARQUET_2_6"),
   parquetDataPageVersion: OutputDlS3DataPageVersion$inboundSchema.default(
     "DATA_PAGE_V2",
@@ -1137,7 +1132,6 @@ export type OutputDlS3$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
-  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -1216,7 +1210,6 @@ export const OutputDlS3$outboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
-  parquetSchema: z.string().optional(),
   parquetVersion: OutputDlS3ParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),

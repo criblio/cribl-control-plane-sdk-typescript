@@ -245,28 +245,6 @@ export type OutputServiceNowTLSSettingsClientSide = {
 };
 
 /**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputServiceNowMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputServiceNowMode = OpenEnum<typeof OutputServiceNowMode>;
-
-/**
  * Codec to use to compress the persisted data
  */
 export const OutputServiceNowPqCompressCompression = {
@@ -305,6 +283,28 @@ export const OutputServiceNowQueueFullBehavior = {
 export type OutputServiceNowQueueFullBehavior = OpenEnum<
   typeof OutputServiceNowQueueFullBehavior
 >;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputServiceNowMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Backpressure: "backpressure",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputServiceNowMode = OpenEnum<typeof OutputServiceNowMode>;
 
 export type OutputServiceNowPqControls = {};
 
@@ -443,26 +443,6 @@ export type OutputServiceNow = {
   responseHonorRetryAfterHeader?: boolean | undefined;
   tls?: OutputServiceNowTLSSettingsClientSide | undefined;
   /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputServiceNowMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -482,6 +462,10 @@ export type OutputServiceNow = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputServiceNowQueueFullBehavior | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputServiceNowMode | undefined;
   pqControls?: OutputServiceNowPqControls | undefined;
 };
 
@@ -1108,38 +1092,6 @@ export function outputServiceNowTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
-export const OutputServiceNowMode$inboundSchema: z.ZodType<
-  OutputServiceNowMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowMode$outboundSchema: z.ZodType<
-  OutputServiceNowMode,
-  z.ZodTypeDef,
-  OutputServiceNowMode
-> = z.union([
-  z.nativeEnum(OutputServiceNowMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMode$ {
-  /** @deprecated use `OutputServiceNowMode$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMode$inboundSchema;
-  /** @deprecated use `OutputServiceNowMode$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowMode$outboundSchema;
-}
-
-/** @internal */
 export const OutputServiceNowPqCompressCompression$inboundSchema: z.ZodType<
   OutputServiceNowPqCompressCompression,
   z.ZodTypeDef,
@@ -1204,6 +1156,38 @@ export namespace OutputServiceNowQueueFullBehavior$ {
   /** @deprecated use `OutputServiceNowQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputServiceNowQueueFullBehavior$outboundSchema;
+}
+
+/** @internal */
+export const OutputServiceNowMode$inboundSchema: z.ZodType<
+  OutputServiceNowMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputServiceNowMode$outboundSchema: z.ZodType<
+  OutputServiceNowMode,
+  z.ZodTypeDef,
+  OutputServiceNowMode
+> = z.union([
+  z.nativeEnum(OutputServiceNowMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputServiceNowMode$ {
+  /** @deprecated use `OutputServiceNowMode$inboundSchema` instead. */
+  export const inboundSchema = OutputServiceNowMode$inboundSchema;
+  /** @deprecated use `OutputServiceNowMode$outboundSchema` instead. */
+  export const outboundSchema = OutputServiceNowMode$outboundSchema;
 }
 
 /** @internal */
@@ -1308,11 +1292,6 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputServiceNowTLSSettingsClientSide$inboundSchema)
     .optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputServiceNowMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1322,6 +1301,7 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputServiceNowQueueFullBehavior$inboundSchema.default(
     "block",
   ),
+  pqMode: OutputServiceNowMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputServiceNowPqControls$inboundSchema).optional(),
 });
 
@@ -1368,16 +1348,12 @@ export type OutputServiceNow$Outbound = {
     | undefined;
   responseHonorRetryAfterHeader: boolean;
   tls?: OutputServiceNowTLSSettingsClientSide$Outbound | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
+  pqMode: string;
   pqControls?: OutputServiceNowPqControls$Outbound | undefined;
 };
 
@@ -1435,11 +1411,6 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputServiceNowTLSSettingsClientSide$outboundSchema)
     .optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputServiceNowMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1449,6 +1420,7 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputServiceNowQueueFullBehavior$outboundSchema.default(
     "block",
   ),
+  pqMode: OutputServiceNowMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputServiceNowPqControls$outboundSchema)
     .optional(),
 });

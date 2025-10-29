@@ -186,28 +186,6 @@ export const TelemetryType = {
 export type TelemetryType = OpenEnum<typeof TelemetryType>;
 
 /**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDynatraceHttpMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDynatraceHttpMode = OpenEnum<typeof OutputDynatraceHttpMode>;
-
-/**
  * Codec to use to compress the persisted data
  */
 export const OutputDynatraceHttpCompression = {
@@ -246,6 +224,28 @@ export const OutputDynatraceHttpQueueFullBehavior = {
 export type OutputDynatraceHttpQueueFullBehavior = OpenEnum<
   typeof OutputDynatraceHttpQueueFullBehavior
 >;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputDynatraceHttpMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Backpressure: "backpressure",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputDynatraceHttpMode = OpenEnum<typeof OutputDynatraceHttpMode>;
 
 export type OutputDynatraceHttpPqControls = {};
 
@@ -357,26 +357,6 @@ export type OutputDynatraceHttp = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputDynatraceHttpMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -396,6 +376,10 @@ export type OutputDynatraceHttp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputDynatraceHttpQueueFullBehavior | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputDynatraceHttpMode | undefined;
   pqControls?: OutputDynatraceHttpPqControls | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -882,38 +866,6 @@ export namespace TelemetryType$ {
 }
 
 /** @internal */
-export const OutputDynatraceHttpMode$inboundSchema: z.ZodType<
-  OutputDynatraceHttpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDynatraceHttpMode$outboundSchema: z.ZodType<
-  OutputDynatraceHttpMode,
-  z.ZodTypeDef,
-  OutputDynatraceHttpMode
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpMode$ {
-  /** @deprecated use `OutputDynatraceHttpMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttpMode$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceHttpMode$outboundSchema;
-}
-
-/** @internal */
 export const OutputDynatraceHttpCompression$inboundSchema: z.ZodType<
   OutputDynatraceHttpCompression,
   z.ZodTypeDef,
@@ -977,6 +929,38 @@ export namespace OutputDynatraceHttpQueueFullBehavior$ {
   /** @deprecated use `OutputDynatraceHttpQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputDynatraceHttpQueueFullBehavior$outboundSchema;
+}
+
+/** @internal */
+export const OutputDynatraceHttpMode$inboundSchema: z.ZodType<
+  OutputDynatraceHttpMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDynatraceHttpMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputDynatraceHttpMode$outboundSchema: z.ZodType<
+  OutputDynatraceHttpMode,
+  z.ZodTypeDef,
+  OutputDynatraceHttpMode
+> = z.union([
+  z.nativeEnum(OutputDynatraceHttpMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputDynatraceHttpMode$ {
+  /** @deprecated use `OutputDynatraceHttpMode$inboundSchema` instead. */
+  export const inboundSchema = OutputDynatraceHttpMode$inboundSchema;
+  /** @deprecated use `OutputDynatraceHttpMode$outboundSchema` instead. */
+  export const outboundSchema = OutputDynatraceHttpMode$outboundSchema;
 }
 
 /** @internal */
@@ -1075,11 +1059,6 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   telemetryType: TelemetryType$inboundSchema.default("logs"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputDynatraceHttpMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1087,6 +1066,7 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputDynatraceHttpQueueFullBehavior$inboundSchema.default(
     "block",
   ),
+  pqMode: OutputDynatraceHttpMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDynatraceHttpPqControls$inboundSchema)
     .optional(),
   token: z.string().optional(),
@@ -1133,16 +1113,12 @@ export type OutputDynatraceHttp$Outbound = {
   telemetryType: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
+  pqMode: string;
   pqControls?: OutputDynatraceHttpPqControls$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
@@ -1196,11 +1172,6 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   telemetryType: TelemetryType$outboundSchema.default("logs"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputDynatraceHttpMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1208,6 +1179,7 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputDynatraceHttpQueueFullBehavior$outboundSchema.default(
     "block",
   ),
+  pqMode: OutputDynatraceHttpMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDynatraceHttpPqControls$outboundSchema)
     .optional(),
   token: z.string().optional(),

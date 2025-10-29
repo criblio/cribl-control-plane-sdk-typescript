@@ -116,18 +116,6 @@ export type InputTcpMaximumTLSVersion = OpenEnum<
 export type InputTcpTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -147,6 +135,12 @@ export type InputTcpTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  rejectUnauthorized?: any | undefined;
+  commonNameRegex?: any | undefined;
   minVersion?: InputTcpMinimumTLSVersion | undefined;
   maxVersion?: InputTcpMaximumTLSVersion | undefined;
 };
@@ -269,17 +263,9 @@ export type InputTcp = {
   preprocess?: InputTcpPreprocess | undefined;
   description?: string | undefined;
   /**
-   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-   */
-  authToken?: string | undefined;
-  /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: InputTcpAuthenticationMethod | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -612,14 +598,14 @@ export const InputTcpTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.any().optional(),
+  commonNameRegex: z.any().optional(),
   minVersion: InputTcpMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputTcpMaximumTLSVersion$inboundSchema.optional(),
 });
@@ -627,14 +613,14 @@ export const InputTcpTLSSettingsServerSide$inboundSchema: z.ZodType<
 /** @internal */
 export type InputTcpTLSSettingsServerSide$Outbound = {
   disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
+  requestCert: boolean;
+  rejectUnauthorized?: any | undefined;
+  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -646,14 +632,14 @@ export const InputTcpTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputTcpTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.any().optional(),
+  commonNameRegex: z.any().optional(),
   minVersion: InputTcpMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputTcpMaximumTLSVersion$outboundSchema.optional(),
 });
@@ -872,9 +858,7 @@ export const InputTcp$inboundSchema: z.ZodType<
   enableHeader: z.boolean().default(false),
   preprocess: z.lazy(() => InputTcpPreprocess$inboundSchema).optional(),
   description: z.string().optional(),
-  authToken: z.string().default(""),
   authType: InputTcpAuthenticationMethod$inboundSchema.default("manual"),
-  textSecret: z.string().optional(),
 });
 
 /** @internal */
@@ -904,9 +888,7 @@ export type InputTcp$Outbound = {
   enableHeader: boolean;
   preprocess?: InputTcpPreprocess$Outbound | undefined;
   description?: string | undefined;
-  authToken: string;
   authType: string;
-  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -941,9 +923,7 @@ export const InputTcp$outboundSchema: z.ZodType<
   enableHeader: z.boolean().default(false),
   preprocess: z.lazy(() => InputTcpPreprocess$outboundSchema).optional(),
   description: z.string().optional(),
-  authToken: z.string().default(""),
   authType: InputTcpAuthenticationMethod$outboundSchema.default("manual"),
-  textSecret: z.string().optional(),
 });
 
 /**

@@ -17,6 +17,7 @@ const value: models.RunnableJobCollection = {
   environment: "<value>",
   schedule: {
     enabled: false,
+    resumeMissed: "<value>",
     run: {
       type: "collection",
       earliest: 4246.89,
@@ -78,6 +79,7 @@ const value: models.RunnableJobExecutor = {
   environment: "<value>",
   schedule: {
     enabled: true,
+    resumeMissed: "<value>",
     run: {
       type: "collection",
       earliest: 5516.53,
@@ -111,6 +113,7 @@ const value: models.RunnableJobScheduledSearch = {
   environment: "<value>",
   schedule: {
     enabled: false,
+    resumeMissed: "<value>",
     run: {
       type: "collection",
       earliest: 2827.78,

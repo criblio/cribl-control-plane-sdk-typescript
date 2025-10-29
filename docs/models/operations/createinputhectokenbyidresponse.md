@@ -52,6 +52,8 @@ let value: CreateInputHecTokenByIdResponse = {
         passphrase: "<value>",
         certPath: "<value>",
         caPath: "<value>",
+        rejectUnauthorized: "<value>",
+        commonNameRegex: "<value>",
         minVersion: "TLSv1.2",
         maxVersion: "TLSv1.3",
       },

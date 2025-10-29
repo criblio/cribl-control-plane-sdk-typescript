@@ -118,18 +118,6 @@ export type InputPrometheusRwMaximumTLSVersion = OpenEnum<
 export type InputPrometheusRwTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -149,6 +137,12 @@ export type InputPrometheusRwTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  rejectUnauthorized?: any | undefined;
+  commonNameRegex?: any | undefined;
   minVersion?: InputPrometheusRwMinimumTLSVersion | undefined;
   maxVersion?: InputPrometheusRwMaximumTLSVersion | undefined;
 };
@@ -691,14 +685,14 @@ export const InputPrometheusRwTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.any().optional(),
+  commonNameRegex: z.any().optional(),
   minVersion: InputPrometheusRwMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputPrometheusRwMaximumTLSVersion$inboundSchema.optional(),
 });
@@ -706,14 +700,14 @@ export const InputPrometheusRwTLSSettingsServerSide$inboundSchema: z.ZodType<
 /** @internal */
 export type InputPrometheusRwTLSSettingsServerSide$Outbound = {
   disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
+  requestCert: boolean;
+  rejectUnauthorized?: any | undefined;
+  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -725,14 +719,14 @@ export const InputPrometheusRwTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputPrometheusRwTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.any().optional(),
+  commonNameRegex: z.any().optional(),
   minVersion: InputPrometheusRwMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputPrometheusRwMaximumTLSVersion$outboundSchema.optional(),
 });
