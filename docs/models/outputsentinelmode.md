@@ -7,7 +7,7 @@ In Error mode, PQ writes events to the filesystem if the Destination is unavaila
 ```typescript
 import { OutputSentinelMode } from "cribl-control-plane/models";
 
-let value: OutputSentinelMode = "always";
+let value: OutputSentinelMode = "backpressure";
 ```
 
 ## Values
@@ -15,5 +15,5 @@ let value: OutputSentinelMode = "always";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"error" | "always" | "backpressure" | Unrecognized<string>
+"error" | "backpressure" | "always" | Unrecognized<string>
 ```

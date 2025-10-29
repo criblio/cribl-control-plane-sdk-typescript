@@ -125,28 +125,6 @@ export type OutputPrometheusAuthenticationType = OpenEnum<
 >;
 
 /**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputPrometheusMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputPrometheusMode = OpenEnum<typeof OutputPrometheusMode>;
-
-/**
  * Codec to use to compress the persisted data
  */
 export const OutputPrometheusCompression = {
@@ -185,6 +163,28 @@ export const OutputPrometheusQueueFullBehavior = {
 export type OutputPrometheusQueueFullBehavior = OpenEnum<
   typeof OutputPrometheusQueueFullBehavior
 >;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputPrometheusMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Backpressure: "backpressure",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputPrometheusMode = OpenEnum<typeof OutputPrometheusMode>;
 
 export type OutputPrometheusPqControls = {};
 
@@ -315,26 +315,6 @@ export type OutputPrometheus = {
    */
   metricsFlushPeriodSec?: number | undefined;
   /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputPrometheusMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -354,6 +334,10 @@ export type OutputPrometheus = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputPrometheusQueueFullBehavior | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputPrometheusMode | undefined;
   pqControls?: OutputPrometheusPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -721,38 +705,6 @@ export namespace OutputPrometheusAuthenticationType$ {
 }
 
 /** @internal */
-export const OutputPrometheusMode$inboundSchema: z.ZodType<
-  OutputPrometheusMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputPrometheusMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputPrometheusMode$outboundSchema: z.ZodType<
-  OutputPrometheusMode,
-  z.ZodTypeDef,
-  OutputPrometheusMode
-> = z.union([
-  z.nativeEnum(OutputPrometheusMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusMode$ {
-  /** @deprecated use `OutputPrometheusMode$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusMode$inboundSchema;
-  /** @deprecated use `OutputPrometheusMode$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheusMode$outboundSchema;
-}
-
-/** @internal */
 export const OutputPrometheusCompression$inboundSchema: z.ZodType<
   OutputPrometheusCompression,
   z.ZodTypeDef,
@@ -815,6 +767,38 @@ export namespace OutputPrometheusQueueFullBehavior$ {
   /** @deprecated use `OutputPrometheusQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputPrometheusQueueFullBehavior$outboundSchema;
+}
+
+/** @internal */
+export const OutputPrometheusMode$inboundSchema: z.ZodType<
+  OutputPrometheusMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputPrometheusMode$outboundSchema: z.ZodType<
+  OutputPrometheusMode,
+  z.ZodTypeDef,
+  OutputPrometheusMode
+> = z.union([
+  z.nativeEnum(OutputPrometheusMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputPrometheusMode$ {
+  /** @deprecated use `OutputPrometheusMode$inboundSchema` instead. */
+  export const inboundSchema = OutputPrometheusMode$inboundSchema;
+  /** @deprecated use `OutputPrometheusMode$outboundSchema` instead. */
+  export const outboundSchema = OutputPrometheusMode$outboundSchema;
 }
 
 /** @internal */
@@ -1022,11 +1006,6 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   authType: OutputPrometheusAuthenticationType$inboundSchema.default("none"),
   description: z.string().optional(),
   metricsFlushPeriodSec: z.number().default(60),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputPrometheusMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1034,6 +1013,7 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputPrometheusQueueFullBehavior$inboundSchema.default(
     "block",
   ),
+  pqMode: OutputPrometheusMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputPrometheusPqControls$inboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1086,16 +1066,12 @@ export type OutputPrometheus$Outbound = {
   authType: string;
   description?: string | undefined;
   metricsFlushPeriodSec: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
+  pqMode: string;
   pqControls?: OutputPrometheusPqControls$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1153,11 +1129,6 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   authType: OutputPrometheusAuthenticationType$outboundSchema.default("none"),
   description: z.string().optional(),
   metricsFlushPeriodSec: z.number().default(60),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputPrometheusMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1165,6 +1136,7 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputPrometheusQueueFullBehavior$outboundSchema.default(
     "block",
   ),
+  pqMode: OutputPrometheusMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputPrometheusPqControls$outboundSchema)
     .optional(),
   username: z.string().optional(),

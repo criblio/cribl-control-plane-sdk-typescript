@@ -183,6 +183,17 @@ export const MetricsProtocol = {
  */
 export type MetricsProtocol = OpenEnum<typeof MetricsProtocol>;
 
+export type InputPrometheusSearchFilter = {
+  /**
+   * Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
+   */
+  name: string;
+  /**
+   * Search Filter Values, if empty only "running" EC2 instances will be returned
+   */
+  values: Array<string>;
+};
+
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
@@ -205,17 +216,6 @@ export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod = {
  */
 export type InputPrometheusAwsAuthenticationMethodAuthenticationMethod =
   OpenEnum<typeof InputPrometheusAwsAuthenticationMethodAuthenticationMethod>;
-
-export type InputPrometheusSearchFilter = {
-  /**
-   * Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
-   */
-  name: string;
-  /**
-   * Search Filter Values, if empty only "running" EC2 instances will be returned
-   */
-  values: Array<string>;
-};
 
 /**
  * Signature version to use for signing EC2 requests
@@ -317,17 +317,13 @@ export type InputPrometheus = {
    */
   targetList?: Array<string> | undefined;
   /**
-   * DNS Record type to resolve
-   */
-  recordType?: InputPrometheusRecordType | undefined;
-  /**
-   * The port number in the metrics URL for discovered targets.
-   */
-  scrapePort?: number | undefined;
-  /**
    * List of DNS names to resolve
    */
   nameList?: Array<string> | undefined;
+  /**
+   * DNS Record type to resolve
+   */
+  recordType?: InputPrometheusRecordType | undefined;
   /**
    * Protocol to use when collecting metrics
    */
@@ -337,24 +333,23 @@ export type InputPrometheus = {
    */
   scrapePath?: string | undefined;
   /**
+   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePort?: number | undefined;
+  /**
+   * EC2 Instance Search Filter
+   */
+  searchFilter?: Array<InputPrometheusSearchFilter> | undefined;
+  /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?:
     | InputPrometheusAwsAuthenticationMethodAuthenticationMethod
     | undefined;
-  awsApiKey?: string | undefined;
-  /**
-   * Select or create a stored secret that references your access key and secret key
-   */
-  awsSecret?: string | undefined;
-  /**
-   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
-   */
-  usePublicIp?: boolean | undefined;
-  /**
-   * EC2 Instance Search Filter
-   */
-  searchFilter?: Array<InputPrometheusSearchFilter> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -889,42 +884,6 @@ export namespace MetricsProtocol$ {
 }
 
 /** @internal */
-export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(InputPrometheusAwsAuthenticationMethodAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputPrometheusAwsAuthenticationMethodAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusAwsAuthenticationMethodAuthenticationMethod$ {
-  /** @deprecated use `InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
 export const InputPrometheusSearchFilter$inboundSchema: z.ZodType<
   InputPrometheusSearchFilter,
   z.ZodTypeDef,
@@ -994,6 +953,42 @@ export function inputPrometheusSearchFilterFromJSON(
 }
 
 /** @internal */
+export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    InputPrometheusAwsAuthenticationMethodAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputPrometheusAwsAuthenticationMethodAuthenticationMethod),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+
+/** @internal */
+export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    InputPrometheusAwsAuthenticationMethodAuthenticationMethod,
+    z.ZodTypeDef,
+    InputPrometheusAwsAuthenticationMethodAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(InputPrometheusAwsAuthenticationMethodAuthenticationMethod),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputPrometheusAwsAuthenticationMethodAuthenticationMethod$ {
+  /** @deprecated use `InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema` instead. */
+  export const inboundSchema =
+    InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema;
+  /** @deprecated use `InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema` instead. */
+  export const outboundSchema =
+    InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema;
+}
+
+/** @internal */
 export const InputPrometheusSignatureVersion$inboundSchema: z.ZodType<
   InputPrometheusSignatureVersion,
   z.ZodTypeDef,
@@ -1059,19 +1054,17 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   ),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
-  recordType: InputPrometheusRecordType$inboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
   nameList: z.array(z.string()).optional(),
+  recordType: InputPrometheusRecordType$inboundSchema.default("SRV"),
   scrapeProtocol: MetricsProtocol$inboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
+  usePublicIp: z.boolean().default(true),
+  scrapePort: z.number().default(9090),
+  searchFilter: z.array(z.lazy(() => InputPrometheusSearchFilter$inboundSchema))
+    .optional(),
   awsAuthenticationMethod:
     InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema
       .default("auto"),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().default(true),
-  searchFilter: z.array(z.lazy(() => InputPrometheusSearchFilter$inboundSchema))
-    .optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -1112,16 +1105,14 @@ export type InputPrometheus$Outbound = {
   authType: string;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
-  recordType: string;
-  scrapePort: number;
   nameList?: Array<string> | undefined;
+  recordType: string;
   scrapeProtocol: string;
   scrapePath: string;
-  awsAuthenticationMethod: string;
-  awsApiKey?: string | undefined;
-  awsSecret?: string | undefined;
   usePublicIp: boolean;
+  scrapePort: number;
   searchFilter?: Array<InputPrometheusSearchFilter$Outbound> | undefined;
+  awsAuthenticationMethod: string;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -1170,20 +1161,18 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   ),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
-  recordType: InputPrometheusRecordType$outboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
   nameList: z.array(z.string()).optional(),
+  recordType: InputPrometheusRecordType$outboundSchema.default("SRV"),
   scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod:
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema
-      .default("auto"),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
   usePublicIp: z.boolean().default(true),
+  scrapePort: z.number().default(9090),
   searchFilter: z.array(
     z.lazy(() => InputPrometheusSearchFilter$outboundSchema),
   ).optional(),
+  awsAuthenticationMethod:
+    InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema
+      .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),

@@ -37,6 +37,8 @@ let value: InputSyslogSyslog2 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.1",
   },

@@ -15,6 +15,7 @@ let value: RunnableJobScheduledSearch = {
   environment: "<value>",
   schedule: {
     enabled: false,
+    resumeMissed: "<value>",
     run: {
       type: "collection",
       earliest: 2827.78,

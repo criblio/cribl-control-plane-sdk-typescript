@@ -54,38 +54,17 @@ let value: InputConfluentCloud = {
       maxVersion: "TLSv1.2",
     },
   },
-  sasl: {
-    username: "Jackeline.Romaguera12",
-    password: "smhYGwiSlBMbqj6",
-    credentialsSecret: "<value>",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    tokenUrl: "https://wise-vestment.info/",
-    clientId: "<id>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  autoCommitInterval: 3932.27,
-  autoCommitThreshold: 9711.34,
+  sasl: {},
+  autoCommitInterval: 4548.16,
+  autoCommitThreshold: 9243.43,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "ouch against into boo creative anesthetize roughly",
+  description:
+    "although obediently soupy why accessorise tune sans aware smuggle",
 };
 ```
 

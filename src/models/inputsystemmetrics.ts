@@ -284,14 +284,6 @@ export type InputSystemMetricsNetwork = {
    */
   mode?: InputSystemMetricsNetworkMode | undefined;
   /**
-   * Generate full network metrics
-   */
-  detail?: boolean | undefined;
-  /**
-   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
-   */
-  protocols?: boolean | undefined;
-  /**
    * Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
    */
   devices?: Array<string> | undefined;
@@ -299,6 +291,10 @@ export type InputSystemMetricsNetwork = {
    * Generate separate metrics for each interface
    */
   perInterface?: boolean | undefined;
+  /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
 };
 
 /**
@@ -335,14 +331,6 @@ export type InputSystemMetricsDisk = {
    */
   mode?: InputSystemMetricsDiskMode | undefined;
   /**
-   * Generate full disk metrics
-   */
-  detail?: boolean | undefined;
-  /**
-   * Generate filesystem inode metrics
-   */
-  inodes?: boolean | undefined;
-  /**
    * Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
    */
   devices?: Array<string> | undefined;
@@ -358,6 +346,10 @@ export type InputSystemMetricsDisk = {
    * Generate separate metrics for each device
    */
   perDevice?: boolean | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
 };
 
 export type InputSystemMetricsCustom = {
@@ -1152,19 +1144,17 @@ export const InputSystemMetricsNetwork$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: InputSystemMetricsNetworkMode$inboundSchema.default("basic"),
-  detail: z.boolean().default(false),
-  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
+  detail: z.boolean().default(false),
 });
 
 /** @internal */
 export type InputSystemMetricsNetwork$Outbound = {
   mode: string;
-  detail: boolean;
-  protocols: boolean;
   devices?: Array<string> | undefined;
   perInterface: boolean;
+  detail: boolean;
 };
 
 /** @internal */
@@ -1174,10 +1164,9 @@ export const InputSystemMetricsNetwork$outboundSchema: z.ZodType<
   InputSystemMetricsNetwork
 > = z.object({
   mode: InputSystemMetricsNetworkMode$outboundSchema.default("basic"),
-  detail: z.boolean().default(false),
-  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
+  detail: z.boolean().default(false),
 });
 
 /**
@@ -1250,23 +1239,21 @@ export const InputSystemMetricsDisk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: InputSystemMetricsDiskMode$inboundSchema.default("basic"),
-  detail: z.boolean().default(false),
-  inodes: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   mountpoints: z.array(z.string()).optional(),
   fstypes: z.array(z.string()).optional(),
   perDevice: z.boolean().default(false),
+  detail: z.boolean().default(false),
 });
 
 /** @internal */
 export type InputSystemMetricsDisk$Outbound = {
   mode: string;
-  detail: boolean;
-  inodes: boolean;
   devices?: Array<string> | undefined;
   mountpoints?: Array<string> | undefined;
   fstypes?: Array<string> | undefined;
   perDevice: boolean;
+  detail: boolean;
 };
 
 /** @internal */
@@ -1276,12 +1263,11 @@ export const InputSystemMetricsDisk$outboundSchema: z.ZodType<
   InputSystemMetricsDisk
 > = z.object({
   mode: InputSystemMetricsDiskMode$outboundSchema.default("basic"),
-  detail: z.boolean().default(false),
-  inodes: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   mountpoints: z.array(z.string()).optional(),
   fstypes: z.array(z.string()).optional(),
   perDevice: z.boolean().default(false),
+  detail: z.boolean().default(false),
 });
 
 /**

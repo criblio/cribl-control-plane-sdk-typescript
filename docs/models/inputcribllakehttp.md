@@ -33,6 +33,8 @@ let value: InputCriblLakeHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
+    rejectUnauthorized: "<value>",
+    commonNameRegex: "<value>",
     minVersion: "TLSv1.3",
     maxVersion: "TLSv1.3",
   },

@@ -129,30 +129,6 @@ export type OutputGoogleCloudLoggingBackpressureBehavior = OpenEnum<
 >;
 
 /**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGoogleCloudLoggingMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGoogleCloudLoggingMode = OpenEnum<
-  typeof OutputGoogleCloudLoggingMode
->;
-
-/**
  * Codec to use to compress the persisted data
  */
 export const OutputGoogleCloudLoggingCompression = {
@@ -190,6 +166,30 @@ export const OutputGoogleCloudLoggingQueueFullBehavior = {
  */
 export type OutputGoogleCloudLoggingQueueFullBehavior = OpenEnum<
   typeof OutputGoogleCloudLoggingQueueFullBehavior
+>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputGoogleCloudLoggingMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Backpressure: "backpressure",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputGoogleCloudLoggingMode = OpenEnum<
+  typeof OutputGoogleCloudLoggingMode
 >;
 
 export type OutputGoogleCloudLoggingPqControls = {};
@@ -418,26 +418,6 @@ export type OutputGoogleCloudLogging = {
    */
   payloadExpression?: string | undefined;
   /**
-   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-   */
-  pqStrictOrdering?: boolean | undefined;
-  /**
-   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-   */
-  pqRatePerSec?: number | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputGoogleCloudLoggingMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  pqMaxBufferSize?: number | undefined;
-  /**
-   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
-   */
-  pqMaxBackpressureSec?: number | undefined;
-  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -457,6 +437,10 @@ export type OutputGoogleCloudLogging = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputGoogleCloudLoggingQueueFullBehavior | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputGoogleCloudLoggingMode | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls | undefined;
 };
 
@@ -728,38 +712,6 @@ export namespace OutputGoogleCloudLoggingBackpressureBehavior$ {
 }
 
 /** @internal */
-export const OutputGoogleCloudLoggingMode$inboundSchema: z.ZodType<
-  OutputGoogleCloudLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudLoggingMode$outboundSchema: z.ZodType<
-  OutputGoogleCloudLoggingMode,
-  z.ZodTypeDef,
-  OutputGoogleCloudLoggingMode
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLoggingMode$ {
-  /** @deprecated use `OutputGoogleCloudLoggingMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudLoggingMode$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleCloudLoggingMode$outboundSchema;
-}
-
-/** @internal */
 export const OutputGoogleCloudLoggingCompression$inboundSchema: z.ZodType<
   OutputGoogleCloudLoggingCompression,
   z.ZodTypeDef,
@@ -826,6 +778,38 @@ export namespace OutputGoogleCloudLoggingQueueFullBehavior$ {
   /** @deprecated use `OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema;
+}
+
+/** @internal */
+export const OutputGoogleCloudLoggingMode$inboundSchema: z.ZodType<
+  OutputGoogleCloudLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleCloudLoggingMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputGoogleCloudLoggingMode$outboundSchema: z.ZodType<
+  OutputGoogleCloudLoggingMode,
+  z.ZodTypeDef,
+  OutputGoogleCloudLoggingMode
+> = z.union([
+  z.nativeEnum(OutputGoogleCloudLoggingMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputGoogleCloudLoggingMode$ {
+  /** @deprecated use `OutputGoogleCloudLoggingMode$inboundSchema` instead. */
+  export const inboundSchema = OutputGoogleCloudLoggingMode$inboundSchema;
+  /** @deprecated use `OutputGoogleCloudLoggingMode$outboundSchema` instead. */
+  export const outboundSchema = OutputGoogleCloudLoggingMode$outboundSchema;
 }
 
 /** @internal */
@@ -949,17 +933,13 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   description: z.string().optional(),
   logLocationExpression: z.string(),
   payloadExpression: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGoogleCloudLoggingMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
   pqCompress: OutputGoogleCloudLoggingCompression$inboundSchema.default("none"),
   pqOnBackpressure: OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema
     .default("block"),
+  pqMode: OutputGoogleCloudLoggingMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$inboundSchema)
     .optional(),
 });
@@ -1024,16 +1004,12 @@ export type OutputGoogleCloudLogging$Outbound = {
   description?: string | undefined;
   logLocationExpression: string;
   payloadExpression?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
+  pqMode: string;
   pqControls?: OutputGoogleCloudLoggingPqControls$Outbound | undefined;
 };
 
@@ -1106,11 +1082,6 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   description: z.string().optional(),
   logLocationExpression: z.string(),
   payloadExpression: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGoogleCloudLoggingMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1119,6 +1090,7 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   ),
   pqOnBackpressure: OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema
     .default("block"),
+  pqMode: OutputGoogleCloudLoggingMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$outboundSchema)
     .optional(),
 });

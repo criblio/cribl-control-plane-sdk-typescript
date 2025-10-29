@@ -112,14 +112,6 @@ export type RunnableJobExecutorSchedule = {
    */
   enabled?: boolean | undefined;
   /**
-   * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-   */
-  skippable?: boolean | undefined;
-  /**
-   * If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
-   */
-  resumeMissed?: boolean | undefined;
-  /**
    * A cron schedule on which to run this job
    */
   cronSchedule?: string | undefined;
@@ -127,6 +119,11 @@ export type RunnableJobExecutorSchedule = {
    * The maximum number of instances of this scheduled job that may be running at any time
    */
   maxConcurrentRuns?: number | undefined;
+  /**
+   * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
+   */
+  skippable?: boolean | undefined;
+  resumeMissed?: any | undefined;
   run?: RunnableJobExecutorRunSettings | undefined;
 };
 
@@ -449,20 +446,20 @@ export const RunnableJobExecutorSchedule$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean().optional(),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.boolean().default(false),
   cronSchedule: z.string().default("*/5 * * * *"),
   maxConcurrentRuns: z.number().default(1),
+  skippable: z.boolean().default(true),
+  resumeMissed: z.any().optional(),
   run: z.lazy(() => RunnableJobExecutorRunSettings$inboundSchema).optional(),
 });
 
 /** @internal */
 export type RunnableJobExecutorSchedule$Outbound = {
   enabled?: boolean | undefined;
-  skippable: boolean;
-  resumeMissed: boolean;
   cronSchedule: string;
   maxConcurrentRuns: number;
+  skippable: boolean;
+  resumeMissed?: any | undefined;
   run?: RunnableJobExecutorRunSettings$Outbound | undefined;
 };
 
@@ -473,10 +470,10 @@ export const RunnableJobExecutorSchedule$outboundSchema: z.ZodType<
   RunnableJobExecutorSchedule
 > = z.object({
   enabled: z.boolean().optional(),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.boolean().default(false),
   cronSchedule: z.string().default("*/5 * * * *"),
   maxConcurrentRuns: z.number().default(1),
+  skippable: z.boolean().default(true),
+  resumeMissed: z.any().optional(),
   run: z.lazy(() => RunnableJobExecutorRunSettings$outboundSchema).optional(),
 });
 

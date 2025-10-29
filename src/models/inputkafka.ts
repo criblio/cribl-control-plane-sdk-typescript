@@ -186,20 +186,6 @@ export type InputKafkaKafkaSchemaRegistryAuthentication = {
   tls?: InputKafkaKafkaSchemaRegistryTLSSettingsClientSide | undefined;
 };
 
-/**
- * Enter credentials directly, or select a stored secret
- */
-export const InputKafkaAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter credentials directly, or select a stored secret
- */
-export type InputKafkaAuthenticationMethod = OpenEnum<
-  typeof InputKafkaAuthenticationMethod
->;
-
 export const InputKafkaSASLMechanism = {
   /**
    * PLAIN
@@ -220,69 +206,16 @@ export const InputKafkaSASLMechanism = {
 } as const;
 export type InputKafkaSASLMechanism = OpenEnum<typeof InputKafkaSASLMechanism>;
 
-export type InputKafkaOauthParam = {
-  name: string;
-  value: string;
-};
-
-export type InputKafkaSaslExtension = {
-  name: string;
-  value: string;
-};
-
 /**
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
  */
 export type InputKafkaAuthentication = {
   disabled?: boolean | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Enter credentials directly, or select a stored secret
-   */
-  authType?: InputKafkaAuthenticationMethod | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
   mechanism?: InputKafkaSASLMechanism | undefined;
-  /**
-   * Location of keytab file for authentication principal
-   */
-  keytabLocation?: string | undefined;
-  /**
-   * Authentication principal, such as `kafka_user@example.com`
-   */
-  principal?: string | undefined;
-  /**
-   * Kerberos service class for Kafka brokers, such as `kafka`
-   */
-  brokerServiceClass?: string | undefined;
   /**
    * Enable OAuth authentication
    */
   oauthEnabled?: boolean | undefined;
-  /**
-   * URL of the token endpoint to use for OAuth authentication
-   */
-  tokenUrl?: string | undefined;
-  /**
-   * Client ID to use for OAuth authentication
-   */
-  clientId?: string | undefined;
-  oauthSecretType?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  clientTextSecret?: string | undefined;
-  /**
-   * Additional fields to send to the token endpoint, such as scope or audience
-   */
-  oauthParams?: Array<InputKafkaOauthParam> | undefined;
-  /**
-   * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
-   */
-  saslExtensions?: Array<InputKafkaSaslExtension> | undefined;
 };
 
 export const InputKafkaMinimumTLSVersion = {
@@ -1064,38 +997,6 @@ export function inputKafkaKafkaSchemaRegistryAuthenticationFromJSON(
 }
 
 /** @internal */
-export const InputKafkaAuthenticationMethod$inboundSchema: z.ZodType<
-  InputKafkaAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKafkaAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKafkaAuthenticationMethod$outboundSchema: z.ZodType<
-  InputKafkaAuthenticationMethod,
-  z.ZodTypeDef,
-  InputKafkaAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputKafkaAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaAuthenticationMethod$ {
-  /** @deprecated use `InputKafkaAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputKafkaAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
 export const InputKafkaSASLMechanism$inboundSchema: z.ZodType<
   InputKafkaSASLMechanism,
   z.ZodTypeDef,
@@ -1128,163 +1029,21 @@ export namespace InputKafkaSASLMechanism$ {
 }
 
 /** @internal */
-export const InputKafkaOauthParam$inboundSchema: z.ZodType<
-  InputKafkaOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputKafkaOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputKafkaOauthParam$outboundSchema: z.ZodType<
-  InputKafkaOauthParam$Outbound,
-  z.ZodTypeDef,
-  InputKafkaOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaOauthParam$ {
-  /** @deprecated use `InputKafkaOauthParam$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaOauthParam$inboundSchema;
-  /** @deprecated use `InputKafkaOauthParam$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaOauthParam$outboundSchema;
-  /** @deprecated use `InputKafkaOauthParam$Outbound` instead. */
-  export type Outbound = InputKafkaOauthParam$Outbound;
-}
-
-export function inputKafkaOauthParamToJSON(
-  inputKafkaOauthParam: InputKafkaOauthParam,
-): string {
-  return JSON.stringify(
-    InputKafkaOauthParam$outboundSchema.parse(inputKafkaOauthParam),
-  );
-}
-
-export function inputKafkaOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKafkaOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKafkaOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKafkaOauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKafkaSaslExtension$inboundSchema: z.ZodType<
-  InputKafkaSaslExtension,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputKafkaSaslExtension$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputKafkaSaslExtension$outboundSchema: z.ZodType<
-  InputKafkaSaslExtension$Outbound,
-  z.ZodTypeDef,
-  InputKafkaSaslExtension
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaSaslExtension$ {
-  /** @deprecated use `InputKafkaSaslExtension$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaSaslExtension$inboundSchema;
-  /** @deprecated use `InputKafkaSaslExtension$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaSaslExtension$outboundSchema;
-  /** @deprecated use `InputKafkaSaslExtension$Outbound` instead. */
-  export type Outbound = InputKafkaSaslExtension$Outbound;
-}
-
-export function inputKafkaSaslExtensionToJSON(
-  inputKafkaSaslExtension: InputKafkaSaslExtension,
-): string {
-  return JSON.stringify(
-    InputKafkaSaslExtension$outboundSchema.parse(inputKafkaSaslExtension),
-  );
-}
-
-export function inputKafkaSaslExtensionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKafkaSaslExtension, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKafkaSaslExtension$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKafkaSaslExtension' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputKafkaAuthentication$inboundSchema: z.ZodType<
   InputKafkaAuthentication,
   z.ZodTypeDef,
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: InputKafkaAuthenticationMethod$inboundSchema.default("manual"),
-  credentialsSecret: z.string().optional(),
   mechanism: InputKafkaSASLMechanism$inboundSchema.default("plain"),
-  keytabLocation: z.string().optional(),
-  principal: z.string().optional(),
-  brokerServiceClass: z.string().optional(),
   oauthEnabled: z.boolean().default(false),
-  tokenUrl: z.string().optional(),
-  clientId: z.string().optional(),
-  oauthSecretType: z.string().default("secret"),
-  clientTextSecret: z.string().optional(),
-  oauthParams: z.array(z.lazy(() => InputKafkaOauthParam$inboundSchema))
-    .optional(),
-  saslExtensions: z.array(z.lazy(() => InputKafkaSaslExtension$inboundSchema))
-    .optional(),
 });
 
 /** @internal */
 export type InputKafkaAuthentication$Outbound = {
   disabled: boolean;
-  username?: string | undefined;
-  password?: string | undefined;
-  authType: string;
-  credentialsSecret?: string | undefined;
   mechanism: string;
-  keytabLocation?: string | undefined;
-  principal?: string | undefined;
-  brokerServiceClass?: string | undefined;
   oauthEnabled: boolean;
-  tokenUrl?: string | undefined;
-  clientId?: string | undefined;
-  oauthSecretType: string;
-  clientTextSecret?: string | undefined;
-  oauthParams?: Array<InputKafkaOauthParam$Outbound> | undefined;
-  saslExtensions?: Array<InputKafkaSaslExtension$Outbound> | undefined;
 };
 
 /** @internal */
@@ -1294,23 +1053,8 @@ export const InputKafkaAuthentication$outboundSchema: z.ZodType<
   InputKafkaAuthentication
 > = z.object({
   disabled: z.boolean().default(true),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: InputKafkaAuthenticationMethod$outboundSchema.default("manual"),
-  credentialsSecret: z.string().optional(),
   mechanism: InputKafkaSASLMechanism$outboundSchema.default("plain"),
-  keytabLocation: z.string().optional(),
-  principal: z.string().optional(),
-  brokerServiceClass: z.string().optional(),
   oauthEnabled: z.boolean().default(false),
-  tokenUrl: z.string().optional(),
-  clientId: z.string().optional(),
-  oauthSecretType: z.string().default("secret"),
-  clientTextSecret: z.string().optional(),
-  oauthParams: z.array(z.lazy(() => InputKafkaOauthParam$outboundSchema))
-    .optional(),
-  saslExtensions: z.array(z.lazy(() => InputKafkaSaslExtension$outboundSchema))
-    .optional(),
 });
 
 /**

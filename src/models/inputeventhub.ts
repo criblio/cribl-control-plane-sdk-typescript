@@ -95,20 +95,6 @@ export type InputEventhubPq = {
   pqControls?: InputEventhubPqControls | undefined;
 };
 
-/**
- * Enter password directly, or select a stored secret
- */
-export const InputEventhubAuthTypeAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter password directly, or select a stored secret
- */
-export type InputEventhubAuthTypeAuthenticationMethod = OpenEnum<
-  typeof InputEventhubAuthTypeAuthenticationMethod
->;
-
 export const InputEventhubSASLMechanism = {
   /**
    * PLAIN
@@ -123,89 +109,12 @@ export type InputEventhubSASLMechanism = OpenEnum<
   typeof InputEventhubSASLMechanism
 >;
 
-export const InputEventhubClientSecretAuthTypeAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-  Certificate: "certificate",
-} as const;
-export type InputEventhubClientSecretAuthTypeAuthenticationMethod = OpenEnum<
-  typeof InputEventhubClientSecretAuthTypeAuthenticationMethod
->;
-
-/**
- * Endpoint used to acquire authentication tokens from Azure
- */
-export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint = {
-  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
-  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
-  HttpsLoginPartnerMicrosoftonlineCn:
-    "https://login.partner.microsoftonline.cn",
-} as const;
-/**
- * Endpoint used to acquire authentication tokens from Azure
- */
-export type InputEventhubMicrosoftEntraIDAuthenticationEndpoint = OpenEnum<
-  typeof InputEventhubMicrosoftEntraIDAuthenticationEndpoint
->;
-
 /**
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
  */
 export type InputEventhubAuthentication = {
   disabled?: boolean | undefined;
-  /**
-   * Enter password directly, or select a stored secret
-   */
-  authType?: InputEventhubAuthTypeAuthenticationMethod | undefined;
-  /**
-   * Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
   mechanism?: InputEventhubSASLMechanism | undefined;
-  /**
-   * The username for authentication. For Event Hubs, this should always be $ConnectionString.
-   */
-  username?: string | undefined;
-  clientSecretAuthType?:
-    | InputEventhubClientSecretAuthTypeAuthenticationMethod
-    | undefined;
-  /**
-   * client_secret to pass in the OAuth request parameter
-   */
-  clientSecret?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  clientTextSecret?: string | undefined;
-  /**
-   * Select or create a stored certificate
-   */
-  certificateName?: string | undefined;
-  certPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  /**
-   * Endpoint used to acquire authentication tokens from Azure
-   */
-  oauthEndpoint?:
-    | InputEventhubMicrosoftEntraIDAuthenticationEndpoint
-    | undefined;
-  /**
-   * client_id to pass in the OAuth request parameter
-   */
-  clientId?: string | undefined;
-  /**
-   * Directory ID (tenant identifier) in Azure Active Directory
-   */
-  tenantId?: string | undefined;
-  /**
-   * Scope to pass in the OAuth request parameter
-   */
-  scope?: string | undefined;
 };
 
 export type InputEventhubTLSSettingsClientSide = {
@@ -629,41 +538,6 @@ export function inputEventhubPqFromJSON(
 }
 
 /** @internal */
-export const InputEventhubAuthTypeAuthenticationMethod$inboundSchema: z.ZodType<
-  InputEventhubAuthTypeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubAuthTypeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputEventhubAuthTypeAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputEventhubAuthTypeAuthenticationMethod,
-    z.ZodTypeDef,
-    InputEventhubAuthTypeAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputEventhubAuthTypeAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubAuthTypeAuthenticationMethod$ {
-  /** @deprecated use `InputEventhubAuthTypeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputEventhubAuthTypeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputEventhubAuthTypeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEventhubAuthTypeAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
 export const InputEventhubSASLMechanism$inboundSchema: z.ZodType<
   InputEventhubSASLMechanism,
   z.ZodTypeDef,
@@ -696,129 +570,19 @@ export namespace InputEventhubSASLMechanism$ {
 }
 
 /** @internal */
-export const InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    InputEventhubClientSecretAuthTypeAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(InputEventhubClientSecretAuthTypeAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputEventhubClientSecretAuthTypeAuthenticationMethod,
-    z.ZodTypeDef,
-    InputEventhubClientSecretAuthTypeAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputEventhubClientSecretAuthTypeAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubClientSecretAuthTypeAuthenticationMethod$ {
-  /** @deprecated use `InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
-  z.ZodType<
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(InputEventhubMicrosoftEntraIDAuthenticationEndpoint),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
-  z.ZodType<
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
-    z.ZodTypeDef,
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint
-  > = z.union([
-    z.nativeEnum(InputEventhubMicrosoftEntraIDAuthenticationEndpoint),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubMicrosoftEntraIDAuthenticationEndpoint$ {
-  /** @deprecated use `InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema` instead. */
-  export const inboundSchema =
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema;
-  /** @deprecated use `InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema;
-}
-
-/** @internal */
 export const InputEventhubAuthentication$inboundSchema: z.ZodType<
   InputEventhubAuthentication,
   z.ZodTypeDef,
   unknown
 > = z.object({
   disabled: z.boolean().default(false),
-  authType: InputEventhubAuthTypeAuthenticationMethod$inboundSchema.default(
-    "manual",
-  ),
-  password: z.string().optional(),
-  textSecret: z.string().optional(),
   mechanism: InputEventhubSASLMechanism$inboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
-  clientSecretAuthType:
-    InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema.default(
-      "manual",
-    ),
-  clientSecret: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificateName: z.string().optional(),
-  certPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  oauthEndpoint:
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
-  clientId: z.string().optional(),
-  tenantId: z.string().optional(),
-  scope: z.string().optional(),
 });
 
 /** @internal */
 export type InputEventhubAuthentication$Outbound = {
   disabled: boolean;
-  authType: string;
-  password?: string | undefined;
-  textSecret?: string | undefined;
   mechanism: string;
-  username: string;
-  clientSecretAuthType: string;
-  clientSecret?: string | undefined;
-  clientTextSecret?: string | undefined;
-  certificateName?: string | undefined;
-  certPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  oauthEndpoint: string;
-  clientId?: string | undefined;
-  tenantId?: string | undefined;
-  scope?: string | undefined;
 };
 
 /** @internal */
@@ -828,29 +592,7 @@ export const InputEventhubAuthentication$outboundSchema: z.ZodType<
   InputEventhubAuthentication
 > = z.object({
   disabled: z.boolean().default(false),
-  authType: InputEventhubAuthTypeAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
-  password: z.string().optional(),
-  textSecret: z.string().optional(),
   mechanism: InputEventhubSASLMechanism$outboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
-  clientSecretAuthType:
-    InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema
-      .default("manual"),
-  clientSecret: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificateName: z.string().optional(),
-  certPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  oauthEndpoint:
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
-  clientId: z.string().optional(),
-  tenantId: z.string().optional(),
-  scope: z.string().optional(),
 });
 
 /**
