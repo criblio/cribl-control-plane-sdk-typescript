@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 454cfb13dc6b2c0499e33e646366df5b
-  docVersion: 4.15.0-alpha.1761742903037-a6787ef9
+  docChecksum: 2d81da1687a630cec00a4b7f6d94071c
+  docVersion: 4.15.0-alpha.1761834741311-54c1f75c
   speakeasyVersion: 1.639.3
   generationVersion: 2.730.5
-  releaseVersion: 0.2.1-rc.5
-  configChecksum: a2862eb8334d3356c9bf79898fe5349b
+  releaseVersion: 0.2.1-rc.6
+  configChecksum: 4deac543ab6702e44202975685e422df
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -45,7 +45,6 @@ generatedFiles:
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
-  - docs/models/add.md
   - docs/models/addhectokenrequest.md
   - docs/models/addhectokenrequestmetadatum.md
   - docs/models/additionalproperty.md
@@ -72,6 +71,7 @@ generatedFiles:
   - docs/models/columnmapping.md
   - docs/models/comment.md
   - docs/models/commit.md
+  - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
   - docs/models/configgroupcloud.md
@@ -121,7 +121,6 @@ generatedFiles:
   - docs/models/filet.md
   - docs/models/firewall.md
   - docs/models/functionspecificconfigs.md
-  - docs/models/functiont.md
   - docs/models/gitcommitparams.md
   - docs/models/gitcommitsummary.md
   - docs/models/gitcommitsummaryfiles.md
@@ -152,7 +151,6 @@ generatedFiles:
   - docs/models/heartbeatmetadatatags.md
   - docs/models/hostinfo.md
   - docs/models/hostsfile.md
-  - docs/models/id.md
   - docs/models/indexerdiscoveryconfigs.md
   - docs/models/indexerdiscoveryconfigsauthenticationmethod.md
   - docs/models/indexerdiscoveryconfigsauthtokenauthenticationmethod.md
@@ -946,11 +944,6 @@ generatedFiles:
   - docs/models/lokiauthoauthparam1.md
   - docs/models/lokiauthoauthparam2.md
   - docs/models/lookupversions.md
-  - docs/models/mappingruleset.md
-  - docs/models/mappingrulesetconf.md
-  - docs/models/mappingrulesetevalmappingfunction.md
-  - docs/models/mappingrulesetevalmappingfunctionconf.md
-  - docs/models/mappingrulesetgenericmappingfunction.md
   - docs/models/mappingtype.md
   - docs/models/masterworkerentry.md
   - docs/models/masterworkerentrytype.md
@@ -972,10 +965,6 @@ generatedFiles:
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
   - docs/models/oldmode.md
-  - docs/models/operations/createadminproductsmappingsactivatebyproductrequest.md
-  - docs/models/operations/createadminproductsmappingsactivatebyproductresponse.md
-  - docs/models/operations/createadminproductsmappingsbyproductrequest.md
-  - docs/models/operations/createadminproductsmappingsbyproductresponse.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
@@ -997,8 +986,6 @@ generatedFiles:
   - docs/models/operations/createversionrevertresponse.md
   - docs/models/operations/createversionundorequest.md
   - docs/models/operations/createversionundoresponse.md
-  - docs/models/operations/deleteadminproductsmappingsbyproductandidrequest.md
-  - docs/models/operations/deleteadminproductsmappingsbyproductandidresponse.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
   - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
@@ -1013,10 +1000,6 @@ generatedFiles:
   - docs/models/operations/deletepacksbyidresponse.md
   - docs/models/operations/deletepipelinebyidrequest.md
   - docs/models/operations/deletepipelinebyidresponse.md
-  - docs/models/operations/getadminproductsmappingsbyproductandidrequest.md
-  - docs/models/operations/getadminproductsmappingsbyproductandidresponse.md
-  - docs/models/operations/getadminproductsmappingsbyproductrequest.md
-  - docs/models/operations/getadminproductsmappingsbyproductresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
   - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
@@ -1071,8 +1054,6 @@ generatedFiles:
   - docs/models/operations/listoutputresponse.md
   - docs/models/operations/listpipelineresponse.md
   - docs/models/operations/listroutesresponse.md
-  - docs/models/operations/updateadminproductsmappingsbyproductandidrequest.md
-  - docs/models/operations/updateadminproductsmappingsbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
   - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
@@ -1934,7 +1915,6 @@ generatedFiles:
   - docs/models/packupgraderequest.md
   - docs/models/payloadformat.md
   - docs/models/pipeline.md
-  - docs/models/pipelineconf.md
   - docs/models/pipelinefunctionconf.md
   - docs/models/pipelinegroups.md
   - docs/models/podfilter.md
@@ -1959,7 +1939,6 @@ generatedFiles:
   - docs/models/routes.md
   - docs/models/routesgroups.md
   - docs/models/routesroute.md
-  - docs/models/rulesetid.md
   - docs/models/runnablejob.md
   - docs/models/runnablejobcollection.md
   - docs/models/runnablejobcollectioninput.md
@@ -2035,7 +2014,6 @@ generatedFiles:
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
   - docs/sdks/lakedatasets/README.md
-  - docs/sdks/mappings/README.md
   - docs/sdks/nodes/README.md
   - docs/sdks/packs/README.md
   - docs/sdks/pipelines/README.md
@@ -2070,12 +2048,6 @@ generatedFiles:
   - src/funcs/groupsDeploy.ts
   - src/funcs/groupsGet.ts
   - src/funcs/groupsList.ts
-  - src/funcs/groupsMappingsActivate.ts
-  - src/funcs/groupsMappingsCreate.ts
-  - src/funcs/groupsMappingsDelete.ts
-  - src/funcs/groupsMappingsGet.ts
-  - src/funcs/groupsMappingsList.ts
-  - src/funcs/groupsMappingsUpdate.ts
   - src/funcs/groupsUpdate.ts
   - src/funcs/healthGet.ts
   - src/funcs/lakeDatasetsCreate.ts
@@ -2255,9 +2227,6 @@ generatedFiles:
   - src/models/lakehouseconnectiontype.ts
   - src/models/logininfo.ts
   - src/models/lookupversions.ts
-  - src/models/mappingruleset.ts
-  - src/models/mappingrulesetevalmappingfunction.ts
-  - src/models/mappingrulesetgenericmappingfunction.ts
   - src/models/masterworkerentry.ts
   - src/models/nodeactiveupgradestatus.ts
   - src/models/nodefailedupgradestatus.ts
@@ -2265,8 +2234,6 @@ generatedFiles:
   - src/models/nodeskippedupgradestatus.ts
   - src/models/nodeupgradestate.ts
   - src/models/nodeupgradestatus.ts
-  - src/models/operations/createadminproductsmappingsactivatebyproduct.ts
-  - src/models/operations/createadminproductsmappingsbyproduct.ts
   - src/models/operations/createconfiggroupbyproduct.ts
   - src/models/operations/createcribllakedatasetbylakeid.ts
   - src/models/operations/createinput.ts
@@ -2280,7 +2247,6 @@ generatedFiles:
   - src/models/operations/createversionpush.ts
   - src/models/operations/createversionrevert.ts
   - src/models/operations/createversionundo.ts
-  - src/models/operations/deleteadminproductsmappingsbyproductandid.ts
   - src/models/operations/deleteconfiggroupbyproductandid.ts
   - src/models/operations/deletecribllakedatasetbylakeidandid.ts
   - src/models/operations/deleteinputbyid.ts
@@ -2288,8 +2254,6 @@ generatedFiles:
   - src/models/operations/deleteoutputpqbyid.ts
   - src/models/operations/deletepacksbyid.ts
   - src/models/operations/deletepipelinebyid.ts
-  - src/models/operations/getadminproductsmappingsbyproduct.ts
-  - src/models/operations/getadminproductsmappingsbyproductandid.ts
   - src/models/operations/getconfiggroupaclbyproductandid.ts
   - src/models/operations/getconfiggroupaclteamsbyproductandid.ts
   - src/models/operations/getconfiggroupbyproductandid.ts
@@ -2321,7 +2285,6 @@ generatedFiles:
   - src/models/operations/listoutput.ts
   - src/models/operations/listpipeline.ts
   - src/models/operations/listroutes.ts
-  - src/models/operations/updateadminproductsmappingsbyproductandid.ts
   - src/models/operations/updateconfiggroupbyproductandid.ts
   - src/models/operations/updateconfiggroupdeploybyproductandid.ts
   - src/models/operations/updatecribllakedatasetbylakeidandid.ts
@@ -2415,7 +2378,6 @@ generatedFiles:
   - src/models/routeconf.ts
   - src/models/routes.ts
   - src/models/routesroute.ts
-  - src/models/rulesetid.ts
   - src/models/runnablejob.ts
   - src/models/runnablejobcollection.ts
   - src/models/runnablejobexecutor.ts
@@ -2440,7 +2402,6 @@ generatedFiles:
   - src/sdk/hectokens.ts
   - src/sdk/index.ts
   - src/sdk/lakedatasets.ts
-  - src/sdk/mappings.ts
   - src/sdk/nodes.ts
   - src/sdk/packs.ts
   - src/sdk/pipelines.ts
@@ -3044,7 +3005,7 @@ examples:
           application/json: {"message": "<value>"}
     PackInstallExamplesUploadedFile:
       requestBody:
-        application/json: {"id": "cribl-search-missing-logs-", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Onie_Miller", "author": "<value>", "description": "than eek before fledgling absent astride depart till", "source": "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl", "tags": {"dataType": ["point", "smallint"], "domain": ["kosher-barracks.biz", "mushy-prohibition.org", "wordy-peony.com"], "technology": ["<value 1>", "<value 2>", "<value 3>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": true}
+        application/json: {"id": "cribl-search-missing-logs", "spec": "<value>", "version": "<value>", "minLogStreamVersion": "<value>", "displayName": "Onie_Miller", "author": "<value>", "description": "than eek before fledgling absent astride depart till", "source": "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl", "tags": {"dataType": ["point", "smallint"], "domain": ["kosher-barracks.biz", "mushy-prohibition.org", "wordy-peony.com"], "technology": ["<value 1>", "<value 2>", "<value 3>"], "streamtags": ["<value 1>", "<value 2>"]}, "allowCustomFunctions": false, "force": true}
       responses:
         "200":
           application/json: {"count": 286347, "items": [{"author": "<value>", "dependencies": {"key": "<value>", "key1": "<value>"}, "description": "ring creative drain", "displayName": "Rodolfo_Cummings44", "exports": ["<value 1>", "<value 2>", "<value 3>"], "id": "<id>", "inputs": 1011.25, "isDisabled": true, "minLogStreamVersion": "<value>", "outputs": 5410.28, "settings": {"key": "<value>", "key1": "<value>"}, "source": "<value>", "spec": "<value>", "tags": {"dataType": ["tinyint"], "domain": ["known-newsstand.org", "personal-alb.name", "disloyal-equal.com"], "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "technology": ["<value 1>", "<value 2>"]}, "version": "<value>", "warnings": ["<value 1>", "<value 2>", "<value 3>"]}]}
@@ -3231,6 +3192,50 @@ examples:
           application/json: {"count": 59152, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 5269.24, "description": "sedately anti watery", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 5255.51, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-06-13", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 5029.74, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 8633.62, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
+    CreateGroupExamplesCloudWg:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "us-west-2"}, "deployingWorkerCount": 5631.58, "description": "ack resort boohoo", "estimatedIngestRate": 2048, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatCloudIanWg", "incompatibleWorkerCount": 7174.43, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatCloudIanWg", "onPrem": false, "provisioned": true, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4980.41, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesOnPremWg:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9081.3, "description": "Worker group in customer-managed deployment", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatOnPremIanWg", "incompatibleWorkerCount": 7060.3, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatOnPremIanWg", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 1230.11, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesCloneWg:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 2591.38, "description": "Worker Group cloned from goatOnPremIanWg with identical configuration", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatOnPremDollyWg", "incompatibleWorkerCount": 1660.08, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatOnPremDollyWg", "onPrem": true, "provisioned": true, "sourceGroupId": "goatOnPremIanWg", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 5075.63, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
+    CreateGroupExamplesEdgeFleet:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "<value>"}, "deployingWorkerCount": 9605.18, "description": "Create a new Edge Fleet", "estimatedIngestRate": 7168, "git": {"commit": "<value>", "localChanges": 2413.01, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatIanEdgeFleet", "incompatibleWorkerCount": 9429.96, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "goatIanEdgeFleet", "onPrem": true, "provisioned": false, "sourceGroupId": "<id>", "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 3096.3, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 182014, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 8255.61, "description": "till boastfully before qua meanwhile suddenly", "estimatedIngestRate": 3072, "git": {"commit": "<value>", "localChanges": 7008.23, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-04-03", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 7965.37, "inherits": "<value>", "isFleet": true, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": true, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 4937.96, "workerRemoteAccess": true}]}
+        "500":
+          application/json: {"message": "<value>"}
   getConfigGroupByProductAndId:
     speakeasy-default-get-config-group-by-product-and-id:
       parameters:
@@ -3255,6 +3260,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 231540, "items": [{"cloud": {"provider": "aws", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6457.67, "description": "who lace supposing gosh rout since horn provided bah categorise", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 4475.22, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-01-27", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 1689.16, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": [{"deployedVersion": "<value>", "file": "<value>", "version": "<value>"}]}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 6988.23, "workerRemoteAccess": false}]}
+        "500":
+          application/json: {"message": "<value>"}
+    UpdateGroupExamplesScaleCloudWorkerGroup:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      requestBody:
+        application/json: {"cloud": {"provider": "aws", "region": "us-west-2"}, "configVersion": "<value>", "deployingWorkerCount": 7786.61, "description": "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity", "estimatedIngestRate": 4096, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "goatCloudIanWg", "incompatibleWorkerCount": 2874.65, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "goatCloudIanWg", "onPrem": false, "provisioned": true, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 835.08, "workerRemoteAccess": true}
+      responses:
+        "200":
+          application/json: {"count": 214805, "items": [{"cloud": {"provider": "azure", "region": "<value>"}, "configVersion": "<value>", "deployingWorkerCount": 6038.43, "description": "pants sugary tricky drat", "estimatedIngestRate": 1024, "git": {"commit": "<value>", "localChanges": 776.15, "log": [{"author_email": "<value>", "author_name": "<value>", "date": "2024-09-29", "hash": "<value>", "message": "<value>", "short": "<value>"}]}, "id": "<id>", "incompatibleWorkerCount": 2043.29, "inherits": "<value>", "isFleet": false, "isSearch": false, "lookupDeployments": [{"context": "<value>", "lookups": []}], "maxWorkerAge": "<value>", "name": "<value>", "onPrem": false, "provisioned": false, "streamtags": ["<value 1>", "<value 2>"], "tags": "<value>", "type": "lake_access", "upgradeVersion": "<value>", "workerCount": 5750.42, "workerRemoteAccess": true}]}
         "500":
           application/json: {"message": "<value>"}
   deleteConfigGroupByProductAndId:
@@ -3614,4 +3631,11 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[].tls` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.pq.get()`:  `response.items.[].args` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[].tls` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.groups.mappings.activate()`: **Added**\n* `criblcontrolplane.groups.mappings.delete()`: **Added**\n* `criblcontrolplane.groups.mappings.create()`: **Added**\n* `criblcontrolplane.groups.mappings.update()`: **Added**\n* `criblcontrolplane.groups.mappings.get()`: **Added**\n* `criblcontrolplane.groups.mappings.list()`: **Added**\n"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `criblcontrolplane.groups.mappings.activate()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.groups.mappings.create()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.groups.mappings.list()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.groups.mappings.delete()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.groups.mappings.get()`: **Deleted** **Breaking** :warning:
+  * `criblcontrolplane.groups.mappings.update()`: **Deleted** **Breaking** :warning:
