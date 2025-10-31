@@ -204,6 +204,14 @@ export type InputWinEventLogs = {
    */
   maxEventBytes?: number | undefined;
   description?: string | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableJsonRendering?: boolean | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableXmlRendering?: boolean | undefined;
 };
 
 /** @internal */
@@ -625,6 +633,8 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
     .optional(),
   maxEventBytes: z.number().default(51200),
   description: z.string().optional(),
+  disableJsonRendering: z.boolean().default(false),
+  disableXmlRendering: z.boolean().default(true),
 });
 
 /** @internal */
@@ -648,6 +658,8 @@ export type InputWinEventLogs$Outbound = {
   metadata?: Array<InputWinEventLogsMetadatum$Outbound> | undefined;
   maxEventBytes: number;
   description?: string | undefined;
+  disableJsonRendering: boolean;
+  disableXmlRendering: boolean;
 };
 
 /** @internal */
@@ -677,6 +689,8 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
     .optional(),
   maxEventBytes: z.number().default(51200),
   description: z.string().optional(),
+  disableJsonRendering: z.boolean().default(false),
+  disableXmlRendering: z.boolean().default(true),
 });
 
 /**

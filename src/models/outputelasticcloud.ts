@@ -70,10 +70,24 @@ export type OutputElasticCloudAuthenticationMethod = OpenEnum<
 
 export type OutputElasticCloudAuth = {
   disabled?: boolean | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
   authType?: OutputElasticCloudAuthenticationMethod | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Enter API key directly
+   */
+  manualAPIKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
 export type OutputElasticCloudResponseRetrySetting = {
@@ -136,6 +150,28 @@ export type OutputElasticCloudBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputElasticCloudMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputElasticCloudMode = OpenEnum<typeof OutputElasticCloudMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputElasticCloudCompression = {
@@ -174,28 +210,6 @@ export const OutputElasticCloudQueueFullBehavior = {
 export type OutputElasticCloudQueueFullBehavior = OpenEnum<
   typeof OutputElasticCloudQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputElasticCloudMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Backpressure: "backpressure",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputElasticCloudMode = OpenEnum<typeof OutputElasticCloudMode>;
 
 export type OutputElasticCloudPqControls = {};
 
@@ -305,6 +319,26 @@ export type OutputElasticCloud = {
   onBackpressure?: OutputElasticCloudBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputElasticCloudMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -324,10 +358,6 @@ export type OutputElasticCloud = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputElasticCloudQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputElasticCloudMode | undefined;
   pqControls?: OutputElasticCloudPqControls | undefined;
 };
 
@@ -545,15 +575,25 @@ export const OutputElasticCloudAuth$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(false),
+  username: z.string().optional(),
+  password: z.string().optional(),
   authType: OutputElasticCloudAuthenticationMethod$inboundSchema.default(
     "manual",
   ),
+  credentialsSecret: z.string().optional(),
+  manualAPIKey: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 /** @internal */
 export type OutputElasticCloudAuth$Outbound = {
   disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
   authType: string;
+  credentialsSecret?: string | undefined;
+  manualAPIKey?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -563,9 +603,14 @@ export const OutputElasticCloudAuth$outboundSchema: z.ZodType<
   OutputElasticCloudAuth
 > = z.object({
   disabled: z.boolean().default(false),
+  username: z.string().optional(),
+  password: z.string().optional(),
   authType: OutputElasticCloudAuthenticationMethod$outboundSchema.default(
     "manual",
   ),
+  credentialsSecret: z.string().optional(),
+  manualAPIKey: z.string().optional(),
+  textSecret: z.string().optional(),
 });
 
 /**
@@ -772,6 +817,38 @@ export namespace OutputElasticCloudBackpressureBehavior$ {
 }
 
 /** @internal */
+export const OutputElasticCloudMode$inboundSchema: z.ZodType<
+  OutputElasticCloudMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputElasticCloudMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputElasticCloudMode$outboundSchema: z.ZodType<
+  OutputElasticCloudMode,
+  z.ZodTypeDef,
+  OutputElasticCloudMode
+> = z.union([
+  z.nativeEnum(OutputElasticCloudMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputElasticCloudMode$ {
+  /** @deprecated use `OutputElasticCloudMode$inboundSchema` instead. */
+  export const inboundSchema = OutputElasticCloudMode$inboundSchema;
+  /** @deprecated use `OutputElasticCloudMode$outboundSchema` instead. */
+  export const outboundSchema = OutputElasticCloudMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputElasticCloudCompression$inboundSchema: z.ZodType<
   OutputElasticCloudCompression,
   z.ZodTypeDef,
@@ -835,38 +912,6 @@ export namespace OutputElasticCloudQueueFullBehavior$ {
   /** @deprecated use `OutputElasticCloudQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputElasticCloudQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputElasticCloudMode$inboundSchema: z.ZodType<
-  OutputElasticCloudMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticCloudMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputElasticCloudMode$outboundSchema: z.ZodType<
-  OutputElasticCloudMode,
-  z.ZodTypeDef,
-  OutputElasticCloudMode
-> = z.union([
-  z.nativeEnum(OutputElasticCloudMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudMode$ {
-  /** @deprecated use `OutputElasticCloudMode$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloudMode$inboundSchema;
-  /** @deprecated use `OutputElasticCloudMode$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCloudMode$outboundSchema;
 }
 
 /** @internal */
@@ -962,6 +1007,11 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
     "block",
   ),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputElasticCloudMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -969,7 +1019,6 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputElasticCloudQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputElasticCloudMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputElasticCloudPqControls$inboundSchema)
     .optional(),
 });
@@ -1009,12 +1058,16 @@ export type OutputElasticCloud$Outbound = {
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputElasticCloudPqControls$Outbound | undefined;
 };
 
@@ -1062,6 +1115,11 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
     "block",
   ),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputElasticCloudMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1069,7 +1127,6 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputElasticCloudQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputElasticCloudMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputElasticCloudPqControls$outboundSchema)
     .optional(),
 });

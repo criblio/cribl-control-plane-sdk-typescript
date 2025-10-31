@@ -15,7 +15,6 @@ let value: RunnableJobExecutor = {
   environment: "<value>",
   schedule: {
     enabled: true,
-    resumeMissed: "<value>",
     run: {
       type: "collection",
       earliest: 5516.53,
