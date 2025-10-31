@@ -27,7 +27,13 @@ export type InputS3InventoryConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputS3InventoryMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputS3InventoryMode = OpenEnum<typeof InputS3InventoryMode>;
  * Codec to use to compress the persisted data
  */
 export const InputS3InventoryCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -87,8 +99,17 @@ export type InputS3InventoryPq = {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const InputS3InventoryAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**

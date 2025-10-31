@@ -11,6 +11,7 @@ export type HeartbeatMetadataTags = {};
 
 export type HeartbeatMetadataAws = {
   enabled: boolean;
+  instanceId: string;
   region: string;
   tags?: HeartbeatMetadataTags | undefined;
   type: string;
@@ -107,6 +108,7 @@ export const HeartbeatMetadataAws$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean(),
+  instanceId: z.string(),
   region: z.string(),
   tags: z.lazy(() => HeartbeatMetadataTags$inboundSchema).optional(),
   type: z.string(),
@@ -116,6 +118,7 @@ export const HeartbeatMetadataAws$inboundSchema: z.ZodType<
 /** @internal */
 export type HeartbeatMetadataAws$Outbound = {
   enabled: boolean;
+  instanceId: string;
   region: string;
   tags?: HeartbeatMetadataTags$Outbound | undefined;
   type: string;
@@ -129,6 +132,7 @@ export const HeartbeatMetadataAws$outboundSchema: z.ZodType<
   HeartbeatMetadataAws
 > = z.object({
   enabled: z.boolean(),
+  instanceId: z.string(),
   region: z.string(),
   tags: z.lazy(() => HeartbeatMetadataTags$outboundSchema).optional(),
   type: z.string(),

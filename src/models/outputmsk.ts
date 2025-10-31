@@ -22,8 +22,17 @@ export type OutputMskType = ClosedEnum<typeof OutputMskType>;
  * Control the number of required acknowledgments.
  */
 export const OutputMskAcknowledgments = {
+  /**
+   * Leader
+   */
   One: 1,
+  /**
+   * None
+   */
   Zero: 0,
+  /**
+   * All
+   */
   Minus1: -1,
 } as const;
 /**
@@ -37,8 +46,17 @@ export type OutputMskAcknowledgments = OpenEnum<
  * Format to use to serialize events before writing to Kafka.
  */
 export const OutputMskRecordDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Field _raw
+   */
   Raw: "raw",
+  /**
+   * Protobuf
+   */
   Protobuf: "protobuf",
 } as const;
 /**
@@ -52,27 +70,27 @@ export type OutputMskRecordDataFormat = OpenEnum<
  * Codec to use to compress the data before sending to Kafka
  */
 export const OutputMskCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
+  /**
+   * Snappy
+   */
   Snappy: "snappy",
+  /**
+   * LZ4
+   */
   Lz4: "lz4",
 } as const;
 /**
  * Codec to use to compress the data before sending to Kafka
  */
 export type OutputMskCompression = OpenEnum<typeof OutputMskCompression>;
-
-/**
- * The schema format used to encode and decode event data
- */
-export const OutputMskSchemaType = {
-  Avro: "avro",
-  Json: "json",
-} as const;
-/**
- * The schema format used to encode and decode event data
- */
-export type OutputMskSchemaType = OpenEnum<typeof OutputMskSchemaType>;
 
 /**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -149,10 +167,6 @@ export type OutputMskKafkaSchemaRegistryAuthentication = {
    */
   schemaRegistryURL?: string | undefined;
   /**
-   * The schema format used to encode and decode event data
-   */
-  schemaType?: OutputMskSchemaType | undefined;
-  /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
   connectionTimeout?: number | undefined;
@@ -183,8 +197,17 @@ export type OutputMskKafkaSchemaRegistryAuthentication = {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputMskAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -269,8 +292,17 @@ export type OutputMskTLSSettingsClientSide = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputMskBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -281,10 +313,38 @@ export type OutputMskBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputMskMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputMskMode = OpenEnum<typeof OutputMskMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputMskPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -298,7 +358,13 @@ export type OutputMskPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputMskQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -307,19 +373,6 @@ export const OutputMskQueueFullBehavior = {
 export type OutputMskQueueFullBehavior = OpenEnum<
   typeof OutputMskQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputMskMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputMskMode = OpenEnum<typeof OutputMskMode>;
 
 export type OutputMskPqControls = {};
 
@@ -467,6 +520,30 @@ export type OutputMsk = {
    */
   protobufLibraryId?: string | undefined;
   /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputMskMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -486,10 +563,6 @@ export type OutputMsk = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputMskQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputMskMode | undefined;
   pqControls?: OutputMskPqControls | undefined;
 };
 
@@ -608,38 +681,6 @@ export namespace OutputMskCompression$ {
   export const inboundSchema = OutputMskCompression$inboundSchema;
   /** @deprecated use `OutputMskCompression$outboundSchema` instead. */
   export const outboundSchema = OutputMskCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskSchemaType$inboundSchema: z.ZodType<
-  OutputMskSchemaType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskSchemaType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskSchemaType$outboundSchema: z.ZodType<
-  OutputMskSchemaType,
-  z.ZodTypeDef,
-  OutputMskSchemaType
-> = z.union([
-  z.nativeEnum(OutputMskSchemaType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskSchemaType$ {
-  /** @deprecated use `OutputMskSchemaType$inboundSchema` instead. */
-  export const inboundSchema = OutputMskSchemaType$inboundSchema;
-  /** @deprecated use `OutputMskSchemaType$outboundSchema` instead. */
-  export const outboundSchema = OutputMskSchemaType$outboundSchema;
 }
 
 /** @internal */
@@ -872,7 +913,6 @@ export const OutputMskKafkaSchemaRegistryAuthentication$inboundSchema:
     z.object({
       disabled: z.boolean().default(true),
       schemaRegistryURL: z.string().default("http://localhost:8081"),
-      schemaType: OutputMskSchemaType$inboundSchema.default("avro"),
       connectionTimeout: z.number().default(30000),
       requestTimeout: z.number().default(30000),
       maxRetries: z.number().default(1),
@@ -888,7 +928,6 @@ export const OutputMskKafkaSchemaRegistryAuthentication$inboundSchema:
 export type OutputMskKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
-  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -907,7 +946,6 @@ export const OutputMskKafkaSchemaRegistryAuthentication$outboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: OutputMskSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
@@ -1205,6 +1243,38 @@ export namespace OutputMskBackpressureBehavior$ {
 }
 
 /** @internal */
+export const OutputMskMode$inboundSchema: z.ZodType<
+  OutputMskMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMskMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputMskMode$outboundSchema: z.ZodType<
+  OutputMskMode,
+  z.ZodTypeDef,
+  OutputMskMode
+> = z.union([
+  z.nativeEnum(OutputMskMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputMskMode$ {
+  /** @deprecated use `OutputMskMode$inboundSchema` instead. */
+  export const inboundSchema = OutputMskMode$inboundSchema;
+  /** @deprecated use `OutputMskMode$outboundSchema` instead. */
+  export const outboundSchema = OutputMskMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputMskPqCompressCompression$inboundSchema: z.ZodType<
   OutputMskPqCompressCompression,
   z.ZodTypeDef,
@@ -1266,38 +1336,6 @@ export namespace OutputMskQueueFullBehavior$ {
   export const inboundSchema = OutputMskQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputMskQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputMskQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskMode$inboundSchema: z.ZodType<
-  OutputMskMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskMode$outboundSchema: z.ZodType<
-  OutputMskMode,
-  z.ZodTypeDef,
-  OutputMskMode
-> = z.union([
-  z.nativeEnum(OutputMskMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskMode$ {
-  /** @deprecated use `OutputMskMode$inboundSchema` instead. */
-  export const inboundSchema = OutputMskMode$inboundSchema;
-  /** @deprecated use `OutputMskMode$outboundSchema` instead. */
-  export const outboundSchema = OutputMskMode$outboundSchema;
 }
 
 /** @internal */
@@ -1398,12 +1436,17 @@ export const OutputMsk$inboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputMskMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
   pqCompress: OutputMskPqCompressCompression$inboundSchema.default("none"),
   pqOnBackpressure: OutputMskQueueFullBehavior$inboundSchema.default("block"),
-  pqMode: OutputMskMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputMskPqControls$inboundSchema).optional(),
 });
 
@@ -1451,12 +1494,17 @@ export type OutputMsk$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputMskPqControls$Outbound | undefined;
 };
 
@@ -1510,12 +1558,17 @@ export const OutputMsk$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputMskMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
   pqCompress: OutputMskPqCompressCompression$outboundSchema.default("none"),
   pqOnBackpressure: OutputMskQueueFullBehavior$outboundSchema.default("block"),
-  pqMode: OutputMskMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputMskPqControls$outboundSchema).optional(),
 });
 

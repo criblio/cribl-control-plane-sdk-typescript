@@ -35,8 +35,17 @@ export type OutputGoogleCloudStorageSignatureVersion = OpenEnum<
 >;
 
 export const OutputGoogleCloudStorageAuthenticationMethod = {
+  /**
+   * auto
+   */
   Auto: "auto",
+  /**
+   * manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 export type OutputGoogleCloudStorageAuthenticationMethod = OpenEnum<
@@ -47,11 +56,29 @@ export type OutputGoogleCloudStorageAuthenticationMethod = OpenEnum<
  * Object ACL to assign to uploaded objects
  */
 export const OutputGoogleCloudStorageObjectACL = {
+  /**
+   * private
+   */
   Private: "private",
+  /**
+   * bucket-owner-read
+   */
   BucketOwnerRead: "bucket-owner-read",
+  /**
+   * bucket-owner-full-control
+   */
   BucketOwnerFullControl: "bucket-owner-full-control",
+  /**
+   * project-private
+   */
   ProjectPrivate: "project-private",
+  /**
+   * authenticated-read
+   */
   AuthenticatedRead: "authenticated-read",
+  /**
+   * public-read
+   */
   PublicRead: "public-read",
 } as const;
 /**
@@ -65,9 +92,21 @@ export type OutputGoogleCloudStorageObjectACL = OpenEnum<
  * Storage class to select for uploaded objects
  */
 export const OutputGoogleCloudStorageStorageClass = {
+  /**
+   * Standard Storage
+   */
   Standard: "STANDARD",
+  /**
+   * Nearline Storage
+   */
   Nearline: "NEARLINE",
+  /**
+   * Coldline Storage
+   */
   Coldline: "COLDLINE",
+  /**
+   * Archive Storage
+   */
   Archive: "ARCHIVE",
 } as const;
 /**
@@ -81,8 +120,17 @@ export type OutputGoogleCloudStorageStorageClass = OpenEnum<
  * Format of the output data
  */
 export const OutputGoogleCloudStorageDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -96,7 +144,13 @@ export type OutputGoogleCloudStorageDataFormat = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGoogleCloudStorageBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -110,7 +164,13 @@ export type OutputGoogleCloudStorageBackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputGoogleCloudStorageDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -138,8 +198,17 @@ export type OutputGoogleCloudStorageCompression = OpenEnum<
  * Compression level to apply before moving files to final destination
  */
 export const OutputGoogleCloudStorageCompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
@@ -153,8 +222,17 @@ export type OutputGoogleCloudStorageCompressionLevel = OpenEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputGoogleCloudStorageParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
@@ -168,7 +246,13 @@ export type OutputGoogleCloudStorageParquetVersion = OpenEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputGoogleCloudStorageDataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
@@ -327,6 +411,10 @@ export type OutputGoogleCloudStorage = {
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
   automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
   /**
    * Determines which data types are supported and how they are represented
    */
@@ -913,6 +1001,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   compressionLevel: OutputGoogleCloudStorageCompressionLevel$inboundSchema
     .default("best_speed"),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputGoogleCloudStorageParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -974,6 +1063,7 @@ export type OutputGoogleCloudStorage$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -1049,6 +1139,7 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   compressionLevel: OutputGoogleCloudStorageCompressionLevel$outboundSchema
     .default("best_speed"),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputGoogleCloudStorageParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),

@@ -27,7 +27,13 @@ export type InputElasticConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputElasticMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputElasticMode = OpenEnum<typeof InputElasticMode>;
  * Codec to use to compress the persisted data
  */
 export const InputElasticCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -104,6 +116,18 @@ export type InputElasticMaximumTLSVersion = OpenEnum<
 export type InputElasticTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -123,20 +147,26 @@ export type InputElasticTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputElasticMinimumTLSVersion | undefined;
   maxVersion?: InputElasticMaximumTLSVersion | undefined;
 };
 
 export const InputElasticAuthenticationType = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
   AuthTokens: "authTokens",
 } as const;
 export type InputElasticAuthenticationType = OpenEnum<
@@ -147,8 +177,17 @@ export type InputElasticAuthenticationType = OpenEnum<
  * The API version to use for communicating with the server
  */
 export const InputElasticAPIVersion = {
+  /**
+   * 6.8.4
+   */
   SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
   EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
@@ -190,6 +229,16 @@ export type InputElasticProxyMode = {
    */
   enabled?: boolean | undefined;
   /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
    * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
    */
   url?: string | undefined;
@@ -205,10 +254,6 @@ export type InputElasticProxyMode = {
    * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
    */
   timeoutSec?: number | undefined;
-  /**
-   * Enter credentials directly, or select a stored secret
-   */
-  authType?: InputElasticAuthenticationMethod | undefined;
 };
 
 export type InputElastic = {
@@ -663,14 +708,14 @@ export const InputElasticTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputElasticMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputElasticMaximumTLSVersion$inboundSchema.optional(),
 });
@@ -678,14 +723,14 @@ export const InputElasticTLSSettingsServerSide$inboundSchema: z.ZodType<
 /** @internal */
 export type InputElasticTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -697,14 +742,14 @@ export const InputElasticTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputElasticTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputElasticMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputElasticMaximumTLSVersion$outboundSchema.optional(),
 });
@@ -962,21 +1007,27 @@ export const InputElasticProxyMode$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   url: z.string().optional(),
   rejectUnauthorized: z.boolean().default(false),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().default(60),
-  authType: InputElasticAuthenticationMethod$inboundSchema.default("none"),
 });
 
 /** @internal */
 export type InputElasticProxyMode$Outbound = {
   enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
   url?: string | undefined;
   rejectUnauthorized: boolean;
   removeHeaders?: Array<string> | undefined;
   timeoutSec: number;
-  authType: string;
 };
 
 /** @internal */
@@ -986,11 +1037,14 @@ export const InputElasticProxyMode$outboundSchema: z.ZodType<
   InputElasticProxyMode
 > = z.object({
   enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   url: z.string().optional(),
   rejectUnauthorized: z.boolean().default(false),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().default(60),
-  authType: InputElasticAuthenticationMethod$outboundSchema.default("none"),
 });
 
 /**

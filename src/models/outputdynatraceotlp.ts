@@ -24,6 +24,9 @@ export type OutputDynatraceOtlpType = ClosedEnum<
  * Select a transport option for Dynatrace
  */
 export const OutputDynatraceOtlpProtocol = {
+  /**
+   * HTTP
+   */
   Http: "http",
 } as const;
 /**
@@ -37,6 +40,9 @@ export type OutputDynatraceOtlpProtocol = OpenEnum<
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
 export const OutputDynatraceOTLPOTLPVersion = {
+  /**
+   * 1.3.1
+   */
   OneDot3Dot1: "1.3.1",
 } as const;
 /**
@@ -50,8 +56,17 @@ export type OutputDynatraceOTLPOTLPVersion = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputDynatraceOtlpCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Deflate
+   */
   Deflate: "deflate",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -65,7 +80,13 @@ export type OutputDynatraceOtlpCompressCompression = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputDynatraceOtlpHttpCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -84,8 +105,17 @@ export type OutputDynatraceOtlpMetadatum = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputDynatraceOtlpFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -99,7 +129,13 @@ export type OutputDynatraceOtlpFailedRequestLoggingMode = OpenEnum<
  * Select the type of Dynatrace endpoint configured
  */
 export const EndpointType = {
+  /**
+   * SaaS
+   */
   Saas: "saas",
+  /**
+   * ActiveGate
+   */
   Ag: "ag",
 } as const;
 /**
@@ -111,8 +147,17 @@ export type EndpointType = OpenEnum<typeof EndpointType>;
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputDynatraceOtlpBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -163,10 +208,38 @@ export type OutputDynatraceOtlpTimeoutRetrySettings = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputDynatraceOtlpMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputDynatraceOtlpMode = OpenEnum<typeof OutputDynatraceOtlpMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputDynatraceOtlpPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -180,7 +253,13 @@ export type OutputDynatraceOtlpPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputDynatraceOtlpQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -189,19 +268,6 @@ export const OutputDynatraceOtlpQueueFullBehavior = {
 export type OutputDynatraceOtlpQueueFullBehavior = OpenEnum<
   typeof OutputDynatraceOtlpQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDynatraceOtlpMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDynatraceOtlpMode = OpenEnum<typeof OutputDynatraceOtlpMode>;
 
 export type OutputDynatraceOtlpPqControls = {};
 
@@ -343,6 +409,26 @@ export type OutputDynatraceOtlp = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputDynatraceOtlpMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -362,10 +448,6 @@ export type OutputDynatraceOtlp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputDynatraceOtlpQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputDynatraceOtlpMode | undefined;
   pqControls?: OutputDynatraceOtlpPqControls | undefined;
 };
 
@@ -892,6 +974,38 @@ export function outputDynatraceOtlpTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
+export const OutputDynatraceOtlpMode$inboundSchema: z.ZodType<
+  OutputDynatraceOtlpMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDynatraceOtlpMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputDynatraceOtlpMode$outboundSchema: z.ZodType<
+  OutputDynatraceOtlpMode,
+  z.ZodTypeDef,
+  OutputDynatraceOtlpMode
+> = z.union([
+  z.nativeEnum(OutputDynatraceOtlpMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputDynatraceOtlpMode$ {
+  /** @deprecated use `OutputDynatraceOtlpMode$inboundSchema` instead. */
+  export const inboundSchema = OutputDynatraceOtlpMode$inboundSchema;
+  /** @deprecated use `OutputDynatraceOtlpMode$outboundSchema` instead. */
+  export const outboundSchema = OutputDynatraceOtlpMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputDynatraceOtlpPqCompressCompression$inboundSchema: z.ZodType<
   OutputDynatraceOtlpPqCompressCompression,
   z.ZodTypeDef,
@@ -957,38 +1071,6 @@ export namespace OutputDynatraceOtlpQueueFullBehavior$ {
   /** @deprecated use `OutputDynatraceOtlpQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputDynatraceOtlpQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputDynatraceOtlpMode$inboundSchema: z.ZodType<
-  OutputDynatraceOtlpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceOtlpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDynatraceOtlpMode$outboundSchema: z.ZodType<
-  OutputDynatraceOtlpMode,
-  z.ZodTypeDef,
-  OutputDynatraceOtlpMode
-> = z.union([
-  z.nativeEnum(OutputDynatraceOtlpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpMode$ {
-  /** @deprecated use `OutputDynatraceOtlpMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOtlpMode$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceOtlpMode$outboundSchema;
 }
 
 /** @internal */
@@ -1097,6 +1179,11 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
     OutputDynatraceOtlpTimeoutRetrySettings$inboundSchema
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputDynatraceOtlpMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1106,7 +1193,6 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputDynatraceOtlpQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputDynatraceOtlpMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$inboundSchema)
     .optional(),
 });
@@ -1154,12 +1240,16 @@ export type OutputDynatraceOtlp$Outbound = {
     | OutputDynatraceOtlpTimeoutRetrySettings$Outbound
     | undefined;
   responseHonorRetryAfterHeader: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputDynatraceOtlpPqControls$Outbound | undefined;
 };
 
@@ -1218,6 +1308,11 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
     OutputDynatraceOtlpTimeoutRetrySettings$outboundSchema
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputDynatraceOtlpMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1227,7 +1322,6 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputDynatraceOtlpQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputDynatraceOtlpMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$outboundSchema)
     .optional(),
 });

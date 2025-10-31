@@ -10,7 +10,9 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 export type DistributedSummaryGroups = {
   count: number;
   destinations: number;
+  packs: number;
   pipelines: number;
+  quickConnects: number;
   routes: number;
   sources: number;
 };
@@ -38,7 +40,9 @@ export const DistributedSummaryGroups$inboundSchema: z.ZodType<
 > = z.object({
   count: z.number(),
   destinations: z.number(),
+  packs: z.number(),
   pipelines: z.number(),
+  quickConnects: z.number(),
   routes: z.number(),
   sources: z.number(),
 });
@@ -47,7 +51,9 @@ export const DistributedSummaryGroups$inboundSchema: z.ZodType<
 export type DistributedSummaryGroups$Outbound = {
   count: number;
   destinations: number;
+  packs: number;
   pipelines: number;
+  quickConnects: number;
   routes: number;
   sources: number;
 };
@@ -60,7 +66,9 @@ export const DistributedSummaryGroups$outboundSchema: z.ZodType<
 > = z.object({
   count: z.number(),
   destinations: z.number(),
+  packs: z.number(),
   pipelines: z.number(),
+  quickConnects: z.number(),
   routes: z.number(),
   sources: z.number(),
 });

@@ -27,7 +27,13 @@ export type InputGrafanaConnection2 = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputGrafanaMode2 = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputGrafanaMode2 = OpenEnum<typeof InputGrafanaMode2>;
  * Codec to use to compress the persisted data
  */
 export const InputGrafanaCompression2 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -106,6 +118,18 @@ export type InputGrafanaMaximumTLSVersion2 = OpenEnum<
 export type InputGrafanaTLSSettingsServerSide2 = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -125,12 +149,6 @@ export type InputGrafanaTLSSettingsServerSide2 = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputGrafanaMinimumTLSVersion2 | undefined;
   maxVersion?: InputGrafanaMaximumTLSVersion2 | undefined;
 };
@@ -445,7 +463,13 @@ export type InputGrafanaConnection1 = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputGrafanaMode1 = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -457,7 +481,13 @@ export type InputGrafanaMode1 = OpenEnum<typeof InputGrafanaMode1>;
  * Codec to use to compress the persisted data
  */
 export const InputGrafanaCompression1 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -524,6 +554,18 @@ export type InputGrafanaMaximumTLSVersion1 = OpenEnum<
 export type InputGrafanaTLSSettingsServerSide1 = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -543,12 +585,6 @@ export type InputGrafanaTLSSettingsServerSide1 = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputGrafanaMinimumTLSVersion1 | undefined;
   maxVersion?: InputGrafanaMaximumTLSVersion1 | undefined;
 };
@@ -1185,14 +1221,14 @@ export const InputGrafanaTLSSettingsServerSide2$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputGrafanaMinimumTLSVersion2$inboundSchema.optional(),
   maxVersion: InputGrafanaMaximumTLSVersion2$inboundSchema.optional(),
 });
@@ -1200,14 +1236,14 @@ export const InputGrafanaTLSSettingsServerSide2$inboundSchema: z.ZodType<
 /** @internal */
 export type InputGrafanaTLSSettingsServerSide2$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -1219,14 +1255,14 @@ export const InputGrafanaTLSSettingsServerSide2$outboundSchema: z.ZodType<
   InputGrafanaTLSSettingsServerSide2
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputGrafanaMinimumTLSVersion2$outboundSchema.optional(),
   maxVersion: InputGrafanaMaximumTLSVersion2$outboundSchema.optional(),
 });
@@ -2307,14 +2343,14 @@ export const InputGrafanaTLSSettingsServerSide1$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputGrafanaMinimumTLSVersion1$inboundSchema.optional(),
   maxVersion: InputGrafanaMaximumTLSVersion1$inboundSchema.optional(),
 });
@@ -2322,14 +2358,14 @@ export const InputGrafanaTLSSettingsServerSide1$inboundSchema: z.ZodType<
 /** @internal */
 export type InputGrafanaTLSSettingsServerSide1$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -2341,14 +2377,14 @@ export const InputGrafanaTLSSettingsServerSide1$outboundSchema: z.ZodType<
   InputGrafanaTLSSettingsServerSide1
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputGrafanaMinimumTLSVersion1$outboundSchema.optional(),
   maxVersion: InputGrafanaMaximumTLSVersion1$outboundSchema.optional(),
 });

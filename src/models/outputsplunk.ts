@@ -22,7 +22,13 @@ export type OutputSplunkType = ClosedEnum<typeof OutputSplunkType>;
  * How to serialize nested fields into index-time fields
  */
 export const OutputSplunkNestedFieldSerialization = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -107,8 +113,17 @@ export type OutputSplunkMaxS2SVersion = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputSplunkBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -136,8 +151,17 @@ export type OutputSplunkAuthenticationMethod = OpenEnum<
  * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
  */
 export const OutputSplunkCompressCompression = {
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
+  /**
+   * Automatic
+   */
   Auto: "auto",
+  /**
+   * Always
+   */
   Always: "always",
 } as const;
 /**
@@ -148,10 +172,38 @@ export type OutputSplunkCompressCompression = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputSplunkMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputSplunkMode = OpenEnum<typeof OutputSplunkMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputSplunkPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -165,7 +217,13 @@ export type OutputSplunkPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputSplunkQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -174,19 +232,6 @@ export const OutputSplunkQueueFullBehavior = {
 export type OutputSplunkQueueFullBehavior = OpenEnum<
   typeof OutputSplunkQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSplunkMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSplunkMode = OpenEnum<typeof OutputSplunkMode>;
 
 export type OutputSplunkPqControls = {};
 
@@ -271,6 +316,26 @@ export type OutputSplunk = {
    */
   compress?: OutputSplunkCompressCompression | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputSplunkMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -290,10 +355,6 @@ export type OutputSplunk = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputSplunkQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputSplunkMode | undefined;
   pqControls?: OutputSplunkPqControls | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -637,6 +698,38 @@ export namespace OutputSplunkCompressCompression$ {
 }
 
 /** @internal */
+export const OutputSplunkMode$inboundSchema: z.ZodType<
+  OutputSplunkMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputSplunkMode$outboundSchema: z.ZodType<
+  OutputSplunkMode,
+  z.ZodTypeDef,
+  OutputSplunkMode
+> = z.union([
+  z.nativeEnum(OutputSplunkMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputSplunkMode$ {
+  /** @deprecated use `OutputSplunkMode$inboundSchema` instead. */
+  export const inboundSchema = OutputSplunkMode$inboundSchema;
+  /** @deprecated use `OutputSplunkMode$outboundSchema` instead. */
+  export const outboundSchema = OutputSplunkMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputSplunkPqCompressCompression$inboundSchema: z.ZodType<
   OutputSplunkPqCompressCompression,
   z.ZodTypeDef,
@@ -699,38 +792,6 @@ export namespace OutputSplunkQueueFullBehavior$ {
   export const inboundSchema = OutputSplunkQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputSplunkQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputSplunkQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkMode$inboundSchema: z.ZodType<
-  OutputSplunkMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkMode$outboundSchema: z.ZodType<
-  OutputSplunkMode,
-  z.ZodTypeDef,
-  OutputSplunkMode
-> = z.union([
-  z.nativeEnum(OutputSplunkMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMode$ {
-  /** @deprecated use `OutputSplunkMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMode$inboundSchema;
-  /** @deprecated use `OutputSplunkMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMode$outboundSchema;
 }
 
 /** @internal */
@@ -813,6 +874,11 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().default(1),
   compress: OutputSplunkCompressCompression$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSplunkMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -820,7 +886,6 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputSplunkQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputSplunkMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSplunkPqControls$inboundSchema).optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
@@ -850,12 +915,16 @@ export type OutputSplunk$Outbound = {
   description?: string | undefined;
   maxFailedHealthChecks: number;
   compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputSplunkPqControls$Outbound | undefined;
   authToken: string;
   textSecret?: string | undefined;
@@ -894,6 +963,11 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().default(1),
   compress: OutputSplunkCompressCompression$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSplunkMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -901,7 +975,6 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputSplunkQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputSplunkMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSplunkPqControls$outboundSchema).optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),

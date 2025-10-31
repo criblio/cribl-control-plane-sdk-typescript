@@ -107,7 +107,7 @@ async function main() {
   }
 
   // Create Worker Group
-  await cribl.groups.create({ product: "stream", configGroup: myWorkerGroup });
+  await cribl.groups.create({ product: "stream", groupCreateRequest: myWorkerGroup });
   console.log(`✅ Worker Group created: ${myWorkerGroup.id}`);
 
   // Create TCP JSON Source

@@ -41,8 +41,17 @@ export type OutputSignalfxExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputSignalfxFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -91,8 +100,17 @@ export type OutputSignalfxTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputSignalfxBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -103,10 +121,38 @@ export type OutputSignalfxBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputSignalfxMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputSignalfxMode = OpenEnum<typeof OutputSignalfxMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputSignalfxCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -120,7 +166,13 @@ export type OutputSignalfxCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputSignalfxQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -129,19 +181,6 @@ export const OutputSignalfxQueueFullBehavior = {
 export type OutputSignalfxQueueFullBehavior = OpenEnum<
   typeof OutputSignalfxQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSignalfxMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSignalfxMode = OpenEnum<typeof OutputSignalfxMode>;
 
 export type OutputSignalfxPqControls = {};
 
@@ -246,6 +285,26 @@ export type OutputSignalfx = {
    */
   textSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputSignalfxMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -265,10 +324,6 @@ export type OutputSignalfx = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputSignalfxQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputSignalfxMode | undefined;
   pqControls?: OutputSignalfxPqControls | undefined;
 };
 
@@ -587,6 +642,38 @@ export namespace OutputSignalfxBackpressureBehavior$ {
 }
 
 /** @internal */
+export const OutputSignalfxMode$inboundSchema: z.ZodType<
+  OutputSignalfxMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSignalfxMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputSignalfxMode$outboundSchema: z.ZodType<
+  OutputSignalfxMode,
+  z.ZodTypeDef,
+  OutputSignalfxMode
+> = z.union([
+  z.nativeEnum(OutputSignalfxMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputSignalfxMode$ {
+  /** @deprecated use `OutputSignalfxMode$inboundSchema` instead. */
+  export const inboundSchema = OutputSignalfxMode$inboundSchema;
+  /** @deprecated use `OutputSignalfxMode$outboundSchema` instead. */
+  export const outboundSchema = OutputSignalfxMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputSignalfxCompression$inboundSchema: z.ZodType<
   OutputSignalfxCompression,
   z.ZodTypeDef,
@@ -648,38 +735,6 @@ export namespace OutputSignalfxQueueFullBehavior$ {
   export const inboundSchema = OutputSignalfxQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputSignalfxQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputSignalfxQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSignalfxMode$inboundSchema: z.ZodType<
-  OutputSignalfxMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSignalfxMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSignalfxMode$outboundSchema: z.ZodType<
-  OutputSignalfxMode,
-  z.ZodTypeDef,
-  OutputSignalfxMode
-> = z.union([
-  z.nativeEnum(OutputSignalfxMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxMode$ {
-  /** @deprecated use `OutputSignalfxMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxMode$inboundSchema;
-  /** @deprecated use `OutputSignalfxMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSignalfxMode$outboundSchema;
 }
 
 /** @internal */
@@ -771,6 +826,11 @@ export const OutputSignalfx$inboundSchema: z.ZodType<
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSignalfxMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -778,7 +838,6 @@ export const OutputSignalfx$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputSignalfxQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputSignalfxMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSignalfxPqControls$inboundSchema).optional(),
 });
 
@@ -814,12 +873,16 @@ export type OutputSignalfx$Outbound = {
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputSignalfxPqControls$Outbound | undefined;
 };
 
@@ -864,6 +927,11 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSignalfxMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -871,7 +939,6 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputSignalfxQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputSignalfxMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSignalfxPqControls$outboundSchema).optional(),
 });
 

@@ -27,7 +27,13 @@ export type InputOpenTelemetryConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputOpenTelemetryMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputOpenTelemetryMode = OpenEnum<typeof InputOpenTelemetryMode>;
  * Codec to use to compress the persisted data
  */
 export const InputOpenTelemetryCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -106,6 +118,18 @@ export type InputOpenTelemetryMaximumTLSVersion = OpenEnum<
 export type InputOpenTelemetryTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -125,12 +149,6 @@ export type InputOpenTelemetryTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputOpenTelemetryMinimumTLSVersion | undefined;
   maxVersion?: InputOpenTelemetryMaximumTLSVersion | undefined;
 };
@@ -139,7 +157,13 @@ export type InputOpenTelemetryTLSSettingsServerSide = {
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
  */
 export const InputOpenTelemetryProtocol = {
+  /**
+   * gRPC
+   */
   Grpc: "grpc",
+  /**
+   * HTTP
+   */
   Http: "http",
 } as const;
 /**
@@ -153,7 +177,13 @@ export type InputOpenTelemetryProtocol = OpenEnum<
  * The version of OTLP Protobuf definitions to use when interpreting received data
  */
 export const InputOpenTelemetryOTLPVersion = {
+  /**
+   * 0.10.0
+   */
   ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
   OneDot3Dot1: "1.3.1",
 } as const;
 /**
@@ -714,14 +744,14 @@ export const InputOpenTelemetryTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputOpenTelemetryMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputOpenTelemetryMaximumTLSVersion$inboundSchema.optional(),
 });
@@ -729,14 +759,14 @@ export const InputOpenTelemetryTLSSettingsServerSide$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOpenTelemetryTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -748,14 +778,14 @@ export const InputOpenTelemetryTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputOpenTelemetryTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputOpenTelemetryMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputOpenTelemetryMaximumTLSVersion$outboundSchema.optional(),
 });

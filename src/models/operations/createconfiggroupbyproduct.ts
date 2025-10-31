@@ -15,9 +15,9 @@ export type CreateConfigGroupByProductRequest = {
    */
   product: models.ProductsCore;
   /**
-   * ConfigGroup object
+   * GroupCreateRequest object
    */
-  configGroup: models.ConfigGroup;
+  groupCreateRequest: models.GroupCreateRequest;
 };
 
 /**
@@ -38,17 +38,17 @@ export const CreateConfigGroupByProductRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   product: models.ProductsCore$inboundSchema,
-  ConfigGroup: models.ConfigGroup$inboundSchema,
+  GroupCreateRequest: models.GroupCreateRequest$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "ConfigGroup": "configGroup",
+    "GroupCreateRequest": "groupCreateRequest",
   });
 });
 
 /** @internal */
 export type CreateConfigGroupByProductRequest$Outbound = {
   product: string;
-  ConfigGroup: models.ConfigGroup$Outbound;
+  GroupCreateRequest: models.GroupCreateRequest$Outbound;
 };
 
 /** @internal */
@@ -58,10 +58,10 @@ export const CreateConfigGroupByProductRequest$outboundSchema: z.ZodType<
   CreateConfigGroupByProductRequest
 > = z.object({
   product: models.ProductsCore$outboundSchema,
-  configGroup: models.ConfigGroup$outboundSchema,
+  groupCreateRequest: models.GroupCreateRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    configGroup: "ConfigGroup",
+    groupCreateRequest: "GroupCreateRequest",
   });
 });
 

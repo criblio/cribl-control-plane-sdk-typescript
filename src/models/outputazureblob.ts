@@ -22,8 +22,17 @@ export type OutputAzureBlobType = ClosedEnum<typeof OutputAzureBlobType>;
  * Format of the output data
  */
 export const OutputAzureBlobDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -37,7 +46,13 @@ export type OutputAzureBlobDataFormat = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputAzureBlobBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -51,7 +66,13 @@ export type OutputAzureBlobBackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputAzureBlobDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -72,10 +93,25 @@ export type OutputAzureBlobAuthenticationMethod = OpenEnum<
 >;
 
 export const BlobAccessTier = {
+  /**
+   * Default account access tier
+   */
   Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
   Hot: "Hot",
+  /**
+   * Cool tier
+   */
   Cool: "Cool",
+  /**
+   * Cold tier
+   */
   Cold: "Cold",
+  /**
+   * Archive tier
+   */
   Archive: "Archive",
 } as const;
 export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
@@ -98,8 +134,17 @@ export type OutputAzureBlobCompression = OpenEnum<
  * Compression level to apply before moving files to final destination
  */
 export const OutputAzureBlobCompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
@@ -113,8 +158,17 @@ export type OutputAzureBlobCompressionLevel = OpenEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputAzureBlobParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
@@ -128,7 +182,13 @@ export type OutputAzureBlobParquetVersion = OpenEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputAzureBlobDataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
@@ -267,6 +327,10 @@ export type OutputAzureBlob = {
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
   automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
   /**
    * Determines which data types are supported and how they are represented
    */
@@ -824,6 +888,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputAzureBlobParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -888,6 +953,7 @@ export type OutputAzureBlob$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -962,6 +1028,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputAzureBlobParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),

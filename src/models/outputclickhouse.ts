@@ -35,7 +35,13 @@ export type OutputClickHouseAuthenticationType = OpenEnum<
  * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
  */
 export const OutputClickHouseFormat = {
+  /**
+   * JSONCompactEachRowWithNames
+   */
   JsonCompactEachRowWithNames: "json-compact-each-row-with-names",
+  /**
+   * JSONEachRow
+   */
   JsonEachRow: "json-each-row",
 } as const;
 /**
@@ -47,7 +53,13 @@ export type OutputClickHouseFormat = OpenEnum<typeof OutputClickHouseFormat>;
  * How event fields are mapped to ClickHouse columns.
  */
 export const MappingType = {
+  /**
+   * Automatic
+   */
   Automatic: "automatic",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
@@ -114,8 +126,17 @@ export type OutputClickHouseExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputClickHouseFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -164,8 +185,17 @@ export type OutputClickHouseTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputClickHouseBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -213,10 +243,38 @@ export type ColumnMapping = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputClickHouseMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputClickHouseMode = OpenEnum<typeof OutputClickHouseMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputClickHouseCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -230,7 +288,13 @@ export type OutputClickHouseCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputClickHouseQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -239,19 +303,6 @@ export const OutputClickHouseQueueFullBehavior = {
 export type OutputClickHouseQueueFullBehavior = OpenEnum<
   typeof OutputClickHouseQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputClickHouseMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputClickHouseMode = OpenEnum<typeof OutputClickHouseMode>;
 
 export type OutputClickHousePqControls = {};
 
@@ -434,6 +485,26 @@ export type OutputClickHouse = {
   describeTable?: string | undefined;
   columnMappings?: Array<ColumnMapping> | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputClickHouseMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -453,10 +524,6 @@ export type OutputClickHouse = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputClickHouseQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputClickHouseMode | undefined;
   pqControls?: OutputClickHousePqControls | undefined;
 };
 
@@ -1163,6 +1230,38 @@ export function columnMappingFromJSON(
 }
 
 /** @internal */
+export const OutputClickHouseMode$inboundSchema: z.ZodType<
+  OutputClickHouseMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputClickHouseMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputClickHouseMode$outboundSchema: z.ZodType<
+  OutputClickHouseMode,
+  z.ZodTypeDef,
+  OutputClickHouseMode
+> = z.union([
+  z.nativeEnum(OutputClickHouseMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputClickHouseMode$ {
+  /** @deprecated use `OutputClickHouseMode$inboundSchema` instead. */
+  export const inboundSchema = OutputClickHouseMode$inboundSchema;
+  /** @deprecated use `OutputClickHouseMode$outboundSchema` instead. */
+  export const outboundSchema = OutputClickHouseMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputClickHouseCompression$inboundSchema: z.ZodType<
   OutputClickHouseCompression,
   z.ZodTypeDef,
@@ -1225,38 +1324,6 @@ export namespace OutputClickHouseQueueFullBehavior$ {
   /** @deprecated use `OutputClickHouseQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputClickHouseQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputClickHouseMode$inboundSchema: z.ZodType<
-  OutputClickHouseMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputClickHouseMode$outboundSchema: z.ZodType<
-  OutputClickHouseMode,
-  z.ZodTypeDef,
-  OutputClickHouseMode
-> = z.union([
-  z.nativeEnum(OutputClickHouseMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseMode$ {
-  /** @deprecated use `OutputClickHouseMode$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseMode$inboundSchema;
-  /** @deprecated use `OutputClickHouseMode$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouseMode$outboundSchema;
 }
 
 /** @internal */
@@ -1376,6 +1443,11 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   excludeMappingFields: z.array(z.string()).optional(),
   describeTable: z.string().optional(),
   columnMappings: z.array(z.lazy(() => ColumnMapping$inboundSchema)).optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputClickHouseMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1383,7 +1455,6 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputClickHouseQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputClickHouseMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputClickHousePqControls$inboundSchema).optional(),
 });
 
@@ -1444,12 +1515,16 @@ export type OutputClickHouse$Outbound = {
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
   columnMappings?: Array<ColumnMapping$Outbound> | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputClickHousePqControls$Outbound | undefined;
 };
 
@@ -1524,6 +1599,11 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   describeTable: z.string().optional(),
   columnMappings: z.array(z.lazy(() => ColumnMapping$outboundSchema))
     .optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputClickHouseMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1531,7 +1611,6 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputClickHouseQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputClickHouseMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputClickHousePqControls$outboundSchema)
     .optional(),
 });
