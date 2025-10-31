@@ -121,7 +121,7 @@ async function main() {
   }
 
   // Create Fleet
-  await cribl.groups.create({ product: "edge", configGroup: myFleet });
+  await cribl.groups.create({ product: "edge", groupCreateRequest: myFleet });
   console.log(`✅ Fleet created: ${myFleet.id}`);
 
   // Create Syslog Source
