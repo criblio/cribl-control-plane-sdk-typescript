@@ -52,6 +52,7 @@ let value: ListOutputResponse = {
       compress: "gzip",
       compressionLevel: "best_speed",
       automaticSchema: false,
+      parquetSchema: "<value>",
       parquetVersion: "PARQUET_2_6",
       parquetDataPageVersion: "DATA_PAGE_V2",
       parquetRowGroupLength: 10000,

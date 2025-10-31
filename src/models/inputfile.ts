@@ -172,7 +172,11 @@ export type InputFile = {
    */
   idleTimeout?: number | undefined;
   /**
-   * The maximum age of files to monitor. Format examples: 60s, 4h, 3d, 1w. Age is relative to file modification time. Leave empty to apply no age filters.
+   * The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+   */
+  minAgeDur?: string | undefined;
+  /**
+   * The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
    */
   maxAgeDur?: string | undefined;
   /**
@@ -591,6 +595,7 @@ export const InputFile$inboundSchema: z.ZodType<
   filenames: z.array(z.string()).optional(),
   tailOnly: z.boolean().default(false),
   idleTimeout: z.number().default(300),
+  minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
   checkFileModTime: z.boolean().default(false),
   forceText: z.boolean().default(false),
@@ -623,6 +628,7 @@ export type InputFile$Outbound = {
   filenames?: Array<string> | undefined;
   tailOnly: boolean;
   idleTimeout: number;
+  minAgeDur?: string | undefined;
   maxAgeDur?: string | undefined;
   checkFileModTime: boolean;
   forceText: boolean;
@@ -660,6 +666,7 @@ export const InputFile$outboundSchema: z.ZodType<
   filenames: z.array(z.string()).optional(),
   tailOnly: z.boolean().default(false),
   idleTimeout: z.number().default(300),
+  minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
   checkFileModTime: z.boolean().default(false),
   forceText: z.boolean().default(false),
