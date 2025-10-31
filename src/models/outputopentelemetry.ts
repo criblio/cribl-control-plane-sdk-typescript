@@ -24,7 +24,13 @@ export type OutputOpenTelemetryType = ClosedEnum<
  * Select a transport option for OpenTelemetry
  */
 export const OutputOpenTelemetryProtocol = {
+  /**
+   * gRPC
+   */
   Grpc: "grpc",
+  /**
+   * HTTP
+   */
   Http: "http",
 } as const;
 /**
@@ -38,7 +44,13 @@ export type OutputOpenTelemetryProtocol = OpenEnum<
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
 export const OutputOpenTelemetryOTLPVersion = {
+  /**
+   * 0.10.0
+   */
   ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
   OneDot3Dot1: "1.3.1",
 } as const;
 /**
@@ -52,8 +64,17 @@ export type OutputOpenTelemetryOTLPVersion = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputOpenTelemetryCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Deflate
+   */
   Deflate: "deflate",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -67,7 +88,13 @@ export type OutputOpenTelemetryCompressCompression = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputOpenTelemetryHttpCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -104,8 +131,17 @@ export type OutputOpenTelemetryMetadatum = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputOpenTelemetryFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -119,8 +155,17 @@ export type OutputOpenTelemetryFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputOpenTelemetryBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -246,10 +291,38 @@ export type OutputOpenTelemetryTLSSettingsClientSide = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputOpenTelemetryMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputOpenTelemetryMode = OpenEnum<typeof OutputOpenTelemetryMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputOpenTelemetryPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -263,7 +336,13 @@ export type OutputOpenTelemetryPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputOpenTelemetryQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -272,19 +351,6 @@ export const OutputOpenTelemetryQueueFullBehavior = {
 export type OutputOpenTelemetryQueueFullBehavior = OpenEnum<
   typeof OutputOpenTelemetryQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputOpenTelemetryMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputOpenTelemetryMode = OpenEnum<typeof OutputOpenTelemetryMode>;
 
 export type OutputOpenTelemetryPqControls = {};
 
@@ -468,6 +534,26 @@ export type OutputOpenTelemetry = {
   responseHonorRetryAfterHeader?: boolean | undefined;
   tls?: OutputOpenTelemetryTLSSettingsClientSide | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputOpenTelemetryMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -487,10 +573,6 @@ export type OutputOpenTelemetry = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputOpenTelemetryQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputOpenTelemetryMode | undefined;
   pqControls?: OutputOpenTelemetryPqControls | undefined;
 };
 
@@ -1294,6 +1376,38 @@ export function outputOpenTelemetryTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
+export const OutputOpenTelemetryMode$inboundSchema: z.ZodType<
+  OutputOpenTelemetryMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputOpenTelemetryMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputOpenTelemetryMode$outboundSchema: z.ZodType<
+  OutputOpenTelemetryMode,
+  z.ZodTypeDef,
+  OutputOpenTelemetryMode
+> = z.union([
+  z.nativeEnum(OutputOpenTelemetryMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputOpenTelemetryMode$ {
+  /** @deprecated use `OutputOpenTelemetryMode$inboundSchema` instead. */
+  export const inboundSchema = OutputOpenTelemetryMode$inboundSchema;
+  /** @deprecated use `OutputOpenTelemetryMode$outboundSchema` instead. */
+  export const outboundSchema = OutputOpenTelemetryMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputOpenTelemetryPqCompressCompression$inboundSchema: z.ZodType<
   OutputOpenTelemetryPqCompressCompression,
   z.ZodTypeDef,
@@ -1359,38 +1473,6 @@ export namespace OutputOpenTelemetryQueueFullBehavior$ {
   /** @deprecated use `OutputOpenTelemetryQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputOpenTelemetryQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputOpenTelemetryMode$inboundSchema: z.ZodType<
-  OutputOpenTelemetryMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputOpenTelemetryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputOpenTelemetryMode$outboundSchema: z.ZodType<
-  OutputOpenTelemetryMode,
-  z.ZodTypeDef,
-  OutputOpenTelemetryMode
-> = z.union([
-  z.nativeEnum(OutputOpenTelemetryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputOpenTelemetryMode$ {
-  /** @deprecated use `OutputOpenTelemetryMode$inboundSchema` instead. */
-  export const inboundSchema = OutputOpenTelemetryMode$inboundSchema;
-  /** @deprecated use `OutputOpenTelemetryMode$outboundSchema` instead. */
-  export const outboundSchema = OutputOpenTelemetryMode$outboundSchema;
 }
 
 /** @internal */
@@ -1514,6 +1596,11 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputOpenTelemetryTLSSettingsClientSide$inboundSchema)
     .optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputOpenTelemetryMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1523,7 +1610,6 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputOpenTelemetryQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputOpenTelemetryMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputOpenTelemetryPqControls$inboundSchema)
     .optional(),
 });
@@ -1583,12 +1669,16 @@ export type OutputOpenTelemetry$Outbound = {
     | undefined;
   responseHonorRetryAfterHeader: boolean;
   tls?: OutputOpenTelemetryTLSSettingsClientSide$Outbound | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputOpenTelemetryPqControls$Outbound | undefined;
 };
 
@@ -1664,6 +1754,11 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputOpenTelemetryTLSSettingsClientSide$outboundSchema)
     .optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputOpenTelemetryMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1673,7 +1768,6 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputOpenTelemetryQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputOpenTelemetryMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputOpenTelemetryPqControls$outboundSchema)
     .optional(),
 });

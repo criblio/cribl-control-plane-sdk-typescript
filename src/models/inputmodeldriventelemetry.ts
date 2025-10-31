@@ -29,7 +29,13 @@ export type InputModelDrivenTelemetryConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputModelDrivenTelemetryMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -43,7 +49,13 @@ export type InputModelDrivenTelemetryMode = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const InputModelDrivenTelemetryCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -110,6 +122,18 @@ export type InputModelDrivenTelemetryMaximumTLSVersion = OpenEnum<
 export type InputModelDrivenTelemetryTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -129,12 +153,6 @@ export type InputModelDrivenTelemetryTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputModelDrivenTelemetryMinimumTLSVersion | undefined;
   maxVersion?: InputModelDrivenTelemetryMaximumTLSVersion | undefined;
 };
@@ -558,14 +576,14 @@ export const InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema:
     unknown
   > = z.object({
     disabled: z.boolean().default(true),
+    requestCert: z.boolean().default(false),
+    rejectUnauthorized: z.boolean().default(true),
+    commonNameRegex: z.string().default("/.*/"),
     certificateName: z.string().optional(),
     privKeyPath: z.string().optional(),
     passphrase: z.string().optional(),
     certPath: z.string().optional(),
     caPath: z.string().optional(),
-    requestCert: z.boolean().default(false),
-    rejectUnauthorized: z.any().optional(),
-    commonNameRegex: z.any().optional(),
     minVersion: InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema
       .optional(),
     maxVersion: InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema
@@ -575,14 +593,14 @@ export const InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema:
 /** @internal */
 export type InputModelDrivenTelemetryTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -595,14 +613,14 @@ export const InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema:
     InputModelDrivenTelemetryTLSSettingsServerSide
   > = z.object({
     disabled: z.boolean().default(true),
+    requestCert: z.boolean().default(false),
+    rejectUnauthorized: z.boolean().default(true),
+    commonNameRegex: z.string().default("/.*/"),
     certificateName: z.string().optional(),
     privKeyPath: z.string().optional(),
     passphrase: z.string().optional(),
     certPath: z.string().optional(),
     caPath: z.string().optional(),
-    requestCert: z.boolean().default(false),
-    rejectUnauthorized: z.any().optional(),
-    commonNameRegex: z.any().optional(),
     minVersion: InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema
       .optional(),
     maxVersion: InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema

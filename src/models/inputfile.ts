@@ -27,7 +27,13 @@ export type InputFileConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputFilePqMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputFilePqMode = OpenEnum<typeof InputFilePqMode>;
  * Codec to use to compress the persisted data
  */
 export const InputFileCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -85,7 +97,13 @@ export type InputFilePq = {
  * Choose how to discover files to monitor
  */
 export const InputFileMode = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
 } as const;
 /**
@@ -154,7 +172,11 @@ export type InputFile = {
    */
   idleTimeout?: number | undefined;
   /**
-   * The maximum age of files to monitor. Format examples: 60s, 4h, 3d, 1w. Age is relative to file modification time. Leave empty to apply no age filters.
+   * The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+   */
+  minAgeDur?: string | undefined;
+  /**
+   * The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
    */
   maxAgeDur?: string | undefined;
   /**
@@ -573,6 +595,7 @@ export const InputFile$inboundSchema: z.ZodType<
   filenames: z.array(z.string()).optional(),
   tailOnly: z.boolean().default(false),
   idleTimeout: z.number().default(300),
+  minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
   checkFileModTime: z.boolean().default(false),
   forceText: z.boolean().default(false),
@@ -605,6 +628,7 @@ export type InputFile$Outbound = {
   filenames?: Array<string> | undefined;
   tailOnly: boolean;
   idleTimeout: number;
+  minAgeDur?: string | undefined;
   maxAgeDur?: string | undefined;
   checkFileModTime: boolean;
   forceText: boolean;
@@ -642,6 +666,7 @@ export const InputFile$outboundSchema: z.ZodType<
   filenames: z.array(z.string()).optional(),
   tailOnly: z.boolean().default(false),
   idleTimeout: z.number().default(300),
+  minAgeDur: z.string().optional(),
   maxAgeDur: z.string().optional(),
   checkFileModTime: z.boolean().default(false),
   forceText: z.boolean().default(false),

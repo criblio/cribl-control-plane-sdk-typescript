@@ -22,12 +22,33 @@ export type OutputDatasetType = ClosedEnum<typeof OutputDatasetType>;
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
 export const OutputDatasetSeverity = {
+  /**
+   * 0 - finest
+   */
   Finest: "finest",
+  /**
+   * 1 - finer
+   */
   Finer: "finer",
+  /**
+   * 2 - fine
+   */
   Fine: "fine",
+  /**
+   * 3 - info
+   */
   Info: "info",
+  /**
+   * 4 - warning
+   */
   Warning: "warning",
+  /**
+   * 5 - error
+   */
   Error: "error",
+  /**
+   * 6 - fatal
+   */
   Fatal: "fatal",
 } as const;
 /**
@@ -74,8 +95,17 @@ export type OutputDatasetTimeoutRetrySettings = {
  * DataSet site to which events should be sent
  */
 export const DataSetSite = {
+  /**
+   * US
+   */
   Us: "us",
+  /**
+   * Europe
+   */
   Eu: "eu",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
@@ -92,8 +122,17 @@ export type OutputDatasetExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputDatasetFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -107,8 +146,17 @@ export type OutputDatasetFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputDatasetBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -133,10 +181,38 @@ export type OutputDatasetAuthenticationMethod = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputDatasetMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputDatasetMode = OpenEnum<typeof OutputDatasetMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputDatasetCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -150,7 +226,13 @@ export type OutputDatasetCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputDatasetQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -159,19 +241,6 @@ export const OutputDatasetQueueFullBehavior = {
 export type OutputDatasetQueueFullBehavior = OpenEnum<
   typeof OutputDatasetQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDatasetMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDatasetMode = OpenEnum<typeof OutputDatasetMode>;
 
 export type OutputDatasetPqControls = {};
 
@@ -293,6 +362,26 @@ export type OutputDataset = {
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputDatasetMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -312,10 +401,6 @@ export type OutputDataset = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputDatasetQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputDatasetMode | undefined;
   pqControls?: OutputDatasetPqControls | undefined;
   /**
    * A 'Log Write Access' API key for the DataSet account
@@ -704,6 +789,38 @@ export namespace OutputDatasetAuthenticationMethod$ {
 }
 
 /** @internal */
+export const OutputDatasetMode$inboundSchema: z.ZodType<
+  OutputDatasetMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatasetMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputDatasetMode$outboundSchema: z.ZodType<
+  OutputDatasetMode,
+  z.ZodTypeDef,
+  OutputDatasetMode
+> = z.union([
+  z.nativeEnum(OutputDatasetMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputDatasetMode$ {
+  /** @deprecated use `OutputDatasetMode$inboundSchema` instead. */
+  export const inboundSchema = OutputDatasetMode$inboundSchema;
+  /** @deprecated use `OutputDatasetMode$outboundSchema` instead. */
+  export const outboundSchema = OutputDatasetMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputDatasetCompression$inboundSchema: z.ZodType<
   OutputDatasetCompression,
   z.ZodTypeDef,
@@ -765,38 +882,6 @@ export namespace OutputDatasetQueueFullBehavior$ {
   export const inboundSchema = OutputDatasetQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputDatasetQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputDatasetQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatasetMode$inboundSchema: z.ZodType<
-  OutputDatasetMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatasetMode$outboundSchema: z.ZodType<
-  OutputDatasetMode,
-  z.ZodTypeDef,
-  OutputDatasetMode
-> = z.union([
-  z.nativeEnum(OutputDatasetMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetMode$ {
-  /** @deprecated use `OutputDatasetMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetMode$inboundSchema;
-  /** @deprecated use `OutputDatasetMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetMode$outboundSchema;
 }
 
 /** @internal */
@@ -893,6 +978,11 @@ export const OutputDataset$inboundSchema: z.ZodType<
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputDatasetMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -900,7 +990,6 @@ export const OutputDataset$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputDatasetQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputDatasetMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDatasetPqControls$inboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
@@ -941,12 +1030,16 @@ export type OutputDataset$Outbound = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputDatasetPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -998,6 +1091,11 @@ export const OutputDataset$outboundSchema: z.ZodType<
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputDatasetMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1005,7 +1103,6 @@ export const OutputDataset$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputDatasetQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputDatasetMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDatasetPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),

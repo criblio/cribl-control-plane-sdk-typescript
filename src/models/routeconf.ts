@@ -6,15 +6,9 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  RouteCloneConf,
-  RouteCloneConf$inboundSchema,
-  RouteCloneConf$Outbound,
-  RouteCloneConf$outboundSchema,
-} from "./routecloneconf.js";
 
 export type RouteConf = {
-  clones?: Array<RouteCloneConf> | undefined;
+  clones?: Array<{ [k: string]: string }> | undefined;
   context?: string | undefined;
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -35,7 +29,7 @@ export const RouteConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  clones: z.array(RouteCloneConf$inboundSchema).optional(),
+  clones: z.array(z.record(z.string())).optional(),
   context: z.string().optional(),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -52,7 +46,7 @@ export const RouteConf$inboundSchema: z.ZodType<
 
 /** @internal */
 export type RouteConf$Outbound = {
-  clones?: Array<RouteCloneConf$Outbound> | undefined;
+  clones?: Array<{ [k: string]: string }> | undefined;
   context?: string | undefined;
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -73,7 +67,7 @@ export const RouteConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RouteConf
 > = z.object({
-  clones: z.array(RouteCloneConf$outboundSchema).optional(),
+  clones: z.array(z.record(z.string())).optional(),
   context: z.string().optional(),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

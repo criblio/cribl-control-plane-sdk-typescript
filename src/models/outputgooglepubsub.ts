@@ -22,8 +22,17 @@ export type OutputGooglePubsubType = ClosedEnum<typeof OutputGooglePubsubType>;
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
 export const OutputGooglePubsubGoogleAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret
+   */
   Secret: "secret",
 } as const;
 /**
@@ -37,8 +46,17 @@ export type OutputGooglePubsubGoogleAuthenticationMethod = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGooglePubsubBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -49,10 +67,38 @@ export type OutputGooglePubsubBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputGooglePubsubMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputGooglePubsubMode = OpenEnum<typeof OutputGooglePubsubMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputGooglePubsubCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -66,7 +112,13 @@ export type OutputGooglePubsubCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputGooglePubsubQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -75,19 +127,6 @@ export const OutputGooglePubsubQueueFullBehavior = {
 export type OutputGooglePubsubQueueFullBehavior = OpenEnum<
   typeof OutputGooglePubsubQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGooglePubsubMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGooglePubsubMode = OpenEnum<typeof OutputGooglePubsubMode>;
 
 export type OutputGooglePubsubPqControls = {};
 
@@ -171,6 +210,26 @@ export type OutputGooglePubsub = {
   onBackpressure?: OutputGooglePubsubBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputGooglePubsubMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -190,10 +249,6 @@ export type OutputGooglePubsub = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputGooglePubsubQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputGooglePubsubMode | undefined;
   pqControls?: OutputGooglePubsubPqControls | undefined;
 };
 
@@ -289,6 +344,38 @@ export namespace OutputGooglePubsubBackpressureBehavior$ {
 }
 
 /** @internal */
+export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
+  OutputGooglePubsubMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGooglePubsubMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
+  OutputGooglePubsubMode,
+  z.ZodTypeDef,
+  OutputGooglePubsubMode
+> = z.union([
+  z.nativeEnum(OutputGooglePubsubMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputGooglePubsubMode$ {
+  /** @deprecated use `OutputGooglePubsubMode$inboundSchema` instead. */
+  export const inboundSchema = OutputGooglePubsubMode$inboundSchema;
+  /** @deprecated use `OutputGooglePubsubMode$outboundSchema` instead. */
+  export const outboundSchema = OutputGooglePubsubMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputGooglePubsubCompression$inboundSchema: z.ZodType<
   OutputGooglePubsubCompression,
   z.ZodTypeDef,
@@ -352,38 +439,6 @@ export namespace OutputGooglePubsubQueueFullBehavior$ {
   /** @deprecated use `OutputGooglePubsubQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputGooglePubsubQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
-  OutputGooglePubsubMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
-  OutputGooglePubsubMode,
-  z.ZodTypeDef,
-  OutputGooglePubsubMode
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubMode$ {
-  /** @deprecated use `OutputGooglePubsubMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubMode$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubMode$outboundSchema;
 }
 
 /** @internal */
@@ -466,6 +521,11 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
     "block",
   ),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputGooglePubsubMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -473,7 +533,6 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputGooglePubsubQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputGooglePubsubMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$inboundSchema)
     .optional(),
 });
@@ -501,12 +560,16 @@ export type OutputGooglePubsub$Outbound = {
   maxInProgress: number;
   onBackpressure: string;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputGooglePubsubPqControls$Outbound | undefined;
 };
 
@@ -540,6 +603,11 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
     "block",
   ),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputGooglePubsubMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -547,7 +615,6 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputGooglePubsubQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputGooglePubsubMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$outboundSchema)
     .optional(),
 });

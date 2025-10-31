@@ -21,7 +21,13 @@ export type OutputGoogleChronicleType = ClosedEnum<
 >;
 
 export const OutputGoogleChronicleAPIVersion = {
+  /**
+   * V1
+   */
   V1: "v1",
+  /**
+   * V2
+   */
   V2: "v2",
 } as const;
 export type OutputGoogleChronicleAPIVersion = OpenEnum<
@@ -29,9 +35,21 @@ export type OutputGoogleChronicleAPIVersion = OpenEnum<
 >;
 
 export const OutputGoogleChronicleAuthenticationMethod = {
+  /**
+   * API key
+   */
   Manual: "manual",
+  /**
+   * API key secret
+   */
   Secret: "secret",
+  /**
+   * Service account credentials
+   */
   ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
 export type OutputGoogleChronicleAuthenticationMethod = OpenEnum<
@@ -74,7 +92,13 @@ export type OutputGoogleChronicleTimeoutRetrySettings = {
 };
 
 export const SendEventsAs = {
+  /**
+   * Unstructured
+   */
   Unstructured: "unstructured",
+  /**
+   * UDM
+   */
   Udm: "udm",
 } as const;
 export type SendEventsAs = OpenEnum<typeof SendEventsAs>;
@@ -88,8 +112,17 @@ export type OutputGoogleChronicleExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputGoogleChronicleFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -103,8 +136,17 @@ export type OutputGoogleChronicleFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGoogleChronicleBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -125,10 +167,52 @@ export type OutputGoogleChronicleCustomLabel = {
 };
 
 /**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType = OpenEnum<typeof UDMType>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputGoogleChronicleMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputGoogleChronicleMode = OpenEnum<
+  typeof OutputGoogleChronicleMode
+>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputGoogleChronicleCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -142,7 +226,13 @@ export type OutputGoogleChronicleCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputGoogleChronicleQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -150,21 +240,6 @@ export const OutputGoogleChronicleQueueFullBehavior = {
  */
 export type OutputGoogleChronicleQueueFullBehavior = OpenEnum<
   typeof OutputGoogleChronicleQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGoogleChronicleMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGoogleChronicleMode = OpenEnum<
-  typeof OutputGoogleChronicleMode
 >;
 
 export type OutputGoogleChroniclePqControls = {};
@@ -293,6 +368,10 @@ export type OutputGoogleChronicle = {
    */
   customLabels?: Array<OutputGoogleChronicleCustomLabel> | undefined;
   /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType | undefined;
+  /**
    * Organization's API key in Google SecOps
    */
   apiKey?: string | undefined;
@@ -308,6 +387,26 @@ export type OutputGoogleChronicle = {
    * Select or create a stored text secret
    */
   serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputGoogleChronicleMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -328,10 +427,6 @@ export type OutputGoogleChronicle = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputGoogleChronicleQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputGoogleChronicleMode | undefined;
   pqControls?: OutputGoogleChroniclePqControls | undefined;
 };
 
@@ -851,6 +946,64 @@ export function outputGoogleChronicleCustomLabelFromJSON(
 }
 
 /** @internal */
+export const UDMType$inboundSchema: z.ZodType<UDMType, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(UDMType),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+
+/** @internal */
+export const UDMType$outboundSchema: z.ZodType<UDMType, z.ZodTypeDef, UDMType> =
+  z.union([
+    z.nativeEnum(UDMType),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UDMType$ {
+  /** @deprecated use `UDMType$inboundSchema` instead. */
+  export const inboundSchema = UDMType$inboundSchema;
+  /** @deprecated use `UDMType$outboundSchema` instead. */
+  export const outboundSchema = UDMType$outboundSchema;
+}
+
+/** @internal */
+export const OutputGoogleChronicleMode$inboundSchema: z.ZodType<
+  OutputGoogleChronicleMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputGoogleChronicleMode$outboundSchema: z.ZodType<
+  OutputGoogleChronicleMode,
+  z.ZodTypeDef,
+  OutputGoogleChronicleMode
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputGoogleChronicleMode$ {
+  /** @deprecated use `OutputGoogleChronicleMode$inboundSchema` instead. */
+  export const inboundSchema = OutputGoogleChronicleMode$inboundSchema;
+  /** @deprecated use `OutputGoogleChronicleMode$outboundSchema` instead. */
+  export const outboundSchema = OutputGoogleChronicleMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputGoogleChronicleCompression$inboundSchema: z.ZodType<
   OutputGoogleChronicleCompression,
   z.ZodTypeDef,
@@ -914,38 +1067,6 @@ export namespace OutputGoogleChronicleQueueFullBehavior$ {
   /** @deprecated use `OutputGoogleChronicleQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema =
     OutputGoogleChronicleQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleChronicleMode$inboundSchema: z.ZodType<
-  OutputGoogleChronicleMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleChronicleMode$outboundSchema: z.ZodType<
-  OutputGoogleChronicleMode,
-  z.ZodTypeDef,
-  OutputGoogleChronicleMode
-> = z.union([
-  z.nativeEnum(OutputGoogleChronicleMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleMode$ {
-  /** @deprecated use `OutputGoogleChronicleMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleMode$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleMode$outboundSchema;
 }
 
 /** @internal */
@@ -1048,17 +1169,22 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   customLabels: z.array(
     z.lazy(() => OutputGoogleChronicleCustomLabel$inboundSchema),
   ).optional(),
+  udmType: UDMType$inboundSchema.default("logs"),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputGoogleChronicleMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
   pqCompress: OutputGoogleChronicleCompression$inboundSchema.default("none"),
   pqOnBackpressure: OutputGoogleChronicleQueueFullBehavior$inboundSchema
     .default("block"),
-  pqMode: OutputGoogleChronicleMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema)
     .optional(),
 });
@@ -1104,16 +1230,21 @@ export type OutputGoogleChronicle$Outbound = {
   customerId?: string | undefined;
   namespace?: string | undefined;
   customLabels?: Array<OutputGoogleChronicleCustomLabel$Outbound> | undefined;
+  udmType: string;
   apiKey?: string | undefined;
   apiKeySecret?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputGoogleChroniclePqControls$Outbound | undefined;
 };
 
@@ -1169,17 +1300,22 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   customLabels: z.array(
     z.lazy(() => OutputGoogleChronicleCustomLabel$outboundSchema),
   ).optional(),
+  udmType: UDMType$outboundSchema.default("logs"),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputGoogleChronicleMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
   pqCompress: OutputGoogleChronicleCompression$outboundSchema.default("none"),
   pqOnBackpressure: OutputGoogleChronicleQueueFullBehavior$outboundSchema
     .default("block"),
-  pqMode: OutputGoogleChronicleMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$outboundSchema)
     .optional(),
 });

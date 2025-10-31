@@ -12,33 +12,43 @@ let value: GetPacksResponse = {
   items: [
     {
       author: "<value>",
+      dependencies: {
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
+      },
       description:
-        "yet reassemble provided after fat executor given factorise before",
-      displayName: "Octavia75",
+        "kielbasa mousse er wherever generously fooey honestly bungalow whenever",
+      displayName: "Talon_Reichel",
       exports: [
         "<value 1>",
-        "<value 2>",
       ],
       id: "<id>",
-      inputs: 2362.89,
+      inputs: 9391.98,
       isDisabled: false,
       minLogStreamVersion: "<value>",
-      outputs: 8360.48,
+      outputs: 94.53,
       settings: {
         "key": "<value>",
       },
       source: "<value>",
       spec: "<value>",
       tags: {
-        dataType: [],
+        dataType: [
+          "double",
+        ],
         domain: [
-          "grown-icebreaker.net",
+          "sophisticated-pepper.com",
+          "cheerful-printer.net",
         ],
         streamtags: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
-        technology: [],
+        technology: [
+          "<value 1>",
+        ],
       },
       version: "<value>",
     },

@@ -22,7 +22,13 @@ export type OutputStatsdType = ClosedEnum<typeof OutputStatsdType>;
  * Protocol to use when communicating with the destination.
  */
 export const OutputStatsdDestinationProtocol = {
+  /**
+   * UDP
+   */
   Udp: "udp",
+  /**
+   * TCP
+   */
   Tcp: "tcp",
 } as const;
 /**
@@ -36,8 +42,17 @@ export type OutputStatsdDestinationProtocol = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputStatsdBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -48,10 +63,38 @@ export type OutputStatsdBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputStatsdMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputStatsdMode = OpenEnum<typeof OutputStatsdMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputStatsdCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -63,7 +106,13 @@ export type OutputStatsdCompression = OpenEnum<typeof OutputStatsdCompression>;
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputStatsdQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -72,19 +121,6 @@ export const OutputStatsdQueueFullBehavior = {
 export type OutputStatsdQueueFullBehavior = OpenEnum<
   typeof OutputStatsdQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputStatsdMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputStatsdMode = OpenEnum<typeof OutputStatsdMode>;
 
 export type OutputStatsdPqControls = {};
 
@@ -152,6 +188,26 @@ export type OutputStatsd = {
    */
   onBackpressure?: OutputStatsdBackpressureBehavior | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputStatsdMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -171,10 +227,6 @@ export type OutputStatsd = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputStatsdQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputStatsdMode | undefined;
   pqControls?: OutputStatsdPqControls | undefined;
 };
 
@@ -264,6 +316,38 @@ export namespace OutputStatsdBackpressureBehavior$ {
 }
 
 /** @internal */
+export const OutputStatsdMode$inboundSchema: z.ZodType<
+  OutputStatsdMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputStatsdMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputStatsdMode$outboundSchema: z.ZodType<
+  OutputStatsdMode,
+  z.ZodTypeDef,
+  OutputStatsdMode
+> = z.union([
+  z.nativeEnum(OutputStatsdMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputStatsdMode$ {
+  /** @deprecated use `OutputStatsdMode$inboundSchema` instead. */
+  export const inboundSchema = OutputStatsdMode$inboundSchema;
+  /** @deprecated use `OutputStatsdMode$outboundSchema` instead. */
+  export const outboundSchema = OutputStatsdMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputStatsdCompression$inboundSchema: z.ZodType<
   OutputStatsdCompression,
   z.ZodTypeDef,
@@ -325,38 +409,6 @@ export namespace OutputStatsdQueueFullBehavior$ {
   export const inboundSchema = OutputStatsdQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputStatsdQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputStatsdQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputStatsdMode$inboundSchema: z.ZodType<
-  OutputStatsdMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputStatsdMode$outboundSchema: z.ZodType<
-  OutputStatsdMode,
-  z.ZodTypeDef,
-  OutputStatsdMode
-> = z.union([
-  z.nativeEnum(OutputStatsdMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdMode$ {
-  /** @deprecated use `OutputStatsdMode$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdMode$inboundSchema;
-  /** @deprecated use `OutputStatsdMode$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdMode$outboundSchema;
 }
 
 /** @internal */
@@ -432,6 +484,11 @@ export const OutputStatsd$inboundSchema: z.ZodType<
   onBackpressure: OutputStatsdBackpressureBehavior$inboundSchema.default(
     "block",
   ),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputStatsdMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -439,7 +496,6 @@ export const OutputStatsd$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputStatsdQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputStatsdMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputStatsdPqControls$inboundSchema).optional(),
 });
 
@@ -462,12 +518,16 @@ export type OutputStatsd$Outbound = {
   connectionTimeout: number;
   writeTimeout: number;
   onBackpressure: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputStatsdPqControls$Outbound | undefined;
 };
 
@@ -496,6 +556,11 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   onBackpressure: OutputStatsdBackpressureBehavior$outboundSchema.default(
     "block",
   ),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputStatsdMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -503,7 +568,6 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputStatsdQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputStatsdMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputStatsdPqControls$outboundSchema).optional(),
 });
 

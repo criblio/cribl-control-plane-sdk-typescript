@@ -22,7 +22,13 @@ export type OutputGraphiteType = ClosedEnum<typeof OutputGraphiteType>;
  * Protocol to use when communicating with the destination.
  */
 export const OutputGraphiteDestinationProtocol = {
+  /**
+   * UDP
+   */
   Udp: "udp",
+  /**
+   * TCP
+   */
   Tcp: "tcp",
 } as const;
 /**
@@ -36,8 +42,17 @@ export type OutputGraphiteDestinationProtocol = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGraphiteBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -48,10 +63,38 @@ export type OutputGraphiteBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputGraphiteMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputGraphiteMode = OpenEnum<typeof OutputGraphiteMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputGraphiteCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -65,7 +108,13 @@ export type OutputGraphiteCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputGraphiteQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -74,19 +123,6 @@ export const OutputGraphiteQueueFullBehavior = {
 export type OutputGraphiteQueueFullBehavior = OpenEnum<
   typeof OutputGraphiteQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGraphiteMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGraphiteMode = OpenEnum<typeof OutputGraphiteMode>;
 
 export type OutputGraphitePqControls = {};
 
@@ -154,6 +190,26 @@ export type OutputGraphite = {
    */
   onBackpressure?: OutputGraphiteBackpressureBehavior | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputGraphiteMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -173,10 +229,6 @@ export type OutputGraphite = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputGraphiteQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputGraphiteMode | undefined;
   pqControls?: OutputGraphitePqControls | undefined;
 };
 
@@ -268,6 +320,38 @@ export namespace OutputGraphiteBackpressureBehavior$ {
 }
 
 /** @internal */
+export const OutputGraphiteMode$inboundSchema: z.ZodType<
+  OutputGraphiteMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGraphiteMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputGraphiteMode$outboundSchema: z.ZodType<
+  OutputGraphiteMode,
+  z.ZodTypeDef,
+  OutputGraphiteMode
+> = z.union([
+  z.nativeEnum(OutputGraphiteMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputGraphiteMode$ {
+  /** @deprecated use `OutputGraphiteMode$inboundSchema` instead. */
+  export const inboundSchema = OutputGraphiteMode$inboundSchema;
+  /** @deprecated use `OutputGraphiteMode$outboundSchema` instead. */
+  export const outboundSchema = OutputGraphiteMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputGraphiteCompression$inboundSchema: z.ZodType<
   OutputGraphiteCompression,
   z.ZodTypeDef,
@@ -329,38 +413,6 @@ export namespace OutputGraphiteQueueFullBehavior$ {
   export const inboundSchema = OutputGraphiteQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputGraphiteQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputGraphiteQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputGraphiteMode$inboundSchema: z.ZodType<
-  OutputGraphiteMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGraphiteMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGraphiteMode$outboundSchema: z.ZodType<
-  OutputGraphiteMode,
-  z.ZodTypeDef,
-  OutputGraphiteMode
-> = z.union([
-  z.nativeEnum(OutputGraphiteMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphiteMode$ {
-  /** @deprecated use `OutputGraphiteMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphiteMode$inboundSchema;
-  /** @deprecated use `OutputGraphiteMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGraphiteMode$outboundSchema;
 }
 
 /** @internal */
@@ -436,6 +488,11 @@ export const OutputGraphite$inboundSchema: z.ZodType<
   onBackpressure: OutputGraphiteBackpressureBehavior$inboundSchema.default(
     "block",
   ),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputGraphiteMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -443,7 +500,6 @@ export const OutputGraphite$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputGraphiteQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputGraphiteMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGraphitePqControls$inboundSchema).optional(),
 });
 
@@ -466,12 +522,16 @@ export type OutputGraphite$Outbound = {
   connectionTimeout: number;
   writeTimeout: number;
   onBackpressure: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputGraphitePqControls$Outbound | undefined;
 };
 
@@ -500,6 +560,11 @@ export const OutputGraphite$outboundSchema: z.ZodType<
   onBackpressure: OutputGraphiteBackpressureBehavior$outboundSchema.default(
     "block",
   ),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputGraphiteMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -507,7 +572,6 @@ export const OutputGraphite$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputGraphiteQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputGraphiteMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputGraphitePqControls$outboundSchema).optional(),
 });
 

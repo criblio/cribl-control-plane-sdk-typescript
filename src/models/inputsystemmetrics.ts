@@ -27,7 +27,13 @@ export type InputSystemMetricsConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputSystemMetricsPqMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -41,7 +47,13 @@ export type InputSystemMetricsPqMode = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const InputSystemMetricsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -89,9 +101,21 @@ export type InputSystemMetricsPq = {
  * Select level of detail for host metrics
  */
 export const InputSystemMetricsHostMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -105,9 +129,21 @@ export type InputSystemMetricsHostMode = OpenEnum<
  * Select the level of detail for system metrics
  */
 export const InputSystemMetricsSystemMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -132,9 +168,21 @@ export type InputSystemMetricsSystem = {
  * Select the level of detail for CPU metrics
  */
 export const InputSystemMetricsCpuMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -167,9 +215,21 @@ export type InputSystemMetricsCpu = {
  * Select the level of detail for memory metrics
  */
 export const InputSystemMetricsMemoryMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -194,9 +254,21 @@ export type InputSystemMetricsMemory = {
  * Select the level of detail for network metrics
  */
 export const InputSystemMetricsNetworkMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -212,6 +284,14 @@ export type InputSystemMetricsNetwork = {
    */
   mode?: InputSystemMetricsNetworkMode | undefined;
   /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
+  /**
    * Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
    */
   devices?: Array<string> | undefined;
@@ -219,19 +299,27 @@ export type InputSystemMetricsNetwork = {
    * Generate separate metrics for each interface
    */
   perInterface?: boolean | undefined;
-  /**
-   * Generate full network metrics
-   */
-  detail?: boolean | undefined;
 };
 
 /**
  * Select the level of detail for disk metrics
  */
 export const InputSystemMetricsDiskMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -246,6 +334,14 @@ export type InputSystemMetricsDisk = {
    * Select the level of detail for disk metrics
    */
   mode?: InputSystemMetricsDiskMode | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate filesystem inode metrics
+   */
+  inodes?: boolean | undefined;
   /**
    * Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
    */
@@ -262,10 +358,6 @@ export type InputSystemMetricsDisk = {
    * Generate separate metrics for each device
    */
   perDevice?: boolean | undefined;
-  /**
-   * Generate full disk metrics
-   */
-  detail?: boolean | undefined;
 };
 
 export type InputSystemMetricsCustom = {
@@ -301,9 +393,21 @@ export type InputSystemMetricsProcess = {
  * Select the level of detail for container metrics
  */
 export const ContainerMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -1048,17 +1152,19 @@ export const InputSystemMetricsNetwork$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: InputSystemMetricsNetworkMode$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
 /** @internal */
 export type InputSystemMetricsNetwork$Outbound = {
   mode: string;
+  detail: boolean;
+  protocols: boolean;
   devices?: Array<string> | undefined;
   perInterface: boolean;
-  detail: boolean;
 };
 
 /** @internal */
@@ -1068,9 +1174,10 @@ export const InputSystemMetricsNetwork$outboundSchema: z.ZodType<
   InputSystemMetricsNetwork
 > = z.object({
   mode: InputSystemMetricsNetworkMode$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
 /**
@@ -1143,21 +1250,23 @@ export const InputSystemMetricsDisk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: InputSystemMetricsDiskMode$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   mountpoints: z.array(z.string()).optional(),
   fstypes: z.array(z.string()).optional(),
   perDevice: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
 /** @internal */
 export type InputSystemMetricsDisk$Outbound = {
   mode: string;
+  detail: boolean;
+  inodes: boolean;
   devices?: Array<string> | undefined;
   mountpoints?: Array<string> | undefined;
   fstypes?: Array<string> | undefined;
   perDevice: boolean;
-  detail: boolean;
 };
 
 /** @internal */
@@ -1167,11 +1276,12 @@ export const InputSystemMetricsDisk$outboundSchema: z.ZodType<
   InputSystemMetricsDisk
 > = z.object({
   mode: InputSystemMetricsDiskMode$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   mountpoints: z.array(z.string()).optional(),
   fstypes: z.array(z.string()).optional(),
   perDevice: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
 /**

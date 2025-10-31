@@ -22,7 +22,13 @@ export type OutputSumoLogicType = ClosedEnum<typeof OutputSumoLogicType>;
  * Preserve the raw event format instead of JSONifying it
  */
 export const OutputSumoLogicDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
 } as const;
 /**
@@ -41,8 +47,17 @@ export type OutputSumoLogicExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputSumoLogicFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -91,8 +106,17 @@ export type OutputSumoLogicTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputSumoLogicBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -103,10 +127,38 @@ export type OutputSumoLogicBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputSumoLogicMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputSumoLogicMode = OpenEnum<typeof OutputSumoLogicMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputSumoLogicCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -120,7 +172,13 @@ export type OutputSumoLogicCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputSumoLogicQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -129,19 +187,6 @@ export const OutputSumoLogicQueueFullBehavior = {
 export type OutputSumoLogicQueueFullBehavior = OpenEnum<
   typeof OutputSumoLogicQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSumoLogicMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSumoLogicMode = OpenEnum<typeof OutputSumoLogicMode>;
 
 export type OutputSumoLogicPqControls = {};
 
@@ -254,6 +299,26 @@ export type OutputSumoLogic = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputSumoLogicMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -273,10 +338,6 @@ export type OutputSumoLogic = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputSumoLogicQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputSumoLogicMode | undefined;
   pqControls?: OutputSumoLogicPqControls | undefined;
 };
 
@@ -597,6 +658,38 @@ export namespace OutputSumoLogicBackpressureBehavior$ {
 }
 
 /** @internal */
+export const OutputSumoLogicMode$inboundSchema: z.ZodType<
+  OutputSumoLogicMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSumoLogicMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputSumoLogicMode$outboundSchema: z.ZodType<
+  OutputSumoLogicMode,
+  z.ZodTypeDef,
+  OutputSumoLogicMode
+> = z.union([
+  z.nativeEnum(OutputSumoLogicMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputSumoLogicMode$ {
+  /** @deprecated use `OutputSumoLogicMode$inboundSchema` instead. */
+  export const inboundSchema = OutputSumoLogicMode$inboundSchema;
+  /** @deprecated use `OutputSumoLogicMode$outboundSchema` instead. */
+  export const outboundSchema = OutputSumoLogicMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputSumoLogicCompression$inboundSchema: z.ZodType<
   OutputSumoLogicCompression,
   z.ZodTypeDef,
@@ -658,38 +751,6 @@ export namespace OutputSumoLogicQueueFullBehavior$ {
   export const inboundSchema = OutputSumoLogicQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputSumoLogicQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputSumoLogicQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSumoLogicMode$inboundSchema: z.ZodType<
-  OutputSumoLogicMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSumoLogicMode$outboundSchema: z.ZodType<
-  OutputSumoLogicMode,
-  z.ZodTypeDef,
-  OutputSumoLogicMode
-> = z.union([
-  z.nativeEnum(OutputSumoLogicMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicMode$ {
-  /** @deprecated use `OutputSumoLogicMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicMode$inboundSchema;
-  /** @deprecated use `OutputSumoLogicMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicMode$outboundSchema;
 }
 
 /** @internal */
@@ -782,6 +843,11 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSumoLogicMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -789,7 +855,6 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputSumoLogicQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputSumoLogicMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSumoLogicPqControls$inboundSchema).optional(),
 });
 
@@ -826,12 +891,16 @@ export type OutputSumoLogic$Outbound = {
   onBackpressure: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputSumoLogicPqControls$Outbound | undefined;
 };
 
@@ -877,6 +946,11 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSumoLogicMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -884,7 +958,6 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputSumoLogicQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputSumoLogicMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSumoLogicPqControls$outboundSchema).optional(),
 });
 

@@ -27,8 +27,17 @@ export type OutputHoneycombExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputHoneycombFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -77,8 +86,17 @@ export type OutputHoneycombTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputHoneycombBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -103,10 +121,38 @@ export type OutputHoneycombAuthenticationMethod = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputHoneycombMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputHoneycombMode = OpenEnum<typeof OutputHoneycombMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputHoneycombCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -120,7 +166,13 @@ export type OutputHoneycombCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputHoneycombQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -129,19 +181,6 @@ export const OutputHoneycombQueueFullBehavior = {
 export type OutputHoneycombQueueFullBehavior = OpenEnum<
   typeof OutputHoneycombQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputHoneycombMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputHoneycombMode = OpenEnum<typeof OutputHoneycombMode>;
 
 export type OutputHoneycombPqControls = {};
 
@@ -242,6 +281,26 @@ export type OutputHoneycomb = {
   authType?: OutputHoneycombAuthenticationMethod | undefined;
   description?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputHoneycombMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -261,10 +320,6 @@ export type OutputHoneycomb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputHoneycombQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputHoneycombMode | undefined;
   pqControls?: OutputHoneycombPqControls | undefined;
   /**
    * Team API key where the dataset belongs
@@ -595,6 +650,38 @@ export namespace OutputHoneycombAuthenticationMethod$ {
 }
 
 /** @internal */
+export const OutputHoneycombMode$inboundSchema: z.ZodType<
+  OutputHoneycombMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHoneycombMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputHoneycombMode$outboundSchema: z.ZodType<
+  OutputHoneycombMode,
+  z.ZodTypeDef,
+  OutputHoneycombMode
+> = z.union([
+  z.nativeEnum(OutputHoneycombMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputHoneycombMode$ {
+  /** @deprecated use `OutputHoneycombMode$inboundSchema` instead. */
+  export const inboundSchema = OutputHoneycombMode$inboundSchema;
+  /** @deprecated use `OutputHoneycombMode$outboundSchema` instead. */
+  export const outboundSchema = OutputHoneycombMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputHoneycombCompression$inboundSchema: z.ZodType<
   OutputHoneycombCompression,
   z.ZodTypeDef,
@@ -656,38 +743,6 @@ export namespace OutputHoneycombQueueFullBehavior$ {
   export const inboundSchema = OutputHoneycombQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputHoneycombQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputHoneycombQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputHoneycombMode$inboundSchema: z.ZodType<
-  OutputHoneycombMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputHoneycombMode$outboundSchema: z.ZodType<
-  OutputHoneycombMode,
-  z.ZodTypeDef,
-  OutputHoneycombMode
-> = z.union([
-  z.nativeEnum(OutputHoneycombMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombMode$ {
-  /** @deprecated use `OutputHoneycombMode$inboundSchema` instead. */
-  export const inboundSchema = OutputHoneycombMode$inboundSchema;
-  /** @deprecated use `OutputHoneycombMode$outboundSchema` instead. */
-  export const outboundSchema = OutputHoneycombMode$outboundSchema;
 }
 
 /** @internal */
@@ -777,6 +832,11 @@ export const OutputHoneycomb$inboundSchema: z.ZodType<
   ),
   authType: OutputHoneycombAuthenticationMethod$inboundSchema.default("manual"),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputHoneycombMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -784,7 +844,6 @@ export const OutputHoneycomb$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputHoneycombQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputHoneycombMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputHoneycombPqControls$inboundSchema).optional(),
   team: z.string().optional(),
   textSecret: z.string().optional(),
@@ -820,12 +879,16 @@ export type OutputHoneycomb$Outbound = {
   onBackpressure: string;
   authType: string;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputHoneycombPqControls$Outbound | undefined;
   team?: string | undefined;
   textSecret?: string | undefined;
@@ -872,6 +935,11 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
     "manual",
   ),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputHoneycombMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -879,7 +947,6 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputHoneycombQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputHoneycombMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputHoneycombPqControls$outboundSchema).optional(),
   team: z.string().optional(),
   textSecret: z.string().optional(),

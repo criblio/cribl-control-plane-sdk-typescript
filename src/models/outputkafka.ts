@@ -22,8 +22,17 @@ export type OutputKafkaType = ClosedEnum<typeof OutputKafkaType>;
  * Control the number of required acknowledgments.
  */
 export const OutputKafkaAcknowledgments = {
+  /**
+   * Leader
+   */
   One: 1,
+  /**
+   * None
+   */
   Zero: 0,
+  /**
+   * All
+   */
   Minus1: -1,
 } as const;
 /**
@@ -37,8 +46,17 @@ export type OutputKafkaAcknowledgments = OpenEnum<
  * Format to use to serialize events before writing to Kafka.
  */
 export const OutputKafkaRecordDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Field _raw
+   */
   Raw: "raw",
+  /**
+   * Protobuf
+   */
   Protobuf: "protobuf",
 } as const;
 /**
@@ -52,27 +70,27 @@ export type OutputKafkaRecordDataFormat = OpenEnum<
  * Codec to use to compress the data before sending to Kafka
  */
 export const OutputKafkaCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
+  /**
+   * Snappy
+   */
   Snappy: "snappy",
+  /**
+   * LZ4
+   */
   Lz4: "lz4",
 } as const;
 /**
  * Codec to use to compress the data before sending to Kafka
  */
 export type OutputKafkaCompression = OpenEnum<typeof OutputKafkaCompression>;
-
-/**
- * The schema format used to encode and decode event data
- */
-export const OutputKafkaSchemaType = {
-  Avro: "avro",
-  Json: "json",
-} as const;
-/**
- * The schema format used to encode and decode event data
- */
-export type OutputKafkaSchemaType = OpenEnum<typeof OutputKafkaSchemaType>;
 
 /**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -149,10 +167,6 @@ export type OutputKafkaKafkaSchemaRegistryAuthentication = {
    */
   schemaRegistryURL?: string | undefined;
   /**
-   * The schema format used to encode and decode event data
-   */
-  schemaType?: OutputKafkaSchemaType | undefined;
-  /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
   connectionTimeout?: number | undefined;
@@ -179,26 +193,105 @@ export type OutputKafkaKafkaSchemaRegistryAuthentication = {
   defaultValueSchemaId?: number | undefined;
 };
 
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const OutputKafkaAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type OutputKafkaAuthenticationMethod = OpenEnum<
+  typeof OutputKafkaAuthenticationMethod
+>;
+
 export const OutputKafkaSASLMechanism = {
+  /**
+   * PLAIN
+   */
   Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
   ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
   ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
   Kerberos: "kerberos",
 } as const;
 export type OutputKafkaSASLMechanism = OpenEnum<
   typeof OutputKafkaSASLMechanism
 >;
 
+export type OutputKafkaOauthParam = {
+  name: string;
+  value: string;
+};
+
+export type OutputKafkaSaslExtension = {
+  name: string;
+  value: string;
+};
+
 /**
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
  */
 export type OutputKafkaAuthentication = {
   disabled?: boolean | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: OutputKafkaAuthenticationMethod | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
   mechanism?: OutputKafkaSASLMechanism | undefined;
+  /**
+   * Location of keytab file for authentication principal
+   */
+  keytabLocation?: string | undefined;
+  /**
+   * Authentication principal, such as `kafka_user@example.com`
+   */
+  principal?: string | undefined;
+  /**
+   * Kerberos service class for Kafka brokers, such as `kafka`
+   */
+  brokerServiceClass?: string | undefined;
   /**
    * Enable OAuth authentication
    */
   oauthEnabled?: boolean | undefined;
+  /**
+   * URL of the token endpoint to use for OAuth authentication
+   */
+  tokenUrl?: string | undefined;
+  /**
+   * Client ID to use for OAuth authentication
+   */
+  clientId?: string | undefined;
+  oauthSecretType?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Additional fields to send to the token endpoint, such as scope or audience
+   */
+  oauthParams?: Array<OutputKafkaOauthParam> | undefined;
+  /**
+   * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+   */
+  saslExtensions?: Array<OutputKafkaSaslExtension> | undefined;
 };
 
 export const OutputKafkaMinimumTLSVersion = {
@@ -262,8 +355,17 @@ export type OutputKafkaTLSSettingsClientSide = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputKafkaBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -274,10 +376,38 @@ export type OutputKafkaBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputKafkaMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputKafkaMode = OpenEnum<typeof OutputKafkaMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputKafkaPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -291,7 +421,13 @@ export type OutputKafkaPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputKafkaQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -300,19 +436,6 @@ export const OutputKafkaQueueFullBehavior = {
 export type OutputKafkaQueueFullBehavior = OpenEnum<
   typeof OutputKafkaQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputKafkaMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputKafkaMode = OpenEnum<typeof OutputKafkaMode>;
 
 export type OutputKafkaPqControls = {};
 
@@ -420,6 +543,30 @@ export type OutputKafka = {
    */
   protobufLibraryId?: string | undefined;
   /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputKafkaMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -439,10 +586,6 @@ export type OutputKafka = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputKafkaQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputKafkaMode | undefined;
   pqControls?: OutputKafkaPqControls | undefined;
 };
 
@@ -561,38 +704,6 @@ export namespace OutputKafkaCompression$ {
   export const inboundSchema = OutputKafkaCompression$inboundSchema;
   /** @deprecated use `OutputKafkaCompression$outboundSchema` instead. */
   export const outboundSchema = OutputKafkaCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputKafkaSchemaType$inboundSchema: z.ZodType<
-  OutputKafkaSchemaType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKafkaSchemaType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKafkaSchemaType$outboundSchema: z.ZodType<
-  OutputKafkaSchemaType,
-  z.ZodTypeDef,
-  OutputKafkaSchemaType
-> = z.union([
-  z.nativeEnum(OutputKafkaSchemaType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKafkaSchemaType$ {
-  /** @deprecated use `OutputKafkaSchemaType$inboundSchema` instead. */
-  export const inboundSchema = OutputKafkaSchemaType$inboundSchema;
-  /** @deprecated use `OutputKafkaSchemaType$outboundSchema` instead. */
-  export const outboundSchema = OutputKafkaSchemaType$outboundSchema;
 }
 
 /** @internal */
@@ -830,7 +941,6 @@ export const OutputKafkaKafkaSchemaRegistryAuthentication$inboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: OutputKafkaSchemaType$inboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
@@ -846,7 +956,6 @@ export const OutputKafkaKafkaSchemaRegistryAuthentication$inboundSchema:
 export type OutputKafkaKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
-  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -867,7 +976,6 @@ export const OutputKafkaKafkaSchemaRegistryAuthentication$outboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: OutputKafkaSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
@@ -922,6 +1030,38 @@ export function outputKafkaKafkaSchemaRegistryAuthenticationFromJSON(
 }
 
 /** @internal */
+export const OutputKafkaAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputKafkaAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKafkaAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputKafkaAuthenticationMethod$outboundSchema: z.ZodType<
+  OutputKafkaAuthenticationMethod,
+  z.ZodTypeDef,
+  OutputKafkaAuthenticationMethod
+> = z.union([
+  z.nativeEnum(OutputKafkaAuthenticationMethod),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputKafkaAuthenticationMethod$ {
+  /** @deprecated use `OutputKafkaAuthenticationMethod$inboundSchema` instead. */
+  export const inboundSchema = OutputKafkaAuthenticationMethod$inboundSchema;
+  /** @deprecated use `OutputKafkaAuthenticationMethod$outboundSchema` instead. */
+  export const outboundSchema = OutputKafkaAuthenticationMethod$outboundSchema;
+}
+
+/** @internal */
 export const OutputKafkaSASLMechanism$inboundSchema: z.ZodType<
   OutputKafkaSASLMechanism,
   z.ZodTypeDef,
@@ -954,21 +1094,163 @@ export namespace OutputKafkaSASLMechanism$ {
 }
 
 /** @internal */
+export const OutputKafkaOauthParam$inboundSchema: z.ZodType<
+  OutputKafkaOauthParam,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/** @internal */
+export type OutputKafkaOauthParam$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputKafkaOauthParam$outboundSchema: z.ZodType<
+  OutputKafkaOauthParam$Outbound,
+  z.ZodTypeDef,
+  OutputKafkaOauthParam
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputKafkaOauthParam$ {
+  /** @deprecated use `OutputKafkaOauthParam$inboundSchema` instead. */
+  export const inboundSchema = OutputKafkaOauthParam$inboundSchema;
+  /** @deprecated use `OutputKafkaOauthParam$outboundSchema` instead. */
+  export const outboundSchema = OutputKafkaOauthParam$outboundSchema;
+  /** @deprecated use `OutputKafkaOauthParam$Outbound` instead. */
+  export type Outbound = OutputKafkaOauthParam$Outbound;
+}
+
+export function outputKafkaOauthParamToJSON(
+  outputKafkaOauthParam: OutputKafkaOauthParam,
+): string {
+  return JSON.stringify(
+    OutputKafkaOauthParam$outboundSchema.parse(outputKafkaOauthParam),
+  );
+}
+
+export function outputKafkaOauthParamFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKafkaOauthParam, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKafkaOauthParam$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKafkaOauthParam' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputKafkaSaslExtension$inboundSchema: z.ZodType<
+  OutputKafkaSaslExtension,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/** @internal */
+export type OutputKafkaSaslExtension$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputKafkaSaslExtension$outboundSchema: z.ZodType<
+  OutputKafkaSaslExtension$Outbound,
+  z.ZodTypeDef,
+  OutputKafkaSaslExtension
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputKafkaSaslExtension$ {
+  /** @deprecated use `OutputKafkaSaslExtension$inboundSchema` instead. */
+  export const inboundSchema = OutputKafkaSaslExtension$inboundSchema;
+  /** @deprecated use `OutputKafkaSaslExtension$outboundSchema` instead. */
+  export const outboundSchema = OutputKafkaSaslExtension$outboundSchema;
+  /** @deprecated use `OutputKafkaSaslExtension$Outbound` instead. */
+  export type Outbound = OutputKafkaSaslExtension$Outbound;
+}
+
+export function outputKafkaSaslExtensionToJSON(
+  outputKafkaSaslExtension: OutputKafkaSaslExtension,
+): string {
+  return JSON.stringify(
+    OutputKafkaSaslExtension$outboundSchema.parse(outputKafkaSaslExtension),
+  );
+}
+
+export function outputKafkaSaslExtensionFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKafkaSaslExtension, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKafkaSaslExtension$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKafkaSaslExtension' from JSON`,
+  );
+}
+
+/** @internal */
 export const OutputKafkaAuthentication$inboundSchema: z.ZodType<
   OutputKafkaAuthentication,
   z.ZodTypeDef,
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: OutputKafkaAuthenticationMethod$inboundSchema.default("manual"),
+  credentialsSecret: z.string().optional(),
   mechanism: OutputKafkaSASLMechanism$inboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
   oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(z.lazy(() => OutputKafkaOauthParam$inboundSchema))
+    .optional(),
+  saslExtensions: z.array(z.lazy(() => OutputKafkaSaslExtension$inboundSchema))
+    .optional(),
 });
 
 /** @internal */
 export type OutputKafkaAuthentication$Outbound = {
   disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
+  authType: string;
+  credentialsSecret?: string | undefined;
   mechanism: string;
+  keytabLocation?: string | undefined;
+  principal?: string | undefined;
+  brokerServiceClass?: string | undefined;
   oauthEnabled: boolean;
+  tokenUrl?: string | undefined;
+  clientId?: string | undefined;
+  oauthSecretType: string;
+  clientTextSecret?: string | undefined;
+  oauthParams?: Array<OutputKafkaOauthParam$Outbound> | undefined;
+  saslExtensions?: Array<OutputKafkaSaslExtension$Outbound> | undefined;
 };
 
 /** @internal */
@@ -978,8 +1260,23 @@ export const OutputKafkaAuthentication$outboundSchema: z.ZodType<
   OutputKafkaAuthentication
 > = z.object({
   disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: OutputKafkaAuthenticationMethod$outboundSchema.default("manual"),
+  credentialsSecret: z.string().optional(),
   mechanism: OutputKafkaSASLMechanism$outboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
   oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(z.lazy(() => OutputKafkaOauthParam$outboundSchema))
+    .optional(),
+  saslExtensions: z.array(z.lazy(() => OutputKafkaSaslExtension$outboundSchema))
+    .optional(),
 });
 
 /**
@@ -1193,6 +1490,38 @@ export namespace OutputKafkaBackpressureBehavior$ {
 }
 
 /** @internal */
+export const OutputKafkaMode$inboundSchema: z.ZodType<
+  OutputKafkaMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputKafkaMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+
+/** @internal */
+export const OutputKafkaMode$outboundSchema: z.ZodType<
+  OutputKafkaMode,
+  z.ZodTypeDef,
+  OutputKafkaMode
+> = z.union([
+  z.nativeEnum(OutputKafkaMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace OutputKafkaMode$ {
+  /** @deprecated use `OutputKafkaMode$inboundSchema` instead. */
+  export const inboundSchema = OutputKafkaMode$inboundSchema;
+  /** @deprecated use `OutputKafkaMode$outboundSchema` instead. */
+  export const outboundSchema = OutputKafkaMode$outboundSchema;
+}
+
+/** @internal */
 export const OutputKafkaPqCompressCompression$inboundSchema: z.ZodType<
   OutputKafkaPqCompressCompression,
   z.ZodTypeDef,
@@ -1254,38 +1583,6 @@ export namespace OutputKafkaQueueFullBehavior$ {
   export const inboundSchema = OutputKafkaQueueFullBehavior$inboundSchema;
   /** @deprecated use `OutputKafkaQueueFullBehavior$outboundSchema` instead. */
   export const outboundSchema = OutputKafkaQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputKafkaMode$inboundSchema: z.ZodType<
-  OutputKafkaMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKafkaMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKafkaMode$outboundSchema: z.ZodType<
-  OutputKafkaMode,
-  z.ZodTypeDef,
-  OutputKafkaMode
-> = z.union([
-  z.nativeEnum(OutputKafkaMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKafkaMode$ {
-  /** @deprecated use `OutputKafkaMode$inboundSchema` instead. */
-  export const inboundSchema = OutputKafkaMode$inboundSchema;
-  /** @deprecated use `OutputKafkaMode$outboundSchema` instead. */
-  export const outboundSchema = OutputKafkaMode$outboundSchema;
 }
 
 /** @internal */
@@ -1374,12 +1671,17 @@ export const OutputKafka$inboundSchema: z.ZodType<
   ),
   description: z.string().optional(),
   protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputKafkaMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
   pqCompress: OutputKafkaPqCompressCompression$inboundSchema.default("none"),
   pqOnBackpressure: OutputKafkaQueueFullBehavior$inboundSchema.default("block"),
-  pqMode: OutputKafkaMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputKafkaPqControls$inboundSchema).optional(),
 });
 
@@ -1415,12 +1717,17 @@ export type OutputKafka$Outbound = {
   onBackpressure: string;
   description?: string | undefined;
   protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputKafkaPqControls$Outbound | undefined;
 };
 
@@ -1462,6 +1769,12 @@ export const OutputKafka$outboundSchema: z.ZodType<
   ),
   description: z.string().optional(),
   protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputKafkaMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1469,7 +1782,6 @@ export const OutputKafka$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputKafkaQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputKafkaMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputKafkaPqControls$outboundSchema).optional(),
 });
 

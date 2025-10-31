@@ -30,7 +30,13 @@ export type InputEdgePrometheusConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputEdgePrometheusMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -42,7 +48,13 @@ export type InputEdgePrometheusMode = OpenEnum<typeof InputEdgePrometheusMode>;
  * Codec to use to compress the persisted data
  */
 export const InputEdgePrometheusPqCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -90,10 +102,25 @@ export type InputEdgePrometheusPq = {
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
 export const InputEdgePrometheusDiscoveryType = {
+  /**
+   * Static
+   */
   Static: "static",
+  /**
+   * DNS
+   */
   Dns: "dns",
+  /**
+   * AWS EC2
+   */
   Ec2: "ec2",
+  /**
+   * Kubernetes Node
+   */
   K8sNode: "k8s-node",
+  /**
+   * Kubernetes Pods
+   */
   K8sPods: "k8s-pods",
 } as const;
 /**
@@ -221,6 +248,31 @@ export const ScrapeProtocolProtocol = {
  */
 export type ScrapeProtocolProtocol = OpenEnum<typeof ScrapeProtocolProtocol>;
 
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod =
+  OpenEnum<
+    typeof InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
+  >;
+
 export type InputEdgePrometheusSearchFilter = {
   /**
    * Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
@@ -231,22 +283,6 @@ export type InputEdgePrometheusSearchFilter = {
    */
   values: Array<string>;
 };
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod =
-  OpenEnum<
-    typeof InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
-  >;
 
 /**
  * Signature version to use for signing EC2 requests
@@ -333,13 +369,17 @@ export type InputEdgePrometheus = {
   description?: string | undefined;
   targets?: Array<Target> | undefined;
   /**
-   * List of DNS names to resolve
-   */
-  nameList?: Array<string> | undefined;
-  /**
    * DNS Record type to resolve
    */
   recordType?: InputEdgePrometheusRecordType | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
   /**
    * Protocol to use when collecting metrics
    */
@@ -349,23 +389,24 @@ export type InputEdgePrometheus = {
    */
   scrapePath?: string | undefined;
   /**
-   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
-   */
-  usePublicIp?: boolean | undefined;
-  /**
-   * The port number in the metrics URL for discovered targets.
-   */
-  scrapePort?: number | undefined;
-  /**
-   * EC2 Instance Search Filter
-   */
-  searchFilter?: Array<InputEdgePrometheusSearchFilter> | undefined;
-  /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?:
     | InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
     | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * EC2 Instance Search Filter
+   */
+  searchFilter?: Array<InputEdgePrometheusSearchFilter> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -1095,6 +1136,46 @@ export namespace ScrapeProtocolProtocol$ {
 }
 
 /** @internal */
+export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+
+/** @internal */
+export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
+    z.ZodTypeDef,
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(
+      InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$ {
+  /** @deprecated use `InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema` instead. */
+  export const inboundSchema =
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema;
+  /** @deprecated use `InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema` instead. */
+  export const outboundSchema =
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema;
+}
+
+/** @internal */
 export const InputEdgePrometheusSearchFilter$inboundSchema: z.ZodType<
   InputEdgePrometheusSearchFilter,
   z.ZodTypeDef,
@@ -1161,46 +1242,6 @@ export function inputEdgePrometheusSearchFilterFromJSON(
     (x) => InputEdgePrometheusSearchFilter$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'InputEdgePrometheusSearchFilter' from JSON`,
   );
-}
-
-/** @internal */
-export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(
-        InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-      ),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(
-      InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    ),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$ {
-  /** @deprecated use `InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema;
 }
 
 /** @internal */
@@ -1322,18 +1363,20 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
     .default("manual"),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => Target$inboundSchema)).optional(),
-  nameList: z.array(z.string()).optional(),
   recordType: InputEdgePrometheusRecordType$inboundSchema.default("SRV"),
+  scrapePort: z.number().default(9090),
+  nameList: z.array(z.string()).optional(),
   scrapeProtocol: ScrapeProtocolProtocol$inboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
-  usePublicIp: z.boolean().default(true),
-  scrapePort: z.number().default(9090),
-  searchFilter: z.array(
-    z.lazy(() => InputEdgePrometheusSearchFilter$inboundSchema),
-  ).optional(),
   awsAuthenticationMethod:
     InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema
       .default("auto"),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  usePublicIp: z.boolean().default(true),
+  searchFilter: z.array(
+    z.lazy(() => InputEdgePrometheusSearchFilter$inboundSchema),
+  ).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -1382,14 +1425,16 @@ export type InputEdgePrometheus$Outbound = {
   authType: string;
   description?: string | undefined;
   targets?: Array<Target$Outbound> | undefined;
-  nameList?: Array<string> | undefined;
   recordType: string;
+  scrapePort: number;
+  nameList?: Array<string> | undefined;
   scrapeProtocol: string;
   scrapePath: string;
-  usePublicIp: boolean;
-  scrapePort: number;
-  searchFilter?: Array<InputEdgePrometheusSearchFilter$Outbound> | undefined;
   awsAuthenticationMethod: string;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  usePublicIp: boolean;
+  searchFilter?: Array<InputEdgePrometheusSearchFilter$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -1441,18 +1486,20 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
     .default("manual"),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
-  nameList: z.array(z.string()).optional(),
   recordType: InputEdgePrometheusRecordType$outboundSchema.default("SRV"),
+  scrapePort: z.number().default(9090),
+  nameList: z.array(z.string()).optional(),
   scrapeProtocol: ScrapeProtocolProtocol$outboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
-  usePublicIp: z.boolean().default(true),
-  scrapePort: z.number().default(9090),
-  searchFilter: z.array(
-    z.lazy(() => InputEdgePrometheusSearchFilter$outboundSchema),
-  ).optional(),
   awsAuthenticationMethod:
     InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema
       .default("auto"),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  usePublicIp: z.boolean().default(true),
+  searchFilter: z.array(
+    z.lazy(() => InputEdgePrometheusSearchFilter$outboundSchema),
+  ).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),

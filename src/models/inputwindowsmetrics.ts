@@ -29,7 +29,13 @@ export type InputWindowsMetricsConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputWindowsMetricsPqMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -43,7 +49,13 @@ export type InputWindowsMetricsPqMode = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const InputWindowsMetricsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -91,9 +103,21 @@ export type InputWindowsMetricsPq = {
  * Select level of detail for host metrics
  */
 export const InputWindowsMetricsHostMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -107,9 +131,21 @@ export type InputWindowsMetricsHostMode = OpenEnum<
  * Select the level of details for system metrics
  */
 export const InputWindowsMetricsSystemMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -134,9 +170,21 @@ export type InputWindowsMetricsSystem = {
  * Select the level of details for CPU metrics
  */
 export const InputWindowsMetricsCpuMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -169,9 +217,21 @@ export type InputWindowsMetricsCpu = {
  * Select the level of details for memory metrics
  */
 export const InputWindowsMetricsMemoryMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -196,9 +256,21 @@ export type InputWindowsMetricsMemory = {
  * Select the level of details for network metrics
  */
 export const InputWindowsMetricsNetworkMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -214,6 +286,14 @@ export type InputWindowsMetricsNetwork = {
    */
   mode?: InputWindowsMetricsNetworkMode | undefined;
   /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
+  /**
    * Network interfaces to include/exclude. All interfaces are included if this list is empty.
    */
   devices?: Array<string> | undefined;
@@ -221,19 +301,27 @@ export type InputWindowsMetricsNetwork = {
    * Generate separate metrics for each interface
    */
   perInterface?: boolean | undefined;
-  /**
-   * Generate full network metrics
-   */
-  detail?: boolean | undefined;
 };
 
 /**
  * Select the level of details for disk metrics
  */
 export const InputWindowsMetricsDiskMode = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
@@ -249,13 +337,17 @@ export type InputWindowsMetricsDisk = {
    */
   mode?: InputWindowsMetricsDiskMode | undefined;
   /**
-   * Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
-   */
-  volumes?: Array<string> | undefined;
-  /**
    * Generate separate metrics for each volume
    */
   perVolume?: boolean | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
+   */
+  volumes?: Array<string> | undefined;
 };
 
 export type InputWindowsMetricsCustom = {
@@ -992,17 +1084,19 @@ export const InputWindowsMetricsNetwork$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: InputWindowsMetricsNetworkMode$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
 /** @internal */
 export type InputWindowsMetricsNetwork$Outbound = {
   mode: string;
+  detail: boolean;
+  protocols: boolean;
   devices?: Array<string> | undefined;
   perInterface: boolean;
-  detail: boolean;
 };
 
 /** @internal */
@@ -1012,9 +1106,10 @@ export const InputWindowsMetricsNetwork$outboundSchema: z.ZodType<
   InputWindowsMetricsNetwork
 > = z.object({
   mode: InputWindowsMetricsNetworkMode$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
 /**
@@ -1087,15 +1182,17 @@ export const InputWindowsMetricsDisk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: InputWindowsMetricsDiskMode$inboundSchema.default("basic"),
-  volumes: z.array(z.string()).optional(),
   perVolume: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  volumes: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type InputWindowsMetricsDisk$Outbound = {
   mode: string;
-  volumes?: Array<string> | undefined;
   perVolume: boolean;
+  detail: boolean;
+  volumes?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -1105,8 +1202,9 @@ export const InputWindowsMetricsDisk$outboundSchema: z.ZodType<
   InputWindowsMetricsDisk
 > = z.object({
   mode: InputWindowsMetricsDiskMode$outboundSchema.default("basic"),
-  volumes: z.array(z.string()).optional(),
   perVolume: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  volumes: z.array(z.string()).optional(),
 });
 
 /**
