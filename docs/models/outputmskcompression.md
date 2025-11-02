@@ -15,5 +15,5 @@ let value: OutputMskCompression = "none";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"none" | "gzip" | "snappy" | "lz4" | Unrecognized<string>
+"none" | "gzip" | "snappy" | "lz4" | "zstd" | Unrecognized<string>
 ```
