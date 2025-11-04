@@ -18,6 +18,12 @@ import {
 } from "./cacheconnection.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  LakeDatasetMetrics,
+  LakeDatasetMetrics$inboundSchema,
+  LakeDatasetMetrics$Outbound,
+  LakeDatasetMetrics$outboundSchema,
+} from "./lakedatasetmetrics.js";
+import {
   LakeDatasetSearchConfig,
   LakeDatasetSearchConfig$inboundSchema,
   LakeDatasetSearchConfig$Outbound,
@@ -42,6 +48,7 @@ export type CriblLakeDatasetUpdate = {
   format?: CriblLakeDatasetUpdateFormat | undefined;
   httpDAUsed?: boolean | undefined;
   id?: string | undefined;
+  metrics?: LakeDatasetMetrics | undefined;
   retentionPeriodInDays?: number | undefined;
   searchConfig?: LakeDatasetSearchConfig | undefined;
   storageLocationId?: string | undefined;
@@ -94,6 +101,7 @@ export const CriblLakeDatasetUpdate$inboundSchema: z.ZodType<
   format: CriblLakeDatasetUpdateFormat$inboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string().optional(),
+  metrics: LakeDatasetMetrics$inboundSchema.optional(),
   retentionPeriodInDays: z.number().optional(),
   searchConfig: LakeDatasetSearchConfig$inboundSchema.optional(),
   storageLocationId: z.string().optional(),
@@ -110,6 +118,7 @@ export type CriblLakeDatasetUpdate$Outbound = {
   format?: string | undefined;
   httpDAUsed?: boolean | undefined;
   id?: string | undefined;
+  metrics?: LakeDatasetMetrics$Outbound | undefined;
   retentionPeriodInDays?: number | undefined;
   searchConfig?: LakeDatasetSearchConfig$Outbound | undefined;
   storageLocationId?: string | undefined;
@@ -130,6 +139,7 @@ export const CriblLakeDatasetUpdate$outboundSchema: z.ZodType<
   format: CriblLakeDatasetUpdateFormat$outboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string().optional(),
+  metrics: LakeDatasetMetrics$outboundSchema.optional(),
   retentionPeriodInDays: z.number().optional(),
   searchConfig: LakeDatasetSearchConfig$outboundSchema.optional(),
   storageLocationId: z.string().optional(),
