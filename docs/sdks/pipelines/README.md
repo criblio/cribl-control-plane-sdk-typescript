@@ -114,6 +114,13 @@ async function run() {
       streamtags: [
         "<value 1>",
       ],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
+          disabled: true,
+        },
+      },
       functions: [
         {
           id: "<id>",
@@ -124,13 +131,6 @@ async function run() {
           groupId: "<id>",
         },
       ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
-          disabled: true,
-        },
-      },
     },
   });
 
@@ -166,6 +166,13 @@ async function run() {
       streamtags: [
         "<value 1>",
       ],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
+          disabled: true,
+        },
+      },
       functions: [
         {
           id: "<id>",
@@ -176,13 +183,6 @@ async function run() {
           groupId: "<id>",
         },
       ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
-          disabled: true,
-        },
-      },
     },
   });
   if (res.ok) {
@@ -324,6 +324,13 @@ async function run() {
         streamtags: [
           "<value 1>",
         ],
+        groups: {
+          "key": {
+            name: "<value>",
+            description: "definitive ew but busily freely scaly indeed",
+            disabled: true,
+          },
+        },
         functions: [
           {
             id: "<id>",
@@ -334,13 +341,6 @@ async function run() {
             groupId: "<id>",
           },
         ],
-        groups: {
-          "key": {
-            name: "<value>",
-            description: "definitive ew but busily freely scaly indeed",
-            disabled: true,
-          },
-        },
       },
     },
   });
@@ -379,6 +379,13 @@ async function run() {
         streamtags: [
           "<value 1>",
         ],
+        groups: {
+          "key": {
+            name: "<value>",
+            description: "definitive ew but busily freely scaly indeed",
+            disabled: true,
+          },
+        },
         functions: [
           {
             id: "<id>",
@@ -389,13 +396,6 @@ async function run() {
             groupId: "<id>",
           },
         ],
-        groups: {
-          "key": {
-            name: "<value>",
-            description: "definitive ew but busily freely scaly indeed",
-            disabled: true,
-          },
-        },
       },
     },
   });

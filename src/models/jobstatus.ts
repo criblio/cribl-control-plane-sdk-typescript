@@ -4,66 +4,13 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-/**
- * State of the Job
- */
-export const State = {
-  Initializing: 0,
-  Pending: 1,
-  Running: 2,
-  Paused: 3,
-  Cancelled: 4,
-  Finished: 5,
-  Failed: 6,
-  Orphaned: 7,
-  Unknown: 8,
-  Length: 9,
-} as const;
-/**
- * State of the Job
- */
-export type State = OpenEnum<typeof State>;
-
 export type JobStatus = {
   reason?: { [k: string]: any } | undefined;
-  /**
-   * State of the Job
-   */
-  state: State;
+  state: { [k: string]: any };
 };
-
-/** @internal */
-export const State$inboundSchema: z.ZodType<State, z.ZodTypeDef, unknown> = z
-  .union([
-    z.nativeEnum(State),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const State$outboundSchema: z.ZodType<State, z.ZodTypeDef, State> = z
-  .union([
-    z.nativeEnum(State),
-    z.number().and(z.custom<Unrecognized<number>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace State$ {
-  /** @deprecated use `State$inboundSchema` instead. */
-  export const inboundSchema = State$inboundSchema;
-  /** @deprecated use `State$outboundSchema` instead. */
-  export const outboundSchema = State$outboundSchema;
-}
 
 /** @internal */
 export const JobStatus$inboundSchema: z.ZodType<
@@ -72,13 +19,13 @@ export const JobStatus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   reason: z.record(z.any()).optional(),
-  state: State$inboundSchema,
+  state: z.record(z.any()),
 });
 
 /** @internal */
 export type JobStatus$Outbound = {
   reason?: { [k: string]: any } | undefined;
-  state: number;
+  state: { [k: string]: any };
 };
 
 /** @internal */
@@ -88,7 +35,7 @@ export const JobStatus$outboundSchema: z.ZodType<
   JobStatus
 > = z.object({
   reason: z.record(z.any()).optional(),
-  state: State$outboundSchema,
+  state: z.record(z.any()),
 });
 
 /**
