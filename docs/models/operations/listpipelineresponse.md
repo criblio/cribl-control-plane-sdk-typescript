@@ -19,23 +19,23 @@ let value: ListPipelineResponse = {
           "<value 1>",
           "<value 2>",
         ],
+        groups: {
+          "key": {
+            name: "<value>",
+            description: "regarding structure but squiggly soupy equally",
+            disabled: false,
+          },
+        },
         functions: [
           {
             id: "<id>",
-            description: "regarding structure but squiggly soupy equally",
-            disabled: false,
+            description: "outbid dilate which eyebrow before engage",
+            disabled: true,
             final: true,
             conf: {},
             groupId: "<id>",
           },
         ],
-        groups: {
-          "key": {
-            name: "<value>",
-            description: "dream wildly but rag boohoo fondly huff",
-            disabled: false,
-          },
-        },
       },
     },
   ],

@@ -14,30 +14,30 @@ let value: Pipeline = {
       "<value 1>",
       "<value 2>",
     ],
+    groups: {
+      "key": {
+        name: "<value>",
+        description: "regarding structure but squiggly soupy equally",
+        disabled: false,
+      },
+    },
     functions: [
       {
         id: "<id>",
-        description: "regarding structure but squiggly soupy equally",
-        disabled: false,
+        description: "outbid dilate which eyebrow before engage",
+        disabled: true,
         final: true,
         conf: {},
         groupId: "<id>",
       },
     ],
-    groups: {
-      "key": {
-        name: "<value>",
-        description: "dream wildly but rag boohoo fondly huff",
-        disabled: false,
-      },
-    },
   },
 };
 ```
 
 ## Fields
 
-| Field                            | Type                             | Required                         | Description                      |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `id`                             | *string*                         | :heavy_check_mark:               | N/A                              |
-| `conf`                           | [models.Conf](../models/conf.md) | :heavy_check_mark:               | N/A                              |
+| Field                                            | Type                                             | Required                                         | Description                                      |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| `id`                                             | *string*                                         | :heavy_check_mark:                               | N/A                                              |
+| `conf`                                           | [models.PipelineConf](../models/pipelineconf.md) | :heavy_check_mark:                               | N/A                                              |

@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type FunctionSpecificConfigs = {};
+export type PipelineFunctionConfFunctionSpecificConfigs = {};
 
 export type PipelineFunctionConf = {
   /**
@@ -30,7 +30,7 @@ export type PipelineFunctionConf = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionSpecificConfigs;
+  conf: PipelineFunctionConfFunctionSpecificConfigs;
   /**
    * Group ID
    */
@@ -38,50 +38,63 @@ export type PipelineFunctionConf = {
 };
 
 /** @internal */
-export const FunctionSpecificConfigs$inboundSchema: z.ZodType<
-  FunctionSpecificConfigs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
+export const PipelineFunctionConfFunctionSpecificConfigs$inboundSchema:
+  z.ZodType<
+    PipelineFunctionConfFunctionSpecificConfigs,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({});
 
 /** @internal */
-export type FunctionSpecificConfigs$Outbound = {};
+export type PipelineFunctionConfFunctionSpecificConfigs$Outbound = {};
 
 /** @internal */
-export const FunctionSpecificConfigs$outboundSchema: z.ZodType<
-  FunctionSpecificConfigs$Outbound,
-  z.ZodTypeDef,
-  FunctionSpecificConfigs
-> = z.object({});
+export const PipelineFunctionConfFunctionSpecificConfigs$outboundSchema:
+  z.ZodType<
+    PipelineFunctionConfFunctionSpecificConfigs$Outbound,
+    z.ZodTypeDef,
+    PipelineFunctionConfFunctionSpecificConfigs
+  > = z.object({});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace FunctionSpecificConfigs$ {
-  /** @deprecated use `FunctionSpecificConfigs$inboundSchema` instead. */
-  export const inboundSchema = FunctionSpecificConfigs$inboundSchema;
-  /** @deprecated use `FunctionSpecificConfigs$outboundSchema` instead. */
-  export const outboundSchema = FunctionSpecificConfigs$outboundSchema;
-  /** @deprecated use `FunctionSpecificConfigs$Outbound` instead. */
-  export type Outbound = FunctionSpecificConfigs$Outbound;
+export namespace PipelineFunctionConfFunctionSpecificConfigs$ {
+  /** @deprecated use `PipelineFunctionConfFunctionSpecificConfigs$inboundSchema` instead. */
+  export const inboundSchema =
+    PipelineFunctionConfFunctionSpecificConfigs$inboundSchema;
+  /** @deprecated use `PipelineFunctionConfFunctionSpecificConfigs$outboundSchema` instead. */
+  export const outboundSchema =
+    PipelineFunctionConfFunctionSpecificConfigs$outboundSchema;
+  /** @deprecated use `PipelineFunctionConfFunctionSpecificConfigs$Outbound` instead. */
+  export type Outbound = PipelineFunctionConfFunctionSpecificConfigs$Outbound;
 }
 
-export function functionSpecificConfigsToJSON(
-  functionSpecificConfigs: FunctionSpecificConfigs,
+export function pipelineFunctionConfFunctionSpecificConfigsToJSON(
+  pipelineFunctionConfFunctionSpecificConfigs:
+    PipelineFunctionConfFunctionSpecificConfigs,
 ): string {
   return JSON.stringify(
-    FunctionSpecificConfigs$outboundSchema.parse(functionSpecificConfigs),
+    PipelineFunctionConfFunctionSpecificConfigs$outboundSchema.parse(
+      pipelineFunctionConfFunctionSpecificConfigs,
+    ),
   );
 }
 
-export function functionSpecificConfigsFromJSON(
+export function pipelineFunctionConfFunctionSpecificConfigsFromJSON(
   jsonString: string,
-): SafeParseResult<FunctionSpecificConfigs, SDKValidationError> {
+): SafeParseResult<
+  PipelineFunctionConfFunctionSpecificConfigs,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => FunctionSpecificConfigs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSpecificConfigs' from JSON`,
+    (x) =>
+      PipelineFunctionConfFunctionSpecificConfigs$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PipelineFunctionConfFunctionSpecificConfigs' from JSON`,
   );
 }
 
@@ -96,7 +109,7 @@ export const PipelineFunctionConf$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => FunctionSpecificConfigs$inboundSchema),
+  conf: z.lazy(() => PipelineFunctionConfFunctionSpecificConfigs$inboundSchema),
   groupId: z.string().optional(),
 });
 
@@ -107,7 +120,7 @@ export type PipelineFunctionConf$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionSpecificConfigs$Outbound;
+  conf: PipelineFunctionConfFunctionSpecificConfigs$Outbound;
   groupId?: string | undefined;
 };
 
@@ -122,7 +135,9 @@ export const PipelineFunctionConf$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => FunctionSpecificConfigs$outboundSchema),
+  conf: z.lazy(() =>
+    PipelineFunctionConfFunctionSpecificConfigs$outboundSchema
+  ),
   groupId: z.string().optional(),
 });
 

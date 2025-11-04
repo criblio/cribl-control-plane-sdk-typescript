@@ -1,33 +1,35 @@
-# Conf
+# PipelineConf
 
 ## Example Usage
 
 ```typescript
-import { Conf } from "cribl-control-plane/models";
+import { PipelineConf } from "cribl-control-plane/models";
 
-let value: Conf = {
-  asyncFuncTimeout: 645963,
-  description: "against with birth when",
+let value: PipelineConf = {
+  asyncFuncTimeout: 543977,
+  description: "draft however spew speedily fly marten total spellcheck",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
+  groups: {
+    "key": {
+      name: "<value>",
+      description: "regarding structure but squiggly soupy equally",
+      disabled: false,
+    },
+  },
   functions: [
     {
       id: "<id>",
-      description: "regarding structure but squiggly soupy equally",
-      disabled: false,
+      description: "outbid dilate which eyebrow before engage",
+      disabled: true,
       final: true,
       conf: {},
       groupId: "<id>",
     },
   ],
-  groups: {
-    "key": {
-      name: "<value>",
-      description: "dream wildly but rag boohoo fondly huff",
-      disabled: false,
-    },
-  },
 };
 ```
 
@@ -39,5 +41,5 @@ let value: Conf = {
 | `output`                                                                         | *string*                                                                         | :heavy_minus_sign:                                                               | The output destination for events processed by this Pipeline                     |
 | `description`                                                                    | *string*                                                                         | :heavy_minus_sign:                                                               | N/A                                                                              |
 | `streamtags`                                                                     | *string*[]                                                                       | :heavy_minus_sign:                                                               | Tags for filtering and grouping in @{product}                                    |
-| `functions`                                                                      | [models.PipelineFunctionConf](../models/pipelinefunctionconf.md)[]               | :heavy_minus_sign:                                                               | List of Functions to pass data through                                           |
 | `groups`                                                                         | Record<string, [models.PipelineGroups](../models/pipelinegroups.md)>             | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `functions`                                                                      | [models.PipelineFunctionConf](../models/pipelinefunctionconf.md)[]               | :heavy_minus_sign:                                                               | List of Functions to pass data through                                           |
