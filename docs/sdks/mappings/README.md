@@ -128,15 +128,11 @@ async function run() {
             description: "Map Linux Edge Nodes",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'linux_fleet'",
                 },
               ],
               keep: [
@@ -146,6 +142,7 @@ async function run() {
                 "<value 1>",
               ],
             },
+            groupId: "<id>",
           },
           {
             filter: "platform === \"win32\"",
@@ -153,24 +150,24 @@ async function run() {
             description: "Map Windows Edge Nodes",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'windows_fleet'",
                 },
               ],
               keep: [
                 "<value 1>",
+                "<value 2>",
               ],
               remove: [
                 "<value 1>",
+                "<value 2>",
+                "<value 3>",
               ],
             },
+            groupId: "<id>",
           },
           {
             filter: "platform === \"darwin\"",
@@ -178,24 +175,22 @@ async function run() {
             description: "Map macOS Edge Nodes",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'macos_fleet'",
                 },
               ],
               keep: [
                 "<value 1>",
+                "<value 2>",
               ],
               remove: [
                 "<value 1>",
               ],
             },
+            groupId: "<id>",
           },
           {
             filter: "!cribl.group",
@@ -203,24 +198,22 @@ async function run() {
             description: "Default mapping for unmapped nodes",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'default_fleet'",
                 },
               ],
               keep: [
                 "<value 1>",
+                "<value 2>",
               ],
               remove: [
                 "<value 1>",
               ],
             },
+            groupId: "<id>",
           },
         ],
       },
@@ -264,15 +257,11 @@ async function run() {
             description: "Map Linux Edge Nodes",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'linux_fleet'",
                 },
               ],
               keep: [
@@ -282,6 +271,7 @@ async function run() {
                 "<value 1>",
               ],
             },
+            groupId: "<id>",
           },
           {
             filter: "platform === \"win32\"",
@@ -289,24 +279,24 @@ async function run() {
             description: "Map Windows Edge Nodes",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'windows_fleet'",
                 },
               ],
               keep: [
                 "<value 1>",
+                "<value 2>",
               ],
               remove: [
                 "<value 1>",
+                "<value 2>",
+                "<value 3>",
               ],
             },
+            groupId: "<id>",
           },
           {
             filter: "platform === \"darwin\"",
@@ -314,24 +304,22 @@ async function run() {
             description: "Map macOS Edge Nodes",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'macos_fleet'",
                 },
               ],
               keep: [
                 "<value 1>",
+                "<value 2>",
               ],
               remove: [
                 "<value 1>",
               ],
             },
+            groupId: "<id>",
           },
           {
             filter: "!cribl.group",
@@ -339,24 +327,22 @@ async function run() {
             description: "Default mapping for unmapped nodes",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'default_fleet'",
                 },
               ],
               keep: [
                 "<value 1>",
+                "<value 2>",
               ],
               remove: [
                 "<value 1>",
               ],
             },
+            groupId: "<id>",
           },
         ],
       },
@@ -669,15 +655,11 @@ async function run() {
             description: "Map high-performance nodes in specific network or DMZ",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'high_perf_fleet'",
                 },
               ],
               keep: [
@@ -688,6 +670,7 @@ async function run() {
                 "<value 2>",
               ],
             },
+            groupId: "<id>",
           },
           {
             filter: "!cribl.group",
@@ -695,15 +678,11 @@ async function run() {
             description: "Default mapping",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'default_fleet'",
                 },
               ],
               keep: [
@@ -711,9 +690,9 @@ async function run() {
               ],
               remove: [
                 "<value 1>",
-                "<value 2>",
               ],
             },
+            groupId: "<id>",
           },
         ],
       },
@@ -758,15 +737,11 @@ async function run() {
             description: "Map high-performance nodes in specific network or DMZ",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'high_perf_fleet'",
                 },
               ],
               keep: [
@@ -777,6 +752,7 @@ async function run() {
                 "<value 2>",
               ],
             },
+            groupId: "<id>",
           },
           {
             filter: "!cribl.group",
@@ -784,15 +760,11 @@ async function run() {
             description: "Default mapping",
             disabled: false,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
-                  name: "<value>",
-                  value: "<value>",
+                  name: "groupId",
+                  value: "'default_fleet'",
                 },
               ],
               keep: [
@@ -800,9 +772,9 @@ async function run() {
               ],
               remove: [
                 "<value 1>",
-                "<value 2>",
               ],
             },
+            groupId: "<id>",
           },
         ],
       },

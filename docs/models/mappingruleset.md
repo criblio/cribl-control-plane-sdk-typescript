@@ -14,11 +14,7 @@ let value: MappingRuleset = {
         description: "times scram hmph stitcher especially",
         disabled: true,
         final: true,
-        conf: {},
-        groupId: "<id>",
-        name: "Eval",
-        group: "Standard",
-        schema: {
+        conf: {
           add: [
             {
               name: "<value>",
@@ -35,6 +31,7 @@ let value: MappingRuleset = {
             "<value 3>",
           ],
         },
+        groupId: "<id>",
       },
     ],
   },
