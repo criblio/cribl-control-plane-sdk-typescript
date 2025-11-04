@@ -19,11 +19,7 @@ let value: GetAdminProductsMappingsByProductAndIdResponse = {
             description: "times scram hmph stitcher especially",
             disabled: true,
             final: true,
-            conf: {},
-            groupId: "<id>",
-            name: "Eval",
-            group: "Standard",
-            schema: {
+            conf: {
               add: [
                 {
                   name: "<value>",
@@ -40,6 +36,7 @@ let value: GetAdminProductsMappingsByProductAndIdResponse = {
                 "<value 3>",
               ],
             },
+            groupId: "<id>",
           },
         ],
       },

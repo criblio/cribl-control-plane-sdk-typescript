@@ -23,18 +23,6 @@ export const Id = {
 } as const;
 export type Id = OpenEnum<typeof Id>;
 
-export type EvalFunctionFunctionSpecificConfigs = {};
-
-export const Name = {
-  Eval: "Eval",
-} as const;
-export type Name = OpenEnum<typeof Name>;
-
-export const Group = {
-  Standard: "Standard",
-} as const;
-export type Group = OpenEnum<typeof Group>;
-
 export type EvalFunction = {
   /**
    * Filter that selects data to be fed through this Function
@@ -53,14 +41,11 @@ export type EvalFunction = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: EvalFunctionFunctionSpecificConfigs;
+  conf: EvalSchema;
   /**
    * Group ID
    */
   groupId?: string | undefined;
-  name?: Name | undefined;
-  group?: Group | undefined;
-  schema?: EvalSchema | undefined;
 };
 
 /** @internal */
@@ -88,110 +73,6 @@ export namespace Id$ {
 }
 
 /** @internal */
-export const EvalFunctionFunctionSpecificConfigs$inboundSchema: z.ZodType<
-  EvalFunctionFunctionSpecificConfigs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type EvalFunctionFunctionSpecificConfigs$Outbound = {};
-
-/** @internal */
-export const EvalFunctionFunctionSpecificConfigs$outboundSchema: z.ZodType<
-  EvalFunctionFunctionSpecificConfigs$Outbound,
-  z.ZodTypeDef,
-  EvalFunctionFunctionSpecificConfigs
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EvalFunctionFunctionSpecificConfigs$ {
-  /** @deprecated use `EvalFunctionFunctionSpecificConfigs$inboundSchema` instead. */
-  export const inboundSchema =
-    EvalFunctionFunctionSpecificConfigs$inboundSchema;
-  /** @deprecated use `EvalFunctionFunctionSpecificConfigs$outboundSchema` instead. */
-  export const outboundSchema =
-    EvalFunctionFunctionSpecificConfigs$outboundSchema;
-  /** @deprecated use `EvalFunctionFunctionSpecificConfigs$Outbound` instead. */
-  export type Outbound = EvalFunctionFunctionSpecificConfigs$Outbound;
-}
-
-export function evalFunctionFunctionSpecificConfigsToJSON(
-  evalFunctionFunctionSpecificConfigs: EvalFunctionFunctionSpecificConfigs,
-): string {
-  return JSON.stringify(
-    EvalFunctionFunctionSpecificConfigs$outboundSchema.parse(
-      evalFunctionFunctionSpecificConfigs,
-    ),
-  );
-}
-
-export function evalFunctionFunctionSpecificConfigsFromJSON(
-  jsonString: string,
-): SafeParseResult<EvalFunctionFunctionSpecificConfigs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      EvalFunctionFunctionSpecificConfigs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EvalFunctionFunctionSpecificConfigs' from JSON`,
-  );
-}
-
-/** @internal */
-export const Name$inboundSchema: z.ZodType<Name, z.ZodTypeDef, unknown> = z
-  .union([
-    z.nativeEnum(Name),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const Name$outboundSchema: z.ZodType<Name, z.ZodTypeDef, Name> = z.union(
-  [
-    z.nativeEnum(Name),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ],
-);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Name$ {
-  /** @deprecated use `Name$inboundSchema` instead. */
-  export const inboundSchema = Name$inboundSchema;
-  /** @deprecated use `Name$outboundSchema` instead. */
-  export const outboundSchema = Name$outboundSchema;
-}
-
-/** @internal */
-export const Group$inboundSchema: z.ZodType<Group, z.ZodTypeDef, unknown> = z
-  .union([
-    z.nativeEnum(Group),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const Group$outboundSchema: z.ZodType<Group, z.ZodTypeDef, Group> = z
-  .union([
-    z.nativeEnum(Group),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Group$ {
-  /** @deprecated use `Group$inboundSchema` instead. */
-  export const inboundSchema = Group$inboundSchema;
-  /** @deprecated use `Group$outboundSchema` instead. */
-  export const outboundSchema = Group$outboundSchema;
-}
-
-/** @internal */
 export const EvalFunction$inboundSchema: z.ZodType<
   EvalFunction,
   z.ZodTypeDef,
@@ -202,11 +83,8 @@ export const EvalFunction$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => EvalFunctionFunctionSpecificConfigs$inboundSchema),
+  conf: EvalSchema$inboundSchema,
   groupId: z.string().optional(),
-  name: Name$inboundSchema.optional(),
-  group: Group$inboundSchema.optional(),
-  schema: EvalSchema$inboundSchema.optional(),
 });
 
 /** @internal */
@@ -216,11 +94,8 @@ export type EvalFunction$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: EvalFunctionFunctionSpecificConfigs$Outbound;
+  conf: EvalSchema$Outbound;
   groupId?: string | undefined;
-  name?: string | undefined;
-  group?: string | undefined;
-  schema?: EvalSchema$Outbound | undefined;
 };
 
 /** @internal */
@@ -234,11 +109,8 @@ export const EvalFunction$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => EvalFunctionFunctionSpecificConfigs$outboundSchema),
+  conf: EvalSchema$outboundSchema,
   groupId: z.string().optional(),
-  name: Name$outboundSchema.optional(),
-  group: Group$outboundSchema.optional(),
-  schema: EvalSchema$outboundSchema.optional(),
 });
 
 /**

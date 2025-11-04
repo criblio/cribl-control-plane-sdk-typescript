@@ -17,11 +17,7 @@ let value: UpdateAdminProductsMappingsByProductAndIdRequest = {
           description: "times scram hmph stitcher especially",
           disabled: true,
           final: true,
-          conf: {},
-          groupId: "<id>",
-          name: "Eval",
-          group: "Standard",
-          schema: {
+          conf: {
             add: [
               {
                 name: "<value>",
@@ -38,6 +34,7 @@ let value: UpdateAdminProductsMappingsByProductAndIdRequest = {
               "<value 3>",
             ],
           },
+          groupId: "<id>",
         },
       ],
     },
