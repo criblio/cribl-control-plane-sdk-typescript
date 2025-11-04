@@ -35,10 +35,16 @@ let value: CreateCriblLakeDatasetByLakeIdResponse = {
       format: "json",
       httpDAUsed: false,
       id: "<id>",
+      metrics: {
+        currentSizeBytes: 7990.13,
+        metricsDate: "<value>",
+      },
       retentionPeriodInDays: 1938.08,
       searchConfig: {
         datatypes: [
           "<value 1>",
+          "<value 2>",
+          "<value 3>",
         ],
         metadata: {
           earliest: "<value>",
@@ -46,12 +52,13 @@ let value: CreateCriblLakeDatasetByLakeIdResponse = {
           fieldList: [
             "<value 1>",
             "<value 2>",
+            "<value 3>",
           ],
           latestRunInfo: {
-            earliestScannedTime: 9246.59,
-            finishedAt: 4514.45,
-            latestScannedTime: 4750.45,
-            objectCount: 8488.95,
+            earliestScannedTime: 4514.45,
+            finishedAt: 4750.45,
+            latestScannedTime: 8488.95,
+            objectCount: 359.3,
           },
           scanMode: "detailed",
         },

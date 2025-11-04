@@ -98,13 +98,13 @@ export type InputFilePq = {
  */
 export const InputFileMode = {
   /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
    * Manual
    */
   Manual: "manual",
+  /**
+   * Auto
+   */
+  Auto: "auto",
 } as const;
 /**
  * Choose how to discover files to monitor
@@ -590,7 +590,7 @@ export const InputFile$inboundSchema: z.ZodType<
   connections: z.array(z.lazy(() => InputFileConnection$inboundSchema))
     .optional(),
   pq: z.lazy(() => InputFilePq$inboundSchema).optional(),
-  mode: InputFileMode$inboundSchema.default("auto"),
+  mode: InputFileMode$inboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
   tailOnly: z.boolean().default(false),
@@ -661,7 +661,7 @@ export const InputFile$outboundSchema: z.ZodType<
   connections: z.array(z.lazy(() => InputFileConnection$outboundSchema))
     .optional(),
   pq: z.lazy(() => InputFilePq$outboundSchema).optional(),
-  mode: InputFileMode$outboundSchema.default("auto"),
+  mode: InputFileMode$outboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
   tailOnly: z.boolean().default(false),

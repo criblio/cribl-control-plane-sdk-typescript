@@ -101,6 +101,7 @@ export * from "./inputwizwebhook.js";
 export * from "./inputzscalerhec.js";
 export * from "./jobinfo.js";
 export * from "./jobstatus.js";
+export * from "./lakedatasetmetrics.js";
 export * from "./lakedatasetsearchconfig.js";
 export * from "./lakehouseconnectiontype.js";
 export * from "./logininfo.js";
