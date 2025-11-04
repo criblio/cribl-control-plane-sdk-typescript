@@ -86,6 +86,10 @@ export const OutputMskCompression = {
    * LZ4
    */
   Lz4: "lz4",
+  /**
+   * ZSTD
+   */
+  Zstd: "zstd",
 } as const;
 /**
  * Codec to use to compress the data before sending to Kafka
