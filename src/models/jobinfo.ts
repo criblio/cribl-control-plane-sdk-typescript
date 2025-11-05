@@ -19,13 +19,56 @@ import {
   RunnableJob$outboundSchema,
 } from "./runnablejob.js";
 
+export type Stats = number | { [k: string]: number };
+
 export type JobInfo = {
   args: RunnableJob;
   id: string;
   keep?: boolean | undefined;
-  stats: { [k: string]: number };
+  stats: { [k: string]: number | { [k: string]: number } };
   status: JobStatus;
 };
+
+/** @internal */
+export const Stats$inboundSchema: z.ZodType<Stats, z.ZodTypeDef, unknown> = z
+  .union([z.number(), z.record(z.number())]);
+
+/** @internal */
+export type Stats$Outbound = number | { [k: string]: number };
+
+/** @internal */
+export const Stats$outboundSchema: z.ZodType<
+  Stats$Outbound,
+  z.ZodTypeDef,
+  Stats
+> = z.union([z.number(), z.record(z.number())]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Stats$ {
+  /** @deprecated use `Stats$inboundSchema` instead. */
+  export const inboundSchema = Stats$inboundSchema;
+  /** @deprecated use `Stats$outboundSchema` instead. */
+  export const outboundSchema = Stats$outboundSchema;
+  /** @deprecated use `Stats$Outbound` instead. */
+  export type Outbound = Stats$Outbound;
+}
+
+export function statsToJSON(stats: Stats): string {
+  return JSON.stringify(Stats$outboundSchema.parse(stats));
+}
+
+export function statsFromJSON(
+  jsonString: string,
+): SafeParseResult<Stats, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Stats$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Stats' from JSON`,
+  );
+}
 
 /** @internal */
 export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
@@ -33,7 +76,7 @@ export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
     args: RunnableJob$inboundSchema,
     id: z.string(),
     keep: z.boolean().optional(),
-    stats: z.record(z.number()),
+    stats: z.record(z.union([z.number(), z.record(z.number())])),
     status: JobStatus$inboundSchema,
   });
 
@@ -42,7 +85,7 @@ export type JobInfo$Outbound = {
   args: RunnableJob$Outbound;
   id: string;
   keep?: boolean | undefined;
-  stats: { [k: string]: number };
+  stats: { [k: string]: number | { [k: string]: number } };
   status: JobStatus$Outbound;
 };
 
@@ -55,7 +98,7 @@ export const JobInfo$outboundSchema: z.ZodType<
   args: RunnableJob$outboundSchema,
   id: z.string(),
   keep: z.boolean().optional(),
-  stats: z.record(z.number()),
+  stats: z.record(z.union([z.number(), z.record(z.number())])),
   status: JobStatus$outboundSchema,
 });
 
