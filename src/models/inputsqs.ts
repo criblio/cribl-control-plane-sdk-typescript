@@ -277,21 +277,9 @@ export type InputSqs = {
 /** @internal */
 export const InputSqsType$inboundSchema: z.ZodNativeEnum<typeof InputSqsType> =
   z.nativeEnum(InputSqsType);
-
 /** @internal */
 export const InputSqsType$outboundSchema: z.ZodNativeEnum<typeof InputSqsType> =
   InputSqsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsType$ {
-  /** @deprecated use `InputSqsType$inboundSchema` instead. */
-  export const inboundSchema = InputSqsType$inboundSchema;
-  /** @deprecated use `InputSqsType$outboundSchema` instead. */
-  export const outboundSchema = InputSqsType$outboundSchema;
-}
 
 /** @internal */
 export const InputSqsConnection$inboundSchema: z.ZodType<
@@ -302,7 +290,6 @@ export const InputSqsConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputSqsConnection$Outbound = {
   pipeline?: string | undefined;
@@ -319,19 +306,6 @@ export const InputSqsConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsConnection$ {
-  /** @deprecated use `InputSqsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSqsConnection$inboundSchema;
-  /** @deprecated use `InputSqsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSqsConnection$outboundSchema;
-  /** @deprecated use `InputSqsConnection$Outbound` instead. */
-  export type Outbound = InputSqsConnection$Outbound;
-}
-
 export function inputSqsConnectionToJSON(
   inputSqsConnection: InputSqsConnection,
 ): string {
@@ -339,7 +313,6 @@ export function inputSqsConnectionToJSON(
     InputSqsConnection$outboundSchema.parse(inputSqsConnection),
   );
 }
-
 export function inputSqsConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSqsConnection, SDKValidationError> {
@@ -360,7 +333,6 @@ export const InputSqsMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputSqsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSqsMode$outboundSchema: z.ZodType<
   InputSqsMode,
@@ -370,17 +342,6 @@ export const InputSqsMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputSqsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsMode$ {
-  /** @deprecated use `InputSqsMode$inboundSchema` instead. */
-  export const inboundSchema = InputSqsMode$inboundSchema;
-  /** @deprecated use `InputSqsMode$outboundSchema` instead. */
-  export const outboundSchema = InputSqsMode$outboundSchema;
-}
 
 /** @internal */
 export const InputSqsCompression$inboundSchema: z.ZodType<
@@ -392,7 +353,6 @@ export const InputSqsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputSqsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSqsCompression$outboundSchema: z.ZodType<
   InputSqsCompression,
@@ -403,24 +363,12 @@ export const InputSqsCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsCompression$ {
-  /** @deprecated use `InputSqsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSqsCompression$inboundSchema;
-  /** @deprecated use `InputSqsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSqsCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputSqsPqControls$inboundSchema: z.ZodType<
   InputSqsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputSqsPqControls$Outbound = {};
 
@@ -431,19 +379,6 @@ export const InputSqsPqControls$outboundSchema: z.ZodType<
   InputSqsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsPqControls$ {
-  /** @deprecated use `InputSqsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSqsPqControls$inboundSchema;
-  /** @deprecated use `InputSqsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSqsPqControls$outboundSchema;
-  /** @deprecated use `InputSqsPqControls$Outbound` instead. */
-  export type Outbound = InputSqsPqControls$Outbound;
-}
-
 export function inputSqsPqControlsToJSON(
   inputSqsPqControls: InputSqsPqControls,
 ): string {
@@ -451,7 +386,6 @@ export function inputSqsPqControlsToJSON(
     InputSqsPqControls$outboundSchema.parse(inputSqsPqControls),
   );
 }
-
 export function inputSqsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSqsPqControls, SDKValidationError> {
@@ -477,7 +411,6 @@ export const InputSqsPq$inboundSchema: z.ZodType<
   compress: InputSqsCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputSqsPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputSqsPq$Outbound = {
   mode: string;
@@ -506,23 +439,9 @@ export const InputSqsPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputSqsPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsPq$ {
-  /** @deprecated use `InputSqsPq$inboundSchema` instead. */
-  export const inboundSchema = InputSqsPq$inboundSchema;
-  /** @deprecated use `InputSqsPq$outboundSchema` instead. */
-  export const outboundSchema = InputSqsPq$outboundSchema;
-  /** @deprecated use `InputSqsPq$Outbound` instead. */
-  export type Outbound = InputSqsPq$Outbound;
-}
-
 export function inputSqsPqToJSON(inputSqsPq: InputSqsPq): string {
   return JSON.stringify(InputSqsPq$outboundSchema.parse(inputSqsPq));
 }
-
 export function inputSqsPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSqsPq, SDKValidationError> {
@@ -543,7 +462,6 @@ export const InputSqsQueueType$inboundSchema: z.ZodType<
     z.nativeEnum(InputSqsQueueType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSqsQueueType$outboundSchema: z.ZodType<
   InputSqsQueueType,
@@ -553,17 +471,6 @@ export const InputSqsQueueType$outboundSchema: z.ZodType<
   z.nativeEnum(InputSqsQueueType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsQueueType$ {
-  /** @deprecated use `InputSqsQueueType$inboundSchema` instead. */
-  export const inboundSchema = InputSqsQueueType$inboundSchema;
-  /** @deprecated use `InputSqsQueueType$outboundSchema` instead. */
-  export const outboundSchema = InputSqsQueueType$outboundSchema;
-}
 
 /** @internal */
 export const InputSqsAuthenticationMethod$inboundSchema: z.ZodType<
@@ -575,7 +482,6 @@ export const InputSqsAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputSqsAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSqsAuthenticationMethod$outboundSchema: z.ZodType<
   InputSqsAuthenticationMethod,
@@ -585,17 +491,6 @@ export const InputSqsAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputSqsAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsAuthenticationMethod$ {
-  /** @deprecated use `InputSqsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputSqsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputSqsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputSqsAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputSqsSignatureVersion$inboundSchema: z.ZodType<
@@ -607,7 +502,6 @@ export const InputSqsSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputSqsSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSqsSignatureVersion$outboundSchema: z.ZodType<
   InputSqsSignatureVersion,
@@ -618,17 +512,6 @@ export const InputSqsSignatureVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsSignatureVersion$ {
-  /** @deprecated use `InputSqsSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = InputSqsSignatureVersion$inboundSchema;
-  /** @deprecated use `InputSqsSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = InputSqsSignatureVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputSqsMetadatum$inboundSchema: z.ZodType<
   InputSqsMetadatum,
@@ -638,7 +521,6 @@ export const InputSqsMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputSqsMetadatum$Outbound = {
   name: string;
@@ -655,19 +537,6 @@ export const InputSqsMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsMetadatum$ {
-  /** @deprecated use `InputSqsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSqsMetadatum$inboundSchema;
-  /** @deprecated use `InputSqsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSqsMetadatum$outboundSchema;
-  /** @deprecated use `InputSqsMetadatum$Outbound` instead. */
-  export type Outbound = InputSqsMetadatum$Outbound;
-}
-
 export function inputSqsMetadatumToJSON(
   inputSqsMetadatum: InputSqsMetadatum,
 ): string {
@@ -675,7 +544,6 @@ export function inputSqsMetadatumToJSON(
     InputSqsMetadatum$outboundSchema.parse(inputSqsMetadatum),
   );
 }
-
 export function inputSqsMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSqsMetadatum, SDKValidationError> {
@@ -729,7 +597,6 @@ export const InputSqs$inboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
   numReceivers: z.number().default(3),
 });
-
 /** @internal */
 export type InputSqs$Outbound = {
   id?: string | undefined;
@@ -811,23 +678,9 @@ export const InputSqs$outboundSchema: z.ZodType<
   numReceivers: z.number().default(3),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqs$ {
-  /** @deprecated use `InputSqs$inboundSchema` instead. */
-  export const inboundSchema = InputSqs$inboundSchema;
-  /** @deprecated use `InputSqs$outboundSchema` instead. */
-  export const outboundSchema = InputSqs$outboundSchema;
-  /** @deprecated use `InputSqs$Outbound` instead. */
-  export type Outbound = InputSqs$Outbound;
-}
-
 export function inputSqsToJSON(inputSqs: InputSqs): string {
   return JSON.stringify(InputSqs$outboundSchema.parse(inputSqs));
 }
-
 export function inputSqsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSqs, SDKValidationError> {

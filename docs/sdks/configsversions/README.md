@@ -80,7 +80,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetConfigGroupConfigVersionByProductAndIdResponse](../../models/operations/getconfiggroupconfigversionbyproductandidresponse.md)\>**
+**Promise\<[models.CountedListstring](../../models/countedliststring.md)\>**
 
 ### Errors
 

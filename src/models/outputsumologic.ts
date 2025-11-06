@@ -345,22 +345,10 @@ export type OutputSumoLogic = {
 export const OutputSumoLogicType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSumoLogicType
 > = z.nativeEnum(OutputSumoLogicType);
-
 /** @internal */
 export const OutputSumoLogicType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSumoLogicType
 > = OutputSumoLogicType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicType$ {
-  /** @deprecated use `OutputSumoLogicType$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicType$inboundSchema;
-  /** @deprecated use `OutputSumoLogicType$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSumoLogicDataFormat$inboundSchema: z.ZodType<
@@ -372,7 +360,6 @@ export const OutputSumoLogicDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSumoLogicDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSumoLogicDataFormat$outboundSchema: z.ZodType<
   OutputSumoLogicDataFormat,
@@ -383,17 +370,6 @@ export const OutputSumoLogicDataFormat$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicDataFormat$ {
-  /** @deprecated use `OutputSumoLogicDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicDataFormat$inboundSchema;
-  /** @deprecated use `OutputSumoLogicDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicDataFormat$outboundSchema;
-}
-
 /** @internal */
 export const OutputSumoLogicExtraHttpHeader$inboundSchema: z.ZodType<
   OutputSumoLogicExtraHttpHeader,
@@ -403,7 +379,6 @@ export const OutputSumoLogicExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputSumoLogicExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -420,19 +395,6 @@ export const OutputSumoLogicExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicExtraHttpHeader$ {
-  /** @deprecated use `OutputSumoLogicExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSumoLogicExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSumoLogicExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSumoLogicExtraHttpHeader$Outbound;
-}
-
 export function outputSumoLogicExtraHttpHeaderToJSON(
   outputSumoLogicExtraHttpHeader: OutputSumoLogicExtraHttpHeader,
 ): string {
@@ -442,7 +404,6 @@ export function outputSumoLogicExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputSumoLogicExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSumoLogicExtraHttpHeader, SDKValidationError> {
@@ -463,7 +424,6 @@ export const OutputSumoLogicFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSumoLogicFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSumoLogicFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputSumoLogicFailedRequestLoggingMode,
@@ -473,19 +433,6 @@ export const OutputSumoLogicFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSumoLogicFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSumoLogicFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSumoLogicFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSumoLogicFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSumoLogicFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSumoLogicResponseRetrySetting$inboundSchema: z.ZodType<
@@ -498,7 +445,6 @@ export const OutputSumoLogicResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSumoLogicResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -519,21 +465,6 @@ export const OutputSumoLogicResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicResponseRetrySetting$ {
-  /** @deprecated use `OutputSumoLogicResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSumoLogicResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSumoLogicResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSumoLogicResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSumoLogicResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSumoLogicResponseRetrySetting$Outbound;
-}
-
 export function outputSumoLogicResponseRetrySettingToJSON(
   outputSumoLogicResponseRetrySetting: OutputSumoLogicResponseRetrySetting,
 ): string {
@@ -543,7 +474,6 @@ export function outputSumoLogicResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputSumoLogicResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSumoLogicResponseRetrySetting, SDKValidationError> {
@@ -566,7 +496,6 @@ export const OutputSumoLogicTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSumoLogicTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -587,21 +516,6 @@ export const OutputSumoLogicTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSumoLogicTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSumoLogicTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSumoLogicTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSumoLogicTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSumoLogicTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSumoLogicTimeoutRetrySettings$Outbound;
-}
-
 export function outputSumoLogicTimeoutRetrySettingsToJSON(
   outputSumoLogicTimeoutRetrySettings: OutputSumoLogicTimeoutRetrySettings,
 ): string {
@@ -611,7 +525,6 @@ export function outputSumoLogicTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputSumoLogicTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSumoLogicTimeoutRetrySettings, SDKValidationError> {
@@ -633,7 +546,6 @@ export const OutputSumoLogicBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSumoLogicBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSumoLogicBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSumoLogicBackpressureBehavior,
@@ -643,19 +555,6 @@ export const OutputSumoLogicBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSumoLogicBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicBackpressureBehavior$ {
-  /** @deprecated use `OutputSumoLogicBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSumoLogicBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSumoLogicBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSumoLogicBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputSumoLogicMode$inboundSchema: z.ZodType<
@@ -667,7 +566,6 @@ export const OutputSumoLogicMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSumoLogicMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSumoLogicMode$outboundSchema: z.ZodType<
   OutputSumoLogicMode,
@@ -677,17 +575,6 @@ export const OutputSumoLogicMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSumoLogicMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicMode$ {
-  /** @deprecated use `OutputSumoLogicMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicMode$inboundSchema;
-  /** @deprecated use `OutputSumoLogicMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSumoLogicCompression$inboundSchema: z.ZodType<
@@ -699,7 +586,6 @@ export const OutputSumoLogicCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSumoLogicCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSumoLogicCompression$outboundSchema: z.ZodType<
   OutputSumoLogicCompression,
@@ -709,17 +595,6 @@ export const OutputSumoLogicCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSumoLogicCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicCompression$ {
-  /** @deprecated use `OutputSumoLogicCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicCompression$inboundSchema;
-  /** @deprecated use `OutputSumoLogicCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputSumoLogicQueueFullBehavior$inboundSchema: z.ZodType<
@@ -731,7 +606,6 @@ export const OutputSumoLogicQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSumoLogicQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSumoLogicQueueFullBehavior$outboundSchema: z.ZodType<
   OutputSumoLogicQueueFullBehavior,
@@ -742,24 +616,12 @@ export const OutputSumoLogicQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicQueueFullBehavior$ {
-  /** @deprecated use `OutputSumoLogicQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSumoLogicQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSumoLogicPqControls$inboundSchema: z.ZodType<
   OutputSumoLogicPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSumoLogicPqControls$Outbound = {};
 
@@ -770,19 +632,6 @@ export const OutputSumoLogicPqControls$outboundSchema: z.ZodType<
   OutputSumoLogicPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicPqControls$ {
-  /** @deprecated use `OutputSumoLogicPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicPqControls$inboundSchema;
-  /** @deprecated use `OutputSumoLogicPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicPqControls$outboundSchema;
-  /** @deprecated use `OutputSumoLogicPqControls$Outbound` instead. */
-  export type Outbound = OutputSumoLogicPqControls$Outbound;
-}
-
 export function outputSumoLogicPqControlsToJSON(
   outputSumoLogicPqControls: OutputSumoLogicPqControls,
 ): string {
@@ -790,7 +639,6 @@ export function outputSumoLogicPqControlsToJSON(
     OutputSumoLogicPqControls$outboundSchema.parse(outputSumoLogicPqControls),
   );
 }
-
 export function outputSumoLogicPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSumoLogicPqControls, SDKValidationError> {
@@ -857,7 +705,6 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputSumoLogicPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputSumoLogic$Outbound = {
   id?: string | undefined;
@@ -961,25 +808,11 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSumoLogicPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogic$ {
-  /** @deprecated use `OutputSumoLogic$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogic$inboundSchema;
-  /** @deprecated use `OutputSumoLogic$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogic$outboundSchema;
-  /** @deprecated use `OutputSumoLogic$Outbound` instead. */
-  export type Outbound = OutputSumoLogic$Outbound;
-}
-
 export function outputSumoLogicToJSON(
   outputSumoLogic: OutputSumoLogic,
 ): string {
   return JSON.stringify(OutputSumoLogic$outboundSchema.parse(outputSumoLogic));
 }
-
 export function outputSumoLogicFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSumoLogic, SDKValidationError> {

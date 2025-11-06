@@ -87,7 +87,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListConfigGroupByProductResponse](../../models/operations/listconfiggroupbyproductresponse.md)\>**
+**Promise\<[models.CountedListConfigGroup](../../models/countedlistconfiggroup.md)\>**
 
 ### Errors
 
@@ -277,7 +277,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateConfigGroupByProductResponse](../../models/operations/createconfiggroupbyproductresponse.md)\>**
+**Promise\<[models.CountedListConfigGroup](../../models/countedlistconfiggroup.md)\>**
 
 ### Errors
 
@@ -361,7 +361,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetConfigGroupByProductAndIdResponse](../../models/operations/getconfiggroupbyproductandidresponse.md)\>**
+**Promise\<[models.CountedListConfigGroup](../../models/countedlistconfiggroup.md)\>**
 
 ### Errors
 
@@ -541,7 +541,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateConfigGroupByProductAndIdResponse](../../models/operations/updateconfiggroupbyproductandidresponse.md)\>**
+**Promise\<[models.CountedListConfigGroup](../../models/countedlistconfiggroup.md)\>**
 
 ### Errors
 
@@ -623,7 +623,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteConfigGroupByProductAndIdResponse](../../models/operations/deleteconfiggroupbyproductandidresponse.md)\>**
+**Promise\<[models.CountedListConfigGroup](../../models/countedlistconfiggroup.md)\>**
 
 ### Errors
 
@@ -723,7 +723,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateConfigGroupDeployByProductAndIdResponse](../../models/operations/updateconfiggroupdeploybyproductandidresponse.md)\>**
+**Promise\<[models.CountedListConfigGroup](../../models/countedlistconfiggroup.md)\>**
 
 ### Errors
 

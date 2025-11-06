@@ -233,10 +233,10 @@ const value: models.OutputSplunk = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
   },
-  description: "colon nor tightly pants now devil fooey verbally till",
+  description: "nor brr aggravating",
   pqControls: {},
   textSecret: "<value>",
 };
@@ -449,12 +449,11 @@ const value: models.OutputSignalfx = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 9599.18,
+      httpStatus: 9115.44,
     },
   ],
   timeoutRetrySettings: {},
-  description:
-    "since furthermore zowie rust stable dream an greedily far which",
+  description: "about roughly which promise untidy a jovially",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},
@@ -1318,8 +1317,8 @@ const value: models.OutputElasticCloud = {
     },
   ],
   auth: {
-    username: "Kylie_Harber15",
-    password: "72uE6zafEeRm9Ny",
+    username: "Jayde69",
+    password: "IRi6u29iGkmGCiq",
     credentialsSecret: "<value>",
     manualAPIKey: "<value>",
     textSecret: "<value>",
@@ -1327,11 +1326,12 @@ const value: models.OutputElasticCloud = {
   elasticPipeline: "<value>",
   responseRetrySettings: [
     {
-      httpStatus: 4676.21,
+      httpStatus: 9904.08,
     },
   ],
   timeoutRetrySettings: {},
-  description: "cheerfully arrange lest circa yet quirkily",
+  description:
+    "blacken uncomfortable pro downshift frenetically atop while though",
   pqControls: {},
 };
 ```
@@ -2235,15 +2235,22 @@ const value: models.OutputCriblTcp = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1.3",
   },
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description:
+        "while whoa marketplace tray scope boohoo loyally eventually",
+    },
+  ],
   excludeFields: [
     "<value 1>",
     "<value 2>",
   ],
-  description: "zany hydrocarbon government",
-  host: "imaginative-amendment.org",
+  description: "exterior whoa dividend numeracy whose aha",
+  host: "heavenly-backburn.biz",
   hosts: [
     {
-      host: "musty-meander.org",
+      host: "merry-handover.name",
       servername: "<value>",
     },
   ],
@@ -2297,11 +2304,17 @@ const value: models.OutputCriblHttp = {
     },
   ],
   timeoutRetrySettings: {},
-  description: "unfortunately scrutinise obtrude unethically skyline midst",
-  url: "https://biodegradable-elver.com/",
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "unfortunately scrutinise obtrude unethically skyline midst",
+    },
+  ],
+  description: "noon digitize yowza because perspire",
+  url: "https://pertinent-outlaw.info",
   urls: [
     {
-      url: "https://yummy-saloon.name/",
+      url: "https://dull-reach.biz",
     },
   ],
   pqControls: {},
@@ -2819,7 +2832,7 @@ const value: models.OutputChronicle = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 823.16,
+      httpStatus: 4950.39,
     },
   ],
   timeoutRetrySettings: {},
@@ -2832,9 +2845,8 @@ const value: models.OutputChronicle = {
   ],
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
-  totalMemoryLimitKB: 2245.68,
+  totalMemoryLimitKB: 1431.94,
   namespace: "<value>",
   logType: "<value>",
   logTextField: "<value>",
@@ -2846,7 +2858,7 @@ const value: models.OutputChronicle = {
       value: "<value>",
     },
   ],
-  description: "skyscraper since colon attribute",
+  description: "onset enlightened yippee meh inside",
   serviceAccountCredentials: "<value>",
   serviceAccountCredentialsSecret: "<value>",
   pqControls: {},
@@ -2871,7 +2883,7 @@ const value: models.OutputDatabricks = {
   ],
   workspaceId: "<id>",
   clientId: "<id>",
-  clientSecret: "<value>",
+  clientTextSecret: "<value>",
   description: "loosely unpleasant anenst",
   parquetSchema: "<value>",
   shouldLogInvalidRows: true,

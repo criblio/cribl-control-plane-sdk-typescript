@@ -81,7 +81,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionCountResponse](../../models/operations/getversioncountresponse.md)\>**
+**Promise\<[models.CountedListGitCountResult](../../models/countedlistgitcountresult.md)\>**
 
 ### Errors
 
@@ -163,7 +163,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionFilesResponse](../../models/operations/getversionfilesresponse.md)\>**
+**Promise\<[models.CountedListGitFilesResponse](../../models/countedlistgitfilesresponse.md)\>**
 
 ### Errors
 

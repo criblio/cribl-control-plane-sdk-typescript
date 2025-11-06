@@ -23,7 +23,7 @@ export class Packs extends ClientSDK {
   async install(
     request: models.PackRequestBodyUnion,
     options?: RequestOptions,
-  ): Promise<operations.CreatePacksResponse> {
+  ): Promise<models.CountedListPackInstallInfo> {
     return unwrapAsync(packsInstall(
       this,
       request,
@@ -40,7 +40,7 @@ export class Packs extends ClientSDK {
   async list(
     request?: operations.GetPacksRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetPacksResponse> {
+  ): Promise<models.CountedListPackInfo> {
     return unwrapAsync(packsList(
       this,
       request,
@@ -74,7 +74,7 @@ export class Packs extends ClientSDK {
   async delete(
     request: operations.DeletePacksByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeletePacksByIdResponse> {
+  ): Promise<models.CountedListPackInstallInfo> {
     return unwrapAsync(packsDelete(
       this,
       request,
@@ -91,7 +91,7 @@ export class Packs extends ClientSDK {
   async get(
     request: operations.GetPacksByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetPacksByIdResponse> {
+  ): Promise<models.CountedListPackInfo> {
     return unwrapAsync(packsGet(
       this,
       request,
@@ -108,7 +108,7 @@ export class Packs extends ClientSDK {
   async update(
     request: operations.UpdatePacksByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdatePacksByIdResponse> {
+  ): Promise<models.CountedListPackInfo> {
     return unwrapAsync(packsUpdate(
       this,
       request,

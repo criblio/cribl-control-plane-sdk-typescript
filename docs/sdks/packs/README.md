@@ -139,7 +139,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreatePacksResponse](../../models/operations/createpacksresponse.md)\>**
+**Promise\<[models.CountedListPackInstallInfo](../../models/countedlistpackinstallinfo.md)\>**
 
 ### Errors
 
@@ -219,7 +219,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPacksResponse](../../models/operations/getpacksresponse.md)\>**
+**Promise\<[models.CountedListPackInfo](../../models/countedlistpackinfo.md)\>**
 
 ### Errors
 
@@ -383,7 +383,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeletePacksByIdResponse](../../models/operations/deletepacksbyidresponse.md)\>**
+**Promise\<[models.CountedListPackInstallInfo](../../models/countedlistpackinstallinfo.md)\>**
 
 ### Errors
 
@@ -463,7 +463,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPacksByIdResponse](../../models/operations/getpacksbyidresponse.md)\>**
+**Promise\<[models.CountedListPackInfo](../../models/countedlistpackinfo.md)\>**
 
 ### Errors
 
@@ -555,7 +555,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdatePacksByIdResponse](../../models/operations/updatepacksbyidresponse.md)\>**
+**Promise\<[models.CountedListPackInfo](../../models/countedlistpackinfo.md)\>**
 
 ### Errors
 

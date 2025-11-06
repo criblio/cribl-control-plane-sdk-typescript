@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateConfigGroupByProductRequest = {
@@ -19,31 +16,6 @@ export type CreateConfigGroupByProductRequest = {
    */
   groupCreateRequest: models.GroupCreateRequest;
 };
-
-/**
- * a list of ConfigGroup objects
- */
-export type CreateConfigGroupByProductResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
-};
-
-/** @internal */
-export const CreateConfigGroupByProductRequest$inboundSchema: z.ZodType<
-  CreateConfigGroupByProductRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  product: models.ProductsCore$inboundSchema,
-  GroupCreateRequest: models.GroupCreateRequest$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "GroupCreateRequest": "groupCreateRequest",
-  });
-});
 
 /** @internal */
 export type CreateConfigGroupByProductRequest$Outbound = {
@@ -65,20 +37,6 @@ export const CreateConfigGroupByProductRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateConfigGroupByProductRequest$ {
-  /** @deprecated use `CreateConfigGroupByProductRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateConfigGroupByProductRequest$inboundSchema;
-  /** @deprecated use `CreateConfigGroupByProductRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateConfigGroupByProductRequest$outboundSchema;
-  /** @deprecated use `CreateConfigGroupByProductRequest$Outbound` instead. */
-  export type Outbound = CreateConfigGroupByProductRequest$Outbound;
-}
-
 export function createConfigGroupByProductRequestToJSON(
   createConfigGroupByProductRequest: CreateConfigGroupByProductRequest,
 ): string {
@@ -86,76 +44,5 @@ export function createConfigGroupByProductRequestToJSON(
     CreateConfigGroupByProductRequest$outboundSchema.parse(
       createConfigGroupByProductRequest,
     ),
-  );
-}
-
-export function createConfigGroupByProductRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateConfigGroupByProductRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateConfigGroupByProductRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateConfigGroupByProductRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateConfigGroupByProductResponse$inboundSchema: z.ZodType<
-  CreateConfigGroupByProductResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$inboundSchema).optional(),
-});
-
-/** @internal */
-export type CreateConfigGroupByProductResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreateConfigGroupByProductResponse$outboundSchema: z.ZodType<
-  CreateConfigGroupByProductResponse$Outbound,
-  z.ZodTypeDef,
-  CreateConfigGroupByProductResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateConfigGroupByProductResponse$ {
-  /** @deprecated use `CreateConfigGroupByProductResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateConfigGroupByProductResponse$inboundSchema;
-  /** @deprecated use `CreateConfigGroupByProductResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateConfigGroupByProductResponse$outboundSchema;
-  /** @deprecated use `CreateConfigGroupByProductResponse$Outbound` instead. */
-  export type Outbound = CreateConfigGroupByProductResponse$Outbound;
-}
-
-export function createConfigGroupByProductResponseToJSON(
-  createConfigGroupByProductResponse: CreateConfigGroupByProductResponse,
-): string {
-  return JSON.stringify(
-    CreateConfigGroupByProductResponse$outboundSchema.parse(
-      createConfigGroupByProductResponse,
-    ),
-  );
-}
-
-export function createConfigGroupByProductResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateConfigGroupByProductResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateConfigGroupByProductResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateConfigGroupByProductResponse' from JSON`,
   );
 }

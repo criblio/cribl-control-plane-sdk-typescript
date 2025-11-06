@@ -25,7 +25,7 @@ export type PipelineGroups = {
   disabled?: boolean | undefined;
 };
 
-export type PipelineConf = {
+export type Conf = {
   /**
    * Time (in ms) to wait for an async function to complete processing of a data item
    */
@@ -39,16 +39,16 @@ export type PipelineConf = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  groups?: { [k: string]: PipelineGroups } | undefined;
   /**
    * List of Functions to pass data through
    */
   functions?: Array<PipelineFunctionConf> | undefined;
+  groups?: { [k: string]: PipelineGroups } | undefined;
 };
 
 export type Pipeline = {
   id: string;
-  conf: PipelineConf;
+  conf: Conf;
 };
 
 /** @internal */
@@ -61,7 +61,6 @@ export const PipelineGroups$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
 });
-
 /** @internal */
 export type PipelineGroups$Outbound = {
   name: string;
@@ -80,23 +79,9 @@ export const PipelineGroups$outboundSchema: z.ZodType<
   disabled: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PipelineGroups$ {
-  /** @deprecated use `PipelineGroups$inboundSchema` instead. */
-  export const inboundSchema = PipelineGroups$inboundSchema;
-  /** @deprecated use `PipelineGroups$outboundSchema` instead. */
-  export const outboundSchema = PipelineGroups$outboundSchema;
-  /** @deprecated use `PipelineGroups$Outbound` instead. */
-  export type Outbound = PipelineGroups$Outbound;
-}
-
 export function pipelineGroupsToJSON(pipelineGroups: PipelineGroups): string {
   return JSON.stringify(PipelineGroups$outboundSchema.parse(pipelineGroups));
 }
-
 export function pipelineGroupsFromJSON(
   jsonString: string,
 ): SafeParseResult<PipelineGroups, SDKValidationError> {
@@ -108,67 +93,46 @@ export function pipelineGroupsFromJSON(
 }
 
 /** @internal */
-export const PipelineConf$inboundSchema: z.ZodType<
-  PipelineConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  asyncFuncTimeout: z.number().int().optional(),
-  output: z.string().default("default"),
-  description: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  groups: z.record(z.lazy(() => PipelineGroups$inboundSchema)).optional(),
-  functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
-});
-
+export const Conf$inboundSchema: z.ZodType<Conf, z.ZodTypeDef, unknown> = z
+  .object({
+    asyncFuncTimeout: z.number().int().optional(),
+    output: z.string().default("default"),
+    description: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
+    groups: z.record(z.lazy(() => PipelineGroups$inboundSchema)).optional(),
+  });
 /** @internal */
-export type PipelineConf$Outbound = {
+export type Conf$Outbound = {
   asyncFuncTimeout?: number | undefined;
   output: string;
   description?: string | undefined;
   streamtags?: Array<string> | undefined;
-  groups?: { [k: string]: PipelineGroups$Outbound } | undefined;
   functions?: Array<PipelineFunctionConf$Outbound> | undefined;
+  groups?: { [k: string]: PipelineGroups$Outbound } | undefined;
 };
 
 /** @internal */
-export const PipelineConf$outboundSchema: z.ZodType<
-  PipelineConf$Outbound,
-  z.ZodTypeDef,
-  PipelineConf
-> = z.object({
-  asyncFuncTimeout: z.number().int().optional(),
-  output: z.string().default("default"),
-  description: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
-  functions: z.array(PipelineFunctionConf$outboundSchema).optional(),
-});
+export const Conf$outboundSchema: z.ZodType<Conf$Outbound, z.ZodTypeDef, Conf> =
+  z.object({
+    asyncFuncTimeout: z.number().int().optional(),
+    output: z.string().default("default"),
+    description: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    functions: z.array(PipelineFunctionConf$outboundSchema).optional(),
+    groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
+  });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PipelineConf$ {
-  /** @deprecated use `PipelineConf$inboundSchema` instead. */
-  export const inboundSchema = PipelineConf$inboundSchema;
-  /** @deprecated use `PipelineConf$outboundSchema` instead. */
-  export const outboundSchema = PipelineConf$outboundSchema;
-  /** @deprecated use `PipelineConf$Outbound` instead. */
-  export type Outbound = PipelineConf$Outbound;
+export function confToJSON(conf: Conf): string {
+  return JSON.stringify(Conf$outboundSchema.parse(conf));
 }
-
-export function pipelineConfToJSON(pipelineConf: PipelineConf): string {
-  return JSON.stringify(PipelineConf$outboundSchema.parse(pipelineConf));
-}
-
-export function pipelineConfFromJSON(
+export function confFromJSON(
   jsonString: string,
-): SafeParseResult<PipelineConf, SDKValidationError> {
+): SafeParseResult<Conf, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PipelineConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineConf' from JSON`,
+    (x) => Conf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Conf' from JSON`,
   );
 }
 
@@ -179,13 +143,12 @@ export const Pipeline$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  conf: z.lazy(() => PipelineConf$inboundSchema),
+  conf: z.lazy(() => Conf$inboundSchema),
 });
-
 /** @internal */
 export type Pipeline$Outbound = {
   id: string;
-  conf: PipelineConf$Outbound;
+  conf: Conf$Outbound;
 };
 
 /** @internal */
@@ -195,26 +158,12 @@ export const Pipeline$outboundSchema: z.ZodType<
   Pipeline
 > = z.object({
   id: z.string(),
-  conf: z.lazy(() => PipelineConf$outboundSchema),
+  conf: z.lazy(() => Conf$outboundSchema),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Pipeline$ {
-  /** @deprecated use `Pipeline$inboundSchema` instead. */
-  export const inboundSchema = Pipeline$inboundSchema;
-  /** @deprecated use `Pipeline$outboundSchema` instead. */
-  export const outboundSchema = Pipeline$outboundSchema;
-  /** @deprecated use `Pipeline$Outbound` instead. */
-  export type Outbound = Pipeline$Outbound;
-}
 
 export function pipelineToJSON(pipeline: Pipeline): string {
   return JSON.stringify(Pipeline$outboundSchema.parse(pipeline));
 }
-
 export function pipelineFromJSON(
   jsonString: string,
 ): SafeParseResult<Pipeline, SDKValidationError> {

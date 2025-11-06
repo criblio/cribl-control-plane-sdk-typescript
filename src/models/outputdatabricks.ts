@@ -192,7 +192,7 @@ export type OutputDatabricks = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Optional path to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myEventsVolumePath-${C.vars.myVar}`
+   * Optional path to prepend to files before uploading.
    */
   destPath?: string | undefined;
   /**
@@ -286,7 +286,7 @@ export type OutputDatabricks = {
   /**
    * OAuth client secret for Unity Catalog authentication
    */
-  clientSecret: string;
+  clientTextSecret: string;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -358,22 +358,10 @@ export type OutputDatabricks = {
 export const OutputDatabricksType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDatabricksType
 > = z.nativeEnum(OutputDatabricksType);
-
 /** @internal */
 export const OutputDatabricksType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDatabricksType
 > = OutputDatabricksType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksType$ {
-  /** @deprecated use `OutputDatabricksType$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksType$inboundSchema;
-  /** @deprecated use `OutputDatabricksType$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatabricksDataFormat$inboundSchema: z.ZodType<
@@ -385,7 +373,6 @@ export const OutputDatabricksDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatabricksDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatabricksDataFormat$outboundSchema: z.ZodType<
   OutputDatabricksDataFormat,
@@ -395,17 +382,6 @@ export const OutputDatabricksDataFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatabricksDataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksDataFormat$ {
-  /** @deprecated use `OutputDatabricksDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksDataFormat$inboundSchema;
-  /** @deprecated use `OutputDatabricksDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksDataFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatabricksBackpressureBehavior$inboundSchema: z.ZodType<
@@ -417,7 +393,6 @@ export const OutputDatabricksBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatabricksBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatabricksBackpressureBehavior$outboundSchema: z.ZodType<
   OutputDatabricksBackpressureBehavior,
@@ -427,19 +402,6 @@ export const OutputDatabricksBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatabricksBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksBackpressureBehavior$ {
-  /** @deprecated use `OutputDatabricksBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDatabricksBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputDatabricksBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatabricksBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatabricksDiskSpaceProtection$inboundSchema: z.ZodType<
@@ -451,7 +413,6 @@ export const OutputDatabricksDiskSpaceProtection$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatabricksDiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatabricksDiskSpaceProtection$outboundSchema: z.ZodType<
   OutputDatabricksDiskSpaceProtection,
@@ -461,19 +422,6 @@ export const OutputDatabricksDiskSpaceProtection$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatabricksDiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksDiskSpaceProtection$ {
-  /** @deprecated use `OutputDatabricksDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDatabricksDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputDatabricksDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatabricksDiskSpaceProtection$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatabricksCompression$inboundSchema: z.ZodType<
@@ -485,7 +433,6 @@ export const OutputDatabricksCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatabricksCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatabricksCompression$outboundSchema: z.ZodType<
   OutputDatabricksCompression,
@@ -495,17 +442,6 @@ export const OutputDatabricksCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatabricksCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksCompression$ {
-  /** @deprecated use `OutputDatabricksCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksCompression$inboundSchema;
-  /** @deprecated use `OutputDatabricksCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatabricksCompressionLevel$inboundSchema: z.ZodType<
@@ -517,7 +453,6 @@ export const OutputDatabricksCompressionLevel$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatabricksCompressionLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatabricksCompressionLevel$outboundSchema: z.ZodType<
   OutputDatabricksCompressionLevel,
@@ -527,17 +462,6 @@ export const OutputDatabricksCompressionLevel$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatabricksCompressionLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksCompressionLevel$ {
-  /** @deprecated use `OutputDatabricksCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputDatabricksCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksCompressionLevel$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatabricksParquetVersion$inboundSchema: z.ZodType<
@@ -549,7 +473,6 @@ export const OutputDatabricksParquetVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatabricksParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatabricksParquetVersion$outboundSchema: z.ZodType<
   OutputDatabricksParquetVersion,
@@ -559,17 +482,6 @@ export const OutputDatabricksParquetVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatabricksParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksParquetVersion$ {
-  /** @deprecated use `OutputDatabricksParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksParquetVersion$inboundSchema;
-  /** @deprecated use `OutputDatabricksParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksParquetVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatabricksDataPageVersion$inboundSchema: z.ZodType<
@@ -581,7 +493,6 @@ export const OutputDatabricksDataPageVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatabricksDataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatabricksDataPageVersion$outboundSchema: z.ZodType<
   OutputDatabricksDataPageVersion,
@@ -592,17 +503,6 @@ export const OutputDatabricksDataPageVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksDataPageVersion$ {
-  /** @deprecated use `OutputDatabricksDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputDatabricksDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricksDataPageVersion$outboundSchema;
-}
-
 /** @internal */
 export const OutputDatabricksKeyValueMetadatum$inboundSchema: z.ZodType<
   OutputDatabricksKeyValueMetadatum,
@@ -612,7 +512,6 @@ export const OutputDatabricksKeyValueMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputDatabricksKeyValueMetadatum$Outbound = {
   key: string;
@@ -629,20 +528,6 @@ export const OutputDatabricksKeyValueMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricksKeyValueMetadatum$ {
-  /** @deprecated use `OutputDatabricksKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricksKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputDatabricksKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatabricksKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputDatabricksKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputDatabricksKeyValueMetadatum$Outbound;
-}
-
 export function outputDatabricksKeyValueMetadatumToJSON(
   outputDatabricksKeyValueMetadatum: OutputDatabricksKeyValueMetadatum,
 ): string {
@@ -652,7 +537,6 @@ export function outputDatabricksKeyValueMetadatumToJSON(
     ),
   );
 }
-
 export function outputDatabricksKeyValueMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatabricksKeyValueMetadatum, SDKValidationError> {
@@ -705,7 +589,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   catalog: z.string().default("main"),
   schema: z.string().default("external"),
   eventsVolumeName: z.string().default("events"),
-  clientSecret: z.string(),
+  clientTextSecret: z.string(),
   description: z.string().optional(),
   compress: OutputDatabricksCompression$inboundSchema.default("gzip"),
   compressionLevel: OutputDatabricksCompressionLevel$inboundSchema.default(
@@ -732,7 +616,6 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
 export type OutputDatabricks$Outbound = {
   id?: string | undefined;
@@ -764,7 +647,7 @@ export type OutputDatabricks$Outbound = {
   catalog: string;
   schema: string;
   eventsVolumeName: string;
-  clientSecret: string;
+  clientTextSecret: string;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
@@ -828,7 +711,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   catalog: z.string().default("main"),
   schema: z.string().default("external"),
   eventsVolumeName: z.string().default("events"),
-  clientSecret: z.string(),
+  clientTextSecret: z.string(),
   description: z.string().optional(),
   compress: OutputDatabricksCompression$outboundSchema.default("gzip"),
   compressionLevel: OutputDatabricksCompressionLevel$outboundSchema.default(
@@ -855,19 +738,6 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatabricks$ {
-  /** @deprecated use `OutputDatabricks$inboundSchema` instead. */
-  export const inboundSchema = OutputDatabricks$inboundSchema;
-  /** @deprecated use `OutputDatabricks$outboundSchema` instead. */
-  export const outboundSchema = OutputDatabricks$outboundSchema;
-  /** @deprecated use `OutputDatabricks$Outbound` instead. */
-  export type Outbound = OutputDatabricks$Outbound;
-}
-
 export function outputDatabricksToJSON(
   outputDatabricks: OutputDatabricks,
 ): string {
@@ -875,7 +745,6 @@ export function outputDatabricksToJSON(
     OutputDatabricks$outboundSchema.parse(outputDatabricks),
   );
 }
-
 export function outputDatabricksFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatabricks, SDKValidationError> {

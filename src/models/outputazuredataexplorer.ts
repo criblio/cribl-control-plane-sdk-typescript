@@ -737,22 +737,10 @@ export type OutputAzureDataExplorer = {
 export const OutputAzureDataExplorerType$inboundSchema: z.ZodNativeEnum<
   typeof OutputAzureDataExplorerType
 > = z.nativeEnum(OutputAzureDataExplorerType);
-
 /** @internal */
 export const OutputAzureDataExplorerType$outboundSchema: z.ZodNativeEnum<
   typeof OutputAzureDataExplorerType
 > = OutputAzureDataExplorerType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerType$ {
-  /** @deprecated use `OutputAzureDataExplorerType$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerType$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerType$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureDataExplorerType$outboundSchema;
-}
 
 /** @internal */
 export const IngestionMode$inboundSchema: z.ZodType<
@@ -764,7 +752,6 @@ export const IngestionMode$inboundSchema: z.ZodType<
     z.nativeEnum(IngestionMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const IngestionMode$outboundSchema: z.ZodType<
   IngestionMode,
@@ -774,17 +761,6 @@ export const IngestionMode$outboundSchema: z.ZodType<
   z.nativeEnum(IngestionMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace IngestionMode$ {
-  /** @deprecated use `IngestionMode$inboundSchema` instead. */
-  export const inboundSchema = IngestionMode$inboundSchema;
-  /** @deprecated use `IngestionMode$outboundSchema` instead. */
-  export const outboundSchema = IngestionMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
@@ -799,7 +775,6 @@ export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$inbou
       ),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
   z.ZodType<
@@ -810,19 +785,6 @@ export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$outbo
     z.nativeEnum(OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$ {
-  /** @deprecated use `OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureDataExplorerAuthenticationMethod$inboundSchema:
@@ -835,7 +797,6 @@ export const OutputAzureDataExplorerAuthenticationMethod$inboundSchema:
       z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputAzureDataExplorerAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -847,19 +808,6 @@ export const OutputAzureDataExplorerAuthenticationMethod$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerAuthenticationMethod$ {
-  /** @deprecated use `OutputAzureDataExplorerAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureDataExplorerCertificate$inboundSchema: z.ZodType<
   OutputAzureDataExplorerCertificate,
@@ -868,7 +816,6 @@ export const OutputAzureDataExplorerCertificate$inboundSchema: z.ZodType<
 > = z.object({
   certificateName: z.string().optional(),
 });
-
 /** @internal */
 export type OutputAzureDataExplorerCertificate$Outbound = {
   certificateName?: string | undefined;
@@ -883,20 +830,6 @@ export const OutputAzureDataExplorerCertificate$outboundSchema: z.ZodType<
   certificateName: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerCertificate$ {
-  /** @deprecated use `OutputAzureDataExplorerCertificate$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerCertificate$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerCertificate$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerCertificate$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerCertificate$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerCertificate$Outbound;
-}
-
 export function outputAzureDataExplorerCertificateToJSON(
   outputAzureDataExplorerCertificate: OutputAzureDataExplorerCertificate,
 ): string {
@@ -906,7 +839,6 @@ export function outputAzureDataExplorerCertificateToJSON(
     ),
   );
 }
-
 export function outputAzureDataExplorerCertificateFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureDataExplorerCertificate, SDKValidationError> {
@@ -928,7 +860,6 @@ export const OutputAzureDataExplorerDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureDataExplorerDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureDataExplorerDataFormat$outboundSchema: z.ZodType<
   OutputAzureDataExplorerDataFormat,
@@ -939,18 +870,6 @@ export const OutputAzureDataExplorerDataFormat$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerDataFormat$ {
-  /** @deprecated use `OutputAzureDataExplorerDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerDataFormat$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerDataFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerDataFormat$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureDataExplorerCompressCompression$inboundSchema:
   z.ZodType<OutputAzureDataExplorerCompressCompression, z.ZodTypeDef, unknown> =
@@ -959,7 +878,6 @@ export const OutputAzureDataExplorerCompressCompression$inboundSchema:
         z.nativeEnum(OutputAzureDataExplorerCompressCompression),
         z.string().transform(catchUnrecognizedEnum),
       ]);
-
 /** @internal */
 export const OutputAzureDataExplorerCompressCompression$outboundSchema:
   z.ZodType<
@@ -971,19 +889,6 @@ export const OutputAzureDataExplorerCompressCompression$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerCompressCompression$ {
-  /** @deprecated use `OutputAzureDataExplorerCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerCompressCompression$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerCompressCompression$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureDataExplorerCompressionLevel$inboundSchema: z.ZodType<
   OutputAzureDataExplorerCompressionLevel,
@@ -994,7 +899,6 @@ export const OutputAzureDataExplorerCompressionLevel$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureDataExplorerCompressionLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureDataExplorerCompressionLevel$outboundSchema: z.ZodType<
   OutputAzureDataExplorerCompressionLevel,
@@ -1004,19 +908,6 @@ export const OutputAzureDataExplorerCompressionLevel$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureDataExplorerCompressionLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerCompressionLevel$ {
-  /** @deprecated use `OutputAzureDataExplorerCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerCompressionLevel$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureDataExplorerParquetVersion$inboundSchema: z.ZodType<
@@ -1028,7 +919,6 @@ export const OutputAzureDataExplorerParquetVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureDataExplorerParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureDataExplorerParquetVersion$outboundSchema: z.ZodType<
   OutputAzureDataExplorerParquetVersion,
@@ -1038,19 +928,6 @@ export const OutputAzureDataExplorerParquetVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureDataExplorerParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerParquetVersion$ {
-  /** @deprecated use `OutputAzureDataExplorerParquetVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerParquetVersion$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerParquetVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerParquetVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureDataExplorerDataPageVersion$inboundSchema: z.ZodType<
@@ -1062,7 +939,6 @@ export const OutputAzureDataExplorerDataPageVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureDataExplorerDataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureDataExplorerDataPageVersion$outboundSchema: z.ZodType<
   OutputAzureDataExplorerDataPageVersion,
@@ -1073,19 +949,6 @@ export const OutputAzureDataExplorerDataPageVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerDataPageVersion$ {
-  /** @deprecated use `OutputAzureDataExplorerDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerDataPageVersion$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureDataExplorerKeyValueMetadatum$inboundSchema: z.ZodType<
   OutputAzureDataExplorerKeyValueMetadatum,
@@ -1095,7 +958,6 @@ export const OutputAzureDataExplorerKeyValueMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputAzureDataExplorerKeyValueMetadatum$Outbound = {
   key: string;
@@ -1112,21 +974,6 @@ export const OutputAzureDataExplorerKeyValueMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerKeyValueMetadatum$ {
-  /** @deprecated use `OutputAzureDataExplorerKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerKeyValueMetadatum$Outbound;
-}
-
 export function outputAzureDataExplorerKeyValueMetadatumToJSON(
   outputAzureDataExplorerKeyValueMetadatum:
     OutputAzureDataExplorerKeyValueMetadatum,
@@ -1137,7 +984,6 @@ export function outputAzureDataExplorerKeyValueMetadatumToJSON(
     ),
   );
 }
-
 export function outputAzureDataExplorerKeyValueMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1165,7 +1011,6 @@ export const OutputAzureDataExplorerBackpressureBehavior$inboundSchema:
       z.nativeEnum(OutputAzureDataExplorerBackpressureBehavior),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputAzureDataExplorerBackpressureBehavior$outboundSchema:
   z.ZodType<
@@ -1177,19 +1022,6 @@ export const OutputAzureDataExplorerBackpressureBehavior$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerBackpressureBehavior$ {
-  /** @deprecated use `OutputAzureDataExplorerBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureDataExplorerDiskSpaceProtection$inboundSchema:
   z.ZodType<OutputAzureDataExplorerDiskSpaceProtection, z.ZodTypeDef, unknown> =
@@ -1198,7 +1030,6 @@ export const OutputAzureDataExplorerDiskSpaceProtection$inboundSchema:
         z.nativeEnum(OutputAzureDataExplorerDiskSpaceProtection),
         z.string().transform(catchUnrecognizedEnum),
       ]);
-
 /** @internal */
 export const OutputAzureDataExplorerDiskSpaceProtection$outboundSchema:
   z.ZodType<
@@ -1210,19 +1041,6 @@ export const OutputAzureDataExplorerDiskSpaceProtection$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerDiskSpaceProtection$ {
-  /** @deprecated use `OutputAzureDataExplorerDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerDiskSpaceProtection$outboundSchema;
-}
-
 /** @internal */
 export const PrefixOptional$inboundSchema: z.ZodType<
   PrefixOptional,
@@ -1233,7 +1051,6 @@ export const PrefixOptional$inboundSchema: z.ZodType<
     z.nativeEnum(PrefixOptional),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const PrefixOptional$outboundSchema: z.ZodType<
   PrefixOptional,
@@ -1244,17 +1061,6 @@ export const PrefixOptional$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PrefixOptional$ {
-  /** @deprecated use `PrefixOptional$inboundSchema` instead. */
-  export const inboundSchema = PrefixOptional$inboundSchema;
-  /** @deprecated use `PrefixOptional$outboundSchema` instead. */
-  export const outboundSchema = PrefixOptional$outboundSchema;
-}
-
 /** @internal */
 export const ExtentTag$inboundSchema: z.ZodType<
   ExtentTag,
@@ -1264,7 +1070,6 @@ export const ExtentTag$inboundSchema: z.ZodType<
   prefix: PrefixOptional$inboundSchema.optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type ExtentTag$Outbound = {
   prefix?: string | undefined;
@@ -1281,23 +1086,9 @@ export const ExtentTag$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ExtentTag$ {
-  /** @deprecated use `ExtentTag$inboundSchema` instead. */
-  export const inboundSchema = ExtentTag$inboundSchema;
-  /** @deprecated use `ExtentTag$outboundSchema` instead. */
-  export const outboundSchema = ExtentTag$outboundSchema;
-  /** @deprecated use `ExtentTag$Outbound` instead. */
-  export type Outbound = ExtentTag$Outbound;
-}
-
 export function extentTagToJSON(extentTag: ExtentTag): string {
   return JSON.stringify(ExtentTag$outboundSchema.parse(extentTag));
 }
-
 export function extentTagFromJSON(
   jsonString: string,
 ): SafeParseResult<ExtentTag, SDKValidationError> {
@@ -1316,7 +1107,6 @@ export const IngestIfNotExist$inboundSchema: z.ZodType<
 > = z.object({
   value: z.string(),
 });
-
 /** @internal */
 export type IngestIfNotExist$Outbound = {
   value: string;
@@ -1331,19 +1121,6 @@ export const IngestIfNotExist$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace IngestIfNotExist$ {
-  /** @deprecated use `IngestIfNotExist$inboundSchema` instead. */
-  export const inboundSchema = IngestIfNotExist$inboundSchema;
-  /** @deprecated use `IngestIfNotExist$outboundSchema` instead. */
-  export const outboundSchema = IngestIfNotExist$outboundSchema;
-  /** @deprecated use `IngestIfNotExist$Outbound` instead. */
-  export type Outbound = IngestIfNotExist$Outbound;
-}
-
 export function ingestIfNotExistToJSON(
   ingestIfNotExist: IngestIfNotExist,
 ): string {
@@ -1351,7 +1128,6 @@ export function ingestIfNotExistToJSON(
     IngestIfNotExist$outboundSchema.parse(ingestIfNotExist),
   );
 }
-
 export function ingestIfNotExistFromJSON(
   jsonString: string,
 ): SafeParseResult<IngestIfNotExist, SDKValidationError> {
@@ -1372,7 +1148,6 @@ export const ReportLevel$inboundSchema: z.ZodType<
     z.nativeEnum(ReportLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ReportLevel$outboundSchema: z.ZodType<
   ReportLevel,
@@ -1382,17 +1157,6 @@ export const ReportLevel$outboundSchema: z.ZodType<
   z.nativeEnum(ReportLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReportLevel$ {
-  /** @deprecated use `ReportLevel$inboundSchema` instead. */
-  export const inboundSchema = ReportLevel$inboundSchema;
-  /** @deprecated use `ReportLevel$outboundSchema` instead. */
-  export const outboundSchema = ReportLevel$outboundSchema;
-}
 
 /** @internal */
 export const ReportMethod$inboundSchema: z.ZodType<
@@ -1404,7 +1168,6 @@ export const ReportMethod$inboundSchema: z.ZodType<
     z.nativeEnum(ReportMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ReportMethod$outboundSchema: z.ZodType<
   ReportMethod,
@@ -1415,17 +1178,6 @@ export const ReportMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReportMethod$ {
-  /** @deprecated use `ReportMethod$inboundSchema` instead. */
-  export const inboundSchema = ReportMethod$inboundSchema;
-  /** @deprecated use `ReportMethod$outboundSchema` instead. */
-  export const outboundSchema = ReportMethod$outboundSchema;
-}
-
 /** @internal */
 export const AdditionalProperty$inboundSchema: z.ZodType<
   AdditionalProperty,
@@ -1435,7 +1187,6 @@ export const AdditionalProperty$inboundSchema: z.ZodType<
   key: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type AdditionalProperty$Outbound = {
   key: string;
@@ -1452,19 +1203,6 @@ export const AdditionalProperty$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AdditionalProperty$ {
-  /** @deprecated use `AdditionalProperty$inboundSchema` instead. */
-  export const inboundSchema = AdditionalProperty$inboundSchema;
-  /** @deprecated use `AdditionalProperty$outboundSchema` instead. */
-  export const outboundSchema = AdditionalProperty$outboundSchema;
-  /** @deprecated use `AdditionalProperty$Outbound` instead. */
-  export type Outbound = AdditionalProperty$Outbound;
-}
-
 export function additionalPropertyToJSON(
   additionalProperty: AdditionalProperty,
 ): string {
@@ -1472,7 +1210,6 @@ export function additionalPropertyToJSON(
     AdditionalProperty$outboundSchema.parse(additionalProperty),
   );
 }
-
 export function additionalPropertyFromJSON(
   jsonString: string,
 ): SafeParseResult<AdditionalProperty, SDKValidationError> {
@@ -1495,7 +1232,6 @@ export const OutputAzureDataExplorerResponseRetrySetting$inboundSchema:
     backoffRate: z.number().default(2),
     maxBackoff: z.number().default(10000),
   });
-
 /** @internal */
 export type OutputAzureDataExplorerResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -1517,21 +1253,6 @@ export const OutputAzureDataExplorerResponseRetrySetting$outboundSchema:
     maxBackoff: z.number().default(10000),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerResponseRetrySetting$ {
-  /** @deprecated use `OutputAzureDataExplorerResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerResponseRetrySetting$Outbound;
-}
-
 export function outputAzureDataExplorerResponseRetrySettingToJSON(
   outputAzureDataExplorerResponseRetrySetting:
     OutputAzureDataExplorerResponseRetrySetting,
@@ -1542,7 +1263,6 @@ export function outputAzureDataExplorerResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputAzureDataExplorerResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1571,7 +1291,6 @@ export const OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema:
     backoffRate: z.number().default(2),
     maxBackoff: z.number().default(10000),
   });
-
 /** @internal */
 export type OutputAzureDataExplorerTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -1593,21 +1312,6 @@ export const OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema:
     maxBackoff: z.number().default(10000),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerTimeoutRetrySettings$ {
-  /** @deprecated use `OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerTimeoutRetrySettings$Outbound;
-}
-
 export function outputAzureDataExplorerTimeoutRetrySettingsToJSON(
   outputAzureDataExplorerTimeoutRetrySettings:
     OutputAzureDataExplorerTimeoutRetrySettings,
@@ -1618,7 +1322,6 @@ export function outputAzureDataExplorerTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputAzureDataExplorerTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1645,7 +1348,6 @@ export const OutputAzureDataExplorerMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureDataExplorerMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureDataExplorerMode$outboundSchema: z.ZodType<
   OutputAzureDataExplorerMode,
@@ -1655,17 +1357,6 @@ export const OutputAzureDataExplorerMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureDataExplorerMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerMode$ {
-  /** @deprecated use `OutputAzureDataExplorerMode$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerMode$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerMode$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureDataExplorerMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureDataExplorerPqCompressCompression$inboundSchema:
@@ -1678,7 +1369,6 @@ export const OutputAzureDataExplorerPqCompressCompression$inboundSchema:
       z.nativeEnum(OutputAzureDataExplorerPqCompressCompression),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputAzureDataExplorerPqCompressCompression$outboundSchema:
   z.ZodType<
@@ -1690,19 +1380,6 @@ export const OutputAzureDataExplorerPqCompressCompression$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerPqCompressCompression$ {
-  /** @deprecated use `OutputAzureDataExplorerPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerPqCompressCompression$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureDataExplorerQueueFullBehavior$inboundSchema: z.ZodType<
   OutputAzureDataExplorerQueueFullBehavior,
@@ -1713,7 +1390,6 @@ export const OutputAzureDataExplorerQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureDataExplorerQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureDataExplorerQueueFullBehavior$outboundSchema: z.ZodType<
   OutputAzureDataExplorerQueueFullBehavior,
@@ -1724,26 +1400,12 @@ export const OutputAzureDataExplorerQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerQueueFullBehavior$ {
-  /** @deprecated use `OutputAzureDataExplorerQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureDataExplorerPqControls$inboundSchema: z.ZodType<
   OutputAzureDataExplorerPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputAzureDataExplorerPqControls$Outbound = {};
 
@@ -1754,20 +1416,6 @@ export const OutputAzureDataExplorerPqControls$outboundSchema: z.ZodType<
   OutputAzureDataExplorerPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerPqControls$ {
-  /** @deprecated use `OutputAzureDataExplorerPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerPqControls$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerPqControls$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerPqControls$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerPqControls$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerPqControls$Outbound;
-}
-
 export function outputAzureDataExplorerPqControlsToJSON(
   outputAzureDataExplorerPqControls: OutputAzureDataExplorerPqControls,
 ): string {
@@ -1777,7 +1425,6 @@ export function outputAzureDataExplorerPqControlsToJSON(
     ),
   );
 }
-
 export function outputAzureDataExplorerPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureDataExplorerPqControls, SDKValidationError> {
@@ -1903,7 +1550,6 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputAzureDataExplorer$Outbound = {
   id?: string | undefined;
@@ -2112,19 +1758,6 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorer$ {
-  /** @deprecated use `OutputAzureDataExplorer$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorer$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorer$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureDataExplorer$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorer$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorer$Outbound;
-}
-
 export function outputAzureDataExplorerToJSON(
   outputAzureDataExplorer: OutputAzureDataExplorer,
 ): string {
@@ -2132,7 +1765,6 @@ export function outputAzureDataExplorerToJSON(
     OutputAzureDataExplorer$outboundSchema.parse(outputAzureDataExplorer),
   );
 }
-
 export function outputAzureDataExplorerFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureDataExplorer, SDKValidationError> {

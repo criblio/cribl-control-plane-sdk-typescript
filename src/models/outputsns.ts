@@ -274,22 +274,10 @@ export type OutputSns = {
 export const OutputSnsType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSnsType
 > = z.nativeEnum(OutputSnsType);
-
 /** @internal */
 export const OutputSnsType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSnsType
 > = OutputSnsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnsType$ {
-  /** @deprecated use `OutputSnsType$inboundSchema` instead. */
-  export const inboundSchema = OutputSnsType$inboundSchema;
-  /** @deprecated use `OutputSnsType$outboundSchema` instead. */
-  export const outboundSchema = OutputSnsType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSnsAuthenticationMethod$inboundSchema: z.ZodType<
@@ -301,7 +289,6 @@ export const OutputSnsAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSnsAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSnsAuthenticationMethod$outboundSchema: z.ZodType<
   OutputSnsAuthenticationMethod,
@@ -311,17 +298,6 @@ export const OutputSnsAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSnsAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnsAuthenticationMethod$ {
-  /** @deprecated use `OutputSnsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputSnsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSnsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputSnsAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputSnsSignatureVersion$inboundSchema: z.ZodType<
@@ -333,7 +309,6 @@ export const OutputSnsSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSnsSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSnsSignatureVersion$outboundSchema: z.ZodType<
   OutputSnsSignatureVersion,
@@ -343,17 +318,6 @@ export const OutputSnsSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSnsSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnsSignatureVersion$ {
-  /** @deprecated use `OutputSnsSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSnsSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputSnsSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSnsSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSnsBackpressureBehavior$inboundSchema: z.ZodType<
@@ -365,7 +329,6 @@ export const OutputSnsBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSnsBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSnsBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSnsBackpressureBehavior,
@@ -375,17 +338,6 @@ export const OutputSnsBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSnsBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnsBackpressureBehavior$ {
-  /** @deprecated use `OutputSnsBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSnsBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSnsBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSnsBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputSnsMode$inboundSchema: z.ZodType<
@@ -397,7 +349,6 @@ export const OutputSnsMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSnsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSnsMode$outboundSchema: z.ZodType<
   OutputSnsMode,
@@ -407,17 +358,6 @@ export const OutputSnsMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSnsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnsMode$ {
-  /** @deprecated use `OutputSnsMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSnsMode$inboundSchema;
-  /** @deprecated use `OutputSnsMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSnsMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSnsCompression$inboundSchema: z.ZodType<
@@ -429,7 +369,6 @@ export const OutputSnsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSnsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSnsCompression$outboundSchema: z.ZodType<
   OutputSnsCompression,
@@ -439,17 +378,6 @@ export const OutputSnsCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSnsCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnsCompression$ {
-  /** @deprecated use `OutputSnsCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSnsCompression$inboundSchema;
-  /** @deprecated use `OutputSnsCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSnsCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputSnsQueueFullBehavior$inboundSchema: z.ZodType<
@@ -461,7 +389,6 @@ export const OutputSnsQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSnsQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSnsQueueFullBehavior$outboundSchema: z.ZodType<
   OutputSnsQueueFullBehavior,
@@ -472,24 +399,12 @@ export const OutputSnsQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnsQueueFullBehavior$ {
-  /** @deprecated use `OutputSnsQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSnsQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSnsQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSnsQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSnsPqControls$inboundSchema: z.ZodType<
   OutputSnsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSnsPqControls$Outbound = {};
 
@@ -500,19 +415,6 @@ export const OutputSnsPqControls$outboundSchema: z.ZodType<
   OutputSnsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnsPqControls$ {
-  /** @deprecated use `OutputSnsPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSnsPqControls$inboundSchema;
-  /** @deprecated use `OutputSnsPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSnsPqControls$outboundSchema;
-  /** @deprecated use `OutputSnsPqControls$Outbound` instead. */
-  export type Outbound = OutputSnsPqControls$Outbound;
-}
-
 export function outputSnsPqControlsToJSON(
   outputSnsPqControls: OutputSnsPqControls,
 ): string {
@@ -520,7 +422,6 @@ export function outputSnsPqControlsToJSON(
     OutputSnsPqControls$outboundSchema.parse(outputSnsPqControls),
   );
 }
-
 export function outputSnsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSnsPqControls, SDKValidationError> {
@@ -575,7 +476,6 @@ export const OutputSns$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputSnsQueueFullBehavior$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputSnsPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputSns$Outbound = {
   id?: string | undefined;
@@ -660,23 +560,9 @@ export const OutputSns$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSnsPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSns$ {
-  /** @deprecated use `OutputSns$inboundSchema` instead. */
-  export const inboundSchema = OutputSns$inboundSchema;
-  /** @deprecated use `OutputSns$outboundSchema` instead. */
-  export const outboundSchema = OutputSns$outboundSchema;
-  /** @deprecated use `OutputSns$Outbound` instead. */
-  export type Outbound = OutputSns$Outbound;
-}
-
 export function outputSnsToJSON(outputSns: OutputSns): string {
   return JSON.stringify(OutputSns$outboundSchema.parse(outputSns));
 }
-
 export function outputSnsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSns, SDKValidationError> {

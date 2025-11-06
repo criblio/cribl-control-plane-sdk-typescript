@@ -474,22 +474,10 @@ export type OutputDatadog = {
 export const OutputDatadogType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDatadogType
 > = z.nativeEnum(OutputDatadogType);
-
 /** @internal */
 export const OutputDatadogType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDatadogType
 > = OutputDatadogType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogType$ {
-  /** @deprecated use `OutputDatadogType$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogType$inboundSchema;
-  /** @deprecated use `OutputDatadogType$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogType$outboundSchema;
-}
 
 /** @internal */
 export const SendLogsAs$inboundSchema: z.ZodType<
@@ -501,7 +489,6 @@ export const SendLogsAs$inboundSchema: z.ZodType<
     z.nativeEnum(SendLogsAs),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const SendLogsAs$outboundSchema: z.ZodType<
   SendLogsAs,
@@ -511,17 +498,6 @@ export const SendLogsAs$outboundSchema: z.ZodType<
   z.nativeEnum(SendLogsAs),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SendLogsAs$ {
-  /** @deprecated use `SendLogsAs$inboundSchema` instead. */
-  export const inboundSchema = SendLogsAs$inboundSchema;
-  /** @deprecated use `SendLogsAs$outboundSchema` instead. */
-  export const outboundSchema = SendLogsAs$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatadogSeverity$inboundSchema: z.ZodType<
@@ -533,7 +509,6 @@ export const OutputDatadogSeverity$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatadogSeverity),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatadogSeverity$outboundSchema: z.ZodType<
   OutputDatadogSeverity,
@@ -543,17 +518,6 @@ export const OutputDatadogSeverity$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatadogSeverity),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogSeverity$ {
-  /** @deprecated use `OutputDatadogSeverity$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogSeverity$inboundSchema;
-  /** @deprecated use `OutputDatadogSeverity$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogSeverity$outboundSchema;
-}
 
 /** @internal */
 export const DatadogSite$inboundSchema: z.ZodType<
@@ -565,7 +529,6 @@ export const DatadogSite$inboundSchema: z.ZodType<
     z.nativeEnum(DatadogSite),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const DatadogSite$outboundSchema: z.ZodType<
   DatadogSite,
@@ -576,17 +539,6 @@ export const DatadogSite$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DatadogSite$ {
-  /** @deprecated use `DatadogSite$inboundSchema` instead. */
-  export const inboundSchema = DatadogSite$inboundSchema;
-  /** @deprecated use `DatadogSite$outboundSchema` instead. */
-  export const outboundSchema = DatadogSite$outboundSchema;
-}
-
 /** @internal */
 export const OutputDatadogExtraHttpHeader$inboundSchema: z.ZodType<
   OutputDatadogExtraHttpHeader,
@@ -596,7 +548,6 @@ export const OutputDatadogExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputDatadogExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -613,19 +564,6 @@ export const OutputDatadogExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogExtraHttpHeader$ {
-  /** @deprecated use `OutputDatadogExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputDatadogExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputDatadogExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputDatadogExtraHttpHeader$Outbound;
-}
-
 export function outputDatadogExtraHttpHeaderToJSON(
   outputDatadogExtraHttpHeader: OutputDatadogExtraHttpHeader,
 ): string {
@@ -635,7 +573,6 @@ export function outputDatadogExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputDatadogExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatadogExtraHttpHeader, SDKValidationError> {
@@ -656,7 +593,6 @@ export const OutputDatadogFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatadogFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatadogFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputDatadogFailedRequestLoggingMode,
@@ -666,19 +602,6 @@ export const OutputDatadogFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatadogFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputDatadogFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDatadogFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputDatadogFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatadogResponseRetrySetting$inboundSchema: z.ZodType<
@@ -691,7 +614,6 @@ export const OutputDatadogResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDatadogResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -712,20 +634,6 @@ export const OutputDatadogResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogResponseRetrySetting$ {
-  /** @deprecated use `OutputDatadogResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputDatadogResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputDatadogResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputDatadogResponseRetrySetting$Outbound;
-}
-
 export function outputDatadogResponseRetrySettingToJSON(
   outputDatadogResponseRetrySetting: OutputDatadogResponseRetrySetting,
 ): string {
@@ -735,7 +643,6 @@ export function outputDatadogResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputDatadogResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatadogResponseRetrySetting, SDKValidationError> {
@@ -757,7 +664,6 @@ export const OutputDatadogTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDatadogTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -778,20 +684,6 @@ export const OutputDatadogTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogTimeoutRetrySettings$ {
-  /** @deprecated use `OutputDatadogTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputDatadogTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputDatadogTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputDatadogTimeoutRetrySettings$Outbound;
-}
-
 export function outputDatadogTimeoutRetrySettingsToJSON(
   outputDatadogTimeoutRetrySettings: OutputDatadogTimeoutRetrySettings,
 ): string {
@@ -801,7 +693,6 @@ export function outputDatadogTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputDatadogTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatadogTimeoutRetrySettings, SDKValidationError> {
@@ -822,7 +713,6 @@ export const OutputDatadogBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatadogBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatadogBackpressureBehavior$outboundSchema: z.ZodType<
   OutputDatadogBackpressureBehavior,
@@ -832,18 +722,6 @@ export const OutputDatadogBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatadogBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogBackpressureBehavior$ {
-  /** @deprecated use `OutputDatadogBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputDatadogBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatadogAuthenticationMethod$inboundSchema: z.ZodType<
@@ -855,7 +733,6 @@ export const OutputDatadogAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatadogAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatadogAuthenticationMethod$outboundSchema: z.ZodType<
   OutputDatadogAuthenticationMethod,
@@ -865,18 +742,6 @@ export const OutputDatadogAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatadogAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogAuthenticationMethod$ {
-  /** @deprecated use `OutputDatadogAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputDatadogAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatadogMode$inboundSchema: z.ZodType<
@@ -888,7 +753,6 @@ export const OutputDatadogMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatadogMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatadogMode$outboundSchema: z.ZodType<
   OutputDatadogMode,
@@ -898,17 +762,6 @@ export const OutputDatadogMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatadogMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogMode$ {
-  /** @deprecated use `OutputDatadogMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogMode$inboundSchema;
-  /** @deprecated use `OutputDatadogMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatadogCompression$inboundSchema: z.ZodType<
@@ -920,7 +773,6 @@ export const OutputDatadogCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatadogCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatadogCompression$outboundSchema: z.ZodType<
   OutputDatadogCompression,
@@ -930,17 +782,6 @@ export const OutputDatadogCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatadogCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogCompression$ {
-  /** @deprecated use `OutputDatadogCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogCompression$inboundSchema;
-  /** @deprecated use `OutputDatadogCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatadogQueueFullBehavior$inboundSchema: z.ZodType<
@@ -952,7 +793,6 @@ export const OutputDatadogQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatadogQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatadogQueueFullBehavior$outboundSchema: z.ZodType<
   OutputDatadogQueueFullBehavior,
@@ -963,24 +803,12 @@ export const OutputDatadogQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogQueueFullBehavior$ {
-  /** @deprecated use `OutputDatadogQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputDatadogQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputDatadogPqControls$inboundSchema: z.ZodType<
   OutputDatadogPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputDatadogPqControls$Outbound = {};
 
@@ -991,19 +819,6 @@ export const OutputDatadogPqControls$outboundSchema: z.ZodType<
   OutputDatadogPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogPqControls$ {
-  /** @deprecated use `OutputDatadogPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogPqControls$inboundSchema;
-  /** @deprecated use `OutputDatadogPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogPqControls$outboundSchema;
-  /** @deprecated use `OutputDatadogPqControls$Outbound` instead. */
-  export type Outbound = OutputDatadogPqControls$Outbound;
-}
-
 export function outputDatadogPqControlsToJSON(
   outputDatadogPqControls: OutputDatadogPqControls,
 ): string {
@@ -1011,7 +826,6 @@ export function outputDatadogPqControlsToJSON(
     OutputDatadogPqControls$outboundSchema.parse(outputDatadogPqControls),
   );
 }
-
 export function outputDatadogPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatadogPqControls, SDKValidationError> {
@@ -1089,7 +903,6 @@ export const OutputDatadog$inboundSchema: z.ZodType<
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputDatadog$Outbound = {
   id?: string | undefined;
@@ -1213,23 +1026,9 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadog$ {
-  /** @deprecated use `OutputDatadog$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadog$inboundSchema;
-  /** @deprecated use `OutputDatadog$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadog$outboundSchema;
-  /** @deprecated use `OutputDatadog$Outbound` instead. */
-  export type Outbound = OutputDatadog$Outbound;
-}
-
 export function outputDatadogToJSON(outputDatadog: OutputDatadog): string {
   return JSON.stringify(OutputDatadog$outboundSchema.parse(outputDatadog));
 }
-
 export function outputDatadogFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatadog, SDKValidationError> {

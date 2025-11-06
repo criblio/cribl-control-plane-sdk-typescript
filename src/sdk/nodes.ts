@@ -5,6 +5,7 @@
 import { nodesCount } from "../funcs/nodesCount.js";
 import { nodesList } from "../funcs/nodesList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Summaries } from "./summaries.js";
@@ -24,7 +25,7 @@ export class Nodes extends ClientSDK {
   async list(
     request?: operations.ListMasterWorkerEntryRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.ListMasterWorkerEntryResponse> {
+  ): Promise<models.CountedListMasterWorkerEntry> {
     return unwrapAsync(nodesList(
       this,
       request,
@@ -41,7 +42,7 @@ export class Nodes extends ClientSDK {
   async count(
     request?: operations.GetMasterWorkerEntryRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetMasterWorkerEntryResponse> {
+  ): Promise<models.CountedListnumber> {
     return unwrapAsync(nodesCount(
       this,
       request,

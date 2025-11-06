@@ -609,22 +609,10 @@ export type OutputConfluentCloud = {
 export const OutputConfluentCloudType$inboundSchema: z.ZodNativeEnum<
   typeof OutputConfluentCloudType
 > = z.nativeEnum(OutputConfluentCloudType);
-
 /** @internal */
 export const OutputConfluentCloudType$outboundSchema: z.ZodNativeEnum<
   typeof OutputConfluentCloudType
 > = OutputConfluentCloudType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudType$ {
-  /** @deprecated use `OutputConfluentCloudType$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudType$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudType$outboundSchema` instead. */
-  export const outboundSchema = OutputConfluentCloudType$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -636,7 +624,6 @@ export const OutputConfluentCloudMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputConfluentCloudMinimumTLSVersion,
@@ -646,19 +633,6 @@ export const OutputConfluentCloudMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputConfluentCloudMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudMinimumTLSVersion$ {
-  /** @deprecated use `OutputConfluentCloudMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -670,7 +644,6 @@ export const OutputConfluentCloudMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputConfluentCloudMaximumTLSVersion,
@@ -680,19 +653,6 @@ export const OutputConfluentCloudMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputConfluentCloudMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudMaximumTLSVersion$ {
-  /** @deprecated use `OutputConfluentCloudMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -711,7 +671,6 @@ export const OutputConfluentCloudTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputConfluentCloudMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputConfluentCloudMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputConfluentCloudTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -745,21 +704,6 @@ export const OutputConfluentCloudTLSSettingsClientSide$outboundSchema:
     maxVersion: OutputConfluentCloudMaximumTLSVersion$outboundSchema.optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudTLSSettingsClientSide$ {
-  /** @deprecated use `OutputConfluentCloudTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputConfluentCloudTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputConfluentCloudTLSSettingsClientSide$Outbound;
-}
-
 export function outputConfluentCloudTLSSettingsClientSideToJSON(
   outputConfluentCloudTLSSettingsClientSide:
     OutputConfluentCloudTLSSettingsClientSide,
@@ -770,7 +714,6 @@ export function outputConfluentCloudTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputConfluentCloudTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -797,7 +740,6 @@ export const OutputConfluentCloudAcknowledgments$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudAcknowledgments),
     z.number().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudAcknowledgments$outboundSchema: z.ZodType<
   OutputConfluentCloudAcknowledgments,
@@ -807,19 +749,6 @@ export const OutputConfluentCloudAcknowledgments$outboundSchema: z.ZodType<
   z.nativeEnum(OutputConfluentCloudAcknowledgments),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudAcknowledgments$ {
-  /** @deprecated use `OutputConfluentCloudAcknowledgments$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudAcknowledgments$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudAcknowledgments$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudAcknowledgments$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudRecordDataFormat$inboundSchema: z.ZodType<
@@ -831,7 +760,6 @@ export const OutputConfluentCloudRecordDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudRecordDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudRecordDataFormat$outboundSchema: z.ZodType<
   OutputConfluentCloudRecordDataFormat,
@@ -841,19 +769,6 @@ export const OutputConfluentCloudRecordDataFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputConfluentCloudRecordDataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudRecordDataFormat$ {
-  /** @deprecated use `OutputConfluentCloudRecordDataFormat$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudRecordDataFormat$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudRecordDataFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudRecordDataFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudCompression$inboundSchema: z.ZodType<
@@ -865,7 +780,6 @@ export const OutputConfluentCloudCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudCompression$outboundSchema: z.ZodType<
   OutputConfluentCloudCompression,
@@ -876,17 +790,6 @@ export const OutputConfluentCloudCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudCompression$ {
-  /** @deprecated use `OutputConfluentCloudCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudCompression$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputConfluentCloudCompression$outboundSchema;
-}
-
 /** @internal */
 export const OutputConfluentCloudAuth$inboundSchema: z.ZodType<
   OutputConfluentCloudAuth,
@@ -896,7 +799,6 @@ export const OutputConfluentCloudAuth$inboundSchema: z.ZodType<
   disabled: z.boolean().default(true),
   credentialsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputConfluentCloudAuth$Outbound = {
   disabled: boolean;
@@ -913,19 +815,6 @@ export const OutputConfluentCloudAuth$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudAuth$ {
-  /** @deprecated use `OutputConfluentCloudAuth$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudAuth$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudAuth$outboundSchema` instead. */
-  export const outboundSchema = OutputConfluentCloudAuth$outboundSchema;
-  /** @deprecated use `OutputConfluentCloudAuth$Outbound` instead. */
-  export type Outbound = OutputConfluentCloudAuth$Outbound;
-}
-
 export function outputConfluentCloudAuthToJSON(
   outputConfluentCloudAuth: OutputConfluentCloudAuth,
 ): string {
@@ -933,7 +822,6 @@ export function outputConfluentCloudAuthToJSON(
     OutputConfluentCloudAuth$outboundSchema.parse(outputConfluentCloudAuth),
   );
 }
-
 export function outputConfluentCloudAuthFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputConfluentCloudAuth, SDKValidationError> {
@@ -955,7 +843,6 @@ export const OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$inboundSch
       z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
   z.ZodType<
@@ -966,19 +853,6 @@ export const OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$outboundSc
     z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$ {
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
@@ -991,7 +865,6 @@ export const OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSch
       z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
   z.ZodType<
@@ -1002,19 +875,6 @@ export const OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$outboundSc
     z.nativeEnum(OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$ {
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
@@ -1038,7 +898,6 @@ export const OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$inboun
       OutputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSchema
         .optional(),
   });
-
 /** @internal */
 export type OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$Outbound =
   {
@@ -1077,22 +936,6 @@ export const OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$outbou
         .optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$ {
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound =
-    OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$Outbound;
-}
-
 export function outputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSideToJSON(
   outputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide:
     OutputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide,
@@ -1102,7 +945,6 @@ export function outputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSideToJS
       .parse(outputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide),
   );
 }
-
 export function outputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1137,7 +979,6 @@ export const OutputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema
     defaultKeySchemaId: z.number().optional(),
     defaultValueSchemaId: z.number().optional(),
   });
-
 /** @internal */
 export type OutputConfluentCloudKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
@@ -1173,22 +1014,6 @@ export const OutputConfluentCloudKafkaSchemaRegistryAuthentication$outboundSchem
     defaultValueSchemaId: z.number().optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudKafkaSchemaRegistryAuthentication$ {
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryAuthentication$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudKafkaSchemaRegistryAuthentication$outboundSchema;
-  /** @deprecated use `OutputConfluentCloudKafkaSchemaRegistryAuthentication$Outbound` instead. */
-  export type Outbound =
-    OutputConfluentCloudKafkaSchemaRegistryAuthentication$Outbound;
-}
-
 export function outputConfluentCloudKafkaSchemaRegistryAuthenticationToJSON(
   outputConfluentCloudKafkaSchemaRegistryAuthentication:
     OutputConfluentCloudKafkaSchemaRegistryAuthentication,
@@ -1199,7 +1024,6 @@ export function outputConfluentCloudKafkaSchemaRegistryAuthenticationToJSON(
     ),
   );
 }
-
 export function outputConfluentCloudKafkaSchemaRegistryAuthenticationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1226,7 +1050,6 @@ export const OutputConfluentCloudAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudAuthenticationMethod$outboundSchema: z.ZodType<
   OutputConfluentCloudAuthenticationMethod,
@@ -1236,19 +1059,6 @@ export const OutputConfluentCloudAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputConfluentCloudAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudAuthenticationMethod$ {
-  /** @deprecated use `OutputConfluentCloudAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudSASLMechanism$inboundSchema: z.ZodType<
@@ -1260,7 +1070,6 @@ export const OutputConfluentCloudSASLMechanism$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudSASLMechanism),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudSASLMechanism$outboundSchema: z.ZodType<
   OutputConfluentCloudSASLMechanism,
@@ -1271,18 +1080,6 @@ export const OutputConfluentCloudSASLMechanism$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudSASLMechanism$ {
-  /** @deprecated use `OutputConfluentCloudSASLMechanism$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudSASLMechanism$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudSASLMechanism$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudSASLMechanism$outboundSchema;
-}
-
 /** @internal */
 export const OutputConfluentCloudOauthParam$inboundSchema: z.ZodType<
   OutputConfluentCloudOauthParam,
@@ -1292,7 +1089,6 @@ export const OutputConfluentCloudOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputConfluentCloudOauthParam$Outbound = {
   name: string;
@@ -1309,19 +1105,6 @@ export const OutputConfluentCloudOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudOauthParam$ {
-  /** @deprecated use `OutputConfluentCloudOauthParam$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudOauthParam$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudOauthParam$outboundSchema` instead. */
-  export const outboundSchema = OutputConfluentCloudOauthParam$outboundSchema;
-  /** @deprecated use `OutputConfluentCloudOauthParam$Outbound` instead. */
-  export type Outbound = OutputConfluentCloudOauthParam$Outbound;
-}
-
 export function outputConfluentCloudOauthParamToJSON(
   outputConfluentCloudOauthParam: OutputConfluentCloudOauthParam,
 ): string {
@@ -1331,7 +1114,6 @@ export function outputConfluentCloudOauthParamToJSON(
     ),
   );
 }
-
 export function outputConfluentCloudOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputConfluentCloudOauthParam, SDKValidationError> {
@@ -1351,7 +1133,6 @@ export const OutputConfluentCloudSaslExtension$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputConfluentCloudSaslExtension$Outbound = {
   name: string;
@@ -1368,20 +1149,6 @@ export const OutputConfluentCloudSaslExtension$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudSaslExtension$ {
-  /** @deprecated use `OutputConfluentCloudSaslExtension$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudSaslExtension$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudSaslExtension$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudSaslExtension$outboundSchema;
-  /** @deprecated use `OutputConfluentCloudSaslExtension$Outbound` instead. */
-  export type Outbound = OutputConfluentCloudSaslExtension$Outbound;
-}
-
 export function outputConfluentCloudSaslExtensionToJSON(
   outputConfluentCloudSaslExtension: OutputConfluentCloudSaslExtension,
 ): string {
@@ -1391,7 +1158,6 @@ export function outputConfluentCloudSaslExtensionToJSON(
     ),
   );
 }
-
 export function outputConfluentCloudSaslExtensionFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputConfluentCloudSaslExtension, SDKValidationError> {
@@ -1431,7 +1197,6 @@ export const OutputConfluentCloudAuthentication$inboundSchema: z.ZodType<
     z.lazy(() => OutputConfluentCloudSaslExtension$inboundSchema),
   ).optional(),
 });
-
 /** @internal */
 export type OutputConfluentCloudAuthentication$Outbound = {
   disabled: boolean;
@@ -1484,20 +1249,6 @@ export const OutputConfluentCloudAuthentication$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudAuthentication$ {
-  /** @deprecated use `OutputConfluentCloudAuthentication$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudAuthentication$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudAuthentication$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudAuthentication$outboundSchema;
-  /** @deprecated use `OutputConfluentCloudAuthentication$Outbound` instead. */
-  export type Outbound = OutputConfluentCloudAuthentication$Outbound;
-}
-
 export function outputConfluentCloudAuthenticationToJSON(
   outputConfluentCloudAuthentication: OutputConfluentCloudAuthentication,
 ): string {
@@ -1507,7 +1258,6 @@ export function outputConfluentCloudAuthenticationToJSON(
     ),
   );
 }
-
 export function outputConfluentCloudAuthenticationFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputConfluentCloudAuthentication, SDKValidationError> {
@@ -1529,7 +1279,6 @@ export const OutputConfluentCloudBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudBackpressureBehavior$outboundSchema: z.ZodType<
   OutputConfluentCloudBackpressureBehavior,
@@ -1539,19 +1288,6 @@ export const OutputConfluentCloudBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputConfluentCloudBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudBackpressureBehavior$ {
-  /** @deprecated use `OutputConfluentCloudBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudMode$inboundSchema: z.ZodType<
@@ -1563,7 +1299,6 @@ export const OutputConfluentCloudMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudMode$outboundSchema: z.ZodType<
   OutputConfluentCloudMode,
@@ -1573,17 +1308,6 @@ export const OutputConfluentCloudMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputConfluentCloudMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudMode$ {
-  /** @deprecated use `OutputConfluentCloudMode$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudMode$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudMode$outboundSchema` instead. */
-  export const outboundSchema = OutputConfluentCloudMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputConfluentCloudPqCompressCompression$inboundSchema: z.ZodType<
@@ -1595,7 +1319,6 @@ export const OutputConfluentCloudPqCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudPqCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudPqCompressCompression$outboundSchema:
   z.ZodType<
@@ -1607,19 +1330,6 @@ export const OutputConfluentCloudPqCompressCompression$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudPqCompressCompression$ {
-  /** @deprecated use `OutputConfluentCloudPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudPqCompressCompression$outboundSchema;
-}
-
 /** @internal */
 export const OutputConfluentCloudQueueFullBehavior$inboundSchema: z.ZodType<
   OutputConfluentCloudQueueFullBehavior,
@@ -1630,7 +1340,6 @@ export const OutputConfluentCloudQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputConfluentCloudQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputConfluentCloudQueueFullBehavior$outboundSchema: z.ZodType<
   OutputConfluentCloudQueueFullBehavior,
@@ -1641,26 +1350,12 @@ export const OutputConfluentCloudQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudQueueFullBehavior$ {
-  /** @deprecated use `OutputConfluentCloudQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputConfluentCloudQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputConfluentCloudQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputConfluentCloudPqControls$inboundSchema: z.ZodType<
   OutputConfluentCloudPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputConfluentCloudPqControls$Outbound = {};
 
@@ -1671,19 +1366,6 @@ export const OutputConfluentCloudPqControls$outboundSchema: z.ZodType<
   OutputConfluentCloudPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloudPqControls$ {
-  /** @deprecated use `OutputConfluentCloudPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloudPqControls$inboundSchema;
-  /** @deprecated use `OutputConfluentCloudPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputConfluentCloudPqControls$outboundSchema;
-  /** @deprecated use `OutputConfluentCloudPqControls$Outbound` instead. */
-  export type Outbound = OutputConfluentCloudPqControls$Outbound;
-}
-
 export function outputConfluentCloudPqControlsToJSON(
   outputConfluentCloudPqControls: OutputConfluentCloudPqControls,
 ): string {
@@ -1693,7 +1375,6 @@ export function outputConfluentCloudPqControlsToJSON(
     ),
   );
 }
-
 export function outputConfluentCloudPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputConfluentCloudPqControls, SDKValidationError> {
@@ -1761,7 +1442,6 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputConfluentCloudPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputConfluentCloud$Outbound = {
   id?: string | undefined;
@@ -1865,19 +1545,6 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputConfluentCloud$ {
-  /** @deprecated use `OutputConfluentCloud$inboundSchema` instead. */
-  export const inboundSchema = OutputConfluentCloud$inboundSchema;
-  /** @deprecated use `OutputConfluentCloud$outboundSchema` instead. */
-  export const outboundSchema = OutputConfluentCloud$outboundSchema;
-  /** @deprecated use `OutputConfluentCloud$Outbound` instead. */
-  export type Outbound = OutputConfluentCloud$Outbound;
-}
-
 export function outputConfluentCloudToJSON(
   outputConfluentCloud: OutputConfluentCloud,
 ): string {
@@ -1885,7 +1552,6 @@ export function outputConfluentCloudToJSON(
     OutputConfluentCloud$outboundSchema.parse(outputConfluentCloud),
   );
 }
-
 export function outputConfluentCloudFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputConfluentCloud, SDKValidationError> {

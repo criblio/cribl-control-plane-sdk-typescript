@@ -16,6 +16,8 @@ let value: Audit = {
     ],
     modified: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     renamed: [
       "<value 1>",

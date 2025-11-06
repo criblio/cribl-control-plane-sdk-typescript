@@ -231,22 +231,10 @@ export type InputMetrics = {
 export const InputMetricsType$inboundSchema: z.ZodNativeEnum<
   typeof InputMetricsType
 > = z.nativeEnum(InputMetricsType);
-
 /** @internal */
 export const InputMetricsType$outboundSchema: z.ZodNativeEnum<
   typeof InputMetricsType
 > = InputMetricsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsType$ {
-  /** @deprecated use `InputMetricsType$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsType$inboundSchema;
-  /** @deprecated use `InputMetricsType$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsType$outboundSchema;
-}
 
 /** @internal */
 export const InputMetricsConnection$inboundSchema: z.ZodType<
@@ -257,7 +245,6 @@ export const InputMetricsConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputMetricsConnection$Outbound = {
   pipeline?: string | undefined;
@@ -274,19 +261,6 @@ export const InputMetricsConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsConnection$ {
-  /** @deprecated use `InputMetricsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsConnection$inboundSchema;
-  /** @deprecated use `InputMetricsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsConnection$outboundSchema;
-  /** @deprecated use `InputMetricsConnection$Outbound` instead. */
-  export type Outbound = InputMetricsConnection$Outbound;
-}
-
 export function inputMetricsConnectionToJSON(
   inputMetricsConnection: InputMetricsConnection,
 ): string {
@@ -294,7 +268,6 @@ export function inputMetricsConnectionToJSON(
     InputMetricsConnection$outboundSchema.parse(inputMetricsConnection),
   );
 }
-
 export function inputMetricsConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMetricsConnection, SDKValidationError> {
@@ -315,7 +288,6 @@ export const InputMetricsMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputMetricsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMetricsMode$outboundSchema: z.ZodType<
   InputMetricsMode,
@@ -325,17 +297,6 @@ export const InputMetricsMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputMetricsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsMode$ {
-  /** @deprecated use `InputMetricsMode$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsMode$inboundSchema;
-  /** @deprecated use `InputMetricsMode$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsMode$outboundSchema;
-}
 
 /** @internal */
 export const InputMetricsCompression$inboundSchema: z.ZodType<
@@ -347,7 +308,6 @@ export const InputMetricsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputMetricsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMetricsCompression$outboundSchema: z.ZodType<
   InputMetricsCompression,
@@ -358,24 +318,12 @@ export const InputMetricsCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsCompression$ {
-  /** @deprecated use `InputMetricsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsCompression$inboundSchema;
-  /** @deprecated use `InputMetricsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputMetricsPqControls$inboundSchema: z.ZodType<
   InputMetricsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputMetricsPqControls$Outbound = {};
 
@@ -386,19 +334,6 @@ export const InputMetricsPqControls$outboundSchema: z.ZodType<
   InputMetricsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsPqControls$ {
-  /** @deprecated use `InputMetricsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsPqControls$inboundSchema;
-  /** @deprecated use `InputMetricsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsPqControls$outboundSchema;
-  /** @deprecated use `InputMetricsPqControls$Outbound` instead. */
-  export type Outbound = InputMetricsPqControls$Outbound;
-}
-
 export function inputMetricsPqControlsToJSON(
   inputMetricsPqControls: InputMetricsPqControls,
 ): string {
@@ -406,7 +341,6 @@ export function inputMetricsPqControlsToJSON(
     InputMetricsPqControls$outboundSchema.parse(inputMetricsPqControls),
   );
 }
-
 export function inputMetricsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMetricsPqControls, SDKValidationError> {
@@ -432,7 +366,6 @@ export const InputMetricsPq$inboundSchema: z.ZodType<
   compress: InputMetricsCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputMetricsPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputMetricsPq$Outbound = {
   mode: string;
@@ -461,23 +394,9 @@ export const InputMetricsPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputMetricsPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsPq$ {
-  /** @deprecated use `InputMetricsPq$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsPq$inboundSchema;
-  /** @deprecated use `InputMetricsPq$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsPq$outboundSchema;
-  /** @deprecated use `InputMetricsPq$Outbound` instead. */
-  export type Outbound = InputMetricsPq$Outbound;
-}
-
 export function inputMetricsPqToJSON(inputMetricsPq: InputMetricsPq): string {
   return JSON.stringify(InputMetricsPq$outboundSchema.parse(inputMetricsPq));
 }
-
 export function inputMetricsPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMetricsPq, SDKValidationError> {
@@ -498,7 +417,6 @@ export const InputMetricsMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputMetricsMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMetricsMinimumTLSVersion$outboundSchema: z.ZodType<
   InputMetricsMinimumTLSVersion,
@@ -508,17 +426,6 @@ export const InputMetricsMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputMetricsMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsMinimumTLSVersion$ {
-  /** @deprecated use `InputMetricsMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputMetricsMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputMetricsMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -530,7 +437,6 @@ export const InputMetricsMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputMetricsMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMetricsMaximumTLSVersion$outboundSchema: z.ZodType<
   InputMetricsMaximumTLSVersion,
@@ -540,17 +446,6 @@ export const InputMetricsMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputMetricsMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsMaximumTLSVersion$ {
-  /** @deprecated use `InputMetricsMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputMetricsMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputMetricsTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -570,7 +465,6 @@ export const InputMetricsTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputMetricsMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputMetricsMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputMetricsTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -605,20 +499,6 @@ export const InputMetricsTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputMetricsMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsTLSSettingsServerSide$ {
-  /** @deprecated use `InputMetricsTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputMetricsTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputMetricsTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputMetricsTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputMetricsTLSSettingsServerSide$Outbound;
-}
-
 export function inputMetricsTLSSettingsServerSideToJSON(
   inputMetricsTLSSettingsServerSide: InputMetricsTLSSettingsServerSide,
 ): string {
@@ -628,7 +508,6 @@ export function inputMetricsTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputMetricsTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMetricsTLSSettingsServerSide, SDKValidationError> {
@@ -648,7 +527,6 @@ export const InputMetricsMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputMetricsMetadatum$Outbound = {
   name: string;
@@ -665,19 +543,6 @@ export const InputMetricsMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsMetadatum$ {
-  /** @deprecated use `InputMetricsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsMetadatum$inboundSchema;
-  /** @deprecated use `InputMetricsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsMetadatum$outboundSchema;
-  /** @deprecated use `InputMetricsMetadatum$Outbound` instead. */
-  export type Outbound = InputMetricsMetadatum$Outbound;
-}
-
 export function inputMetricsMetadatumToJSON(
   inputMetricsMetadatum: InputMetricsMetadatum,
 ): string {
@@ -685,7 +550,6 @@ export function inputMetricsMetadatumToJSON(
     InputMetricsMetadatum$outboundSchema.parse(inputMetricsMetadatum),
   );
 }
-
 export function inputMetricsMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMetricsMetadatum, SDKValidationError> {
@@ -725,7 +589,6 @@ export const InputMetrics$inboundSchema: z.ZodType<
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputMetrics$Outbound = {
   id?: string | undefined;
@@ -781,23 +644,9 @@ export const InputMetrics$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetrics$ {
-  /** @deprecated use `InputMetrics$inboundSchema` instead. */
-  export const inboundSchema = InputMetrics$inboundSchema;
-  /** @deprecated use `InputMetrics$outboundSchema` instead. */
-  export const outboundSchema = InputMetrics$outboundSchema;
-  /** @deprecated use `InputMetrics$Outbound` instead. */
-  export type Outbound = InputMetrics$Outbound;
-}
-
 export function inputMetricsToJSON(inputMetrics: InputMetrics): string {
   return JSON.stringify(InputMetrics$outboundSchema.parse(inputMetrics));
 }
-
 export function inputMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMetrics, SDKValidationError> {

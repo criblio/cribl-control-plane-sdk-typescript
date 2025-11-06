@@ -89,7 +89,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListMasterWorkerEntryResponse](../../models/operations/listmasterworkerentryresponse.md)\>**
+**Promise\<[models.CountedListMasterWorkerEntry](../../models/countedlistmasterworkerentry.md)\>**
 
 ### Errors
 
@@ -169,7 +169,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetMasterWorkerEntryResponse](../../models/operations/getmasterworkerentryresponse.md)\>**
+**Promise\<[models.CountedListnumber](../../models/countedlistnumber.md)\>**
 
 ### Errors
 

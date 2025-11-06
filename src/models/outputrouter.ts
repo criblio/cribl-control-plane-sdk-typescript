@@ -65,22 +65,10 @@ export type OutputRouter = {
 export const OutputRouterType$inboundSchema: z.ZodNativeEnum<
   typeof OutputRouterType
 > = z.nativeEnum(OutputRouterType);
-
 /** @internal */
 export const OutputRouterType$outboundSchema: z.ZodNativeEnum<
   typeof OutputRouterType
 > = OutputRouterType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRouterType$ {
-  /** @deprecated use `OutputRouterType$inboundSchema` instead. */
-  export const inboundSchema = OutputRouterType$inboundSchema;
-  /** @deprecated use `OutputRouterType$outboundSchema` instead. */
-  export const outboundSchema = OutputRouterType$outboundSchema;
-}
 
 /** @internal */
 export const OutputRouterRule$inboundSchema: z.ZodType<
@@ -93,7 +81,6 @@ export const OutputRouterRule$inboundSchema: z.ZodType<
   description: z.string().optional(),
   final: z.boolean().default(true),
 });
-
 /** @internal */
 export type OutputRouterRule$Outbound = {
   filter: string;
@@ -114,19 +101,6 @@ export const OutputRouterRule$outboundSchema: z.ZodType<
   final: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRouterRule$ {
-  /** @deprecated use `OutputRouterRule$inboundSchema` instead. */
-  export const inboundSchema = OutputRouterRule$inboundSchema;
-  /** @deprecated use `OutputRouterRule$outboundSchema` instead. */
-  export const outboundSchema = OutputRouterRule$outboundSchema;
-  /** @deprecated use `OutputRouterRule$Outbound` instead. */
-  export type Outbound = OutputRouterRule$Outbound;
-}
-
 export function outputRouterRuleToJSON(
   outputRouterRule: OutputRouterRule,
 ): string {
@@ -134,7 +108,6 @@ export function outputRouterRuleToJSON(
     OutputRouterRule$outboundSchema.parse(outputRouterRule),
   );
 }
-
 export function outputRouterRuleFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputRouterRule, SDKValidationError> {
@@ -160,7 +133,6 @@ export const OutputRouter$inboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => OutputRouterRule$inboundSchema)),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputRouter$Outbound = {
   id?: string | undefined;
@@ -189,23 +161,9 @@ export const OutputRouter$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRouter$ {
-  /** @deprecated use `OutputRouter$inboundSchema` instead. */
-  export const inboundSchema = OutputRouter$inboundSchema;
-  /** @deprecated use `OutputRouter$outboundSchema` instead. */
-  export const outboundSchema = OutputRouter$outboundSchema;
-  /** @deprecated use `OutputRouter$Outbound` instead. */
-  export type Outbound = OutputRouter$Outbound;
-}
-
 export function outputRouterToJSON(outputRouter: OutputRouter): string {
   return JSON.stringify(OutputRouter$outboundSchema.parse(outputRouter));
 }
-
 export function outputRouterFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputRouter, SDKValidationError> {

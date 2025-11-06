@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOutputSamplesByIdResponse](../../models/operations/getoutputsamplesbyidresponse.md)\>**
+**Promise\<[models.CountedListOutputSamplesResponse](../../models/countedlistoutputsamplesresponse.md)\>**
 
 ### Errors
 
@@ -173,7 +173,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateOutputTestByIdResponse](../../models/operations/createoutputtestbyidresponse.md)\>**
+**Promise\<[models.CountedListOutputTestResponse](../../models/countedlistoutputtestresponse.md)\>**
 
 ### Errors
 

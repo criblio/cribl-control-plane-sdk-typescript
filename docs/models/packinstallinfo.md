@@ -29,10 +29,12 @@ let value: PackInstallInfo = {
   spec: "<value>",
   tags: {
     dataType: [
-      "int",
+      "point",
     ],
     domain: [
-      "damp-legging.biz",
+      "ashamed-meander.biz",
+      "heartfelt-sauerkraut.net",
+      "neat-tusk.info",
     ],
     streamtags: [
       "<value 1>",
@@ -41,7 +43,6 @@ let value: PackInstallInfo = {
     ],
     technology: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   version: "<value>",

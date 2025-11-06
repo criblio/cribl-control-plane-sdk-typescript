@@ -82,7 +82,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetConfigGroupAclTeamsByProductAndIdResponse](../../models/operations/getconfiggroupaclteamsbyproductandidresponse.md)\>**
+**Promise\<[models.CountedListTeamAccessControlList](../../models/countedlistteamaccesscontrollist.md)\>**
 
 ### Errors
 

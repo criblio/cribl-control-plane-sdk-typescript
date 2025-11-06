@@ -457,22 +457,10 @@ export type OutputInfluxdb = {
 export const OutputInfluxdbType$inboundSchema: z.ZodNativeEnum<
   typeof OutputInfluxdbType
 > = z.nativeEnum(OutputInfluxdbType);
-
 /** @internal */
 export const OutputInfluxdbType$outboundSchema: z.ZodNativeEnum<
   typeof OutputInfluxdbType
 > = OutputInfluxdbType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbType$ {
-  /** @deprecated use `OutputInfluxdbType$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbType$inboundSchema;
-  /** @deprecated use `OutputInfluxdbType$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbType$outboundSchema;
-}
 
 /** @internal */
 export const TimestampPrecision$inboundSchema: z.ZodType<
@@ -484,7 +472,6 @@ export const TimestampPrecision$inboundSchema: z.ZodType<
     z.nativeEnum(TimestampPrecision),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const TimestampPrecision$outboundSchema: z.ZodType<
   TimestampPrecision,
@@ -495,17 +482,6 @@ export const TimestampPrecision$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TimestampPrecision$ {
-  /** @deprecated use `TimestampPrecision$inboundSchema` instead. */
-  export const inboundSchema = TimestampPrecision$inboundSchema;
-  /** @deprecated use `TimestampPrecision$outboundSchema` instead. */
-  export const outboundSchema = TimestampPrecision$outboundSchema;
-}
-
 /** @internal */
 export const OutputInfluxdbExtraHttpHeader$inboundSchema: z.ZodType<
   OutputInfluxdbExtraHttpHeader,
@@ -515,7 +491,6 @@ export const OutputInfluxdbExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputInfluxdbExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -532,19 +507,6 @@ export const OutputInfluxdbExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbExtraHttpHeader$ {
-  /** @deprecated use `OutputInfluxdbExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputInfluxdbExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputInfluxdbExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputInfluxdbExtraHttpHeader$Outbound;
-}
-
 export function outputInfluxdbExtraHttpHeaderToJSON(
   outputInfluxdbExtraHttpHeader: OutputInfluxdbExtraHttpHeader,
 ): string {
@@ -554,7 +516,6 @@ export function outputInfluxdbExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputInfluxdbExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputInfluxdbExtraHttpHeader, SDKValidationError> {
@@ -575,7 +536,6 @@ export const OutputInfluxdbFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputInfluxdbFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputInfluxdbFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputInfluxdbFailedRequestLoggingMode,
@@ -585,19 +545,6 @@ export const OutputInfluxdbFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputInfluxdbFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputInfluxdbFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputInfluxdbFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputInfluxdbFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputInfluxdbFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputInfluxdbResponseRetrySetting$inboundSchema: z.ZodType<
@@ -610,7 +557,6 @@ export const OutputInfluxdbResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputInfluxdbResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -631,20 +577,6 @@ export const OutputInfluxdbResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbResponseRetrySetting$ {
-  /** @deprecated use `OutputInfluxdbResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputInfluxdbResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputInfluxdbResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputInfluxdbResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputInfluxdbResponseRetrySetting$Outbound;
-}
-
 export function outputInfluxdbResponseRetrySettingToJSON(
   outputInfluxdbResponseRetrySetting: OutputInfluxdbResponseRetrySetting,
 ): string {
@@ -654,7 +586,6 @@ export function outputInfluxdbResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputInfluxdbResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputInfluxdbResponseRetrySetting, SDKValidationError> {
@@ -677,7 +608,6 @@ export const OutputInfluxdbTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputInfluxdbTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -698,20 +628,6 @@ export const OutputInfluxdbTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbTimeoutRetrySettings$ {
-  /** @deprecated use `OutputInfluxdbTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputInfluxdbTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputInfluxdbTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputInfluxdbTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputInfluxdbTimeoutRetrySettings$Outbound;
-}
-
 export function outputInfluxdbTimeoutRetrySettingsToJSON(
   outputInfluxdbTimeoutRetrySettings: OutputInfluxdbTimeoutRetrySettings,
 ): string {
@@ -721,7 +637,6 @@ export function outputInfluxdbTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputInfluxdbTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputInfluxdbTimeoutRetrySettings, SDKValidationError> {
@@ -743,7 +658,6 @@ export const OutputInfluxdbBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputInfluxdbBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputInfluxdbBackpressureBehavior$outboundSchema: z.ZodType<
   OutputInfluxdbBackpressureBehavior,
@@ -753,18 +667,6 @@ export const OutputInfluxdbBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputInfluxdbBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbBackpressureBehavior$ {
-  /** @deprecated use `OutputInfluxdbBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputInfluxdbBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputInfluxdbBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputInfluxdbAuthenticationType$inboundSchema: z.ZodType<
@@ -776,7 +678,6 @@ export const OutputInfluxdbAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(OutputInfluxdbAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputInfluxdbAuthenticationType$outboundSchema: z.ZodType<
   OutputInfluxdbAuthenticationType,
@@ -786,17 +687,6 @@ export const OutputInfluxdbAuthenticationType$outboundSchema: z.ZodType<
   z.nativeEnum(OutputInfluxdbAuthenticationType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbAuthenticationType$ {
-  /** @deprecated use `OutputInfluxdbAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbAuthenticationType$inboundSchema;
-  /** @deprecated use `OutputInfluxdbAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbAuthenticationType$outboundSchema;
-}
 
 /** @internal */
 export const OutputInfluxdbMode$inboundSchema: z.ZodType<
@@ -808,7 +698,6 @@ export const OutputInfluxdbMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputInfluxdbMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputInfluxdbMode$outboundSchema: z.ZodType<
   OutputInfluxdbMode,
@@ -818,17 +707,6 @@ export const OutputInfluxdbMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputInfluxdbMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbMode$ {
-  /** @deprecated use `OutputInfluxdbMode$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbMode$inboundSchema;
-  /** @deprecated use `OutputInfluxdbMode$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputInfluxdbCompression$inboundSchema: z.ZodType<
@@ -840,7 +718,6 @@ export const OutputInfluxdbCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputInfluxdbCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputInfluxdbCompression$outboundSchema: z.ZodType<
   OutputInfluxdbCompression,
@@ -850,17 +727,6 @@ export const OutputInfluxdbCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputInfluxdbCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbCompression$ {
-  /** @deprecated use `OutputInfluxdbCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbCompression$inboundSchema;
-  /** @deprecated use `OutputInfluxdbCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputInfluxdbQueueFullBehavior$inboundSchema: z.ZodType<
@@ -872,7 +738,6 @@ export const OutputInfluxdbQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputInfluxdbQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputInfluxdbQueueFullBehavior$outboundSchema: z.ZodType<
   OutputInfluxdbQueueFullBehavior,
@@ -883,24 +748,12 @@ export const OutputInfluxdbQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbQueueFullBehavior$ {
-  /** @deprecated use `OutputInfluxdbQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputInfluxdbQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputInfluxdbPqControls$inboundSchema: z.ZodType<
   OutputInfluxdbPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputInfluxdbPqControls$Outbound = {};
 
@@ -911,19 +764,6 @@ export const OutputInfluxdbPqControls$outboundSchema: z.ZodType<
   OutputInfluxdbPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbPqControls$ {
-  /** @deprecated use `OutputInfluxdbPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbPqControls$inboundSchema;
-  /** @deprecated use `OutputInfluxdbPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbPqControls$outboundSchema;
-  /** @deprecated use `OutputInfluxdbPqControls$Outbound` instead. */
-  export type Outbound = OutputInfluxdbPqControls$Outbound;
-}
-
 export function outputInfluxdbPqControlsToJSON(
   outputInfluxdbPqControls: OutputInfluxdbPqControls,
 ): string {
@@ -931,7 +771,6 @@ export function outputInfluxdbPqControlsToJSON(
     OutputInfluxdbPqControls$outboundSchema.parse(outputInfluxdbPqControls),
   );
 }
-
 export function outputInfluxdbPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputInfluxdbPqControls, SDKValidationError> {
@@ -951,7 +790,6 @@ export const OutputInfluxdbOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputInfluxdbOauthParam$Outbound = {
   name: string;
@@ -968,19 +806,6 @@ export const OutputInfluxdbOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbOauthParam$ {
-  /** @deprecated use `OutputInfluxdbOauthParam$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbOauthParam$inboundSchema;
-  /** @deprecated use `OutputInfluxdbOauthParam$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbOauthParam$outboundSchema;
-  /** @deprecated use `OutputInfluxdbOauthParam$Outbound` instead. */
-  export type Outbound = OutputInfluxdbOauthParam$Outbound;
-}
-
 export function outputInfluxdbOauthParamToJSON(
   outputInfluxdbOauthParam: OutputInfluxdbOauthParam,
 ): string {
@@ -988,7 +813,6 @@ export function outputInfluxdbOauthParamToJSON(
     OutputInfluxdbOauthParam$outboundSchema.parse(outputInfluxdbOauthParam),
   );
 }
-
 export function outputInfluxdbOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputInfluxdbOauthParam, SDKValidationError> {
@@ -1008,7 +832,6 @@ export const OutputInfluxdbOauthHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputInfluxdbOauthHeader$Outbound = {
   name: string;
@@ -1025,19 +848,6 @@ export const OutputInfluxdbOauthHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbOauthHeader$ {
-  /** @deprecated use `OutputInfluxdbOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbOauthHeader$inboundSchema;
-  /** @deprecated use `OutputInfluxdbOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbOauthHeader$outboundSchema;
-  /** @deprecated use `OutputInfluxdbOauthHeader$Outbound` instead. */
-  export type Outbound = OutputInfluxdbOauthHeader$Outbound;
-}
-
 export function outputInfluxdbOauthHeaderToJSON(
   outputInfluxdbOauthHeader: OutputInfluxdbOauthHeader,
 ): string {
@@ -1045,7 +855,6 @@ export function outputInfluxdbOauthHeaderToJSON(
     OutputInfluxdbOauthHeader$outboundSchema.parse(outputInfluxdbOauthHeader),
   );
 }
-
 export function outputInfluxdbOauthHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputInfluxdbOauthHeader, SDKValidationError> {
@@ -1131,7 +940,6 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   oauthHeaders: z.array(z.lazy(() => OutputInfluxdbOauthHeader$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type OutputInfluxdb$Outbound = {
   id?: string | undefined;
@@ -1271,23 +1079,9 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdb$ {
-  /** @deprecated use `OutputInfluxdb$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdb$inboundSchema;
-  /** @deprecated use `OutputInfluxdb$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdb$outboundSchema;
-  /** @deprecated use `OutputInfluxdb$Outbound` instead. */
-  export type Outbound = OutputInfluxdb$Outbound;
-}
-
 export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {
   return JSON.stringify(OutputInfluxdb$outboundSchema.parse(outputInfluxdb));
 }
-
 export function outputInfluxdbFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputInfluxdb, SDKValidationError> {

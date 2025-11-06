@@ -797,7 +797,6 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
       })),
     ),
   ]);
-
 /** @internal */
 export type Output$Outbound =
   | (OutputAzureDataExplorer$Outbound & { type: "azure_data_explorer" })
@@ -1185,23 +1184,9 @@ export const Output$outboundSchema: z.ZodType<
   ),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Output$ {
-  /** @deprecated use `Output$inboundSchema` instead. */
-  export const inboundSchema = Output$inboundSchema;
-  /** @deprecated use `Output$outboundSchema` instead. */
-  export const outboundSchema = Output$outboundSchema;
-  /** @deprecated use `Output$Outbound` instead. */
-  export type Outbound = Output$Outbound;
-}
-
 export function outputToJSON(output: Output): string {
   return JSON.stringify(Output$outboundSchema.parse(output));
 }
-
 export function outputFromJSON(
   jsonString: string,
 ): SafeParseResult<Output, SDKValidationError> {

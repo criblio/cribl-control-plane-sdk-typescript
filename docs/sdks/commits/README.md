@@ -100,7 +100,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateVersionCommitResponse](../../models/operations/createversioncommitresponse.md)\>**
+**Promise\<[models.CountedListGitCommitSummary](../../models/countedlistgitcommitsummary.md)\>**
 
 ### Errors
 
@@ -186,7 +186,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionDiffResponse](../../models/operations/getversiondiffresponse.md)\>**
+**Promise\<[models.CountedListGitDiffResult](../../models/countedlistgitdiffresult.md)\>**
 
 ### Errors
 
@@ -268,7 +268,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionResponse](../../models/operations/getversionresponse.md)\>**
+**Promise\<[models.CountedListGitLogResult](../../models/countedlistgitlogresult.md)\>**
 
 ### Errors
 
@@ -343,7 +343,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateVersionPushResponse](../../models/operations/createversionpushresponse.md)\>**
+**Promise\<[models.CountedListstring](../../models/countedliststring.md)\>**
 
 ### Errors
 
@@ -433,7 +433,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateVersionRevertResponse](../../models/operations/createversionrevertresponse.md)\>**
+**Promise\<[models.CountedListGitRevertResult](../../models/countedlistgitrevertresult.md)\>**
 
 ### Errors
 
@@ -519,7 +519,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionShowResponse](../../models/operations/getversionshowresponse.md)\>**
+**Promise\<[models.CountedListGitShowResult](../../models/countedlistgitshowresult.md)\>**
 
 ### Errors
 
@@ -599,7 +599,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateVersionUndoResponse](../../models/operations/createversionundoresponse.md)\>**
+**Promise\<[models.CountedListObject](../../models/countedlistobject.md)\>**
 
 ### Errors
 

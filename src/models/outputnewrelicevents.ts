@@ -372,22 +372,10 @@ export type OutputNewrelicEvents = {
 export const OutputNewrelicEventsType$inboundSchema: z.ZodNativeEnum<
   typeof OutputNewrelicEventsType
 > = z.nativeEnum(OutputNewrelicEventsType);
-
 /** @internal */
 export const OutputNewrelicEventsType$outboundSchema: z.ZodNativeEnum<
   typeof OutputNewrelicEventsType
 > = OutputNewrelicEventsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsType$ {
-  /** @deprecated use `OutputNewrelicEventsType$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsType$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsType$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsType$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsRegion$inboundSchema: z.ZodType<
@@ -399,7 +387,6 @@ export const OutputNewrelicEventsRegion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsRegion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsRegion$outboundSchema: z.ZodType<
   OutputNewrelicEventsRegion,
@@ -410,17 +397,6 @@ export const OutputNewrelicEventsRegion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsRegion$ {
-  /** @deprecated use `OutputNewrelicEventsRegion$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsRegion$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsRegion$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsRegion$outboundSchema;
-}
-
 /** @internal */
 export const OutputNewrelicEventsExtraHttpHeader$inboundSchema: z.ZodType<
   OutputNewrelicEventsExtraHttpHeader,
@@ -430,7 +406,6 @@ export const OutputNewrelicEventsExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputNewrelicEventsExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -447,21 +422,6 @@ export const OutputNewrelicEventsExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsExtraHttpHeader$ {
-  /** @deprecated use `OutputNewrelicEventsExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputNewrelicEventsExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputNewrelicEventsExtraHttpHeader$Outbound;
-}
-
 export function outputNewrelicEventsExtraHttpHeaderToJSON(
   outputNewrelicEventsExtraHttpHeader: OutputNewrelicEventsExtraHttpHeader,
 ): string {
@@ -471,7 +431,6 @@ export function outputNewrelicEventsExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputNewrelicEventsExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNewrelicEventsExtraHttpHeader, SDKValidationError> {
@@ -494,7 +453,6 @@ export const OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema:
       z.nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
@@ -505,19 +463,6 @@ export const OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema:
     z.nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsResponseRetrySetting$inboundSchema: z.ZodType<
@@ -530,7 +475,6 @@ export const OutputNewrelicEventsResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputNewrelicEventsResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -551,21 +495,6 @@ export const OutputNewrelicEventsResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsResponseRetrySetting$ {
-  /** @deprecated use `OutputNewrelicEventsResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputNewrelicEventsResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputNewrelicEventsResponseRetrySetting$Outbound;
-}
-
 export function outputNewrelicEventsResponseRetrySettingToJSON(
   outputNewrelicEventsResponseRetrySetting:
     OutputNewrelicEventsResponseRetrySetting,
@@ -576,7 +505,6 @@ export function outputNewrelicEventsResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputNewrelicEventsResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -604,7 +532,6 @@ export const OutputNewrelicEventsTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputNewrelicEventsTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -625,21 +552,6 @@ export const OutputNewrelicEventsTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsTimeoutRetrySettings$ {
-  /** @deprecated use `OutputNewrelicEventsTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputNewrelicEventsTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputNewrelicEventsTimeoutRetrySettings$Outbound;
-}
-
 export function outputNewrelicEventsTimeoutRetrySettingsToJSON(
   outputNewrelicEventsTimeoutRetrySettings:
     OutputNewrelicEventsTimeoutRetrySettings,
@@ -650,7 +562,6 @@ export function outputNewrelicEventsTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputNewrelicEventsTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -677,7 +588,6 @@ export const OutputNewrelicEventsBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsBackpressureBehavior$outboundSchema: z.ZodType<
   OutputNewrelicEventsBackpressureBehavior,
@@ -687,19 +597,6 @@ export const OutputNewrelicEventsBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputNewrelicEventsBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsBackpressureBehavior$ {
-  /** @deprecated use `OutputNewrelicEventsBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsAuthenticationMethod$inboundSchema: z.ZodType<
@@ -711,7 +608,6 @@ export const OutputNewrelicEventsAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsAuthenticationMethod$outboundSchema: z.ZodType<
   OutputNewrelicEventsAuthenticationMethod,
@@ -721,19 +617,6 @@ export const OutputNewrelicEventsAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputNewrelicEventsAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsAuthenticationMethod$ {
-  /** @deprecated use `OutputNewrelicEventsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsMode$inboundSchema: z.ZodType<
@@ -745,7 +628,6 @@ export const OutputNewrelicEventsMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsMode$outboundSchema: z.ZodType<
   OutputNewrelicEventsMode,
@@ -755,17 +637,6 @@ export const OutputNewrelicEventsMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputNewrelicEventsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsMode$ {
-  /** @deprecated use `OutputNewrelicEventsMode$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsMode$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsMode$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsCompression$inboundSchema: z.ZodType<
@@ -777,7 +648,6 @@ export const OutputNewrelicEventsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsCompression$outboundSchema: z.ZodType<
   OutputNewrelicEventsCompression,
@@ -787,17 +657,6 @@ export const OutputNewrelicEventsCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputNewrelicEventsCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsCompression$ {
-  /** @deprecated use `OutputNewrelicEventsCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsCompression$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsQueueFullBehavior$inboundSchema: z.ZodType<
@@ -809,7 +668,6 @@ export const OutputNewrelicEventsQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsQueueFullBehavior$outboundSchema: z.ZodType<
   OutputNewrelicEventsQueueFullBehavior,
@@ -820,26 +678,12 @@ export const OutputNewrelicEventsQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsQueueFullBehavior$ {
-  /** @deprecated use `OutputNewrelicEventsQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputNewrelicEventsPqControls$inboundSchema: z.ZodType<
   OutputNewrelicEventsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputNewrelicEventsPqControls$Outbound = {};
 
@@ -850,19 +694,6 @@ export const OutputNewrelicEventsPqControls$outboundSchema: z.ZodType<
   OutputNewrelicEventsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsPqControls$ {
-  /** @deprecated use `OutputNewrelicEventsPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsPqControls$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsPqControls$outboundSchema;
-  /** @deprecated use `OutputNewrelicEventsPqControls$Outbound` instead. */
-  export type Outbound = OutputNewrelicEventsPqControls$Outbound;
-}
-
 export function outputNewrelicEventsPqControlsToJSON(
   outputNewrelicEventsPqControls: OutputNewrelicEventsPqControls,
 ): string {
@@ -872,7 +703,6 @@ export function outputNewrelicEventsPqControlsToJSON(
     ),
   );
 }
-
 export function outputNewrelicEventsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNewrelicEventsPqControls, SDKValidationError> {
@@ -943,7 +773,6 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputNewrelicEvents$Outbound = {
   id?: string | undefined;
@@ -1054,19 +883,6 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEvents$ {
-  /** @deprecated use `OutputNewrelicEvents$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEvents$inboundSchema;
-  /** @deprecated use `OutputNewrelicEvents$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEvents$outboundSchema;
-  /** @deprecated use `OutputNewrelicEvents$Outbound` instead. */
-  export type Outbound = OutputNewrelicEvents$Outbound;
-}
-
 export function outputNewrelicEventsToJSON(
   outputNewrelicEvents: OutputNewrelicEvents,
 ): string {
@@ -1074,7 +890,6 @@ export function outputNewrelicEventsToJSON(
     OutputNewrelicEvents$outboundSchema.parse(outputNewrelicEvents),
   );
 }
-
 export function outputNewrelicEventsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNewrelicEvents, SDKValidationError> {

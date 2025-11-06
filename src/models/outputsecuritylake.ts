@@ -468,22 +468,10 @@ export type OutputSecurityLake = {
 export const OutputSecurityLakeType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSecurityLakeType
 > = z.nativeEnum(OutputSecurityLakeType);
-
 /** @internal */
 export const OutputSecurityLakeType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSecurityLakeType
 > = OutputSecurityLakeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeType$ {
-  /** @deprecated use `OutputSecurityLakeType$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeType$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeType$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLakeType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSecurityLakeAuthenticationMethod$inboundSchema: z.ZodType<
@@ -495,7 +483,6 @@ export const OutputSecurityLakeAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSecurityLakeAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
   OutputSecurityLakeAuthenticationMethod,
@@ -505,19 +492,6 @@ export const OutputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSecurityLakeAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeAuthenticationMethod$ {
-  /** @deprecated use `OutputSecurityLakeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
@@ -529,7 +503,6 @@ export const OutputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSecurityLakeSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
   OutputSecurityLakeSignatureVersion,
@@ -539,18 +512,6 @@ export const OutputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSecurityLakeSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeSignatureVersion$ {
-  /** @deprecated use `OutputSecurityLakeSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSecurityLakeObjectACL$inboundSchema: z.ZodType<
@@ -562,7 +523,6 @@ export const OutputSecurityLakeObjectACL$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSecurityLakeObjectACL),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSecurityLakeObjectACL$outboundSchema: z.ZodType<
   OutputSecurityLakeObjectACL,
@@ -572,17 +532,6 @@ export const OutputSecurityLakeObjectACL$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSecurityLakeObjectACL),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeObjectACL$ {
-  /** @deprecated use `OutputSecurityLakeObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeObjectACL$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLakeObjectACL$outboundSchema;
-}
 
 /** @internal */
 export const OutputSecurityLakeStorageClass$inboundSchema: z.ZodType<
@@ -594,7 +543,6 @@ export const OutputSecurityLakeStorageClass$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSecurityLakeStorageClass),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSecurityLakeStorageClass$outboundSchema: z.ZodType<
   OutputSecurityLakeStorageClass,
@@ -604,17 +552,6 @@ export const OutputSecurityLakeStorageClass$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSecurityLakeStorageClass),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeStorageClass$ {
-  /** @deprecated use `OutputSecurityLakeStorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeStorageClass$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeStorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLakeStorageClass$outboundSchema;
-}
 
 /** @internal */
 export const OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema:
@@ -627,7 +564,6 @@ export const OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSch
       z.nativeEnum(OutputSecurityLakeServerSideEncryptionForUploadedObjects),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema:
   z.ZodType<
@@ -639,19 +575,6 @@ export const OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSc
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeServerSideEncryptionForUploadedObjects$ {
-  /** @deprecated use `OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema;
-}
-
 /** @internal */
 export const OutputSecurityLakeBackpressureBehavior$inboundSchema: z.ZodType<
   OutputSecurityLakeBackpressureBehavior,
@@ -662,7 +585,6 @@ export const OutputSecurityLakeBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSecurityLakeBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSecurityLakeBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSecurityLakeBackpressureBehavior,
@@ -672,19 +594,6 @@ export const OutputSecurityLakeBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSecurityLakeBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeBackpressureBehavior$ {
-  /** @deprecated use `OutputSecurityLakeBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputSecurityLakeDiskSpaceProtection$inboundSchema: z.ZodType<
@@ -696,7 +605,6 @@ export const OutputSecurityLakeDiskSpaceProtection$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSecurityLakeDiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSecurityLakeDiskSpaceProtection$outboundSchema: z.ZodType<
   OutputSecurityLakeDiskSpaceProtection,
@@ -706,19 +614,6 @@ export const OutputSecurityLakeDiskSpaceProtection$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSecurityLakeDiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeDiskSpaceProtection$ {
-  /** @deprecated use `OutputSecurityLakeDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeDiskSpaceProtection$outboundSchema;
-}
 
 /** @internal */
 export const OutputSecurityLakeParquetVersion$inboundSchema: z.ZodType<
@@ -730,7 +625,6 @@ export const OutputSecurityLakeParquetVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSecurityLakeParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSecurityLakeParquetVersion$outboundSchema: z.ZodType<
   OutputSecurityLakeParquetVersion,
@@ -740,17 +634,6 @@ export const OutputSecurityLakeParquetVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSecurityLakeParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeParquetVersion$ {
-  /** @deprecated use `OutputSecurityLakeParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeParquetVersion$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLakeParquetVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSecurityLakeDataPageVersion$inboundSchema: z.ZodType<
@@ -762,7 +645,6 @@ export const OutputSecurityLakeDataPageVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSecurityLakeDataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSecurityLakeDataPageVersion$outboundSchema: z.ZodType<
   OutputSecurityLakeDataPageVersion,
@@ -773,18 +655,6 @@ export const OutputSecurityLakeDataPageVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeDataPageVersion$ {
-  /** @deprecated use `OutputSecurityLakeDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeDataPageVersion$outboundSchema;
-}
-
 /** @internal */
 export const OutputSecurityLakeKeyValueMetadatum$inboundSchema: z.ZodType<
   OutputSecurityLakeKeyValueMetadatum,
@@ -794,7 +664,6 @@ export const OutputSecurityLakeKeyValueMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputSecurityLakeKeyValueMetadatum$Outbound = {
   key: string;
@@ -811,21 +680,6 @@ export const OutputSecurityLakeKeyValueMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeKeyValueMetadatum$ {
-  /** @deprecated use `OutputSecurityLakeKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputSecurityLakeKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputSecurityLakeKeyValueMetadatum$Outbound;
-}
-
 export function outputSecurityLakeKeyValueMetadatumToJSON(
   outputSecurityLakeKeyValueMetadatum: OutputSecurityLakeKeyValueMetadatum,
 ): string {
@@ -835,7 +689,6 @@ export function outputSecurityLakeKeyValueMetadatumToJSON(
     ),
   );
 }
-
 export function outputSecurityLakeKeyValueMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSecurityLakeKeyValueMetadatum, SDKValidationError> {
@@ -924,7 +777,6 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
 export type OutputSecurityLake$Outbound = {
   id?: string | undefined;
@@ -1066,19 +918,6 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLake$ {
-  /** @deprecated use `OutputSecurityLake$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLake$inboundSchema;
-  /** @deprecated use `OutputSecurityLake$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLake$outboundSchema;
-  /** @deprecated use `OutputSecurityLake$Outbound` instead. */
-  export type Outbound = OutputSecurityLake$Outbound;
-}
-
 export function outputSecurityLakeToJSON(
   outputSecurityLake: OutputSecurityLake,
 ): string {
@@ -1086,7 +925,6 @@ export function outputSecurityLakeToJSON(
     OutputSecurityLake$outboundSchema.parse(outputSecurityLake),
   );
 }
-
 export function outputSecurityLakeFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSecurityLake, SDKValidationError> {

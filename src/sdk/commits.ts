@@ -10,6 +10,7 @@ import { versionsCommitsPush } from "../funcs/versionsCommitsPush.js";
 import { versionsCommitsRevert } from "../funcs/versionsCommitsRevert.js";
 import { versionsCommitsUndo } from "../funcs/versionsCommitsUndo.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Files } from "./files.js";
@@ -29,7 +30,7 @@ export class Commits extends ClientSDK {
   async create(
     request: operations.CreateVersionCommitRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateVersionCommitResponse> {
+  ): Promise<models.CountedListGitCommitSummary> {
     return unwrapAsync(versionsCommitsCreate(
       this,
       request,
@@ -46,7 +47,7 @@ export class Commits extends ClientSDK {
   async diff(
     request?: operations.GetVersionDiffRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetVersionDiffResponse> {
+  ): Promise<models.CountedListGitDiffResult> {
     return unwrapAsync(versionsCommitsDiff(
       this,
       request,
@@ -63,7 +64,7 @@ export class Commits extends ClientSDK {
   async list(
     request?: operations.GetVersionRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetVersionResponse> {
+  ): Promise<models.CountedListGitLogResult> {
     return unwrapAsync(versionsCommitsList(
       this,
       request,
@@ -79,7 +80,7 @@ export class Commits extends ClientSDK {
    */
   async push(
     options?: RequestOptions,
-  ): Promise<operations.CreateVersionPushResponse> {
+  ): Promise<models.CountedListstring> {
     return unwrapAsync(versionsCommitsPush(
       this,
       options,
@@ -95,7 +96,7 @@ export class Commits extends ClientSDK {
   async revert(
     request: operations.CreateVersionRevertRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateVersionRevertResponse> {
+  ): Promise<models.CountedListGitRevertResult> {
     return unwrapAsync(versionsCommitsRevert(
       this,
       request,
@@ -112,7 +113,7 @@ export class Commits extends ClientSDK {
   async get(
     request?: operations.GetVersionShowRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetVersionShowResponse> {
+  ): Promise<models.CountedListGitShowResult> {
     return unwrapAsync(versionsCommitsGet(
       this,
       request,
@@ -129,7 +130,7 @@ export class Commits extends ClientSDK {
   async undo(
     request?: operations.CreateVersionUndoRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.CreateVersionUndoResponse> {
+  ): Promise<models.CountedListObject> {
     return unwrapAsync(versionsCommitsUndo(
       this,
       request,

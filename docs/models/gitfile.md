@@ -9,7 +9,7 @@ let value: GitFile = {
   children: [
     {
       name: "<value>",
-      state: "Minnesota",
+      state: "New York",
     },
   ],
   name: "<value>",

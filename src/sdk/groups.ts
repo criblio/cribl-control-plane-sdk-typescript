@@ -9,18 +9,13 @@ import { groupsGet } from "../funcs/groupsGet.js";
 import { groupsList } from "../funcs/groupsList.js";
 import { groupsUpdate } from "../funcs/groupsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Acl } from "./acl.js";
 import { GroupsConfigs } from "./groupsconfigs.js";
-import { Mappings } from "./mappings.js";
 
 export class Groups extends ClientSDK {
-  private _mappings?: Mappings;
-  get mappings(): Mappings {
-    return (this._mappings ??= new Mappings(this._options));
-  }
-
   private _configs?: GroupsConfigs;
   get configs(): GroupsConfigs {
     return (this._configs ??= new GroupsConfigs(this._options));
@@ -40,7 +35,7 @@ export class Groups extends ClientSDK {
   async list(
     request: operations.ListConfigGroupByProductRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListConfigGroupByProductResponse> {
+  ): Promise<models.CountedListConfigGroup> {
     return unwrapAsync(groupsList(
       this,
       request,
@@ -57,7 +52,7 @@ export class Groups extends ClientSDK {
   async create(
     request: operations.CreateConfigGroupByProductRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateConfigGroupByProductResponse> {
+  ): Promise<models.CountedListConfigGroup> {
     return unwrapAsync(groupsCreate(
       this,
       request,
@@ -74,7 +69,7 @@ export class Groups extends ClientSDK {
   async get(
     request: operations.GetConfigGroupByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetConfigGroupByProductAndIdResponse> {
+  ): Promise<models.CountedListConfigGroup> {
     return unwrapAsync(groupsGet(
       this,
       request,
@@ -91,7 +86,7 @@ export class Groups extends ClientSDK {
   async update(
     request: operations.UpdateConfigGroupByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateConfigGroupByProductAndIdResponse> {
+  ): Promise<models.CountedListConfigGroup> {
     return unwrapAsync(groupsUpdate(
       this,
       request,
@@ -108,7 +103,7 @@ export class Groups extends ClientSDK {
   async delete(
     request: operations.DeleteConfigGroupByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteConfigGroupByProductAndIdResponse> {
+  ): Promise<models.CountedListConfigGroup> {
     return unwrapAsync(groupsDelete(
       this,
       request,
@@ -125,7 +120,7 @@ export class Groups extends ClientSDK {
   async deploy(
     request: operations.UpdateConfigGroupDeployByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateConfigGroupDeployByProductAndIdResponse> {
+  ): Promise<models.CountedListConfigGroup> {
     return unwrapAsync(groupsDeploy(
       this,
       request,

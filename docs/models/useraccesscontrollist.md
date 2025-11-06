@@ -11,10 +11,10 @@ let value: UserAccessControlList = {
       gid: "<id>",
       id: "<id>",
       policy: "<value>",
-      type: "groups",
+      type: "dataset-providers",
     },
   ],
-  user: "Adolphus_Hayes",
+  user: "Brionna.Kuhic50",
 };
 ```
 

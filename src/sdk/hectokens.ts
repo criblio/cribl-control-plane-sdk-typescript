@@ -5,6 +5,7 @@
 import { sourcesHecTokensCreate } from "../funcs/sourcesHecTokensCreate.js";
 import { sourcesHecTokensUpdate } from "../funcs/sourcesHecTokensUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,7 +19,7 @@ export class HecTokens extends ClientSDK {
   async create(
     request: operations.CreateInputHecTokenByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateInputHecTokenByIdResponse> {
+  ): Promise<models.CountedListInputSplunkHec> {
     return unwrapAsync(sourcesHecTokensCreate(
       this,
       request,
@@ -35,7 +36,7 @@ export class HecTokens extends ClientSDK {
   async update(
     request: operations.UpdateInputHecTokenByIdAndTokenRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateInputHecTokenByIdAndTokenResponse> {
+  ): Promise<models.CountedListInputSplunkHec> {
     return unwrapAsync(sourcesHecTokensUpdate(
       this,
       request,

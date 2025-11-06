@@ -4,7 +4,7 @@
 
 import { versionsConfigsGet } from "../funcs/versionsConfigsGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class VersionsConfigs extends ClientSDK {
@@ -16,7 +16,7 @@ export class VersionsConfigs extends ClientSDK {
    */
   async get(
     options?: RequestOptions,
-  ): Promise<operations.GetVersionInfoResponse> {
+  ): Promise<models.CountedListGitInfo> {
     return unwrapAsync(versionsConfigsGet(
       this,
       options,

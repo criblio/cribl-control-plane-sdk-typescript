@@ -7,7 +7,7 @@ import { ConfigGroup } from "cribl-control-plane/models";
 
 let value: ConfigGroup = {
   cloud: {
-    provider: "aws",
+    provider: "azure",
     region: "<value>",
   },
   configVersion: "<value>",
@@ -16,12 +16,12 @@ let value: ConfigGroup = {
   estimatedIngestRate: 5120,
   git: {
     commit: "<value>",
-    localChanges: 470.66,
+    localChanges: 5214.67,
     log: [
       {
         authorEmail: "<value>",
         authorName: "<value>",
-        date: "2024-12-24",
+        date: "2024-08-07",
         hash: "<value>",
         message: "<value>",
         short: "<value>",
@@ -36,13 +36,7 @@ let value: ConfigGroup = {
   lookupDeployments: [
     {
       context: "<value>",
-      lookups: [
-        {
-          deployedVersion: "<value>",
-          file: "<value>",
-          version: "<value>",
-        },
-      ],
+      lookups: [],
     },
   ],
   maxWorkerAge: "<value>",

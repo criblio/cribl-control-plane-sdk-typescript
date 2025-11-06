@@ -367,22 +367,10 @@ export type OutputCrowdstrikeNextGenSiem = {
 export const OutputCrowdstrikeNextGenSiemType$inboundSchema: z.ZodNativeEnum<
   typeof OutputCrowdstrikeNextGenSiemType
 > = z.nativeEnum(OutputCrowdstrikeNextGenSiemType);
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemType$outboundSchema: z.ZodNativeEnum<
   typeof OutputCrowdstrikeNextGenSiemType
 > = OutputCrowdstrikeNextGenSiemType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemType$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemType$inboundSchema` instead. */
-  export const inboundSchema = OutputCrowdstrikeNextGenSiemType$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemType$outboundSchema` instead. */
-  export const outboundSchema = OutputCrowdstrikeNextGenSiemType$outboundSchema;
-}
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemExtraHttpHeader$inboundSchema:
@@ -394,7 +382,6 @@ export const OutputCrowdstrikeNextGenSiemExtraHttpHeader$inboundSchema:
     name: z.string().optional(),
     value: z.string(),
   });
-
 /** @internal */
 export type OutputCrowdstrikeNextGenSiemExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -412,21 +399,6 @@ export const OutputCrowdstrikeNextGenSiemExtraHttpHeader$outboundSchema:
     value: z.string(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemExtraHttpHeader$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputCrowdstrikeNextGenSiemExtraHttpHeader$Outbound;
-}
-
 export function outputCrowdstrikeNextGenSiemExtraHttpHeaderToJSON(
   outputCrowdstrikeNextGenSiemExtraHttpHeader:
     OutputCrowdstrikeNextGenSiemExtraHttpHeader,
@@ -437,7 +409,6 @@ export function outputCrowdstrikeNextGenSiemExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputCrowdstrikeNextGenSiemExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -465,7 +436,6 @@ export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$inboundSchema:
       z.nativeEnum(OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
@@ -477,19 +447,6 @@ export const OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$outboundSchema
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemFailedRequestLoggingMode$outboundSchema;
-}
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema: z.ZodType<
   OutputCrowdstrikeNextGenSiemRequestFormat,
@@ -500,7 +457,6 @@ export const OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCrowdstrikeNextGenSiemRequestFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemRequestFormat$outboundSchema:
   z.ZodType<
@@ -511,19 +467,6 @@ export const OutputCrowdstrikeNextGenSiemRequestFormat$outboundSchema:
     z.nativeEnum(OutputCrowdstrikeNextGenSiemRequestFormat),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemRequestFormat$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemRequestFormat$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemRequestFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemRequestFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema:
@@ -536,7 +479,6 @@ export const OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema:
       z.nativeEnum(OutputCrowdstrikeNextGenSiemAuthenticationMethod),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -547,19 +489,6 @@ export const OutputCrowdstrikeNextGenSiemAuthenticationMethod$outboundSchema:
     z.nativeEnum(OutputCrowdstrikeNextGenSiemAuthenticationMethod),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemAuthenticationMethod$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemResponseRetrySetting$inboundSchema:
@@ -573,7 +502,6 @@ export const OutputCrowdstrikeNextGenSiemResponseRetrySetting$inboundSchema:
     backoffRate: z.number().default(2),
     maxBackoff: z.number().default(10000),
   });
-
 /** @internal */
 export type OutputCrowdstrikeNextGenSiemResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -595,22 +523,6 @@ export const OutputCrowdstrikeNextGenSiemResponseRetrySetting$outboundSchema:
     maxBackoff: z.number().default(10000),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemResponseRetrySetting$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemResponseRetrySetting$Outbound` instead. */
-  export type Outbound =
-    OutputCrowdstrikeNextGenSiemResponseRetrySetting$Outbound;
-}
-
 export function outputCrowdstrikeNextGenSiemResponseRetrySettingToJSON(
   outputCrowdstrikeNextGenSiemResponseRetrySetting:
     OutputCrowdstrikeNextGenSiemResponseRetrySetting,
@@ -621,7 +533,6 @@ export function outputCrowdstrikeNextGenSiemResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputCrowdstrikeNextGenSiemResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -650,7 +561,6 @@ export const OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$inboundSchema:
     backoffRate: z.number().default(2),
     maxBackoff: z.number().default(10000),
   });
-
 /** @internal */
 export type OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -672,22 +582,6 @@ export const OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$outboundSchema:
     maxBackoff: z.number().default(10000),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound =
-    OutputCrowdstrikeNextGenSiemTimeoutRetrySettings$Outbound;
-}
-
 export function outputCrowdstrikeNextGenSiemTimeoutRetrySettingsToJSON(
   outputCrowdstrikeNextGenSiemTimeoutRetrySettings:
     OutputCrowdstrikeNextGenSiemTimeoutRetrySettings,
@@ -698,7 +592,6 @@ export function outputCrowdstrikeNextGenSiemTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputCrowdstrikeNextGenSiemTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -726,7 +619,6 @@ export const OutputCrowdstrikeNextGenSiemBackpressureBehavior$inboundSchema:
       z.nativeEnum(OutputCrowdstrikeNextGenSiemBackpressureBehavior),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemBackpressureBehavior$outboundSchema:
   z.ZodType<
@@ -738,19 +630,6 @@ export const OutputCrowdstrikeNextGenSiemBackpressureBehavior$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemBackpressureBehavior$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemMode$inboundSchema: z.ZodType<
   OutputCrowdstrikeNextGenSiemMode,
@@ -761,7 +640,6 @@ export const OutputCrowdstrikeNextGenSiemMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCrowdstrikeNextGenSiemMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemMode$outboundSchema: z.ZodType<
   OutputCrowdstrikeNextGenSiemMode,
@@ -771,17 +649,6 @@ export const OutputCrowdstrikeNextGenSiemMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCrowdstrikeNextGenSiemMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemMode$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemMode$inboundSchema` instead. */
-  export const inboundSchema = OutputCrowdstrikeNextGenSiemMode$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemMode$outboundSchema` instead. */
-  export const outboundSchema = OutputCrowdstrikeNextGenSiemMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemCompression$inboundSchema: z.ZodType<
@@ -793,7 +660,6 @@ export const OutputCrowdstrikeNextGenSiemCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCrowdstrikeNextGenSiemCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemCompression$outboundSchema: z.ZodType<
   OutputCrowdstrikeNextGenSiemCompression,
@@ -803,19 +669,6 @@ export const OutputCrowdstrikeNextGenSiemCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCrowdstrikeNextGenSiemCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemCompression$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemCompression$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemQueueFullBehavior$inboundSchema:
@@ -828,7 +681,6 @@ export const OutputCrowdstrikeNextGenSiemQueueFullBehavior$inboundSchema:
       z.nativeEnum(OutputCrowdstrikeNextGenSiemQueueFullBehavior),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemQueueFullBehavior$outboundSchema:
   z.ZodType<
@@ -840,26 +692,12 @@ export const OutputCrowdstrikeNextGenSiemQueueFullBehavior$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemQueueFullBehavior$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemPqControls$inboundSchema: z.ZodType<
   OutputCrowdstrikeNextGenSiemPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputCrowdstrikeNextGenSiemPqControls$Outbound = {};
 
@@ -869,21 +707,6 @@ export const OutputCrowdstrikeNextGenSiemPqControls$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputCrowdstrikeNextGenSiemPqControls
 > = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiemPqControls$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemPqControls$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCrowdstrikeNextGenSiemPqControls$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemPqControls$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCrowdstrikeNextGenSiemPqControls$outboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiemPqControls$Outbound` instead. */
-  export type Outbound = OutputCrowdstrikeNextGenSiemPqControls$Outbound;
-}
 
 export function outputCrowdstrikeNextGenSiemPqControlsToJSON(
   outputCrowdstrikeNextGenSiemPqControls:
@@ -895,7 +718,6 @@ export function outputCrowdstrikeNextGenSiemPqControlsToJSON(
     ),
   );
 }
-
 export function outputCrowdstrikeNextGenSiemPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCrowdstrikeNextGenSiemPqControls, SDKValidationError> {
@@ -971,7 +793,6 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputCrowdstrikeNextGenSiemPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputCrowdstrikeNextGenSiem$Outbound = {
   id?: string | undefined;
@@ -1088,19 +909,6 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCrowdstrikeNextGenSiem$ {
-  /** @deprecated use `OutputCrowdstrikeNextGenSiem$inboundSchema` instead. */
-  export const inboundSchema = OutputCrowdstrikeNextGenSiem$inboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiem$outboundSchema` instead. */
-  export const outboundSchema = OutputCrowdstrikeNextGenSiem$outboundSchema;
-  /** @deprecated use `OutputCrowdstrikeNextGenSiem$Outbound` instead. */
-  export type Outbound = OutputCrowdstrikeNextGenSiem$Outbound;
-}
-
 export function outputCrowdstrikeNextGenSiemToJSON(
   outputCrowdstrikeNextGenSiem: OutputCrowdstrikeNextGenSiem,
 ): string {
@@ -1110,7 +918,6 @@ export function outputCrowdstrikeNextGenSiemToJSON(
     ),
   );
 }
-
 export function outputCrowdstrikeNextGenSiemFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCrowdstrikeNextGenSiem, SDKValidationError> {

@@ -19,12 +19,12 @@ let value: LakeDatasetSearchConfig = {
       "<value 3>",
     ],
     latestRunInfo: {
-      earliestScannedTime: 4514.45,
-      finishedAt: 4750.45,
-      latestScannedTime: 8488.95,
-      objectCount: 359.3,
+      earliestScannedTime: 7719.02,
+      finishedAt: 6833.88,
+      latestScannedTime: 6079.32,
+      objectCount: 731.57,
     },
-    scanMode: "detailed",
+    scanMode: "quick",
   },
 };
 ```

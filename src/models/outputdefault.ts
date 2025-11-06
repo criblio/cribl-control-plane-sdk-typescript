@@ -45,22 +45,10 @@ export type OutputDefault = {
 export const OutputDefaultType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDefaultType
 > = z.nativeEnum(OutputDefaultType);
-
 /** @internal */
 export const OutputDefaultType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDefaultType
 > = OutputDefaultType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDefaultType$ {
-  /** @deprecated use `OutputDefaultType$inboundSchema` instead. */
-  export const inboundSchema = OutputDefaultType$inboundSchema;
-  /** @deprecated use `OutputDefaultType$outboundSchema` instead. */
-  export const outboundSchema = OutputDefaultType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDefault$inboundSchema: z.ZodType<
@@ -76,7 +64,6 @@ export const OutputDefault$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   defaultId: z.string(),
 });
-
 /** @internal */
 export type OutputDefault$Outbound = {
   id?: string | undefined;
@@ -103,23 +90,9 @@ export const OutputDefault$outboundSchema: z.ZodType<
   defaultId: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDefault$ {
-  /** @deprecated use `OutputDefault$inboundSchema` instead. */
-  export const inboundSchema = OutputDefault$inboundSchema;
-  /** @deprecated use `OutputDefault$outboundSchema` instead. */
-  export const outboundSchema = OutputDefault$outboundSchema;
-  /** @deprecated use `OutputDefault$Outbound` instead. */
-  export type Outbound = OutputDefault$Outbound;
-}
-
 export function outputDefaultToJSON(outputDefault: OutputDefault): string {
   return JSON.stringify(OutputDefault$outboundSchema.parse(outputDefault));
 }
-
 export function outputDefaultFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDefault, SDKValidationError> {

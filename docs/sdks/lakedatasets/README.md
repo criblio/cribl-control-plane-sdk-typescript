@@ -184,7 +184,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateCriblLakeDatasetByLakeIdResponse](../../models/operations/createcribllakedatasetbylakeidresponse.md)\>**
+**Promise\<[models.CountedListCriblLakeDataset](../../models/countedlistcribllakedataset.md)\>**
 
 ### Errors
 
@@ -264,7 +264,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetCriblLakeDatasetByLakeIdResponse](../../models/operations/getcribllakedatasetbylakeidresponse.md)\>**
+**Promise\<[models.CountedListCriblLakeDataset](../../models/countedlistcribllakedataset.md)\>**
 
 ### Errors
 
@@ -346,7 +346,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteCriblLakeDatasetByLakeIdAndIdResponse](../../models/operations/deletecribllakedatasetbylakeidandidresponse.md)\>**
+**Promise\<[models.CountedListCriblLakeDataset](../../models/countedlistcribllakedataset.md)\>**
 
 ### Errors
 
@@ -428,7 +428,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetCriblLakeDatasetByLakeIdAndIdResponse](../../models/operations/getcribllakedatasetbylakeidandidresponse.md)\>**
+**Promise\<[models.CountedListCriblLakeDataset](../../models/countedlistcribllakedataset.md)\>**
 
 ### Errors
 
@@ -614,7 +614,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateCriblLakeDatasetByLakeIdAndIdResponse](../../models/operations/updatecribllakedatasetbylakeidandidresponse.md)\>**
+**Promise\<[models.CountedListCriblLakeDataset](../../models/countedlistcribllakedataset.md)\>**
 
 ### Errors
 

@@ -7,7 +7,7 @@ import { HeartbeatMetadata } from "cribl-control-plane/models";
 
 let value: HeartbeatMetadata = {
   aws: {
-    enabled: false,
+    enabled: true,
     instanceId: "<id>",
     region: "<value>",
     tags: {},
@@ -18,9 +18,8 @@ let value: HeartbeatMetadata = {
     addresses: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
-    enabled: true,
+    enabled: false,
     id: "<id>",
     version: "<value>",
   },
@@ -36,8 +35,12 @@ let value: HeartbeatMetadata = {
     source: "<value>",
   },
   os: {
-    addresses: [],
-    enabled: true,
+    addresses: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    enabled: false,
     id: "<id>",
     version: "<value>",
   },

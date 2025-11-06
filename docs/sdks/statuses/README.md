@@ -78,7 +78,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionStatusResponse](../../models/operations/getversionstatusresponse.md)\>**
+**Promise\<[models.CountedListGitStatusResult](../../models/countedlistgitstatusresult.md)\>**
 
 ### Errors
 

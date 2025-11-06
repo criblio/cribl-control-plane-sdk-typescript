@@ -31,19 +31,21 @@ let value: PackInfo = {
   spec: "<value>",
   tags: {
     dataType: [
-      "double",
+      "set",
+      "int",
+      "point",
     ],
     domain: [
-      "sophisticated-pepper.com",
-      "cheerful-printer.net",
+      "vast-ocelot.com",
+      "tiny-mousse.biz",
     ],
     streamtags: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     technology: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   version: "<value>",

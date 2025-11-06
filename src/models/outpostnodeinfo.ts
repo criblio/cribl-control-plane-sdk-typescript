@@ -22,41 +22,6 @@ export const OutpostNodeInfo$inboundSchema: z.ZodType<
   host: z.string(),
 });
 
-/** @internal */
-export type OutpostNodeInfo$Outbound = {
-  guid: string;
-  host: string;
-};
-
-/** @internal */
-export const OutpostNodeInfo$outboundSchema: z.ZodType<
-  OutpostNodeInfo$Outbound,
-  z.ZodTypeDef,
-  OutpostNodeInfo
-> = z.object({
-  guid: z.string(),
-  host: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutpostNodeInfo$ {
-  /** @deprecated use `OutpostNodeInfo$inboundSchema` instead. */
-  export const inboundSchema = OutpostNodeInfo$inboundSchema;
-  /** @deprecated use `OutpostNodeInfo$outboundSchema` instead. */
-  export const outboundSchema = OutpostNodeInfo$outboundSchema;
-  /** @deprecated use `OutpostNodeInfo$Outbound` instead. */
-  export type Outbound = OutpostNodeInfo$Outbound;
-}
-
-export function outpostNodeInfoToJSON(
-  outpostNodeInfo: OutpostNodeInfo,
-): string {
-  return JSON.stringify(OutpostNodeInfo$outboundSchema.parse(outpostNodeInfo));
-}
-
 export function outpostNodeInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<OutpostNodeInfo, SDKValidationError> {

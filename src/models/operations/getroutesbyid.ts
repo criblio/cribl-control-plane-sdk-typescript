@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetRoutesByIdRequest = {
   /**
@@ -14,26 +10,6 @@ export type GetRoutesByIdRequest = {
    */
   id: string;
 };
-
-/**
- * a list of Routes objects
- */
-export type GetRoutesByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Routes> | undefined;
-};
-
-/** @internal */
-export const GetRoutesByIdRequest$inboundSchema: z.ZodType<
-  GetRoutesByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
 
 /** @internal */
 export type GetRoutesByIdRequest$Outbound = {
@@ -49,90 +25,10 @@ export const GetRoutesByIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetRoutesByIdRequest$ {
-  /** @deprecated use `GetRoutesByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = GetRoutesByIdRequest$inboundSchema;
-  /** @deprecated use `GetRoutesByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = GetRoutesByIdRequest$outboundSchema;
-  /** @deprecated use `GetRoutesByIdRequest$Outbound` instead. */
-  export type Outbound = GetRoutesByIdRequest$Outbound;
-}
-
 export function getRoutesByIdRequestToJSON(
   getRoutesByIdRequest: GetRoutesByIdRequest,
 ): string {
   return JSON.stringify(
     GetRoutesByIdRequest$outboundSchema.parse(getRoutesByIdRequest),
-  );
-}
-
-export function getRoutesByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetRoutesByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetRoutesByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetRoutesByIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetRoutesByIdResponse$inboundSchema: z.ZodType<
-  GetRoutesByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Routes$inboundSchema).optional(),
-});
-
-/** @internal */
-export type GetRoutesByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Routes$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetRoutesByIdResponse$outboundSchema: z.ZodType<
-  GetRoutesByIdResponse$Outbound,
-  z.ZodTypeDef,
-  GetRoutesByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Routes$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetRoutesByIdResponse$ {
-  /** @deprecated use `GetRoutesByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = GetRoutesByIdResponse$inboundSchema;
-  /** @deprecated use `GetRoutesByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = GetRoutesByIdResponse$outboundSchema;
-  /** @deprecated use `GetRoutesByIdResponse$Outbound` instead. */
-  export type Outbound = GetRoutesByIdResponse$Outbound;
-}
-
-export function getRoutesByIdResponseToJSON(
-  getRoutesByIdResponse: GetRoutesByIdResponse,
-): string {
-  return JSON.stringify(
-    GetRoutesByIdResponse$outboundSchema.parse(getRoutesByIdResponse),
-  );
-}
-
-export function getRoutesByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetRoutesByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetRoutesByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetRoutesByIdResponse' from JSON`,
   );
 }
