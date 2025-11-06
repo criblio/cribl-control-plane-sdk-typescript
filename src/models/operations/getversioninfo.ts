@@ -29,43 +29,6 @@ export const GetVersionInfoResponse$inboundSchema: z.ZodType<
   items: z.array(models.GitInfo$inboundSchema).optional(),
 });
 
-/** @internal */
-export type GetVersionInfoResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitInfo$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetVersionInfoResponse$outboundSchema: z.ZodType<
-  GetVersionInfoResponse$Outbound,
-  z.ZodTypeDef,
-  GetVersionInfoResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitInfo$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionInfoResponse$ {
-  /** @deprecated use `GetVersionInfoResponse$inboundSchema` instead. */
-  export const inboundSchema = GetVersionInfoResponse$inboundSchema;
-  /** @deprecated use `GetVersionInfoResponse$outboundSchema` instead. */
-  export const outboundSchema = GetVersionInfoResponse$outboundSchema;
-  /** @deprecated use `GetVersionInfoResponse$Outbound` instead. */
-  export type Outbound = GetVersionInfoResponse$Outbound;
-}
-
-export function getVersionInfoResponseToJSON(
-  getVersionInfoResponse: GetVersionInfoResponse,
-): string {
-  return JSON.stringify(
-    GetVersionInfoResponse$outboundSchema.parse(getVersionInfoResponse),
-  );
-}
-
 export function getVersionInfoResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetVersionInfoResponse, SDKValidationError> {

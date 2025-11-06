@@ -536,21 +536,9 @@ export type OutputS3 = {
 /** @internal */
 export const OutputS3Type$inboundSchema: z.ZodNativeEnum<typeof OutputS3Type> =
   z.nativeEnum(OutputS3Type);
-
 /** @internal */
 export const OutputS3Type$outboundSchema: z.ZodNativeEnum<typeof OutputS3Type> =
   OutputS3Type$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3Type$ {
-  /** @deprecated use `OutputS3Type$inboundSchema` instead. */
-  export const inboundSchema = OutputS3Type$inboundSchema;
-  /** @deprecated use `OutputS3Type$outboundSchema` instead. */
-  export const outboundSchema = OutputS3Type$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3AuthenticationMethod$inboundSchema: z.ZodType<
@@ -562,7 +550,6 @@ export const OutputS3AuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3AuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3AuthenticationMethod$outboundSchema: z.ZodType<
   OutputS3AuthenticationMethod,
@@ -572,17 +559,6 @@ export const OutputS3AuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3AuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3AuthenticationMethod$ {
-  /** @deprecated use `OutputS3AuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputS3AuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputS3AuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputS3AuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3SignatureVersion$inboundSchema: z.ZodType<
@@ -594,7 +570,6 @@ export const OutputS3SignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3SignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3SignatureVersion$outboundSchema: z.ZodType<
   OutputS3SignatureVersion,
@@ -604,17 +579,6 @@ export const OutputS3SignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3SignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3SignatureVersion$ {
-  /** @deprecated use `OutputS3SignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputS3SignatureVersion$inboundSchema;
-  /** @deprecated use `OutputS3SignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputS3SignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3ObjectACL$inboundSchema: z.ZodType<
@@ -626,7 +590,6 @@ export const OutputS3ObjectACL$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3ObjectACL),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3ObjectACL$outboundSchema: z.ZodType<
   OutputS3ObjectACL,
@@ -636,17 +599,6 @@ export const OutputS3ObjectACL$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3ObjectACL),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3ObjectACL$ {
-  /** @deprecated use `OutputS3ObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputS3ObjectACL$inboundSchema;
-  /** @deprecated use `OutputS3ObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputS3ObjectACL$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3StorageClass$inboundSchema: z.ZodType<
@@ -658,7 +610,6 @@ export const OutputS3StorageClass$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3StorageClass),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3StorageClass$outboundSchema: z.ZodType<
   OutputS3StorageClass,
@@ -668,17 +619,6 @@ export const OutputS3StorageClass$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3StorageClass),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3StorageClass$ {
-  /** @deprecated use `OutputS3StorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputS3StorageClass$inboundSchema;
-  /** @deprecated use `OutputS3StorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputS3StorageClass$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3ServerSideEncryptionForUploadedObjects$inboundSchema:
@@ -691,7 +631,6 @@ export const OutputS3ServerSideEncryptionForUploadedObjects$inboundSchema:
       z.nativeEnum(OutputS3ServerSideEncryptionForUploadedObjects),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputS3ServerSideEncryptionForUploadedObjects$outboundSchema:
   z.ZodType<
@@ -703,19 +642,6 @@ export const OutputS3ServerSideEncryptionForUploadedObjects$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3ServerSideEncryptionForUploadedObjects$ {
-  /** @deprecated use `OutputS3ServerSideEncryptionForUploadedObjects$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputS3ServerSideEncryptionForUploadedObjects$inboundSchema;
-  /** @deprecated use `OutputS3ServerSideEncryptionForUploadedObjects$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputS3ServerSideEncryptionForUploadedObjects$outboundSchema;
-}
-
 /** @internal */
 export const OutputS3DataFormat$inboundSchema: z.ZodType<
   OutputS3DataFormat,
@@ -726,7 +652,6 @@ export const OutputS3DataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3DataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3DataFormat$outboundSchema: z.ZodType<
   OutputS3DataFormat,
@@ -736,17 +661,6 @@ export const OutputS3DataFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3DataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3DataFormat$ {
-  /** @deprecated use `OutputS3DataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputS3DataFormat$inboundSchema;
-  /** @deprecated use `OutputS3DataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputS3DataFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3BackpressureBehavior$inboundSchema: z.ZodType<
@@ -758,7 +672,6 @@ export const OutputS3BackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3BackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3BackpressureBehavior$outboundSchema: z.ZodType<
   OutputS3BackpressureBehavior,
@@ -768,17 +681,6 @@ export const OutputS3BackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3BackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3BackpressureBehavior$ {
-  /** @deprecated use `OutputS3BackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputS3BackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputS3BackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputS3BackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3DiskSpaceProtection$inboundSchema: z.ZodType<
@@ -790,7 +692,6 @@ export const OutputS3DiskSpaceProtection$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3DiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3DiskSpaceProtection$outboundSchema: z.ZodType<
   OutputS3DiskSpaceProtection,
@@ -800,17 +701,6 @@ export const OutputS3DiskSpaceProtection$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3DiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3DiskSpaceProtection$ {
-  /** @deprecated use `OutputS3DiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputS3DiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputS3DiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema = OutputS3DiskSpaceProtection$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3Compression$inboundSchema: z.ZodType<
@@ -822,7 +712,6 @@ export const OutputS3Compression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3Compression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3Compression$outboundSchema: z.ZodType<
   OutputS3Compression,
@@ -832,17 +721,6 @@ export const OutputS3Compression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3Compression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3Compression$ {
-  /** @deprecated use `OutputS3Compression$inboundSchema` instead. */
-  export const inboundSchema = OutputS3Compression$inboundSchema;
-  /** @deprecated use `OutputS3Compression$outboundSchema` instead. */
-  export const outboundSchema = OutputS3Compression$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3CompressionLevel$inboundSchema: z.ZodType<
@@ -854,7 +732,6 @@ export const OutputS3CompressionLevel$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3CompressionLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3CompressionLevel$outboundSchema: z.ZodType<
   OutputS3CompressionLevel,
@@ -864,17 +741,6 @@ export const OutputS3CompressionLevel$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3CompressionLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3CompressionLevel$ {
-  /** @deprecated use `OutputS3CompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputS3CompressionLevel$inboundSchema;
-  /** @deprecated use `OutputS3CompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputS3CompressionLevel$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3ParquetVersion$inboundSchema: z.ZodType<
@@ -886,7 +752,6 @@ export const OutputS3ParquetVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3ParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3ParquetVersion$outboundSchema: z.ZodType<
   OutputS3ParquetVersion,
@@ -896,17 +761,6 @@ export const OutputS3ParquetVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputS3ParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3ParquetVersion$ {
-  /** @deprecated use `OutputS3ParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputS3ParquetVersion$inboundSchema;
-  /** @deprecated use `OutputS3ParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputS3ParquetVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputS3DataPageVersion$inboundSchema: z.ZodType<
@@ -918,7 +772,6 @@ export const OutputS3DataPageVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputS3DataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputS3DataPageVersion$outboundSchema: z.ZodType<
   OutputS3DataPageVersion,
@@ -929,17 +782,6 @@ export const OutputS3DataPageVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3DataPageVersion$ {
-  /** @deprecated use `OutputS3DataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputS3DataPageVersion$inboundSchema;
-  /** @deprecated use `OutputS3DataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputS3DataPageVersion$outboundSchema;
-}
-
 /** @internal */
 export const OutputS3KeyValueMetadatum$inboundSchema: z.ZodType<
   OutputS3KeyValueMetadatum,
@@ -949,7 +791,6 @@ export const OutputS3KeyValueMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputS3KeyValueMetadatum$Outbound = {
   key: string;
@@ -966,19 +807,6 @@ export const OutputS3KeyValueMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3KeyValueMetadatum$ {
-  /** @deprecated use `OutputS3KeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputS3KeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputS3KeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputS3KeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputS3KeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputS3KeyValueMetadatum$Outbound;
-}
-
 export function outputS3KeyValueMetadatumToJSON(
   outputS3KeyValueMetadatum: OutputS3KeyValueMetadatum,
 ): string {
@@ -986,7 +814,6 @@ export function outputS3KeyValueMetadatumToJSON(
     OutputS3KeyValueMetadatum$outboundSchema.parse(outputS3KeyValueMetadatum),
   );
 }
-
 export function outputS3KeyValueMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputS3KeyValueMetadatum, SDKValidationError> {
@@ -1080,7 +907,6 @@ export const OutputS3$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
 export type OutputS3$Outbound = {
   id?: string | undefined;
@@ -1230,23 +1056,9 @@ export const OutputS3$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputS3$ {
-  /** @deprecated use `OutputS3$inboundSchema` instead. */
-  export const inboundSchema = OutputS3$inboundSchema;
-  /** @deprecated use `OutputS3$outboundSchema` instead. */
-  export const outboundSchema = OutputS3$outboundSchema;
-  /** @deprecated use `OutputS3$Outbound` instead. */
-  export type Outbound = OutputS3$Outbound;
-}
-
 export function outputS3ToJSON(outputS3: OutputS3): string {
   return JSON.stringify(OutputS3$outboundSchema.parse(outputS3));
 }
-
 export function outputS3FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputS3, SDKValidationError> {

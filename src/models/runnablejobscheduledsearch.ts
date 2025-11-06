@@ -4,12 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { catchUnrecognizedEnum, ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -183,47 +178,9 @@ export const RunnableJobScheduledSearchJobType$inboundSchema: z.ZodType<
   ]);
 
 /** @internal */
-export const RunnableJobScheduledSearchJobType$outboundSchema: z.ZodType<
-  RunnableJobScheduledSearchJobType,
-  z.ZodTypeDef,
-  RunnableJobScheduledSearchJobType
-> = z.union([
-  z.nativeEnum(RunnableJobScheduledSearchJobType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobScheduledSearchJobType$ {
-  /** @deprecated use `RunnableJobScheduledSearchJobType$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobScheduledSearchJobType$inboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchJobType$outboundSchema` instead. */
-  export const outboundSchema =
-    RunnableJobScheduledSearchJobType$outboundSchema;
-}
-
-/** @internal */
 export const RunnableJobScheduledSearchType$inboundSchema: z.ZodNativeEnum<
   typeof RunnableJobScheduledSearchType
 > = z.nativeEnum(RunnableJobScheduledSearchType);
-
-/** @internal */
-export const RunnableJobScheduledSearchType$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobScheduledSearchType
-> = RunnableJobScheduledSearchType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobScheduledSearchType$ {
-  /** @deprecated use `RunnableJobScheduledSearchType$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobScheduledSearchType$inboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchType$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobScheduledSearchType$outboundSchema;
-}
 
 /** @internal */
 export const RunnableJobScheduledSearchLogLevel$inboundSchema: z.ZodNativeEnum<
@@ -231,63 +188,11 @@ export const RunnableJobScheduledSearchLogLevel$inboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(RunnableJobScheduledSearchLogLevel);
 
 /** @internal */
-export const RunnableJobScheduledSearchLogLevel$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobScheduledSearchLogLevel
-> = RunnableJobScheduledSearchLogLevel$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobScheduledSearchLogLevel$ {
-  /** @deprecated use `RunnableJobScheduledSearchLogLevel$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobScheduledSearchLogLevel$inboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchLogLevel$outboundSchema` instead. */
-  export const outboundSchema =
-    RunnableJobScheduledSearchLogLevel$outboundSchema;
-}
-
-/** @internal */
 export const RunnableJobScheduledSearchTimeWarning$inboundSchema: z.ZodType<
   RunnableJobScheduledSearchTimeWarning,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
-/** @internal */
-export type RunnableJobScheduledSearchTimeWarning$Outbound = {};
-
-/** @internal */
-export const RunnableJobScheduledSearchTimeWarning$outboundSchema: z.ZodType<
-  RunnableJobScheduledSearchTimeWarning$Outbound,
-  z.ZodTypeDef,
-  RunnableJobScheduledSearchTimeWarning
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobScheduledSearchTimeWarning$ {
-  /** @deprecated use `RunnableJobScheduledSearchTimeWarning$inboundSchema` instead. */
-  export const inboundSchema =
-    RunnableJobScheduledSearchTimeWarning$inboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchTimeWarning$outboundSchema` instead. */
-  export const outboundSchema =
-    RunnableJobScheduledSearchTimeWarning$outboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchTimeWarning$Outbound` instead. */
-  export type Outbound = RunnableJobScheduledSearchTimeWarning$Outbound;
-}
-
-export function runnableJobScheduledSearchTimeWarningToJSON(
-  runnableJobScheduledSearchTimeWarning: RunnableJobScheduledSearchTimeWarning,
-): string {
-  return JSON.stringify(
-    RunnableJobScheduledSearchTimeWarning$outboundSchema.parse(
-      runnableJobScheduledSearchTimeWarning,
-    ),
-  );
-}
 
 export function runnableJobScheduledSearchTimeWarningFromJSON(
   jsonString: string,
@@ -323,73 +228,6 @@ export const RunnableJobScheduledSearchRunSettings$inboundSchema: z.ZodType<
   maxTaskSize: z.string().default("10MB"),
 });
 
-/** @internal */
-export type RunnableJobScheduledSearchRunSettings$Outbound = {
-  type?: string | undefined;
-  rescheduleDroppedTasks: boolean;
-  maxTaskReschedule: number;
-  logLevel: string;
-  jobTimeout: string;
-  mode: string;
-  timeRangeType: string;
-  earliest?: number | undefined;
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: RunnableJobScheduledSearchTimeWarning$Outbound | undefined;
-  expression: string;
-  minTaskSize: string;
-  maxTaskSize: string;
-};
-
-/** @internal */
-export const RunnableJobScheduledSearchRunSettings$outboundSchema: z.ZodType<
-  RunnableJobScheduledSearchRunSettings$Outbound,
-  z.ZodTypeDef,
-  RunnableJobScheduledSearchRunSettings
-> = z.object({
-  type: RunnableJobScheduledSearchType$outboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: RunnableJobScheduledSearchLogLevel$outboundSchema.default("info"),
-  jobTimeout: z.string().default("0"),
-  mode: z.string().default("list"),
-  timeRangeType: z.string().default("relative"),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.any().optional(),
-  timeWarning: z.lazy(() =>
-    RunnableJobScheduledSearchTimeWarning$outboundSchema
-  ).optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobScheduledSearchRunSettings$ {
-  /** @deprecated use `RunnableJobScheduledSearchRunSettings$inboundSchema` instead. */
-  export const inboundSchema =
-    RunnableJobScheduledSearchRunSettings$inboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchRunSettings$outboundSchema` instead. */
-  export const outboundSchema =
-    RunnableJobScheduledSearchRunSettings$outboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchRunSettings$Outbound` instead. */
-  export type Outbound = RunnableJobScheduledSearchRunSettings$Outbound;
-}
-
-export function runnableJobScheduledSearchRunSettingsToJSON(
-  runnableJobScheduledSearchRunSettings: RunnableJobScheduledSearchRunSettings,
-): string {
-  return JSON.stringify(
-    RunnableJobScheduledSearchRunSettings$outboundSchema.parse(
-      runnableJobScheduledSearchRunSettings,
-    ),
-  );
-}
-
 export function runnableJobScheduledSearchRunSettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<RunnableJobScheduledSearchRunSettings, SDKValidationError> {
@@ -415,55 +253,6 @@ export const RunnableJobScheduledSearchSchedule$inboundSchema: z.ZodType<
   run: z.lazy(() => RunnableJobScheduledSearchRunSettings$inboundSchema)
     .optional(),
 });
-
-/** @internal */
-export type RunnableJobScheduledSearchSchedule$Outbound = {
-  enabled?: boolean | undefined;
-  skippable: boolean;
-  resumeMissed: boolean;
-  cronSchedule: string;
-  maxConcurrentRuns: number;
-  run?: RunnableJobScheduledSearchRunSettings$Outbound | undefined;
-};
-
-/** @internal */
-export const RunnableJobScheduledSearchSchedule$outboundSchema: z.ZodType<
-  RunnableJobScheduledSearchSchedule$Outbound,
-  z.ZodTypeDef,
-  RunnableJobScheduledSearchSchedule
-> = z.object({
-  enabled: z.boolean().optional(),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.boolean().default(false),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
-  run: z.lazy(() => RunnableJobScheduledSearchRunSettings$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobScheduledSearchSchedule$ {
-  /** @deprecated use `RunnableJobScheduledSearchSchedule$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobScheduledSearchSchedule$inboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchSchedule$outboundSchema` instead. */
-  export const outboundSchema =
-    RunnableJobScheduledSearchSchedule$outboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearchSchedule$Outbound` instead. */
-  export type Outbound = RunnableJobScheduledSearchSchedule$Outbound;
-}
-
-export function runnableJobScheduledSearchScheduleToJSON(
-  runnableJobScheduledSearchSchedule: RunnableJobScheduledSearchSchedule,
-): string {
-  return JSON.stringify(
-    RunnableJobScheduledSearchSchedule$outboundSchema.parse(
-      runnableJobScheduledSearchSchedule,
-    ),
-  );
-}
 
 export function runnableJobScheduledSearchScheduleFromJSON(
   jsonString: string,
@@ -495,62 +284,6 @@ export const RunnableJobScheduledSearch$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   savedQueryId: z.string(),
 });
-
-/** @internal */
-export type RunnableJobScheduledSearch$Outbound = {
-  id?: string | undefined;
-  description?: string | undefined;
-  type: string;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
-  removeFields?: Array<string> | undefined;
-  resumeOnBoot: boolean;
-  environment?: string | undefined;
-  schedule?: RunnableJobScheduledSearchSchedule$Outbound | undefined;
-  streamtags?: Array<string> | undefined;
-  savedQueryId: string;
-};
-
-/** @internal */
-export const RunnableJobScheduledSearch$outboundSchema: z.ZodType<
-  RunnableJobScheduledSearch$Outbound,
-  z.ZodTypeDef,
-  RunnableJobScheduledSearch
-> = z.object({
-  id: z.string().optional(),
-  description: z.string().optional(),
-  type: RunnableJobScheduledSearchJobType$outboundSchema,
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
-  removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
-  environment: z.string().optional(),
-  schedule: z.lazy(() => RunnableJobScheduledSearchSchedule$outboundSchema)
-    .optional(),
-  streamtags: z.array(z.string()).optional(),
-  savedQueryId: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobScheduledSearch$ {
-  /** @deprecated use `RunnableJobScheduledSearch$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobScheduledSearch$inboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearch$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobScheduledSearch$outboundSchema;
-  /** @deprecated use `RunnableJobScheduledSearch$Outbound` instead. */
-  export type Outbound = RunnableJobScheduledSearch$Outbound;
-}
-
-export function runnableJobScheduledSearchToJSON(
-  runnableJobScheduledSearch: RunnableJobScheduledSearch,
-): string {
-  return JSON.stringify(
-    RunnableJobScheduledSearch$outboundSchema.parse(runnableJobScheduledSearch),
-  );
-}
 
 export function runnableJobScheduledSearchFromJSON(
   jsonString: string,

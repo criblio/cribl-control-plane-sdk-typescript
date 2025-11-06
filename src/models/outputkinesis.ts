@@ -316,22 +316,10 @@ export type OutputKinesis = {
 export const OutputKinesisType$inboundSchema: z.ZodNativeEnum<
   typeof OutputKinesisType
 > = z.nativeEnum(OutputKinesisType);
-
 /** @internal */
 export const OutputKinesisType$outboundSchema: z.ZodNativeEnum<
   typeof OutputKinesisType
 > = OutputKinesisType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisType$ {
-  /** @deprecated use `OutputKinesisType$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisType$inboundSchema;
-  /** @deprecated use `OutputKinesisType$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisType$outboundSchema;
-}
 
 /** @internal */
 export const OutputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
@@ -343,7 +331,6 @@ export const OutputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputKinesisAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
   OutputKinesisAuthenticationMethod,
@@ -353,18 +340,6 @@ export const OutputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputKinesisAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisAuthenticationMethod$ {
-  /** @deprecated use `OutputKinesisAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputKinesisAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputKinesisAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputKinesisSignatureVersion$inboundSchema: z.ZodType<
@@ -376,7 +351,6 @@ export const OutputKinesisSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputKinesisSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputKinesisSignatureVersion$outboundSchema: z.ZodType<
   OutputKinesisSignatureVersion,
@@ -386,17 +360,6 @@ export const OutputKinesisSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputKinesisSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisSignatureVersion$ {
-  /** @deprecated use `OutputKinesisSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputKinesisSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputKinesisCompression$inboundSchema: z.ZodType<
@@ -408,7 +371,6 @@ export const OutputKinesisCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputKinesisCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputKinesisCompression$outboundSchema: z.ZodType<
   OutputKinesisCompression,
@@ -418,17 +380,6 @@ export const OutputKinesisCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputKinesisCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisCompression$ {
-  /** @deprecated use `OutputKinesisCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisCompression$inboundSchema;
-  /** @deprecated use `OutputKinesisCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputKinesisBackpressureBehavior$inboundSchema: z.ZodType<
@@ -440,7 +391,6 @@ export const OutputKinesisBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputKinesisBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputKinesisBackpressureBehavior$outboundSchema: z.ZodType<
   OutputKinesisBackpressureBehavior,
@@ -450,18 +400,6 @@ export const OutputKinesisBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputKinesisBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisBackpressureBehavior$ {
-  /** @deprecated use `OutputKinesisBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputKinesisBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputKinesisBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputKinesisMode$inboundSchema: z.ZodType<
@@ -473,7 +411,6 @@ export const OutputKinesisMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputKinesisMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputKinesisMode$outboundSchema: z.ZodType<
   OutputKinesisMode,
@@ -483,17 +420,6 @@ export const OutputKinesisMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputKinesisMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisMode$ {
-  /** @deprecated use `OutputKinesisMode$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisMode$inboundSchema;
-  /** @deprecated use `OutputKinesisMode$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputKinesisPqCompressCompression$inboundSchema: z.ZodType<
@@ -505,7 +431,6 @@ export const OutputKinesisPqCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputKinesisPqCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputKinesisPqCompressCompression$outboundSchema: z.ZodType<
   OutputKinesisPqCompressCompression,
@@ -515,18 +440,6 @@ export const OutputKinesisPqCompressCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputKinesisPqCompressCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisPqCompressCompression$ {
-  /** @deprecated use `OutputKinesisPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputKinesisPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputKinesisPqCompressCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputKinesisQueueFullBehavior$inboundSchema: z.ZodType<
@@ -538,7 +451,6 @@ export const OutputKinesisQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputKinesisQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputKinesisQueueFullBehavior$outboundSchema: z.ZodType<
   OutputKinesisQueueFullBehavior,
@@ -549,24 +461,12 @@ export const OutputKinesisQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisQueueFullBehavior$ {
-  /** @deprecated use `OutputKinesisQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputKinesisQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputKinesisPqControls$inboundSchema: z.ZodType<
   OutputKinesisPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputKinesisPqControls$Outbound = {};
 
@@ -577,19 +477,6 @@ export const OutputKinesisPqControls$outboundSchema: z.ZodType<
   OutputKinesisPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisPqControls$ {
-  /** @deprecated use `OutputKinesisPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisPqControls$inboundSchema;
-  /** @deprecated use `OutputKinesisPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisPqControls$outboundSchema;
-  /** @deprecated use `OutputKinesisPqControls$Outbound` instead. */
-  export type Outbound = OutputKinesisPqControls$Outbound;
-}
-
 export function outputKinesisPqControlsToJSON(
   outputKinesisPqControls: OutputKinesisPqControls,
 ): string {
@@ -597,7 +484,6 @@ export function outputKinesisPqControlsToJSON(
     OutputKinesisPqControls$outboundSchema.parse(outputKinesisPqControls),
   );
 }
-
 export function outputKinesisPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputKinesisPqControls, SDKValidationError> {
@@ -660,7 +546,6 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputKinesisPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputKinesis$Outbound = {
   id?: string | undefined;
@@ -758,23 +643,9 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputKinesisPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesis$ {
-  /** @deprecated use `OutputKinesis$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesis$inboundSchema;
-  /** @deprecated use `OutputKinesis$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesis$outboundSchema;
-  /** @deprecated use `OutputKinesis$Outbound` instead. */
-  export type Outbound = OutputKinesis$Outbound;
-}
-
 export function outputKinesisToJSON(outputKinesis: OutputKinesis): string {
   return JSON.stringify(OutputKinesis$outboundSchema.parse(outputKinesis));
 }
-
 export function outputKinesisFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputKinesis, SDKValidationError> {

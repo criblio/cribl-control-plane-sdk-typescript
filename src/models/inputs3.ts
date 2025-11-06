@@ -326,21 +326,9 @@ export type InputS3 = {
 /** @internal */
 export const InputS3Type$inboundSchema: z.ZodNativeEnum<typeof InputS3Type> = z
   .nativeEnum(InputS3Type);
-
 /** @internal */
 export const InputS3Type$outboundSchema: z.ZodNativeEnum<typeof InputS3Type> =
   InputS3Type$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Type$ {
-  /** @deprecated use `InputS3Type$inboundSchema` instead. */
-  export const inboundSchema = InputS3Type$inboundSchema;
-  /** @deprecated use `InputS3Type$outboundSchema` instead. */
-  export const outboundSchema = InputS3Type$outboundSchema;
-}
 
 /** @internal */
 export const InputS3Connection$inboundSchema: z.ZodType<
@@ -351,7 +339,6 @@ export const InputS3Connection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputS3Connection$Outbound = {
   pipeline?: string | undefined;
@@ -368,19 +355,6 @@ export const InputS3Connection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Connection$ {
-  /** @deprecated use `InputS3Connection$inboundSchema` instead. */
-  export const inboundSchema = InputS3Connection$inboundSchema;
-  /** @deprecated use `InputS3Connection$outboundSchema` instead. */
-  export const outboundSchema = InputS3Connection$outboundSchema;
-  /** @deprecated use `InputS3Connection$Outbound` instead. */
-  export type Outbound = InputS3Connection$Outbound;
-}
-
 export function inputS3ConnectionToJSON(
   inputS3Connection: InputS3Connection,
 ): string {
@@ -388,7 +362,6 @@ export function inputS3ConnectionToJSON(
     InputS3Connection$outboundSchema.parse(inputS3Connection),
   );
 }
-
 export function inputS3ConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3Connection, SDKValidationError> {
@@ -409,7 +382,6 @@ export const InputS3Mode$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3Mode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3Mode$outboundSchema: z.ZodType<
   InputS3Mode,
@@ -419,17 +391,6 @@ export const InputS3Mode$outboundSchema: z.ZodType<
   z.nativeEnum(InputS3Mode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Mode$ {
-  /** @deprecated use `InputS3Mode$inboundSchema` instead. */
-  export const inboundSchema = InputS3Mode$inboundSchema;
-  /** @deprecated use `InputS3Mode$outboundSchema` instead. */
-  export const outboundSchema = InputS3Mode$outboundSchema;
-}
 
 /** @internal */
 export const InputS3Compression$inboundSchema: z.ZodType<
@@ -441,7 +402,6 @@ export const InputS3Compression$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3Compression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3Compression$outboundSchema: z.ZodType<
   InputS3Compression,
@@ -452,24 +412,12 @@ export const InputS3Compression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Compression$ {
-  /** @deprecated use `InputS3Compression$inboundSchema` instead. */
-  export const inboundSchema = InputS3Compression$inboundSchema;
-  /** @deprecated use `InputS3Compression$outboundSchema` instead. */
-  export const outboundSchema = InputS3Compression$outboundSchema;
-}
-
 /** @internal */
 export const InputS3PqControls$inboundSchema: z.ZodType<
   InputS3PqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputS3PqControls$Outbound = {};
 
@@ -480,19 +428,6 @@ export const InputS3PqControls$outboundSchema: z.ZodType<
   InputS3PqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3PqControls$ {
-  /** @deprecated use `InputS3PqControls$inboundSchema` instead. */
-  export const inboundSchema = InputS3PqControls$inboundSchema;
-  /** @deprecated use `InputS3PqControls$outboundSchema` instead. */
-  export const outboundSchema = InputS3PqControls$outboundSchema;
-  /** @deprecated use `InputS3PqControls$Outbound` instead. */
-  export type Outbound = InputS3PqControls$Outbound;
-}
-
 export function inputS3PqControlsToJSON(
   inputS3PqControls: InputS3PqControls,
 ): string {
@@ -500,7 +435,6 @@ export function inputS3PqControlsToJSON(
     InputS3PqControls$outboundSchema.parse(inputS3PqControls),
   );
 }
-
 export function inputS3PqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3PqControls, SDKValidationError> {
@@ -526,7 +460,6 @@ export const InputS3Pq$inboundSchema: z.ZodType<
   compress: InputS3Compression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputS3PqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputS3Pq$Outbound = {
   mode: string;
@@ -555,23 +488,9 @@ export const InputS3Pq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputS3PqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Pq$ {
-  /** @deprecated use `InputS3Pq$inboundSchema` instead. */
-  export const inboundSchema = InputS3Pq$inboundSchema;
-  /** @deprecated use `InputS3Pq$outboundSchema` instead. */
-  export const outboundSchema = InputS3Pq$outboundSchema;
-  /** @deprecated use `InputS3Pq$Outbound` instead. */
-  export type Outbound = InputS3Pq$Outbound;
-}
-
 export function inputS3PqToJSON(inputS3Pq: InputS3Pq): string {
   return JSON.stringify(InputS3Pq$outboundSchema.parse(inputS3Pq));
 }
-
 export function inputS3PqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3Pq, SDKValidationError> {
@@ -592,7 +511,6 @@ export const InputS3AuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3AuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3AuthenticationMethod$outboundSchema: z.ZodType<
   InputS3AuthenticationMethod,
@@ -602,17 +520,6 @@ export const InputS3AuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputS3AuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3AuthenticationMethod$ {
-  /** @deprecated use `InputS3AuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputS3AuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputS3AuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputS3AuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputS3SignatureVersion$inboundSchema: z.ZodType<
@@ -624,7 +531,6 @@ export const InputS3SignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3SignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3SignatureVersion$outboundSchema: z.ZodType<
   InputS3SignatureVersion,
@@ -634,17 +540,6 @@ export const InputS3SignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputS3SignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3SignatureVersion$ {
-  /** @deprecated use `InputS3SignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = InputS3SignatureVersion$inboundSchema;
-  /** @deprecated use `InputS3SignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = InputS3SignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputS3Preprocess$inboundSchema: z.ZodType<
@@ -656,7 +551,6 @@ export const InputS3Preprocess$inboundSchema: z.ZodType<
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
 });
-
 /** @internal */
 export type InputS3Preprocess$Outbound = {
   disabled: boolean;
@@ -675,19 +569,6 @@ export const InputS3Preprocess$outboundSchema: z.ZodType<
   args: z.array(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Preprocess$ {
-  /** @deprecated use `InputS3Preprocess$inboundSchema` instead. */
-  export const inboundSchema = InputS3Preprocess$inboundSchema;
-  /** @deprecated use `InputS3Preprocess$outboundSchema` instead. */
-  export const outboundSchema = InputS3Preprocess$outboundSchema;
-  /** @deprecated use `InputS3Preprocess$Outbound` instead. */
-  export type Outbound = InputS3Preprocess$Outbound;
-}
-
 export function inputS3PreprocessToJSON(
   inputS3Preprocess: InputS3Preprocess,
 ): string {
@@ -695,7 +576,6 @@ export function inputS3PreprocessToJSON(
     InputS3Preprocess$outboundSchema.parse(inputS3Preprocess),
   );
 }
-
 export function inputS3PreprocessFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3Preprocess, SDKValidationError> {
@@ -715,7 +595,6 @@ export const InputS3Metadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputS3Metadatum$Outbound = {
   name: string;
@@ -732,19 +611,6 @@ export const InputS3Metadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Metadatum$ {
-  /** @deprecated use `InputS3Metadatum$inboundSchema` instead. */
-  export const inboundSchema = InputS3Metadatum$inboundSchema;
-  /** @deprecated use `InputS3Metadatum$outboundSchema` instead. */
-  export const outboundSchema = InputS3Metadatum$outboundSchema;
-  /** @deprecated use `InputS3Metadatum$Outbound` instead. */
-  export type Outbound = InputS3Metadatum$Outbound;
-}
-
 export function inputS3MetadatumToJSON(
   inputS3Metadatum: InputS3Metadatum,
 ): string {
@@ -752,7 +618,6 @@ export function inputS3MetadatumToJSON(
     InputS3Metadatum$outboundSchema.parse(inputS3Metadatum),
   );
 }
-
 export function inputS3MetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3Metadatum, SDKValidationError> {
@@ -772,7 +637,6 @@ export const InputS3Checkpointing$inboundSchema: z.ZodType<
   enabled: z.boolean().default(false),
   retries: z.number().default(5),
 });
-
 /** @internal */
 export type InputS3Checkpointing$Outbound = {
   enabled: boolean;
@@ -789,19 +653,6 @@ export const InputS3Checkpointing$outboundSchema: z.ZodType<
   retries: z.number().default(5),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Checkpointing$ {
-  /** @deprecated use `InputS3Checkpointing$inboundSchema` instead. */
-  export const inboundSchema = InputS3Checkpointing$inboundSchema;
-  /** @deprecated use `InputS3Checkpointing$outboundSchema` instead. */
-  export const outboundSchema = InputS3Checkpointing$outboundSchema;
-  /** @deprecated use `InputS3Checkpointing$Outbound` instead. */
-  export type Outbound = InputS3Checkpointing$Outbound;
-}
-
 export function inputS3CheckpointingToJSON(
   inputS3Checkpointing: InputS3Checkpointing,
 ): string {
@@ -809,7 +660,6 @@ export function inputS3CheckpointingToJSON(
     InputS3Checkpointing$outboundSchema.parse(inputS3Checkpointing),
   );
 }
-
 export function inputS3CheckpointingFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3Checkpointing, SDKValidationError> {
@@ -873,7 +723,6 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
     processedTagKey: z.string().optional(),
     processedTagValue: z.string().optional(),
   });
-
 /** @internal */
 export type InputS3$Outbound = {
   id?: string | undefined;
@@ -981,23 +830,9 @@ export const InputS3$outboundSchema: z.ZodType<
   processedTagValue: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3$ {
-  /** @deprecated use `InputS3$inboundSchema` instead. */
-  export const inboundSchema = InputS3$inboundSchema;
-  /** @deprecated use `InputS3$outboundSchema` instead. */
-  export const outboundSchema = InputS3$outboundSchema;
-  /** @deprecated use `InputS3$Outbound` instead. */
-  export type Outbound = InputS3$Outbound;
-}
-
 export function inputS3ToJSON(inputS3: InputS3): string {
   return JSON.stringify(InputS3$outboundSchema.parse(inputS3));
 }
-
 export function inputS3FromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3, SDKValidationError> {

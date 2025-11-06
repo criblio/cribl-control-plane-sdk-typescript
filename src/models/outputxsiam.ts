@@ -358,22 +358,10 @@ export type OutputXsiam = {
 export const OutputXsiamType$inboundSchema: z.ZodNativeEnum<
   typeof OutputXsiamType
 > = z.nativeEnum(OutputXsiamType);
-
 /** @internal */
 export const OutputXsiamType$outboundSchema: z.ZodNativeEnum<
   typeof OutputXsiamType
 > = OutputXsiamType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamType$ {
-  /** @deprecated use `OutputXsiamType$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamType$inboundSchema;
-  /** @deprecated use `OutputXsiamType$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamType$outboundSchema;
-}
 
 /** @internal */
 export const OutputXsiamExtraHttpHeader$inboundSchema: z.ZodType<
@@ -384,7 +372,6 @@ export const OutputXsiamExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputXsiamExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -401,19 +388,6 @@ export const OutputXsiamExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamExtraHttpHeader$ {
-  /** @deprecated use `OutputXsiamExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputXsiamExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputXsiamExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputXsiamExtraHttpHeader$Outbound;
-}
-
 export function outputXsiamExtraHttpHeaderToJSON(
   outputXsiamExtraHttpHeader: OutputXsiamExtraHttpHeader,
 ): string {
@@ -421,7 +395,6 @@ export function outputXsiamExtraHttpHeaderToJSON(
     OutputXsiamExtraHttpHeader$outboundSchema.parse(outputXsiamExtraHttpHeader),
   );
 }
-
 export function outputXsiamExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputXsiamExtraHttpHeader, SDKValidationError> {
@@ -442,7 +415,6 @@ export const OutputXsiamFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputXsiamFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputXsiamFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputXsiamFailedRequestLoggingMode,
@@ -452,19 +424,6 @@ export const OutputXsiamFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputXsiamFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputXsiamFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputXsiamFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputXsiamFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputXsiamFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputXsiamAuthenticationMethod$inboundSchema: z.ZodType<
@@ -476,7 +435,6 @@ export const OutputXsiamAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputXsiamAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputXsiamAuthenticationMethod$outboundSchema: z.ZodType<
   OutputXsiamAuthenticationMethod,
@@ -486,17 +444,6 @@ export const OutputXsiamAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputXsiamAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamAuthenticationMethod$ {
-  /** @deprecated use `OutputXsiamAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputXsiamAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputXsiamResponseRetrySetting$inboundSchema: z.ZodType<
@@ -509,7 +456,6 @@ export const OutputXsiamResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputXsiamResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -530,19 +476,6 @@ export const OutputXsiamResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamResponseRetrySetting$ {
-  /** @deprecated use `OutputXsiamResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputXsiamResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputXsiamResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputXsiamResponseRetrySetting$Outbound;
-}
-
 export function outputXsiamResponseRetrySettingToJSON(
   outputXsiamResponseRetrySetting: OutputXsiamResponseRetrySetting,
 ): string {
@@ -552,7 +485,6 @@ export function outputXsiamResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputXsiamResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputXsiamResponseRetrySetting, SDKValidationError> {
@@ -574,7 +506,6 @@ export const OutputXsiamTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputXsiamTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -595,19 +526,6 @@ export const OutputXsiamTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamTimeoutRetrySettings$ {
-  /** @deprecated use `OutputXsiamTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputXsiamTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputXsiamTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputXsiamTimeoutRetrySettings$Outbound;
-}
-
 export function outputXsiamTimeoutRetrySettingsToJSON(
   outputXsiamTimeoutRetrySettings: OutputXsiamTimeoutRetrySettings,
 ): string {
@@ -617,7 +535,6 @@ export function outputXsiamTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputXsiamTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputXsiamTimeoutRetrySettings, SDKValidationError> {
@@ -638,7 +555,6 @@ export const OutputXsiamBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputXsiamBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputXsiamBackpressureBehavior$outboundSchema: z.ZodType<
   OutputXsiamBackpressureBehavior,
@@ -649,17 +565,6 @@ export const OutputXsiamBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamBackpressureBehavior$ {
-  /** @deprecated use `OutputXsiamBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputXsiamBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputXsiamUrl$inboundSchema: z.ZodType<
   OutputXsiamUrl,
@@ -669,7 +574,6 @@ export const OutputXsiamUrl$inboundSchema: z.ZodType<
   url: z.any().optional(),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputXsiamUrl$Outbound = {
   url?: any | undefined;
@@ -686,23 +590,9 @@ export const OutputXsiamUrl$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamUrl$ {
-  /** @deprecated use `OutputXsiamUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamUrl$inboundSchema;
-  /** @deprecated use `OutputXsiamUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamUrl$outboundSchema;
-  /** @deprecated use `OutputXsiamUrl$Outbound` instead. */
-  export type Outbound = OutputXsiamUrl$Outbound;
-}
-
 export function outputXsiamUrlToJSON(outputXsiamUrl: OutputXsiamUrl): string {
   return JSON.stringify(OutputXsiamUrl$outboundSchema.parse(outputXsiamUrl));
 }
-
 export function outputXsiamUrlFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputXsiamUrl, SDKValidationError> {
@@ -723,7 +613,6 @@ export const OutputXsiamMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputXsiamMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputXsiamMode$outboundSchema: z.ZodType<
   OutputXsiamMode,
@@ -733,17 +622,6 @@ export const OutputXsiamMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputXsiamMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamMode$ {
-  /** @deprecated use `OutputXsiamMode$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamMode$inboundSchema;
-  /** @deprecated use `OutputXsiamMode$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputXsiamCompression$inboundSchema: z.ZodType<
@@ -755,7 +633,6 @@ export const OutputXsiamCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputXsiamCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputXsiamCompression$outboundSchema: z.ZodType<
   OutputXsiamCompression,
@@ -765,17 +642,6 @@ export const OutputXsiamCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputXsiamCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamCompression$ {
-  /** @deprecated use `OutputXsiamCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamCompression$inboundSchema;
-  /** @deprecated use `OutputXsiamCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputXsiamQueueFullBehavior$inboundSchema: z.ZodType<
@@ -787,7 +653,6 @@ export const OutputXsiamQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputXsiamQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputXsiamQueueFullBehavior$outboundSchema: z.ZodType<
   OutputXsiamQueueFullBehavior,
@@ -798,24 +663,12 @@ export const OutputXsiamQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamQueueFullBehavior$ {
-  /** @deprecated use `OutputXsiamQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputXsiamQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputXsiamPqControls$inboundSchema: z.ZodType<
   OutputXsiamPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputXsiamPqControls$Outbound = {};
 
@@ -826,19 +679,6 @@ export const OutputXsiamPqControls$outboundSchema: z.ZodType<
   OutputXsiamPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamPqControls$ {
-  /** @deprecated use `OutputXsiamPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamPqControls$inboundSchema;
-  /** @deprecated use `OutputXsiamPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamPqControls$outboundSchema;
-  /** @deprecated use `OutputXsiamPqControls$Outbound` instead. */
-  export type Outbound = OutputXsiamPqControls$Outbound;
-}
-
 export function outputXsiamPqControlsToJSON(
   outputXsiamPqControls: OutputXsiamPqControls,
 ): string {
@@ -846,7 +686,6 @@ export function outputXsiamPqControlsToJSON(
     OutputXsiamPqControls$outboundSchema.parse(outputXsiamPqControls),
   );
 }
-
 export function outputXsiamPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputXsiamPqControls, SDKValidationError> {
@@ -916,7 +755,6 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputXsiamQueueFullBehavior$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputXsiamPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputXsiam$Outbound = {
   id?: string | undefined;
@@ -1028,23 +866,9 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputXsiamPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiam$ {
-  /** @deprecated use `OutputXsiam$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiam$inboundSchema;
-  /** @deprecated use `OutputXsiam$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiam$outboundSchema;
-  /** @deprecated use `OutputXsiam$Outbound` instead. */
-  export type Outbound = OutputXsiam$Outbound;
-}
-
 export function outputXsiamToJSON(outputXsiam: OutputXsiam): string {
   return JSON.stringify(OutputXsiam$outboundSchema.parse(outputXsiam));
 }
-
 export function outputXsiamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputXsiam, SDKValidationError> {

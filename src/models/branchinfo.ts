@@ -20,37 +20,6 @@ export const BranchInfo$inboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/** @internal */
-export type BranchInfo$Outbound = {
-  id: string;
-};
-
-/** @internal */
-export const BranchInfo$outboundSchema: z.ZodType<
-  BranchInfo$Outbound,
-  z.ZodTypeDef,
-  BranchInfo
-> = z.object({
-  id: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BranchInfo$ {
-  /** @deprecated use `BranchInfo$inboundSchema` instead. */
-  export const inboundSchema = BranchInfo$inboundSchema;
-  /** @deprecated use `BranchInfo$outboundSchema` instead. */
-  export const outboundSchema = BranchInfo$outboundSchema;
-  /** @deprecated use `BranchInfo$Outbound` instead. */
-  export type Outbound = BranchInfo$Outbound;
-}
-
-export function branchInfoToJSON(branchInfo: BranchInfo): string {
-  return JSON.stringify(BranchInfo$outboundSchema.parse(branchInfo));
-}
-
 export function branchInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<BranchInfo, SDKValidationError> {

@@ -319,22 +319,10 @@ export type InputSplunk = {
 export const InputSplunkType$inboundSchema: z.ZodNativeEnum<
   typeof InputSplunkType
 > = z.nativeEnum(InputSplunkType);
-
 /** @internal */
 export const InputSplunkType$outboundSchema: z.ZodNativeEnum<
   typeof InputSplunkType
 > = InputSplunkType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkType$ {
-  /** @deprecated use `InputSplunkType$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkType$inboundSchema;
-  /** @deprecated use `InputSplunkType$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkType$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunkConnection$inboundSchema: z.ZodType<
@@ -345,7 +333,6 @@ export const InputSplunkConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputSplunkConnection$Outbound = {
   pipeline?: string | undefined;
@@ -362,19 +349,6 @@ export const InputSplunkConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkConnection$ {
-  /** @deprecated use `InputSplunkConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkConnection$inboundSchema;
-  /** @deprecated use `InputSplunkConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkConnection$outboundSchema;
-  /** @deprecated use `InputSplunkConnection$Outbound` instead. */
-  export type Outbound = InputSplunkConnection$Outbound;
-}
-
 export function inputSplunkConnectionToJSON(
   inputSplunkConnection: InputSplunkConnection,
 ): string {
@@ -382,7 +356,6 @@ export function inputSplunkConnectionToJSON(
     InputSplunkConnection$outboundSchema.parse(inputSplunkConnection),
   );
 }
-
 export function inputSplunkConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkConnection, SDKValidationError> {
@@ -403,7 +376,6 @@ export const InputSplunkMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkMode$outboundSchema: z.ZodType<
   InputSplunkMode,
@@ -413,17 +385,6 @@ export const InputSplunkMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputSplunkMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkMode$ {
-  /** @deprecated use `InputSplunkMode$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkMode$inboundSchema;
-  /** @deprecated use `InputSplunkMode$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkMode$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunkPqCompression$inboundSchema: z.ZodType<
@@ -435,7 +396,6 @@ export const InputSplunkPqCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkPqCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkPqCompression$outboundSchema: z.ZodType<
   InputSplunkPqCompression,
@@ -446,24 +406,12 @@ export const InputSplunkPqCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkPqCompression$ {
-  /** @deprecated use `InputSplunkPqCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkPqCompression$inboundSchema;
-  /** @deprecated use `InputSplunkPqCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkPqCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputSplunkPqControls$inboundSchema: z.ZodType<
   InputSplunkPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputSplunkPqControls$Outbound = {};
 
@@ -474,19 +422,6 @@ export const InputSplunkPqControls$outboundSchema: z.ZodType<
   InputSplunkPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkPqControls$ {
-  /** @deprecated use `InputSplunkPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkPqControls$inboundSchema;
-  /** @deprecated use `InputSplunkPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkPqControls$outboundSchema;
-  /** @deprecated use `InputSplunkPqControls$Outbound` instead. */
-  export type Outbound = InputSplunkPqControls$Outbound;
-}
-
 export function inputSplunkPqControlsToJSON(
   inputSplunkPqControls: InputSplunkPqControls,
 ): string {
@@ -494,7 +429,6 @@ export function inputSplunkPqControlsToJSON(
     InputSplunkPqControls$outboundSchema.parse(inputSplunkPqControls),
   );
 }
-
 export function inputSplunkPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkPqControls, SDKValidationError> {
@@ -520,7 +454,6 @@ export const InputSplunkPq$inboundSchema: z.ZodType<
   compress: InputSplunkPqCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputSplunkPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputSplunkPq$Outbound = {
   mode: string;
@@ -549,23 +482,9 @@ export const InputSplunkPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputSplunkPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkPq$ {
-  /** @deprecated use `InputSplunkPq$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkPq$inboundSchema;
-  /** @deprecated use `InputSplunkPq$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkPq$outboundSchema;
-  /** @deprecated use `InputSplunkPq$Outbound` instead. */
-  export type Outbound = InputSplunkPq$Outbound;
-}
-
 export function inputSplunkPqToJSON(inputSplunkPq: InputSplunkPq): string {
   return JSON.stringify(InputSplunkPq$outboundSchema.parse(inputSplunkPq));
 }
-
 export function inputSplunkPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkPq, SDKValidationError> {
@@ -586,7 +505,6 @@ export const InputSplunkMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkMinimumTLSVersion$outboundSchema: z.ZodType<
   InputSplunkMinimumTLSVersion,
@@ -596,17 +514,6 @@ export const InputSplunkMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputSplunkMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkMinimumTLSVersion$ {
-  /** @deprecated use `InputSplunkMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputSplunkMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunkMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -618,7 +525,6 @@ export const InputSplunkMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkMaximumTLSVersion$outboundSchema: z.ZodType<
   InputSplunkMaximumTLSVersion,
@@ -628,17 +534,6 @@ export const InputSplunkMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputSplunkMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkMaximumTLSVersion$ {
-  /** @deprecated use `InputSplunkMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputSplunkMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunkTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -658,7 +553,6 @@ export const InputSplunkTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputSplunkMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputSplunkMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputSplunkTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -693,19 +587,6 @@ export const InputSplunkTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputSplunkMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkTLSSettingsServerSide$ {
-  /** @deprecated use `InputSplunkTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputSplunkTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputSplunkTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputSplunkTLSSettingsServerSide$Outbound;
-}
-
 export function inputSplunkTLSSettingsServerSideToJSON(
   inputSplunkTLSSettingsServerSide: InputSplunkTLSSettingsServerSide,
 ): string {
@@ -715,7 +596,6 @@ export function inputSplunkTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputSplunkTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkTLSSettingsServerSide, SDKValidationError> {
@@ -735,7 +615,6 @@ export const InputSplunkMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputSplunkMetadatum$Outbound = {
   name: string;
@@ -752,19 +631,6 @@ export const InputSplunkMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkMetadatum$ {
-  /** @deprecated use `InputSplunkMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkMetadatum$inboundSchema;
-  /** @deprecated use `InputSplunkMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkMetadatum$outboundSchema;
-  /** @deprecated use `InputSplunkMetadatum$Outbound` instead. */
-  export type Outbound = InputSplunkMetadatum$Outbound;
-}
-
 export function inputSplunkMetadatumToJSON(
   inputSplunkMetadatum: InputSplunkMetadatum,
 ): string {
@@ -772,7 +638,6 @@ export function inputSplunkMetadatumToJSON(
     InputSplunkMetadatum$outboundSchema.parse(inputSplunkMetadatum),
   );
 }
-
 export function inputSplunkMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkMetadatum, SDKValidationError> {
@@ -792,7 +657,6 @@ export const InputSplunkAuthToken$inboundSchema: z.ZodType<
   token: z.string(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputSplunkAuthToken$Outbound = {
   token: string;
@@ -809,19 +673,6 @@ export const InputSplunkAuthToken$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkAuthToken$ {
-  /** @deprecated use `InputSplunkAuthToken$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkAuthToken$inboundSchema;
-  /** @deprecated use `InputSplunkAuthToken$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkAuthToken$outboundSchema;
-  /** @deprecated use `InputSplunkAuthToken$Outbound` instead. */
-  export type Outbound = InputSplunkAuthToken$Outbound;
-}
-
 export function inputSplunkAuthTokenToJSON(
   inputSplunkAuthToken: InputSplunkAuthToken,
 ): string {
@@ -829,7 +680,6 @@ export function inputSplunkAuthTokenToJSON(
     InputSplunkAuthToken$outboundSchema.parse(inputSplunkAuthToken),
   );
 }
-
 export function inputSplunkAuthTokenFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkAuthToken, SDKValidationError> {
@@ -850,7 +700,6 @@ export const InputSplunkMaxS2SVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkMaxS2SVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
   InputSplunkMaxS2SVersion,
@@ -860,17 +709,6 @@ export const InputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputSplunkMaxS2SVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkMaxS2SVersion$ {
-  /** @deprecated use `InputSplunkMaxS2SVersion$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkMaxS2SVersion$inboundSchema;
-  /** @deprecated use `InputSplunkMaxS2SVersion$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkMaxS2SVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunkCompression$inboundSchema: z.ZodType<
@@ -882,7 +720,6 @@ export const InputSplunkCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkCompression$outboundSchema: z.ZodType<
   InputSplunkCompression,
@@ -892,17 +729,6 @@ export const InputSplunkCompression$outboundSchema: z.ZodType<
   z.nativeEnum(InputSplunkCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkCompression$ {
-  /** @deprecated use `InputSplunkCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkCompression$inboundSchema;
-  /** @deprecated use `InputSplunkCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkCompression$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunk$inboundSchema: z.ZodType<
@@ -943,7 +769,6 @@ export const InputSplunk$inboundSchema: z.ZodType<
   extractMetrics: z.boolean().default(false),
   compress: InputSplunkCompression$inboundSchema.default("disabled"),
 });
-
 /** @internal */
 export type InputSplunk$Outbound = {
   id?: string | undefined;
@@ -1017,23 +842,9 @@ export const InputSplunk$outboundSchema: z.ZodType<
   compress: InputSplunkCompression$outboundSchema.default("disabled"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunk$ {
-  /** @deprecated use `InputSplunk$inboundSchema` instead. */
-  export const inboundSchema = InputSplunk$inboundSchema;
-  /** @deprecated use `InputSplunk$outboundSchema` instead. */
-  export const outboundSchema = InputSplunk$outboundSchema;
-  /** @deprecated use `InputSplunk$Outbound` instead. */
-  export type Outbound = InputSplunk$Outbound;
-}
-
 export function inputSplunkToJSON(inputSplunk: InputSplunk): string {
   return JSON.stringify(InputSplunk$outboundSchema.parse(inputSplunk));
 }
-
 export function inputSplunkFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunk, SDKValidationError> {

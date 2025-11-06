@@ -236,22 +236,10 @@ export type OutputGraphite = {
 export const OutputGraphiteType$inboundSchema: z.ZodNativeEnum<
   typeof OutputGraphiteType
 > = z.nativeEnum(OutputGraphiteType);
-
 /** @internal */
 export const OutputGraphiteType$outboundSchema: z.ZodNativeEnum<
   typeof OutputGraphiteType
 > = OutputGraphiteType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphiteType$ {
-  /** @deprecated use `OutputGraphiteType$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphiteType$inboundSchema;
-  /** @deprecated use `OutputGraphiteType$outboundSchema` instead. */
-  export const outboundSchema = OutputGraphiteType$outboundSchema;
-}
 
 /** @internal */
 export const OutputGraphiteDestinationProtocol$inboundSchema: z.ZodType<
@@ -263,7 +251,6 @@ export const OutputGraphiteDestinationProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGraphiteDestinationProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGraphiteDestinationProtocol$outboundSchema: z.ZodType<
   OutputGraphiteDestinationProtocol,
@@ -273,18 +260,6 @@ export const OutputGraphiteDestinationProtocol$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGraphiteDestinationProtocol),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphiteDestinationProtocol$ {
-  /** @deprecated use `OutputGraphiteDestinationProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphiteDestinationProtocol$inboundSchema;
-  /** @deprecated use `OutputGraphiteDestinationProtocol$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGraphiteDestinationProtocol$outboundSchema;
-}
 
 /** @internal */
 export const OutputGraphiteBackpressureBehavior$inboundSchema: z.ZodType<
@@ -296,7 +271,6 @@ export const OutputGraphiteBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGraphiteBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGraphiteBackpressureBehavior$outboundSchema: z.ZodType<
   OutputGraphiteBackpressureBehavior,
@@ -306,18 +280,6 @@ export const OutputGraphiteBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGraphiteBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphiteBackpressureBehavior$ {
-  /** @deprecated use `OutputGraphiteBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphiteBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputGraphiteBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGraphiteBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputGraphiteMode$inboundSchema: z.ZodType<
@@ -329,7 +291,6 @@ export const OutputGraphiteMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGraphiteMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGraphiteMode$outboundSchema: z.ZodType<
   OutputGraphiteMode,
@@ -339,17 +300,6 @@ export const OutputGraphiteMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGraphiteMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphiteMode$ {
-  /** @deprecated use `OutputGraphiteMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphiteMode$inboundSchema;
-  /** @deprecated use `OutputGraphiteMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGraphiteMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputGraphiteCompression$inboundSchema: z.ZodType<
@@ -361,7 +311,6 @@ export const OutputGraphiteCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGraphiteCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGraphiteCompression$outboundSchema: z.ZodType<
   OutputGraphiteCompression,
@@ -371,17 +320,6 @@ export const OutputGraphiteCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGraphiteCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphiteCompression$ {
-  /** @deprecated use `OutputGraphiteCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphiteCompression$inboundSchema;
-  /** @deprecated use `OutputGraphiteCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputGraphiteCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputGraphiteQueueFullBehavior$inboundSchema: z.ZodType<
@@ -393,7 +331,6 @@ export const OutputGraphiteQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGraphiteQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGraphiteQueueFullBehavior$outboundSchema: z.ZodType<
   OutputGraphiteQueueFullBehavior,
@@ -404,24 +341,12 @@ export const OutputGraphiteQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphiteQueueFullBehavior$ {
-  /** @deprecated use `OutputGraphiteQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphiteQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputGraphiteQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputGraphiteQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputGraphitePqControls$inboundSchema: z.ZodType<
   OutputGraphitePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputGraphitePqControls$Outbound = {};
 
@@ -432,19 +357,6 @@ export const OutputGraphitePqControls$outboundSchema: z.ZodType<
   OutputGraphitePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphitePqControls$ {
-  /** @deprecated use `OutputGraphitePqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphitePqControls$inboundSchema;
-  /** @deprecated use `OutputGraphitePqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputGraphitePqControls$outboundSchema;
-  /** @deprecated use `OutputGraphitePqControls$Outbound` instead. */
-  export type Outbound = OutputGraphitePqControls$Outbound;
-}
-
 export function outputGraphitePqControlsToJSON(
   outputGraphitePqControls: OutputGraphitePqControls,
 ): string {
@@ -452,7 +364,6 @@ export function outputGraphitePqControlsToJSON(
     OutputGraphitePqControls$outboundSchema.parse(outputGraphitePqControls),
   );
 }
-
 export function outputGraphitePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGraphitePqControls, SDKValidationError> {
@@ -502,7 +413,6 @@ export const OutputGraphite$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputGraphitePqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputGraphite$Outbound = {
   id?: string | undefined;
@@ -575,23 +485,9 @@ export const OutputGraphite$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputGraphitePqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGraphite$ {
-  /** @deprecated use `OutputGraphite$inboundSchema` instead. */
-  export const inboundSchema = OutputGraphite$inboundSchema;
-  /** @deprecated use `OutputGraphite$outboundSchema` instead. */
-  export const outboundSchema = OutputGraphite$outboundSchema;
-  /** @deprecated use `OutputGraphite$Outbound` instead. */
-  export type Outbound = OutputGraphite$Outbound;
-}
-
 export function outputGraphiteToJSON(outputGraphite: OutputGraphite): string {
   return JSON.stringify(OutputGraphite$outboundSchema.parse(outputGraphite));
 }
-
 export function outputGraphiteFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGraphite, SDKValidationError> {

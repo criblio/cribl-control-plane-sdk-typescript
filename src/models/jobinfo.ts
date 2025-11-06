@@ -6,18 +6,8 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  JobStatus,
-  JobStatus$inboundSchema,
-  JobStatus$Outbound,
-  JobStatus$outboundSchema,
-} from "./jobstatus.js";
-import {
-  RunnableJob,
-  RunnableJob$inboundSchema,
-  RunnableJob$Outbound,
-  RunnableJob$outboundSchema,
-} from "./runnablejob.js";
+import { JobStatus, JobStatus$inboundSchema } from "./jobstatus.js";
+import { RunnableJob, RunnableJob$inboundSchema } from "./runnablejob.js";
 
 export type Stats = number | { [k: string]: number };
 
@@ -32,33 +22,6 @@ export type JobInfo = {
 /** @internal */
 export const Stats$inboundSchema: z.ZodType<Stats, z.ZodTypeDef, unknown> = z
   .union([z.number(), z.record(z.number())]);
-
-/** @internal */
-export type Stats$Outbound = number | { [k: string]: number };
-
-/** @internal */
-export const Stats$outboundSchema: z.ZodType<
-  Stats$Outbound,
-  z.ZodTypeDef,
-  Stats
-> = z.union([z.number(), z.record(z.number())]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Stats$ {
-  /** @deprecated use `Stats$inboundSchema` instead. */
-  export const inboundSchema = Stats$inboundSchema;
-  /** @deprecated use `Stats$outboundSchema` instead. */
-  export const outboundSchema = Stats$outboundSchema;
-  /** @deprecated use `Stats$Outbound` instead. */
-  export type Outbound = Stats$Outbound;
-}
-
-export function statsToJSON(stats: Stats): string {
-  return JSON.stringify(Stats$outboundSchema.parse(stats));
-}
 
 export function statsFromJSON(
   jsonString: string,
@@ -79,45 +42,6 @@ export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
     stats: z.record(z.union([z.number(), z.record(z.number())])),
     status: JobStatus$inboundSchema,
   });
-
-/** @internal */
-export type JobInfo$Outbound = {
-  args: RunnableJob$Outbound;
-  id: string;
-  keep?: boolean | undefined;
-  stats: { [k: string]: number | { [k: string]: number } };
-  status: JobStatus$Outbound;
-};
-
-/** @internal */
-export const JobInfo$outboundSchema: z.ZodType<
-  JobInfo$Outbound,
-  z.ZodTypeDef,
-  JobInfo
-> = z.object({
-  args: RunnableJob$outboundSchema,
-  id: z.string(),
-  keep: z.boolean().optional(),
-  stats: z.record(z.union([z.number(), z.record(z.number())])),
-  status: JobStatus$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobInfo$ {
-  /** @deprecated use `JobInfo$inboundSchema` instead. */
-  export const inboundSchema = JobInfo$inboundSchema;
-  /** @deprecated use `JobInfo$outboundSchema` instead. */
-  export const outboundSchema = JobInfo$outboundSchema;
-  /** @deprecated use `JobInfo$Outbound` instead. */
-  export type Outbound = JobInfo$Outbound;
-}
-
-export function jobInfoToJSON(jobInfo: JobInfo): string {
-  return JSON.stringify(JobInfo$outboundSchema.parse(jobInfo));
-}
 
 export function jobInfoFromJSON(
   jsonString: string,

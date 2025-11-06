@@ -234,22 +234,10 @@ export type OutputStatsd = {
 export const OutputStatsdType$inboundSchema: z.ZodNativeEnum<
   typeof OutputStatsdType
 > = z.nativeEnum(OutputStatsdType);
-
 /** @internal */
 export const OutputStatsdType$outboundSchema: z.ZodNativeEnum<
   typeof OutputStatsdType
 > = OutputStatsdType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdType$ {
-  /** @deprecated use `OutputStatsdType$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdType$inboundSchema;
-  /** @deprecated use `OutputStatsdType$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdType$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdDestinationProtocol$inboundSchema: z.ZodType<
@@ -261,7 +249,6 @@ export const OutputStatsdDestinationProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdDestinationProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdDestinationProtocol$outboundSchema: z.ZodType<
   OutputStatsdDestinationProtocol,
@@ -271,17 +258,6 @@ export const OutputStatsdDestinationProtocol$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdDestinationProtocol),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdDestinationProtocol$ {
-  /** @deprecated use `OutputStatsdDestinationProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdDestinationProtocol$inboundSchema;
-  /** @deprecated use `OutputStatsdDestinationProtocol$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdDestinationProtocol$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdBackpressureBehavior$inboundSchema: z.ZodType<
@@ -293,7 +269,6 @@ export const OutputStatsdBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdBackpressureBehavior$outboundSchema: z.ZodType<
   OutputStatsdBackpressureBehavior,
@@ -303,17 +278,6 @@ export const OutputStatsdBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdBackpressureBehavior$ {
-  /** @deprecated use `OutputStatsdBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputStatsdBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdMode$inboundSchema: z.ZodType<
@@ -325,7 +289,6 @@ export const OutputStatsdMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdMode$outboundSchema: z.ZodType<
   OutputStatsdMode,
@@ -335,17 +298,6 @@ export const OutputStatsdMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdMode$ {
-  /** @deprecated use `OutputStatsdMode$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdMode$inboundSchema;
-  /** @deprecated use `OutputStatsdMode$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdCompression$inboundSchema: z.ZodType<
@@ -357,7 +309,6 @@ export const OutputStatsdCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdCompression$outboundSchema: z.ZodType<
   OutputStatsdCompression,
@@ -367,17 +318,6 @@ export const OutputStatsdCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdCompression$ {
-  /** @deprecated use `OutputStatsdCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdCompression$inboundSchema;
-  /** @deprecated use `OutputStatsdCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdQueueFullBehavior$inboundSchema: z.ZodType<
@@ -389,7 +329,6 @@ export const OutputStatsdQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdQueueFullBehavior$outboundSchema: z.ZodType<
   OutputStatsdQueueFullBehavior,
@@ -400,24 +339,12 @@ export const OutputStatsdQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdQueueFullBehavior$ {
-  /** @deprecated use `OutputStatsdQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputStatsdQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputStatsdPqControls$inboundSchema: z.ZodType<
   OutputStatsdPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputStatsdPqControls$Outbound = {};
 
@@ -428,19 +355,6 @@ export const OutputStatsdPqControls$outboundSchema: z.ZodType<
   OutputStatsdPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdPqControls$ {
-  /** @deprecated use `OutputStatsdPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdPqControls$inboundSchema;
-  /** @deprecated use `OutputStatsdPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdPqControls$outboundSchema;
-  /** @deprecated use `OutputStatsdPqControls$Outbound` instead. */
-  export type Outbound = OutputStatsdPqControls$Outbound;
-}
-
 export function outputStatsdPqControlsToJSON(
   outputStatsdPqControls: OutputStatsdPqControls,
 ): string {
@@ -448,7 +362,6 @@ export function outputStatsdPqControlsToJSON(
     OutputStatsdPqControls$outboundSchema.parse(outputStatsdPqControls),
   );
 }
-
 export function outputStatsdPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputStatsdPqControls, SDKValidationError> {
@@ -498,7 +411,6 @@ export const OutputStatsd$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputStatsdPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputStatsd$Outbound = {
   id?: string | undefined;
@@ -571,23 +483,9 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputStatsdPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsd$ {
-  /** @deprecated use `OutputStatsd$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsd$inboundSchema;
-  /** @deprecated use `OutputStatsd$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsd$outboundSchema;
-  /** @deprecated use `OutputStatsd$Outbound` instead. */
-  export type Outbound = OutputStatsd$Outbound;
-}
-
 export function outputStatsdToJSON(outputStatsd: OutputStatsd): string {
   return JSON.stringify(OutputStatsd$outboundSchema.parse(outputStatsd));
 }
-
 export function outputStatsdFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputStatsd, SDKValidationError> {

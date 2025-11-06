@@ -21,7 +21,6 @@ export const LakeDatasetMetrics$inboundSchema: z.ZodType<
   currentSizeBytes: z.number(),
   metricsDate: z.string(),
 });
-
 /** @internal */
 export type LakeDatasetMetrics$Outbound = {
   currentSizeBytes: number;
@@ -38,19 +37,6 @@ export const LakeDatasetMetrics$outboundSchema: z.ZodType<
   metricsDate: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LakeDatasetMetrics$ {
-  /** @deprecated use `LakeDatasetMetrics$inboundSchema` instead. */
-  export const inboundSchema = LakeDatasetMetrics$inboundSchema;
-  /** @deprecated use `LakeDatasetMetrics$outboundSchema` instead. */
-  export const outboundSchema = LakeDatasetMetrics$outboundSchema;
-  /** @deprecated use `LakeDatasetMetrics$Outbound` instead. */
-  export type Outbound = LakeDatasetMetrics$Outbound;
-}
-
 export function lakeDatasetMetricsToJSON(
   lakeDatasetMetrics: LakeDatasetMetrics,
 ): string {
@@ -58,7 +44,6 @@ export function lakeDatasetMetricsToJSON(
     LakeDatasetMetrics$outboundSchema.parse(lakeDatasetMetrics),
   );
 }
-
 export function lakeDatasetMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<LakeDatasetMetrics, SDKValidationError> {

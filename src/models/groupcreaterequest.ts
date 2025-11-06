@@ -3,32 +3,18 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Commit,
-  Commit$inboundSchema,
-  Commit$Outbound,
-  Commit$outboundSchema,
-} from "./commit.js";
+import { OpenEnum, Unrecognized } from "../types/enums.js";
+import { Commit, Commit$Outbound, Commit$outboundSchema } from "./commit.js";
 import {
   ConfigGroupCloud,
-  ConfigGroupCloud$inboundSchema,
   ConfigGroupCloud$Outbound,
   ConfigGroupCloud$outboundSchema,
 } from "./configgroupcloud.js";
 import {
   ConfigGroupLookups,
-  ConfigGroupLookups$inboundSchema,
   ConfigGroupLookups$Outbound,
   ConfigGroupLookups$outboundSchema,
 } from "./configgrouplookups.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
@@ -118,17 +104,6 @@ export type GroupCreateRequest = {
 };
 
 /** @internal */
-export const GroupCreateRequestEstimatedIngestRate$inboundSchema: z.ZodType<
-  GroupCreateRequestEstimatedIngestRate,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(GroupCreateRequestEstimatedIngestRate),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
 export const GroupCreateRequestEstimatedIngestRate$outboundSchema: z.ZodType<
   GroupCreateRequestEstimatedIngestRate,
   z.ZodTypeDef,
@@ -137,30 +112,6 @@ export const GroupCreateRequestEstimatedIngestRate$outboundSchema: z.ZodType<
   z.nativeEnum(GroupCreateRequestEstimatedIngestRate),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GroupCreateRequestEstimatedIngestRate$ {
-  /** @deprecated use `GroupCreateRequestEstimatedIngestRate$inboundSchema` instead. */
-  export const inboundSchema =
-    GroupCreateRequestEstimatedIngestRate$inboundSchema;
-  /** @deprecated use `GroupCreateRequestEstimatedIngestRate$outboundSchema` instead. */
-  export const outboundSchema =
-    GroupCreateRequestEstimatedIngestRate$outboundSchema;
-}
-
-/** @internal */
-export const GroupCreateRequestGit$inboundSchema: z.ZodType<
-  GroupCreateRequestGit,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  commit: z.string().optional(),
-  localChanges: z.number().optional(),
-  log: z.array(Commit$inboundSchema).optional(),
-});
 
 /** @internal */
 export type GroupCreateRequestGit$Outbound = {
@@ -180,19 +131,6 @@ export const GroupCreateRequestGit$outboundSchema: z.ZodType<
   log: z.array(Commit$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GroupCreateRequestGit$ {
-  /** @deprecated use `GroupCreateRequestGit$inboundSchema` instead. */
-  export const inboundSchema = GroupCreateRequestGit$inboundSchema;
-  /** @deprecated use `GroupCreateRequestGit$outboundSchema` instead. */
-  export const outboundSchema = GroupCreateRequestGit$outboundSchema;
-  /** @deprecated use `GroupCreateRequestGit$Outbound` instead. */
-  export type Outbound = GroupCreateRequestGit$Outbound;
-}
-
 export function groupCreateRequestGitToJSON(
   groupCreateRequestGit: GroupCreateRequestGit,
 ): string {
@@ -200,27 +138,6 @@ export function groupCreateRequestGitToJSON(
     GroupCreateRequestGit$outboundSchema.parse(groupCreateRequestGit),
   );
 }
-
-export function groupCreateRequestGitFromJSON(
-  jsonString: string,
-): SafeParseResult<GroupCreateRequestGit, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GroupCreateRequestGit$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GroupCreateRequestGit' from JSON`,
-  );
-}
-
-/** @internal */
-export const GroupCreateRequestType$inboundSchema: z.ZodType<
-  GroupCreateRequestType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(GroupCreateRequestType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
 
 /** @internal */
 export const GroupCreateRequestType$outboundSchema: z.ZodType<
@@ -231,48 +148,6 @@ export const GroupCreateRequestType$outboundSchema: z.ZodType<
   z.nativeEnum(GroupCreateRequestType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GroupCreateRequestType$ {
-  /** @deprecated use `GroupCreateRequestType$inboundSchema` instead. */
-  export const inboundSchema = GroupCreateRequestType$inboundSchema;
-  /** @deprecated use `GroupCreateRequestType$outboundSchema` instead. */
-  export const outboundSchema = GroupCreateRequestType$outboundSchema;
-}
-
-/** @internal */
-export const GroupCreateRequest$inboundSchema: z.ZodType<
-  GroupCreateRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud: ConfigGroupCloud$inboundSchema.optional(),
-  deployingWorkerCount: z.number().optional(),
-  description: z.string().optional(),
-  estimatedIngestRate: GroupCreateRequestEstimatedIngestRate$inboundSchema
-    .optional(),
-  git: z.lazy(() => GroupCreateRequestGit$inboundSchema).optional(),
-  id: z.string(),
-  incompatibleWorkerCount: z.number().optional(),
-  inherits: z.string().optional(),
-  isFleet: z.boolean().optional(),
-  isSearch: z.boolean().optional(),
-  lookupDeployments: z.array(ConfigGroupLookups$inboundSchema).optional(),
-  maxWorkerAge: z.string().optional(),
-  name: z.string().optional(),
-  onPrem: z.boolean().optional(),
-  provisioned: z.boolean().optional(),
-  sourceGroupId: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  tags: z.string().optional(),
-  type: GroupCreateRequestType$inboundSchema.optional(),
-  upgradeVersion: z.string().optional(),
-  workerCount: z.number().optional(),
-  workerRemoteAccess: z.boolean().optional(),
-});
 
 /** @internal */
 export type GroupCreateRequest$Outbound = {
@@ -331,33 +206,10 @@ export const GroupCreateRequest$outboundSchema: z.ZodType<
   workerRemoteAccess: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GroupCreateRequest$ {
-  /** @deprecated use `GroupCreateRequest$inboundSchema` instead. */
-  export const inboundSchema = GroupCreateRequest$inboundSchema;
-  /** @deprecated use `GroupCreateRequest$outboundSchema` instead. */
-  export const outboundSchema = GroupCreateRequest$outboundSchema;
-  /** @deprecated use `GroupCreateRequest$Outbound` instead. */
-  export type Outbound = GroupCreateRequest$Outbound;
-}
-
 export function groupCreateRequestToJSON(
   groupCreateRequest: GroupCreateRequest,
 ): string {
   return JSON.stringify(
     GroupCreateRequest$outboundSchema.parse(groupCreateRequest),
-  );
-}
-
-export function groupCreateRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GroupCreateRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GroupCreateRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GroupCreateRequest' from JSON`,
   );
 }

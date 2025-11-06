@@ -337,22 +337,10 @@ export type InputOffice365Service = {
 export const InputOffice365ServiceType$inboundSchema: z.ZodNativeEnum<
   typeof InputOffice365ServiceType
 > = z.nativeEnum(InputOffice365ServiceType);
-
 /** @internal */
 export const InputOffice365ServiceType$outboundSchema: z.ZodNativeEnum<
   typeof InputOffice365ServiceType
 > = InputOffice365ServiceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceType$ {
-  /** @deprecated use `InputOffice365ServiceType$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceType$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceType$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServiceType$outboundSchema;
-}
 
 /** @internal */
 export const InputOffice365ServiceConnection$inboundSchema: z.ZodType<
@@ -363,7 +351,6 @@ export const InputOffice365ServiceConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputOffice365ServiceConnection$Outbound = {
   pipeline?: string | undefined;
@@ -380,19 +367,6 @@ export const InputOffice365ServiceConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceConnection$ {
-  /** @deprecated use `InputOffice365ServiceConnection$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceConnection$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceConnection$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServiceConnection$outboundSchema;
-  /** @deprecated use `InputOffice365ServiceConnection$Outbound` instead. */
-  export type Outbound = InputOffice365ServiceConnection$Outbound;
-}
-
 export function inputOffice365ServiceConnectionToJSON(
   inputOffice365ServiceConnection: InputOffice365ServiceConnection,
 ): string {
@@ -402,7 +376,6 @@ export function inputOffice365ServiceConnectionToJSON(
     ),
   );
 }
-
 export function inputOffice365ServiceConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365ServiceConnection, SDKValidationError> {
@@ -423,7 +396,6 @@ export const InputOffice365ServiceMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365ServiceMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365ServiceMode$outboundSchema: z.ZodType<
   InputOffice365ServiceMode,
@@ -433,17 +405,6 @@ export const InputOffice365ServiceMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputOffice365ServiceMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceMode$ {
-  /** @deprecated use `InputOffice365ServiceMode$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceMode$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceMode$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServiceMode$outboundSchema;
-}
 
 /** @internal */
 export const InputOffice365ServiceCompression$inboundSchema: z.ZodType<
@@ -455,7 +416,6 @@ export const InputOffice365ServiceCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365ServiceCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365ServiceCompression$outboundSchema: z.ZodType<
   InputOffice365ServiceCompression,
@@ -466,24 +426,12 @@ export const InputOffice365ServiceCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceCompression$ {
-  /** @deprecated use `InputOffice365ServiceCompression$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceCompression$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceCompression$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServiceCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputOffice365ServicePqControls$inboundSchema: z.ZodType<
   InputOffice365ServicePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputOffice365ServicePqControls$Outbound = {};
 
@@ -494,19 +442,6 @@ export const InputOffice365ServicePqControls$outboundSchema: z.ZodType<
   InputOffice365ServicePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServicePqControls$ {
-  /** @deprecated use `InputOffice365ServicePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServicePqControls$inboundSchema;
-  /** @deprecated use `InputOffice365ServicePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServicePqControls$outboundSchema;
-  /** @deprecated use `InputOffice365ServicePqControls$Outbound` instead. */
-  export type Outbound = InputOffice365ServicePqControls$Outbound;
-}
-
 export function inputOffice365ServicePqControlsToJSON(
   inputOffice365ServicePqControls: InputOffice365ServicePqControls,
 ): string {
@@ -516,7 +451,6 @@ export function inputOffice365ServicePqControlsToJSON(
     ),
   );
 }
-
 export function inputOffice365ServicePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365ServicePqControls, SDKValidationError> {
@@ -543,7 +477,6 @@ export const InputOffice365ServicePq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputOffice365ServicePqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputOffice365ServicePq$Outbound = {
   mode: string;
@@ -573,19 +506,6 @@ export const InputOffice365ServicePq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServicePq$ {
-  /** @deprecated use `InputOffice365ServicePq$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServicePq$inboundSchema;
-  /** @deprecated use `InputOffice365ServicePq$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServicePq$outboundSchema;
-  /** @deprecated use `InputOffice365ServicePq$Outbound` instead. */
-  export type Outbound = InputOffice365ServicePq$Outbound;
-}
-
 export function inputOffice365ServicePqToJSON(
   inputOffice365ServicePq: InputOffice365ServicePq,
 ): string {
@@ -593,7 +513,6 @@ export function inputOffice365ServicePqToJSON(
     InputOffice365ServicePq$outboundSchema.parse(inputOffice365ServicePq),
   );
 }
-
 export function inputOffice365ServicePqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365ServicePq, SDKValidationError> {
@@ -614,7 +533,6 @@ export const InputOffice365ServiceSubscriptionPlan$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365ServiceSubscriptionPlan),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365ServiceSubscriptionPlan$outboundSchema: z.ZodType<
   InputOffice365ServiceSubscriptionPlan,
@@ -625,19 +543,6 @@ export const InputOffice365ServiceSubscriptionPlan$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceSubscriptionPlan$ {
-  /** @deprecated use `InputOffice365ServiceSubscriptionPlan$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOffice365ServiceSubscriptionPlan$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceSubscriptionPlan$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365ServiceSubscriptionPlan$outboundSchema;
-}
-
 /** @internal */
 export const InputOffice365ServiceMetadatum$inboundSchema: z.ZodType<
   InputOffice365ServiceMetadatum,
@@ -647,7 +552,6 @@ export const InputOffice365ServiceMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputOffice365ServiceMetadatum$Outbound = {
   name: string;
@@ -664,19 +568,6 @@ export const InputOffice365ServiceMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceMetadatum$ {
-  /** @deprecated use `InputOffice365ServiceMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceMetadatum$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServiceMetadatum$outboundSchema;
-  /** @deprecated use `InputOffice365ServiceMetadatum$Outbound` instead. */
-  export type Outbound = InputOffice365ServiceMetadatum$Outbound;
-}
-
 export function inputOffice365ServiceMetadatumToJSON(
   inputOffice365ServiceMetadatum: InputOffice365ServiceMetadatum,
 ): string {
@@ -686,7 +577,6 @@ export function inputOffice365ServiceMetadatumToJSON(
     ),
   );
 }
-
 export function inputOffice365ServiceMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365ServiceMetadatum, SDKValidationError> {
@@ -707,7 +597,6 @@ export const InputOffice365ServiceLogLevel$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365ServiceLogLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365ServiceLogLevel$outboundSchema: z.ZodType<
   InputOffice365ServiceLogLevel,
@@ -717,17 +606,6 @@ export const InputOffice365ServiceLogLevel$outboundSchema: z.ZodType<
   z.nativeEnum(InputOffice365ServiceLogLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceLogLevel$ {
-  /** @deprecated use `InputOffice365ServiceLogLevel$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceLogLevel$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceLogLevel$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServiceLogLevel$outboundSchema;
-}
 
 /** @internal */
 export const InputOffice365ServiceContentConfig$inboundSchema: z.ZodType<
@@ -741,7 +619,6 @@ export const InputOffice365ServiceContentConfig$inboundSchema: z.ZodType<
   logLevel: InputOffice365ServiceLogLevel$inboundSchema.optional(),
   enabled: z.boolean().optional(),
 });
-
 /** @internal */
 export type InputOffice365ServiceContentConfig$Outbound = {
   contentType?: string | undefined;
@@ -764,20 +641,6 @@ export const InputOffice365ServiceContentConfig$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceContentConfig$ {
-  /** @deprecated use `InputOffice365ServiceContentConfig$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceContentConfig$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceContentConfig$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365ServiceContentConfig$outboundSchema;
-  /** @deprecated use `InputOffice365ServiceContentConfig$Outbound` instead. */
-  export type Outbound = InputOffice365ServiceContentConfig$Outbound;
-}
-
 export function inputOffice365ServiceContentConfigToJSON(
   inputOffice365ServiceContentConfig: InputOffice365ServiceContentConfig,
 ): string {
@@ -787,7 +650,6 @@ export function inputOffice365ServiceContentConfigToJSON(
     ),
   );
 }
-
 export function inputOffice365ServiceContentConfigFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365ServiceContentConfig, SDKValidationError> {
@@ -809,7 +671,6 @@ export const InputOffice365ServiceRetryType$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365ServiceRetryType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365ServiceRetryType$outboundSchema: z.ZodType<
   InputOffice365ServiceRetryType,
@@ -819,17 +680,6 @@ export const InputOffice365ServiceRetryType$outboundSchema: z.ZodType<
   z.nativeEnum(InputOffice365ServiceRetryType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceRetryType$ {
-  /** @deprecated use `InputOffice365ServiceRetryType$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceRetryType$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceRetryType$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServiceRetryType$outboundSchema;
-}
 
 /** @internal */
 export const InputOffice365ServiceRetryRules$inboundSchema: z.ZodType<
@@ -846,7 +696,6 @@ export const InputOffice365ServiceRetryRules$inboundSchema: z.ZodType<
   retryConnectTimeout: z.boolean().default(false),
   retryConnectReset: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputOffice365ServiceRetryRules$Outbound = {
   type: string;
@@ -875,19 +724,6 @@ export const InputOffice365ServiceRetryRules$outboundSchema: z.ZodType<
   retryConnectReset: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceRetryRules$ {
-  /** @deprecated use `InputOffice365ServiceRetryRules$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365ServiceRetryRules$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceRetryRules$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365ServiceRetryRules$outboundSchema;
-  /** @deprecated use `InputOffice365ServiceRetryRules$Outbound` instead. */
-  export type Outbound = InputOffice365ServiceRetryRules$Outbound;
-}
-
 export function inputOffice365ServiceRetryRulesToJSON(
   inputOffice365ServiceRetryRules: InputOffice365ServiceRetryRules,
 ): string {
@@ -897,7 +733,6 @@ export function inputOffice365ServiceRetryRulesToJSON(
     ),
   );
 }
-
 export function inputOffice365ServiceRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365ServiceRetryRules, SDKValidationError> {
@@ -918,7 +753,6 @@ export const InputOffice365ServiceAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365ServiceAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365ServiceAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -929,19 +763,6 @@ export const InputOffice365ServiceAuthenticationMethod$outboundSchema:
     z.nativeEnum(InputOffice365ServiceAuthenticationMethod),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365ServiceAuthenticationMethod$ {
-  /** @deprecated use `InputOffice365ServiceAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOffice365ServiceAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputOffice365ServiceAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365ServiceAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputOffice365Service$inboundSchema: z.ZodType<
@@ -986,7 +807,6 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputOffice365Service$Outbound = {
   id?: string | undefined;
@@ -1063,19 +883,6 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365Service$ {
-  /** @deprecated use `InputOffice365Service$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365Service$inboundSchema;
-  /** @deprecated use `InputOffice365Service$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365Service$outboundSchema;
-  /** @deprecated use `InputOffice365Service$Outbound` instead. */
-  export type Outbound = InputOffice365Service$Outbound;
-}
-
 export function inputOffice365ServiceToJSON(
   inputOffice365Service: InputOffice365Service,
 ): string {
@@ -1083,7 +890,6 @@ export function inputOffice365ServiceToJSON(
     InputOffice365Service$outboundSchema.parse(inputOffice365Service),
   );
 }
-
 export function inputOffice365ServiceFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365Service, SDKValidationError> {

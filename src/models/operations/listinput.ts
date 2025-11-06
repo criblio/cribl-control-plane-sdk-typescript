@@ -29,43 +29,6 @@ export const ListInputResponse$inboundSchema: z.ZodType<
   items: z.array(models.Input$inboundSchema).optional(),
 });
 
-/** @internal */
-export type ListInputResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Input$Outbound> | undefined;
-};
-
-/** @internal */
-export const ListInputResponse$outboundSchema: z.ZodType<
-  ListInputResponse$Outbound,
-  z.ZodTypeDef,
-  ListInputResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Input$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListInputResponse$ {
-  /** @deprecated use `ListInputResponse$inboundSchema` instead. */
-  export const inboundSchema = ListInputResponse$inboundSchema;
-  /** @deprecated use `ListInputResponse$outboundSchema` instead. */
-  export const outboundSchema = ListInputResponse$outboundSchema;
-  /** @deprecated use `ListInputResponse$Outbound` instead. */
-  export type Outbound = ListInputResponse$Outbound;
-}
-
-export function listInputResponseToJSON(
-  listInputResponse: ListInputResponse,
-): string {
-  return JSON.stringify(
-    ListInputResponse$outboundSchema.parse(listInputResponse),
-  );
-}
-
 export function listInputResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListInputResponse, SDKValidationError> {

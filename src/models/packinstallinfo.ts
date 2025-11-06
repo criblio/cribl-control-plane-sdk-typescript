@@ -45,47 +45,6 @@ export const PackInstallInfoTags$inboundSchema: z.ZodType<
   technology: z.array(z.string()).optional(),
 });
 
-/** @internal */
-export type PackInstallInfoTags$Outbound = {
-  dataType?: Array<string> | undefined;
-  domain?: Array<string> | undefined;
-  streamtags?: Array<string> | undefined;
-  technology?: Array<string> | undefined;
-};
-
-/** @internal */
-export const PackInstallInfoTags$outboundSchema: z.ZodType<
-  PackInstallInfoTags$Outbound,
-  z.ZodTypeDef,
-  PackInstallInfoTags
-> = z.object({
-  dataType: z.array(z.string()).optional(),
-  domain: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackInstallInfoTags$ {
-  /** @deprecated use `PackInstallInfoTags$inboundSchema` instead. */
-  export const inboundSchema = PackInstallInfoTags$inboundSchema;
-  /** @deprecated use `PackInstallInfoTags$outboundSchema` instead. */
-  export const outboundSchema = PackInstallInfoTags$outboundSchema;
-  /** @deprecated use `PackInstallInfoTags$Outbound` instead. */
-  export type Outbound = PackInstallInfoTags$Outbound;
-}
-
-export function packInstallInfoTagsToJSON(
-  packInstallInfoTags: PackInstallInfoTags,
-): string {
-  return JSON.stringify(
-    PackInstallInfoTags$outboundSchema.parse(packInstallInfoTags),
-  );
-}
-
 export function packInstallInfoTagsFromJSON(
   jsonString: string,
 ): SafeParseResult<PackInstallInfoTags, SDKValidationError> {
@@ -119,69 +78,6 @@ export const PackInstallInfo$inboundSchema: z.ZodType<
   version: z.string().optional(),
   warnings: z.array(z.string()).optional(),
 });
-
-/** @internal */
-export type PackInstallInfo$Outbound = {
-  author?: string | undefined;
-  dependencies?: { [k: string]: string } | undefined;
-  description?: string | undefined;
-  displayName?: string | undefined;
-  exports?: Array<string> | undefined;
-  id: string;
-  inputs?: number | undefined;
-  isDisabled?: boolean | undefined;
-  minLogStreamVersion?: string | undefined;
-  outputs?: number | undefined;
-  settings?: { [k: string]: any } | undefined;
-  source: string;
-  spec?: string | undefined;
-  tags?: PackInstallInfoTags$Outbound | undefined;
-  version?: string | undefined;
-  warnings?: Array<string> | undefined;
-};
-
-/** @internal */
-export const PackInstallInfo$outboundSchema: z.ZodType<
-  PackInstallInfo$Outbound,
-  z.ZodTypeDef,
-  PackInstallInfo
-> = z.object({
-  author: z.string().optional(),
-  dependencies: z.record(z.string()).optional(),
-  description: z.string().optional(),
-  displayName: z.string().optional(),
-  exports: z.array(z.string()).optional(),
-  id: z.string(),
-  inputs: z.number().optional(),
-  isDisabled: z.boolean().optional(),
-  minLogStreamVersion: z.string().optional(),
-  outputs: z.number().optional(),
-  settings: z.record(z.any()).optional(),
-  source: z.string(),
-  spec: z.string().optional(),
-  tags: z.lazy(() => PackInstallInfoTags$outboundSchema).optional(),
-  version: z.string().optional(),
-  warnings: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackInstallInfo$ {
-  /** @deprecated use `PackInstallInfo$inboundSchema` instead. */
-  export const inboundSchema = PackInstallInfo$inboundSchema;
-  /** @deprecated use `PackInstallInfo$outboundSchema` instead. */
-  export const outboundSchema = PackInstallInfo$outboundSchema;
-  /** @deprecated use `PackInstallInfo$Outbound` instead. */
-  export type Outbound = PackInstallInfo$Outbound;
-}
-
-export function packInstallInfoToJSON(
-  packInstallInfo: PackInstallInfo,
-): string {
-  return JSON.stringify(PackInstallInfo$outboundSchema.parse(packInstallInfo));
-}
 
 export function packInstallInfoFromJSON(
   jsonString: string,

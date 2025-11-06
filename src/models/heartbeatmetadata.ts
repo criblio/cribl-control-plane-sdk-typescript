@@ -60,37 +60,6 @@ export const HeartbeatMetadataTags$inboundSchema: z.ZodType<
   unknown
 > = z.object({});
 
-/** @internal */
-export type HeartbeatMetadataTags$Outbound = {};
-
-/** @internal */
-export const HeartbeatMetadataTags$outboundSchema: z.ZodType<
-  HeartbeatMetadataTags$Outbound,
-  z.ZodTypeDef,
-  HeartbeatMetadataTags
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HeartbeatMetadataTags$ {
-  /** @deprecated use `HeartbeatMetadataTags$inboundSchema` instead. */
-  export const inboundSchema = HeartbeatMetadataTags$inboundSchema;
-  /** @deprecated use `HeartbeatMetadataTags$outboundSchema` instead. */
-  export const outboundSchema = HeartbeatMetadataTags$outboundSchema;
-  /** @deprecated use `HeartbeatMetadataTags$Outbound` instead. */
-  export type Outbound = HeartbeatMetadataTags$Outbound;
-}
-
-export function heartbeatMetadataTagsToJSON(
-  heartbeatMetadataTags: HeartbeatMetadataTags,
-): string {
-  return JSON.stringify(
-    HeartbeatMetadataTags$outboundSchema.parse(heartbeatMetadataTags),
-  );
-}
-
 export function heartbeatMetadataTagsFromJSON(
   jsonString: string,
 ): SafeParseResult<HeartbeatMetadataTags, SDKValidationError> {
@@ -115,51 +84,6 @@ export const HeartbeatMetadataAws$inboundSchema: z.ZodType<
   zone: z.string(),
 });
 
-/** @internal */
-export type HeartbeatMetadataAws$Outbound = {
-  enabled: boolean;
-  instanceId: string;
-  region: string;
-  tags?: HeartbeatMetadataTags$Outbound | undefined;
-  type: string;
-  zone: string;
-};
-
-/** @internal */
-export const HeartbeatMetadataAws$outboundSchema: z.ZodType<
-  HeartbeatMetadataAws$Outbound,
-  z.ZodTypeDef,
-  HeartbeatMetadataAws
-> = z.object({
-  enabled: z.boolean(),
-  instanceId: z.string(),
-  region: z.string(),
-  tags: z.lazy(() => HeartbeatMetadataTags$outboundSchema).optional(),
-  type: z.string(),
-  zone: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HeartbeatMetadataAws$ {
-  /** @deprecated use `HeartbeatMetadataAws$inboundSchema` instead. */
-  export const inboundSchema = HeartbeatMetadataAws$inboundSchema;
-  /** @deprecated use `HeartbeatMetadataAws$outboundSchema` instead. */
-  export const outboundSchema = HeartbeatMetadataAws$outboundSchema;
-  /** @deprecated use `HeartbeatMetadataAws$Outbound` instead. */
-  export type Outbound = HeartbeatMetadataAws$Outbound;
-}
-
-export function heartbeatMetadataAwsToJSON(
-  heartbeatMetadataAws: HeartbeatMetadataAws,
-): string {
-  return JSON.stringify(
-    HeartbeatMetadataAws$outboundSchema.parse(heartbeatMetadataAws),
-  );
-}
-
 export function heartbeatMetadataAwsFromJSON(
   jsonString: string,
 ): SafeParseResult<HeartbeatMetadataAws, SDKValidationError> {
@@ -182,47 +106,6 @@ export const HeartbeatMetadataHostOs$inboundSchema: z.ZodType<
   version: z.string(),
 });
 
-/** @internal */
-export type HeartbeatMetadataHostOs$Outbound = {
-  addresses: Array<string>;
-  enabled: boolean;
-  id: string;
-  version: string;
-};
-
-/** @internal */
-export const HeartbeatMetadataHostOs$outboundSchema: z.ZodType<
-  HeartbeatMetadataHostOs$Outbound,
-  z.ZodTypeDef,
-  HeartbeatMetadataHostOs
-> = z.object({
-  addresses: z.array(z.string()),
-  enabled: z.boolean(),
-  id: z.string(),
-  version: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HeartbeatMetadataHostOs$ {
-  /** @deprecated use `HeartbeatMetadataHostOs$inboundSchema` instead. */
-  export const inboundSchema = HeartbeatMetadataHostOs$inboundSchema;
-  /** @deprecated use `HeartbeatMetadataHostOs$outboundSchema` instead. */
-  export const outboundSchema = HeartbeatMetadataHostOs$outboundSchema;
-  /** @deprecated use `HeartbeatMetadataHostOs$Outbound` instead. */
-  export type Outbound = HeartbeatMetadataHostOs$Outbound;
-}
-
-export function heartbeatMetadataHostOsToJSON(
-  heartbeatMetadataHostOs: HeartbeatMetadataHostOs,
-): string {
-  return JSON.stringify(
-    HeartbeatMetadataHostOs$outboundSchema.parse(heartbeatMetadataHostOs),
-  );
-}
-
 export function heartbeatMetadataHostOsFromJSON(
   jsonString: string,
 ): SafeParseResult<HeartbeatMetadataHostOs, SDKValidationError> {
@@ -242,43 +125,6 @@ export const HeartbeatMetadataOwner$inboundSchema: z.ZodType<
   kind: z.string(),
   name: z.string(),
 });
-
-/** @internal */
-export type HeartbeatMetadataOwner$Outbound = {
-  kind: string;
-  name: string;
-};
-
-/** @internal */
-export const HeartbeatMetadataOwner$outboundSchema: z.ZodType<
-  HeartbeatMetadataOwner$Outbound,
-  z.ZodTypeDef,
-  HeartbeatMetadataOwner
-> = z.object({
-  kind: z.string(),
-  name: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HeartbeatMetadataOwner$ {
-  /** @deprecated use `HeartbeatMetadataOwner$inboundSchema` instead. */
-  export const inboundSchema = HeartbeatMetadataOwner$inboundSchema;
-  /** @deprecated use `HeartbeatMetadataOwner$outboundSchema` instead. */
-  export const outboundSchema = HeartbeatMetadataOwner$outboundSchema;
-  /** @deprecated use `HeartbeatMetadataOwner$Outbound` instead. */
-  export type Outbound = HeartbeatMetadataOwner$Outbound;
-}
-
-export function heartbeatMetadataOwnerToJSON(
-  heartbeatMetadataOwner: HeartbeatMetadataOwner,
-): string {
-  return JSON.stringify(
-    HeartbeatMetadataOwner$outboundSchema.parse(heartbeatMetadataOwner),
-  );
-}
 
 export function heartbeatMetadataOwnerFromJSON(
   jsonString: string,
@@ -304,51 +150,6 @@ export const HeartbeatMetadataKube$inboundSchema: z.ZodType<
   source: z.string(),
 });
 
-/** @internal */
-export type HeartbeatMetadataKube$Outbound = {
-  enabled: boolean;
-  namespace: string;
-  node: string;
-  owner?: HeartbeatMetadataOwner$Outbound | undefined;
-  pod: string;
-  source: string;
-};
-
-/** @internal */
-export const HeartbeatMetadataKube$outboundSchema: z.ZodType<
-  HeartbeatMetadataKube$Outbound,
-  z.ZodTypeDef,
-  HeartbeatMetadataKube
-> = z.object({
-  enabled: z.boolean(),
-  namespace: z.string(),
-  node: z.string(),
-  owner: z.lazy(() => HeartbeatMetadataOwner$outboundSchema).optional(),
-  pod: z.string(),
-  source: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HeartbeatMetadataKube$ {
-  /** @deprecated use `HeartbeatMetadataKube$inboundSchema` instead. */
-  export const inboundSchema = HeartbeatMetadataKube$inboundSchema;
-  /** @deprecated use `HeartbeatMetadataKube$outboundSchema` instead. */
-  export const outboundSchema = HeartbeatMetadataKube$outboundSchema;
-  /** @deprecated use `HeartbeatMetadataKube$Outbound` instead. */
-  export type Outbound = HeartbeatMetadataKube$Outbound;
-}
-
-export function heartbeatMetadataKubeToJSON(
-  heartbeatMetadataKube: HeartbeatMetadataKube,
-): string {
-  return JSON.stringify(
-    HeartbeatMetadataKube$outboundSchema.parse(heartbeatMetadataKube),
-  );
-}
-
 export function heartbeatMetadataKubeFromJSON(
   jsonString: string,
 ): SafeParseResult<HeartbeatMetadataKube, SDKValidationError> {
@@ -371,47 +172,6 @@ export const HeartbeatMetadataOs$inboundSchema: z.ZodType<
   version: z.string(),
 });
 
-/** @internal */
-export type HeartbeatMetadataOs$Outbound = {
-  addresses: Array<string>;
-  enabled: boolean;
-  id: string;
-  version: string;
-};
-
-/** @internal */
-export const HeartbeatMetadataOs$outboundSchema: z.ZodType<
-  HeartbeatMetadataOs$Outbound,
-  z.ZodTypeDef,
-  HeartbeatMetadataOs
-> = z.object({
-  addresses: z.array(z.string()),
-  enabled: z.boolean(),
-  id: z.string(),
-  version: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HeartbeatMetadataOs$ {
-  /** @deprecated use `HeartbeatMetadataOs$inboundSchema` instead. */
-  export const inboundSchema = HeartbeatMetadataOs$inboundSchema;
-  /** @deprecated use `HeartbeatMetadataOs$outboundSchema` instead. */
-  export const outboundSchema = HeartbeatMetadataOs$outboundSchema;
-  /** @deprecated use `HeartbeatMetadataOs$Outbound` instead. */
-  export type Outbound = HeartbeatMetadataOs$Outbound;
-}
-
-export function heartbeatMetadataOsToJSON(
-  heartbeatMetadataOs: HeartbeatMetadataOs,
-): string {
-  return JSON.stringify(
-    HeartbeatMetadataOs$outboundSchema.parse(heartbeatMetadataOs),
-  );
-}
-
 export function heartbeatMetadataOsFromJSON(
   jsonString: string,
 ): SafeParseResult<HeartbeatMetadataOs, SDKValidationError> {
@@ -433,47 +193,6 @@ export const HeartbeatMetadata$inboundSchema: z.ZodType<
   kube: z.lazy(() => HeartbeatMetadataKube$inboundSchema).optional(),
   os: z.lazy(() => HeartbeatMetadataOs$inboundSchema).optional(),
 });
-
-/** @internal */
-export type HeartbeatMetadata$Outbound = {
-  aws?: HeartbeatMetadataAws$Outbound | undefined;
-  hostOs?: HeartbeatMetadataHostOs$Outbound | undefined;
-  kube?: HeartbeatMetadataKube$Outbound | undefined;
-  os?: HeartbeatMetadataOs$Outbound | undefined;
-};
-
-/** @internal */
-export const HeartbeatMetadata$outboundSchema: z.ZodType<
-  HeartbeatMetadata$Outbound,
-  z.ZodTypeDef,
-  HeartbeatMetadata
-> = z.object({
-  aws: z.lazy(() => HeartbeatMetadataAws$outboundSchema).optional(),
-  hostOs: z.lazy(() => HeartbeatMetadataHostOs$outboundSchema).optional(),
-  kube: z.lazy(() => HeartbeatMetadataKube$outboundSchema).optional(),
-  os: z.lazy(() => HeartbeatMetadataOs$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HeartbeatMetadata$ {
-  /** @deprecated use `HeartbeatMetadata$inboundSchema` instead. */
-  export const inboundSchema = HeartbeatMetadata$inboundSchema;
-  /** @deprecated use `HeartbeatMetadata$outboundSchema` instead. */
-  export const outboundSchema = HeartbeatMetadata$outboundSchema;
-  /** @deprecated use `HeartbeatMetadata$Outbound` instead. */
-  export type Outbound = HeartbeatMetadata$Outbound;
-}
-
-export function heartbeatMetadataToJSON(
-  heartbeatMetadata: HeartbeatMetadata,
-): string {
-  return JSON.stringify(
-    HeartbeatMetadata$outboundSchema.parse(heartbeatMetadata),
-  );
-}
 
 export function heartbeatMetadataFromJSON(
   jsonString: string,

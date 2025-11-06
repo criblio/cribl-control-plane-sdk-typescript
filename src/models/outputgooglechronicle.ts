@@ -434,22 +434,10 @@ export type OutputGoogleChronicle = {
 export const OutputGoogleChronicleType$inboundSchema: z.ZodNativeEnum<
   typeof OutputGoogleChronicleType
 > = z.nativeEnum(OutputGoogleChronicleType);
-
 /** @internal */
 export const OutputGoogleChronicleType$outboundSchema: z.ZodNativeEnum<
   typeof OutputGoogleChronicleType
 > = OutputGoogleChronicleType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleType$ {
-  /** @deprecated use `OutputGoogleChronicleType$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleType$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleType$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleType$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleChronicleAPIVersion$inboundSchema: z.ZodType<
@@ -461,7 +449,6 @@ export const OutputGoogleChronicleAPIVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleChronicleAPIVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleChronicleAPIVersion$outboundSchema: z.ZodType<
   OutputGoogleChronicleAPIVersion,
@@ -471,17 +458,6 @@ export const OutputGoogleChronicleAPIVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleChronicleAPIVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleAPIVersion$ {
-  /** @deprecated use `OutputGoogleChronicleAPIVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleAPIVersion$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleAPIVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleAPIVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleChronicleAuthenticationMethod$inboundSchema: z.ZodType<
@@ -493,7 +469,6 @@ export const OutputGoogleChronicleAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleChronicleAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleChronicleAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -504,19 +479,6 @@ export const OutputGoogleChronicleAuthenticationMethod$outboundSchema:
     z.nativeEnum(OutputGoogleChronicleAuthenticationMethod),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleAuthenticationMethod$ {
-  /** @deprecated use `OutputGoogleChronicleAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleChronicleResponseRetrySetting$inboundSchema: z.ZodType<
@@ -529,7 +491,6 @@ export const OutputGoogleChronicleResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputGoogleChronicleResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -551,21 +512,6 @@ export const OutputGoogleChronicleResponseRetrySetting$outboundSchema:
     maxBackoff: z.number().default(10000),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleResponseRetrySetting$ {
-  /** @deprecated use `OutputGoogleChronicleResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicleResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicleResponseRetrySetting$Outbound;
-}
-
 export function outputGoogleChronicleResponseRetrySettingToJSON(
   outputGoogleChronicleResponseRetrySetting:
     OutputGoogleChronicleResponseRetrySetting,
@@ -576,7 +522,6 @@ export function outputGoogleChronicleResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputGoogleChronicleResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -604,7 +549,6 @@ export const OutputGoogleChronicleTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputGoogleChronicleTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -626,21 +570,6 @@ export const OutputGoogleChronicleTimeoutRetrySettings$outboundSchema:
     maxBackoff: z.number().default(10000),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleTimeoutRetrySettings$ {
-  /** @deprecated use `OutputGoogleChronicleTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicleTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicleTimeoutRetrySettings$Outbound;
-}
-
 export function outputGoogleChronicleTimeoutRetrySettingsToJSON(
   outputGoogleChronicleTimeoutRetrySettings:
     OutputGoogleChronicleTimeoutRetrySettings,
@@ -651,7 +580,6 @@ export function outputGoogleChronicleTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputGoogleChronicleTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -678,7 +606,6 @@ export const SendEventsAs$inboundSchema: z.ZodType<
     z.nativeEnum(SendEventsAs),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const SendEventsAs$outboundSchema: z.ZodType<
   SendEventsAs,
@@ -689,17 +616,6 @@ export const SendEventsAs$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SendEventsAs$ {
-  /** @deprecated use `SendEventsAs$inboundSchema` instead. */
-  export const inboundSchema = SendEventsAs$inboundSchema;
-  /** @deprecated use `SendEventsAs$outboundSchema` instead. */
-  export const outboundSchema = SendEventsAs$outboundSchema;
-}
-
 /** @internal */
 export const OutputGoogleChronicleExtraHttpHeader$inboundSchema: z.ZodType<
   OutputGoogleChronicleExtraHttpHeader,
@@ -709,7 +625,6 @@ export const OutputGoogleChronicleExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputGoogleChronicleExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -726,21 +641,6 @@ export const OutputGoogleChronicleExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleExtraHttpHeader$ {
-  /** @deprecated use `OutputGoogleChronicleExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicleExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicleExtraHttpHeader$Outbound;
-}
-
 export function outputGoogleChronicleExtraHttpHeaderToJSON(
   outputGoogleChronicleExtraHttpHeader: OutputGoogleChronicleExtraHttpHeader,
 ): string {
@@ -750,7 +650,6 @@ export function outputGoogleChronicleExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputGoogleChronicleExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleChronicleExtraHttpHeader, SDKValidationError> {
@@ -773,7 +672,6 @@ export const OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema:
       z.nativeEnum(OutputGoogleChronicleFailedRequestLoggingMode),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
@@ -785,19 +683,6 @@ export const OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema;
-}
-
 /** @internal */
 export const OutputGoogleChronicleBackpressureBehavior$inboundSchema: z.ZodType<
   OutputGoogleChronicleBackpressureBehavior,
@@ -808,7 +693,6 @@ export const OutputGoogleChronicleBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleChronicleBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleChronicleBackpressureBehavior$outboundSchema:
   z.ZodType<
@@ -820,19 +704,6 @@ export const OutputGoogleChronicleBackpressureBehavior$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleBackpressureBehavior$ {
-  /** @deprecated use `OutputGoogleChronicleBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const ExtraLogType$inboundSchema: z.ZodType<
   ExtraLogType,
@@ -842,7 +713,6 @@ export const ExtraLogType$inboundSchema: z.ZodType<
   logType: z.string(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type ExtraLogType$Outbound = {
   logType: string;
@@ -859,23 +729,9 @@ export const ExtraLogType$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ExtraLogType$ {
-  /** @deprecated use `ExtraLogType$inboundSchema` instead. */
-  export const inboundSchema = ExtraLogType$inboundSchema;
-  /** @deprecated use `ExtraLogType$outboundSchema` instead. */
-  export const outboundSchema = ExtraLogType$outboundSchema;
-  /** @deprecated use `ExtraLogType$Outbound` instead. */
-  export type Outbound = ExtraLogType$Outbound;
-}
-
 export function extraLogTypeToJSON(extraLogType: ExtraLogType): string {
   return JSON.stringify(ExtraLogType$outboundSchema.parse(extraLogType));
 }
-
 export function extraLogTypeFromJSON(
   jsonString: string,
 ): SafeParseResult<ExtraLogType, SDKValidationError> {
@@ -895,7 +751,6 @@ export const OutputGoogleChronicleCustomLabel$inboundSchema: z.ZodType<
   key: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputGoogleChronicleCustomLabel$Outbound = {
   key: string;
@@ -912,19 +767,6 @@ export const OutputGoogleChronicleCustomLabel$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleCustomLabel$ {
-  /** @deprecated use `OutputGoogleChronicleCustomLabel$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleCustomLabel$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleCustomLabel$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleCustomLabel$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicleCustomLabel$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicleCustomLabel$Outbound;
-}
-
 export function outputGoogleChronicleCustomLabelToJSON(
   outputGoogleChronicleCustomLabel: OutputGoogleChronicleCustomLabel,
 ): string {
@@ -934,7 +776,6 @@ export function outputGoogleChronicleCustomLabelToJSON(
     ),
   );
 }
-
 export function outputGoogleChronicleCustomLabelFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleChronicleCustomLabel, SDKValidationError> {
@@ -952,24 +793,12 @@ export const UDMType$inboundSchema: z.ZodType<UDMType, z.ZodTypeDef, unknown> =
       z.nativeEnum(UDMType),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const UDMType$outboundSchema: z.ZodType<UDMType, z.ZodTypeDef, UDMType> =
   z.union([
     z.nativeEnum(UDMType),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UDMType$ {
-  /** @deprecated use `UDMType$inboundSchema` instead. */
-  export const inboundSchema = UDMType$inboundSchema;
-  /** @deprecated use `UDMType$outboundSchema` instead. */
-  export const outboundSchema = UDMType$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleChronicleMode$inboundSchema: z.ZodType<
@@ -981,7 +810,6 @@ export const OutputGoogleChronicleMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleChronicleMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleChronicleMode$outboundSchema: z.ZodType<
   OutputGoogleChronicleMode,
@@ -991,17 +819,6 @@ export const OutputGoogleChronicleMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleChronicleMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleMode$ {
-  /** @deprecated use `OutputGoogleChronicleMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleMode$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleChronicleCompression$inboundSchema: z.ZodType<
@@ -1013,7 +830,6 @@ export const OutputGoogleChronicleCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleChronicleCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleChronicleCompression$outboundSchema: z.ZodType<
   OutputGoogleChronicleCompression,
@@ -1023,17 +839,6 @@ export const OutputGoogleChronicleCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleChronicleCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleCompression$ {
-  /** @deprecated use `OutputGoogleChronicleCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleCompression$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleChronicleQueueFullBehavior$inboundSchema: z.ZodType<
@@ -1045,7 +850,6 @@ export const OutputGoogleChronicleQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleChronicleQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleChronicleQueueFullBehavior$outboundSchema: z.ZodType<
   OutputGoogleChronicleQueueFullBehavior,
@@ -1056,26 +860,12 @@ export const OutputGoogleChronicleQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleQueueFullBehavior$ {
-  /** @deprecated use `OutputGoogleChronicleQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputGoogleChroniclePqControls$inboundSchema: z.ZodType<
   OutputGoogleChroniclePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputGoogleChroniclePqControls$Outbound = {};
 
@@ -1086,19 +876,6 @@ export const OutputGoogleChroniclePqControls$outboundSchema: z.ZodType<
   OutputGoogleChroniclePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChroniclePqControls$ {
-  /** @deprecated use `OutputGoogleChroniclePqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChroniclePqControls$inboundSchema;
-  /** @deprecated use `OutputGoogleChroniclePqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChroniclePqControls$outboundSchema;
-  /** @deprecated use `OutputGoogleChroniclePqControls$Outbound` instead. */
-  export type Outbound = OutputGoogleChroniclePqControls$Outbound;
-}
-
 export function outputGoogleChroniclePqControlsToJSON(
   outputGoogleChroniclePqControls: OutputGoogleChroniclePqControls,
 ): string {
@@ -1108,7 +885,6 @@ export function outputGoogleChroniclePqControlsToJSON(
     ),
   );
 }
-
 export function outputGoogleChroniclePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleChroniclePqControls, SDKValidationError> {
@@ -1188,7 +964,6 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputGoogleChronicle$Outbound = {
   id?: string | undefined;
@@ -1320,19 +1095,6 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicle$ {
-  /** @deprecated use `OutputGoogleChronicle$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicle$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicle$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicle$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicle$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicle$Outbound;
-}
-
 export function outputGoogleChronicleToJSON(
   outputGoogleChronicle: OutputGoogleChronicle,
 ): string {
@@ -1340,7 +1102,6 @@ export function outputGoogleChronicleToJSON(
     OutputGoogleChronicle$outboundSchema.parse(outputGoogleChronicle),
   );
 }
-
 export function outputGoogleChronicleFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleChronicle, SDKValidationError> {

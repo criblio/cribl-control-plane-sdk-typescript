@@ -402,22 +402,10 @@ export type InputOpenTelemetry = {
 export const InputOpenTelemetryType$inboundSchema: z.ZodNativeEnum<
   typeof InputOpenTelemetryType
 > = z.nativeEnum(InputOpenTelemetryType);
-
 /** @internal */
 export const InputOpenTelemetryType$outboundSchema: z.ZodNativeEnum<
   typeof InputOpenTelemetryType
 > = InputOpenTelemetryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryType$ {
-  /** @deprecated use `InputOpenTelemetryType$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryType$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryType$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryType$outboundSchema;
-}
 
 /** @internal */
 export const InputOpenTelemetryConnection$inboundSchema: z.ZodType<
@@ -428,7 +416,6 @@ export const InputOpenTelemetryConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputOpenTelemetryConnection$Outbound = {
   pipeline?: string | undefined;
@@ -445,19 +432,6 @@ export const InputOpenTelemetryConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryConnection$ {
-  /** @deprecated use `InputOpenTelemetryConnection$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryConnection$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryConnection$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryConnection$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryConnection$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryConnection$Outbound;
-}
-
 export function inputOpenTelemetryConnectionToJSON(
   inputOpenTelemetryConnection: InputOpenTelemetryConnection,
 ): string {
@@ -467,7 +441,6 @@ export function inputOpenTelemetryConnectionToJSON(
     ),
   );
 }
-
 export function inputOpenTelemetryConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOpenTelemetryConnection, SDKValidationError> {
@@ -488,7 +461,6 @@ export const InputOpenTelemetryMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputOpenTelemetryMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOpenTelemetryMode$outboundSchema: z.ZodType<
   InputOpenTelemetryMode,
@@ -498,17 +470,6 @@ export const InputOpenTelemetryMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputOpenTelemetryMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryMode$ {
-  /** @deprecated use `InputOpenTelemetryMode$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryMode$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryMode$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryMode$outboundSchema;
-}
 
 /** @internal */
 export const InputOpenTelemetryCompression$inboundSchema: z.ZodType<
@@ -520,7 +481,6 @@ export const InputOpenTelemetryCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputOpenTelemetryCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOpenTelemetryCompression$outboundSchema: z.ZodType<
   InputOpenTelemetryCompression,
@@ -531,24 +491,12 @@ export const InputOpenTelemetryCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryCompression$ {
-  /** @deprecated use `InputOpenTelemetryCompression$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryCompression$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryCompression$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputOpenTelemetryPqControls$inboundSchema: z.ZodType<
   InputOpenTelemetryPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputOpenTelemetryPqControls$Outbound = {};
 
@@ -559,19 +507,6 @@ export const InputOpenTelemetryPqControls$outboundSchema: z.ZodType<
   InputOpenTelemetryPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryPqControls$ {
-  /** @deprecated use `InputOpenTelemetryPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryPqControls$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryPqControls$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryPqControls$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryPqControls$Outbound;
-}
-
 export function inputOpenTelemetryPqControlsToJSON(
   inputOpenTelemetryPqControls: InputOpenTelemetryPqControls,
 ): string {
@@ -581,7 +516,6 @@ export function inputOpenTelemetryPqControlsToJSON(
     ),
   );
 }
-
 export function inputOpenTelemetryPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOpenTelemetryPqControls, SDKValidationError> {
@@ -608,7 +542,6 @@ export const InputOpenTelemetryPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputOpenTelemetryPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputOpenTelemetryPq$Outbound = {
   mode: string;
@@ -638,19 +571,6 @@ export const InputOpenTelemetryPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryPq$ {
-  /** @deprecated use `InputOpenTelemetryPq$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryPq$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryPq$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryPq$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryPq$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryPq$Outbound;
-}
-
 export function inputOpenTelemetryPqToJSON(
   inputOpenTelemetryPq: InputOpenTelemetryPq,
 ): string {
@@ -658,7 +578,6 @@ export function inputOpenTelemetryPqToJSON(
     InputOpenTelemetryPq$outboundSchema.parse(inputOpenTelemetryPq),
   );
 }
-
 export function inputOpenTelemetryPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOpenTelemetryPq, SDKValidationError> {
@@ -679,7 +598,6 @@ export const InputOpenTelemetryMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputOpenTelemetryMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOpenTelemetryMinimumTLSVersion$outboundSchema: z.ZodType<
   InputOpenTelemetryMinimumTLSVersion,
@@ -689,19 +607,6 @@ export const InputOpenTelemetryMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputOpenTelemetryMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryMinimumTLSVersion$ {
-  /** @deprecated use `InputOpenTelemetryMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOpenTelemetryMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOpenTelemetryMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputOpenTelemetryMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -713,7 +618,6 @@ export const InputOpenTelemetryMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputOpenTelemetryMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOpenTelemetryMaximumTLSVersion$outboundSchema: z.ZodType<
   InputOpenTelemetryMaximumTLSVersion,
@@ -723,19 +627,6 @@ export const InputOpenTelemetryMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputOpenTelemetryMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryMaximumTLSVersion$ {
-  /** @deprecated use `InputOpenTelemetryMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOpenTelemetryMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOpenTelemetryMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputOpenTelemetryTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -755,7 +646,6 @@ export const InputOpenTelemetryTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputOpenTelemetryMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputOpenTelemetryMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputOpenTelemetryTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -790,21 +680,6 @@ export const InputOpenTelemetryTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputOpenTelemetryMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryTLSSettingsServerSide$ {
-  /** @deprecated use `InputOpenTelemetryTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOpenTelemetryTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOpenTelemetryTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryTLSSettingsServerSide$Outbound;
-}
-
 export function inputOpenTelemetryTLSSettingsServerSideToJSON(
   inputOpenTelemetryTLSSettingsServerSide:
     InputOpenTelemetryTLSSettingsServerSide,
@@ -815,7 +690,6 @@ export function inputOpenTelemetryTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputOpenTelemetryTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -842,7 +716,6 @@ export const InputOpenTelemetryProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(InputOpenTelemetryProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOpenTelemetryProtocol$outboundSchema: z.ZodType<
   InputOpenTelemetryProtocol,
@@ -852,17 +725,6 @@ export const InputOpenTelemetryProtocol$outboundSchema: z.ZodType<
   z.nativeEnum(InputOpenTelemetryProtocol),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryProtocol$ {
-  /** @deprecated use `InputOpenTelemetryProtocol$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryProtocol$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryProtocol$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryProtocol$outboundSchema;
-}
 
 /** @internal */
 export const InputOpenTelemetryOTLPVersion$inboundSchema: z.ZodType<
@@ -874,7 +736,6 @@ export const InputOpenTelemetryOTLPVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputOpenTelemetryOTLPVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOpenTelemetryOTLPVersion$outboundSchema: z.ZodType<
   InputOpenTelemetryOTLPVersion,
@@ -884,17 +745,6 @@ export const InputOpenTelemetryOTLPVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputOpenTelemetryOTLPVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryOTLPVersion$ {
-  /** @deprecated use `InputOpenTelemetryOTLPVersion$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryOTLPVersion$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryOTLPVersion$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryOTLPVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputOpenTelemetryAuthenticationType$inboundSchema: z.ZodType<
@@ -906,7 +756,6 @@ export const InputOpenTelemetryAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(InputOpenTelemetryAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOpenTelemetryAuthenticationType$outboundSchema: z.ZodType<
   InputOpenTelemetryAuthenticationType,
@@ -917,19 +766,6 @@ export const InputOpenTelemetryAuthenticationType$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryAuthenticationType$ {
-  /** @deprecated use `InputOpenTelemetryAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOpenTelemetryAuthenticationType$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOpenTelemetryAuthenticationType$outboundSchema;
-}
-
 /** @internal */
 export const InputOpenTelemetryMetadatum$inboundSchema: z.ZodType<
   InputOpenTelemetryMetadatum,
@@ -939,7 +775,6 @@ export const InputOpenTelemetryMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputOpenTelemetryMetadatum$Outbound = {
   name: string;
@@ -956,19 +791,6 @@ export const InputOpenTelemetryMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryMetadatum$ {
-  /** @deprecated use `InputOpenTelemetryMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryMetadatum$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryMetadatum$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryMetadatum$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryMetadatum$Outbound;
-}
-
 export function inputOpenTelemetryMetadatumToJSON(
   inputOpenTelemetryMetadatum: InputOpenTelemetryMetadatum,
 ): string {
@@ -978,7 +800,6 @@ export function inputOpenTelemetryMetadatumToJSON(
     ),
   );
 }
-
 export function inputOpenTelemetryMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOpenTelemetryMetadatum, SDKValidationError> {
@@ -998,7 +819,6 @@ export const InputOpenTelemetryOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputOpenTelemetryOauthParam$Outbound = {
   name: string;
@@ -1015,19 +835,6 @@ export const InputOpenTelemetryOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryOauthParam$ {
-  /** @deprecated use `InputOpenTelemetryOauthParam$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryOauthParam$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryOauthParam$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryOauthParam$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryOauthParam$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryOauthParam$Outbound;
-}
-
 export function inputOpenTelemetryOauthParamToJSON(
   inputOpenTelemetryOauthParam: InputOpenTelemetryOauthParam,
 ): string {
@@ -1037,7 +844,6 @@ export function inputOpenTelemetryOauthParamToJSON(
     ),
   );
 }
-
 export function inputOpenTelemetryOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOpenTelemetryOauthParam, SDKValidationError> {
@@ -1057,7 +863,6 @@ export const InputOpenTelemetryOauthHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputOpenTelemetryOauthHeader$Outbound = {
   name: string;
@@ -1074,19 +879,6 @@ export const InputOpenTelemetryOauthHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryOauthHeader$ {
-  /** @deprecated use `InputOpenTelemetryOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryOauthHeader$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryOauthHeader$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryOauthHeader$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryOauthHeader$Outbound;
-}
-
 export function inputOpenTelemetryOauthHeaderToJSON(
   inputOpenTelemetryOauthHeader: InputOpenTelemetryOauthHeader,
 ): string {
@@ -1096,7 +888,6 @@ export function inputOpenTelemetryOauthHeaderToJSON(
     ),
   );
 }
-
 export function inputOpenTelemetryOauthHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOpenTelemetryOauthHeader, SDKValidationError> {
@@ -1166,7 +957,6 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   ).optional(),
   extractLogs: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputOpenTelemetry$Outbound = {
   id?: string | undefined;
@@ -1279,19 +1069,6 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   extractLogs: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetry$ {
-  /** @deprecated use `InputOpenTelemetry$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetry$inboundSchema;
-  /** @deprecated use `InputOpenTelemetry$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetry$outboundSchema;
-  /** @deprecated use `InputOpenTelemetry$Outbound` instead. */
-  export type Outbound = InputOpenTelemetry$Outbound;
-}
-
 export function inputOpenTelemetryToJSON(
   inputOpenTelemetry: InputOpenTelemetry,
 ): string {
@@ -1299,7 +1076,6 @@ export function inputOpenTelemetryToJSON(
     InputOpenTelemetry$outboundSchema.parse(inputOpenTelemetry),
   );
 }
-
 export function inputOpenTelemetryFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOpenTelemetry, SDKValidationError> {

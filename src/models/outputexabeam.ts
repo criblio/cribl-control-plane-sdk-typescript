@@ -274,22 +274,10 @@ export type OutputExabeam = {
 export const OutputExabeamType$inboundSchema: z.ZodNativeEnum<
   typeof OutputExabeamType
 > = z.nativeEnum(OutputExabeamType);
-
 /** @internal */
 export const OutputExabeamType$outboundSchema: z.ZodNativeEnum<
   typeof OutputExabeamType
 > = OutputExabeamType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamType$ {
-  /** @deprecated use `OutputExabeamType$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamType$inboundSchema;
-  /** @deprecated use `OutputExabeamType$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamType$outboundSchema;
-}
 
 /** @internal */
 export const OutputExabeamSignatureVersion$inboundSchema: z.ZodType<
@@ -301,7 +289,6 @@ export const OutputExabeamSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputExabeamSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputExabeamSignatureVersion$outboundSchema: z.ZodType<
   OutputExabeamSignatureVersion,
@@ -311,17 +298,6 @@ export const OutputExabeamSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputExabeamSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamSignatureVersion$ {
-  /** @deprecated use `OutputExabeamSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputExabeamSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputExabeamObjectACL$inboundSchema: z.ZodType<
@@ -333,7 +309,6 @@ export const OutputExabeamObjectACL$inboundSchema: z.ZodType<
     z.nativeEnum(OutputExabeamObjectACL),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputExabeamObjectACL$outboundSchema: z.ZodType<
   OutputExabeamObjectACL,
@@ -343,17 +318,6 @@ export const OutputExabeamObjectACL$outboundSchema: z.ZodType<
   z.nativeEnum(OutputExabeamObjectACL),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamObjectACL$ {
-  /** @deprecated use `OutputExabeamObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamObjectACL$inboundSchema;
-  /** @deprecated use `OutputExabeamObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamObjectACL$outboundSchema;
-}
 
 /** @internal */
 export const OutputExabeamStorageClass$inboundSchema: z.ZodType<
@@ -365,7 +329,6 @@ export const OutputExabeamStorageClass$inboundSchema: z.ZodType<
     z.nativeEnum(OutputExabeamStorageClass),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputExabeamStorageClass$outboundSchema: z.ZodType<
   OutputExabeamStorageClass,
@@ -375,17 +338,6 @@ export const OutputExabeamStorageClass$outboundSchema: z.ZodType<
   z.nativeEnum(OutputExabeamStorageClass),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamStorageClass$ {
-  /** @deprecated use `OutputExabeamStorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamStorageClass$inboundSchema;
-  /** @deprecated use `OutputExabeamStorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamStorageClass$outboundSchema;
-}
 
 /** @internal */
 export const OutputExabeamBackpressureBehavior$inboundSchema: z.ZodType<
@@ -397,7 +349,6 @@ export const OutputExabeamBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputExabeamBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputExabeamBackpressureBehavior$outboundSchema: z.ZodType<
   OutputExabeamBackpressureBehavior,
@@ -407,18 +358,6 @@ export const OutputExabeamBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputExabeamBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamBackpressureBehavior$ {
-  /** @deprecated use `OutputExabeamBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputExabeamBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputExabeamBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputExabeamDiskSpaceProtection$inboundSchema: z.ZodType<
@@ -430,7 +369,6 @@ export const OutputExabeamDiskSpaceProtection$inboundSchema: z.ZodType<
     z.nativeEnum(OutputExabeamDiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputExabeamDiskSpaceProtection$outboundSchema: z.ZodType<
   OutputExabeamDiskSpaceProtection,
@@ -440,17 +378,6 @@ export const OutputExabeamDiskSpaceProtection$outboundSchema: z.ZodType<
   z.nativeEnum(OutputExabeamDiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamDiskSpaceProtection$ {
-  /** @deprecated use `OutputExabeamDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputExabeamDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamDiskSpaceProtection$outboundSchema;
-}
 
 /** @internal */
 export const OutputExabeam$inboundSchema: z.ZodType<
@@ -497,7 +424,6 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
 export type OutputExabeam$Outbound = {
   id?: string | undefined;
@@ -583,23 +509,9 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeam$ {
-  /** @deprecated use `OutputExabeam$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeam$inboundSchema;
-  /** @deprecated use `OutputExabeam$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeam$outboundSchema;
-  /** @deprecated use `OutputExabeam$Outbound` instead. */
-  export type Outbound = OutputExabeam$Outbound;
-}
-
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {
   return JSON.stringify(OutputExabeam$outboundSchema.parse(outputExabeam));
 }
-
 export function outputExabeamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputExabeam, SDKValidationError> {

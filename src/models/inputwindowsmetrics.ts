@@ -473,22 +473,10 @@ export type InputWindowsMetrics = {
 export const InputWindowsMetricsType$inboundSchema: z.ZodNativeEnum<
   typeof InputWindowsMetricsType
 > = z.nativeEnum(InputWindowsMetricsType);
-
 /** @internal */
 export const InputWindowsMetricsType$outboundSchema: z.ZodNativeEnum<
   typeof InputWindowsMetricsType
 > = InputWindowsMetricsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsType$ {
-  /** @deprecated use `InputWindowsMetricsType$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsType$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsType$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsType$outboundSchema;
-}
 
 /** @internal */
 export const InputWindowsMetricsConnection$inboundSchema: z.ZodType<
@@ -499,7 +487,6 @@ export const InputWindowsMetricsConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputWindowsMetricsConnection$Outbound = {
   pipeline?: string | undefined;
@@ -516,19 +503,6 @@ export const InputWindowsMetricsConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsConnection$ {
-  /** @deprecated use `InputWindowsMetricsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsConnection$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsConnection$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsConnection$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsConnection$Outbound;
-}
-
 export function inputWindowsMetricsConnectionToJSON(
   inputWindowsMetricsConnection: InputWindowsMetricsConnection,
 ): string {
@@ -538,7 +512,6 @@ export function inputWindowsMetricsConnectionToJSON(
     ),
   );
 }
-
 export function inputWindowsMetricsConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsConnection, SDKValidationError> {
@@ -559,7 +532,6 @@ export const InputWindowsMetricsPqMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsPqMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsPqMode$outboundSchema: z.ZodType<
   InputWindowsMetricsPqMode,
@@ -569,17 +541,6 @@ export const InputWindowsMetricsPqMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWindowsMetricsPqMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsPqMode$ {
-  /** @deprecated use `InputWindowsMetricsPqMode$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsPqMode$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsPqMode$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsPqMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWindowsMetricsCompression$inboundSchema: z.ZodType<
@@ -591,7 +552,6 @@ export const InputWindowsMetricsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsCompression$outboundSchema: z.ZodType<
   InputWindowsMetricsCompression,
@@ -602,24 +562,12 @@ export const InputWindowsMetricsCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsCompression$ {
-  /** @deprecated use `InputWindowsMetricsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsCompression$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputWindowsMetricsPqControls$inboundSchema: z.ZodType<
   InputWindowsMetricsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputWindowsMetricsPqControls$Outbound = {};
 
@@ -630,19 +578,6 @@ export const InputWindowsMetricsPqControls$outboundSchema: z.ZodType<
   InputWindowsMetricsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsPqControls$ {
-  /** @deprecated use `InputWindowsMetricsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsPqControls$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsPqControls$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsPqControls$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsPqControls$Outbound;
-}
-
 export function inputWindowsMetricsPqControlsToJSON(
   inputWindowsMetricsPqControls: InputWindowsMetricsPqControls,
 ): string {
@@ -652,7 +587,6 @@ export function inputWindowsMetricsPqControlsToJSON(
     ),
   );
 }
-
 export function inputWindowsMetricsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsPqControls, SDKValidationError> {
@@ -679,7 +613,6 @@ export const InputWindowsMetricsPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputWindowsMetricsPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputWindowsMetricsPq$Outbound = {
   mode: string;
@@ -709,19 +642,6 @@ export const InputWindowsMetricsPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsPq$ {
-  /** @deprecated use `InputWindowsMetricsPq$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsPq$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsPq$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsPq$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsPq$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsPq$Outbound;
-}
-
 export function inputWindowsMetricsPqToJSON(
   inputWindowsMetricsPq: InputWindowsMetricsPq,
 ): string {
@@ -729,7 +649,6 @@ export function inputWindowsMetricsPqToJSON(
     InputWindowsMetricsPq$outboundSchema.parse(inputWindowsMetricsPq),
   );
 }
-
 export function inputWindowsMetricsPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsPq, SDKValidationError> {
@@ -750,7 +669,6 @@ export const InputWindowsMetricsHostMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsHostMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsHostMode$outboundSchema: z.ZodType<
   InputWindowsMetricsHostMode,
@@ -760,17 +678,6 @@ export const InputWindowsMetricsHostMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWindowsMetricsHostMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsHostMode$ {
-  /** @deprecated use `InputWindowsMetricsHostMode$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsHostMode$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsHostMode$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsHostMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWindowsMetricsSystemMode$inboundSchema: z.ZodType<
@@ -782,7 +689,6 @@ export const InputWindowsMetricsSystemMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsSystemMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsSystemMode$outboundSchema: z.ZodType<
   InputWindowsMetricsSystemMode,
@@ -793,17 +699,6 @@ export const InputWindowsMetricsSystemMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsSystemMode$ {
-  /** @deprecated use `InputWindowsMetricsSystemMode$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsSystemMode$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsSystemMode$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsSystemMode$outboundSchema;
-}
-
 /** @internal */
 export const InputWindowsMetricsSystem$inboundSchema: z.ZodType<
   InputWindowsMetricsSystem,
@@ -813,7 +708,6 @@ export const InputWindowsMetricsSystem$inboundSchema: z.ZodType<
   mode: InputWindowsMetricsSystemMode$inboundSchema.default("basic"),
   detail: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputWindowsMetricsSystem$Outbound = {
   mode: string;
@@ -830,19 +724,6 @@ export const InputWindowsMetricsSystem$outboundSchema: z.ZodType<
   detail: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsSystem$ {
-  /** @deprecated use `InputWindowsMetricsSystem$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsSystem$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsSystem$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsSystem$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsSystem$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsSystem$Outbound;
-}
-
 export function inputWindowsMetricsSystemToJSON(
   inputWindowsMetricsSystem: InputWindowsMetricsSystem,
 ): string {
@@ -850,7 +731,6 @@ export function inputWindowsMetricsSystemToJSON(
     InputWindowsMetricsSystem$outboundSchema.parse(inputWindowsMetricsSystem),
   );
 }
-
 export function inputWindowsMetricsSystemFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsSystem, SDKValidationError> {
@@ -871,7 +751,6 @@ export const InputWindowsMetricsCpuMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsCpuMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsCpuMode$outboundSchema: z.ZodType<
   InputWindowsMetricsCpuMode,
@@ -881,17 +760,6 @@ export const InputWindowsMetricsCpuMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWindowsMetricsCpuMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsCpuMode$ {
-  /** @deprecated use `InputWindowsMetricsCpuMode$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsCpuMode$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsCpuMode$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsCpuMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWindowsMetricsCpu$inboundSchema: z.ZodType<
@@ -904,7 +772,6 @@ export const InputWindowsMetricsCpu$inboundSchema: z.ZodType<
   detail: z.boolean().default(false),
   time: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputWindowsMetricsCpu$Outbound = {
   mode: string;
@@ -925,19 +792,6 @@ export const InputWindowsMetricsCpu$outboundSchema: z.ZodType<
   time: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsCpu$ {
-  /** @deprecated use `InputWindowsMetricsCpu$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsCpu$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsCpu$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsCpu$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsCpu$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsCpu$Outbound;
-}
-
 export function inputWindowsMetricsCpuToJSON(
   inputWindowsMetricsCpu: InputWindowsMetricsCpu,
 ): string {
@@ -945,7 +799,6 @@ export function inputWindowsMetricsCpuToJSON(
     InputWindowsMetricsCpu$outboundSchema.parse(inputWindowsMetricsCpu),
   );
 }
-
 export function inputWindowsMetricsCpuFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsCpu, SDKValidationError> {
@@ -966,7 +819,6 @@ export const InputWindowsMetricsMemoryMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsMemoryMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsMemoryMode$outboundSchema: z.ZodType<
   InputWindowsMetricsMemoryMode,
@@ -977,17 +829,6 @@ export const InputWindowsMetricsMemoryMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsMemoryMode$ {
-  /** @deprecated use `InputWindowsMetricsMemoryMode$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsMemoryMode$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsMemoryMode$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsMemoryMode$outboundSchema;
-}
-
 /** @internal */
 export const InputWindowsMetricsMemory$inboundSchema: z.ZodType<
   InputWindowsMetricsMemory,
@@ -997,7 +838,6 @@ export const InputWindowsMetricsMemory$inboundSchema: z.ZodType<
   mode: InputWindowsMetricsMemoryMode$inboundSchema.default("basic"),
   detail: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputWindowsMetricsMemory$Outbound = {
   mode: string;
@@ -1014,19 +854,6 @@ export const InputWindowsMetricsMemory$outboundSchema: z.ZodType<
   detail: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsMemory$ {
-  /** @deprecated use `InputWindowsMetricsMemory$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsMemory$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsMemory$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsMemory$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsMemory$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsMemory$Outbound;
-}
-
 export function inputWindowsMetricsMemoryToJSON(
   inputWindowsMetricsMemory: InputWindowsMetricsMemory,
 ): string {
@@ -1034,7 +861,6 @@ export function inputWindowsMetricsMemoryToJSON(
     InputWindowsMetricsMemory$outboundSchema.parse(inputWindowsMetricsMemory),
   );
 }
-
 export function inputWindowsMetricsMemoryFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsMemory, SDKValidationError> {
@@ -1055,7 +881,6 @@ export const InputWindowsMetricsNetworkMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsNetworkMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsNetworkMode$outboundSchema: z.ZodType<
   InputWindowsMetricsNetworkMode,
@@ -1065,17 +890,6 @@ export const InputWindowsMetricsNetworkMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWindowsMetricsNetworkMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsNetworkMode$ {
-  /** @deprecated use `InputWindowsMetricsNetworkMode$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsNetworkMode$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsNetworkMode$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsNetworkMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWindowsMetricsNetwork$inboundSchema: z.ZodType<
@@ -1089,7 +903,6 @@ export const InputWindowsMetricsNetwork$inboundSchema: z.ZodType<
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputWindowsMetricsNetwork$Outbound = {
   mode: string;
@@ -1112,19 +925,6 @@ export const InputWindowsMetricsNetwork$outboundSchema: z.ZodType<
   perInterface: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsNetwork$ {
-  /** @deprecated use `InputWindowsMetricsNetwork$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsNetwork$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsNetwork$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsNetwork$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsNetwork$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsNetwork$Outbound;
-}
-
 export function inputWindowsMetricsNetworkToJSON(
   inputWindowsMetricsNetwork: InputWindowsMetricsNetwork,
 ): string {
@@ -1132,7 +932,6 @@ export function inputWindowsMetricsNetworkToJSON(
     InputWindowsMetricsNetwork$outboundSchema.parse(inputWindowsMetricsNetwork),
   );
 }
-
 export function inputWindowsMetricsNetworkFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsNetwork, SDKValidationError> {
@@ -1153,7 +952,6 @@ export const InputWindowsMetricsDiskMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsDiskMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsDiskMode$outboundSchema: z.ZodType<
   InputWindowsMetricsDiskMode,
@@ -1163,17 +961,6 @@ export const InputWindowsMetricsDiskMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWindowsMetricsDiskMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsDiskMode$ {
-  /** @deprecated use `InputWindowsMetricsDiskMode$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsDiskMode$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsDiskMode$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsDiskMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWindowsMetricsDisk$inboundSchema: z.ZodType<
@@ -1186,7 +973,6 @@ export const InputWindowsMetricsDisk$inboundSchema: z.ZodType<
   detail: z.boolean().default(false),
   volumes: z.array(z.string()).optional(),
 });
-
 /** @internal */
 export type InputWindowsMetricsDisk$Outbound = {
   mode: string;
@@ -1207,19 +993,6 @@ export const InputWindowsMetricsDisk$outboundSchema: z.ZodType<
   volumes: z.array(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsDisk$ {
-  /** @deprecated use `InputWindowsMetricsDisk$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsDisk$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsDisk$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsDisk$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsDisk$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsDisk$Outbound;
-}
-
 export function inputWindowsMetricsDiskToJSON(
   inputWindowsMetricsDisk: InputWindowsMetricsDisk,
 ): string {
@@ -1227,7 +1000,6 @@ export function inputWindowsMetricsDiskToJSON(
     InputWindowsMetricsDisk$outboundSchema.parse(inputWindowsMetricsDisk),
   );
 }
-
 export function inputWindowsMetricsDiskFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsDisk, SDKValidationError> {
@@ -1250,7 +1022,6 @@ export const InputWindowsMetricsCustom$inboundSchema: z.ZodType<
   network: z.lazy(() => InputWindowsMetricsNetwork$inboundSchema).optional(),
   disk: z.lazy(() => InputWindowsMetricsDisk$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputWindowsMetricsCustom$Outbound = {
   system?: InputWindowsMetricsSystem$Outbound | undefined;
@@ -1273,19 +1044,6 @@ export const InputWindowsMetricsCustom$outboundSchema: z.ZodType<
   disk: z.lazy(() => InputWindowsMetricsDisk$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsCustom$ {
-  /** @deprecated use `InputWindowsMetricsCustom$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsCustom$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsCustom$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsCustom$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsCustom$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsCustom$Outbound;
-}
-
 export function inputWindowsMetricsCustomToJSON(
   inputWindowsMetricsCustom: InputWindowsMetricsCustom,
 ): string {
@@ -1293,7 +1051,6 @@ export function inputWindowsMetricsCustomToJSON(
     InputWindowsMetricsCustom$outboundSchema.parse(inputWindowsMetricsCustom),
   );
 }
-
 export function inputWindowsMetricsCustomFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsCustom, SDKValidationError> {
@@ -1313,7 +1070,6 @@ export const InputWindowsMetricsHost$inboundSchema: z.ZodType<
   mode: InputWindowsMetricsHostMode$inboundSchema.default("basic"),
   custom: z.lazy(() => InputWindowsMetricsCustom$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputWindowsMetricsHost$Outbound = {
   mode: string;
@@ -1330,19 +1086,6 @@ export const InputWindowsMetricsHost$outboundSchema: z.ZodType<
   custom: z.lazy(() => InputWindowsMetricsCustom$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsHost$ {
-  /** @deprecated use `InputWindowsMetricsHost$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsHost$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsHost$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsHost$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsHost$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsHost$Outbound;
-}
-
 export function inputWindowsMetricsHostToJSON(
   inputWindowsMetricsHost: InputWindowsMetricsHost,
 ): string {
@@ -1350,7 +1093,6 @@ export function inputWindowsMetricsHostToJSON(
     InputWindowsMetricsHost$outboundSchema.parse(inputWindowsMetricsHost),
   );
 }
-
 export function inputWindowsMetricsHostFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsHost, SDKValidationError> {
@@ -1371,7 +1113,6 @@ export const InputWindowsMetricsSet$inboundSchema: z.ZodType<
   filter: z.string(),
   includeChildren: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputWindowsMetricsSet$Outbound = {
   name: string;
@@ -1390,19 +1131,6 @@ export const InputWindowsMetricsSet$outboundSchema: z.ZodType<
   includeChildren: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsSet$ {
-  /** @deprecated use `InputWindowsMetricsSet$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsSet$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsSet$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsSet$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsSet$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsSet$Outbound;
-}
-
 export function inputWindowsMetricsSetToJSON(
   inputWindowsMetricsSet: InputWindowsMetricsSet,
 ): string {
@@ -1410,7 +1138,6 @@ export function inputWindowsMetricsSetToJSON(
     InputWindowsMetricsSet$outboundSchema.parse(inputWindowsMetricsSet),
   );
 }
-
 export function inputWindowsMetricsSetFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsSet, SDKValidationError> {
@@ -1429,7 +1156,6 @@ export const InputWindowsMetricsProcess$inboundSchema: z.ZodType<
 > = z.object({
   sets: z.array(z.lazy(() => InputWindowsMetricsSet$inboundSchema)).optional(),
 });
-
 /** @internal */
 export type InputWindowsMetricsProcess$Outbound = {
   sets?: Array<InputWindowsMetricsSet$Outbound> | undefined;
@@ -1444,19 +1170,6 @@ export const InputWindowsMetricsProcess$outboundSchema: z.ZodType<
   sets: z.array(z.lazy(() => InputWindowsMetricsSet$outboundSchema)).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsProcess$ {
-  /** @deprecated use `InputWindowsMetricsProcess$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsProcess$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsProcess$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsProcess$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsProcess$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsProcess$Outbound;
-}
-
 export function inputWindowsMetricsProcessToJSON(
   inputWindowsMetricsProcess: InputWindowsMetricsProcess,
 ): string {
@@ -1464,7 +1177,6 @@ export function inputWindowsMetricsProcessToJSON(
     InputWindowsMetricsProcess$outboundSchema.parse(inputWindowsMetricsProcess),
   );
 }
-
 export function inputWindowsMetricsProcessFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsProcess, SDKValidationError> {
@@ -1484,7 +1196,6 @@ export const InputWindowsMetricsMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputWindowsMetricsMetadatum$Outbound = {
   name: string;
@@ -1501,19 +1212,6 @@ export const InputWindowsMetricsMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsMetadatum$ {
-  /** @deprecated use `InputWindowsMetricsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsMetadatum$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsMetadatum$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsMetadatum$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsMetadatum$Outbound;
-}
-
 export function inputWindowsMetricsMetadatumToJSON(
   inputWindowsMetricsMetadatum: InputWindowsMetricsMetadatum,
 ): string {
@@ -1523,7 +1221,6 @@ export function inputWindowsMetricsMetadatumToJSON(
     ),
   );
 }
-
 export function inputWindowsMetricsMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsMetadatum, SDKValidationError> {
@@ -1544,7 +1241,6 @@ export const InputWindowsMetricsDataCompressionFormat$inboundSchema: z.ZodType<
     z.nativeEnum(InputWindowsMetricsDataCompressionFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWindowsMetricsDataCompressionFormat$outboundSchema: z.ZodType<
   InputWindowsMetricsDataCompressionFormat,
@@ -1554,19 +1250,6 @@ export const InputWindowsMetricsDataCompressionFormat$outboundSchema: z.ZodType<
   z.nativeEnum(InputWindowsMetricsDataCompressionFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsDataCompressionFormat$ {
-  /** @deprecated use `InputWindowsMetricsDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema =
-    InputWindowsMetricsDataCompressionFormat$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    InputWindowsMetricsDataCompressionFormat$outboundSchema;
-}
 
 /** @internal */
 export const InputWindowsMetricsPersistence$inboundSchema: z.ZodType<
@@ -1583,7 +1266,6 @@ export const InputWindowsMetricsPersistence$inboundSchema: z.ZodType<
   ),
   destPath: z.string().default("$CRIBL_HOME/state/windows_metrics"),
 });
-
 /** @internal */
 export type InputWindowsMetricsPersistence$Outbound = {
   enable: boolean;
@@ -1610,19 +1292,6 @@ export const InputWindowsMetricsPersistence$outboundSchema: z.ZodType<
   destPath: z.string().default("$CRIBL_HOME/state/windows_metrics"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetricsPersistence$ {
-  /** @deprecated use `InputWindowsMetricsPersistence$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetricsPersistence$inboundSchema;
-  /** @deprecated use `InputWindowsMetricsPersistence$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetricsPersistence$outboundSchema;
-  /** @deprecated use `InputWindowsMetricsPersistence$Outbound` instead. */
-  export type Outbound = InputWindowsMetricsPersistence$Outbound;
-}
-
 export function inputWindowsMetricsPersistenceToJSON(
   inputWindowsMetricsPersistence: InputWindowsMetricsPersistence,
 ): string {
@@ -1632,7 +1301,6 @@ export function inputWindowsMetricsPersistenceToJSON(
     ),
   );
 }
-
 export function inputWindowsMetricsPersistenceFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetricsPersistence, SDKValidationError> {
@@ -1671,7 +1339,6 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
   disableNativeModule: z.boolean().default(false),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputWindowsMetrics$Outbound = {
   id?: string | undefined;
@@ -1722,19 +1389,6 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWindowsMetrics$ {
-  /** @deprecated use `InputWindowsMetrics$inboundSchema` instead. */
-  export const inboundSchema = InputWindowsMetrics$inboundSchema;
-  /** @deprecated use `InputWindowsMetrics$outboundSchema` instead. */
-  export const outboundSchema = InputWindowsMetrics$outboundSchema;
-  /** @deprecated use `InputWindowsMetrics$Outbound` instead. */
-  export type Outbound = InputWindowsMetrics$Outbound;
-}
-
 export function inputWindowsMetricsToJSON(
   inputWindowsMetrics: InputWindowsMetrics,
 ): string {
@@ -1742,7 +1396,6 @@ export function inputWindowsMetricsToJSON(
     InputWindowsMetrics$outboundSchema.parse(inputWindowsMetrics),
   );
 }
-
 export function inputWindowsMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWindowsMetrics, SDKValidationError> {

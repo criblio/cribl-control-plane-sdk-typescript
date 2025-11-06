@@ -63,7 +63,6 @@ export const CriblLakeDatasetFormat$inboundSchema: z.ZodType<
     z.nativeEnum(CriblLakeDatasetFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const CriblLakeDatasetFormat$outboundSchema: z.ZodType<
   CriblLakeDatasetFormat,
@@ -73,17 +72,6 @@ export const CriblLakeDatasetFormat$outboundSchema: z.ZodType<
   z.nativeEnum(CriblLakeDatasetFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CriblLakeDatasetFormat$ {
-  /** @deprecated use `CriblLakeDatasetFormat$inboundSchema` instead. */
-  export const inboundSchema = CriblLakeDatasetFormat$inboundSchema;
-  /** @deprecated use `CriblLakeDatasetFormat$outboundSchema` instead. */
-  export const outboundSchema = CriblLakeDatasetFormat$outboundSchema;
-}
 
 /** @internal */
 export const CriblLakeDataset$inboundSchema: z.ZodType<
@@ -105,7 +93,6 @@ export const CriblLakeDataset$inboundSchema: z.ZodType<
   storageLocationId: z.string().optional(),
   viewName: z.string().optional(),
 });
-
 /** @internal */
 export type CriblLakeDataset$Outbound = {
   acceleratedFields?: Array<string> | undefined;
@@ -144,19 +131,6 @@ export const CriblLakeDataset$outboundSchema: z.ZodType<
   viewName: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CriblLakeDataset$ {
-  /** @deprecated use `CriblLakeDataset$inboundSchema` instead. */
-  export const inboundSchema = CriblLakeDataset$inboundSchema;
-  /** @deprecated use `CriblLakeDataset$outboundSchema` instead. */
-  export const outboundSchema = CriblLakeDataset$outboundSchema;
-  /** @deprecated use `CriblLakeDataset$Outbound` instead. */
-  export type Outbound = CriblLakeDataset$Outbound;
-}
-
 export function criblLakeDatasetToJSON(
   criblLakeDataset: CriblLakeDataset,
 ): string {
@@ -164,7 +138,6 @@ export function criblLakeDatasetToJSON(
     CriblLakeDataset$outboundSchema.parse(criblLakeDataset),
   );
 }
-
 export function criblLakeDatasetFromJSON(
   jsonString: string,
 ): SafeParseResult<CriblLakeDataset, SDKValidationError> {
