@@ -2871,7 +2871,7 @@ const value: models.OutputDatabricks = {
   ],
   workspaceId: "<id>",
   clientId: "<id>",
-  clientSecret: "<value>",
+  clientTextSecret: "<value>",
   description: "loosely unpleasant anenst",
   parquetSchema: "<value>",
   shouldLogInvalidRows: true,
