@@ -82,7 +82,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetConfigGroupAclByProductAndIdResponse](../../models/operations/getconfiggroupaclbyproductandidresponse.md)\>**
+**Promise\<[models.CountedListUserAccessControlList](../../models/countedlistuseraccesscontrollist.md)\>**
 
 ### Errors
 

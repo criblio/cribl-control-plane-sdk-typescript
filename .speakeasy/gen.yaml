@@ -23,18 +23,21 @@ generation:
   sdkHooksConfigAccess: true
   schemas:
     allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.2.1-rc.10
+  version: 0.2.1-rc.11
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
     peerDependencies: {}
   additionalPackageJSON: {}
+  additionalScripts: {}
+  alwaysIncludeInboundAndOutbound: false
   author: Speakeasy
   baseErrorName: CriblControlPlaneError
   clientServerStatusCodesAsErrors: true
@@ -45,6 +48,7 @@ typescript:
   enableReactQuery: false
   enumFormat: union
   envVarPrefix: CRIBLCONTROLPLANE
+  exportZodModelNamespace: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   generateExamples: true

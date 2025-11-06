@@ -8,6 +8,7 @@ import { lakeDatasetsGet } from "../funcs/lakeDatasetsGet.js";
 import { lakeDatasetsList } from "../funcs/lakeDatasetsList.js";
 import { lakeDatasetsUpdate } from "../funcs/lakeDatasetsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -21,7 +22,7 @@ export class LakeDatasets extends ClientSDK {
   async create(
     request: operations.CreateCriblLakeDatasetByLakeIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateCriblLakeDatasetByLakeIdResponse> {
+  ): Promise<models.CountedListCriblLakeDataset> {
     return unwrapAsync(lakeDatasetsCreate(
       this,
       request,
@@ -38,7 +39,7 @@ export class LakeDatasets extends ClientSDK {
   async list(
     request: operations.GetCriblLakeDatasetByLakeIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetCriblLakeDatasetByLakeIdResponse> {
+  ): Promise<models.CountedListCriblLakeDataset> {
     return unwrapAsync(lakeDatasetsList(
       this,
       request,
@@ -55,7 +56,7 @@ export class LakeDatasets extends ClientSDK {
   async delete(
     request: operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteCriblLakeDatasetByLakeIdAndIdResponse> {
+  ): Promise<models.CountedListCriblLakeDataset> {
     return unwrapAsync(lakeDatasetsDelete(
       this,
       request,
@@ -72,7 +73,7 @@ export class LakeDatasets extends ClientSDK {
   async get(
     request: operations.GetCriblLakeDatasetByLakeIdAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetCriblLakeDatasetByLakeIdAndIdResponse> {
+  ): Promise<models.CountedListCriblLakeDataset> {
     return unwrapAsync(lakeDatasetsGet(
       this,
       request,
@@ -89,7 +90,7 @@ export class LakeDatasets extends ClientSDK {
   async update(
     request: operations.UpdateCriblLakeDatasetByLakeIdAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateCriblLakeDatasetByLakeIdAndIdResponse> {
+  ): Promise<models.CountedListCriblLakeDataset> {
     return unwrapAsync(lakeDatasetsUpdate(
       this,
       request,

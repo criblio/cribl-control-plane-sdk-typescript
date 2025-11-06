@@ -6,7 +6,6 @@ import { versionsBranchesGet } from "../funcs/versionsBranchesGet.js";
 import { versionsBranchesList } from "../funcs/versionsBranchesList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
-import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Branches extends ClientSDK {
@@ -18,7 +17,7 @@ export class Branches extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.GetVersionBranchResponse> {
+  ): Promise<models.CountedListBranchInfo> {
     return unwrapAsync(versionsBranchesList(
       this,
       options,

@@ -331,22 +331,10 @@ export type OutputSignalfx = {
 export const OutputSignalfxType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSignalfxType
 > = z.nativeEnum(OutputSignalfxType);
-
 /** @internal */
 export const OutputSignalfxType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSignalfxType
 > = OutputSignalfxType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxType$ {
-  /** @deprecated use `OutputSignalfxType$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxType$inboundSchema;
-  /** @deprecated use `OutputSignalfxType$outboundSchema` instead. */
-  export const outboundSchema = OutputSignalfxType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSignalfxAuthenticationMethod$inboundSchema: z.ZodType<
@@ -358,7 +346,6 @@ export const OutputSignalfxAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSignalfxAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSignalfxAuthenticationMethod$outboundSchema: z.ZodType<
   OutputSignalfxAuthenticationMethod,
@@ -369,18 +356,6 @@ export const OutputSignalfxAuthenticationMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxAuthenticationMethod$ {
-  /** @deprecated use `OutputSignalfxAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSignalfxAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSignalfxAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const OutputSignalfxExtraHttpHeader$inboundSchema: z.ZodType<
   OutputSignalfxExtraHttpHeader,
@@ -390,7 +365,6 @@ export const OutputSignalfxExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputSignalfxExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -407,19 +381,6 @@ export const OutputSignalfxExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxExtraHttpHeader$ {
-  /** @deprecated use `OutputSignalfxExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSignalfxExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputSignalfxExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSignalfxExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSignalfxExtraHttpHeader$Outbound;
-}
-
 export function outputSignalfxExtraHttpHeaderToJSON(
   outputSignalfxExtraHttpHeader: OutputSignalfxExtraHttpHeader,
 ): string {
@@ -429,7 +390,6 @@ export function outputSignalfxExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputSignalfxExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSignalfxExtraHttpHeader, SDKValidationError> {
@@ -450,7 +410,6 @@ export const OutputSignalfxFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSignalfxFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSignalfxFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputSignalfxFailedRequestLoggingMode,
@@ -460,19 +419,6 @@ export const OutputSignalfxFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSignalfxFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSignalfxFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSignalfxFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSignalfxFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSignalfxFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSignalfxResponseRetrySetting$inboundSchema: z.ZodType<
@@ -485,7 +431,6 @@ export const OutputSignalfxResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSignalfxResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -506,20 +451,6 @@ export const OutputSignalfxResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxResponseRetrySetting$ {
-  /** @deprecated use `OutputSignalfxResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSignalfxResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSignalfxResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSignalfxResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSignalfxResponseRetrySetting$Outbound;
-}
-
 export function outputSignalfxResponseRetrySettingToJSON(
   outputSignalfxResponseRetrySetting: OutputSignalfxResponseRetrySetting,
 ): string {
@@ -529,7 +460,6 @@ export function outputSignalfxResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputSignalfxResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSignalfxResponseRetrySetting, SDKValidationError> {
@@ -552,7 +482,6 @@ export const OutputSignalfxTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSignalfxTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -573,20 +502,6 @@ export const OutputSignalfxTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSignalfxTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSignalfxTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSignalfxTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSignalfxTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSignalfxTimeoutRetrySettings$Outbound;
-}
-
 export function outputSignalfxTimeoutRetrySettingsToJSON(
   outputSignalfxTimeoutRetrySettings: OutputSignalfxTimeoutRetrySettings,
 ): string {
@@ -596,7 +511,6 @@ export function outputSignalfxTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputSignalfxTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSignalfxTimeoutRetrySettings, SDKValidationError> {
@@ -618,7 +532,6 @@ export const OutputSignalfxBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSignalfxBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSignalfxBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSignalfxBackpressureBehavior,
@@ -628,18 +541,6 @@ export const OutputSignalfxBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSignalfxBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxBackpressureBehavior$ {
-  /** @deprecated use `OutputSignalfxBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSignalfxBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSignalfxBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputSignalfxMode$inboundSchema: z.ZodType<
@@ -651,7 +552,6 @@ export const OutputSignalfxMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSignalfxMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSignalfxMode$outboundSchema: z.ZodType<
   OutputSignalfxMode,
@@ -661,17 +561,6 @@ export const OutputSignalfxMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSignalfxMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxMode$ {
-  /** @deprecated use `OutputSignalfxMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxMode$inboundSchema;
-  /** @deprecated use `OutputSignalfxMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSignalfxMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSignalfxCompression$inboundSchema: z.ZodType<
@@ -683,7 +572,6 @@ export const OutputSignalfxCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSignalfxCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSignalfxCompression$outboundSchema: z.ZodType<
   OutputSignalfxCompression,
@@ -693,17 +581,6 @@ export const OutputSignalfxCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSignalfxCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxCompression$ {
-  /** @deprecated use `OutputSignalfxCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxCompression$inboundSchema;
-  /** @deprecated use `OutputSignalfxCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSignalfxCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputSignalfxQueueFullBehavior$inboundSchema: z.ZodType<
@@ -715,7 +592,6 @@ export const OutputSignalfxQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSignalfxQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSignalfxQueueFullBehavior$outboundSchema: z.ZodType<
   OutputSignalfxQueueFullBehavior,
@@ -726,24 +602,12 @@ export const OutputSignalfxQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxQueueFullBehavior$ {
-  /** @deprecated use `OutputSignalfxQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSignalfxQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSignalfxQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSignalfxPqControls$inboundSchema: z.ZodType<
   OutputSignalfxPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSignalfxPqControls$Outbound = {};
 
@@ -754,19 +618,6 @@ export const OutputSignalfxPqControls$outboundSchema: z.ZodType<
   OutputSignalfxPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfxPqControls$ {
-  /** @deprecated use `OutputSignalfxPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfxPqControls$inboundSchema;
-  /** @deprecated use `OutputSignalfxPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSignalfxPqControls$outboundSchema;
-  /** @deprecated use `OutputSignalfxPqControls$Outbound` instead. */
-  export type Outbound = OutputSignalfxPqControls$Outbound;
-}
-
 export function outputSignalfxPqControlsToJSON(
   outputSignalfxPqControls: OutputSignalfxPqControls,
 ): string {
@@ -774,7 +625,6 @@ export function outputSignalfxPqControlsToJSON(
     OutputSignalfxPqControls$outboundSchema.parse(outputSignalfxPqControls),
   );
 }
-
 export function outputSignalfxPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSignalfxPqControls, SDKValidationError> {
@@ -840,7 +690,6 @@ export const OutputSignalfx$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputSignalfxPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputSignalfx$Outbound = {
   id?: string | undefined;
@@ -942,23 +791,9 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSignalfxPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSignalfx$ {
-  /** @deprecated use `OutputSignalfx$inboundSchema` instead. */
-  export const inboundSchema = OutputSignalfx$inboundSchema;
-  /** @deprecated use `OutputSignalfx$outboundSchema` instead. */
-  export const outboundSchema = OutputSignalfx$outboundSchema;
-  /** @deprecated use `OutputSignalfx$Outbound` instead. */
-  export type Outbound = OutputSignalfx$Outbound;
-}
-
 export function outputSignalfxToJSON(outputSignalfx: OutputSignalfx): string {
   return JSON.stringify(OutputSignalfx$outboundSchema.parse(outputSignalfx));
 }
-
 export function outputSignalfxFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSignalfx, SDKValidationError> {

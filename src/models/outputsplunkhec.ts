@@ -426,22 +426,10 @@ export type OutputSplunkHec = {
 export const OutputSplunkHecType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSplunkHecType
 > = z.nativeEnum(OutputSplunkHecType);
-
 /** @internal */
 export const OutputSplunkHecType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSplunkHecType
 > = OutputSplunkHecType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecType$ {
-  /** @deprecated use `OutputSplunkHecType$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecType$inboundSchema;
-  /** @deprecated use `OutputSplunkHecType$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -453,7 +441,6 @@ export const OutputSplunkHecMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputSplunkHecMinimumTLSVersion,
@@ -463,17 +450,6 @@ export const OutputSplunkHecMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkHecMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecMinimumTLSVersion$ {
-  /** @deprecated use `OutputSplunkHecMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkHecMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -485,7 +461,6 @@ export const OutputSplunkHecMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputSplunkHecMaximumTLSVersion,
@@ -495,17 +470,6 @@ export const OutputSplunkHecMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkHecMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecMaximumTLSVersion$ {
-  /** @deprecated use `OutputSplunkHecMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkHecMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -523,7 +487,6 @@ export const OutputSplunkHecTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputSplunkHecMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputSplunkHecMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputSplunkHecTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -554,21 +517,6 @@ export const OutputSplunkHecTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputSplunkHecMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecTLSSettingsClientSide$ {
-  /** @deprecated use `OutputSplunkHecTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputSplunkHecTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputSplunkHecTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputSplunkHecTLSSettingsClientSide$Outbound;
-}
-
 export function outputSplunkHecTLSSettingsClientSideToJSON(
   outputSplunkHecTLSSettingsClientSide: OutputSplunkHecTLSSettingsClientSide,
 ): string {
@@ -578,7 +526,6 @@ export function outputSplunkHecTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputSplunkHecTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecTLSSettingsClientSide, SDKValidationError> {
@@ -599,7 +546,6 @@ export const OutputSplunkHecExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputSplunkHecExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -616,19 +562,6 @@ export const OutputSplunkHecExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecExtraHttpHeader$ {
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSplunkHecExtraHttpHeader$Outbound;
-}
-
 export function outputSplunkHecExtraHttpHeaderToJSON(
   outputSplunkHecExtraHttpHeader: OutputSplunkHecExtraHttpHeader,
 ): string {
@@ -638,7 +571,6 @@ export function outputSplunkHecExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputSplunkHecExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecExtraHttpHeader, SDKValidationError> {
@@ -659,7 +591,6 @@ export const OutputSplunkHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputSplunkHecFailedRequestLoggingMode,
@@ -669,19 +600,6 @@ export const OutputSplunkHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkHecFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSplunkHecFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSplunkHecFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecAuthenticationMethod$inboundSchema: z.ZodType<
@@ -693,7 +611,6 @@ export const OutputSplunkHecAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecAuthenticationMethod$outboundSchema: z.ZodType<
   OutputSplunkHecAuthenticationMethod,
@@ -703,19 +620,6 @@ export const OutputSplunkHecAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkHecAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecAuthenticationMethod$ {
-  /** @deprecated use `OutputSplunkHecAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSplunkHecAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecResponseRetrySetting$inboundSchema: z.ZodType<
@@ -728,7 +632,6 @@ export const OutputSplunkHecResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSplunkHecResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -749,21 +652,6 @@ export const OutputSplunkHecResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecResponseRetrySetting$ {
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSplunkHecResponseRetrySetting$Outbound;
-}
-
 export function outputSplunkHecResponseRetrySettingToJSON(
   outputSplunkHecResponseRetrySetting: OutputSplunkHecResponseRetrySetting,
 ): string {
@@ -773,7 +661,6 @@ export function outputSplunkHecResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputSplunkHecResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecResponseRetrySetting, SDKValidationError> {
@@ -796,7 +683,6 @@ export const OutputSplunkHecTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSplunkHecTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -817,21 +703,6 @@ export const OutputSplunkHecTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSplunkHecTimeoutRetrySettings$Outbound;
-}
-
 export function outputSplunkHecTimeoutRetrySettingsToJSON(
   outputSplunkHecTimeoutRetrySettings: OutputSplunkHecTimeoutRetrySettings,
 ): string {
@@ -841,7 +712,6 @@ export function outputSplunkHecTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputSplunkHecTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecTimeoutRetrySettings, SDKValidationError> {
@@ -863,7 +733,6 @@ export const OutputSplunkHecBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSplunkHecBackpressureBehavior,
@@ -874,19 +743,6 @@ export const OutputSplunkHecBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecBackpressureBehavior$ {
-  /** @deprecated use `OutputSplunkHecBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkHecBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSplunkHecUrl$inboundSchema: z.ZodType<
   OutputSplunkHecUrl,
@@ -896,7 +752,6 @@ export const OutputSplunkHecUrl$inboundSchema: z.ZodType<
   url: z.string().default("http://localhost:8088/services/collector/event"),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputSplunkHecUrl$Outbound = {
   url: string;
@@ -913,19 +768,6 @@ export const OutputSplunkHecUrl$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecUrl$ {
-  /** @deprecated use `OutputSplunkHecUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecUrl$inboundSchema;
-  /** @deprecated use `OutputSplunkHecUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecUrl$outboundSchema;
-  /** @deprecated use `OutputSplunkHecUrl$Outbound` instead. */
-  export type Outbound = OutputSplunkHecUrl$Outbound;
-}
-
 export function outputSplunkHecUrlToJSON(
   outputSplunkHecUrl: OutputSplunkHecUrl,
 ): string {
@@ -933,7 +775,6 @@ export function outputSplunkHecUrlToJSON(
     OutputSplunkHecUrl$outboundSchema.parse(outputSplunkHecUrl),
   );
 }
-
 export function outputSplunkHecUrlFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecUrl, SDKValidationError> {
@@ -954,7 +795,6 @@ export const OutputSplunkHecMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecMode$outboundSchema: z.ZodType<
   OutputSplunkHecMode,
@@ -964,17 +804,6 @@ export const OutputSplunkHecMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkHecMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecMode$ {
-  /** @deprecated use `OutputSplunkHecMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecMode$inboundSchema;
-  /** @deprecated use `OutputSplunkHecMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecCompression$inboundSchema: z.ZodType<
@@ -986,7 +815,6 @@ export const OutputSplunkHecCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecCompression$outboundSchema: z.ZodType<
   OutputSplunkHecCompression,
@@ -996,17 +824,6 @@ export const OutputSplunkHecCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkHecCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecCompression$ {
-  /** @deprecated use `OutputSplunkHecCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkHecCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecQueueFullBehavior$inboundSchema: z.ZodType<
@@ -1018,7 +835,6 @@ export const OutputSplunkHecQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecQueueFullBehavior$outboundSchema: z.ZodType<
   OutputSplunkHecQueueFullBehavior,
@@ -1029,24 +845,12 @@ export const OutputSplunkHecQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecQueueFullBehavior$ {
-  /** @deprecated use `OutputSplunkHecQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkHecQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSplunkHecPqControls$inboundSchema: z.ZodType<
   OutputSplunkHecPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSplunkHecPqControls$Outbound = {};
 
@@ -1057,19 +861,6 @@ export const OutputSplunkHecPqControls$outboundSchema: z.ZodType<
   OutputSplunkHecPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecPqControls$ {
-  /** @deprecated use `OutputSplunkHecPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecPqControls$inboundSchema;
-  /** @deprecated use `OutputSplunkHecPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecPqControls$outboundSchema;
-  /** @deprecated use `OutputSplunkHecPqControls$Outbound` instead. */
-  export type Outbound = OutputSplunkHecPqControls$Outbound;
-}
-
 export function outputSplunkHecPqControlsToJSON(
   outputSplunkHecPqControls: OutputSplunkHecPqControls,
 ): string {
@@ -1077,7 +868,6 @@ export function outputSplunkHecPqControlsToJSON(
     OutputSplunkHecPqControls$outboundSchema.parse(outputSplunkHecPqControls),
   );
 }
-
 export function outputSplunkHecPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecPqControls, SDKValidationError> {
@@ -1153,7 +943,6 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputSplunkHecPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputSplunkHec$Outbound = {
   id?: string | undefined;
@@ -1276,25 +1065,11 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSplunkHecPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHec$ {
-  /** @deprecated use `OutputSplunkHec$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHec$inboundSchema;
-  /** @deprecated use `OutputSplunkHec$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHec$outboundSchema;
-  /** @deprecated use `OutputSplunkHec$Outbound` instead. */
-  export type Outbound = OutputSplunkHec$Outbound;
-}
-
 export function outputSplunkHecToJSON(
   outputSplunkHec: OutputSplunkHec,
 ): string {
   return JSON.stringify(OutputSplunkHec$outboundSchema.parse(outputSplunkHec));
 }
-
 export function outputSplunkHecFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHec, SDKValidationError> {

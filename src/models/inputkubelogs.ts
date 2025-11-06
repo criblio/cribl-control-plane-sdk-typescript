@@ -219,22 +219,10 @@ export type InputKubeLogs = {
 export const InputKubeLogsType$inboundSchema: z.ZodNativeEnum<
   typeof InputKubeLogsType
 > = z.nativeEnum(InputKubeLogsType);
-
 /** @internal */
 export const InputKubeLogsType$outboundSchema: z.ZodNativeEnum<
   typeof InputKubeLogsType
 > = InputKubeLogsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsType$ {
-  /** @deprecated use `InputKubeLogsType$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsType$inboundSchema;
-  /** @deprecated use `InputKubeLogsType$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsType$outboundSchema;
-}
 
 /** @internal */
 export const InputKubeLogsConnection$inboundSchema: z.ZodType<
@@ -245,7 +233,6 @@ export const InputKubeLogsConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputKubeLogsConnection$Outbound = {
   pipeline?: string | undefined;
@@ -262,19 +249,6 @@ export const InputKubeLogsConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsConnection$ {
-  /** @deprecated use `InputKubeLogsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsConnection$inboundSchema;
-  /** @deprecated use `InputKubeLogsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsConnection$outboundSchema;
-  /** @deprecated use `InputKubeLogsConnection$Outbound` instead. */
-  export type Outbound = InputKubeLogsConnection$Outbound;
-}
-
 export function inputKubeLogsConnectionToJSON(
   inputKubeLogsConnection: InputKubeLogsConnection,
 ): string {
@@ -282,7 +256,6 @@ export function inputKubeLogsConnectionToJSON(
     InputKubeLogsConnection$outboundSchema.parse(inputKubeLogsConnection),
   );
 }
-
 export function inputKubeLogsConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeLogsConnection, SDKValidationError> {
@@ -303,7 +276,6 @@ export const InputKubeLogsMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputKubeLogsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKubeLogsMode$outboundSchema: z.ZodType<
   InputKubeLogsMode,
@@ -313,17 +285,6 @@ export const InputKubeLogsMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputKubeLogsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsMode$ {
-  /** @deprecated use `InputKubeLogsMode$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsMode$inboundSchema;
-  /** @deprecated use `InputKubeLogsMode$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsMode$outboundSchema;
-}
 
 /** @internal */
 export const InputKubeLogsPqCompression$inboundSchema: z.ZodType<
@@ -335,7 +296,6 @@ export const InputKubeLogsPqCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputKubeLogsPqCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKubeLogsPqCompression$outboundSchema: z.ZodType<
   InputKubeLogsPqCompression,
@@ -346,24 +306,12 @@ export const InputKubeLogsPqCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsPqCompression$ {
-  /** @deprecated use `InputKubeLogsPqCompression$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsPqCompression$inboundSchema;
-  /** @deprecated use `InputKubeLogsPqCompression$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsPqCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputKubeLogsPqControls$inboundSchema: z.ZodType<
   InputKubeLogsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputKubeLogsPqControls$Outbound = {};
 
@@ -374,19 +322,6 @@ export const InputKubeLogsPqControls$outboundSchema: z.ZodType<
   InputKubeLogsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsPqControls$ {
-  /** @deprecated use `InputKubeLogsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsPqControls$inboundSchema;
-  /** @deprecated use `InputKubeLogsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsPqControls$outboundSchema;
-  /** @deprecated use `InputKubeLogsPqControls$Outbound` instead. */
-  export type Outbound = InputKubeLogsPqControls$Outbound;
-}
-
 export function inputKubeLogsPqControlsToJSON(
   inputKubeLogsPqControls: InputKubeLogsPqControls,
 ): string {
@@ -394,7 +329,6 @@ export function inputKubeLogsPqControlsToJSON(
     InputKubeLogsPqControls$outboundSchema.parse(inputKubeLogsPqControls),
   );
 }
-
 export function inputKubeLogsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeLogsPqControls, SDKValidationError> {
@@ -420,7 +354,6 @@ export const InputKubeLogsPq$inboundSchema: z.ZodType<
   compress: InputKubeLogsPqCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputKubeLogsPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputKubeLogsPq$Outbound = {
   mode: string;
@@ -449,25 +382,11 @@ export const InputKubeLogsPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputKubeLogsPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsPq$ {
-  /** @deprecated use `InputKubeLogsPq$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsPq$inboundSchema;
-  /** @deprecated use `InputKubeLogsPq$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsPq$outboundSchema;
-  /** @deprecated use `InputKubeLogsPq$Outbound` instead. */
-  export type Outbound = InputKubeLogsPq$Outbound;
-}
-
 export function inputKubeLogsPqToJSON(
   inputKubeLogsPq: InputKubeLogsPq,
 ): string {
   return JSON.stringify(InputKubeLogsPq$outboundSchema.parse(inputKubeLogsPq));
 }
-
 export function inputKubeLogsPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeLogsPq, SDKValidationError> {
@@ -487,7 +406,6 @@ export const InputKubeLogsRule$inboundSchema: z.ZodType<
   filter: z.string(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputKubeLogsRule$Outbound = {
   filter: string;
@@ -504,19 +422,6 @@ export const InputKubeLogsRule$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsRule$ {
-  /** @deprecated use `InputKubeLogsRule$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsRule$inboundSchema;
-  /** @deprecated use `InputKubeLogsRule$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsRule$outboundSchema;
-  /** @deprecated use `InputKubeLogsRule$Outbound` instead. */
-  export type Outbound = InputKubeLogsRule$Outbound;
-}
-
 export function inputKubeLogsRuleToJSON(
   inputKubeLogsRule: InputKubeLogsRule,
 ): string {
@@ -524,7 +429,6 @@ export function inputKubeLogsRuleToJSON(
     InputKubeLogsRule$outboundSchema.parse(inputKubeLogsRule),
   );
 }
-
 export function inputKubeLogsRuleFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeLogsRule, SDKValidationError> {
@@ -544,7 +448,6 @@ export const InputKubeLogsMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputKubeLogsMetadatum$Outbound = {
   name: string;
@@ -561,19 +464,6 @@ export const InputKubeLogsMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsMetadatum$ {
-  /** @deprecated use `InputKubeLogsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsMetadatum$inboundSchema;
-  /** @deprecated use `InputKubeLogsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsMetadatum$outboundSchema;
-  /** @deprecated use `InputKubeLogsMetadatum$Outbound` instead. */
-  export type Outbound = InputKubeLogsMetadatum$Outbound;
-}
-
 export function inputKubeLogsMetadatumToJSON(
   inputKubeLogsMetadatum: InputKubeLogsMetadatum,
 ): string {
@@ -581,7 +471,6 @@ export function inputKubeLogsMetadatumToJSON(
     InputKubeLogsMetadatum$outboundSchema.parse(inputKubeLogsMetadatum),
   );
 }
-
 export function inputKubeLogsMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeLogsMetadatum, SDKValidationError> {
@@ -602,7 +491,6 @@ export const InputKubeLogsPersistenceCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputKubeLogsPersistenceCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKubeLogsPersistenceCompression$outboundSchema: z.ZodType<
   InputKubeLogsPersistenceCompression,
@@ -612,19 +500,6 @@ export const InputKubeLogsPersistenceCompression$outboundSchema: z.ZodType<
   z.nativeEnum(InputKubeLogsPersistenceCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsPersistenceCompression$ {
-  /** @deprecated use `InputKubeLogsPersistenceCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    InputKubeLogsPersistenceCompression$inboundSchema;
-  /** @deprecated use `InputKubeLogsPersistenceCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    InputKubeLogsPersistenceCompression$outboundSchema;
-}
 
 /** @internal */
 export const InputKubeLogsDiskSpooling$inboundSchema: z.ZodType<
@@ -638,7 +513,6 @@ export const InputKubeLogsDiskSpooling$inboundSchema: z.ZodType<
   maxDataTime: z.string().default("24h"),
   compress: InputKubeLogsPersistenceCompression$inboundSchema.default("gzip"),
 });
-
 /** @internal */
 export type InputKubeLogsDiskSpooling$Outbound = {
   enable: boolean;
@@ -661,19 +535,6 @@ export const InputKubeLogsDiskSpooling$outboundSchema: z.ZodType<
   compress: InputKubeLogsPersistenceCompression$outboundSchema.default("gzip"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogsDiskSpooling$ {
-  /** @deprecated use `InputKubeLogsDiskSpooling$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogsDiskSpooling$inboundSchema;
-  /** @deprecated use `InputKubeLogsDiskSpooling$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogsDiskSpooling$outboundSchema;
-  /** @deprecated use `InputKubeLogsDiskSpooling$Outbound` instead. */
-  export type Outbound = InputKubeLogsDiskSpooling$Outbound;
-}
-
 export function inputKubeLogsDiskSpoolingToJSON(
   inputKubeLogsDiskSpooling: InputKubeLogsDiskSpooling,
 ): string {
@@ -681,7 +542,6 @@ export function inputKubeLogsDiskSpoolingToJSON(
     InputKubeLogsDiskSpooling$outboundSchema.parse(inputKubeLogsDiskSpooling),
   );
 }
-
 export function inputKubeLogsDiskSpoolingFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeLogsDiskSpooling, SDKValidationError> {
@@ -720,7 +580,6 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
   enableLoadBalancing: z.boolean().default(false),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputKubeLogs$Outbound = {
   id?: string | undefined;
@@ -774,23 +633,9 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeLogs$ {
-  /** @deprecated use `InputKubeLogs$inboundSchema` instead. */
-  export const inboundSchema = InputKubeLogs$inboundSchema;
-  /** @deprecated use `InputKubeLogs$outboundSchema` instead. */
-  export const outboundSchema = InputKubeLogs$outboundSchema;
-  /** @deprecated use `InputKubeLogs$Outbound` instead. */
-  export type Outbound = InputKubeLogs$Outbound;
-}
-
 export function inputKubeLogsToJSON(inputKubeLogs: InputKubeLogs): string {
   return JSON.stringify(InputKubeLogs$outboundSchema.parse(inputKubeLogs));
 }
-
 export function inputKubeLogsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeLogs, SDKValidationError> {

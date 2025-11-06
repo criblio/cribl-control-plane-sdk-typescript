@@ -10,29 +10,28 @@ let value: UpdatePipelineByIdRequest = {
   pipeline: {
     id: "<id>",
     conf: {
-      asyncFuncTimeout: 963474,
-      description: "shinny where seldom",
+      asyncFuncTimeout: 152450,
+      description: "outside willfully athwart",
       streamtags: [
         "<value 1>",
-        "<value 2>",
       ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "regarding structure but squiggly soupy equally",
-          disabled: false,
-        },
-      },
       functions: [
         {
           id: "<id>",
-          description: "outbid dilate which eyebrow before engage",
+          description: "rudely certainly clinch compromise following verbally",
           disabled: true,
-          final: true,
+          final: false,
           conf: {},
           groupId: "<id>",
         },
       ],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "boohoo mechanic rowdy whereas vice",
+          disabled: false,
+        },
+      },
     },
   },
 };

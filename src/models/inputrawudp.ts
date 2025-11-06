@@ -172,22 +172,10 @@ export type InputRawUdp = {
 export const InputRawUdpType$inboundSchema: z.ZodNativeEnum<
   typeof InputRawUdpType
 > = z.nativeEnum(InputRawUdpType);
-
 /** @internal */
 export const InputRawUdpType$outboundSchema: z.ZodNativeEnum<
   typeof InputRawUdpType
 > = InputRawUdpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputRawUdpType$ {
-  /** @deprecated use `InputRawUdpType$inboundSchema` instead. */
-  export const inboundSchema = InputRawUdpType$inboundSchema;
-  /** @deprecated use `InputRawUdpType$outboundSchema` instead. */
-  export const outboundSchema = InputRawUdpType$outboundSchema;
-}
 
 /** @internal */
 export const InputRawUdpConnection$inboundSchema: z.ZodType<
@@ -198,7 +186,6 @@ export const InputRawUdpConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputRawUdpConnection$Outbound = {
   pipeline?: string | undefined;
@@ -215,19 +202,6 @@ export const InputRawUdpConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputRawUdpConnection$ {
-  /** @deprecated use `InputRawUdpConnection$inboundSchema` instead. */
-  export const inboundSchema = InputRawUdpConnection$inboundSchema;
-  /** @deprecated use `InputRawUdpConnection$outboundSchema` instead. */
-  export const outboundSchema = InputRawUdpConnection$outboundSchema;
-  /** @deprecated use `InputRawUdpConnection$Outbound` instead. */
-  export type Outbound = InputRawUdpConnection$Outbound;
-}
-
 export function inputRawUdpConnectionToJSON(
   inputRawUdpConnection: InputRawUdpConnection,
 ): string {
@@ -235,7 +209,6 @@ export function inputRawUdpConnectionToJSON(
     InputRawUdpConnection$outboundSchema.parse(inputRawUdpConnection),
   );
 }
-
 export function inputRawUdpConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputRawUdpConnection, SDKValidationError> {
@@ -256,7 +229,6 @@ export const InputRawUdpMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputRawUdpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputRawUdpMode$outboundSchema: z.ZodType<
   InputRawUdpMode,
@@ -266,17 +238,6 @@ export const InputRawUdpMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputRawUdpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputRawUdpMode$ {
-  /** @deprecated use `InputRawUdpMode$inboundSchema` instead. */
-  export const inboundSchema = InputRawUdpMode$inboundSchema;
-  /** @deprecated use `InputRawUdpMode$outboundSchema` instead. */
-  export const outboundSchema = InputRawUdpMode$outboundSchema;
-}
 
 /** @internal */
 export const InputRawUdpCompression$inboundSchema: z.ZodType<
@@ -288,7 +249,6 @@ export const InputRawUdpCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputRawUdpCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputRawUdpCompression$outboundSchema: z.ZodType<
   InputRawUdpCompression,
@@ -299,24 +259,12 @@ export const InputRawUdpCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputRawUdpCompression$ {
-  /** @deprecated use `InputRawUdpCompression$inboundSchema` instead. */
-  export const inboundSchema = InputRawUdpCompression$inboundSchema;
-  /** @deprecated use `InputRawUdpCompression$outboundSchema` instead. */
-  export const outboundSchema = InputRawUdpCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputRawUdpPqControls$inboundSchema: z.ZodType<
   InputRawUdpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputRawUdpPqControls$Outbound = {};
 
@@ -327,19 +275,6 @@ export const InputRawUdpPqControls$outboundSchema: z.ZodType<
   InputRawUdpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputRawUdpPqControls$ {
-  /** @deprecated use `InputRawUdpPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputRawUdpPqControls$inboundSchema;
-  /** @deprecated use `InputRawUdpPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputRawUdpPqControls$outboundSchema;
-  /** @deprecated use `InputRawUdpPqControls$Outbound` instead. */
-  export type Outbound = InputRawUdpPqControls$Outbound;
-}
-
 export function inputRawUdpPqControlsToJSON(
   inputRawUdpPqControls: InputRawUdpPqControls,
 ): string {
@@ -347,7 +282,6 @@ export function inputRawUdpPqControlsToJSON(
     InputRawUdpPqControls$outboundSchema.parse(inputRawUdpPqControls),
   );
 }
-
 export function inputRawUdpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputRawUdpPqControls, SDKValidationError> {
@@ -373,7 +307,6 @@ export const InputRawUdpPq$inboundSchema: z.ZodType<
   compress: InputRawUdpCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputRawUdpPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputRawUdpPq$Outbound = {
   mode: string;
@@ -402,23 +335,9 @@ export const InputRawUdpPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputRawUdpPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputRawUdpPq$ {
-  /** @deprecated use `InputRawUdpPq$inboundSchema` instead. */
-  export const inboundSchema = InputRawUdpPq$inboundSchema;
-  /** @deprecated use `InputRawUdpPq$outboundSchema` instead. */
-  export const outboundSchema = InputRawUdpPq$outboundSchema;
-  /** @deprecated use `InputRawUdpPq$Outbound` instead. */
-  export type Outbound = InputRawUdpPq$Outbound;
-}
-
 export function inputRawUdpPqToJSON(inputRawUdpPq: InputRawUdpPq): string {
   return JSON.stringify(InputRawUdpPq$outboundSchema.parse(inputRawUdpPq));
 }
-
 export function inputRawUdpPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputRawUdpPq, SDKValidationError> {
@@ -438,7 +357,6 @@ export const InputRawUdpMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputRawUdpMetadatum$Outbound = {
   name: string;
@@ -455,19 +373,6 @@ export const InputRawUdpMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputRawUdpMetadatum$ {
-  /** @deprecated use `InputRawUdpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputRawUdpMetadatum$inboundSchema;
-  /** @deprecated use `InputRawUdpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputRawUdpMetadatum$outboundSchema;
-  /** @deprecated use `InputRawUdpMetadatum$Outbound` instead. */
-  export type Outbound = InputRawUdpMetadatum$Outbound;
-}
-
 export function inputRawUdpMetadatumToJSON(
   inputRawUdpMetadatum: InputRawUdpMetadatum,
 ): string {
@@ -475,7 +380,6 @@ export function inputRawUdpMetadatumToJSON(
     InputRawUdpMetadatum$outboundSchema.parse(inputRawUdpMetadatum),
   );
 }
-
 export function inputRawUdpMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputRawUdpMetadatum, SDKValidationError> {
@@ -514,7 +418,6 @@ export const InputRawUdp$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputRawUdp$Outbound = {
   id?: string | undefined;
@@ -567,23 +470,9 @@ export const InputRawUdp$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputRawUdp$ {
-  /** @deprecated use `InputRawUdp$inboundSchema` instead. */
-  export const inboundSchema = InputRawUdp$inboundSchema;
-  /** @deprecated use `InputRawUdp$outboundSchema` instead. */
-  export const outboundSchema = InputRawUdp$outboundSchema;
-  /** @deprecated use `InputRawUdp$Outbound` instead. */
-  export type Outbound = InputRawUdp$Outbound;
-}
-
 export function inputRawUdpToJSON(inputRawUdp: InputRawUdp): string {
   return JSON.stringify(InputRawUdp$outboundSchema.parse(inputRawUdp));
 }
-
 export function inputRawUdpFromJSON(
   jsonString: string,
 ): SafeParseResult<InputRawUdp, SDKValidationError> {

@@ -464,22 +464,10 @@ export type OutputGoogleCloudLogging = {
 export const OutputGoogleCloudLoggingType$inboundSchema: z.ZodNativeEnum<
   typeof OutputGoogleCloudLoggingType
 > = z.nativeEnum(OutputGoogleCloudLoggingType);
-
 /** @internal */
 export const OutputGoogleCloudLoggingType$outboundSchema: z.ZodNativeEnum<
   typeof OutputGoogleCloudLoggingType
 > = OutputGoogleCloudLoggingType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLoggingType$ {
-  /** @deprecated use `OutputGoogleCloudLoggingType$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudLoggingType$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingType$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleCloudLoggingType$outboundSchema;
-}
 
 /** @internal */
 export const LogLocationType$inboundSchema: z.ZodType<
@@ -491,7 +479,6 @@ export const LogLocationType$inboundSchema: z.ZodType<
     z.nativeEnum(LogLocationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const LogLocationType$outboundSchema: z.ZodType<
   LogLocationType,
@@ -501,17 +488,6 @@ export const LogLocationType$outboundSchema: z.ZodType<
   z.nativeEnum(LogLocationType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LogLocationType$ {
-  /** @deprecated use `LogLocationType$inboundSchema` instead. */
-  export const inboundSchema = LogLocationType$inboundSchema;
-  /** @deprecated use `LogLocationType$outboundSchema` instead. */
-  export const outboundSchema = LogLocationType$outboundSchema;
-}
 
 /** @internal */
 export const PayloadFormat$inboundSchema: z.ZodType<
@@ -523,7 +499,6 @@ export const PayloadFormat$inboundSchema: z.ZodType<
     z.nativeEnum(PayloadFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const PayloadFormat$outboundSchema: z.ZodType<
   PayloadFormat,
@@ -534,17 +509,6 @@ export const PayloadFormat$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PayloadFormat$ {
-  /** @deprecated use `PayloadFormat$inboundSchema` instead. */
-  export const inboundSchema = PayloadFormat$inboundSchema;
-  /** @deprecated use `PayloadFormat$outboundSchema` instead. */
-  export const outboundSchema = PayloadFormat$outboundSchema;
-}
-
 /** @internal */
 export const LogLabel$inboundSchema: z.ZodType<
   LogLabel,
@@ -554,7 +518,6 @@ export const LogLabel$inboundSchema: z.ZodType<
   label: z.string(),
   valueExpression: z.string(),
 });
-
 /** @internal */
 export type LogLabel$Outbound = {
   label: string;
@@ -571,23 +534,9 @@ export const LogLabel$outboundSchema: z.ZodType<
   valueExpression: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LogLabel$ {
-  /** @deprecated use `LogLabel$inboundSchema` instead. */
-  export const inboundSchema = LogLabel$inboundSchema;
-  /** @deprecated use `LogLabel$outboundSchema` instead. */
-  export const outboundSchema = LogLabel$outboundSchema;
-  /** @deprecated use `LogLabel$Outbound` instead. */
-  export type Outbound = LogLabel$Outbound;
-}
-
 export function logLabelToJSON(logLabel: LogLabel): string {
   return JSON.stringify(LogLabel$outboundSchema.parse(logLabel));
 }
-
 export function logLabelFromJSON(
   jsonString: string,
 ): SafeParseResult<LogLabel, SDKValidationError> {
@@ -607,7 +556,6 @@ export const ResourceTypeLabel$inboundSchema: z.ZodType<
   label: z.string(),
   valueExpression: z.string(),
 });
-
 /** @internal */
 export type ResourceTypeLabel$Outbound = {
   label: string;
@@ -624,19 +572,6 @@ export const ResourceTypeLabel$outboundSchema: z.ZodType<
   valueExpression: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ResourceTypeLabel$ {
-  /** @deprecated use `ResourceTypeLabel$inboundSchema` instead. */
-  export const inboundSchema = ResourceTypeLabel$inboundSchema;
-  /** @deprecated use `ResourceTypeLabel$outboundSchema` instead. */
-  export const outboundSchema = ResourceTypeLabel$outboundSchema;
-  /** @deprecated use `ResourceTypeLabel$Outbound` instead. */
-  export type Outbound = ResourceTypeLabel$Outbound;
-}
-
 export function resourceTypeLabelToJSON(
   resourceTypeLabel: ResourceTypeLabel,
 ): string {
@@ -644,7 +579,6 @@ export function resourceTypeLabelToJSON(
     ResourceTypeLabel$outboundSchema.parse(resourceTypeLabel),
   );
 }
-
 export function resourceTypeLabelFromJSON(
   jsonString: string,
 ): SafeParseResult<ResourceTypeLabel, SDKValidationError> {
@@ -666,7 +600,6 @@ export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$inboundSchema:
       z.nativeEnum(OutputGoogleCloudLoggingGoogleAuthenticationMethod),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -677,19 +610,6 @@ export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$outboundSchema:
     z.nativeEnum(OutputGoogleCloudLoggingGoogleAuthenticationMethod),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLoggingGoogleAuthenticationMethod$ {
-  /** @deprecated use `OutputGoogleCloudLoggingGoogleAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingGoogleAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema:
@@ -702,7 +622,6 @@ export const OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema:
       z.nativeEnum(OutputGoogleCloudLoggingBackpressureBehavior),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGoogleCloudLoggingBackpressureBehavior$outboundSchema:
   z.ZodType<
@@ -714,19 +633,6 @@ export const OutputGoogleCloudLoggingBackpressureBehavior$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLoggingBackpressureBehavior$ {
-  /** @deprecated use `OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudLoggingBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputGoogleCloudLoggingMode$inboundSchema: z.ZodType<
   OutputGoogleCloudLoggingMode,
@@ -737,7 +643,6 @@ export const OutputGoogleCloudLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudLoggingMode$outboundSchema: z.ZodType<
   OutputGoogleCloudLoggingMode,
@@ -747,17 +652,6 @@ export const OutputGoogleCloudLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLoggingMode$ {
-  /** @deprecated use `OutputGoogleCloudLoggingMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudLoggingMode$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleCloudLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudLoggingCompression$inboundSchema: z.ZodType<
@@ -769,7 +663,6 @@ export const OutputGoogleCloudLoggingCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudLoggingCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudLoggingCompression$outboundSchema: z.ZodType<
   OutputGoogleCloudLoggingCompression,
@@ -779,19 +672,6 @@ export const OutputGoogleCloudLoggingCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudLoggingCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLoggingCompression$ {
-  /** @deprecated use `OutputGoogleCloudLoggingCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudLoggingCompression$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudLoggingCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema: z.ZodType<
@@ -803,7 +683,6 @@ export const OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudLoggingQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema:
   z.ZodType<
@@ -815,26 +694,12 @@ export const OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLoggingQueueFullBehavior$ {
-  /** @deprecated use `OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputGoogleCloudLoggingPqControls$inboundSchema: z.ZodType<
   OutputGoogleCloudLoggingPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputGoogleCloudLoggingPqControls$Outbound = {};
 
@@ -845,20 +710,6 @@ export const OutputGoogleCloudLoggingPqControls$outboundSchema: z.ZodType<
   OutputGoogleCloudLoggingPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLoggingPqControls$ {
-  /** @deprecated use `OutputGoogleCloudLoggingPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudLoggingPqControls$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingPqControls$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudLoggingPqControls$outboundSchema;
-  /** @deprecated use `OutputGoogleCloudLoggingPqControls$Outbound` instead. */
-  export type Outbound = OutputGoogleCloudLoggingPqControls$Outbound;
-}
-
 export function outputGoogleCloudLoggingPqControlsToJSON(
   outputGoogleCloudLoggingPqControls: OutputGoogleCloudLoggingPqControls,
 ): string {
@@ -868,7 +719,6 @@ export function outputGoogleCloudLoggingPqControlsToJSON(
     ),
   );
 }
-
 export function outputGoogleCloudLoggingPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleCloudLoggingPqControls, SDKValidationError> {
@@ -963,7 +813,6 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputGoogleCloudLogging$Outbound = {
   id?: string | undefined;
@@ -1123,19 +972,6 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudLogging$ {
-  /** @deprecated use `OutputGoogleCloudLogging$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudLogging$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudLogging$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleCloudLogging$outboundSchema;
-  /** @deprecated use `OutputGoogleCloudLogging$Outbound` instead. */
-  export type Outbound = OutputGoogleCloudLogging$Outbound;
-}
-
 export function outputGoogleCloudLoggingToJSON(
   outputGoogleCloudLogging: OutputGoogleCloudLogging,
 ): string {
@@ -1143,7 +979,6 @@ export function outputGoogleCloudLoggingToJSON(
     OutputGoogleCloudLogging$outboundSchema.parse(outputGoogleCloudLogging),
   );
 }
-
 export function outputGoogleCloudLoggingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleCloudLogging, SDKValidationError> {

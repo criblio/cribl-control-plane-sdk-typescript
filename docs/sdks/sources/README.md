@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListInputResponse](../../models/operations/listinputresponse.md)\>**
+**Promise\<[models.CountedListInput](../../models/countedlistinput.md)\>**
 
 ### Errors
 
@@ -303,7 +303,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateInputResponse](../../models/operations/createinputresponse.md)\>**
+**Promise\<[models.CountedListInput](../../models/countedlistinput.md)\>**
 
 ### Errors
 
@@ -383,7 +383,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetInputByIdResponse](../../models/operations/getinputbyidresponse.md)\>**
+**Promise\<[models.CountedListInput](../../models/countedlistinput.md)\>**
 
 ### Errors
 
@@ -547,7 +547,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateInputByIdResponse](../../models/operations/updateinputbyidresponse.md)\>**
+**Promise\<[models.CountedListInput](../../models/countedlistinput.md)\>**
 
 ### Errors
 
@@ -627,7 +627,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteInputByIdResponse](../../models/operations/deleteinputbyidresponse.md)\>**
+**Promise\<[models.CountedListInput](../../models/countedlistinput.md)\>**
 
 ### Errors
 

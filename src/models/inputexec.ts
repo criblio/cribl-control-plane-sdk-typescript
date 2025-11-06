@@ -184,22 +184,10 @@ export type InputExec = {
 export const InputExecType$inboundSchema: z.ZodNativeEnum<
   typeof InputExecType
 > = z.nativeEnum(InputExecType);
-
 /** @internal */
 export const InputExecType$outboundSchema: z.ZodNativeEnum<
   typeof InputExecType
 > = InputExecType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputExecType$ {
-  /** @deprecated use `InputExecType$inboundSchema` instead. */
-  export const inboundSchema = InputExecType$inboundSchema;
-  /** @deprecated use `InputExecType$outboundSchema` instead. */
-  export const outboundSchema = InputExecType$outboundSchema;
-}
 
 /** @internal */
 export const InputExecConnection$inboundSchema: z.ZodType<
@@ -210,7 +198,6 @@ export const InputExecConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputExecConnection$Outbound = {
   pipeline?: string | undefined;
@@ -227,19 +214,6 @@ export const InputExecConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputExecConnection$ {
-  /** @deprecated use `InputExecConnection$inboundSchema` instead. */
-  export const inboundSchema = InputExecConnection$inboundSchema;
-  /** @deprecated use `InputExecConnection$outboundSchema` instead. */
-  export const outboundSchema = InputExecConnection$outboundSchema;
-  /** @deprecated use `InputExecConnection$Outbound` instead. */
-  export type Outbound = InputExecConnection$Outbound;
-}
-
 export function inputExecConnectionToJSON(
   inputExecConnection: InputExecConnection,
 ): string {
@@ -247,7 +221,6 @@ export function inputExecConnectionToJSON(
     InputExecConnection$outboundSchema.parse(inputExecConnection),
   );
 }
-
 export function inputExecConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputExecConnection, SDKValidationError> {
@@ -268,7 +241,6 @@ export const InputExecMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputExecMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputExecMode$outboundSchema: z.ZodType<
   InputExecMode,
@@ -278,17 +250,6 @@ export const InputExecMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputExecMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputExecMode$ {
-  /** @deprecated use `InputExecMode$inboundSchema` instead. */
-  export const inboundSchema = InputExecMode$inboundSchema;
-  /** @deprecated use `InputExecMode$outboundSchema` instead. */
-  export const outboundSchema = InputExecMode$outboundSchema;
-}
 
 /** @internal */
 export const InputExecCompression$inboundSchema: z.ZodType<
@@ -300,7 +261,6 @@ export const InputExecCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputExecCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputExecCompression$outboundSchema: z.ZodType<
   InputExecCompression,
@@ -311,24 +271,12 @@ export const InputExecCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputExecCompression$ {
-  /** @deprecated use `InputExecCompression$inboundSchema` instead. */
-  export const inboundSchema = InputExecCompression$inboundSchema;
-  /** @deprecated use `InputExecCompression$outboundSchema` instead. */
-  export const outboundSchema = InputExecCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputExecPqControls$inboundSchema: z.ZodType<
   InputExecPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputExecPqControls$Outbound = {};
 
@@ -339,19 +287,6 @@ export const InputExecPqControls$outboundSchema: z.ZodType<
   InputExecPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputExecPqControls$ {
-  /** @deprecated use `InputExecPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputExecPqControls$inboundSchema;
-  /** @deprecated use `InputExecPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputExecPqControls$outboundSchema;
-  /** @deprecated use `InputExecPqControls$Outbound` instead. */
-  export type Outbound = InputExecPqControls$Outbound;
-}
-
 export function inputExecPqControlsToJSON(
   inputExecPqControls: InputExecPqControls,
 ): string {
@@ -359,7 +294,6 @@ export function inputExecPqControlsToJSON(
     InputExecPqControls$outboundSchema.parse(inputExecPqControls),
   );
 }
-
 export function inputExecPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputExecPqControls, SDKValidationError> {
@@ -385,7 +319,6 @@ export const InputExecPq$inboundSchema: z.ZodType<
   compress: InputExecCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputExecPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputExecPq$Outbound = {
   mode: string;
@@ -414,23 +347,9 @@ export const InputExecPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputExecPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputExecPq$ {
-  /** @deprecated use `InputExecPq$inboundSchema` instead. */
-  export const inboundSchema = InputExecPq$inboundSchema;
-  /** @deprecated use `InputExecPq$outboundSchema` instead. */
-  export const outboundSchema = InputExecPq$outboundSchema;
-  /** @deprecated use `InputExecPq$Outbound` instead. */
-  export type Outbound = InputExecPq$Outbound;
-}
-
 export function inputExecPqToJSON(inputExecPq: InputExecPq): string {
   return JSON.stringify(InputExecPq$outboundSchema.parse(inputExecPq));
 }
-
 export function inputExecPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputExecPq, SDKValidationError> {
@@ -451,7 +370,6 @@ export const ScheduleType$inboundSchema: z.ZodType<
     z.nativeEnum(ScheduleType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ScheduleType$outboundSchema: z.ZodType<
   ScheduleType,
@@ -462,17 +380,6 @@ export const ScheduleType$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ScheduleType$ {
-  /** @deprecated use `ScheduleType$inboundSchema` instead. */
-  export const inboundSchema = ScheduleType$inboundSchema;
-  /** @deprecated use `ScheduleType$outboundSchema` instead. */
-  export const outboundSchema = ScheduleType$outboundSchema;
-}
-
 /** @internal */
 export const InputExecMetadatum$inboundSchema: z.ZodType<
   InputExecMetadatum,
@@ -482,7 +389,6 @@ export const InputExecMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputExecMetadatum$Outbound = {
   name: string;
@@ -499,19 +405,6 @@ export const InputExecMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputExecMetadatum$ {
-  /** @deprecated use `InputExecMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputExecMetadatum$inboundSchema;
-  /** @deprecated use `InputExecMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputExecMetadatum$outboundSchema;
-  /** @deprecated use `InputExecMetadatum$Outbound` instead. */
-  export type Outbound = InputExecMetadatum$Outbound;
-}
-
 export function inputExecMetadatumToJSON(
   inputExecMetadatum: InputExecMetadatum,
 ): string {
@@ -519,7 +412,6 @@ export function inputExecMetadatumToJSON(
     InputExecMetadatum$outboundSchema.parse(inputExecMetadatum),
   );
 }
-
 export function inputExecMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputExecMetadatum, SDKValidationError> {
@@ -557,7 +449,6 @@ export const InputExec$inboundSchema: z.ZodType<
   interval: z.number().default(60),
   cronSchedule: z.string().default("* * * * *"),
 });
-
 /** @internal */
 export type InputExec$Outbound = {
   id?: string | undefined;
@@ -609,23 +500,9 @@ export const InputExec$outboundSchema: z.ZodType<
   cronSchedule: z.string().default("* * * * *"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputExec$ {
-  /** @deprecated use `InputExec$inboundSchema` instead. */
-  export const inboundSchema = InputExec$inboundSchema;
-  /** @deprecated use `InputExec$outboundSchema` instead. */
-  export const outboundSchema = InputExec$outboundSchema;
-  /** @deprecated use `InputExec$Outbound` instead. */
-  export type Outbound = InputExec$Outbound;
-}
-
 export function inputExecToJSON(inputExec: InputExec): string {
   return JSON.stringify(InputExec$outboundSchema.parse(inputExec));
 }
-
 export function inputExecFromJSON(
   jsonString: string,
 ): SafeParseResult<InputExec, SDKValidationError> {

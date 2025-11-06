@@ -302,22 +302,10 @@ export type InputCriblLakeHttp = {
 export const InputCriblLakeHttpType$inboundSchema: z.ZodNativeEnum<
   typeof InputCriblLakeHttpType
 > = z.nativeEnum(InputCriblLakeHttpType);
-
 /** @internal */
 export const InputCriblLakeHttpType$outboundSchema: z.ZodNativeEnum<
   typeof InputCriblLakeHttpType
 > = InputCriblLakeHttpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpType$ {
-  /** @deprecated use `InputCriblLakeHttpType$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpType$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpType$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpType$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblLakeHttpConnection$inboundSchema: z.ZodType<
@@ -328,7 +316,6 @@ export const InputCriblLakeHttpConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputCriblLakeHttpConnection$Outbound = {
   pipeline?: string | undefined;
@@ -345,19 +332,6 @@ export const InputCriblLakeHttpConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpConnection$ {
-  /** @deprecated use `InputCriblLakeHttpConnection$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpConnection$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpConnection$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpConnection$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpConnection$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpConnection$Outbound;
-}
-
 export function inputCriblLakeHttpConnectionToJSON(
   inputCriblLakeHttpConnection: InputCriblLakeHttpConnection,
 ): string {
@@ -367,7 +341,6 @@ export function inputCriblLakeHttpConnectionToJSON(
     ),
   );
 }
-
 export function inputCriblLakeHttpConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblLakeHttpConnection, SDKValidationError> {
@@ -388,7 +361,6 @@ export const InputCriblLakeHttpMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblLakeHttpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblLakeHttpMode$outboundSchema: z.ZodType<
   InputCriblLakeHttpMode,
@@ -398,17 +370,6 @@ export const InputCriblLakeHttpMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputCriblLakeHttpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpMode$ {
-  /** @deprecated use `InputCriblLakeHttpMode$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpMode$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMode$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpMode$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblLakeHttpCompression$inboundSchema: z.ZodType<
@@ -420,7 +381,6 @@ export const InputCriblLakeHttpCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblLakeHttpCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblLakeHttpCompression$outboundSchema: z.ZodType<
   InputCriblLakeHttpCompression,
@@ -431,24 +391,12 @@ export const InputCriblLakeHttpCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpCompression$ {
-  /** @deprecated use `InputCriblLakeHttpCompression$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpCompression$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpCompression$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputCriblLakeHttpPqControls$inboundSchema: z.ZodType<
   InputCriblLakeHttpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputCriblLakeHttpPqControls$Outbound = {};
 
@@ -459,19 +407,6 @@ export const InputCriblLakeHttpPqControls$outboundSchema: z.ZodType<
   InputCriblLakeHttpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpPqControls$ {
-  /** @deprecated use `InputCriblLakeHttpPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpPqControls$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpPqControls$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpPqControls$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpPqControls$Outbound;
-}
-
 export function inputCriblLakeHttpPqControlsToJSON(
   inputCriblLakeHttpPqControls: InputCriblLakeHttpPqControls,
 ): string {
@@ -481,7 +416,6 @@ export function inputCriblLakeHttpPqControlsToJSON(
     ),
   );
 }
-
 export function inputCriblLakeHttpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblLakeHttpPqControls, SDKValidationError> {
@@ -508,7 +442,6 @@ export const InputCriblLakeHttpPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputCriblLakeHttpPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputCriblLakeHttpPq$Outbound = {
   mode: string;
@@ -538,19 +471,6 @@ export const InputCriblLakeHttpPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpPq$ {
-  /** @deprecated use `InputCriblLakeHttpPq$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpPq$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpPq$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpPq$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpPq$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpPq$Outbound;
-}
-
 export function inputCriblLakeHttpPqToJSON(
   inputCriblLakeHttpPq: InputCriblLakeHttpPq,
 ): string {
@@ -558,7 +478,6 @@ export function inputCriblLakeHttpPqToJSON(
     InputCriblLakeHttpPq$outboundSchema.parse(inputCriblLakeHttpPq),
   );
 }
-
 export function inputCriblLakeHttpPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblLakeHttpPq, SDKValidationError> {
@@ -579,7 +498,6 @@ export const InputCriblLakeHttpMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblLakeHttpMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblLakeHttpMinimumTLSVersion$outboundSchema: z.ZodType<
   InputCriblLakeHttpMinimumTLSVersion,
@@ -589,19 +507,6 @@ export const InputCriblLakeHttpMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputCriblLakeHttpMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpMinimumTLSVersion$ {
-  /** @deprecated use `InputCriblLakeHttpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblLakeHttpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblLakeHttpMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblLakeHttpMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -613,7 +518,6 @@ export const InputCriblLakeHttpMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblLakeHttpMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblLakeHttpMaximumTLSVersion$outboundSchema: z.ZodType<
   InputCriblLakeHttpMaximumTLSVersion,
@@ -623,19 +527,6 @@ export const InputCriblLakeHttpMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputCriblLakeHttpMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpMaximumTLSVersion$ {
-  /** @deprecated use `InputCriblLakeHttpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblLakeHttpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblLakeHttpMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblLakeHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -655,7 +546,6 @@ export const InputCriblLakeHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputCriblLakeHttpMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputCriblLakeHttpMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputCriblLakeHttpTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -690,21 +580,6 @@ export const InputCriblLakeHttpTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputCriblLakeHttpMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpTLSSettingsServerSide$ {
-  /** @deprecated use `InputCriblLakeHttpTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblLakeHttpTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblLakeHttpTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpTLSSettingsServerSide$Outbound;
-}
-
 export function inputCriblLakeHttpTLSSettingsServerSideToJSON(
   inputCriblLakeHttpTLSSettingsServerSide:
     InputCriblLakeHttpTLSSettingsServerSide,
@@ -715,7 +590,6 @@ export function inputCriblLakeHttpTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputCriblLakeHttpTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -741,7 +615,6 @@ export const InputCriblLakeHttpMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputCriblLakeHttpMetadatum$Outbound = {
   name: string;
@@ -758,19 +631,6 @@ export const InputCriblLakeHttpMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpMetadatum$ {
-  /** @deprecated use `InputCriblLakeHttpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpMetadatum$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpMetadatum$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMetadatum$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpMetadatum$Outbound;
-}
-
 export function inputCriblLakeHttpMetadatumToJSON(
   inputCriblLakeHttpMetadatum: InputCriblLakeHttpMetadatum,
 ): string {
@@ -780,7 +640,6 @@ export function inputCriblLakeHttpMetadatumToJSON(
     ),
   );
 }
-
 export function inputCriblLakeHttpMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblLakeHttpMetadatum, SDKValidationError> {
@@ -800,7 +659,6 @@ export const InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputCriblLakeHttpAuthTokensExtMetadatum$Outbound = {
   name: string;
@@ -817,21 +675,6 @@ export const InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpAuthTokensExtMetadatum$ {
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpAuthTokensExtMetadatum$Outbound;
-}
-
 export function inputCriblLakeHttpAuthTokensExtMetadatumToJSON(
   inputCriblLakeHttpAuthTokensExtMetadatum:
     InputCriblLakeHttpAuthTokensExtMetadatum,
@@ -842,7 +685,6 @@ export function inputCriblLakeHttpAuthTokensExtMetadatumToJSON(
     ),
   );
 }
-
 export function inputCriblLakeHttpAuthTokensExtMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -867,7 +709,6 @@ export const SplunkHecMetadata$inboundSchema: z.ZodType<
 > = z.object({
   enabled: z.boolean().optional(),
 });
-
 /** @internal */
 export type SplunkHecMetadata$Outbound = {
   enabled?: boolean | undefined;
@@ -882,19 +723,6 @@ export const SplunkHecMetadata$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SplunkHecMetadata$ {
-  /** @deprecated use `SplunkHecMetadata$inboundSchema` instead. */
-  export const inboundSchema = SplunkHecMetadata$inboundSchema;
-  /** @deprecated use `SplunkHecMetadata$outboundSchema` instead. */
-  export const outboundSchema = SplunkHecMetadata$outboundSchema;
-  /** @deprecated use `SplunkHecMetadata$Outbound` instead. */
-  export type Outbound = SplunkHecMetadata$Outbound;
-}
-
 export function splunkHecMetadataToJSON(
   splunkHecMetadata: SplunkHecMetadata,
 ): string {
@@ -902,7 +730,6 @@ export function splunkHecMetadataToJSON(
     SplunkHecMetadata$outboundSchema.parse(splunkHecMetadata),
   );
 }
-
 export function splunkHecMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<SplunkHecMetadata, SDKValidationError> {
@@ -921,7 +748,6 @@ export const ElasticsearchMetadata$inboundSchema: z.ZodType<
 > = z.object({
   enabled: z.boolean().optional(),
 });
-
 /** @internal */
 export type ElasticsearchMetadata$Outbound = {
   enabled?: boolean | undefined;
@@ -936,19 +762,6 @@ export const ElasticsearchMetadata$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ElasticsearchMetadata$ {
-  /** @deprecated use `ElasticsearchMetadata$inboundSchema` instead. */
-  export const inboundSchema = ElasticsearchMetadata$inboundSchema;
-  /** @deprecated use `ElasticsearchMetadata$outboundSchema` instead. */
-  export const outboundSchema = ElasticsearchMetadata$outboundSchema;
-  /** @deprecated use `ElasticsearchMetadata$Outbound` instead. */
-  export type Outbound = ElasticsearchMetadata$Outbound;
-}
-
 export function elasticsearchMetadataToJSON(
   elasticsearchMetadata: ElasticsearchMetadata,
 ): string {
@@ -956,7 +769,6 @@ export function elasticsearchMetadataToJSON(
     ElasticsearchMetadata$outboundSchema.parse(elasticsearchMetadata),
   );
 }
-
 export function elasticsearchMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<ElasticsearchMetadata, SDKValidationError> {
@@ -982,7 +794,6 @@ export const InputCriblLakeHttpAuthTokensExt$inboundSchema: z.ZodType<
   elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputCriblLakeHttpAuthTokensExt$Outbound = {
   token: string;
@@ -1010,19 +821,6 @@ export const InputCriblLakeHttpAuthTokensExt$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpAuthTokensExt$ {
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpAuthTokensExt$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpAuthTokensExt$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpAuthTokensExt$Outbound;
-}
-
 export function inputCriblLakeHttpAuthTokensExtToJSON(
   inputCriblLakeHttpAuthTokensExt: InputCriblLakeHttpAuthTokensExt,
 ): string {
@@ -1032,7 +830,6 @@ export function inputCriblLakeHttpAuthTokensExtToJSON(
     ),
   );
 }
-
 export function inputCriblLakeHttpAuthTokensExtFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblLakeHttpAuthTokensExt, SDKValidationError> {
@@ -1087,7 +884,6 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   ).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputCriblLakeHttp$Outbound = {
   id?: string | undefined;
@@ -1170,19 +966,6 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttp$ {
-  /** @deprecated use `InputCriblLakeHttp$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttp$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttp$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttp$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttp$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttp$Outbound;
-}
-
 export function inputCriblLakeHttpToJSON(
   inputCriblLakeHttp: InputCriblLakeHttp,
 ): string {
@@ -1190,7 +973,6 @@ export function inputCriblLakeHttpToJSON(
     InputCriblLakeHttp$outboundSchema.parse(inputCriblLakeHttp),
   );
 }
-
 export function inputCriblLakeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblLakeHttp, SDKValidationError> {

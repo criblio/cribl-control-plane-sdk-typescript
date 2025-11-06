@@ -4,11 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -36,56 +32,8 @@ export const RemoteEnum$inboundSchema: z.ZodType<
   ]);
 
 /** @internal */
-export const RemoteEnum$outboundSchema: z.ZodType<
-  RemoteEnum,
-  z.ZodTypeDef,
-  RemoteEnum
-> = z.union([
-  z.nativeEnum(RemoteEnum),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RemoteEnum$ {
-  /** @deprecated use `RemoteEnum$inboundSchema` instead. */
-  export const inboundSchema = RemoteEnum$inboundSchema;
-  /** @deprecated use `RemoteEnum$outboundSchema` instead. */
-  export const outboundSchema = RemoteEnum$outboundSchema;
-}
-
-/** @internal */
 export const Remote$inboundSchema: z.ZodType<Remote, z.ZodTypeDef, unknown> = z
   .union([z.string(), RemoteEnum$inboundSchema]);
-
-/** @internal */
-export type Remote$Outbound = string | string;
-
-/** @internal */
-export const Remote$outboundSchema: z.ZodType<
-  Remote$Outbound,
-  z.ZodTypeDef,
-  Remote
-> = z.union([z.string(), RemoteEnum$outboundSchema]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Remote$ {
-  /** @deprecated use `Remote$inboundSchema` instead. */
-  export const inboundSchema = Remote$inboundSchema;
-  /** @deprecated use `Remote$outboundSchema` instead. */
-  export const outboundSchema = Remote$outboundSchema;
-  /** @deprecated use `Remote$Outbound` instead. */
-  export type Outbound = Remote$Outbound;
-}
-
-export function remoteToJSON(remote: Remote): string {
-  return JSON.stringify(Remote$outboundSchema.parse(remote));
-}
 
 export function remoteFromJSON(
   jsonString: string,
@@ -103,39 +51,6 @@ export const GitInfo$inboundSchema: z.ZodType<GitInfo, z.ZodTypeDef, unknown> =
     remote: z.union([z.string(), RemoteEnum$inboundSchema]),
     versioning: z.boolean(),
   });
-
-/** @internal */
-export type GitInfo$Outbound = {
-  remote: string | string;
-  versioning: boolean;
-};
-
-/** @internal */
-export const GitInfo$outboundSchema: z.ZodType<
-  GitInfo$Outbound,
-  z.ZodTypeDef,
-  GitInfo
-> = z.object({
-  remote: z.union([z.string(), RemoteEnum$outboundSchema]),
-  versioning: z.boolean(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitInfo$ {
-  /** @deprecated use `GitInfo$inboundSchema` instead. */
-  export const inboundSchema = GitInfo$inboundSchema;
-  /** @deprecated use `GitInfo$outboundSchema` instead. */
-  export const outboundSchema = GitInfo$outboundSchema;
-  /** @deprecated use `GitInfo$Outbound` instead. */
-  export type Outbound = GitInfo$Outbound;
-}
-
-export function gitInfoToJSON(gitInfo: GitInfo): string {
-  return JSON.stringify(GitInfo$outboundSchema.parse(gitInfo));
-}
 
 export function gitInfoFromJSON(
   jsonString: string,

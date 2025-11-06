@@ -159,6 +159,15 @@ export type OutputCriblHttpTimeoutRetrySettings = {
   maxBackoff?: number | undefined;
 };
 
+export type OutputCriblHttpAuthToken = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+};
+
 /**
  * How to handle events when all receivers are exerting backpressure
  */
@@ -351,6 +360,10 @@ export type OutputCriblHttp = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<OutputCriblHttpAuthToken> | undefined;
+  /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: OutputCriblHttpBackpressureBehavior | undefined;
@@ -423,22 +436,10 @@ export type OutputCriblHttp = {
 export const OutputCriblHttpType$inboundSchema: z.ZodNativeEnum<
   typeof OutputCriblHttpType
 > = z.nativeEnum(OutputCriblHttpType);
-
 /** @internal */
 export const OutputCriblHttpType$outboundSchema: z.ZodNativeEnum<
   typeof OutputCriblHttpType
 > = OutputCriblHttpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpType$ {
-  /** @deprecated use `OutputCriblHttpType$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpType$inboundSchema;
-  /** @deprecated use `OutputCriblHttpType$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpType$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -450,7 +451,6 @@ export const OutputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblHttpMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputCriblHttpMinimumTLSVersion,
@@ -460,17 +460,6 @@ export const OutputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblHttpMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpMinimumTLSVersion$ {
-  /** @deprecated use `OutputCriblHttpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputCriblHttpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -482,7 +471,6 @@ export const OutputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblHttpMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputCriblHttpMaximumTLSVersion,
@@ -492,17 +480,6 @@ export const OutputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblHttpMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpMaximumTLSVersion$ {
-  /** @deprecated use `OutputCriblHttpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputCriblHttpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblHttpTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -521,7 +498,6 @@ export const OutputCriblHttpTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputCriblHttpMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputCriblHttpMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputCriblHttpTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -554,21 +530,6 @@ export const OutputCriblHttpTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputCriblHttpMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpTLSSettingsClientSide$ {
-  /** @deprecated use `OutputCriblHttpTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputCriblHttpTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputCriblHttpTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputCriblHttpTLSSettingsClientSide$Outbound;
-}
-
 export function outputCriblHttpTLSSettingsClientSideToJSON(
   outputCriblHttpTLSSettingsClientSide: OutputCriblHttpTLSSettingsClientSide,
 ): string {
@@ -578,7 +539,6 @@ export function outputCriblHttpTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputCriblHttpTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblHttpTLSSettingsClientSide, SDKValidationError> {
@@ -600,7 +560,6 @@ export const OutputCriblHttpCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblHttpCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblHttpCompression$outboundSchema: z.ZodType<
   OutputCriblHttpCompression,
@@ -611,17 +570,6 @@ export const OutputCriblHttpCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpCompression$ {
-  /** @deprecated use `OutputCriblHttpCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpCompression$inboundSchema;
-  /** @deprecated use `OutputCriblHttpCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpCompression$outboundSchema;
-}
-
 /** @internal */
 export const OutputCriblHttpExtraHttpHeader$inboundSchema: z.ZodType<
   OutputCriblHttpExtraHttpHeader,
@@ -631,7 +579,6 @@ export const OutputCriblHttpExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputCriblHttpExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -648,19 +595,6 @@ export const OutputCriblHttpExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpExtraHttpHeader$ {
-  /** @deprecated use `OutputCriblHttpExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputCriblHttpExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputCriblHttpExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputCriblHttpExtraHttpHeader$Outbound;
-}
-
 export function outputCriblHttpExtraHttpHeaderToJSON(
   outputCriblHttpExtraHttpHeader: OutputCriblHttpExtraHttpHeader,
 ): string {
@@ -670,7 +604,6 @@ export function outputCriblHttpExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputCriblHttpExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblHttpExtraHttpHeader, SDKValidationError> {
@@ -691,7 +624,6 @@ export const OutputCriblHttpFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblHttpFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblHttpFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputCriblHttpFailedRequestLoggingMode,
@@ -701,19 +633,6 @@ export const OutputCriblHttpFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblHttpFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputCriblHttpFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputCriblHttpFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblHttpResponseRetrySetting$inboundSchema: z.ZodType<
@@ -726,7 +645,6 @@ export const OutputCriblHttpResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputCriblHttpResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -747,21 +665,6 @@ export const OutputCriblHttpResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpResponseRetrySetting$ {
-  /** @deprecated use `OutputCriblHttpResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputCriblHttpResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputCriblHttpResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputCriblHttpResponseRetrySetting$Outbound;
-}
-
 export function outputCriblHttpResponseRetrySettingToJSON(
   outputCriblHttpResponseRetrySetting: OutputCriblHttpResponseRetrySetting,
 ): string {
@@ -771,7 +674,6 @@ export function outputCriblHttpResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputCriblHttpResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblHttpResponseRetrySetting, SDKValidationError> {
@@ -794,7 +696,6 @@ export const OutputCriblHttpTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputCriblHttpTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -815,21 +716,6 @@ export const OutputCriblHttpTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpTimeoutRetrySettings$ {
-  /** @deprecated use `OutputCriblHttpTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputCriblHttpTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputCriblHttpTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputCriblHttpTimeoutRetrySettings$Outbound;
-}
-
 export function outputCriblHttpTimeoutRetrySettingsToJSON(
   outputCriblHttpTimeoutRetrySettings: OutputCriblHttpTimeoutRetrySettings,
 ): string {
@@ -839,7 +725,6 @@ export function outputCriblHttpTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputCriblHttpTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblHttpTimeoutRetrySettings, SDKValidationError> {
@@ -848,6 +733,51 @@ export function outputCriblHttpTimeoutRetrySettingsFromJSON(
     (x) =>
       OutputCriblHttpTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputCriblHttpTimeoutRetrySettings' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblHttpAuthToken$inboundSchema: z.ZodType<
+  OutputCriblHttpAuthToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+/** @internal */
+export type OutputCriblHttpAuthToken$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputCriblHttpAuthToken$outboundSchema: z.ZodType<
+  OutputCriblHttpAuthToken$Outbound,
+  z.ZodTypeDef,
+  OutputCriblHttpAuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function outputCriblHttpAuthTokenToJSON(
+  outputCriblHttpAuthToken: OutputCriblHttpAuthToken,
+): string {
+  return JSON.stringify(
+    OutputCriblHttpAuthToken$outboundSchema.parse(outputCriblHttpAuthToken),
+  );
+}
+export function outputCriblHttpAuthTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblHttpAuthToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblHttpAuthToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblHttpAuthToken' from JSON`,
   );
 }
 
@@ -861,7 +791,6 @@ export const OutputCriblHttpBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblHttpBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblHttpBackpressureBehavior$outboundSchema: z.ZodType<
   OutputCriblHttpBackpressureBehavior,
@@ -872,19 +801,6 @@ export const OutputCriblHttpBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpBackpressureBehavior$ {
-  /** @deprecated use `OutputCriblHttpBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCriblHttpBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputCriblHttpUrl$inboundSchema: z.ZodType<
   OutputCriblHttpUrl,
@@ -894,7 +810,6 @@ export const OutputCriblHttpUrl$inboundSchema: z.ZodType<
   url: z.string(),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputCriblHttpUrl$Outbound = {
   url: string;
@@ -911,19 +826,6 @@ export const OutputCriblHttpUrl$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpUrl$ {
-  /** @deprecated use `OutputCriblHttpUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpUrl$inboundSchema;
-  /** @deprecated use `OutputCriblHttpUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpUrl$outboundSchema;
-  /** @deprecated use `OutputCriblHttpUrl$Outbound` instead. */
-  export type Outbound = OutputCriblHttpUrl$Outbound;
-}
-
 export function outputCriblHttpUrlToJSON(
   outputCriblHttpUrl: OutputCriblHttpUrl,
 ): string {
@@ -931,7 +833,6 @@ export function outputCriblHttpUrlToJSON(
     OutputCriblHttpUrl$outboundSchema.parse(outputCriblHttpUrl),
   );
 }
-
 export function outputCriblHttpUrlFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblHttpUrl, SDKValidationError> {
@@ -952,7 +853,6 @@ export const OutputCriblHttpMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblHttpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblHttpMode$outboundSchema: z.ZodType<
   OutputCriblHttpMode,
@@ -962,17 +862,6 @@ export const OutputCriblHttpMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblHttpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpMode$ {
-  /** @deprecated use `OutputCriblHttpMode$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpMode$inboundSchema;
-  /** @deprecated use `OutputCriblHttpMode$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblHttpPqCompressCompression$inboundSchema: z.ZodType<
@@ -984,7 +873,6 @@ export const OutputCriblHttpPqCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblHttpPqCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblHttpPqCompressCompression$outboundSchema: z.ZodType<
   OutputCriblHttpPqCompressCompression,
@@ -994,19 +882,6 @@ export const OutputCriblHttpPqCompressCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblHttpPqCompressCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpPqCompressCompression$ {
-  /** @deprecated use `OutputCriblHttpPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputCriblHttpPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpPqCompressCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblHttpQueueFullBehavior$inboundSchema: z.ZodType<
@@ -1018,7 +893,6 @@ export const OutputCriblHttpQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblHttpQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblHttpQueueFullBehavior$outboundSchema: z.ZodType<
   OutputCriblHttpQueueFullBehavior,
@@ -1029,24 +903,12 @@ export const OutputCriblHttpQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpQueueFullBehavior$ {
-  /** @deprecated use `OutputCriblHttpQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputCriblHttpQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputCriblHttpPqControls$inboundSchema: z.ZodType<
   OutputCriblHttpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputCriblHttpPqControls$Outbound = {};
 
@@ -1057,19 +919,6 @@ export const OutputCriblHttpPqControls$outboundSchema: z.ZodType<
   OutputCriblHttpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpPqControls$ {
-  /** @deprecated use `OutputCriblHttpPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpPqControls$inboundSchema;
-  /** @deprecated use `OutputCriblHttpPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpPqControls$outboundSchema;
-  /** @deprecated use `OutputCriblHttpPqControls$Outbound` instead. */
-  export type Outbound = OutputCriblHttpPqControls$Outbound;
-}
-
 export function outputCriblHttpPqControlsToJSON(
   outputCriblHttpPqControls: OutputCriblHttpPqControls,
 ): string {
@@ -1077,7 +926,6 @@ export function outputCriblHttpPqControlsToJSON(
     OutputCriblHttpPqControls$outboundSchema.parse(outputCriblHttpPqControls),
   );
 }
-
 export function outputCriblHttpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblHttpPqControls, SDKValidationError> {
@@ -1125,6 +973,8 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
     OutputCriblHttpTimeoutRetrySettings$inboundSchema
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(z.lazy(() => OutputCriblHttpAuthToken$inboundSchema))
+    .optional(),
   onBackpressure: OutputCriblHttpBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -1151,7 +1001,6 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputCriblHttpPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputCriblHttp$Outbound = {
   id?: string | undefined;
@@ -1181,6 +1030,7 @@ export type OutputCriblHttp$Outbound = {
     | OutputCriblHttpTimeoutRetrySettings$Outbound
     | undefined;
   responseHonorRetryAfterHeader: boolean;
+  authTokens?: Array<OutputCriblHttpAuthToken$Outbound> | undefined;
   onBackpressure: string;
   description?: string | undefined;
   url?: string | undefined;
@@ -1239,6 +1089,8 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
     OutputCriblHttpTimeoutRetrySettings$outboundSchema
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(z.lazy(() => OutputCriblHttpAuthToken$outboundSchema))
+    .optional(),
   onBackpressure: OutputCriblHttpBackpressureBehavior$outboundSchema.default(
     "block",
   ),
@@ -1266,25 +1118,11 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputCriblHttpPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttp$ {
-  /** @deprecated use `OutputCriblHttp$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttp$inboundSchema;
-  /** @deprecated use `OutputCriblHttp$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttp$outboundSchema;
-  /** @deprecated use `OutputCriblHttp$Outbound` instead. */
-  export type Outbound = OutputCriblHttp$Outbound;
-}
-
 export function outputCriblHttpToJSON(
   outputCriblHttp: OutputCriblHttp,
 ): string {
   return JSON.stringify(OutputCriblHttp$outboundSchema.parse(outputCriblHttp));
 }
-
 export function outputCriblHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblHttp, SDKValidationError> {

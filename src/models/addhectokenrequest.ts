@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AddHecTokenRequestMetadatum = {
   name: string;
@@ -18,16 +15,6 @@ export type AddHecTokenRequest = {
   metadata?: Array<AddHecTokenRequestMetadatum> | undefined;
   token: string;
 };
-
-/** @internal */
-export const AddHecTokenRequestMetadatum$inboundSchema: z.ZodType<
-  AddHecTokenRequestMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
 
 /** @internal */
 export type AddHecTokenRequestMetadatum$Outbound = {
@@ -45,19 +32,6 @@ export const AddHecTokenRequestMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AddHecTokenRequestMetadatum$ {
-  /** @deprecated use `AddHecTokenRequestMetadatum$inboundSchema` instead. */
-  export const inboundSchema = AddHecTokenRequestMetadatum$inboundSchema;
-  /** @deprecated use `AddHecTokenRequestMetadatum$outboundSchema` instead. */
-  export const outboundSchema = AddHecTokenRequestMetadatum$outboundSchema;
-  /** @deprecated use `AddHecTokenRequestMetadatum$Outbound` instead. */
-  export type Outbound = AddHecTokenRequestMetadatum$Outbound;
-}
-
 export function addHecTokenRequestMetadatumToJSON(
   addHecTokenRequestMetadatum: AddHecTokenRequestMetadatum,
 ): string {
@@ -67,29 +41,6 @@ export function addHecTokenRequestMetadatumToJSON(
     ),
   );
 }
-
-export function addHecTokenRequestMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<AddHecTokenRequestMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AddHecTokenRequestMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AddHecTokenRequestMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const AddHecTokenRequest$inboundSchema: z.ZodType<
-  AddHecTokenRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string().optional(),
-  enabled: z.boolean().optional(),
-  metadata: z.array(z.lazy(() => AddHecTokenRequestMetadatum$inboundSchema))
-    .optional(),
-  token: z.string(),
-});
 
 /** @internal */
 export type AddHecTokenRequest$Outbound = {
@@ -112,33 +63,10 @@ export const AddHecTokenRequest$outboundSchema: z.ZodType<
   token: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AddHecTokenRequest$ {
-  /** @deprecated use `AddHecTokenRequest$inboundSchema` instead. */
-  export const inboundSchema = AddHecTokenRequest$inboundSchema;
-  /** @deprecated use `AddHecTokenRequest$outboundSchema` instead. */
-  export const outboundSchema = AddHecTokenRequest$outboundSchema;
-  /** @deprecated use `AddHecTokenRequest$Outbound` instead. */
-  export type Outbound = AddHecTokenRequest$Outbound;
-}
-
 export function addHecTokenRequestToJSON(
   addHecTokenRequest: AddHecTokenRequest,
 ): string {
   return JSON.stringify(
     AddHecTokenRequest$outboundSchema.parse(addHecTokenRequest),
-  );
-}
-
-export function addHecTokenRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<AddHecTokenRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AddHecTokenRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AddHecTokenRequest' from JSON`,
   );
 }

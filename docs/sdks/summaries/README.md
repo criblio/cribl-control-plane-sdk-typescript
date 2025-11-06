@@ -78,7 +78,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetSummaryResponse](../../models/operations/getsummaryresponse.md)\>**
+**Promise\<[models.CountedListDistributedSummary](../../models/countedlistdistributedsummary.md)\>**
 
 ### Errors
 

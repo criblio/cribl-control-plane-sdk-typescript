@@ -365,22 +365,10 @@ export type OutputElasticCloud = {
 export const OutputElasticCloudType$inboundSchema: z.ZodNativeEnum<
   typeof OutputElasticCloudType
 > = z.nativeEnum(OutputElasticCloudType);
-
 /** @internal */
 export const OutputElasticCloudType$outboundSchema: z.ZodNativeEnum<
   typeof OutputElasticCloudType
 > = OutputElasticCloudType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudType$ {
-  /** @deprecated use `OutputElasticCloudType$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloudType$inboundSchema;
-  /** @deprecated use `OutputElasticCloudType$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCloudType$outboundSchema;
-}
 
 /** @internal */
 export const OutputElasticCloudExtraHttpHeader$inboundSchema: z.ZodType<
@@ -391,7 +379,6 @@ export const OutputElasticCloudExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputElasticCloudExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -408,20 +395,6 @@ export const OutputElasticCloudExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudExtraHttpHeader$ {
-  /** @deprecated use `OutputElasticCloudExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloudExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputElasticCloudExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticCloudExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputElasticCloudExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputElasticCloudExtraHttpHeader$Outbound;
-}
-
 export function outputElasticCloudExtraHttpHeaderToJSON(
   outputElasticCloudExtraHttpHeader: OutputElasticCloudExtraHttpHeader,
 ): string {
@@ -431,7 +404,6 @@ export function outputElasticCloudExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputElasticCloudExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticCloudExtraHttpHeader, SDKValidationError> {
@@ -450,7 +422,6 @@ export const OutputElasticCloudFailedRequestLoggingMode$inboundSchema:
         z.nativeEnum(OutputElasticCloudFailedRequestLoggingMode),
         z.string().transform(catchUnrecognizedEnum),
       ]);
-
 /** @internal */
 export const OutputElasticCloudFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
@@ -462,19 +433,6 @@ export const OutputElasticCloudFailedRequestLoggingMode$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputElasticCloudFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputElasticCloudFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputElasticCloudFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticCloudFailedRequestLoggingMode$outboundSchema;
-}
-
 /** @internal */
 export const OutputElasticCloudExtraParam$inboundSchema: z.ZodType<
   OutputElasticCloudExtraParam,
@@ -484,7 +442,6 @@ export const OutputElasticCloudExtraParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputElasticCloudExtraParam$Outbound = {
   name: string;
@@ -501,19 +458,6 @@ export const OutputElasticCloudExtraParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudExtraParam$ {
-  /** @deprecated use `OutputElasticCloudExtraParam$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloudExtraParam$inboundSchema;
-  /** @deprecated use `OutputElasticCloudExtraParam$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCloudExtraParam$outboundSchema;
-  /** @deprecated use `OutputElasticCloudExtraParam$Outbound` instead. */
-  export type Outbound = OutputElasticCloudExtraParam$Outbound;
-}
-
 export function outputElasticCloudExtraParamToJSON(
   outputElasticCloudExtraParam: OutputElasticCloudExtraParam,
 ): string {
@@ -523,7 +467,6 @@ export function outputElasticCloudExtraParamToJSON(
     ),
   );
 }
-
 export function outputElasticCloudExtraParamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticCloudExtraParam, SDKValidationError> {
@@ -544,7 +487,6 @@ export const OutputElasticCloudAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticCloudAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticCloudAuthenticationMethod$outboundSchema: z.ZodType<
   OutputElasticCloudAuthenticationMethod,
@@ -554,19 +496,6 @@ export const OutputElasticCloudAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputElasticCloudAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudAuthenticationMethod$ {
-  /** @deprecated use `OutputElasticCloudAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputElasticCloudAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputElasticCloudAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticCloudAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputElasticCloudAuth$inboundSchema: z.ZodType<
@@ -584,7 +513,6 @@ export const OutputElasticCloudAuth$inboundSchema: z.ZodType<
   manualAPIKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputElasticCloudAuth$Outbound = {
   disabled: boolean;
@@ -613,19 +541,6 @@ export const OutputElasticCloudAuth$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudAuth$ {
-  /** @deprecated use `OutputElasticCloudAuth$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloudAuth$inboundSchema;
-  /** @deprecated use `OutputElasticCloudAuth$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCloudAuth$outboundSchema;
-  /** @deprecated use `OutputElasticCloudAuth$Outbound` instead. */
-  export type Outbound = OutputElasticCloudAuth$Outbound;
-}
-
 export function outputElasticCloudAuthToJSON(
   outputElasticCloudAuth: OutputElasticCloudAuth,
 ): string {
@@ -633,7 +548,6 @@ export function outputElasticCloudAuthToJSON(
     OutputElasticCloudAuth$outboundSchema.parse(outputElasticCloudAuth),
   );
 }
-
 export function outputElasticCloudAuthFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticCloudAuth, SDKValidationError> {
@@ -655,7 +569,6 @@ export const OutputElasticCloudResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputElasticCloudResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -676,21 +589,6 @@ export const OutputElasticCloudResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudResponseRetrySetting$ {
-  /** @deprecated use `OutputElasticCloudResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputElasticCloudResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputElasticCloudResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticCloudResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputElasticCloudResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputElasticCloudResponseRetrySetting$Outbound;
-}
-
 export function outputElasticCloudResponseRetrySettingToJSON(
   outputElasticCloudResponseRetrySetting:
     OutputElasticCloudResponseRetrySetting,
@@ -701,7 +599,6 @@ export function outputElasticCloudResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputElasticCloudResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticCloudResponseRetrySetting, SDKValidationError> {
@@ -724,7 +621,6 @@ export const OutputElasticCloudTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputElasticCloudTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -745,21 +641,6 @@ export const OutputElasticCloudTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudTimeoutRetrySettings$ {
-  /** @deprecated use `OutputElasticCloudTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputElasticCloudTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputElasticCloudTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticCloudTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputElasticCloudTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputElasticCloudTimeoutRetrySettings$Outbound;
-}
-
 export function outputElasticCloudTimeoutRetrySettingsToJSON(
   outputElasticCloudTimeoutRetrySettings:
     OutputElasticCloudTimeoutRetrySettings,
@@ -770,7 +651,6 @@ export function outputElasticCloudTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputElasticCloudTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticCloudTimeoutRetrySettings, SDKValidationError> {
@@ -792,7 +672,6 @@ export const OutputElasticCloudBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticCloudBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticCloudBackpressureBehavior$outboundSchema: z.ZodType<
   OutputElasticCloudBackpressureBehavior,
@@ -802,19 +681,6 @@ export const OutputElasticCloudBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputElasticCloudBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudBackpressureBehavior$ {
-  /** @deprecated use `OutputElasticCloudBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputElasticCloudBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputElasticCloudBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticCloudBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputElasticCloudMode$inboundSchema: z.ZodType<
@@ -826,7 +692,6 @@ export const OutputElasticCloudMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticCloudMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticCloudMode$outboundSchema: z.ZodType<
   OutputElasticCloudMode,
@@ -836,17 +701,6 @@ export const OutputElasticCloudMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputElasticCloudMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudMode$ {
-  /** @deprecated use `OutputElasticCloudMode$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloudMode$inboundSchema;
-  /** @deprecated use `OutputElasticCloudMode$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCloudMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputElasticCloudCompression$inboundSchema: z.ZodType<
@@ -858,7 +712,6 @@ export const OutputElasticCloudCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticCloudCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticCloudCompression$outboundSchema: z.ZodType<
   OutputElasticCloudCompression,
@@ -868,17 +721,6 @@ export const OutputElasticCloudCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputElasticCloudCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudCompression$ {
-  /** @deprecated use `OutputElasticCloudCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloudCompression$inboundSchema;
-  /** @deprecated use `OutputElasticCloudCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCloudCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputElasticCloudQueueFullBehavior$inboundSchema: z.ZodType<
@@ -890,7 +732,6 @@ export const OutputElasticCloudQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticCloudQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticCloudQueueFullBehavior$outboundSchema: z.ZodType<
   OutputElasticCloudQueueFullBehavior,
@@ -901,26 +742,12 @@ export const OutputElasticCloudQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudQueueFullBehavior$ {
-  /** @deprecated use `OutputElasticCloudQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputElasticCloudQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputElasticCloudQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticCloudQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputElasticCloudPqControls$inboundSchema: z.ZodType<
   OutputElasticCloudPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputElasticCloudPqControls$Outbound = {};
 
@@ -931,19 +758,6 @@ export const OutputElasticCloudPqControls$outboundSchema: z.ZodType<
   OutputElasticCloudPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloudPqControls$ {
-  /** @deprecated use `OutputElasticCloudPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloudPqControls$inboundSchema;
-  /** @deprecated use `OutputElasticCloudPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCloudPqControls$outboundSchema;
-  /** @deprecated use `OutputElasticCloudPqControls$Outbound` instead. */
-  export type Outbound = OutputElasticCloudPqControls$Outbound;
-}
-
 export function outputElasticCloudPqControlsToJSON(
   outputElasticCloudPqControls: OutputElasticCloudPqControls,
 ): string {
@@ -953,7 +767,6 @@ export function outputElasticCloudPqControlsToJSON(
     ),
   );
 }
-
 export function outputElasticCloudPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticCloudPqControls, SDKValidationError> {
@@ -1022,7 +835,6 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputElasticCloudPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputElasticCloud$Outbound = {
   id?: string | undefined;
@@ -1131,19 +943,6 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCloud$ {
-  /** @deprecated use `OutputElasticCloud$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCloud$inboundSchema;
-  /** @deprecated use `OutputElasticCloud$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCloud$outboundSchema;
-  /** @deprecated use `OutputElasticCloud$Outbound` instead. */
-  export type Outbound = OutputElasticCloud$Outbound;
-}
-
 export function outputElasticCloudToJSON(
   outputElasticCloud: OutputElasticCloud,
 ): string {
@@ -1151,7 +950,6 @@ export function outputElasticCloudToJSON(
     OutputElasticCloud$outboundSchema.parse(outputElasticCloud),
   );
 }
-
 export function outputElasticCloudFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticCloud, SDKValidationError> {

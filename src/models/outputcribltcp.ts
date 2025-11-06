@@ -95,6 +95,18 @@ export type OutputCriblTcpTLSSettingsClientSide = {
   maxVersion?: OutputCriblTcpMaximumTLSVersion | undefined;
 };
 
+export type OutputCriblTcpAuthToken = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  /**
+   * Optional token description
+   */
+  description?: string | undefined;
+};
+
 /**
  * How to handle events when all receivers are exerting backpressure
  */
@@ -270,6 +282,10 @@ export type OutputCriblTcp = {
    */
   tokenTTLMinutes?: number | undefined;
   /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<OutputCriblTcpAuthToken> | undefined;
+  /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
   excludeFields?: Array<string> | undefined;
@@ -353,22 +369,10 @@ export type OutputCriblTcp = {
 export const OutputCriblTcpType$inboundSchema: z.ZodNativeEnum<
   typeof OutputCriblTcpType
 > = z.nativeEnum(OutputCriblTcpType);
-
 /** @internal */
 export const OutputCriblTcpType$outboundSchema: z.ZodNativeEnum<
   typeof OutputCriblTcpType
 > = OutputCriblTcpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpType$ {
-  /** @deprecated use `OutputCriblTcpType$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpType$inboundSchema;
-  /** @deprecated use `OutputCriblTcpType$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpType$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblTcpCompression$inboundSchema: z.ZodType<
@@ -380,7 +384,6 @@ export const OutputCriblTcpCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblTcpCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblTcpCompression$outboundSchema: z.ZodType<
   OutputCriblTcpCompression,
@@ -390,17 +393,6 @@ export const OutputCriblTcpCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblTcpCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpCompression$ {
-  /** @deprecated use `OutputCriblTcpCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpCompression$inboundSchema;
-  /** @deprecated use `OutputCriblTcpCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblTcpMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -412,7 +404,6 @@ export const OutputCriblTcpMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblTcpMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblTcpMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputCriblTcpMinimumTLSVersion,
@@ -422,17 +413,6 @@ export const OutputCriblTcpMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblTcpMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpMinimumTLSVersion$ {
-  /** @deprecated use `OutputCriblTcpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputCriblTcpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblTcpMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -444,7 +424,6 @@ export const OutputCriblTcpMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblTcpMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblTcpMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputCriblTcpMaximumTLSVersion,
@@ -454,17 +433,6 @@ export const OutputCriblTcpMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblTcpMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpMaximumTLSVersion$ {
-  /** @deprecated use `OutputCriblTcpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputCriblTcpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblTcpTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -483,7 +451,6 @@ export const OutputCriblTcpTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputCriblTcpMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputCriblTcpMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputCriblTcpTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -516,21 +483,6 @@ export const OutputCriblTcpTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputCriblTcpMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpTLSSettingsClientSide$ {
-  /** @deprecated use `OutputCriblTcpTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblTcpTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputCriblTcpTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblTcpTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputCriblTcpTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputCriblTcpTLSSettingsClientSide$Outbound;
-}
-
 export function outputCriblTcpTLSSettingsClientSideToJSON(
   outputCriblTcpTLSSettingsClientSide: OutputCriblTcpTLSSettingsClientSide,
 ): string {
@@ -540,7 +492,6 @@ export function outputCriblTcpTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputCriblTcpTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblTcpTLSSettingsClientSide, SDKValidationError> {
@@ -549,6 +500,51 @@ export function outputCriblTcpTLSSettingsClientSideFromJSON(
     (x) =>
       OutputCriblTcpTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputCriblTcpTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblTcpAuthToken$inboundSchema: z.ZodType<
+  OutputCriblTcpAuthToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+/** @internal */
+export type OutputCriblTcpAuthToken$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputCriblTcpAuthToken$outboundSchema: z.ZodType<
+  OutputCriblTcpAuthToken$Outbound,
+  z.ZodTypeDef,
+  OutputCriblTcpAuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function outputCriblTcpAuthTokenToJSON(
+  outputCriblTcpAuthToken: OutputCriblTcpAuthToken,
+): string {
+  return JSON.stringify(
+    OutputCriblTcpAuthToken$outboundSchema.parse(outputCriblTcpAuthToken),
+  );
+}
+export function outputCriblTcpAuthTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblTcpAuthToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblTcpAuthToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblTcpAuthToken' from JSON`,
   );
 }
 
@@ -562,7 +558,6 @@ export const OutputCriblTcpBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblTcpBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblTcpBackpressureBehavior$outboundSchema: z.ZodType<
   OutputCriblTcpBackpressureBehavior,
@@ -572,18 +567,6 @@ export const OutputCriblTcpBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblTcpBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpBackpressureBehavior$ {
-  /** @deprecated use `OutputCriblTcpBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCriblTcpBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblTcpBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblTcpTLS$inboundSchema: z.ZodType<
@@ -595,7 +578,6 @@ export const OutputCriblTcpTLS$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblTcpTLS),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblTcpTLS$outboundSchema: z.ZodType<
   OutputCriblTcpTLS,
@@ -605,17 +587,6 @@ export const OutputCriblTcpTLS$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblTcpTLS),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpTLS$ {
-  /** @deprecated use `OutputCriblTcpTLS$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpTLS$inboundSchema;
-  /** @deprecated use `OutputCriblTcpTLS$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpTLS$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblTcpHost$inboundSchema: z.ZodType<
@@ -629,7 +600,6 @@ export const OutputCriblTcpHost$inboundSchema: z.ZodType<
   servername: z.string().optional(),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputCriblTcpHost$Outbound = {
   host: string;
@@ -652,19 +622,6 @@ export const OutputCriblTcpHost$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpHost$ {
-  /** @deprecated use `OutputCriblTcpHost$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpHost$inboundSchema;
-  /** @deprecated use `OutputCriblTcpHost$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpHost$outboundSchema;
-  /** @deprecated use `OutputCriblTcpHost$Outbound` instead. */
-  export type Outbound = OutputCriblTcpHost$Outbound;
-}
-
 export function outputCriblTcpHostToJSON(
   outputCriblTcpHost: OutputCriblTcpHost,
 ): string {
@@ -672,7 +629,6 @@ export function outputCriblTcpHostToJSON(
     OutputCriblTcpHost$outboundSchema.parse(outputCriblTcpHost),
   );
 }
-
 export function outputCriblTcpHostFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblTcpHost, SDKValidationError> {
@@ -693,7 +649,6 @@ export const OutputCriblTcpMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblTcpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblTcpMode$outboundSchema: z.ZodType<
   OutputCriblTcpMode,
@@ -703,17 +658,6 @@ export const OutputCriblTcpMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblTcpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpMode$ {
-  /** @deprecated use `OutputCriblTcpMode$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpMode$inboundSchema;
-  /** @deprecated use `OutputCriblTcpMode$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblTcpPqCompressCompression$inboundSchema: z.ZodType<
@@ -725,7 +669,6 @@ export const OutputCriblTcpPqCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblTcpPqCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblTcpPqCompressCompression$outboundSchema: z.ZodType<
   OutputCriblTcpPqCompressCompression,
@@ -735,19 +678,6 @@ export const OutputCriblTcpPqCompressCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblTcpPqCompressCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpPqCompressCompression$ {
-  /** @deprecated use `OutputCriblTcpPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblTcpPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputCriblTcpPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblTcpPqCompressCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblTcpQueueFullBehavior$inboundSchema: z.ZodType<
@@ -759,7 +689,6 @@ export const OutputCriblTcpQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblTcpQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblTcpQueueFullBehavior$outboundSchema: z.ZodType<
   OutputCriblTcpQueueFullBehavior,
@@ -770,24 +699,12 @@ export const OutputCriblTcpQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpQueueFullBehavior$ {
-  /** @deprecated use `OutputCriblTcpQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputCriblTcpQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputCriblTcpPqControls$inboundSchema: z.ZodType<
   OutputCriblTcpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputCriblTcpPqControls$Outbound = {};
 
@@ -798,19 +715,6 @@ export const OutputCriblTcpPqControls$outboundSchema: z.ZodType<
   OutputCriblTcpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcpPqControls$ {
-  /** @deprecated use `OutputCriblTcpPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcpPqControls$inboundSchema;
-  /** @deprecated use `OutputCriblTcpPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcpPqControls$outboundSchema;
-  /** @deprecated use `OutputCriblTcpPqControls$Outbound` instead. */
-  export type Outbound = OutputCriblTcpPqControls$Outbound;
-}
-
 export function outputCriblTcpPqControlsToJSON(
   outputCriblTcpPqControls: OutputCriblTcpPqControls,
 ): string {
@@ -818,7 +722,6 @@ export function outputCriblTcpPqControlsToJSON(
     OutputCriblTcpPqControls$outboundSchema.parse(outputCriblTcpPqControls),
   );
 }
-
 export function outputCriblTcpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblTcpPqControls, SDKValidationError> {
@@ -850,6 +753,8 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
   tokenTTLMinutes: z.number().default(60),
+  authTokens: z.array(z.lazy(() => OutputCriblTcpAuthToken$inboundSchema))
+    .optional(),
   excludeFields: z.array(z.string()).optional(),
   onBackpressure: OutputCriblTcpBackpressureBehavior$inboundSchema.default(
     "block",
@@ -876,7 +781,6 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputCriblTcpPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputCriblTcp$Outbound = {
   id?: string | undefined;
@@ -893,6 +797,7 @@ export type OutputCriblTcp$Outbound = {
   connectionTimeout: number;
   writeTimeout: number;
   tokenTTLMinutes: number;
+  authTokens?: Array<OutputCriblTcpAuthToken$Outbound> | undefined;
   excludeFields?: Array<string> | undefined;
   onBackpressure: string;
   description?: string | undefined;
@@ -937,6 +842,8 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
   tokenTTLMinutes: z.number().default(60),
+  authTokens: z.array(z.lazy(() => OutputCriblTcpAuthToken$outboundSchema))
+    .optional(),
   excludeFields: z.array(z.string()).optional(),
   onBackpressure: OutputCriblTcpBackpressureBehavior$outboundSchema.default(
     "block",
@@ -966,23 +873,9 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputCriblTcpPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblTcp$ {
-  /** @deprecated use `OutputCriblTcp$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblTcp$inboundSchema;
-  /** @deprecated use `OutputCriblTcp$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblTcp$outboundSchema;
-  /** @deprecated use `OutputCriblTcp$Outbound` instead. */
-  export type Outbound = OutputCriblTcp$Outbound;
-}
-
 export function outputCriblTcpToJSON(outputCriblTcp: OutputCriblTcp): string {
   return JSON.stringify(OutputCriblTcp$outboundSchema.parse(outputCriblTcp));
 }
-
 export function outputCriblTcpFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblTcp, SDKValidationError> {

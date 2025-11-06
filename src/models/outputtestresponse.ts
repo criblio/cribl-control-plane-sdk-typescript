@@ -28,49 +28,6 @@ export const OutputTestResponse$inboundSchema: z.ZodType<
   successDetail: z.string().optional(),
 });
 
-/** @internal */
-export type OutputTestResponse$Outbound = {
-  details?: { [k: string]: any } | undefined;
-  error?: string | undefined;
-  outputId: string;
-  success: boolean;
-  successDetail?: string | undefined;
-};
-
-/** @internal */
-export const OutputTestResponse$outboundSchema: z.ZodType<
-  OutputTestResponse$Outbound,
-  z.ZodTypeDef,
-  OutputTestResponse
-> = z.object({
-  details: z.record(z.any()).optional(),
-  error: z.string().optional(),
-  outputId: z.string(),
-  success: z.boolean(),
-  successDetail: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTestResponse$ {
-  /** @deprecated use `OutputTestResponse$inboundSchema` instead. */
-  export const inboundSchema = OutputTestResponse$inboundSchema;
-  /** @deprecated use `OutputTestResponse$outboundSchema` instead. */
-  export const outboundSchema = OutputTestResponse$outboundSchema;
-  /** @deprecated use `OutputTestResponse$Outbound` instead. */
-  export type Outbound = OutputTestResponse$Outbound;
-}
-
-export function outputTestResponseToJSON(
-  outputTestResponse: OutputTestResponse,
-): string {
-  return JSON.stringify(
-    OutputTestResponse$outboundSchema.parse(outputTestResponse),
-  );
-}
-
 export function outputTestResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputTestResponse, SDKValidationError> {

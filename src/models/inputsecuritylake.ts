@@ -336,22 +336,10 @@ export type InputSecurityLake = {
 export const InputSecurityLakeType$inboundSchema: z.ZodNativeEnum<
   typeof InputSecurityLakeType
 > = z.nativeEnum(InputSecurityLakeType);
-
 /** @internal */
 export const InputSecurityLakeType$outboundSchema: z.ZodNativeEnum<
   typeof InputSecurityLakeType
 > = InputSecurityLakeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeType$ {
-  /** @deprecated use `InputSecurityLakeType$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakeType$inboundSchema;
-  /** @deprecated use `InputSecurityLakeType$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakeType$outboundSchema;
-}
 
 /** @internal */
 export const InputSecurityLakeConnection$inboundSchema: z.ZodType<
@@ -362,7 +350,6 @@ export const InputSecurityLakeConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputSecurityLakeConnection$Outbound = {
   pipeline?: string | undefined;
@@ -379,19 +366,6 @@ export const InputSecurityLakeConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeConnection$ {
-  /** @deprecated use `InputSecurityLakeConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakeConnection$inboundSchema;
-  /** @deprecated use `InputSecurityLakeConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakeConnection$outboundSchema;
-  /** @deprecated use `InputSecurityLakeConnection$Outbound` instead. */
-  export type Outbound = InputSecurityLakeConnection$Outbound;
-}
-
 export function inputSecurityLakeConnectionToJSON(
   inputSecurityLakeConnection: InputSecurityLakeConnection,
 ): string {
@@ -401,7 +375,6 @@ export function inputSecurityLakeConnectionToJSON(
     ),
   );
 }
-
 export function inputSecurityLakeConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSecurityLakeConnection, SDKValidationError> {
@@ -422,7 +395,6 @@ export const InputSecurityLakeMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputSecurityLakeMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSecurityLakeMode$outboundSchema: z.ZodType<
   InputSecurityLakeMode,
@@ -432,17 +404,6 @@ export const InputSecurityLakeMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputSecurityLakeMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeMode$ {
-  /** @deprecated use `InputSecurityLakeMode$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakeMode$inboundSchema;
-  /** @deprecated use `InputSecurityLakeMode$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakeMode$outboundSchema;
-}
 
 /** @internal */
 export const InputSecurityLakeCompression$inboundSchema: z.ZodType<
@@ -454,7 +415,6 @@ export const InputSecurityLakeCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputSecurityLakeCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSecurityLakeCompression$outboundSchema: z.ZodType<
   InputSecurityLakeCompression,
@@ -465,24 +425,12 @@ export const InputSecurityLakeCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeCompression$ {
-  /** @deprecated use `InputSecurityLakeCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakeCompression$inboundSchema;
-  /** @deprecated use `InputSecurityLakeCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakeCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputSecurityLakePqControls$inboundSchema: z.ZodType<
   InputSecurityLakePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputSecurityLakePqControls$Outbound = {};
 
@@ -493,19 +441,6 @@ export const InputSecurityLakePqControls$outboundSchema: z.ZodType<
   InputSecurityLakePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakePqControls$ {
-  /** @deprecated use `InputSecurityLakePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakePqControls$inboundSchema;
-  /** @deprecated use `InputSecurityLakePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakePqControls$outboundSchema;
-  /** @deprecated use `InputSecurityLakePqControls$Outbound` instead. */
-  export type Outbound = InputSecurityLakePqControls$Outbound;
-}
-
 export function inputSecurityLakePqControlsToJSON(
   inputSecurityLakePqControls: InputSecurityLakePqControls,
 ): string {
@@ -515,7 +450,6 @@ export function inputSecurityLakePqControlsToJSON(
     ),
   );
 }
-
 export function inputSecurityLakePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSecurityLakePqControls, SDKValidationError> {
@@ -542,7 +476,6 @@ export const InputSecurityLakePq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputSecurityLakePqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputSecurityLakePq$Outbound = {
   mode: string;
@@ -572,19 +505,6 @@ export const InputSecurityLakePq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakePq$ {
-  /** @deprecated use `InputSecurityLakePq$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakePq$inboundSchema;
-  /** @deprecated use `InputSecurityLakePq$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakePq$outboundSchema;
-  /** @deprecated use `InputSecurityLakePq$Outbound` instead. */
-  export type Outbound = InputSecurityLakePq$Outbound;
-}
-
 export function inputSecurityLakePqToJSON(
   inputSecurityLakePq: InputSecurityLakePq,
 ): string {
@@ -592,7 +512,6 @@ export function inputSecurityLakePqToJSON(
     InputSecurityLakePq$outboundSchema.parse(inputSecurityLakePq),
   );
 }
-
 export function inputSecurityLakePqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSecurityLakePq, SDKValidationError> {
@@ -613,7 +532,6 @@ export const InputSecurityLakeAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputSecurityLakeAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
   InputSecurityLakeAuthenticationMethod,
@@ -623,19 +541,6 @@ export const InputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputSecurityLakeAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeAuthenticationMethod$ {
-  /** @deprecated use `InputSecurityLakeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputSecurityLakeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputSecurityLakeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSecurityLakeAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
@@ -647,7 +552,6 @@ export const InputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputSecurityLakeSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
   InputSecurityLakeSignatureVersion,
@@ -657,18 +561,6 @@ export const InputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputSecurityLakeSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeSignatureVersion$ {
-  /** @deprecated use `InputSecurityLakeSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakeSignatureVersion$inboundSchema;
-  /** @deprecated use `InputSecurityLakeSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSecurityLakeSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputSecurityLakePreprocess$inboundSchema: z.ZodType<
@@ -680,7 +572,6 @@ export const InputSecurityLakePreprocess$inboundSchema: z.ZodType<
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
 });
-
 /** @internal */
 export type InputSecurityLakePreprocess$Outbound = {
   disabled: boolean;
@@ -699,19 +590,6 @@ export const InputSecurityLakePreprocess$outboundSchema: z.ZodType<
   args: z.array(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakePreprocess$ {
-  /** @deprecated use `InputSecurityLakePreprocess$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakePreprocess$inboundSchema;
-  /** @deprecated use `InputSecurityLakePreprocess$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakePreprocess$outboundSchema;
-  /** @deprecated use `InputSecurityLakePreprocess$Outbound` instead. */
-  export type Outbound = InputSecurityLakePreprocess$Outbound;
-}
-
 export function inputSecurityLakePreprocessToJSON(
   inputSecurityLakePreprocess: InputSecurityLakePreprocess,
 ): string {
@@ -721,7 +599,6 @@ export function inputSecurityLakePreprocessToJSON(
     ),
   );
 }
-
 export function inputSecurityLakePreprocessFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSecurityLakePreprocess, SDKValidationError> {
@@ -741,7 +618,6 @@ export const InputSecurityLakeMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputSecurityLakeMetadatum$Outbound = {
   name: string;
@@ -758,19 +634,6 @@ export const InputSecurityLakeMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeMetadatum$ {
-  /** @deprecated use `InputSecurityLakeMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakeMetadatum$inboundSchema;
-  /** @deprecated use `InputSecurityLakeMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakeMetadatum$outboundSchema;
-  /** @deprecated use `InputSecurityLakeMetadatum$Outbound` instead. */
-  export type Outbound = InputSecurityLakeMetadatum$Outbound;
-}
-
 export function inputSecurityLakeMetadatumToJSON(
   inputSecurityLakeMetadatum: InputSecurityLakeMetadatum,
 ): string {
@@ -778,7 +641,6 @@ export function inputSecurityLakeMetadatumToJSON(
     InputSecurityLakeMetadatum$outboundSchema.parse(inputSecurityLakeMetadatum),
   );
 }
-
 export function inputSecurityLakeMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSecurityLakeMetadatum, SDKValidationError> {
@@ -798,7 +660,6 @@ export const InputSecurityLakeCheckpointing$inboundSchema: z.ZodType<
   enabled: z.boolean().default(false),
   retries: z.number().default(5),
 });
-
 /** @internal */
 export type InputSecurityLakeCheckpointing$Outbound = {
   enabled: boolean;
@@ -815,19 +676,6 @@ export const InputSecurityLakeCheckpointing$outboundSchema: z.ZodType<
   retries: z.number().default(5),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeCheckpointing$ {
-  /** @deprecated use `InputSecurityLakeCheckpointing$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLakeCheckpointing$inboundSchema;
-  /** @deprecated use `InputSecurityLakeCheckpointing$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLakeCheckpointing$outboundSchema;
-  /** @deprecated use `InputSecurityLakeCheckpointing$Outbound` instead. */
-  export type Outbound = InputSecurityLakeCheckpointing$Outbound;
-}
-
 export function inputSecurityLakeCheckpointingToJSON(
   inputSecurityLakeCheckpointing: InputSecurityLakeCheckpointing,
 ): string {
@@ -837,7 +685,6 @@ export function inputSecurityLakeCheckpointingToJSON(
     ),
   );
 }
-
 export function inputSecurityLakeCheckpointingFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSecurityLakeCheckpointing, SDKValidationError> {
@@ -858,7 +705,6 @@ export const InputSecurityLakeTagAfterProcessing$inboundSchema: z.ZodType<
     z.nativeEnum(InputSecurityLakeTagAfterProcessing),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSecurityLakeTagAfterProcessing$outboundSchema: z.ZodType<
   InputSecurityLakeTagAfterProcessing,
@@ -868,19 +714,6 @@ export const InputSecurityLakeTagAfterProcessing$outboundSchema: z.ZodType<
   z.nativeEnum(InputSecurityLakeTagAfterProcessing),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLakeTagAfterProcessing$ {
-  /** @deprecated use `InputSecurityLakeTagAfterProcessing$inboundSchema` instead. */
-  export const inboundSchema =
-    InputSecurityLakeTagAfterProcessing$inboundSchema;
-  /** @deprecated use `InputSecurityLakeTagAfterProcessing$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSecurityLakeTagAfterProcessing$outboundSchema;
-}
 
 /** @internal */
 export const InputSecurityLake$inboundSchema: z.ZodType<
@@ -943,7 +776,6 @@ export const InputSecurityLake$inboundSchema: z.ZodType<
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
-
 /** @internal */
 export type InputSecurityLake$Outbound = {
   id?: string | undefined;
@@ -1056,19 +888,6 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
   processedTagValue: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSecurityLake$ {
-  /** @deprecated use `InputSecurityLake$inboundSchema` instead. */
-  export const inboundSchema = InputSecurityLake$inboundSchema;
-  /** @deprecated use `InputSecurityLake$outboundSchema` instead. */
-  export const outboundSchema = InputSecurityLake$outboundSchema;
-  /** @deprecated use `InputSecurityLake$Outbound` instead. */
-  export type Outbound = InputSecurityLake$Outbound;
-}
-
 export function inputSecurityLakeToJSON(
   inputSecurityLake: InputSecurityLake,
 ): string {
@@ -1076,7 +895,6 @@ export function inputSecurityLakeToJSON(
     InputSecurityLake$outboundSchema.parse(inputSecurityLake),
   );
 }
-
 export function inputSecurityLakeFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSecurityLake, SDKValidationError> {

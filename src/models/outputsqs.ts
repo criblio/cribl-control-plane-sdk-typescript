@@ -316,22 +316,10 @@ export type OutputSqs = {
 export const OutputSqsType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSqsType
 > = z.nativeEnum(OutputSqsType);
-
 /** @internal */
 export const OutputSqsType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSqsType
 > = OutputSqsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsType$ {
-  /** @deprecated use `OutputSqsType$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsType$inboundSchema;
-  /** @deprecated use `OutputSqsType$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSqsQueueType$inboundSchema: z.ZodType<
@@ -343,7 +331,6 @@ export const OutputSqsQueueType$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSqsQueueType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSqsQueueType$outboundSchema: z.ZodType<
   OutputSqsQueueType,
@@ -353,17 +340,6 @@ export const OutputSqsQueueType$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSqsQueueType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsQueueType$ {
-  /** @deprecated use `OutputSqsQueueType$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsQueueType$inboundSchema;
-  /** @deprecated use `OutputSqsQueueType$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsQueueType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSqsAuthenticationMethod$inboundSchema: z.ZodType<
@@ -375,7 +351,6 @@ export const OutputSqsAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSqsAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSqsAuthenticationMethod$outboundSchema: z.ZodType<
   OutputSqsAuthenticationMethod,
@@ -385,17 +360,6 @@ export const OutputSqsAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSqsAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsAuthenticationMethod$ {
-  /** @deprecated use `OutputSqsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSqsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputSqsSignatureVersion$inboundSchema: z.ZodType<
@@ -407,7 +371,6 @@ export const OutputSqsSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSqsSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSqsSignatureVersion$outboundSchema: z.ZodType<
   OutputSqsSignatureVersion,
@@ -417,17 +380,6 @@ export const OutputSqsSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSqsSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsSignatureVersion$ {
-  /** @deprecated use `OutputSqsSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputSqsSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSqsBackpressureBehavior$inboundSchema: z.ZodType<
@@ -439,7 +391,6 @@ export const OutputSqsBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSqsBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSqsBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSqsBackpressureBehavior,
@@ -449,17 +400,6 @@ export const OutputSqsBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSqsBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsBackpressureBehavior$ {
-  /** @deprecated use `OutputSqsBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSqsBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputSqsMode$inboundSchema: z.ZodType<
@@ -471,7 +411,6 @@ export const OutputSqsMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSqsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSqsMode$outboundSchema: z.ZodType<
   OutputSqsMode,
@@ -481,17 +420,6 @@ export const OutputSqsMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSqsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsMode$ {
-  /** @deprecated use `OutputSqsMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsMode$inboundSchema;
-  /** @deprecated use `OutputSqsMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSqsCompression$inboundSchema: z.ZodType<
@@ -503,7 +431,6 @@ export const OutputSqsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSqsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSqsCompression$outboundSchema: z.ZodType<
   OutputSqsCompression,
@@ -513,17 +440,6 @@ export const OutputSqsCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSqsCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsCompression$ {
-  /** @deprecated use `OutputSqsCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsCompression$inboundSchema;
-  /** @deprecated use `OutputSqsCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputSqsQueueFullBehavior$inboundSchema: z.ZodType<
@@ -535,7 +451,6 @@ export const OutputSqsQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSqsQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSqsQueueFullBehavior$outboundSchema: z.ZodType<
   OutputSqsQueueFullBehavior,
@@ -546,24 +461,12 @@ export const OutputSqsQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsQueueFullBehavior$ {
-  /** @deprecated use `OutputSqsQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSqsQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSqsPqControls$inboundSchema: z.ZodType<
   OutputSqsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSqsPqControls$Outbound = {};
 
@@ -574,19 +477,6 @@ export const OutputSqsPqControls$outboundSchema: z.ZodType<
   OutputSqsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsPqControls$ {
-  /** @deprecated use `OutputSqsPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsPqControls$inboundSchema;
-  /** @deprecated use `OutputSqsPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsPqControls$outboundSchema;
-  /** @deprecated use `OutputSqsPqControls$Outbound` instead. */
-  export type Outbound = OutputSqsPqControls$Outbound;
-}
-
 export function outputSqsPqControlsToJSON(
   outputSqsPqControls: OutputSqsPqControls,
 ): string {
@@ -594,7 +484,6 @@ export function outputSqsPqControlsToJSON(
     OutputSqsPqControls$outboundSchema.parse(outputSqsPqControls),
   );
 }
-
 export function outputSqsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSqsPqControls, SDKValidationError> {
@@ -655,7 +544,6 @@ export const OutputSqs$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputSqsQueueFullBehavior$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputSqsPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputSqs$Outbound = {
   id?: string | undefined;
@@ -752,23 +640,9 @@ export const OutputSqs$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSqsPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqs$ {
-  /** @deprecated use `OutputSqs$inboundSchema` instead. */
-  export const inboundSchema = OutputSqs$inboundSchema;
-  /** @deprecated use `OutputSqs$outboundSchema` instead. */
-  export const outboundSchema = OutputSqs$outboundSchema;
-  /** @deprecated use `OutputSqs$Outbound` instead. */
-  export type Outbound = OutputSqs$Outbound;
-}
-
 export function outputSqsToJSON(outputSqs: OutputSqs): string {
   return JSON.stringify(OutputSqs$outboundSchema.parse(outputSqs));
 }
-
 export function outputSqsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSqs, SDKValidationError> {

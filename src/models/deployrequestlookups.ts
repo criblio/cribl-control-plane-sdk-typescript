@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type DeployRequestLookupsLookup = {
   file: string;
@@ -16,16 +13,6 @@ export type DeployRequestLookups = {
   context: string;
   lookups: Array<DeployRequestLookupsLookup>;
 };
-
-/** @internal */
-export const DeployRequestLookupsLookup$inboundSchema: z.ZodType<
-  DeployRequestLookupsLookup,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  file: z.string(),
-  version: z.string(),
-});
 
 /** @internal */
 export type DeployRequestLookupsLookup$Outbound = {
@@ -43,19 +30,6 @@ export const DeployRequestLookupsLookup$outboundSchema: z.ZodType<
   version: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeployRequestLookupsLookup$ {
-  /** @deprecated use `DeployRequestLookupsLookup$inboundSchema` instead. */
-  export const inboundSchema = DeployRequestLookupsLookup$inboundSchema;
-  /** @deprecated use `DeployRequestLookupsLookup$outboundSchema` instead. */
-  export const outboundSchema = DeployRequestLookupsLookup$outboundSchema;
-  /** @deprecated use `DeployRequestLookupsLookup$Outbound` instead. */
-  export type Outbound = DeployRequestLookupsLookup$Outbound;
-}
-
 export function deployRequestLookupsLookupToJSON(
   deployRequestLookupsLookup: DeployRequestLookupsLookup,
 ): string {
@@ -63,26 +37,6 @@ export function deployRequestLookupsLookupToJSON(
     DeployRequestLookupsLookup$outboundSchema.parse(deployRequestLookupsLookup),
   );
 }
-
-export function deployRequestLookupsLookupFromJSON(
-  jsonString: string,
-): SafeParseResult<DeployRequestLookupsLookup, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeployRequestLookupsLookup$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeployRequestLookupsLookup' from JSON`,
-  );
-}
-
-/** @internal */
-export const DeployRequestLookups$inboundSchema: z.ZodType<
-  DeployRequestLookups,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  context: z.string(),
-  lookups: z.array(z.lazy(() => DeployRequestLookupsLookup$inboundSchema)),
-});
 
 /** @internal */
 export type DeployRequestLookups$Outbound = {
@@ -100,33 +54,10 @@ export const DeployRequestLookups$outboundSchema: z.ZodType<
   lookups: z.array(z.lazy(() => DeployRequestLookupsLookup$outboundSchema)),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeployRequestLookups$ {
-  /** @deprecated use `DeployRequestLookups$inboundSchema` instead. */
-  export const inboundSchema = DeployRequestLookups$inboundSchema;
-  /** @deprecated use `DeployRequestLookups$outboundSchema` instead. */
-  export const outboundSchema = DeployRequestLookups$outboundSchema;
-  /** @deprecated use `DeployRequestLookups$Outbound` instead. */
-  export type Outbound = DeployRequestLookups$Outbound;
-}
-
 export function deployRequestLookupsToJSON(
   deployRequestLookups: DeployRequestLookups,
 ): string {
   return JSON.stringify(
     DeployRequestLookups$outboundSchema.parse(deployRequestLookups),
-  );
-}
-
-export function deployRequestLookupsFromJSON(
-  jsonString: string,
-): SafeParseResult<DeployRequestLookups, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeployRequestLookups$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeployRequestLookups' from JSON`,
   );
 }

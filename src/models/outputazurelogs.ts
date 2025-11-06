@@ -344,22 +344,10 @@ export type OutputAzureLogs = {
 export const OutputAzureLogsType$inboundSchema: z.ZodNativeEnum<
   typeof OutputAzureLogsType
 > = z.nativeEnum(OutputAzureLogsType);
-
 /** @internal */
 export const OutputAzureLogsType$outboundSchema: z.ZodNativeEnum<
   typeof OutputAzureLogsType
 > = OutputAzureLogsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsType$ {
-  /** @deprecated use `OutputAzureLogsType$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsType$inboundSchema;
-  /** @deprecated use `OutputAzureLogsType$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsType$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureLogsExtraHttpHeader$inboundSchema: z.ZodType<
@@ -370,7 +358,6 @@ export const OutputAzureLogsExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputAzureLogsExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -387,19 +374,6 @@ export const OutputAzureLogsExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsExtraHttpHeader$ {
-  /** @deprecated use `OutputAzureLogsExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputAzureLogsExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputAzureLogsExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputAzureLogsExtraHttpHeader$Outbound;
-}
-
 export function outputAzureLogsExtraHttpHeaderToJSON(
   outputAzureLogsExtraHttpHeader: OutputAzureLogsExtraHttpHeader,
 ): string {
@@ -409,7 +383,6 @@ export function outputAzureLogsExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputAzureLogsExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureLogsExtraHttpHeader, SDKValidationError> {
@@ -430,7 +403,6 @@ export const OutputAzureLogsFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureLogsFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureLogsFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputAzureLogsFailedRequestLoggingMode,
@@ -440,19 +412,6 @@ export const OutputAzureLogsFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureLogsFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputAzureLogsFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputAzureLogsFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureLogsResponseRetrySetting$inboundSchema: z.ZodType<
@@ -465,7 +424,6 @@ export const OutputAzureLogsResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputAzureLogsResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -486,21 +444,6 @@ export const OutputAzureLogsResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsResponseRetrySetting$ {
-  /** @deprecated use `OutputAzureLogsResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputAzureLogsResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputAzureLogsResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputAzureLogsResponseRetrySetting$Outbound;
-}
-
 export function outputAzureLogsResponseRetrySettingToJSON(
   outputAzureLogsResponseRetrySetting: OutputAzureLogsResponseRetrySetting,
 ): string {
@@ -510,7 +453,6 @@ export function outputAzureLogsResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputAzureLogsResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureLogsResponseRetrySetting, SDKValidationError> {
@@ -533,7 +475,6 @@ export const OutputAzureLogsTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputAzureLogsTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -554,21 +495,6 @@ export const OutputAzureLogsTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsTimeoutRetrySettings$ {
-  /** @deprecated use `OutputAzureLogsTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputAzureLogsTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputAzureLogsTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputAzureLogsTimeoutRetrySettings$Outbound;
-}
-
 export function outputAzureLogsTimeoutRetrySettingsToJSON(
   outputAzureLogsTimeoutRetrySettings: OutputAzureLogsTimeoutRetrySettings,
 ): string {
@@ -578,7 +504,6 @@ export function outputAzureLogsTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputAzureLogsTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureLogsTimeoutRetrySettings, SDKValidationError> {
@@ -600,7 +525,6 @@ export const OutputAzureLogsBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureLogsBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureLogsBackpressureBehavior$outboundSchema: z.ZodType<
   OutputAzureLogsBackpressureBehavior,
@@ -610,19 +534,6 @@ export const OutputAzureLogsBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureLogsBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsBackpressureBehavior$ {
-  /** @deprecated use `OutputAzureLogsBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureLogsBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureLogsAuthenticationMethod$inboundSchema: z.ZodType<
@@ -634,7 +545,6 @@ export const OutputAzureLogsAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureLogsAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureLogsAuthenticationMethod$outboundSchema: z.ZodType<
   OutputAzureLogsAuthenticationMethod,
@@ -644,19 +554,6 @@ export const OutputAzureLogsAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureLogsAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsAuthenticationMethod$ {
-  /** @deprecated use `OutputAzureLogsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputAzureLogsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureLogsMode$inboundSchema: z.ZodType<
@@ -668,7 +565,6 @@ export const OutputAzureLogsMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureLogsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureLogsMode$outboundSchema: z.ZodType<
   OutputAzureLogsMode,
@@ -678,17 +574,6 @@ export const OutputAzureLogsMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureLogsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsMode$ {
-  /** @deprecated use `OutputAzureLogsMode$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsMode$inboundSchema;
-  /** @deprecated use `OutputAzureLogsMode$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureLogsCompression$inboundSchema: z.ZodType<
@@ -700,7 +585,6 @@ export const OutputAzureLogsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureLogsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureLogsCompression$outboundSchema: z.ZodType<
   OutputAzureLogsCompression,
@@ -710,17 +594,6 @@ export const OutputAzureLogsCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureLogsCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsCompression$ {
-  /** @deprecated use `OutputAzureLogsCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsCompression$inboundSchema;
-  /** @deprecated use `OutputAzureLogsCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureLogsQueueFullBehavior$inboundSchema: z.ZodType<
@@ -732,7 +605,6 @@ export const OutputAzureLogsQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureLogsQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureLogsQueueFullBehavior$outboundSchema: z.ZodType<
   OutputAzureLogsQueueFullBehavior,
@@ -743,24 +615,12 @@ export const OutputAzureLogsQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsQueueFullBehavior$ {
-  /** @deprecated use `OutputAzureLogsQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureLogsQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureLogsPqControls$inboundSchema: z.ZodType<
   OutputAzureLogsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputAzureLogsPqControls$Outbound = {};
 
@@ -771,19 +631,6 @@ export const OutputAzureLogsPqControls$outboundSchema: z.ZodType<
   OutputAzureLogsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsPqControls$ {
-  /** @deprecated use `OutputAzureLogsPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsPqControls$inboundSchema;
-  /** @deprecated use `OutputAzureLogsPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsPqControls$outboundSchema;
-  /** @deprecated use `OutputAzureLogsPqControls$Outbound` instead. */
-  export type Outbound = OutputAzureLogsPqControls$Outbound;
-}
-
 export function outputAzureLogsPqControlsToJSON(
   outputAzureLogsPqControls: OutputAzureLogsPqControls,
 ): string {
@@ -791,7 +638,6 @@ export function outputAzureLogsPqControlsToJSON(
     OutputAzureLogsPqControls$outboundSchema.parse(outputAzureLogsPqControls),
   );
 }
-
 export function outputAzureLogsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureLogsPqControls, SDKValidationError> {
@@ -860,7 +706,6 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputAzureLogs$Outbound = {
   id?: string | undefined;
@@ -970,25 +815,11 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   keypairSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogs$ {
-  /** @deprecated use `OutputAzureLogs$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogs$inboundSchema;
-  /** @deprecated use `OutputAzureLogs$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogs$outboundSchema;
-  /** @deprecated use `OutputAzureLogs$Outbound` instead. */
-  export type Outbound = OutputAzureLogs$Outbound;
-}
-
 export function outputAzureLogsToJSON(
   outputAzureLogs: OutputAzureLogs,
 ): string {
   return JSON.stringify(OutputAzureLogs$outboundSchema.parse(outputAzureLogs));
 }
-
 export function outputAzureLogsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureLogs, SDKValidationError> {

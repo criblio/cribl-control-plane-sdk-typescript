@@ -8,7 +8,7 @@ import { NodeProvidedInfo } from "cribl-control-plane/models";
 let value: NodeProvidedInfo = {
   architecture: "<value>",
   aws: {
-    enabled: true,
+    enabled: false,
     instanceId: "<id>",
     region: "<value>",
     tags: {},
@@ -20,29 +20,33 @@ let value: NodeProvidedInfo = {
   cribl: {
     config: {
       featuresRev: "<value>",
-      hbPeriodSeconds: 3261.24,
+      hbPeriodSeconds: 2537.5,
       logStreamEnv: "<value>",
       policyRev: "<value>",
       version: "<value>",
     },
     deploymentId: "<id>",
     disableSNIRouting: false,
-    distMode: "managed-edge",
-    edgeNodes: 6064.13,
+    distMode: "search-supervisor",
+    edgeNodes: 8560.35,
     group: "<value>",
     guid: "<id>",
     installType: "<value>",
     lookupVersions: {},
     master: {
-      host: "frequent-bell.info",
-      port: 9100.63,
+      host: "cultivated-thread.net",
+      port: 7220.5,
       servername: "<value>",
-      tls: true,
+      tls: false,
     },
-    pid: 5354.01,
+    pid: 4540.76,
     socksEnabled: false,
-    startTime: 2370.83,
-    tags: [],
+    startTime: 9276.6,
+    tags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
     version: "<value>",
   },
   env: {
@@ -59,7 +63,7 @@ let value: NodeProvidedInfo = {
   hostname: "tender-thigh.com",
   isSaasWorker: true,
   kube: {
-    enabled: false,
+    enabled: true,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -72,7 +76,7 @@ let value: NodeProvidedInfo = {
   localTime: 813.42,
   metadata: {
     aws: {
-      enabled: false,
+      enabled: true,
       instanceId: "<id>",
       region: "<value>",
       tags: {},
@@ -83,9 +87,8 @@ let value: NodeProvidedInfo = {
       addresses: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
-      enabled: true,
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
@@ -101,8 +104,12 @@ let value: NodeProvidedInfo = {
       source: "<value>",
     },
     os: {
-      addresses: [],
-      enabled: true,
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
@@ -111,18 +118,16 @@ let value: NodeProvidedInfo = {
   os: {
     addresses: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
   outpost: {
     guid: "<id>",
-    host: "bogus-populist.info",
+    host: "definitive-following.info",
   },
   platform: "<value>",
   release: "<value>",
-  totalDiskSpace: 4145.33,
-  totalmem: 5590.59,
+  totalDiskSpace: 5590.59,
+  totalmem: 5398.99,
 };
 ```
 

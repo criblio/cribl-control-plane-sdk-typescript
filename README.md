@@ -288,15 +288,6 @@ run();
 
 * [get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
 
-#### [groups.mappings](docs/sdks/mappings/README.md)
-
-* [activate](docs/sdks/mappings/README.md#activate) - Set a Mapping Ruleset as the active configuration for the specified Cribl product
-* [create](docs/sdks/mappings/README.md#create) - Create a new Mapping Ruleset for the specified Cribl product
-* [list](docs/sdks/mappings/README.md#list) - List all Mapping Rulesets for the specified Cribl product
-* [delete](docs/sdks/mappings/README.md#delete) - Delete the specified Mapping Ruleset from the Worker Group or Edge Fleet
-* [get](docs/sdks/mappings/README.md#get) - Retrieve a Specific Mapping Ruleset
-* [update](docs/sdks/mappings/README.md#update) - Update an existing Mapping Ruleset for a Worker Group or Edge Fleet
-
 ### [health](docs/sdks/health/README.md)
 
 * [get](docs/sdks/health/README.md#get) - Retrieve health status of the server
@@ -419,12 +410,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`groupsDeploy`](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
 - [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group or Edge Fleet
 - [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-- [`groupsMappingsActivate`](docs/sdks/mappings/README.md#activate) - Set a Mapping Ruleset as the active configuration for the specified Cribl product
-- [`groupsMappingsCreate`](docs/sdks/mappings/README.md#create) - Create a new Mapping Ruleset for the specified Cribl product
-- [`groupsMappingsDelete`](docs/sdks/mappings/README.md#delete) - Delete the specified Mapping Ruleset from the Worker Group or Edge Fleet
-- [`groupsMappingsGet`](docs/sdks/mappings/README.md#get) - Retrieve a Specific Mapping Ruleset
-- [`groupsMappingsList`](docs/sdks/mappings/README.md#list) - List all Mapping Rulesets for the specified Cribl product
-- [`groupsMappingsUpdate`](docs/sdks/mappings/README.md#update) - Update an existing Mapping Ruleset for a Worker Group or Edge Fleet
 - [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
 - [`healthGet`](docs/sdks/health/README.md#get) - Retrieve health status of the server
 - [`lakeDatasetsCreate`](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset
@@ -813,7 +798,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 69 methods.*
+* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 63 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

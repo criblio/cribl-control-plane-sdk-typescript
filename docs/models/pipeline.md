@@ -8,36 +8,35 @@ import { Pipeline } from "cribl-control-plane/models";
 let value: Pipeline = {
   id: "<id>",
   conf: {
-    asyncFuncTimeout: 963474,
-    description: "shinny where seldom",
+    asyncFuncTimeout: 152450,
+    description: "outside willfully athwart",
     streamtags: [
       "<value 1>",
-      "<value 2>",
     ],
-    groups: {
-      "key": {
-        name: "<value>",
-        description: "regarding structure but squiggly soupy equally",
-        disabled: false,
-      },
-    },
     functions: [
       {
         id: "<id>",
-        description: "outbid dilate which eyebrow before engage",
+        description: "rudely certainly clinch compromise following verbally",
         disabled: true,
-        final: true,
+        final: false,
         conf: {},
         groupId: "<id>",
       },
     ],
+    groups: {
+      "key": {
+        name: "<value>",
+        description: "boohoo mechanic rowdy whereas vice",
+        disabled: false,
+      },
+    },
   },
 };
 ```
 
 ## Fields
 
-| Field                                            | Type                                             | Required                                         | Description                                      |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| `id`                                             | *string*                                         | :heavy_check_mark:                               | N/A                                              |
-| `conf`                                           | [models.PipelineConf](../models/pipelineconf.md) | :heavy_check_mark:                               | N/A                                              |
+| Field                            | Type                             | Required                         | Description                      |
+| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
+| `id`                             | *string*                         | :heavy_check_mark:               | N/A                              |
+| `conf`                           | [models.Conf](../models/conf.md) | :heavy_check_mark:               | N/A                              |

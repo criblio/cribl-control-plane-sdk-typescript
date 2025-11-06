@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListPipelineResponse](../../models/operations/listpipelineresponse.md)\>**
+**Promise\<[models.CountedListPipeline](../../models/countedlistpipeline.md)\>**
 
 ### Errors
 
@@ -114,13 +114,6 @@ async function run() {
       streamtags: [
         "<value 1>",
       ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
-          disabled: true,
-        },
-      },
       functions: [
         {
           id: "<id>",
@@ -131,6 +124,13 @@ async function run() {
           groupId: "<id>",
         },
       ],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
+          disabled: true,
+        },
+      },
     },
   });
 
@@ -166,13 +166,6 @@ async function run() {
       streamtags: [
         "<value 1>",
       ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
-          disabled: true,
-        },
-      },
       functions: [
         {
           id: "<id>",
@@ -183,6 +176,13 @@ async function run() {
           groupId: "<id>",
         },
       ],
+      groups: {
+        "key": {
+          name: "<value>",
+          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
+          disabled: true,
+        },
+      },
     },
   });
   if (res.ok) {
@@ -207,7 +207,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreatePipelineResponse](../../models/operations/createpipelineresponse.md)\>**
+**Promise\<[models.CountedListPipeline](../../models/countedlistpipeline.md)\>**
 
 ### Errors
 
@@ -287,7 +287,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPipelineByIdResponse](../../models/operations/getpipelinebyidresponse.md)\>**
+**Promise\<[models.CountedListPipeline](../../models/countedlistpipeline.md)\>**
 
 ### Errors
 
@@ -324,13 +324,6 @@ async function run() {
         streamtags: [
           "<value 1>",
         ],
-        groups: {
-          "key": {
-            name: "<value>",
-            description: "definitive ew but busily freely scaly indeed",
-            disabled: true,
-          },
-        },
         functions: [
           {
             id: "<id>",
@@ -341,6 +334,13 @@ async function run() {
             groupId: "<id>",
           },
         ],
+        groups: {
+          "key": {
+            name: "<value>",
+            description: "definitive ew but busily freely scaly indeed",
+            disabled: true,
+          },
+        },
       },
     },
   });
@@ -379,13 +379,6 @@ async function run() {
         streamtags: [
           "<value 1>",
         ],
-        groups: {
-          "key": {
-            name: "<value>",
-            description: "definitive ew but busily freely scaly indeed",
-            disabled: true,
-          },
-        },
         functions: [
           {
             id: "<id>",
@@ -396,6 +389,13 @@ async function run() {
             groupId: "<id>",
           },
         ],
+        groups: {
+          "key": {
+            name: "<value>",
+            description: "definitive ew but busily freely scaly indeed",
+            disabled: true,
+          },
+        },
       },
     },
   });
@@ -421,7 +421,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdatePipelineByIdResponse](../../models/operations/updatepipelinebyidresponse.md)\>**
+**Promise\<[models.CountedListPipeline](../../models/countedlistpipeline.md)\>**
 
 ### Errors
 
@@ -501,7 +501,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeletePipelineByIdResponse](../../models/operations/deletepipelinebyidresponse.md)\>**
+**Promise\<[models.CountedListPipeline](../../models/countedlistpipeline.md)\>**
 
 ### Errors
 

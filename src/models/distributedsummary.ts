@@ -47,53 +47,6 @@ export const DistributedSummaryGroups$inboundSchema: z.ZodType<
   sources: z.number(),
 });
 
-/** @internal */
-export type DistributedSummaryGroups$Outbound = {
-  count: number;
-  destinations: number;
-  packs: number;
-  pipelines: number;
-  quickConnects: number;
-  routes: number;
-  sources: number;
-};
-
-/** @internal */
-export const DistributedSummaryGroups$outboundSchema: z.ZodType<
-  DistributedSummaryGroups$Outbound,
-  z.ZodTypeDef,
-  DistributedSummaryGroups
-> = z.object({
-  count: z.number(),
-  destinations: z.number(),
-  packs: z.number(),
-  pipelines: z.number(),
-  quickConnects: z.number(),
-  routes: z.number(),
-  sources: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DistributedSummaryGroups$ {
-  /** @deprecated use `DistributedSummaryGroups$inboundSchema` instead. */
-  export const inboundSchema = DistributedSummaryGroups$inboundSchema;
-  /** @deprecated use `DistributedSummaryGroups$outboundSchema` instead. */
-  export const outboundSchema = DistributedSummaryGroups$outboundSchema;
-  /** @deprecated use `DistributedSummaryGroups$Outbound` instead. */
-  export type Outbound = DistributedSummaryGroups$Outbound;
-}
-
-export function distributedSummaryGroupsToJSON(
-  distributedSummaryGroups: DistributedSummaryGroups,
-): string {
-  return JSON.stringify(
-    DistributedSummaryGroups$outboundSchema.parse(distributedSummaryGroups),
-  );
-}
-
 export function distributedSummaryGroupsFromJSON(
   jsonString: string,
 ): SafeParseResult<DistributedSummaryGroups, SDKValidationError> {
@@ -119,53 +72,6 @@ export const DistributedSummaryWorkers$inboundSchema: z.ZodType<
   unhealthy: z.number(),
 });
 
-/** @internal */
-export type DistributedSummaryWorkers$Outbound = {
-  alive: number;
-  confVersions: number;
-  count: number;
-  disconnectedCount: number;
-  groups: number;
-  softwareVersions: number;
-  unhealthy: number;
-};
-
-/** @internal */
-export const DistributedSummaryWorkers$outboundSchema: z.ZodType<
-  DistributedSummaryWorkers$Outbound,
-  z.ZodTypeDef,
-  DistributedSummaryWorkers
-> = z.object({
-  alive: z.number(),
-  confVersions: z.number(),
-  count: z.number(),
-  disconnectedCount: z.number(),
-  groups: z.number(),
-  softwareVersions: z.number(),
-  unhealthy: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DistributedSummaryWorkers$ {
-  /** @deprecated use `DistributedSummaryWorkers$inboundSchema` instead. */
-  export const inboundSchema = DistributedSummaryWorkers$inboundSchema;
-  /** @deprecated use `DistributedSummaryWorkers$outboundSchema` instead. */
-  export const outboundSchema = DistributedSummaryWorkers$outboundSchema;
-  /** @deprecated use `DistributedSummaryWorkers$Outbound` instead. */
-  export type Outbound = DistributedSummaryWorkers$Outbound;
-}
-
-export function distributedSummaryWorkersToJSON(
-  distributedSummaryWorkers: DistributedSummaryWorkers,
-): string {
-  return JSON.stringify(
-    DistributedSummaryWorkers$outboundSchema.parse(distributedSummaryWorkers),
-  );
-}
-
 export function distributedSummaryWorkersFromJSON(
   jsonString: string,
 ): SafeParseResult<DistributedSummaryWorkers, SDKValidationError> {
@@ -185,43 +91,6 @@ export const DistributedSummary$inboundSchema: z.ZodType<
   groups: z.lazy(() => DistributedSummaryGroups$inboundSchema),
   workers: z.lazy(() => DistributedSummaryWorkers$inboundSchema),
 });
-
-/** @internal */
-export type DistributedSummary$Outbound = {
-  groups: DistributedSummaryGroups$Outbound;
-  workers: DistributedSummaryWorkers$Outbound;
-};
-
-/** @internal */
-export const DistributedSummary$outboundSchema: z.ZodType<
-  DistributedSummary$Outbound,
-  z.ZodTypeDef,
-  DistributedSummary
-> = z.object({
-  groups: z.lazy(() => DistributedSummaryGroups$outboundSchema),
-  workers: z.lazy(() => DistributedSummaryWorkers$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DistributedSummary$ {
-  /** @deprecated use `DistributedSummary$inboundSchema` instead. */
-  export const inboundSchema = DistributedSummary$inboundSchema;
-  /** @deprecated use `DistributedSummary$outboundSchema` instead. */
-  export const outboundSchema = DistributedSummary$outboundSchema;
-  /** @deprecated use `DistributedSummary$Outbound` instead. */
-  export type Outbound = DistributedSummary$Outbound;
-}
-
-export function distributedSummaryToJSON(
-  distributedSummary: DistributedSummary,
-): string {
-  return JSON.stringify(
-    DistributedSummary$outboundSchema.parse(distributedSummary),
-  );
-}
 
 export function distributedSummaryFromJSON(
   jsonString: string,

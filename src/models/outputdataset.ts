@@ -416,22 +416,10 @@ export type OutputDataset = {
 export const OutputDatasetType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDatasetType
 > = z.nativeEnum(OutputDatasetType);
-
 /** @internal */
 export const OutputDatasetType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDatasetType
 > = OutputDatasetType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetType$ {
-  /** @deprecated use `OutputDatasetType$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetType$inboundSchema;
-  /** @deprecated use `OutputDatasetType$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetSeverity$inboundSchema: z.ZodType<
@@ -443,7 +431,6 @@ export const OutputDatasetSeverity$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetSeverity),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetSeverity$outboundSchema: z.ZodType<
   OutputDatasetSeverity,
@@ -453,17 +440,6 @@ export const OutputDatasetSeverity$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetSeverity),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetSeverity$ {
-  /** @deprecated use `OutputDatasetSeverity$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetSeverity$inboundSchema;
-  /** @deprecated use `OutputDatasetSeverity$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetSeverity$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetResponseRetrySetting$inboundSchema: z.ZodType<
@@ -476,7 +452,6 @@ export const OutputDatasetResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDatasetResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -497,20 +472,6 @@ export const OutputDatasetResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetResponseRetrySetting$ {
-  /** @deprecated use `OutputDatasetResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputDatasetResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputDatasetResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputDatasetResponseRetrySetting$Outbound;
-}
-
 export function outputDatasetResponseRetrySettingToJSON(
   outputDatasetResponseRetrySetting: OutputDatasetResponseRetrySetting,
 ): string {
@@ -520,7 +481,6 @@ export function outputDatasetResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputDatasetResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatasetResponseRetrySetting, SDKValidationError> {
@@ -542,7 +502,6 @@ export const OutputDatasetTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDatasetTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -563,20 +522,6 @@ export const OutputDatasetTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetTimeoutRetrySettings$ {
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputDatasetTimeoutRetrySettings$Outbound;
-}
-
 export function outputDatasetTimeoutRetrySettingsToJSON(
   outputDatasetTimeoutRetrySettings: OutputDatasetTimeoutRetrySettings,
 ): string {
@@ -586,7 +531,6 @@ export function outputDatasetTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputDatasetTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatasetTimeoutRetrySettings, SDKValidationError> {
@@ -607,7 +551,6 @@ export const DataSetSite$inboundSchema: z.ZodType<
     z.nativeEnum(DataSetSite),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const DataSetSite$outboundSchema: z.ZodType<
   DataSetSite,
@@ -618,17 +561,6 @@ export const DataSetSite$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DataSetSite$ {
-  /** @deprecated use `DataSetSite$inboundSchema` instead. */
-  export const inboundSchema = DataSetSite$inboundSchema;
-  /** @deprecated use `DataSetSite$outboundSchema` instead. */
-  export const outboundSchema = DataSetSite$outboundSchema;
-}
-
 /** @internal */
 export const OutputDatasetExtraHttpHeader$inboundSchema: z.ZodType<
   OutputDatasetExtraHttpHeader,
@@ -638,7 +570,6 @@ export const OutputDatasetExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputDatasetExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -655,19 +586,6 @@ export const OutputDatasetExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetExtraHttpHeader$ {
-  /** @deprecated use `OutputDatasetExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputDatasetExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputDatasetExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputDatasetExtraHttpHeader$Outbound;
-}
-
 export function outputDatasetExtraHttpHeaderToJSON(
   outputDatasetExtraHttpHeader: OutputDatasetExtraHttpHeader,
 ): string {
@@ -677,7 +595,6 @@ export function outputDatasetExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputDatasetExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatasetExtraHttpHeader, SDKValidationError> {
@@ -698,7 +615,6 @@ export const OutputDatasetFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputDatasetFailedRequestLoggingMode,
@@ -708,19 +624,6 @@ export const OutputDatasetFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputDatasetFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDatasetFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputDatasetFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetBackpressureBehavior$inboundSchema: z.ZodType<
@@ -732,7 +635,6 @@ export const OutputDatasetBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetBackpressureBehavior$outboundSchema: z.ZodType<
   OutputDatasetBackpressureBehavior,
@@ -742,18 +644,6 @@ export const OutputDatasetBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetBackpressureBehavior$ {
-  /** @deprecated use `OutputDatasetBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputDatasetBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetAuthenticationMethod$inboundSchema: z.ZodType<
@@ -765,7 +655,6 @@ export const OutputDatasetAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetAuthenticationMethod$outboundSchema: z.ZodType<
   OutputDatasetAuthenticationMethod,
@@ -775,18 +664,6 @@ export const OutputDatasetAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetAuthenticationMethod$ {
-  /** @deprecated use `OutputDatasetAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputDatasetAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetMode$inboundSchema: z.ZodType<
@@ -798,7 +675,6 @@ export const OutputDatasetMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetMode$outboundSchema: z.ZodType<
   OutputDatasetMode,
@@ -808,17 +684,6 @@ export const OutputDatasetMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetMode$ {
-  /** @deprecated use `OutputDatasetMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetMode$inboundSchema;
-  /** @deprecated use `OutputDatasetMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetCompression$inboundSchema: z.ZodType<
@@ -830,7 +695,6 @@ export const OutputDatasetCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetCompression$outboundSchema: z.ZodType<
   OutputDatasetCompression,
@@ -840,17 +704,6 @@ export const OutputDatasetCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetCompression$ {
-  /** @deprecated use `OutputDatasetCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetCompression$inboundSchema;
-  /** @deprecated use `OutputDatasetCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetQueueFullBehavior$inboundSchema: z.ZodType<
@@ -862,7 +715,6 @@ export const OutputDatasetQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetQueueFullBehavior$outboundSchema: z.ZodType<
   OutputDatasetQueueFullBehavior,
@@ -873,24 +725,12 @@ export const OutputDatasetQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetQueueFullBehavior$ {
-  /** @deprecated use `OutputDatasetQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputDatasetQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputDatasetPqControls$inboundSchema: z.ZodType<
   OutputDatasetPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputDatasetPqControls$Outbound = {};
 
@@ -901,19 +741,6 @@ export const OutputDatasetPqControls$outboundSchema: z.ZodType<
   OutputDatasetPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetPqControls$ {
-  /** @deprecated use `OutputDatasetPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetPqControls$inboundSchema;
-  /** @deprecated use `OutputDatasetPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetPqControls$outboundSchema;
-  /** @deprecated use `OutputDatasetPqControls$Outbound` instead. */
-  export type Outbound = OutputDatasetPqControls$Outbound;
-}
-
 export function outputDatasetPqControlsToJSON(
   outputDatasetPqControls: OutputDatasetPqControls,
 ): string {
@@ -921,7 +748,6 @@ export function outputDatasetPqControlsToJSON(
     OutputDatasetPqControls$outboundSchema.parse(outputDatasetPqControls),
   );
 }
-
 export function outputDatasetPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatasetPqControls, SDKValidationError> {
@@ -994,7 +820,6 @@ export const OutputDataset$inboundSchema: z.ZodType<
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputDataset$Outbound = {
   id?: string | undefined;
@@ -1108,23 +933,9 @@ export const OutputDataset$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDataset$ {
-  /** @deprecated use `OutputDataset$inboundSchema` instead. */
-  export const inboundSchema = OutputDataset$inboundSchema;
-  /** @deprecated use `OutputDataset$outboundSchema` instead. */
-  export const outboundSchema = OutputDataset$outboundSchema;
-  /** @deprecated use `OutputDataset$Outbound` instead. */
-  export type Outbound = OutputDataset$Outbound;
-}
-
 export function outputDatasetToJSON(outputDataset: OutputDataset): string {
   return JSON.stringify(OutputDataset$outboundSchema.parse(outputDataset));
 }
-
 export function outputDatasetFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDataset, SDKValidationError> {

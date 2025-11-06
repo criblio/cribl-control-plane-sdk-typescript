@@ -891,22 +891,10 @@ export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
 export const InputGrafanaType2$inboundSchema: z.ZodNativeEnum<
   typeof InputGrafanaType2
 > = z.nativeEnum(InputGrafanaType2);
-
 /** @internal */
 export const InputGrafanaType2$outboundSchema: z.ZodNativeEnum<
   typeof InputGrafanaType2
 > = InputGrafanaType2$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaType2$ {
-  /** @deprecated use `InputGrafanaType2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaType2$inboundSchema;
-  /** @deprecated use `InputGrafanaType2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaType2$outboundSchema;
-}
 
 /** @internal */
 export const InputGrafanaConnection2$inboundSchema: z.ZodType<
@@ -917,7 +905,6 @@ export const InputGrafanaConnection2$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputGrafanaConnection2$Outbound = {
   pipeline?: string | undefined;
@@ -934,19 +921,6 @@ export const InputGrafanaConnection2$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaConnection2$ {
-  /** @deprecated use `InputGrafanaConnection2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaConnection2$inboundSchema;
-  /** @deprecated use `InputGrafanaConnection2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaConnection2$outboundSchema;
-  /** @deprecated use `InputGrafanaConnection2$Outbound` instead. */
-  export type Outbound = InputGrafanaConnection2$Outbound;
-}
-
 export function inputGrafanaConnection2ToJSON(
   inputGrafanaConnection2: InputGrafanaConnection2,
 ): string {
@@ -954,7 +928,6 @@ export function inputGrafanaConnection2ToJSON(
     InputGrafanaConnection2$outboundSchema.parse(inputGrafanaConnection2),
   );
 }
-
 export function inputGrafanaConnection2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaConnection2, SDKValidationError> {
@@ -975,7 +948,6 @@ export const InputGrafanaMode2$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaMode2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaMode2$outboundSchema: z.ZodType<
   InputGrafanaMode2,
@@ -985,17 +957,6 @@ export const InputGrafanaMode2$outboundSchema: z.ZodType<
   z.nativeEnum(InputGrafanaMode2),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaMode2$ {
-  /** @deprecated use `InputGrafanaMode2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaMode2$inboundSchema;
-  /** @deprecated use `InputGrafanaMode2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaMode2$outboundSchema;
-}
 
 /** @internal */
 export const InputGrafanaCompression2$inboundSchema: z.ZodType<
@@ -1007,7 +968,6 @@ export const InputGrafanaCompression2$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaCompression2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaCompression2$outboundSchema: z.ZodType<
   InputGrafanaCompression2,
@@ -1018,24 +978,12 @@ export const InputGrafanaCompression2$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaCompression2$ {
-  /** @deprecated use `InputGrafanaCompression2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaCompression2$inboundSchema;
-  /** @deprecated use `InputGrafanaCompression2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaCompression2$outboundSchema;
-}
-
 /** @internal */
 export const InputGrafanaPqControls2$inboundSchema: z.ZodType<
   InputGrafanaPqControls2,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputGrafanaPqControls2$Outbound = {};
 
@@ -1046,19 +994,6 @@ export const InputGrafanaPqControls2$outboundSchema: z.ZodType<
   InputGrafanaPqControls2
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaPqControls2$ {
-  /** @deprecated use `InputGrafanaPqControls2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaPqControls2$inboundSchema;
-  /** @deprecated use `InputGrafanaPqControls2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaPqControls2$outboundSchema;
-  /** @deprecated use `InputGrafanaPqControls2$Outbound` instead. */
-  export type Outbound = InputGrafanaPqControls2$Outbound;
-}
-
 export function inputGrafanaPqControls2ToJSON(
   inputGrafanaPqControls2: InputGrafanaPqControls2,
 ): string {
@@ -1066,7 +1001,6 @@ export function inputGrafanaPqControls2ToJSON(
     InputGrafanaPqControls2$outboundSchema.parse(inputGrafanaPqControls2),
   );
 }
-
 export function inputGrafanaPqControls2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaPqControls2, SDKValidationError> {
@@ -1092,7 +1026,6 @@ export const InputGrafanaPq2$inboundSchema: z.ZodType<
   compress: InputGrafanaCompression2$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputGrafanaPqControls2$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputGrafanaPq2$Outbound = {
   mode: string;
@@ -1121,25 +1054,11 @@ export const InputGrafanaPq2$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputGrafanaPqControls2$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaPq2$ {
-  /** @deprecated use `InputGrafanaPq2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaPq2$inboundSchema;
-  /** @deprecated use `InputGrafanaPq2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaPq2$outboundSchema;
-  /** @deprecated use `InputGrafanaPq2$Outbound` instead. */
-  export type Outbound = InputGrafanaPq2$Outbound;
-}
-
 export function inputGrafanaPq2ToJSON(
   inputGrafanaPq2: InputGrafanaPq2,
 ): string {
   return JSON.stringify(InputGrafanaPq2$outboundSchema.parse(inputGrafanaPq2));
 }
-
 export function inputGrafanaPq2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaPq2, SDKValidationError> {
@@ -1160,7 +1079,6 @@ export const InputGrafanaMinimumTLSVersion2$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaMinimumTLSVersion2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaMinimumTLSVersion2$outboundSchema: z.ZodType<
   InputGrafanaMinimumTLSVersion2,
@@ -1170,17 +1088,6 @@ export const InputGrafanaMinimumTLSVersion2$outboundSchema: z.ZodType<
   z.nativeEnum(InputGrafanaMinimumTLSVersion2),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaMinimumTLSVersion2$ {
-  /** @deprecated use `InputGrafanaMinimumTLSVersion2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaMinimumTLSVersion2$inboundSchema;
-  /** @deprecated use `InputGrafanaMinimumTLSVersion2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaMinimumTLSVersion2$outboundSchema;
-}
 
 /** @internal */
 export const InputGrafanaMaximumTLSVersion2$inboundSchema: z.ZodType<
@@ -1192,7 +1099,6 @@ export const InputGrafanaMaximumTLSVersion2$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaMaximumTLSVersion2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaMaximumTLSVersion2$outboundSchema: z.ZodType<
   InputGrafanaMaximumTLSVersion2,
@@ -1202,17 +1108,6 @@ export const InputGrafanaMaximumTLSVersion2$outboundSchema: z.ZodType<
   z.nativeEnum(InputGrafanaMaximumTLSVersion2),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaMaximumTLSVersion2$ {
-  /** @deprecated use `InputGrafanaMaximumTLSVersion2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaMaximumTLSVersion2$inboundSchema;
-  /** @deprecated use `InputGrafanaMaximumTLSVersion2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaMaximumTLSVersion2$outboundSchema;
-}
 
 /** @internal */
 export const InputGrafanaTLSSettingsServerSide2$inboundSchema: z.ZodType<
@@ -1232,7 +1127,6 @@ export const InputGrafanaTLSSettingsServerSide2$inboundSchema: z.ZodType<
   minVersion: InputGrafanaMinimumTLSVersion2$inboundSchema.optional(),
   maxVersion: InputGrafanaMaximumTLSVersion2$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputGrafanaTLSSettingsServerSide2$Outbound = {
   disabled: boolean;
@@ -1267,20 +1161,6 @@ export const InputGrafanaTLSSettingsServerSide2$outboundSchema: z.ZodType<
   maxVersion: InputGrafanaMaximumTLSVersion2$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaTLSSettingsServerSide2$ {
-  /** @deprecated use `InputGrafanaTLSSettingsServerSide2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaTLSSettingsServerSide2$inboundSchema;
-  /** @deprecated use `InputGrafanaTLSSettingsServerSide2$outboundSchema` instead. */
-  export const outboundSchema =
-    InputGrafanaTLSSettingsServerSide2$outboundSchema;
-  /** @deprecated use `InputGrafanaTLSSettingsServerSide2$Outbound` instead. */
-  export type Outbound = InputGrafanaTLSSettingsServerSide2$Outbound;
-}
-
 export function inputGrafanaTLSSettingsServerSide2ToJSON(
   inputGrafanaTLSSettingsServerSide2: InputGrafanaTLSSettingsServerSide2,
 ): string {
@@ -1290,7 +1170,6 @@ export function inputGrafanaTLSSettingsServerSide2ToJSON(
     ),
   );
 }
-
 export function inputGrafanaTLSSettingsServerSide2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaTLSSettingsServerSide2, SDKValidationError> {
@@ -1313,7 +1192,6 @@ export const InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema:
       z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType2),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema:
   z.ZodType<
@@ -1325,19 +1203,6 @@ export const InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaPrometheusAuthAuthenticationType2$ {
-  /** @deprecated use `InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema` instead. */
-  export const inboundSchema =
-    InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema;
-  /** @deprecated use `InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema` instead. */
-  export const outboundSchema =
-    InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema;
-}
-
 /** @internal */
 export const PrometheusAuthOauthParam2$inboundSchema: z.ZodType<
   PrometheusAuthOauthParam2,
@@ -1347,7 +1212,6 @@ export const PrometheusAuthOauthParam2$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type PrometheusAuthOauthParam2$Outbound = {
   name: string;
@@ -1364,19 +1228,6 @@ export const PrometheusAuthOauthParam2$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PrometheusAuthOauthParam2$ {
-  /** @deprecated use `PrometheusAuthOauthParam2$inboundSchema` instead. */
-  export const inboundSchema = PrometheusAuthOauthParam2$inboundSchema;
-  /** @deprecated use `PrometheusAuthOauthParam2$outboundSchema` instead. */
-  export const outboundSchema = PrometheusAuthOauthParam2$outboundSchema;
-  /** @deprecated use `PrometheusAuthOauthParam2$Outbound` instead. */
-  export type Outbound = PrometheusAuthOauthParam2$Outbound;
-}
-
 export function prometheusAuthOauthParam2ToJSON(
   prometheusAuthOauthParam2: PrometheusAuthOauthParam2,
 ): string {
@@ -1384,7 +1235,6 @@ export function prometheusAuthOauthParam2ToJSON(
     PrometheusAuthOauthParam2$outboundSchema.parse(prometheusAuthOauthParam2),
   );
 }
-
 export function prometheusAuthOauthParam2FromJSON(
   jsonString: string,
 ): SafeParseResult<PrometheusAuthOauthParam2, SDKValidationError> {
@@ -1404,7 +1254,6 @@ export const PrometheusAuthOauthHeader2$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type PrometheusAuthOauthHeader2$Outbound = {
   name: string;
@@ -1421,19 +1270,6 @@ export const PrometheusAuthOauthHeader2$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PrometheusAuthOauthHeader2$ {
-  /** @deprecated use `PrometheusAuthOauthHeader2$inboundSchema` instead. */
-  export const inboundSchema = PrometheusAuthOauthHeader2$inboundSchema;
-  /** @deprecated use `PrometheusAuthOauthHeader2$outboundSchema` instead. */
-  export const outboundSchema = PrometheusAuthOauthHeader2$outboundSchema;
-  /** @deprecated use `PrometheusAuthOauthHeader2$Outbound` instead. */
-  export type Outbound = PrometheusAuthOauthHeader2$Outbound;
-}
-
 export function prometheusAuthOauthHeader2ToJSON(
   prometheusAuthOauthHeader2: PrometheusAuthOauthHeader2,
 ): string {
@@ -1441,7 +1277,6 @@ export function prometheusAuthOauthHeader2ToJSON(
     PrometheusAuthOauthHeader2$outboundSchema.parse(prometheusAuthOauthHeader2),
   );
 }
-
 export function prometheusAuthOauthHeader2FromJSON(
   jsonString: string,
 ): SafeParseResult<PrometheusAuthOauthHeader2, SDKValidationError> {
@@ -1477,7 +1312,6 @@ export const InputGrafanaPrometheusAuth2$inboundSchema: z.ZodType<
   oauthHeaders: z.array(z.lazy(() => PrometheusAuthOauthHeader2$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type InputGrafanaPrometheusAuth2$Outbound = {
   authType: string;
@@ -1521,19 +1355,6 @@ export const InputGrafanaPrometheusAuth2$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaPrometheusAuth2$ {
-  /** @deprecated use `InputGrafanaPrometheusAuth2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaPrometheusAuth2$inboundSchema;
-  /** @deprecated use `InputGrafanaPrometheusAuth2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaPrometheusAuth2$outboundSchema;
-  /** @deprecated use `InputGrafanaPrometheusAuth2$Outbound` instead. */
-  export type Outbound = InputGrafanaPrometheusAuth2$Outbound;
-}
-
 export function inputGrafanaPrometheusAuth2ToJSON(
   inputGrafanaPrometheusAuth2: InputGrafanaPrometheusAuth2,
 ): string {
@@ -1543,7 +1364,6 @@ export function inputGrafanaPrometheusAuth2ToJSON(
     ),
   );
 }
-
 export function inputGrafanaPrometheusAuth2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaPrometheusAuth2, SDKValidationError> {
@@ -1564,7 +1384,6 @@ export const InputGrafanaLokiAuthAuthenticationType2$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaLokiAuthAuthenticationType2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaLokiAuthAuthenticationType2$outboundSchema: z.ZodType<
   InputGrafanaLokiAuthAuthenticationType2,
@@ -1575,19 +1394,6 @@ export const InputGrafanaLokiAuthAuthenticationType2$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaLokiAuthAuthenticationType2$ {
-  /** @deprecated use `InputGrafanaLokiAuthAuthenticationType2$inboundSchema` instead. */
-  export const inboundSchema =
-    InputGrafanaLokiAuthAuthenticationType2$inboundSchema;
-  /** @deprecated use `InputGrafanaLokiAuthAuthenticationType2$outboundSchema` instead. */
-  export const outboundSchema =
-    InputGrafanaLokiAuthAuthenticationType2$outboundSchema;
-}
-
 /** @internal */
 export const LokiAuthOauthParam2$inboundSchema: z.ZodType<
   LokiAuthOauthParam2,
@@ -1597,7 +1403,6 @@ export const LokiAuthOauthParam2$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type LokiAuthOauthParam2$Outbound = {
   name: string;
@@ -1614,19 +1419,6 @@ export const LokiAuthOauthParam2$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LokiAuthOauthParam2$ {
-  /** @deprecated use `LokiAuthOauthParam2$inboundSchema` instead. */
-  export const inboundSchema = LokiAuthOauthParam2$inboundSchema;
-  /** @deprecated use `LokiAuthOauthParam2$outboundSchema` instead. */
-  export const outboundSchema = LokiAuthOauthParam2$outboundSchema;
-  /** @deprecated use `LokiAuthOauthParam2$Outbound` instead. */
-  export type Outbound = LokiAuthOauthParam2$Outbound;
-}
-
 export function lokiAuthOauthParam2ToJSON(
   lokiAuthOauthParam2: LokiAuthOauthParam2,
 ): string {
@@ -1634,7 +1426,6 @@ export function lokiAuthOauthParam2ToJSON(
     LokiAuthOauthParam2$outboundSchema.parse(lokiAuthOauthParam2),
   );
 }
-
 export function lokiAuthOauthParam2FromJSON(
   jsonString: string,
 ): SafeParseResult<LokiAuthOauthParam2, SDKValidationError> {
@@ -1654,7 +1445,6 @@ export const LokiAuthOauthHeader2$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type LokiAuthOauthHeader2$Outbound = {
   name: string;
@@ -1671,19 +1461,6 @@ export const LokiAuthOauthHeader2$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LokiAuthOauthHeader2$ {
-  /** @deprecated use `LokiAuthOauthHeader2$inboundSchema` instead. */
-  export const inboundSchema = LokiAuthOauthHeader2$inboundSchema;
-  /** @deprecated use `LokiAuthOauthHeader2$outboundSchema` instead. */
-  export const outboundSchema = LokiAuthOauthHeader2$outboundSchema;
-  /** @deprecated use `LokiAuthOauthHeader2$Outbound` instead. */
-  export type Outbound = LokiAuthOauthHeader2$Outbound;
-}
-
 export function lokiAuthOauthHeader2ToJSON(
   lokiAuthOauthHeader2: LokiAuthOauthHeader2,
 ): string {
@@ -1691,7 +1468,6 @@ export function lokiAuthOauthHeader2ToJSON(
     LokiAuthOauthHeader2$outboundSchema.parse(lokiAuthOauthHeader2),
   );
 }
-
 export function lokiAuthOauthHeader2FromJSON(
   jsonString: string,
 ): SafeParseResult<LokiAuthOauthHeader2, SDKValidationError> {
@@ -1727,7 +1503,6 @@ export const InputGrafanaLokiAuth2$inboundSchema: z.ZodType<
   oauthHeaders: z.array(z.lazy(() => LokiAuthOauthHeader2$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type InputGrafanaLokiAuth2$Outbound = {
   authType: string;
@@ -1772,19 +1547,6 @@ export const InputGrafanaLokiAuth2$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaLokiAuth2$ {
-  /** @deprecated use `InputGrafanaLokiAuth2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaLokiAuth2$inboundSchema;
-  /** @deprecated use `InputGrafanaLokiAuth2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaLokiAuth2$outboundSchema;
-  /** @deprecated use `InputGrafanaLokiAuth2$Outbound` instead. */
-  export type Outbound = InputGrafanaLokiAuth2$Outbound;
-}
-
 export function inputGrafanaLokiAuth2ToJSON(
   inputGrafanaLokiAuth2: InputGrafanaLokiAuth2,
 ): string {
@@ -1792,7 +1554,6 @@ export function inputGrafanaLokiAuth2ToJSON(
     InputGrafanaLokiAuth2$outboundSchema.parse(inputGrafanaLokiAuth2),
   );
 }
-
 export function inputGrafanaLokiAuth2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaLokiAuth2, SDKValidationError> {
@@ -1812,7 +1573,6 @@ export const InputGrafanaMetadatum2$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputGrafanaMetadatum2$Outbound = {
   name: string;
@@ -1829,19 +1589,6 @@ export const InputGrafanaMetadatum2$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaMetadatum2$ {
-  /** @deprecated use `InputGrafanaMetadatum2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaMetadatum2$inboundSchema;
-  /** @deprecated use `InputGrafanaMetadatum2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaMetadatum2$outboundSchema;
-  /** @deprecated use `InputGrafanaMetadatum2$Outbound` instead. */
-  export type Outbound = InputGrafanaMetadatum2$Outbound;
-}
-
 export function inputGrafanaMetadatum2ToJSON(
   inputGrafanaMetadatum2: InputGrafanaMetadatum2,
 ): string {
@@ -1849,7 +1596,6 @@ export function inputGrafanaMetadatum2ToJSON(
     InputGrafanaMetadatum2$outboundSchema.parse(inputGrafanaMetadatum2),
   );
 }
-
 export function inputGrafanaMetadatum2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaMetadatum2, SDKValidationError> {
@@ -1901,7 +1647,6 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputGrafanaGrafana2$Outbound = {
   id?: string | undefined;
@@ -1978,19 +1723,6 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaGrafana2$ {
-  /** @deprecated use `InputGrafanaGrafana2$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaGrafana2$inboundSchema;
-  /** @deprecated use `InputGrafanaGrafana2$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaGrafana2$outboundSchema;
-  /** @deprecated use `InputGrafanaGrafana2$Outbound` instead. */
-  export type Outbound = InputGrafanaGrafana2$Outbound;
-}
-
 export function inputGrafanaGrafana2ToJSON(
   inputGrafanaGrafana2: InputGrafanaGrafana2,
 ): string {
@@ -1998,7 +1730,6 @@ export function inputGrafanaGrafana2ToJSON(
     InputGrafanaGrafana2$outboundSchema.parse(inputGrafanaGrafana2),
   );
 }
-
 export function inputGrafanaGrafana2FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaGrafana2, SDKValidationError> {
@@ -2013,22 +1744,10 @@ export function inputGrafanaGrafana2FromJSON(
 export const InputGrafanaType1$inboundSchema: z.ZodNativeEnum<
   typeof InputGrafanaType1
 > = z.nativeEnum(InputGrafanaType1);
-
 /** @internal */
 export const InputGrafanaType1$outboundSchema: z.ZodNativeEnum<
   typeof InputGrafanaType1
 > = InputGrafanaType1$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaType1$ {
-  /** @deprecated use `InputGrafanaType1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaType1$inboundSchema;
-  /** @deprecated use `InputGrafanaType1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaType1$outboundSchema;
-}
 
 /** @internal */
 export const InputGrafanaConnection1$inboundSchema: z.ZodType<
@@ -2039,7 +1758,6 @@ export const InputGrafanaConnection1$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputGrafanaConnection1$Outbound = {
   pipeline?: string | undefined;
@@ -2056,19 +1774,6 @@ export const InputGrafanaConnection1$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaConnection1$ {
-  /** @deprecated use `InputGrafanaConnection1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaConnection1$inboundSchema;
-  /** @deprecated use `InputGrafanaConnection1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaConnection1$outboundSchema;
-  /** @deprecated use `InputGrafanaConnection1$Outbound` instead. */
-  export type Outbound = InputGrafanaConnection1$Outbound;
-}
-
 export function inputGrafanaConnection1ToJSON(
   inputGrafanaConnection1: InputGrafanaConnection1,
 ): string {
@@ -2076,7 +1781,6 @@ export function inputGrafanaConnection1ToJSON(
     InputGrafanaConnection1$outboundSchema.parse(inputGrafanaConnection1),
   );
 }
-
 export function inputGrafanaConnection1FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaConnection1, SDKValidationError> {
@@ -2097,7 +1801,6 @@ export const InputGrafanaMode1$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaMode1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaMode1$outboundSchema: z.ZodType<
   InputGrafanaMode1,
@@ -2107,17 +1810,6 @@ export const InputGrafanaMode1$outboundSchema: z.ZodType<
   z.nativeEnum(InputGrafanaMode1),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaMode1$ {
-  /** @deprecated use `InputGrafanaMode1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaMode1$inboundSchema;
-  /** @deprecated use `InputGrafanaMode1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaMode1$outboundSchema;
-}
 
 /** @internal */
 export const InputGrafanaCompression1$inboundSchema: z.ZodType<
@@ -2129,7 +1821,6 @@ export const InputGrafanaCompression1$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaCompression1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaCompression1$outboundSchema: z.ZodType<
   InputGrafanaCompression1,
@@ -2140,24 +1831,12 @@ export const InputGrafanaCompression1$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaCompression1$ {
-  /** @deprecated use `InputGrafanaCompression1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaCompression1$inboundSchema;
-  /** @deprecated use `InputGrafanaCompression1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaCompression1$outboundSchema;
-}
-
 /** @internal */
 export const InputGrafanaPqControls1$inboundSchema: z.ZodType<
   InputGrafanaPqControls1,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputGrafanaPqControls1$Outbound = {};
 
@@ -2168,19 +1847,6 @@ export const InputGrafanaPqControls1$outboundSchema: z.ZodType<
   InputGrafanaPqControls1
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaPqControls1$ {
-  /** @deprecated use `InputGrafanaPqControls1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaPqControls1$inboundSchema;
-  /** @deprecated use `InputGrafanaPqControls1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaPqControls1$outboundSchema;
-  /** @deprecated use `InputGrafanaPqControls1$Outbound` instead. */
-  export type Outbound = InputGrafanaPqControls1$Outbound;
-}
-
 export function inputGrafanaPqControls1ToJSON(
   inputGrafanaPqControls1: InputGrafanaPqControls1,
 ): string {
@@ -2188,7 +1854,6 @@ export function inputGrafanaPqControls1ToJSON(
     InputGrafanaPqControls1$outboundSchema.parse(inputGrafanaPqControls1),
   );
 }
-
 export function inputGrafanaPqControls1FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaPqControls1, SDKValidationError> {
@@ -2214,7 +1879,6 @@ export const InputGrafanaPq1$inboundSchema: z.ZodType<
   compress: InputGrafanaCompression1$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputGrafanaPqControls1$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputGrafanaPq1$Outbound = {
   mode: string;
@@ -2243,25 +1907,11 @@ export const InputGrafanaPq1$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputGrafanaPqControls1$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaPq1$ {
-  /** @deprecated use `InputGrafanaPq1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaPq1$inboundSchema;
-  /** @deprecated use `InputGrafanaPq1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaPq1$outboundSchema;
-  /** @deprecated use `InputGrafanaPq1$Outbound` instead. */
-  export type Outbound = InputGrafanaPq1$Outbound;
-}
-
 export function inputGrafanaPq1ToJSON(
   inputGrafanaPq1: InputGrafanaPq1,
 ): string {
   return JSON.stringify(InputGrafanaPq1$outboundSchema.parse(inputGrafanaPq1));
 }
-
 export function inputGrafanaPq1FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaPq1, SDKValidationError> {
@@ -2282,7 +1932,6 @@ export const InputGrafanaMinimumTLSVersion1$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaMinimumTLSVersion1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaMinimumTLSVersion1$outboundSchema: z.ZodType<
   InputGrafanaMinimumTLSVersion1,
@@ -2292,17 +1941,6 @@ export const InputGrafanaMinimumTLSVersion1$outboundSchema: z.ZodType<
   z.nativeEnum(InputGrafanaMinimumTLSVersion1),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaMinimumTLSVersion1$ {
-  /** @deprecated use `InputGrafanaMinimumTLSVersion1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaMinimumTLSVersion1$inboundSchema;
-  /** @deprecated use `InputGrafanaMinimumTLSVersion1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaMinimumTLSVersion1$outboundSchema;
-}
 
 /** @internal */
 export const InputGrafanaMaximumTLSVersion1$inboundSchema: z.ZodType<
@@ -2314,7 +1952,6 @@ export const InputGrafanaMaximumTLSVersion1$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaMaximumTLSVersion1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaMaximumTLSVersion1$outboundSchema: z.ZodType<
   InputGrafanaMaximumTLSVersion1,
@@ -2324,17 +1961,6 @@ export const InputGrafanaMaximumTLSVersion1$outboundSchema: z.ZodType<
   z.nativeEnum(InputGrafanaMaximumTLSVersion1),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaMaximumTLSVersion1$ {
-  /** @deprecated use `InputGrafanaMaximumTLSVersion1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaMaximumTLSVersion1$inboundSchema;
-  /** @deprecated use `InputGrafanaMaximumTLSVersion1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaMaximumTLSVersion1$outboundSchema;
-}
 
 /** @internal */
 export const InputGrafanaTLSSettingsServerSide1$inboundSchema: z.ZodType<
@@ -2354,7 +1980,6 @@ export const InputGrafanaTLSSettingsServerSide1$inboundSchema: z.ZodType<
   minVersion: InputGrafanaMinimumTLSVersion1$inboundSchema.optional(),
   maxVersion: InputGrafanaMaximumTLSVersion1$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputGrafanaTLSSettingsServerSide1$Outbound = {
   disabled: boolean;
@@ -2389,20 +2014,6 @@ export const InputGrafanaTLSSettingsServerSide1$outboundSchema: z.ZodType<
   maxVersion: InputGrafanaMaximumTLSVersion1$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaTLSSettingsServerSide1$ {
-  /** @deprecated use `InputGrafanaTLSSettingsServerSide1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaTLSSettingsServerSide1$inboundSchema;
-  /** @deprecated use `InputGrafanaTLSSettingsServerSide1$outboundSchema` instead. */
-  export const outboundSchema =
-    InputGrafanaTLSSettingsServerSide1$outboundSchema;
-  /** @deprecated use `InputGrafanaTLSSettingsServerSide1$Outbound` instead. */
-  export type Outbound = InputGrafanaTLSSettingsServerSide1$Outbound;
-}
-
 export function inputGrafanaTLSSettingsServerSide1ToJSON(
   inputGrafanaTLSSettingsServerSide1: InputGrafanaTLSSettingsServerSide1,
 ): string {
@@ -2412,7 +2023,6 @@ export function inputGrafanaTLSSettingsServerSide1ToJSON(
     ),
   );
 }
-
 export function inputGrafanaTLSSettingsServerSide1FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaTLSSettingsServerSide1, SDKValidationError> {
@@ -2435,7 +2045,6 @@ export const InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema:
       z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType1),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema:
   z.ZodType<
@@ -2447,19 +2056,6 @@ export const InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaPrometheusAuthAuthenticationType1$ {
-  /** @deprecated use `InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema` instead. */
-  export const inboundSchema =
-    InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema;
-  /** @deprecated use `InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema` instead. */
-  export const outboundSchema =
-    InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema;
-}
-
 /** @internal */
 export const PrometheusAuthOauthParam1$inboundSchema: z.ZodType<
   PrometheusAuthOauthParam1,
@@ -2469,7 +2065,6 @@ export const PrometheusAuthOauthParam1$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type PrometheusAuthOauthParam1$Outbound = {
   name: string;
@@ -2486,19 +2081,6 @@ export const PrometheusAuthOauthParam1$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PrometheusAuthOauthParam1$ {
-  /** @deprecated use `PrometheusAuthOauthParam1$inboundSchema` instead. */
-  export const inboundSchema = PrometheusAuthOauthParam1$inboundSchema;
-  /** @deprecated use `PrometheusAuthOauthParam1$outboundSchema` instead. */
-  export const outboundSchema = PrometheusAuthOauthParam1$outboundSchema;
-  /** @deprecated use `PrometheusAuthOauthParam1$Outbound` instead. */
-  export type Outbound = PrometheusAuthOauthParam1$Outbound;
-}
-
 export function prometheusAuthOauthParam1ToJSON(
   prometheusAuthOauthParam1: PrometheusAuthOauthParam1,
 ): string {
@@ -2506,7 +2088,6 @@ export function prometheusAuthOauthParam1ToJSON(
     PrometheusAuthOauthParam1$outboundSchema.parse(prometheusAuthOauthParam1),
   );
 }
-
 export function prometheusAuthOauthParam1FromJSON(
   jsonString: string,
 ): SafeParseResult<PrometheusAuthOauthParam1, SDKValidationError> {
@@ -2526,7 +2107,6 @@ export const PrometheusAuthOauthHeader1$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type PrometheusAuthOauthHeader1$Outbound = {
   name: string;
@@ -2543,19 +2123,6 @@ export const PrometheusAuthOauthHeader1$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PrometheusAuthOauthHeader1$ {
-  /** @deprecated use `PrometheusAuthOauthHeader1$inboundSchema` instead. */
-  export const inboundSchema = PrometheusAuthOauthHeader1$inboundSchema;
-  /** @deprecated use `PrometheusAuthOauthHeader1$outboundSchema` instead. */
-  export const outboundSchema = PrometheusAuthOauthHeader1$outboundSchema;
-  /** @deprecated use `PrometheusAuthOauthHeader1$Outbound` instead. */
-  export type Outbound = PrometheusAuthOauthHeader1$Outbound;
-}
-
 export function prometheusAuthOauthHeader1ToJSON(
   prometheusAuthOauthHeader1: PrometheusAuthOauthHeader1,
 ): string {
@@ -2563,7 +2130,6 @@ export function prometheusAuthOauthHeader1ToJSON(
     PrometheusAuthOauthHeader1$outboundSchema.parse(prometheusAuthOauthHeader1),
   );
 }
-
 export function prometheusAuthOauthHeader1FromJSON(
   jsonString: string,
 ): SafeParseResult<PrometheusAuthOauthHeader1, SDKValidationError> {
@@ -2599,7 +2165,6 @@ export const InputGrafanaPrometheusAuth1$inboundSchema: z.ZodType<
   oauthHeaders: z.array(z.lazy(() => PrometheusAuthOauthHeader1$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type InputGrafanaPrometheusAuth1$Outbound = {
   authType: string;
@@ -2643,19 +2208,6 @@ export const InputGrafanaPrometheusAuth1$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaPrometheusAuth1$ {
-  /** @deprecated use `InputGrafanaPrometheusAuth1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaPrometheusAuth1$inboundSchema;
-  /** @deprecated use `InputGrafanaPrometheusAuth1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaPrometheusAuth1$outboundSchema;
-  /** @deprecated use `InputGrafanaPrometheusAuth1$Outbound` instead. */
-  export type Outbound = InputGrafanaPrometheusAuth1$Outbound;
-}
-
 export function inputGrafanaPrometheusAuth1ToJSON(
   inputGrafanaPrometheusAuth1: InputGrafanaPrometheusAuth1,
 ): string {
@@ -2665,7 +2217,6 @@ export function inputGrafanaPrometheusAuth1ToJSON(
     ),
   );
 }
-
 export function inputGrafanaPrometheusAuth1FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaPrometheusAuth1, SDKValidationError> {
@@ -2686,7 +2237,6 @@ export const InputGrafanaLokiAuthAuthenticationType1$inboundSchema: z.ZodType<
     z.nativeEnum(InputGrafanaLokiAuthAuthenticationType1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGrafanaLokiAuthAuthenticationType1$outboundSchema: z.ZodType<
   InputGrafanaLokiAuthAuthenticationType1,
@@ -2697,19 +2247,6 @@ export const InputGrafanaLokiAuthAuthenticationType1$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaLokiAuthAuthenticationType1$ {
-  /** @deprecated use `InputGrafanaLokiAuthAuthenticationType1$inboundSchema` instead. */
-  export const inboundSchema =
-    InputGrafanaLokiAuthAuthenticationType1$inboundSchema;
-  /** @deprecated use `InputGrafanaLokiAuthAuthenticationType1$outboundSchema` instead. */
-  export const outboundSchema =
-    InputGrafanaLokiAuthAuthenticationType1$outboundSchema;
-}
-
 /** @internal */
 export const LokiAuthOauthParam1$inboundSchema: z.ZodType<
   LokiAuthOauthParam1,
@@ -2719,7 +2256,6 @@ export const LokiAuthOauthParam1$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type LokiAuthOauthParam1$Outbound = {
   name: string;
@@ -2736,19 +2272,6 @@ export const LokiAuthOauthParam1$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LokiAuthOauthParam1$ {
-  /** @deprecated use `LokiAuthOauthParam1$inboundSchema` instead. */
-  export const inboundSchema = LokiAuthOauthParam1$inboundSchema;
-  /** @deprecated use `LokiAuthOauthParam1$outboundSchema` instead. */
-  export const outboundSchema = LokiAuthOauthParam1$outboundSchema;
-  /** @deprecated use `LokiAuthOauthParam1$Outbound` instead. */
-  export type Outbound = LokiAuthOauthParam1$Outbound;
-}
-
 export function lokiAuthOauthParam1ToJSON(
   lokiAuthOauthParam1: LokiAuthOauthParam1,
 ): string {
@@ -2756,7 +2279,6 @@ export function lokiAuthOauthParam1ToJSON(
     LokiAuthOauthParam1$outboundSchema.parse(lokiAuthOauthParam1),
   );
 }
-
 export function lokiAuthOauthParam1FromJSON(
   jsonString: string,
 ): SafeParseResult<LokiAuthOauthParam1, SDKValidationError> {
@@ -2776,7 +2298,6 @@ export const LokiAuthOauthHeader1$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type LokiAuthOauthHeader1$Outbound = {
   name: string;
@@ -2793,19 +2314,6 @@ export const LokiAuthOauthHeader1$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LokiAuthOauthHeader1$ {
-  /** @deprecated use `LokiAuthOauthHeader1$inboundSchema` instead. */
-  export const inboundSchema = LokiAuthOauthHeader1$inboundSchema;
-  /** @deprecated use `LokiAuthOauthHeader1$outboundSchema` instead. */
-  export const outboundSchema = LokiAuthOauthHeader1$outboundSchema;
-  /** @deprecated use `LokiAuthOauthHeader1$Outbound` instead. */
-  export type Outbound = LokiAuthOauthHeader1$Outbound;
-}
-
 export function lokiAuthOauthHeader1ToJSON(
   lokiAuthOauthHeader1: LokiAuthOauthHeader1,
 ): string {
@@ -2813,7 +2321,6 @@ export function lokiAuthOauthHeader1ToJSON(
     LokiAuthOauthHeader1$outboundSchema.parse(lokiAuthOauthHeader1),
   );
 }
-
 export function lokiAuthOauthHeader1FromJSON(
   jsonString: string,
 ): SafeParseResult<LokiAuthOauthHeader1, SDKValidationError> {
@@ -2849,7 +2356,6 @@ export const InputGrafanaLokiAuth1$inboundSchema: z.ZodType<
   oauthHeaders: z.array(z.lazy(() => LokiAuthOauthHeader1$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type InputGrafanaLokiAuth1$Outbound = {
   authType: string;
@@ -2894,19 +2400,6 @@ export const InputGrafanaLokiAuth1$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaLokiAuth1$ {
-  /** @deprecated use `InputGrafanaLokiAuth1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaLokiAuth1$inboundSchema;
-  /** @deprecated use `InputGrafanaLokiAuth1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaLokiAuth1$outboundSchema;
-  /** @deprecated use `InputGrafanaLokiAuth1$Outbound` instead. */
-  export type Outbound = InputGrafanaLokiAuth1$Outbound;
-}
-
 export function inputGrafanaLokiAuth1ToJSON(
   inputGrafanaLokiAuth1: InputGrafanaLokiAuth1,
 ): string {
@@ -2914,7 +2407,6 @@ export function inputGrafanaLokiAuth1ToJSON(
     InputGrafanaLokiAuth1$outboundSchema.parse(inputGrafanaLokiAuth1),
   );
 }
-
 export function inputGrafanaLokiAuth1FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaLokiAuth1, SDKValidationError> {
@@ -2934,7 +2426,6 @@ export const InputGrafanaMetadatum1$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputGrafanaMetadatum1$Outbound = {
   name: string;
@@ -2951,19 +2442,6 @@ export const InputGrafanaMetadatum1$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaMetadatum1$ {
-  /** @deprecated use `InputGrafanaMetadatum1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaMetadatum1$inboundSchema;
-  /** @deprecated use `InputGrafanaMetadatum1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaMetadatum1$outboundSchema;
-  /** @deprecated use `InputGrafanaMetadatum1$Outbound` instead. */
-  export type Outbound = InputGrafanaMetadatum1$Outbound;
-}
-
 export function inputGrafanaMetadatum1ToJSON(
   inputGrafanaMetadatum1: InputGrafanaMetadatum1,
 ): string {
@@ -2971,7 +2449,6 @@ export function inputGrafanaMetadatum1ToJSON(
     InputGrafanaMetadatum1$outboundSchema.parse(inputGrafanaMetadatum1),
   );
 }
-
 export function inputGrafanaMetadatum1FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaMetadatum1, SDKValidationError> {
@@ -3023,7 +2500,6 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputGrafanaGrafana1$Outbound = {
   id?: string | undefined;
@@ -3100,19 +2576,6 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafanaGrafana1$ {
-  /** @deprecated use `InputGrafanaGrafana1$inboundSchema` instead. */
-  export const inboundSchema = InputGrafanaGrafana1$inboundSchema;
-  /** @deprecated use `InputGrafanaGrafana1$outboundSchema` instead. */
-  export const outboundSchema = InputGrafanaGrafana1$outboundSchema;
-  /** @deprecated use `InputGrafanaGrafana1$Outbound` instead. */
-  export type Outbound = InputGrafanaGrafana1$Outbound;
-}
-
 export function inputGrafanaGrafana1ToJSON(
   inputGrafanaGrafana1: InputGrafanaGrafana1,
 ): string {
@@ -3120,7 +2583,6 @@ export function inputGrafanaGrafana1ToJSON(
     InputGrafanaGrafana1$outboundSchema.parse(inputGrafanaGrafana1),
   );
 }
-
 export function inputGrafanaGrafana1FromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafanaGrafana1, SDKValidationError> {
@@ -3140,7 +2602,6 @@ export const InputGrafana$inboundSchema: z.ZodType<
   z.lazy(() => InputGrafanaGrafana1$inboundSchema),
   z.lazy(() => InputGrafanaGrafana2$inboundSchema),
 ]);
-
 /** @internal */
 export type InputGrafana$Outbound =
   | InputGrafanaGrafana1$Outbound
@@ -3156,23 +2617,9 @@ export const InputGrafana$outboundSchema: z.ZodType<
   z.lazy(() => InputGrafanaGrafana2$outboundSchema),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGrafana$ {
-  /** @deprecated use `InputGrafana$inboundSchema` instead. */
-  export const inboundSchema = InputGrafana$inboundSchema;
-  /** @deprecated use `InputGrafana$outboundSchema` instead. */
-  export const outboundSchema = InputGrafana$outboundSchema;
-  /** @deprecated use `InputGrafana$Outbound` instead. */
-  export type Outbound = InputGrafana$Outbound;
-}
-
 export function inputGrafanaToJSON(inputGrafana: InputGrafana): string {
   return JSON.stringify(InputGrafana$outboundSchema.parse(inputGrafana));
 }
-
 export function inputGrafanaFromJSON(
   jsonString: string,
 ): SafeParseResult<InputGrafana, SDKValidationError> {

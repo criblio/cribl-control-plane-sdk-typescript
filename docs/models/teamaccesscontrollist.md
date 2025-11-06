@@ -11,7 +11,7 @@ let value: TeamAccessControlList = {
       gid: "<id>",
       id: "<id>",
       policy: "<value>",
-      type: "groups",
+      type: "dataset-providers",
     },
   ],
   team: "<value>",

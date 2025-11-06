@@ -8,18 +8,19 @@ import { JobInfo } from "cribl-control-plane/models";
 let value: JobInfo = {
   args: {
     id: "<id>",
-    description: "astride where huzzah till",
-    type: "executor",
+    description: "curiously chairperson rapidly singe",
+    type: "scheduledSearch",
     ttl: "4h",
     ignoreGroupJobsLimit: false,
     removeFields: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     resumeOnBoot: false,
     environment: "<value>",
     schedule: {
-      enabled: true,
+      enabled: false,
       skippable: true,
       resumeMissed: false,
       cronSchedule: "*/5 * * * *",
@@ -32,8 +33,8 @@ let value: JobInfo = {
         jobTimeout: "0",
         mode: "list",
         timeRangeType: "relative",
-        earliest: 5516.53,
-        latest: 4479.75,
+        earliest: 6868.42,
+        latest: 7176.81,
         timestampTimezone: "<value>",
         timeWarning: {},
         expression: "true",
@@ -59,14 +60,13 @@ let value: JobInfo = {
   id: "<id>",
   keep: true,
   stats: {
-    "key": 4311.98,
-    "key1": 280.71,
+    "key": 280.71,
   },
   status: {
     reason: {
       "key": "<value>",
     },
-    state: {},
+    state: 9,
   },
 };
 ```
@@ -78,5 +78,5 @@ let value: JobInfo = {
 | `args`                                     | *models.RunnableJob*                       | :heavy_check_mark:                         | N/A                                        |
 | `id`                                       | *string*                                   | :heavy_check_mark:                         | N/A                                        |
 | `keep`                                     | *boolean*                                  | :heavy_minus_sign:                         | N/A                                        |
-| `stats`                                    | Record<string, *number*>                   | :heavy_check_mark:                         | N/A                                        |
+| `stats`                                    | Record<string, *models.Stats*>             | :heavy_check_mark:                         | N/A                                        |
 | `status`                                   | [models.JobStatus](../models/jobstatus.md) | :heavy_check_mark:                         | N/A                                        |

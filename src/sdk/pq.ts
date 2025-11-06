@@ -5,6 +5,7 @@
 import { destinationsPqClear } from "../funcs/destinationsPqClear.js";
 import { destinationsPqGet } from "../funcs/destinationsPqGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,7 +19,7 @@ export class Pq extends ClientSDK {
   async clear(
     request: operations.DeleteOutputPqByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteOutputPqByIdResponse> {
+  ): Promise<models.CountedListstring> {
     return unwrapAsync(destinationsPqClear(
       this,
       request,
@@ -35,7 +36,7 @@ export class Pq extends ClientSDK {
   async get(
     request: operations.GetOutputPqByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetOutputPqByIdResponse> {
+  ): Promise<models.CountedListJobInfo> {
     return unwrapAsync(destinationsPqGet(
       this,
       request,

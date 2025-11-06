@@ -903,22 +903,10 @@ export type OutputGrafanaCloud =
 export const OutputGrafanaCloudType2$inboundSchema: z.ZodNativeEnum<
   typeof OutputGrafanaCloudType2
 > = z.nativeEnum(OutputGrafanaCloudType2);
-
 /** @internal */
 export const OutputGrafanaCloudType2$outboundSchema: z.ZodNativeEnum<
   typeof OutputGrafanaCloudType2
 > = OutputGrafanaCloudType2$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudType2$ {
-  /** @deprecated use `OutputGrafanaCloudType2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudType2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudType2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudType2$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudMessageFormat2$inboundSchema: z.ZodType<
@@ -930,7 +918,6 @@ export const OutputGrafanaCloudMessageFormat2$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudMessageFormat2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudMessageFormat2$outboundSchema: z.ZodType<
   OutputGrafanaCloudMessageFormat2,
@@ -941,17 +928,6 @@ export const OutputGrafanaCloudMessageFormat2$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudMessageFormat2$ {
-  /** @deprecated use `OutputGrafanaCloudMessageFormat2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudMessageFormat2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudMessageFormat2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudMessageFormat2$outboundSchema;
-}
-
 /** @internal */
 export const OutputGrafanaCloudLabel2$inboundSchema: z.ZodType<
   OutputGrafanaCloudLabel2,
@@ -961,7 +937,6 @@ export const OutputGrafanaCloudLabel2$inboundSchema: z.ZodType<
   name: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudLabel2$Outbound = {
   name: string;
@@ -978,19 +953,6 @@ export const OutputGrafanaCloudLabel2$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudLabel2$ {
-  /** @deprecated use `OutputGrafanaCloudLabel2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudLabel2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLabel2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudLabel2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLabel2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudLabel2$Outbound;
-}
-
 export function outputGrafanaCloudLabel2ToJSON(
   outputGrafanaCloudLabel2: OutputGrafanaCloudLabel2,
 ): string {
@@ -998,7 +960,6 @@ export function outputGrafanaCloudLabel2ToJSON(
     OutputGrafanaCloudLabel2$outboundSchema.parse(outputGrafanaCloudLabel2),
   );
 }
-
 export function outputGrafanaCloudLabel2FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudLabel2, SDKValidationError> {
@@ -1020,7 +981,6 @@ export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$inboundSchema:
       z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType2),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$outboundSchema:
   z.ZodType<
@@ -1031,19 +991,6 @@ export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$outboundSchema:
     z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType2),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudPrometheusAuthAuthenticationType2$ {
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuthAuthenticationType2$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudPrometheusAuthAuthenticationType2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuthAuthenticationType2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudPrometheusAuthAuthenticationType2$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuth2$inboundSchema: z.ZodType<
@@ -1059,7 +1006,6 @@ export const OutputGrafanaCloudPrometheusAuth2$inboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudPrometheusAuth2$Outbound = {
   authType: string;
@@ -1085,20 +1031,6 @@ export const OutputGrafanaCloudPrometheusAuth2$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudPrometheusAuth2$ {
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuth2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudPrometheusAuth2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuth2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudPrometheusAuth2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuth2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudPrometheusAuth2$Outbound;
-}
-
 export function outputGrafanaCloudPrometheusAuth2ToJSON(
   outputGrafanaCloudPrometheusAuth2: OutputGrafanaCloudPrometheusAuth2,
 ): string {
@@ -1108,7 +1040,6 @@ export function outputGrafanaCloudPrometheusAuth2ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudPrometheusAuth2FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudPrometheusAuth2, SDKValidationError> {
@@ -1130,7 +1061,6 @@ export const OutputGrafanaCloudLokiAuthAuthenticationType2$inboundSchema:
       z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType2),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGrafanaCloudLokiAuthAuthenticationType2$outboundSchema:
   z.ZodType<
@@ -1141,19 +1071,6 @@ export const OutputGrafanaCloudLokiAuthAuthenticationType2$outboundSchema:
     z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType2),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudLokiAuthAuthenticationType2$ {
-  /** @deprecated use `OutputGrafanaCloudLokiAuthAuthenticationType2$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudLokiAuthAuthenticationType2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLokiAuthAuthenticationType2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudLokiAuthAuthenticationType2$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudLokiAuth2$inboundSchema: z.ZodType<
@@ -1170,7 +1087,6 @@ export const OutputGrafanaCloudLokiAuth2$inboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudLokiAuth2$Outbound = {
   authType: string;
@@ -1196,19 +1112,6 @@ export const OutputGrafanaCloudLokiAuth2$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudLokiAuth2$ {
-  /** @deprecated use `OutputGrafanaCloudLokiAuth2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudLokiAuth2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLokiAuth2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudLokiAuth2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLokiAuth2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudLokiAuth2$Outbound;
-}
-
 export function outputGrafanaCloudLokiAuth2ToJSON(
   outputGrafanaCloudLokiAuth2: OutputGrafanaCloudLokiAuth2,
 ): string {
@@ -1218,7 +1121,6 @@ export function outputGrafanaCloudLokiAuth2ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudLokiAuth2FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudLokiAuth2, SDKValidationError> {
@@ -1238,7 +1140,6 @@ export const OutputGrafanaCloudExtraHttpHeader2$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudExtraHttpHeader2$Outbound = {
   name?: string | undefined;
@@ -1255,20 +1156,6 @@ export const OutputGrafanaCloudExtraHttpHeader2$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudExtraHttpHeader2$ {
-  /** @deprecated use `OutputGrafanaCloudExtraHttpHeader2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudExtraHttpHeader2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudExtraHttpHeader2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudExtraHttpHeader2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudExtraHttpHeader2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudExtraHttpHeader2$Outbound;
-}
-
 export function outputGrafanaCloudExtraHttpHeader2ToJSON(
   outputGrafanaCloudExtraHttpHeader2: OutputGrafanaCloudExtraHttpHeader2,
 ): string {
@@ -1278,7 +1165,6 @@ export function outputGrafanaCloudExtraHttpHeader2ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudExtraHttpHeader2FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudExtraHttpHeader2, SDKValidationError> {
@@ -1301,7 +1187,6 @@ export const OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema:
       z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode2),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema:
   z.ZodType<
@@ -1312,19 +1197,6 @@ export const OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema:
     z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode2),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudFailedRequestLoggingMode2$ {
-  /** @deprecated use `OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudResponseRetrySetting2$inboundSchema: z.ZodType<
@@ -1337,7 +1209,6 @@ export const OutputGrafanaCloudResponseRetrySetting2$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputGrafanaCloudResponseRetrySetting2$Outbound = {
   httpStatus: number;
@@ -1358,21 +1229,6 @@ export const OutputGrafanaCloudResponseRetrySetting2$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudResponseRetrySetting2$ {
-  /** @deprecated use `OutputGrafanaCloudResponseRetrySetting2$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudResponseRetrySetting2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudResponseRetrySetting2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudResponseRetrySetting2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudResponseRetrySetting2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudResponseRetrySetting2$Outbound;
-}
-
 export function outputGrafanaCloudResponseRetrySetting2ToJSON(
   outputGrafanaCloudResponseRetrySetting2:
     OutputGrafanaCloudResponseRetrySetting2,
@@ -1383,7 +1239,6 @@ export function outputGrafanaCloudResponseRetrySetting2ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudResponseRetrySetting2FromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1411,7 +1266,6 @@ export const OutputGrafanaCloudTimeoutRetrySettings2$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputGrafanaCloudTimeoutRetrySettings2$Outbound = {
   timeoutRetry: boolean;
@@ -1432,21 +1286,6 @@ export const OutputGrafanaCloudTimeoutRetrySettings2$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudTimeoutRetrySettings2$ {
-  /** @deprecated use `OutputGrafanaCloudTimeoutRetrySettings2$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudTimeoutRetrySettings2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudTimeoutRetrySettings2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudTimeoutRetrySettings2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudTimeoutRetrySettings2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudTimeoutRetrySettings2$Outbound;
-}
-
 export function outputGrafanaCloudTimeoutRetrySettings2ToJSON(
   outputGrafanaCloudTimeoutRetrySettings2:
     OutputGrafanaCloudTimeoutRetrySettings2,
@@ -1457,7 +1296,6 @@ export function outputGrafanaCloudTimeoutRetrySettings2ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudTimeoutRetrySettings2FromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1484,7 +1322,6 @@ export const OutputGrafanaCloudBackpressureBehavior2$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudBackpressureBehavior2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudBackpressureBehavior2$outboundSchema: z.ZodType<
   OutputGrafanaCloudBackpressureBehavior2,
@@ -1494,19 +1331,6 @@ export const OutputGrafanaCloudBackpressureBehavior2$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGrafanaCloudBackpressureBehavior2),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudBackpressureBehavior2$ {
-  /** @deprecated use `OutputGrafanaCloudBackpressureBehavior2$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudBackpressureBehavior2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudBackpressureBehavior2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudBackpressureBehavior2$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudMode2$inboundSchema: z.ZodType<
@@ -1518,7 +1342,6 @@ export const OutputGrafanaCloudMode2$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudMode2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudMode2$outboundSchema: z.ZodType<
   OutputGrafanaCloudMode2,
@@ -1528,17 +1351,6 @@ export const OutputGrafanaCloudMode2$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGrafanaCloudMode2),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudMode2$ {
-  /** @deprecated use `OutputGrafanaCloudMode2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudMode2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudMode2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudMode2$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudCompression2$inboundSchema: z.ZodType<
@@ -1550,7 +1362,6 @@ export const OutputGrafanaCloudCompression2$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudCompression2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudCompression2$outboundSchema: z.ZodType<
   OutputGrafanaCloudCompression2,
@@ -1560,17 +1371,6 @@ export const OutputGrafanaCloudCompression2$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGrafanaCloudCompression2),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudCompression2$ {
-  /** @deprecated use `OutputGrafanaCloudCompression2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudCompression2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudCompression2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudCompression2$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudQueueFullBehavior2$inboundSchema: z.ZodType<
@@ -1582,7 +1382,6 @@ export const OutputGrafanaCloudQueueFullBehavior2$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudQueueFullBehavior2),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudQueueFullBehavior2$outboundSchema: z.ZodType<
   OutputGrafanaCloudQueueFullBehavior2,
@@ -1593,26 +1392,12 @@ export const OutputGrafanaCloudQueueFullBehavior2$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudQueueFullBehavior2$ {
-  /** @deprecated use `OutputGrafanaCloudQueueFullBehavior2$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudQueueFullBehavior2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudQueueFullBehavior2$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudQueueFullBehavior2$outboundSchema;
-}
-
 /** @internal */
 export const OutputGrafanaCloudPqControls2$inboundSchema: z.ZodType<
   OutputGrafanaCloudPqControls2,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputGrafanaCloudPqControls2$Outbound = {};
 
@@ -1623,19 +1408,6 @@ export const OutputGrafanaCloudPqControls2$outboundSchema: z.ZodType<
   OutputGrafanaCloudPqControls2
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudPqControls2$ {
-  /** @deprecated use `OutputGrafanaCloudPqControls2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudPqControls2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPqControls2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudPqControls2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPqControls2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudPqControls2$Outbound;
-}
-
 export function outputGrafanaCloudPqControls2ToJSON(
   outputGrafanaCloudPqControls2: OutputGrafanaCloudPqControls2,
 ): string {
@@ -1645,7 +1417,6 @@ export function outputGrafanaCloudPqControls2ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudPqControls2FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudPqControls2, SDKValidationError> {
@@ -1720,7 +1491,6 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   id?: string | undefined;
@@ -1836,19 +1606,6 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudGrafanaCloud2$ {
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud2$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudGrafanaCloud2$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud2$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudGrafanaCloud2$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud2$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudGrafanaCloud2$Outbound;
-}
-
 export function outputGrafanaCloudGrafanaCloud2ToJSON(
   outputGrafanaCloudGrafanaCloud2: OutputGrafanaCloudGrafanaCloud2,
 ): string {
@@ -1858,7 +1615,6 @@ export function outputGrafanaCloudGrafanaCloud2ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudGrafanaCloud2FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudGrafanaCloud2, SDKValidationError> {
@@ -1873,22 +1629,10 @@ export function outputGrafanaCloudGrafanaCloud2FromJSON(
 export const OutputGrafanaCloudType1$inboundSchema: z.ZodNativeEnum<
   typeof OutputGrafanaCloudType1
 > = z.nativeEnum(OutputGrafanaCloudType1);
-
 /** @internal */
 export const OutputGrafanaCloudType1$outboundSchema: z.ZodNativeEnum<
   typeof OutputGrafanaCloudType1
 > = OutputGrafanaCloudType1$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudType1$ {
-  /** @deprecated use `OutputGrafanaCloudType1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudType1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudType1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudType1$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudMessageFormat1$inboundSchema: z.ZodType<
@@ -1900,7 +1644,6 @@ export const OutputGrafanaCloudMessageFormat1$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudMessageFormat1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudMessageFormat1$outboundSchema: z.ZodType<
   OutputGrafanaCloudMessageFormat1,
@@ -1911,17 +1654,6 @@ export const OutputGrafanaCloudMessageFormat1$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudMessageFormat1$ {
-  /** @deprecated use `OutputGrafanaCloudMessageFormat1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudMessageFormat1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudMessageFormat1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudMessageFormat1$outboundSchema;
-}
-
 /** @internal */
 export const OutputGrafanaCloudLabel1$inboundSchema: z.ZodType<
   OutputGrafanaCloudLabel1,
@@ -1931,7 +1663,6 @@ export const OutputGrafanaCloudLabel1$inboundSchema: z.ZodType<
   name: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudLabel1$Outbound = {
   name: string;
@@ -1948,19 +1679,6 @@ export const OutputGrafanaCloudLabel1$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudLabel1$ {
-  /** @deprecated use `OutputGrafanaCloudLabel1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudLabel1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLabel1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudLabel1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLabel1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudLabel1$Outbound;
-}
-
 export function outputGrafanaCloudLabel1ToJSON(
   outputGrafanaCloudLabel1: OutputGrafanaCloudLabel1,
 ): string {
@@ -1968,7 +1686,6 @@ export function outputGrafanaCloudLabel1ToJSON(
     OutputGrafanaCloudLabel1$outboundSchema.parse(outputGrafanaCloudLabel1),
   );
 }
-
 export function outputGrafanaCloudLabel1FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudLabel1, SDKValidationError> {
@@ -1990,7 +1707,6 @@ export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$inboundSchema:
       z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType1),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$outboundSchema:
   z.ZodType<
@@ -2001,19 +1717,6 @@ export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$outboundSchema:
     z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType1),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudPrometheusAuthAuthenticationType1$ {
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuthAuthenticationType1$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudPrometheusAuthAuthenticationType1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuthAuthenticationType1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudPrometheusAuthAuthenticationType1$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuth1$inboundSchema: z.ZodType<
@@ -2029,7 +1732,6 @@ export const OutputGrafanaCloudPrometheusAuth1$inboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudPrometheusAuth1$Outbound = {
   authType: string;
@@ -2055,20 +1757,6 @@ export const OutputGrafanaCloudPrometheusAuth1$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudPrometheusAuth1$ {
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuth1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudPrometheusAuth1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuth1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudPrometheusAuth1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPrometheusAuth1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudPrometheusAuth1$Outbound;
-}
-
 export function outputGrafanaCloudPrometheusAuth1ToJSON(
   outputGrafanaCloudPrometheusAuth1: OutputGrafanaCloudPrometheusAuth1,
 ): string {
@@ -2078,7 +1766,6 @@ export function outputGrafanaCloudPrometheusAuth1ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudPrometheusAuth1FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudPrometheusAuth1, SDKValidationError> {
@@ -2100,7 +1787,6 @@ export const OutputGrafanaCloudLokiAuthAuthenticationType1$inboundSchema:
       z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType1),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGrafanaCloudLokiAuthAuthenticationType1$outboundSchema:
   z.ZodType<
@@ -2111,19 +1797,6 @@ export const OutputGrafanaCloudLokiAuthAuthenticationType1$outboundSchema:
     z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType1),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudLokiAuthAuthenticationType1$ {
-  /** @deprecated use `OutputGrafanaCloudLokiAuthAuthenticationType1$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudLokiAuthAuthenticationType1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLokiAuthAuthenticationType1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudLokiAuthAuthenticationType1$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudLokiAuth1$inboundSchema: z.ZodType<
@@ -2140,7 +1813,6 @@ export const OutputGrafanaCloudLokiAuth1$inboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudLokiAuth1$Outbound = {
   authType: string;
@@ -2166,19 +1838,6 @@ export const OutputGrafanaCloudLokiAuth1$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudLokiAuth1$ {
-  /** @deprecated use `OutputGrafanaCloudLokiAuth1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudLokiAuth1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLokiAuth1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudLokiAuth1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudLokiAuth1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudLokiAuth1$Outbound;
-}
-
 export function outputGrafanaCloudLokiAuth1ToJSON(
   outputGrafanaCloudLokiAuth1: OutputGrafanaCloudLokiAuth1,
 ): string {
@@ -2188,7 +1847,6 @@ export function outputGrafanaCloudLokiAuth1ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudLokiAuth1FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudLokiAuth1, SDKValidationError> {
@@ -2208,7 +1866,6 @@ export const OutputGrafanaCloudExtraHttpHeader1$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudExtraHttpHeader1$Outbound = {
   name?: string | undefined;
@@ -2225,20 +1882,6 @@ export const OutputGrafanaCloudExtraHttpHeader1$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudExtraHttpHeader1$ {
-  /** @deprecated use `OutputGrafanaCloudExtraHttpHeader1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudExtraHttpHeader1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudExtraHttpHeader1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudExtraHttpHeader1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudExtraHttpHeader1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudExtraHttpHeader1$Outbound;
-}
-
 export function outputGrafanaCloudExtraHttpHeader1ToJSON(
   outputGrafanaCloudExtraHttpHeader1: OutputGrafanaCloudExtraHttpHeader1,
 ): string {
@@ -2248,7 +1891,6 @@ export function outputGrafanaCloudExtraHttpHeader1ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudExtraHttpHeader1FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudExtraHttpHeader1, SDKValidationError> {
@@ -2271,7 +1913,6 @@ export const OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema:
       z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode1),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema:
   z.ZodType<
@@ -2282,19 +1923,6 @@ export const OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema:
     z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode1),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudFailedRequestLoggingMode1$ {
-  /** @deprecated use `OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudResponseRetrySetting1$inboundSchema: z.ZodType<
@@ -2307,7 +1935,6 @@ export const OutputGrafanaCloudResponseRetrySetting1$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputGrafanaCloudResponseRetrySetting1$Outbound = {
   httpStatus: number;
@@ -2328,21 +1955,6 @@ export const OutputGrafanaCloudResponseRetrySetting1$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudResponseRetrySetting1$ {
-  /** @deprecated use `OutputGrafanaCloudResponseRetrySetting1$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudResponseRetrySetting1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudResponseRetrySetting1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudResponseRetrySetting1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudResponseRetrySetting1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudResponseRetrySetting1$Outbound;
-}
-
 export function outputGrafanaCloudResponseRetrySetting1ToJSON(
   outputGrafanaCloudResponseRetrySetting1:
     OutputGrafanaCloudResponseRetrySetting1,
@@ -2353,7 +1965,6 @@ export function outputGrafanaCloudResponseRetrySetting1ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudResponseRetrySetting1FromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2381,7 +1992,6 @@ export const OutputGrafanaCloudTimeoutRetrySettings1$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputGrafanaCloudTimeoutRetrySettings1$Outbound = {
   timeoutRetry: boolean;
@@ -2402,21 +2012,6 @@ export const OutputGrafanaCloudTimeoutRetrySettings1$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudTimeoutRetrySettings1$ {
-  /** @deprecated use `OutputGrafanaCloudTimeoutRetrySettings1$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudTimeoutRetrySettings1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudTimeoutRetrySettings1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudTimeoutRetrySettings1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudTimeoutRetrySettings1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudTimeoutRetrySettings1$Outbound;
-}
-
 export function outputGrafanaCloudTimeoutRetrySettings1ToJSON(
   outputGrafanaCloudTimeoutRetrySettings1:
     OutputGrafanaCloudTimeoutRetrySettings1,
@@ -2427,7 +2022,6 @@ export function outputGrafanaCloudTimeoutRetrySettings1ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudTimeoutRetrySettings1FromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -2454,7 +2048,6 @@ export const OutputGrafanaCloudBackpressureBehavior1$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudBackpressureBehavior1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudBackpressureBehavior1$outboundSchema: z.ZodType<
   OutputGrafanaCloudBackpressureBehavior1,
@@ -2464,19 +2057,6 @@ export const OutputGrafanaCloudBackpressureBehavior1$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGrafanaCloudBackpressureBehavior1),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudBackpressureBehavior1$ {
-  /** @deprecated use `OutputGrafanaCloudBackpressureBehavior1$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudBackpressureBehavior1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudBackpressureBehavior1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudBackpressureBehavior1$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudMode1$inboundSchema: z.ZodType<
@@ -2488,7 +2068,6 @@ export const OutputGrafanaCloudMode1$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudMode1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudMode1$outboundSchema: z.ZodType<
   OutputGrafanaCloudMode1,
@@ -2498,17 +2077,6 @@ export const OutputGrafanaCloudMode1$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGrafanaCloudMode1),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudMode1$ {
-  /** @deprecated use `OutputGrafanaCloudMode1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudMode1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudMode1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudMode1$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudCompression1$inboundSchema: z.ZodType<
@@ -2520,7 +2088,6 @@ export const OutputGrafanaCloudCompression1$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudCompression1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudCompression1$outboundSchema: z.ZodType<
   OutputGrafanaCloudCompression1,
@@ -2530,17 +2097,6 @@ export const OutputGrafanaCloudCompression1$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGrafanaCloudCompression1),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudCompression1$ {
-  /** @deprecated use `OutputGrafanaCloudCompression1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudCompression1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudCompression1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudCompression1$outboundSchema;
-}
 
 /** @internal */
 export const OutputGrafanaCloudQueueFullBehavior1$inboundSchema: z.ZodType<
@@ -2552,7 +2108,6 @@ export const OutputGrafanaCloudQueueFullBehavior1$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGrafanaCloudQueueFullBehavior1),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGrafanaCloudQueueFullBehavior1$outboundSchema: z.ZodType<
   OutputGrafanaCloudQueueFullBehavior1,
@@ -2563,26 +2118,12 @@ export const OutputGrafanaCloudQueueFullBehavior1$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudQueueFullBehavior1$ {
-  /** @deprecated use `OutputGrafanaCloudQueueFullBehavior1$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGrafanaCloudQueueFullBehavior1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudQueueFullBehavior1$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGrafanaCloudQueueFullBehavior1$outboundSchema;
-}
-
 /** @internal */
 export const OutputGrafanaCloudPqControls1$inboundSchema: z.ZodType<
   OutputGrafanaCloudPqControls1,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputGrafanaCloudPqControls1$Outbound = {};
 
@@ -2593,19 +2134,6 @@ export const OutputGrafanaCloudPqControls1$outboundSchema: z.ZodType<
   OutputGrafanaCloudPqControls1
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudPqControls1$ {
-  /** @deprecated use `OutputGrafanaCloudPqControls1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudPqControls1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPqControls1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudPqControls1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudPqControls1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudPqControls1$Outbound;
-}
-
 export function outputGrafanaCloudPqControls1ToJSON(
   outputGrafanaCloudPqControls1: OutputGrafanaCloudPqControls1,
 ): string {
@@ -2615,7 +2143,6 @@ export function outputGrafanaCloudPqControls1ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudPqControls1FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudPqControls1, SDKValidationError> {
@@ -2690,7 +2217,6 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   id?: string | undefined;
@@ -2806,19 +2332,6 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloudGrafanaCloud1$ {
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud1$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloudGrafanaCloud1$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud1$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloudGrafanaCloud1$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloudGrafanaCloud1$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloudGrafanaCloud1$Outbound;
-}
-
 export function outputGrafanaCloudGrafanaCloud1ToJSON(
   outputGrafanaCloudGrafanaCloud1: OutputGrafanaCloudGrafanaCloud1,
 ): string {
@@ -2828,7 +2341,6 @@ export function outputGrafanaCloudGrafanaCloud1ToJSON(
     ),
   );
 }
-
 export function outputGrafanaCloudGrafanaCloud1FromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloudGrafanaCloud1, SDKValidationError> {
@@ -2848,7 +2360,6 @@ export const OutputGrafanaCloud$inboundSchema: z.ZodType<
   z.lazy(() => OutputGrafanaCloudGrafanaCloud1$inboundSchema),
   z.lazy(() => OutputGrafanaCloudGrafanaCloud2$inboundSchema),
 ]);
-
 /** @internal */
 export type OutputGrafanaCloud$Outbound =
   | OutputGrafanaCloudGrafanaCloud1$Outbound
@@ -2864,19 +2375,6 @@ export const OutputGrafanaCloud$outboundSchema: z.ZodType<
   z.lazy(() => OutputGrafanaCloudGrafanaCloud2$outboundSchema),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGrafanaCloud$ {
-  /** @deprecated use `OutputGrafanaCloud$inboundSchema` instead. */
-  export const inboundSchema = OutputGrafanaCloud$inboundSchema;
-  /** @deprecated use `OutputGrafanaCloud$outboundSchema` instead. */
-  export const outboundSchema = OutputGrafanaCloud$outboundSchema;
-  /** @deprecated use `OutputGrafanaCloud$Outbound` instead. */
-  export type Outbound = OutputGrafanaCloud$Outbound;
-}
-
 export function outputGrafanaCloudToJSON(
   outputGrafanaCloud: OutputGrafanaCloud,
 ): string {
@@ -2884,7 +2382,6 @@ export function outputGrafanaCloudToJSON(
     OutputGrafanaCloud$outboundSchema.parse(outputGrafanaCloud),
   );
 }
-
 export function outputGrafanaCloudFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGrafanaCloud, SDKValidationError> {

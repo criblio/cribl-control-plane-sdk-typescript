@@ -15,19 +15,18 @@ let value: GitStatusResult = {
   files: [
     {
       index: "<value>",
-      path: "/rescue",
+      path: "/selinux",
       workingDir: "<value>",
     },
   ],
-  modified: [],
-  notAdded: [
+  modified: [
     "<value 1>",
+    "<value 2>",
   ],
+  notAdded: [],
   renamed: [],
   staged: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
 };
 ```

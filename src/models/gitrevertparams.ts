@@ -3,26 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitRevertParams = {
   commit: string;
   force?: boolean | undefined;
   message?: string | undefined;
 };
-
-/** @internal */
-export const GitRevertParams$inboundSchema: z.ZodType<
-  GitRevertParams,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  commit: z.string(),
-  force: z.boolean().optional(),
-  message: z.string().optional(),
-});
 
 /** @internal */
 export type GitRevertParams$Outbound = {
@@ -42,31 +28,8 @@ export const GitRevertParams$outboundSchema: z.ZodType<
   message: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitRevertParams$ {
-  /** @deprecated use `GitRevertParams$inboundSchema` instead. */
-  export const inboundSchema = GitRevertParams$inboundSchema;
-  /** @deprecated use `GitRevertParams$outboundSchema` instead. */
-  export const outboundSchema = GitRevertParams$outboundSchema;
-  /** @deprecated use `GitRevertParams$Outbound` instead. */
-  export type Outbound = GitRevertParams$Outbound;
-}
-
 export function gitRevertParamsToJSON(
   gitRevertParams: GitRevertParams,
 ): string {
   return JSON.stringify(GitRevertParams$outboundSchema.parse(gitRevertParams));
-}
-
-export function gitRevertParamsFromJSON(
-  jsonString: string,
-): SafeParseResult<GitRevertParams, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitRevertParams$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitRevertParams' from JSON`,
-  );
 }

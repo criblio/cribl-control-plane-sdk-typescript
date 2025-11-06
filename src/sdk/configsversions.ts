@@ -4,6 +4,7 @@
 
 import { groupsConfigsVersionsGet } from "../funcs/groupsConfigsVersionsGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -17,7 +18,7 @@ export class ConfigsVersions extends ClientSDK {
   async get(
     request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetConfigGroupConfigVersionByProductAndIdResponse> {
+  ): Promise<models.CountedListstring> {
     return unwrapAsync(groupsConfigsVersionsGet(
       this,
       request,

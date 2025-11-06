@@ -127,7 +127,6 @@ export const ConfigGroupEstimatedIngestRate$inboundSchema: z.ZodType<
     z.nativeEnum(ConfigGroupEstimatedIngestRate),
     z.number().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ConfigGroupEstimatedIngestRate$outboundSchema: z.ZodType<
   ConfigGroupEstimatedIngestRate,
@@ -137,17 +136,6 @@ export const ConfigGroupEstimatedIngestRate$outboundSchema: z.ZodType<
   z.nativeEnum(ConfigGroupEstimatedIngestRate),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ConfigGroupEstimatedIngestRate$ {
-  /** @deprecated use `ConfigGroupEstimatedIngestRate$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupEstimatedIngestRate$inboundSchema;
-  /** @deprecated use `ConfigGroupEstimatedIngestRate$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupEstimatedIngestRate$outboundSchema;
-}
 
 /** @internal */
 export const ConfigGroupGit$inboundSchema: z.ZodType<
@@ -159,7 +147,6 @@ export const ConfigGroupGit$inboundSchema: z.ZodType<
   localChanges: z.number().optional(),
   log: z.array(Commit$inboundSchema).optional(),
 });
-
 /** @internal */
 export type ConfigGroupGit$Outbound = {
   commit?: string | undefined;
@@ -178,23 +165,9 @@ export const ConfigGroupGit$outboundSchema: z.ZodType<
   log: z.array(Commit$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ConfigGroupGit$ {
-  /** @deprecated use `ConfigGroupGit$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupGit$inboundSchema;
-  /** @deprecated use `ConfigGroupGit$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupGit$outboundSchema;
-  /** @deprecated use `ConfigGroupGit$Outbound` instead. */
-  export type Outbound = ConfigGroupGit$Outbound;
-}
-
 export function configGroupGitToJSON(configGroupGit: ConfigGroupGit): string {
   return JSON.stringify(ConfigGroupGit$outboundSchema.parse(configGroupGit));
 }
-
 export function configGroupGitFromJSON(
   jsonString: string,
 ): SafeParseResult<ConfigGroupGit, SDKValidationError> {
@@ -215,7 +188,6 @@ export const ConfigGroupType$inboundSchema: z.ZodType<
     z.nativeEnum(ConfigGroupType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ConfigGroupType$outboundSchema: z.ZodType<
   ConfigGroupType,
@@ -225,17 +197,6 @@ export const ConfigGroupType$outboundSchema: z.ZodType<
   z.nativeEnum(ConfigGroupType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ConfigGroupType$ {
-  /** @deprecated use `ConfigGroupType$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupType$inboundSchema;
-  /** @deprecated use `ConfigGroupType$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupType$outboundSchema;
-}
 
 /** @internal */
 export const ConfigGroup$inboundSchema: z.ZodType<
@@ -266,7 +227,6 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
 });
-
 /** @internal */
 export type ConfigGroup$Outbound = {
   cloud?: ConfigGroupCloud$Outbound | undefined;
@@ -323,23 +283,9 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   workerRemoteAccess: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ConfigGroup$ {
-  /** @deprecated use `ConfigGroup$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroup$inboundSchema;
-  /** @deprecated use `ConfigGroup$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroup$outboundSchema;
-  /** @deprecated use `ConfigGroup$Outbound` instead. */
-  export type Outbound = ConfigGroup$Outbound;
-}
-
 export function configGroupToJSON(configGroup: ConfigGroup): string {
   return JSON.stringify(ConfigGroup$outboundSchema.parse(configGroup));
 }
-
 export function configGroupFromJSON(
   jsonString: string,
 ): SafeParseResult<ConfigGroup, SDKValidationError> {

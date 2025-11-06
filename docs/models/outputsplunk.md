@@ -26,10 +26,10 @@ let value: OutputSplunk = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
   },
-  description: "colon nor tightly pants now devil fooey verbally till",
+  description: "nor brr aggravating",
   pqControls: {},
   textSecret: "<value>",
 };

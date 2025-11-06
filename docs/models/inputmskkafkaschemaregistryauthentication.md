@@ -16,8 +16,8 @@ let value: InputMskKafkaSchemaRegistryAuthentication = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1",
   },
 };
 ```

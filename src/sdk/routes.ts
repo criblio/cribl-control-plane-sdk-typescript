@@ -7,6 +7,7 @@ import { routesGet } from "../funcs/routesGet.js";
 import { routesList } from "../funcs/routesList.js";
 import { routesUpdate } from "../funcs/routesUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +20,7 @@ export class Routes extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.ListRoutesResponse> {
+  ): Promise<models.CountedListRoutes> {
     return unwrapAsync(routesList(
       this,
       options,
@@ -35,7 +36,7 @@ export class Routes extends ClientSDK {
   async get(
     request: operations.GetRoutesByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetRoutesByIdResponse> {
+  ): Promise<models.CountedListRoutes> {
     return unwrapAsync(routesGet(
       this,
       request,
@@ -52,7 +53,7 @@ export class Routes extends ClientSDK {
   async update(
     request: operations.UpdateRoutesByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateRoutesByIdResponse> {
+  ): Promise<models.CountedListRoutes> {
     return unwrapAsync(routesUpdate(
       this,
       request,
@@ -69,7 +70,7 @@ export class Routes extends ClientSDK {
   async append(
     request: operations.CreateRoutesAppendByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateRoutesAppendByIdResponse> {
+  ): Promise<models.CountedListRoutes> {
     return unwrapAsync(routesAppend(
       this,
       request,
