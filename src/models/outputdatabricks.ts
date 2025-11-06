@@ -192,7 +192,7 @@ export type OutputDatabricks = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Optional path to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myEventsVolumePath-${C.vars.myVar}`
+   * Optional path to prepend to files before uploading.
    */
   destPath?: string | undefined;
   /**
@@ -286,7 +286,7 @@ export type OutputDatabricks = {
   /**
    * OAuth client secret for Unity Catalog authentication
    */
-  clientSecret: string;
+  clientTextSecret: string;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -705,7 +705,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   catalog: z.string().default("main"),
   schema: z.string().default("external"),
   eventsVolumeName: z.string().default("events"),
-  clientSecret: z.string(),
+  clientTextSecret: z.string(),
   description: z.string().optional(),
   compress: OutputDatabricksCompression$inboundSchema.default("gzip"),
   compressionLevel: OutputDatabricksCompressionLevel$inboundSchema.default(
@@ -764,7 +764,7 @@ export type OutputDatabricks$Outbound = {
   catalog: string;
   schema: string;
   eventsVolumeName: string;
-  clientSecret: string;
+  clientTextSecret: string;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
@@ -828,7 +828,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   catalog: z.string().default("main"),
   schema: z.string().default("external"),
   eventsVolumeName: z.string().default("events"),
-  clientSecret: z.string(),
+  clientTextSecret: z.string(),
   description: z.string().optional(),
   compress: OutputDatabricksCompression$outboundSchema.default("gzip"),
   compressionLevel: OutputDatabricksCompressionLevel$outboundSchema.default(
