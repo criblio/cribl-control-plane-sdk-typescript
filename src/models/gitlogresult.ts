@@ -38,54 +38,6 @@ export const GitLogResult$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type GitLogResult$Outbound = {
-  author_email?: string | undefined;
-  author_name?: string | undefined;
-  body?: string | undefined;
-  date?: string | undefined;
-  hash?: string | undefined;
-  message?: string | undefined;
-  refs?: string | undefined;
-};
-
-/** @internal */
-export const GitLogResult$outboundSchema: z.ZodType<
-  GitLogResult$Outbound,
-  z.ZodTypeDef,
-  GitLogResult
-> = z.object({
-  authorEmail: z.string().optional(),
-  authorName: z.string().optional(),
-  body: z.string().optional(),
-  date: z.string().optional(),
-  hash: z.string().optional(),
-  message: z.string().optional(),
-  refs: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    authorEmail: "author_email",
-    authorName: "author_name",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitLogResult$ {
-  /** @deprecated use `GitLogResult$inboundSchema` instead. */
-  export const inboundSchema = GitLogResult$inboundSchema;
-  /** @deprecated use `GitLogResult$outboundSchema` instead. */
-  export const outboundSchema = GitLogResult$outboundSchema;
-  /** @deprecated use `GitLogResult$Outbound` instead. */
-  export type Outbound = GitLogResult$Outbound;
-}
-
-export function gitLogResultToJSON(gitLogResult: GitLogResult): string {
-  return JSON.stringify(GitLogResult$outboundSchema.parse(gitLogResult));
-}
-
 export function gitLogResultFromJSON(
   jsonString: string,
 ): SafeParseResult<GitLogResult, SDKValidationError> {

@@ -153,22 +153,10 @@ export type InputDatagen = {
 export const InputDatagenType$inboundSchema: z.ZodNativeEnum<
   typeof InputDatagenType
 > = z.nativeEnum(InputDatagenType);
-
 /** @internal */
 export const InputDatagenType$outboundSchema: z.ZodNativeEnum<
   typeof InputDatagenType
 > = InputDatagenType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenType$ {
-  /** @deprecated use `InputDatagenType$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenType$inboundSchema;
-  /** @deprecated use `InputDatagenType$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenType$outboundSchema;
-}
 
 /** @internal */
 export const InputDatagenConnection$inboundSchema: z.ZodType<
@@ -179,7 +167,6 @@ export const InputDatagenConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputDatagenConnection$Outbound = {
   pipeline?: string | undefined;
@@ -196,19 +183,6 @@ export const InputDatagenConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenConnection$ {
-  /** @deprecated use `InputDatagenConnection$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenConnection$inboundSchema;
-  /** @deprecated use `InputDatagenConnection$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenConnection$outboundSchema;
-  /** @deprecated use `InputDatagenConnection$Outbound` instead. */
-  export type Outbound = InputDatagenConnection$Outbound;
-}
-
 export function inputDatagenConnectionToJSON(
   inputDatagenConnection: InputDatagenConnection,
 ): string {
@@ -216,7 +190,6 @@ export function inputDatagenConnectionToJSON(
     InputDatagenConnection$outboundSchema.parse(inputDatagenConnection),
   );
 }
-
 export function inputDatagenConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatagenConnection, SDKValidationError> {
@@ -237,7 +210,6 @@ export const InputDatagenMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputDatagenMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputDatagenMode$outboundSchema: z.ZodType<
   InputDatagenMode,
@@ -247,17 +219,6 @@ export const InputDatagenMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputDatagenMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenMode$ {
-  /** @deprecated use `InputDatagenMode$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenMode$inboundSchema;
-  /** @deprecated use `InputDatagenMode$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenMode$outboundSchema;
-}
 
 /** @internal */
 export const InputDatagenCompression$inboundSchema: z.ZodType<
@@ -269,7 +230,6 @@ export const InputDatagenCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputDatagenCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputDatagenCompression$outboundSchema: z.ZodType<
   InputDatagenCompression,
@@ -280,24 +240,12 @@ export const InputDatagenCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenCompression$ {
-  /** @deprecated use `InputDatagenCompression$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenCompression$inboundSchema;
-  /** @deprecated use `InputDatagenCompression$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputDatagenPqControls$inboundSchema: z.ZodType<
   InputDatagenPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputDatagenPqControls$Outbound = {};
 
@@ -308,19 +256,6 @@ export const InputDatagenPqControls$outboundSchema: z.ZodType<
   InputDatagenPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenPqControls$ {
-  /** @deprecated use `InputDatagenPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenPqControls$inboundSchema;
-  /** @deprecated use `InputDatagenPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenPqControls$outboundSchema;
-  /** @deprecated use `InputDatagenPqControls$Outbound` instead. */
-  export type Outbound = InputDatagenPqControls$Outbound;
-}
-
 export function inputDatagenPqControlsToJSON(
   inputDatagenPqControls: InputDatagenPqControls,
 ): string {
@@ -328,7 +263,6 @@ export function inputDatagenPqControlsToJSON(
     InputDatagenPqControls$outboundSchema.parse(inputDatagenPqControls),
   );
 }
-
 export function inputDatagenPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatagenPqControls, SDKValidationError> {
@@ -354,7 +288,6 @@ export const InputDatagenPq$inboundSchema: z.ZodType<
   compress: InputDatagenCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputDatagenPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputDatagenPq$Outbound = {
   mode: string;
@@ -383,23 +316,9 @@ export const InputDatagenPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputDatagenPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenPq$ {
-  /** @deprecated use `InputDatagenPq$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenPq$inboundSchema;
-  /** @deprecated use `InputDatagenPq$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenPq$outboundSchema;
-  /** @deprecated use `InputDatagenPq$Outbound` instead. */
-  export type Outbound = InputDatagenPq$Outbound;
-}
-
 export function inputDatagenPqToJSON(inputDatagenPq: InputDatagenPq): string {
   return JSON.stringify(InputDatagenPq$outboundSchema.parse(inputDatagenPq));
 }
-
 export function inputDatagenPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatagenPq, SDKValidationError> {
@@ -416,7 +335,6 @@ export const Sample$inboundSchema: z.ZodType<Sample, z.ZodTypeDef, unknown> = z
     sample: z.string(),
     eventsPerSec: z.number().default(10),
   });
-
 /** @internal */
 export type Sample$Outbound = {
   sample: string;
@@ -433,23 +351,9 @@ export const Sample$outboundSchema: z.ZodType<
   eventsPerSec: z.number().default(10),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Sample$ {
-  /** @deprecated use `Sample$inboundSchema` instead. */
-  export const inboundSchema = Sample$inboundSchema;
-  /** @deprecated use `Sample$outboundSchema` instead. */
-  export const outboundSchema = Sample$outboundSchema;
-  /** @deprecated use `Sample$Outbound` instead. */
-  export type Outbound = Sample$Outbound;
-}
-
 export function sampleToJSON(sample: Sample): string {
   return JSON.stringify(Sample$outboundSchema.parse(sample));
 }
-
 export function sampleFromJSON(
   jsonString: string,
 ): SafeParseResult<Sample, SDKValidationError> {
@@ -469,7 +373,6 @@ export const InputDatagenMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputDatagenMetadatum$Outbound = {
   name: string;
@@ -486,19 +389,6 @@ export const InputDatagenMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenMetadatum$ {
-  /** @deprecated use `InputDatagenMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenMetadatum$inboundSchema;
-  /** @deprecated use `InputDatagenMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenMetadatum$outboundSchema;
-  /** @deprecated use `InputDatagenMetadatum$Outbound` instead. */
-  export type Outbound = InputDatagenMetadatum$Outbound;
-}
-
 export function inputDatagenMetadatumToJSON(
   inputDatagenMetadatum: InputDatagenMetadatum,
 ): string {
@@ -506,7 +396,6 @@ export function inputDatagenMetadatumToJSON(
     InputDatagenMetadatum$outboundSchema.parse(inputDatagenMetadatum),
   );
 }
-
 export function inputDatagenMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatagenMetadatum, SDKValidationError> {
@@ -539,7 +428,6 @@ export const InputDatagen$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputDatagen$Outbound = {
   id?: string | undefined;
@@ -580,23 +468,9 @@ export const InputDatagen$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagen$ {
-  /** @deprecated use `InputDatagen$inboundSchema` instead. */
-  export const inboundSchema = InputDatagen$inboundSchema;
-  /** @deprecated use `InputDatagen$outboundSchema` instead. */
-  export const outboundSchema = InputDatagen$outboundSchema;
-  /** @deprecated use `InputDatagen$Outbound` instead. */
-  export type Outbound = InputDatagen$Outbound;
-}
-
 export function inputDatagenToJSON(inputDatagen: InputDatagen): string {
   return JSON.stringify(InputDatagen$outboundSchema.parse(inputDatagen));
 }
-
 export function inputDatagenFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatagen, SDKValidationError> {

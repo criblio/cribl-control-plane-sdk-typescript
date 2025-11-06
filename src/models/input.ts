@@ -709,7 +709,6 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
       })),
     ),
   ]);
-
 /** @internal */
 export type Input$Outbound =
   | (InputMsk$Outbound & { type: "msk" })
@@ -1049,23 +1048,9 @@ export const Input$outboundSchema: z.ZodType<
   ),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Input$ {
-  /** @deprecated use `Input$inboundSchema` instead. */
-  export const inboundSchema = Input$inboundSchema;
-  /** @deprecated use `Input$outboundSchema` instead. */
-  export const outboundSchema = Input$outboundSchema;
-  /** @deprecated use `Input$Outbound` instead. */
-  export type Outbound = Input$Outbound;
-}
-
 export function inputToJSON(input: Input): string {
   return JSON.stringify(Input$outboundSchema.parse(input));
 }
-
 export function inputFromJSON(
   jsonString: string,
 ): SafeParseResult<Input, SDKValidationError> {

@@ -266,22 +266,10 @@ export type OutputCloudwatch = {
 export const OutputCloudwatchType$inboundSchema: z.ZodNativeEnum<
   typeof OutputCloudwatchType
 > = z.nativeEnum(OutputCloudwatchType);
-
 /** @internal */
 export const OutputCloudwatchType$outboundSchema: z.ZodNativeEnum<
   typeof OutputCloudwatchType
 > = OutputCloudwatchType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchType$ {
-  /** @deprecated use `OutputCloudwatchType$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchType$inboundSchema;
-  /** @deprecated use `OutputCloudwatchType$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchType$outboundSchema;
-}
 
 /** @internal */
 export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
@@ -293,7 +281,6 @@ export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCloudwatchAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCloudwatchAuthenticationMethod$outboundSchema: z.ZodType<
   OutputCloudwatchAuthenticationMethod,
@@ -303,19 +290,6 @@ export const OutputCloudwatchAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCloudwatchAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchAuthenticationMethod$ {
-  /** @deprecated use `OutputCloudwatchAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCloudwatchAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputCloudwatchAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputCloudwatchBackpressureBehavior$inboundSchema: z.ZodType<
@@ -327,7 +301,6 @@ export const OutputCloudwatchBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCloudwatchBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCloudwatchBackpressureBehavior$outboundSchema: z.ZodType<
   OutputCloudwatchBackpressureBehavior,
@@ -337,19 +310,6 @@ export const OutputCloudwatchBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCloudwatchBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchBackpressureBehavior$ {
-  /** @deprecated use `OutputCloudwatchBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCloudwatchBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCloudwatchBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputCloudwatchMode$inboundSchema: z.ZodType<
@@ -361,7 +321,6 @@ export const OutputCloudwatchMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCloudwatchMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCloudwatchMode$outboundSchema: z.ZodType<
   OutputCloudwatchMode,
@@ -371,17 +330,6 @@ export const OutputCloudwatchMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCloudwatchMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchMode$ {
-  /** @deprecated use `OutputCloudwatchMode$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchMode$inboundSchema;
-  /** @deprecated use `OutputCloudwatchMode$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputCloudwatchCompression$inboundSchema: z.ZodType<
@@ -393,7 +341,6 @@ export const OutputCloudwatchCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCloudwatchCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCloudwatchCompression$outboundSchema: z.ZodType<
   OutputCloudwatchCompression,
@@ -403,17 +350,6 @@ export const OutputCloudwatchCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCloudwatchCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchCompression$ {
-  /** @deprecated use `OutputCloudwatchCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchCompression$inboundSchema;
-  /** @deprecated use `OutputCloudwatchCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodType<
@@ -425,7 +361,6 @@ export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCloudwatchQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodType<
   OutputCloudwatchQueueFullBehavior,
@@ -436,25 +371,12 @@ export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchQueueFullBehavior$ {
-  /** @deprecated use `OutputCloudwatchQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputCloudwatchQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputCloudwatchPqControls$inboundSchema: z.ZodType<
   OutputCloudwatchPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputCloudwatchPqControls$Outbound = {};
 
@@ -465,19 +387,6 @@ export const OutputCloudwatchPqControls$outboundSchema: z.ZodType<
   OutputCloudwatchPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchPqControls$ {
-  /** @deprecated use `OutputCloudwatchPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchPqControls$inboundSchema;
-  /** @deprecated use `OutputCloudwatchPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchPqControls$outboundSchema;
-  /** @deprecated use `OutputCloudwatchPqControls$Outbound` instead. */
-  export type Outbound = OutputCloudwatchPqControls$Outbound;
-}
-
 export function outputCloudwatchPqControlsToJSON(
   outputCloudwatchPqControls: OutputCloudwatchPqControls,
 ): string {
@@ -485,7 +394,6 @@ export function outputCloudwatchPqControlsToJSON(
     OutputCloudwatchPqControls$outboundSchema.parse(outputCloudwatchPqControls),
   );
 }
-
 export function outputCloudwatchPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCloudwatchPqControls, SDKValidationError> {
@@ -544,7 +452,6 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputCloudwatchPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputCloudwatch$Outbound = {
   id?: string | undefined;
@@ -635,19 +542,6 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatch$ {
-  /** @deprecated use `OutputCloudwatch$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatch$inboundSchema;
-  /** @deprecated use `OutputCloudwatch$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatch$outboundSchema;
-  /** @deprecated use `OutputCloudwatch$Outbound` instead. */
-  export type Outbound = OutputCloudwatch$Outbound;
-}
-
 export function outputCloudwatchToJSON(
   outputCloudwatch: OutputCloudwatch,
 ): string {
@@ -655,7 +549,6 @@ export function outputCloudwatchToJSON(
     OutputCloudwatch$outboundSchema.parse(outputCloudwatch),
   );
 }
-
 export function outputCloudwatchFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCloudwatch, SDKValidationError> {

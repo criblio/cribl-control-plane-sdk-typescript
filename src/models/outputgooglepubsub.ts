@@ -256,22 +256,10 @@ export type OutputGooglePubsub = {
 export const OutputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
   typeof OutputGooglePubsubType
 > = z.nativeEnum(OutputGooglePubsubType);
-
 /** @internal */
 export const OutputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
   typeof OutputGooglePubsubType
 > = OutputGooglePubsubType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubType$ {
-  /** @deprecated use `OutputGooglePubsubType$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubType$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubType$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubType$outboundSchema;
-}
 
 /** @internal */
 export const OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
@@ -284,7 +272,6 @@ export const OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
       z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -296,19 +283,6 @@ export const OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubGoogleAuthenticationMethod$ {
-  /** @deprecated use `OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const OutputGooglePubsubBackpressureBehavior$inboundSchema: z.ZodType<
   OutputGooglePubsubBackpressureBehavior,
@@ -319,7 +293,6 @@ export const OutputGooglePubsubBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGooglePubsubBackpressureBehavior$outboundSchema: z.ZodType<
   OutputGooglePubsubBackpressureBehavior,
@@ -329,19 +302,6 @@ export const OutputGooglePubsubBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubBackpressureBehavior$ {
-  /** @deprecated use `OutputGooglePubsubBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGooglePubsubBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGooglePubsubBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
@@ -353,7 +313,6 @@ export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGooglePubsubMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
   OutputGooglePubsubMode,
@@ -363,17 +322,6 @@ export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGooglePubsubMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubMode$ {
-  /** @deprecated use `OutputGooglePubsubMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubMode$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputGooglePubsubCompression$inboundSchema: z.ZodType<
@@ -385,7 +333,6 @@ export const OutputGooglePubsubCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGooglePubsubCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGooglePubsubCompression$outboundSchema: z.ZodType<
   OutputGooglePubsubCompression,
@@ -395,17 +342,6 @@ export const OutputGooglePubsubCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGooglePubsubCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubCompression$ {
-  /** @deprecated use `OutputGooglePubsubCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubCompression$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodType<
@@ -417,7 +353,6 @@ export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGooglePubsubQueueFullBehavior$outboundSchema: z.ZodType<
   OutputGooglePubsubQueueFullBehavior,
@@ -428,26 +363,12 @@ export const OutputGooglePubsubQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubQueueFullBehavior$ {
-  /** @deprecated use `OutputGooglePubsubQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGooglePubsubQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGooglePubsubQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputGooglePubsubPqControls$inboundSchema: z.ZodType<
   OutputGooglePubsubPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputGooglePubsubPqControls$Outbound = {};
 
@@ -458,19 +379,6 @@ export const OutputGooglePubsubPqControls$outboundSchema: z.ZodType<
   OutputGooglePubsubPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubPqControls$ {
-  /** @deprecated use `OutputGooglePubsubPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubPqControls$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubPqControls$outboundSchema;
-  /** @deprecated use `OutputGooglePubsubPqControls$Outbound` instead. */
-  export type Outbound = OutputGooglePubsubPqControls$Outbound;
-}
-
 export function outputGooglePubsubPqControlsToJSON(
   outputGooglePubsubPqControls: OutputGooglePubsubPqControls,
 ): string {
@@ -480,7 +388,6 @@ export function outputGooglePubsubPqControlsToJSON(
     ),
   );
 }
-
 export function outputGooglePubsubPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGooglePubsubPqControls, SDKValidationError> {
@@ -536,7 +443,6 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputGooglePubsub$Outbound = {
   id?: string | undefined;
@@ -619,19 +525,6 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsub$ {
-  /** @deprecated use `OutputGooglePubsub$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsub$inboundSchema;
-  /** @deprecated use `OutputGooglePubsub$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsub$outboundSchema;
-  /** @deprecated use `OutputGooglePubsub$Outbound` instead. */
-  export type Outbound = OutputGooglePubsub$Outbound;
-}
-
 export function outputGooglePubsubToJSON(
   outputGooglePubsub: OutputGooglePubsub,
 ): string {
@@ -639,7 +532,6 @@ export function outputGooglePubsubToJSON(
     OutputGooglePubsub$outboundSchema.parse(outputGooglePubsub),
   );
 }
-
 export function outputGooglePubsubFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGooglePubsub, SDKValidationError> {

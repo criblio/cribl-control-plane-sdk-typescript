@@ -31,17 +31,6 @@ export type GetConfigGroupConfigVersionByProductAndIdResponse = {
 };
 
 /** @internal */
-export const GetConfigGroupConfigVersionByProductAndIdRequest$inboundSchema:
-  z.ZodType<
-    GetConfigGroupConfigVersionByProductAndIdRequest,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    product: models.ProductsCore$inboundSchema,
-    id: z.string(),
-  });
-
-/** @internal */
 export type GetConfigGroupConfigVersionByProductAndIdRequest$Outbound = {
   product: string;
   id: string;
@@ -58,22 +47,6 @@ export const GetConfigGroupConfigVersionByProductAndIdRequest$outboundSchema:
     id: z.string(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupConfigVersionByProductAndIdRequest$ {
-  /** @deprecated use `GetConfigGroupConfigVersionByProductAndIdRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupConfigVersionByProductAndIdRequest$inboundSchema;
-  /** @deprecated use `GetConfigGroupConfigVersionByProductAndIdRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupConfigVersionByProductAndIdRequest$outboundSchema;
-  /** @deprecated use `GetConfigGroupConfigVersionByProductAndIdRequest$Outbound` instead. */
-  export type Outbound =
-    GetConfigGroupConfigVersionByProductAndIdRequest$Outbound;
-}
-
 export function getConfigGroupConfigVersionByProductAndIdRequestToJSON(
   getConfigGroupConfigVersionByProductAndIdRequest:
     GetConfigGroupConfigVersionByProductAndIdRequest,
@@ -82,22 +55,6 @@ export function getConfigGroupConfigVersionByProductAndIdRequestToJSON(
     GetConfigGroupConfigVersionByProductAndIdRequest$outboundSchema.parse(
       getConfigGroupConfigVersionByProductAndIdRequest,
     ),
-  );
-}
-
-export function getConfigGroupConfigVersionByProductAndIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  GetConfigGroupConfigVersionByProductAndIdRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetConfigGroupConfigVersionByProductAndIdRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'GetConfigGroupConfigVersionByProductAndIdRequest' from JSON`,
   );
 }
 
@@ -111,50 +68,6 @@ export const GetConfigGroupConfigVersionByProductAndIdResponse$inboundSchema:
     count: z.number().int().optional(),
     items: z.array(z.string()).optional(),
   });
-
-/** @internal */
-export type GetConfigGroupConfigVersionByProductAndIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<string> | undefined;
-};
-
-/** @internal */
-export const GetConfigGroupConfigVersionByProductAndIdResponse$outboundSchema:
-  z.ZodType<
-    GetConfigGroupConfigVersionByProductAndIdResponse$Outbound,
-    z.ZodTypeDef,
-    GetConfigGroupConfigVersionByProductAndIdResponse
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(z.string()).optional(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupConfigVersionByProductAndIdResponse$ {
-  /** @deprecated use `GetConfigGroupConfigVersionByProductAndIdResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupConfigVersionByProductAndIdResponse$inboundSchema;
-  /** @deprecated use `GetConfigGroupConfigVersionByProductAndIdResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupConfigVersionByProductAndIdResponse$outboundSchema;
-  /** @deprecated use `GetConfigGroupConfigVersionByProductAndIdResponse$Outbound` instead. */
-  export type Outbound =
-    GetConfigGroupConfigVersionByProductAndIdResponse$Outbound;
-}
-
-export function getConfigGroupConfigVersionByProductAndIdResponseToJSON(
-  getConfigGroupConfigVersionByProductAndIdResponse:
-    GetConfigGroupConfigVersionByProductAndIdResponse,
-): string {
-  return JSON.stringify(
-    GetConfigGroupConfigVersionByProductAndIdResponse$outboundSchema.parse(
-      getConfigGroupConfigVersionByProductAndIdResponse,
-    ),
-  );
-}
 
 export function getConfigGroupConfigVersionByProductAndIdResponseFromJSON(
   jsonString: string,

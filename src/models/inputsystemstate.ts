@@ -312,22 +312,10 @@ export type InputSystemState = {
 export const InputSystemStateType$inboundSchema: z.ZodNativeEnum<
   typeof InputSystemStateType
 > = z.nativeEnum(InputSystemStateType);
-
 /** @internal */
 export const InputSystemStateType$outboundSchema: z.ZodNativeEnum<
   typeof InputSystemStateType
 > = InputSystemStateType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateType$ {
-  /** @deprecated use `InputSystemStateType$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateType$inboundSchema;
-  /** @deprecated use `InputSystemStateType$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateType$outboundSchema;
-}
 
 /** @internal */
 export const InputSystemStateConnection$inboundSchema: z.ZodType<
@@ -338,7 +326,6 @@ export const InputSystemStateConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputSystemStateConnection$Outbound = {
   pipeline?: string | undefined;
@@ -355,19 +342,6 @@ export const InputSystemStateConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateConnection$ {
-  /** @deprecated use `InputSystemStateConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateConnection$inboundSchema;
-  /** @deprecated use `InputSystemStateConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateConnection$outboundSchema;
-  /** @deprecated use `InputSystemStateConnection$Outbound` instead. */
-  export type Outbound = InputSystemStateConnection$Outbound;
-}
-
 export function inputSystemStateConnectionToJSON(
   inputSystemStateConnection: InputSystemStateConnection,
 ): string {
@@ -375,7 +349,6 @@ export function inputSystemStateConnectionToJSON(
     InputSystemStateConnection$outboundSchema.parse(inputSystemStateConnection),
   );
 }
-
 export function inputSystemStateConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemStateConnection, SDKValidationError> {
@@ -396,7 +369,6 @@ export const InputSystemStateMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputSystemStateMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSystemStateMode$outboundSchema: z.ZodType<
   InputSystemStateMode,
@@ -406,17 +378,6 @@ export const InputSystemStateMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputSystemStateMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateMode$ {
-  /** @deprecated use `InputSystemStateMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateMode$inboundSchema;
-  /** @deprecated use `InputSystemStateMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateMode$outboundSchema;
-}
 
 /** @internal */
 export const InputSystemStateCompression$inboundSchema: z.ZodType<
@@ -428,7 +389,6 @@ export const InputSystemStateCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputSystemStateCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSystemStateCompression$outboundSchema: z.ZodType<
   InputSystemStateCompression,
@@ -439,24 +399,12 @@ export const InputSystemStateCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateCompression$ {
-  /** @deprecated use `InputSystemStateCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateCompression$inboundSchema;
-  /** @deprecated use `InputSystemStateCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputSystemStatePqControls$inboundSchema: z.ZodType<
   InputSystemStatePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputSystemStatePqControls$Outbound = {};
 
@@ -467,19 +415,6 @@ export const InputSystemStatePqControls$outboundSchema: z.ZodType<
   InputSystemStatePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStatePqControls$ {
-  /** @deprecated use `InputSystemStatePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStatePqControls$inboundSchema;
-  /** @deprecated use `InputSystemStatePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStatePqControls$outboundSchema;
-  /** @deprecated use `InputSystemStatePqControls$Outbound` instead. */
-  export type Outbound = InputSystemStatePqControls$Outbound;
-}
-
 export function inputSystemStatePqControlsToJSON(
   inputSystemStatePqControls: InputSystemStatePqControls,
 ): string {
@@ -487,7 +422,6 @@ export function inputSystemStatePqControlsToJSON(
     InputSystemStatePqControls$outboundSchema.parse(inputSystemStatePqControls),
   );
 }
-
 export function inputSystemStatePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemStatePqControls, SDKValidationError> {
@@ -513,7 +447,6 @@ export const InputSystemStatePq$inboundSchema: z.ZodType<
   compress: InputSystemStateCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputSystemStatePqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputSystemStatePq$Outbound = {
   mode: string;
@@ -543,19 +476,6 @@ export const InputSystemStatePq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStatePq$ {
-  /** @deprecated use `InputSystemStatePq$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStatePq$inboundSchema;
-  /** @deprecated use `InputSystemStatePq$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStatePq$outboundSchema;
-  /** @deprecated use `InputSystemStatePq$Outbound` instead. */
-  export type Outbound = InputSystemStatePq$Outbound;
-}
-
 export function inputSystemStatePqToJSON(
   inputSystemStatePq: InputSystemStatePq,
 ): string {
@@ -563,7 +483,6 @@ export function inputSystemStatePqToJSON(
     InputSystemStatePq$outboundSchema.parse(inputSystemStatePq),
   );
 }
-
 export function inputSystemStatePqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemStatePq, SDKValidationError> {
@@ -583,7 +502,6 @@ export const InputSystemStateMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputSystemStateMetadatum$Outbound = {
   name: string;
@@ -600,19 +518,6 @@ export const InputSystemStateMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateMetadatum$ {
-  /** @deprecated use `InputSystemStateMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateMetadatum$inboundSchema;
-  /** @deprecated use `InputSystemStateMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateMetadatum$outboundSchema;
-  /** @deprecated use `InputSystemStateMetadatum$Outbound` instead. */
-  export type Outbound = InputSystemStateMetadatum$Outbound;
-}
-
 export function inputSystemStateMetadatumToJSON(
   inputSystemStateMetadatum: InputSystemStateMetadatum,
 ): string {
@@ -620,7 +525,6 @@ export function inputSystemStateMetadatumToJSON(
     InputSystemStateMetadatum$outboundSchema.parse(inputSystemStateMetadatum),
   );
 }
-
 export function inputSystemStateMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemStateMetadatum, SDKValidationError> {
@@ -639,7 +543,6 @@ export const HostsFile$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type HostsFile$Outbound = {
   enable: boolean;
@@ -654,23 +557,9 @@ export const HostsFile$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HostsFile$ {
-  /** @deprecated use `HostsFile$inboundSchema` instead. */
-  export const inboundSchema = HostsFile$inboundSchema;
-  /** @deprecated use `HostsFile$outboundSchema` instead. */
-  export const outboundSchema = HostsFile$outboundSchema;
-  /** @deprecated use `HostsFile$Outbound` instead. */
-  export type Outbound = HostsFile$Outbound;
-}
-
 export function hostsFileToJSON(hostsFile: HostsFile): string {
   return JSON.stringify(HostsFile$outboundSchema.parse(hostsFile));
 }
-
 export function hostsFileFromJSON(
   jsonString: string,
 ): SafeParseResult<HostsFile, SDKValidationError> {
@@ -689,7 +578,6 @@ export const Interfaces$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type Interfaces$Outbound = {
   enable: boolean;
@@ -704,23 +592,9 @@ export const Interfaces$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Interfaces$ {
-  /** @deprecated use `Interfaces$inboundSchema` instead. */
-  export const inboundSchema = Interfaces$inboundSchema;
-  /** @deprecated use `Interfaces$outboundSchema` instead. */
-  export const outboundSchema = Interfaces$outboundSchema;
-  /** @deprecated use `Interfaces$Outbound` instead. */
-  export type Outbound = Interfaces$Outbound;
-}
-
 export function interfacesToJSON(interfaces: Interfaces): string {
   return JSON.stringify(Interfaces$outboundSchema.parse(interfaces));
 }
-
 export function interfacesFromJSON(
   jsonString: string,
 ): SafeParseResult<Interfaces, SDKValidationError> {
@@ -739,7 +613,6 @@ export const DisksAndFileSystems$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type DisksAndFileSystems$Outbound = {
   enable: boolean;
@@ -754,19 +627,6 @@ export const DisksAndFileSystems$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DisksAndFileSystems$ {
-  /** @deprecated use `DisksAndFileSystems$inboundSchema` instead. */
-  export const inboundSchema = DisksAndFileSystems$inboundSchema;
-  /** @deprecated use `DisksAndFileSystems$outboundSchema` instead. */
-  export const outboundSchema = DisksAndFileSystems$outboundSchema;
-  /** @deprecated use `DisksAndFileSystems$Outbound` instead. */
-  export type Outbound = DisksAndFileSystems$Outbound;
-}
-
 export function disksAndFileSystemsToJSON(
   disksAndFileSystems: DisksAndFileSystems,
 ): string {
@@ -774,7 +634,6 @@ export function disksAndFileSystemsToJSON(
     DisksAndFileSystems$outboundSchema.parse(disksAndFileSystems),
   );
 }
-
 export function disksAndFileSystemsFromJSON(
   jsonString: string,
 ): SafeParseResult<DisksAndFileSystems, SDKValidationError> {
@@ -793,7 +652,6 @@ export const HostInfo$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type HostInfo$Outbound = {
   enable: boolean;
@@ -808,23 +666,9 @@ export const HostInfo$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HostInfo$ {
-  /** @deprecated use `HostInfo$inboundSchema` instead. */
-  export const inboundSchema = HostInfo$inboundSchema;
-  /** @deprecated use `HostInfo$outboundSchema` instead. */
-  export const outboundSchema = HostInfo$outboundSchema;
-  /** @deprecated use `HostInfo$Outbound` instead. */
-  export type Outbound = HostInfo$Outbound;
-}
-
 export function hostInfoToJSON(hostInfo: HostInfo): string {
   return JSON.stringify(HostInfo$outboundSchema.parse(hostInfo));
 }
-
 export function hostInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<HostInfo, SDKValidationError> {
@@ -843,7 +687,6 @@ export const InputSystemStateRoutes$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type InputSystemStateRoutes$Outbound = {
   enable: boolean;
@@ -858,19 +701,6 @@ export const InputSystemStateRoutes$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateRoutes$ {
-  /** @deprecated use `InputSystemStateRoutes$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateRoutes$inboundSchema;
-  /** @deprecated use `InputSystemStateRoutes$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateRoutes$outboundSchema;
-  /** @deprecated use `InputSystemStateRoutes$Outbound` instead. */
-  export type Outbound = InputSystemStateRoutes$Outbound;
-}
-
 export function inputSystemStateRoutesToJSON(
   inputSystemStateRoutes: InputSystemStateRoutes,
 ): string {
@@ -878,7 +708,6 @@ export function inputSystemStateRoutesToJSON(
     InputSystemStateRoutes$outboundSchema.parse(inputSystemStateRoutes),
   );
 }
-
 export function inputSystemStateRoutesFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemStateRoutes, SDKValidationError> {
@@ -894,7 +723,6 @@ export const Dns$inboundSchema: z.ZodType<Dns, z.ZodTypeDef, unknown> = z
   .object({
     enable: z.boolean().default(true),
   });
-
 /** @internal */
 export type Dns$Outbound = {
   enable: boolean;
@@ -906,23 +734,9 @@ export const Dns$outboundSchema: z.ZodType<Dns$Outbound, z.ZodTypeDef, Dns> = z
     enable: z.boolean().default(true),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Dns$ {
-  /** @deprecated use `Dns$inboundSchema` instead. */
-  export const inboundSchema = Dns$inboundSchema;
-  /** @deprecated use `Dns$outboundSchema` instead. */
-  export const outboundSchema = Dns$outboundSchema;
-  /** @deprecated use `Dns$Outbound` instead. */
-  export type Outbound = Dns$Outbound;
-}
-
 export function dnsToJSON(dns: Dns): string {
   return JSON.stringify(Dns$outboundSchema.parse(dns));
 }
-
 export function dnsFromJSON(
   jsonString: string,
 ): SafeParseResult<Dns, SDKValidationError> {
@@ -941,7 +755,6 @@ export const UsersAndGroups$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type UsersAndGroups$Outbound = {
   enable: boolean;
@@ -956,23 +769,9 @@ export const UsersAndGroups$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UsersAndGroups$ {
-  /** @deprecated use `UsersAndGroups$inboundSchema` instead. */
-  export const inboundSchema = UsersAndGroups$inboundSchema;
-  /** @deprecated use `UsersAndGroups$outboundSchema` instead. */
-  export const outboundSchema = UsersAndGroups$outboundSchema;
-  /** @deprecated use `UsersAndGroups$Outbound` instead. */
-  export type Outbound = UsersAndGroups$Outbound;
-}
-
 export function usersAndGroupsToJSON(usersAndGroups: UsersAndGroups): string {
   return JSON.stringify(UsersAndGroups$outboundSchema.parse(usersAndGroups));
 }
-
 export function usersAndGroupsFromJSON(
   jsonString: string,
 ): SafeParseResult<UsersAndGroups, SDKValidationError> {
@@ -991,7 +790,6 @@ export const Firewall$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type Firewall$Outbound = {
   enable: boolean;
@@ -1006,23 +804,9 @@ export const Firewall$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Firewall$ {
-  /** @deprecated use `Firewall$inboundSchema` instead. */
-  export const inboundSchema = Firewall$inboundSchema;
-  /** @deprecated use `Firewall$outboundSchema` instead. */
-  export const outboundSchema = Firewall$outboundSchema;
-  /** @deprecated use `Firewall$Outbound` instead. */
-  export type Outbound = Firewall$Outbound;
-}
-
 export function firewallToJSON(firewall: Firewall): string {
   return JSON.stringify(Firewall$outboundSchema.parse(firewall));
 }
-
 export function firewallFromJSON(
   jsonString: string,
 ): SafeParseResult<Firewall, SDKValidationError> {
@@ -1041,7 +825,6 @@ export const Services$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type Services$Outbound = {
   enable: boolean;
@@ -1056,23 +839,9 @@ export const Services$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Services$ {
-  /** @deprecated use `Services$inboundSchema` instead. */
-  export const inboundSchema = Services$inboundSchema;
-  /** @deprecated use `Services$outboundSchema` instead. */
-  export const outboundSchema = Services$outboundSchema;
-  /** @deprecated use `Services$Outbound` instead. */
-  export type Outbound = Services$Outbound;
-}
-
 export function servicesToJSON(services: Services): string {
   return JSON.stringify(Services$outboundSchema.parse(services));
 }
-
 export function servicesFromJSON(
   jsonString: string,
 ): SafeParseResult<Services, SDKValidationError> {
@@ -1091,7 +860,6 @@ export const ListeningPorts$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type ListeningPorts$Outbound = {
   enable: boolean;
@@ -1106,23 +874,9 @@ export const ListeningPorts$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListeningPorts$ {
-  /** @deprecated use `ListeningPorts$inboundSchema` instead. */
-  export const inboundSchema = ListeningPorts$inboundSchema;
-  /** @deprecated use `ListeningPorts$outboundSchema` instead. */
-  export const outboundSchema = ListeningPorts$outboundSchema;
-  /** @deprecated use `ListeningPorts$Outbound` instead. */
-  export type Outbound = ListeningPorts$Outbound;
-}
-
 export function listeningPortsToJSON(listeningPorts: ListeningPorts): string {
   return JSON.stringify(ListeningPorts$outboundSchema.parse(listeningPorts));
 }
-
 export function listeningPortsFromJSON(
   jsonString: string,
 ): SafeParseResult<ListeningPorts, SDKValidationError> {
@@ -1141,7 +895,6 @@ export const LoggedInUsers$inboundSchema: z.ZodType<
 > = z.object({
   enable: z.boolean().default(true),
 });
-
 /** @internal */
 export type LoggedInUsers$Outbound = {
   enable: boolean;
@@ -1156,23 +909,9 @@ export const LoggedInUsers$outboundSchema: z.ZodType<
   enable: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LoggedInUsers$ {
-  /** @deprecated use `LoggedInUsers$inboundSchema` instead. */
-  export const inboundSchema = LoggedInUsers$inboundSchema;
-  /** @deprecated use `LoggedInUsers$outboundSchema` instead. */
-  export const outboundSchema = LoggedInUsers$outboundSchema;
-  /** @deprecated use `LoggedInUsers$Outbound` instead. */
-  export type Outbound = LoggedInUsers$Outbound;
-}
-
 export function loggedInUsersToJSON(loggedInUsers: LoggedInUsers): string {
   return JSON.stringify(LoggedInUsers$outboundSchema.parse(loggedInUsers));
 }
-
 export function loggedInUsersFromJSON(
   jsonString: string,
 ): SafeParseResult<LoggedInUsers, SDKValidationError> {
@@ -1201,7 +940,6 @@ export const Collectors$inboundSchema: z.ZodType<
   ports: z.lazy(() => ListeningPorts$inboundSchema).optional(),
   loginUsers: z.lazy(() => LoggedInUsers$inboundSchema).optional(),
 });
-
 /** @internal */
 export type Collectors$Outbound = {
   hostsfile?: HostsFile$Outbound | undefined;
@@ -1236,23 +974,9 @@ export const Collectors$outboundSchema: z.ZodType<
   loginUsers: z.lazy(() => LoggedInUsers$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Collectors$ {
-  /** @deprecated use `Collectors$inboundSchema` instead. */
-  export const inboundSchema = Collectors$inboundSchema;
-  /** @deprecated use `Collectors$outboundSchema` instead. */
-  export const outboundSchema = Collectors$outboundSchema;
-  /** @deprecated use `Collectors$Outbound` instead. */
-  export type Outbound = Collectors$Outbound;
-}
-
 export function collectorsToJSON(collectors: Collectors): string {
   return JSON.stringify(Collectors$outboundSchema.parse(collectors));
 }
-
 export function collectorsFromJSON(
   jsonString: string,
 ): SafeParseResult<Collectors, SDKValidationError> {
@@ -1273,7 +997,6 @@ export const InputSystemStateDataCompressionFormat$inboundSchema: z.ZodType<
     z.nativeEnum(InputSystemStateDataCompressionFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSystemStateDataCompressionFormat$outboundSchema: z.ZodType<
   InputSystemStateDataCompressionFormat,
@@ -1283,19 +1006,6 @@ export const InputSystemStateDataCompressionFormat$outboundSchema: z.ZodType<
   z.nativeEnum(InputSystemStateDataCompressionFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateDataCompressionFormat$ {
-  /** @deprecated use `InputSystemStateDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema =
-    InputSystemStateDataCompressionFormat$inboundSchema;
-  /** @deprecated use `InputSystemStateDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSystemStateDataCompressionFormat$outboundSchema;
-}
 
 /** @internal */
 export const InputSystemStatePersistence$inboundSchema: z.ZodType<
@@ -1310,7 +1020,6 @@ export const InputSystemStatePersistence$inboundSchema: z.ZodType<
   compress: InputSystemStateDataCompressionFormat$inboundSchema.default("none"),
   destPath: z.string().default("$CRIBL_HOME/state/system_state"),
 });
-
 /** @internal */
 export type InputSystemStatePersistence$Outbound = {
   enable: boolean;
@@ -1337,19 +1046,6 @@ export const InputSystemStatePersistence$outboundSchema: z.ZodType<
   destPath: z.string().default("$CRIBL_HOME/state/system_state"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStatePersistence$ {
-  /** @deprecated use `InputSystemStatePersistence$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStatePersistence$inboundSchema;
-  /** @deprecated use `InputSystemStatePersistence$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStatePersistence$outboundSchema;
-  /** @deprecated use `InputSystemStatePersistence$Outbound` instead. */
-  export type Outbound = InputSystemStatePersistence$Outbound;
-}
-
 export function inputSystemStatePersistenceToJSON(
   inputSystemStatePersistence: InputSystemStatePersistence,
 ): string {
@@ -1359,7 +1055,6 @@ export function inputSystemStatePersistenceToJSON(
     ),
   );
 }
-
 export function inputSystemStatePersistenceFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemStatePersistence, SDKValidationError> {
@@ -1396,7 +1091,6 @@ export const InputSystemState$inboundSchema: z.ZodType<
   disableNativeModule: z.boolean().default(false),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputSystemState$Outbound = {
   id?: string | undefined;
@@ -1444,19 +1138,6 @@ export const InputSystemState$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemState$ {
-  /** @deprecated use `InputSystemState$inboundSchema` instead. */
-  export const inboundSchema = InputSystemState$inboundSchema;
-  /** @deprecated use `InputSystemState$outboundSchema` instead. */
-  export const outboundSchema = InputSystemState$outboundSchema;
-  /** @deprecated use `InputSystemState$Outbound` instead. */
-  export type Outbound = InputSystemState$Outbound;
-}
-
 export function inputSystemStateToJSON(
   inputSystemState: InputSystemState,
 ): string {
@@ -1464,7 +1145,6 @@ export function inputSystemStateToJSON(
     InputSystemState$outboundSchema.parse(inputSystemState),
   );
 }
-
 export function inputSystemStateFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemState, SDKValidationError> {

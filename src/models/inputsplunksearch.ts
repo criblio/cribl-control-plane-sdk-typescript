@@ -424,22 +424,10 @@ export type InputSplunkSearch = {
 export const InputSplunkSearchType$inboundSchema: z.ZodNativeEnum<
   typeof InputSplunkSearchType
 > = z.nativeEnum(InputSplunkSearchType);
-
 /** @internal */
 export const InputSplunkSearchType$outboundSchema: z.ZodNativeEnum<
   typeof InputSplunkSearchType
 > = InputSplunkSearchType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchType$ {
-  /** @deprecated use `InputSplunkSearchType$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchType$inboundSchema;
-  /** @deprecated use `InputSplunkSearchType$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchType$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunkSearchConnection$inboundSchema: z.ZodType<
@@ -450,7 +438,6 @@ export const InputSplunkSearchConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputSplunkSearchConnection$Outbound = {
   pipeline?: string | undefined;
@@ -467,19 +454,6 @@ export const InputSplunkSearchConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchConnection$ {
-  /** @deprecated use `InputSplunkSearchConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchConnection$inboundSchema;
-  /** @deprecated use `InputSplunkSearchConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchConnection$outboundSchema;
-  /** @deprecated use `InputSplunkSearchConnection$Outbound` instead. */
-  export type Outbound = InputSplunkSearchConnection$Outbound;
-}
-
 export function inputSplunkSearchConnectionToJSON(
   inputSplunkSearchConnection: InputSplunkSearchConnection,
 ): string {
@@ -489,7 +463,6 @@ export function inputSplunkSearchConnectionToJSON(
     ),
   );
 }
-
 export function inputSplunkSearchConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearchConnection, SDKValidationError> {
@@ -510,7 +483,6 @@ export const InputSplunkSearchMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkSearchMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkSearchMode$outboundSchema: z.ZodType<
   InputSplunkSearchMode,
@@ -520,17 +492,6 @@ export const InputSplunkSearchMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputSplunkSearchMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchMode$ {
-  /** @deprecated use `InputSplunkSearchMode$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchMode$inboundSchema;
-  /** @deprecated use `InputSplunkSearchMode$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchMode$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunkSearchCompression$inboundSchema: z.ZodType<
@@ -542,7 +503,6 @@ export const InputSplunkSearchCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkSearchCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkSearchCompression$outboundSchema: z.ZodType<
   InputSplunkSearchCompression,
@@ -553,24 +513,12 @@ export const InputSplunkSearchCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchCompression$ {
-  /** @deprecated use `InputSplunkSearchCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchCompression$inboundSchema;
-  /** @deprecated use `InputSplunkSearchCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputSplunkSearchPqControls$inboundSchema: z.ZodType<
   InputSplunkSearchPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputSplunkSearchPqControls$Outbound = {};
 
@@ -581,19 +529,6 @@ export const InputSplunkSearchPqControls$outboundSchema: z.ZodType<
   InputSplunkSearchPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchPqControls$ {
-  /** @deprecated use `InputSplunkSearchPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchPqControls$inboundSchema;
-  /** @deprecated use `InputSplunkSearchPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchPqControls$outboundSchema;
-  /** @deprecated use `InputSplunkSearchPqControls$Outbound` instead. */
-  export type Outbound = InputSplunkSearchPqControls$Outbound;
-}
-
 export function inputSplunkSearchPqControlsToJSON(
   inputSplunkSearchPqControls: InputSplunkSearchPqControls,
 ): string {
@@ -603,7 +538,6 @@ export function inputSplunkSearchPqControlsToJSON(
     ),
   );
 }
-
 export function inputSplunkSearchPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearchPqControls, SDKValidationError> {
@@ -630,7 +564,6 @@ export const InputSplunkSearchPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputSplunkSearchPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputSplunkSearchPq$Outbound = {
   mode: string;
@@ -660,19 +593,6 @@ export const InputSplunkSearchPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchPq$ {
-  /** @deprecated use `InputSplunkSearchPq$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchPq$inboundSchema;
-  /** @deprecated use `InputSplunkSearchPq$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchPq$outboundSchema;
-  /** @deprecated use `InputSplunkSearchPq$Outbound` instead. */
-  export type Outbound = InputSplunkSearchPq$Outbound;
-}
-
 export function inputSplunkSearchPqToJSON(
   inputSplunkSearchPq: InputSplunkSearchPq,
 ): string {
@@ -680,7 +600,6 @@ export function inputSplunkSearchPqToJSON(
     InputSplunkSearchPq$outboundSchema.parse(inputSplunkSearchPq),
   );
 }
-
 export function inputSplunkSearchPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearchPq, SDKValidationError> {
@@ -701,7 +620,6 @@ export const OutputMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMode$outboundSchema: z.ZodType<
   OutputMode,
@@ -712,17 +630,6 @@ export const OutputMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMode$ {
-  /** @deprecated use `OutputMode$inboundSchema` instead. */
-  export const inboundSchema = OutputMode$inboundSchema;
-  /** @deprecated use `OutputMode$outboundSchema` instead. */
-  export const outboundSchema = OutputMode$outboundSchema;
-}
-
 /** @internal */
 export const EndpointParam$inboundSchema: z.ZodType<
   EndpointParam,
@@ -732,7 +639,6 @@ export const EndpointParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type EndpointParam$Outbound = {
   name: string;
@@ -749,23 +655,9 @@ export const EndpointParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EndpointParam$ {
-  /** @deprecated use `EndpointParam$inboundSchema` instead. */
-  export const inboundSchema = EndpointParam$inboundSchema;
-  /** @deprecated use `EndpointParam$outboundSchema` instead. */
-  export const outboundSchema = EndpointParam$outboundSchema;
-  /** @deprecated use `EndpointParam$Outbound` instead. */
-  export type Outbound = EndpointParam$Outbound;
-}
-
 export function endpointParamToJSON(endpointParam: EndpointParam): string {
   return JSON.stringify(EndpointParam$outboundSchema.parse(endpointParam));
 }
-
 export function endpointParamFromJSON(
   jsonString: string,
 ): SafeParseResult<EndpointParam, SDKValidationError> {
@@ -785,7 +677,6 @@ export const EndpointHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type EndpointHeader$Outbound = {
   name: string;
@@ -802,23 +693,9 @@ export const EndpointHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EndpointHeader$ {
-  /** @deprecated use `EndpointHeader$inboundSchema` instead. */
-  export const inboundSchema = EndpointHeader$inboundSchema;
-  /** @deprecated use `EndpointHeader$outboundSchema` instead. */
-  export const outboundSchema = EndpointHeader$outboundSchema;
-  /** @deprecated use `EndpointHeader$Outbound` instead. */
-  export type Outbound = EndpointHeader$Outbound;
-}
-
 export function endpointHeaderToJSON(endpointHeader: EndpointHeader): string {
   return JSON.stringify(EndpointHeader$outboundSchema.parse(endpointHeader));
 }
-
 export function endpointHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<EndpointHeader, SDKValidationError> {
@@ -839,7 +716,6 @@ export const InputSplunkSearchLogLevel$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkSearchLogLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkSearchLogLevel$outboundSchema: z.ZodType<
   InputSplunkSearchLogLevel,
@@ -850,17 +726,6 @@ export const InputSplunkSearchLogLevel$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchLogLevel$ {
-  /** @deprecated use `InputSplunkSearchLogLevel$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchLogLevel$inboundSchema;
-  /** @deprecated use `InputSplunkSearchLogLevel$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchLogLevel$outboundSchema;
-}
-
 /** @internal */
 export const InputSplunkSearchMetadatum$inboundSchema: z.ZodType<
   InputSplunkSearchMetadatum,
@@ -870,7 +735,6 @@ export const InputSplunkSearchMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputSplunkSearchMetadatum$Outbound = {
   name: string;
@@ -887,19 +751,6 @@ export const InputSplunkSearchMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchMetadatum$ {
-  /** @deprecated use `InputSplunkSearchMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchMetadatum$inboundSchema;
-  /** @deprecated use `InputSplunkSearchMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchMetadatum$outboundSchema;
-  /** @deprecated use `InputSplunkSearchMetadatum$Outbound` instead. */
-  export type Outbound = InputSplunkSearchMetadatum$Outbound;
-}
-
 export function inputSplunkSearchMetadatumToJSON(
   inputSplunkSearchMetadatum: InputSplunkSearchMetadatum,
 ): string {
@@ -907,7 +758,6 @@ export function inputSplunkSearchMetadatumToJSON(
     InputSplunkSearchMetadatum$outboundSchema.parse(inputSplunkSearchMetadatum),
   );
 }
-
 export function inputSplunkSearchMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearchMetadatum, SDKValidationError> {
@@ -928,7 +778,6 @@ export const InputSplunkSearchRetryType$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkSearchRetryType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkSearchRetryType$outboundSchema: z.ZodType<
   InputSplunkSearchRetryType,
@@ -938,17 +787,6 @@ export const InputSplunkSearchRetryType$outboundSchema: z.ZodType<
   z.nativeEnum(InputSplunkSearchRetryType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchRetryType$ {
-  /** @deprecated use `InputSplunkSearchRetryType$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchRetryType$inboundSchema;
-  /** @deprecated use `InputSplunkSearchRetryType$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchRetryType$outboundSchema;
-}
 
 /** @internal */
 export const InputSplunkSearchRetryRules$inboundSchema: z.ZodType<
@@ -965,7 +803,6 @@ export const InputSplunkSearchRetryRules$inboundSchema: z.ZodType<
   retryConnectTimeout: z.boolean().default(false),
   retryConnectReset: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputSplunkSearchRetryRules$Outbound = {
   type: string;
@@ -994,19 +831,6 @@ export const InputSplunkSearchRetryRules$outboundSchema: z.ZodType<
   retryConnectReset: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchRetryRules$ {
-  /** @deprecated use `InputSplunkSearchRetryRules$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchRetryRules$inboundSchema;
-  /** @deprecated use `InputSplunkSearchRetryRules$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchRetryRules$outboundSchema;
-  /** @deprecated use `InputSplunkSearchRetryRules$Outbound` instead. */
-  export type Outbound = InputSplunkSearchRetryRules$Outbound;
-}
-
 export function inputSplunkSearchRetryRulesToJSON(
   inputSplunkSearchRetryRules: InputSplunkSearchRetryRules,
 ): string {
@@ -1016,7 +840,6 @@ export function inputSplunkSearchRetryRulesToJSON(
     ),
   );
 }
-
 export function inputSplunkSearchRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearchRetryRules, SDKValidationError> {
@@ -1037,7 +860,6 @@ export const InputSplunkSearchAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(InputSplunkSearchAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSplunkSearchAuthenticationType$outboundSchema: z.ZodType<
   InputSplunkSearchAuthenticationType,
@@ -1048,19 +870,6 @@ export const InputSplunkSearchAuthenticationType$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchAuthenticationType$ {
-  /** @deprecated use `InputSplunkSearchAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema =
-    InputSplunkSearchAuthenticationType$inboundSchema;
-  /** @deprecated use `InputSplunkSearchAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSplunkSearchAuthenticationType$outboundSchema;
-}
-
 /** @internal */
 export const InputSplunkSearchOauthParam$inboundSchema: z.ZodType<
   InputSplunkSearchOauthParam,
@@ -1070,7 +879,6 @@ export const InputSplunkSearchOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputSplunkSearchOauthParam$Outbound = {
   name: string;
@@ -1087,19 +895,6 @@ export const InputSplunkSearchOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchOauthParam$ {
-  /** @deprecated use `InputSplunkSearchOauthParam$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchOauthParam$inboundSchema;
-  /** @deprecated use `InputSplunkSearchOauthParam$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchOauthParam$outboundSchema;
-  /** @deprecated use `InputSplunkSearchOauthParam$Outbound` instead. */
-  export type Outbound = InputSplunkSearchOauthParam$Outbound;
-}
-
 export function inputSplunkSearchOauthParamToJSON(
   inputSplunkSearchOauthParam: InputSplunkSearchOauthParam,
 ): string {
@@ -1109,7 +904,6 @@ export function inputSplunkSearchOauthParamToJSON(
     ),
   );
 }
-
 export function inputSplunkSearchOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearchOauthParam, SDKValidationError> {
@@ -1129,7 +923,6 @@ export const InputSplunkSearchOauthHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputSplunkSearchOauthHeader$Outbound = {
   name: string;
@@ -1146,19 +939,6 @@ export const InputSplunkSearchOauthHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchOauthHeader$ {
-  /** @deprecated use `InputSplunkSearchOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchOauthHeader$inboundSchema;
-  /** @deprecated use `InputSplunkSearchOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchOauthHeader$outboundSchema;
-  /** @deprecated use `InputSplunkSearchOauthHeader$Outbound` instead. */
-  export type Outbound = InputSplunkSearchOauthHeader$Outbound;
-}
-
 export function inputSplunkSearchOauthHeaderToJSON(
   inputSplunkSearchOauthHeader: InputSplunkSearchOauthHeader,
 ): string {
@@ -1168,7 +948,6 @@ export function inputSplunkSearchOauthHeaderToJSON(
     ),
   );
 }
-
 export function inputSplunkSearchOauthHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearchOauthHeader, SDKValidationError> {
@@ -1241,7 +1020,6 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
     z.lazy(() => InputSplunkSearchOauthHeader$inboundSchema),
   ).optional(),
 });
-
 /** @internal */
 export type InputSplunkSearch$Outbound = {
   id?: string | undefined;
@@ -1358,19 +1136,6 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearch$ {
-  /** @deprecated use `InputSplunkSearch$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearch$inboundSchema;
-  /** @deprecated use `InputSplunkSearch$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearch$outboundSchema;
-  /** @deprecated use `InputSplunkSearch$Outbound` instead. */
-  export type Outbound = InputSplunkSearch$Outbound;
-}
-
 export function inputSplunkSearchToJSON(
   inputSplunkSearch: InputSplunkSearch,
 ): string {
@@ -1378,7 +1143,6 @@ export function inputSplunkSearchToJSON(
     InputSplunkSearch$outboundSchema.parse(inputSplunkSearch),
   );
 }
-
 export function inputSplunkSearchFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearch, SDKValidationError> {

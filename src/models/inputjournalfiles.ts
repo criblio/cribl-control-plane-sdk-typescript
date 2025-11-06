@@ -181,22 +181,10 @@ export type InputJournalFiles = {
 export const InputJournalFilesType$inboundSchema: z.ZodNativeEnum<
   typeof InputJournalFilesType
 > = z.nativeEnum(InputJournalFilesType);
-
 /** @internal */
 export const InputJournalFilesType$outboundSchema: z.ZodNativeEnum<
   typeof InputJournalFilesType
 > = InputJournalFilesType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFilesType$ {
-  /** @deprecated use `InputJournalFilesType$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFilesType$inboundSchema;
-  /** @deprecated use `InputJournalFilesType$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFilesType$outboundSchema;
-}
 
 /** @internal */
 export const InputJournalFilesConnection$inboundSchema: z.ZodType<
@@ -207,7 +195,6 @@ export const InputJournalFilesConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputJournalFilesConnection$Outbound = {
   pipeline?: string | undefined;
@@ -224,19 +211,6 @@ export const InputJournalFilesConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFilesConnection$ {
-  /** @deprecated use `InputJournalFilesConnection$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFilesConnection$inboundSchema;
-  /** @deprecated use `InputJournalFilesConnection$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFilesConnection$outboundSchema;
-  /** @deprecated use `InputJournalFilesConnection$Outbound` instead. */
-  export type Outbound = InputJournalFilesConnection$Outbound;
-}
-
 export function inputJournalFilesConnectionToJSON(
   inputJournalFilesConnection: InputJournalFilesConnection,
 ): string {
@@ -246,7 +220,6 @@ export function inputJournalFilesConnectionToJSON(
     ),
   );
 }
-
 export function inputJournalFilesConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputJournalFilesConnection, SDKValidationError> {
@@ -267,7 +240,6 @@ export const InputJournalFilesMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputJournalFilesMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputJournalFilesMode$outboundSchema: z.ZodType<
   InputJournalFilesMode,
@@ -277,17 +249,6 @@ export const InputJournalFilesMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputJournalFilesMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFilesMode$ {
-  /** @deprecated use `InputJournalFilesMode$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFilesMode$inboundSchema;
-  /** @deprecated use `InputJournalFilesMode$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFilesMode$outboundSchema;
-}
 
 /** @internal */
 export const InputJournalFilesCompression$inboundSchema: z.ZodType<
@@ -299,7 +260,6 @@ export const InputJournalFilesCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputJournalFilesCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputJournalFilesCompression$outboundSchema: z.ZodType<
   InputJournalFilesCompression,
@@ -310,24 +270,12 @@ export const InputJournalFilesCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFilesCompression$ {
-  /** @deprecated use `InputJournalFilesCompression$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFilesCompression$inboundSchema;
-  /** @deprecated use `InputJournalFilesCompression$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFilesCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputJournalFilesPqControls$inboundSchema: z.ZodType<
   InputJournalFilesPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputJournalFilesPqControls$Outbound = {};
 
@@ -338,19 +286,6 @@ export const InputJournalFilesPqControls$outboundSchema: z.ZodType<
   InputJournalFilesPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFilesPqControls$ {
-  /** @deprecated use `InputJournalFilesPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFilesPqControls$inboundSchema;
-  /** @deprecated use `InputJournalFilesPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFilesPqControls$outboundSchema;
-  /** @deprecated use `InputJournalFilesPqControls$Outbound` instead. */
-  export type Outbound = InputJournalFilesPqControls$Outbound;
-}
-
 export function inputJournalFilesPqControlsToJSON(
   inputJournalFilesPqControls: InputJournalFilesPqControls,
 ): string {
@@ -360,7 +295,6 @@ export function inputJournalFilesPqControlsToJSON(
     ),
   );
 }
-
 export function inputJournalFilesPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputJournalFilesPqControls, SDKValidationError> {
@@ -387,7 +321,6 @@ export const InputJournalFilesPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputJournalFilesPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputJournalFilesPq$Outbound = {
   mode: string;
@@ -417,19 +350,6 @@ export const InputJournalFilesPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFilesPq$ {
-  /** @deprecated use `InputJournalFilesPq$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFilesPq$inboundSchema;
-  /** @deprecated use `InputJournalFilesPq$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFilesPq$outboundSchema;
-  /** @deprecated use `InputJournalFilesPq$Outbound` instead. */
-  export type Outbound = InputJournalFilesPq$Outbound;
-}
-
 export function inputJournalFilesPqToJSON(
   inputJournalFilesPq: InputJournalFilesPq,
 ): string {
@@ -437,7 +357,6 @@ export function inputJournalFilesPqToJSON(
     InputJournalFilesPq$outboundSchema.parse(inputJournalFilesPq),
   );
 }
-
 export function inputJournalFilesPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputJournalFilesPq, SDKValidationError> {
@@ -457,7 +376,6 @@ export const InputJournalFilesRule$inboundSchema: z.ZodType<
   filter: z.string(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputJournalFilesRule$Outbound = {
   filter: string;
@@ -474,19 +392,6 @@ export const InputJournalFilesRule$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFilesRule$ {
-  /** @deprecated use `InputJournalFilesRule$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFilesRule$inboundSchema;
-  /** @deprecated use `InputJournalFilesRule$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFilesRule$outboundSchema;
-  /** @deprecated use `InputJournalFilesRule$Outbound` instead. */
-  export type Outbound = InputJournalFilesRule$Outbound;
-}
-
 export function inputJournalFilesRuleToJSON(
   inputJournalFilesRule: InputJournalFilesRule,
 ): string {
@@ -494,7 +399,6 @@ export function inputJournalFilesRuleToJSON(
     InputJournalFilesRule$outboundSchema.parse(inputJournalFilesRule),
   );
 }
-
 export function inputJournalFilesRuleFromJSON(
   jsonString: string,
 ): SafeParseResult<InputJournalFilesRule, SDKValidationError> {
@@ -514,7 +418,6 @@ export const InputJournalFilesMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputJournalFilesMetadatum$Outbound = {
   name: string;
@@ -531,19 +434,6 @@ export const InputJournalFilesMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFilesMetadatum$ {
-  /** @deprecated use `InputJournalFilesMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFilesMetadatum$inboundSchema;
-  /** @deprecated use `InputJournalFilesMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFilesMetadatum$outboundSchema;
-  /** @deprecated use `InputJournalFilesMetadatum$Outbound` instead. */
-  export type Outbound = InputJournalFilesMetadatum$Outbound;
-}
-
 export function inputJournalFilesMetadatumToJSON(
   inputJournalFilesMetadatum: InputJournalFilesMetadatum,
 ): string {
@@ -551,7 +441,6 @@ export function inputJournalFilesMetadatumToJSON(
     InputJournalFilesMetadatum$outboundSchema.parse(inputJournalFilesMetadatum),
   );
 }
-
 export function inputJournalFilesMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputJournalFilesMetadatum, SDKValidationError> {
@@ -589,7 +478,6 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputJournalFiles$Outbound = {
   id?: string | undefined;
@@ -640,19 +528,6 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputJournalFiles$ {
-  /** @deprecated use `InputJournalFiles$inboundSchema` instead. */
-  export const inboundSchema = InputJournalFiles$inboundSchema;
-  /** @deprecated use `InputJournalFiles$outboundSchema` instead. */
-  export const outboundSchema = InputJournalFiles$outboundSchema;
-  /** @deprecated use `InputJournalFiles$Outbound` instead. */
-  export type Outbound = InputJournalFiles$Outbound;
-}
-
 export function inputJournalFilesToJSON(
   inputJournalFiles: InputJournalFiles,
 ): string {
@@ -660,7 +535,6 @@ export function inputJournalFilesToJSON(
     InputJournalFiles$outboundSchema.parse(inputJournalFiles),
   );
 }
-
 export function inputJournalFilesFromJSON(
   jsonString: string,
 ): SafeParseResult<InputJournalFiles, SDKValidationError> {

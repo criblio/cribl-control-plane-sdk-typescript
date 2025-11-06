@@ -411,22 +411,10 @@ export type OutputSentinel = {
 export const OutputSentinelType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSentinelType
 > = z.nativeEnum(OutputSentinelType);
-
 /** @internal */
 export const OutputSentinelType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSentinelType
 > = OutputSentinelType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelType$ {
-  /** @deprecated use `OutputSentinelType$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelType$inboundSchema;
-  /** @deprecated use `OutputSentinelType$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSentinelExtraHttpHeader$inboundSchema: z.ZodType<
@@ -437,7 +425,6 @@ export const OutputSentinelExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputSentinelExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -454,19 +441,6 @@ export const OutputSentinelExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelExtraHttpHeader$ {
-  /** @deprecated use `OutputSentinelExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSentinelExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSentinelExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSentinelExtraHttpHeader$Outbound;
-}
-
 export function outputSentinelExtraHttpHeaderToJSON(
   outputSentinelExtraHttpHeader: OutputSentinelExtraHttpHeader,
 ): string {
@@ -476,7 +450,6 @@ export function outputSentinelExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputSentinelExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSentinelExtraHttpHeader, SDKValidationError> {
@@ -497,7 +470,6 @@ export const OutputSentinelFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSentinelFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSentinelFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputSentinelFailedRequestLoggingMode,
@@ -507,19 +479,6 @@ export const OutputSentinelFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSentinelFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSentinelFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSentinelFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSentinelResponseRetrySetting$inboundSchema: z.ZodType<
@@ -532,7 +491,6 @@ export const OutputSentinelResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSentinelResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -553,20 +511,6 @@ export const OutputSentinelResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelResponseRetrySetting$ {
-  /** @deprecated use `OutputSentinelResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSentinelResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSentinelResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSentinelResponseRetrySetting$Outbound;
-}
-
 export function outputSentinelResponseRetrySettingToJSON(
   outputSentinelResponseRetrySetting: OutputSentinelResponseRetrySetting,
 ): string {
@@ -576,7 +520,6 @@ export function outputSentinelResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputSentinelResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSentinelResponseRetrySetting, SDKValidationError> {
@@ -599,7 +542,6 @@ export const OutputSentinelTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSentinelTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -620,20 +562,6 @@ export const OutputSentinelTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSentinelTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSentinelTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSentinelTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSentinelTimeoutRetrySettings$Outbound;
-}
-
 export function outputSentinelTimeoutRetrySettingsToJSON(
   outputSentinelTimeoutRetrySettings: OutputSentinelTimeoutRetrySettings,
 ): string {
@@ -643,7 +571,6 @@ export function outputSentinelTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputSentinelTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSentinelTimeoutRetrySettings, SDKValidationError> {
@@ -665,7 +592,6 @@ export const OutputSentinelBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSentinelBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSentinelBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSentinelBackpressureBehavior,
@@ -675,18 +601,6 @@ export const OutputSentinelBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSentinelBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelBackpressureBehavior$ {
-  /** @deprecated use `OutputSentinelBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSentinelBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const AuthType$inboundSchema: z.ZodType<
@@ -698,7 +612,6 @@ export const AuthType$inboundSchema: z.ZodType<
     z.nativeEnum(AuthType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const AuthType$outboundSchema: z.ZodType<
   AuthType,
@@ -708,17 +621,6 @@ export const AuthType$outboundSchema: z.ZodType<
   z.nativeEnum(AuthType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AuthType$ {
-  /** @deprecated use `AuthType$inboundSchema` instead. */
-  export const inboundSchema = AuthType$inboundSchema;
-  /** @deprecated use `AuthType$outboundSchema` instead. */
-  export const outboundSchema = AuthType$outboundSchema;
-}
 
 /** @internal */
 export const EndpointConfiguration$inboundSchema: z.ZodType<
@@ -730,7 +632,6 @@ export const EndpointConfiguration$inboundSchema: z.ZodType<
     z.nativeEnum(EndpointConfiguration),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const EndpointConfiguration$outboundSchema: z.ZodType<
   EndpointConfiguration,
@@ -740,17 +641,6 @@ export const EndpointConfiguration$outboundSchema: z.ZodType<
   z.nativeEnum(EndpointConfiguration),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EndpointConfiguration$ {
-  /** @deprecated use `EndpointConfiguration$inboundSchema` instead. */
-  export const inboundSchema = EndpointConfiguration$inboundSchema;
-  /** @deprecated use `EndpointConfiguration$outboundSchema` instead. */
-  export const outboundSchema = EndpointConfiguration$outboundSchema;
-}
 
 /** @internal */
 export const OutputSentinelFormat$inboundSchema: z.ZodType<
@@ -762,7 +652,6 @@ export const OutputSentinelFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSentinelFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSentinelFormat$outboundSchema: z.ZodType<
   OutputSentinelFormat,
@@ -772,17 +661,6 @@ export const OutputSentinelFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSentinelFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelFormat$ {
-  /** @deprecated use `OutputSentinelFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelFormat$inboundSchema;
-  /** @deprecated use `OutputSentinelFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputSentinelMode$inboundSchema: z.ZodType<
@@ -794,7 +672,6 @@ export const OutputSentinelMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSentinelMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSentinelMode$outboundSchema: z.ZodType<
   OutputSentinelMode,
@@ -804,17 +681,6 @@ export const OutputSentinelMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSentinelMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelMode$ {
-  /** @deprecated use `OutputSentinelMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelMode$inboundSchema;
-  /** @deprecated use `OutputSentinelMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSentinelCompression$inboundSchema: z.ZodType<
@@ -826,7 +692,6 @@ export const OutputSentinelCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSentinelCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSentinelCompression$outboundSchema: z.ZodType<
   OutputSentinelCompression,
@@ -836,17 +701,6 @@ export const OutputSentinelCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSentinelCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelCompression$ {
-  /** @deprecated use `OutputSentinelCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelCompression$inboundSchema;
-  /** @deprecated use `OutputSentinelCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputSentinelQueueFullBehavior$inboundSchema: z.ZodType<
@@ -858,7 +712,6 @@ export const OutputSentinelQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSentinelQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSentinelQueueFullBehavior$outboundSchema: z.ZodType<
   OutputSentinelQueueFullBehavior,
@@ -869,24 +722,12 @@ export const OutputSentinelQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelQueueFullBehavior$ {
-  /** @deprecated use `OutputSentinelQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSentinelQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSentinelPqControls$inboundSchema: z.ZodType<
   OutputSentinelPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSentinelPqControls$Outbound = {};
 
@@ -897,19 +738,6 @@ export const OutputSentinelPqControls$outboundSchema: z.ZodType<
   OutputSentinelPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelPqControls$ {
-  /** @deprecated use `OutputSentinelPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelPqControls$inboundSchema;
-  /** @deprecated use `OutputSentinelPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelPqControls$outboundSchema;
-  /** @deprecated use `OutputSentinelPqControls$Outbound` instead. */
-  export type Outbound = OutputSentinelPqControls$Outbound;
-}
-
 export function outputSentinelPqControlsToJSON(
   outputSentinelPqControls: OutputSentinelPqControls,
 ): string {
@@ -917,7 +745,6 @@ export function outputSentinelPqControlsToJSON(
     OutputSentinelPqControls$outboundSchema.parse(outputSentinelPqControls),
   );
 }
-
 export function outputSentinelPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSentinelPqControls, SDKValidationError> {
@@ -1004,7 +831,6 @@ export const OutputSentinel$inboundSchema: z.ZodType<
     "client_id": "clientId",
   });
 });
-
 /** @internal */
 export type OutputSentinel$Outbound = {
   id?: string | undefined;
@@ -1144,23 +970,9 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinel$ {
-  /** @deprecated use `OutputSentinel$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinel$inboundSchema;
-  /** @deprecated use `OutputSentinel$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinel$outboundSchema;
-  /** @deprecated use `OutputSentinel$Outbound` instead. */
-  export type Outbound = OutputSentinel$Outbound;
-}
-
 export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {
   return JSON.stringify(OutputSentinel$outboundSchema.parse(outputSentinel));
 }
-
 export function outputSentinelFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSentinel, SDKValidationError> {

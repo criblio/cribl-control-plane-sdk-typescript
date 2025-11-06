@@ -227,22 +227,10 @@ export type InputFile = {
 export const InputFileType$inboundSchema: z.ZodNativeEnum<
   typeof InputFileType
 > = z.nativeEnum(InputFileType);
-
 /** @internal */
 export const InputFileType$outboundSchema: z.ZodNativeEnum<
   typeof InputFileType
 > = InputFileType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFileType$ {
-  /** @deprecated use `InputFileType$inboundSchema` instead. */
-  export const inboundSchema = InputFileType$inboundSchema;
-  /** @deprecated use `InputFileType$outboundSchema` instead. */
-  export const outboundSchema = InputFileType$outboundSchema;
-}
 
 /** @internal */
 export const InputFileConnection$inboundSchema: z.ZodType<
@@ -253,7 +241,6 @@ export const InputFileConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputFileConnection$Outbound = {
   pipeline?: string | undefined;
@@ -270,19 +257,6 @@ export const InputFileConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFileConnection$ {
-  /** @deprecated use `InputFileConnection$inboundSchema` instead. */
-  export const inboundSchema = InputFileConnection$inboundSchema;
-  /** @deprecated use `InputFileConnection$outboundSchema` instead. */
-  export const outboundSchema = InputFileConnection$outboundSchema;
-  /** @deprecated use `InputFileConnection$Outbound` instead. */
-  export type Outbound = InputFileConnection$Outbound;
-}
-
 export function inputFileConnectionToJSON(
   inputFileConnection: InputFileConnection,
 ): string {
@@ -290,7 +264,6 @@ export function inputFileConnectionToJSON(
     InputFileConnection$outboundSchema.parse(inputFileConnection),
   );
 }
-
 export function inputFileConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFileConnection, SDKValidationError> {
@@ -311,7 +284,6 @@ export const InputFilePqMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputFilePqMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputFilePqMode$outboundSchema: z.ZodType<
   InputFilePqMode,
@@ -321,17 +293,6 @@ export const InputFilePqMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputFilePqMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFilePqMode$ {
-  /** @deprecated use `InputFilePqMode$inboundSchema` instead. */
-  export const inboundSchema = InputFilePqMode$inboundSchema;
-  /** @deprecated use `InputFilePqMode$outboundSchema` instead. */
-  export const outboundSchema = InputFilePqMode$outboundSchema;
-}
 
 /** @internal */
 export const InputFileCompression$inboundSchema: z.ZodType<
@@ -343,7 +304,6 @@ export const InputFileCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputFileCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputFileCompression$outboundSchema: z.ZodType<
   InputFileCompression,
@@ -354,24 +314,12 @@ export const InputFileCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFileCompression$ {
-  /** @deprecated use `InputFileCompression$inboundSchema` instead. */
-  export const inboundSchema = InputFileCompression$inboundSchema;
-  /** @deprecated use `InputFileCompression$outboundSchema` instead. */
-  export const outboundSchema = InputFileCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputFilePqControls$inboundSchema: z.ZodType<
   InputFilePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputFilePqControls$Outbound = {};
 
@@ -382,19 +330,6 @@ export const InputFilePqControls$outboundSchema: z.ZodType<
   InputFilePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFilePqControls$ {
-  /** @deprecated use `InputFilePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputFilePqControls$inboundSchema;
-  /** @deprecated use `InputFilePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputFilePqControls$outboundSchema;
-  /** @deprecated use `InputFilePqControls$Outbound` instead. */
-  export type Outbound = InputFilePqControls$Outbound;
-}
-
 export function inputFilePqControlsToJSON(
   inputFilePqControls: InputFilePqControls,
 ): string {
@@ -402,7 +337,6 @@ export function inputFilePqControlsToJSON(
     InputFilePqControls$outboundSchema.parse(inputFilePqControls),
   );
 }
-
 export function inputFilePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFilePqControls, SDKValidationError> {
@@ -428,7 +362,6 @@ export const InputFilePq$inboundSchema: z.ZodType<
   compress: InputFileCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputFilePqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputFilePq$Outbound = {
   mode: string;
@@ -457,23 +390,9 @@ export const InputFilePq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputFilePqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFilePq$ {
-  /** @deprecated use `InputFilePq$inboundSchema` instead. */
-  export const inboundSchema = InputFilePq$inboundSchema;
-  /** @deprecated use `InputFilePq$outboundSchema` instead. */
-  export const outboundSchema = InputFilePq$outboundSchema;
-  /** @deprecated use `InputFilePq$Outbound` instead. */
-  export type Outbound = InputFilePq$Outbound;
-}
-
 export function inputFilePqToJSON(inputFilePq: InputFilePq): string {
   return JSON.stringify(InputFilePq$outboundSchema.parse(inputFilePq));
 }
-
 export function inputFilePqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFilePq, SDKValidationError> {
@@ -494,7 +413,6 @@ export const InputFileMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputFileMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputFileMode$outboundSchema: z.ZodType<
   InputFileMode,
@@ -505,17 +423,6 @@ export const InputFileMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFileMode$ {
-  /** @deprecated use `InputFileMode$inboundSchema` instead. */
-  export const inboundSchema = InputFileMode$inboundSchema;
-  /** @deprecated use `InputFileMode$outboundSchema` instead. */
-  export const outboundSchema = InputFileMode$outboundSchema;
-}
-
 /** @internal */
 export const InputFileMetadatum$inboundSchema: z.ZodType<
   InputFileMetadatum,
@@ -525,7 +432,6 @@ export const InputFileMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputFileMetadatum$Outbound = {
   name: string;
@@ -542,19 +448,6 @@ export const InputFileMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFileMetadatum$ {
-  /** @deprecated use `InputFileMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputFileMetadatum$inboundSchema;
-  /** @deprecated use `InputFileMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputFileMetadatum$outboundSchema;
-  /** @deprecated use `InputFileMetadatum$Outbound` instead. */
-  export type Outbound = InputFileMetadatum$Outbound;
-}
-
 export function inputFileMetadatumToJSON(
   inputFileMetadatum: InputFileMetadatum,
 ): string {
@@ -562,7 +455,6 @@ export function inputFileMetadatumToJSON(
     InputFileMetadatum$outboundSchema.parse(inputFileMetadatum),
   );
 }
-
 export function inputFileMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFileMetadatum, SDKValidationError> {
@@ -610,7 +502,6 @@ export const InputFile$inboundSchema: z.ZodType<
   deleteFiles: z.boolean().default(false),
   includeUnidentifiableBinary: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputFile$Outbound = {
   id?: string | undefined;
@@ -682,23 +573,9 @@ export const InputFile$outboundSchema: z.ZodType<
   includeUnidentifiableBinary: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFile$ {
-  /** @deprecated use `InputFile$inboundSchema` instead. */
-  export const inboundSchema = InputFile$inboundSchema;
-  /** @deprecated use `InputFile$outboundSchema` instead. */
-  export const outboundSchema = InputFile$outboundSchema;
-  /** @deprecated use `InputFile$Outbound` instead. */
-  export type Outbound = InputFile$Outbound;
-}
-
 export function inputFileToJSON(inputFile: InputFile): string {
   return JSON.stringify(InputFile$outboundSchema.parse(inputFile));
 }
-
 export function inputFileFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFile, SDKValidationError> {

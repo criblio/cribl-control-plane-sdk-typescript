@@ -323,22 +323,10 @@ export type InputZscalerHec = {
 export const InputZscalerHecType$inboundSchema: z.ZodNativeEnum<
   typeof InputZscalerHecType
 > = z.nativeEnum(InputZscalerHecType);
-
 /** @internal */
 export const InputZscalerHecType$outboundSchema: z.ZodNativeEnum<
   typeof InputZscalerHecType
 > = InputZscalerHecType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecType$ {
-  /** @deprecated use `InputZscalerHecType$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecType$inboundSchema;
-  /** @deprecated use `InputZscalerHecType$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecType$outboundSchema;
-}
 
 /** @internal */
 export const InputZscalerHecConnection$inboundSchema: z.ZodType<
@@ -349,7 +337,6 @@ export const InputZscalerHecConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputZscalerHecConnection$Outbound = {
   pipeline?: string | undefined;
@@ -366,19 +353,6 @@ export const InputZscalerHecConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecConnection$ {
-  /** @deprecated use `InputZscalerHecConnection$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecConnection$inboundSchema;
-  /** @deprecated use `InputZscalerHecConnection$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecConnection$outboundSchema;
-  /** @deprecated use `InputZscalerHecConnection$Outbound` instead. */
-  export type Outbound = InputZscalerHecConnection$Outbound;
-}
-
 export function inputZscalerHecConnectionToJSON(
   inputZscalerHecConnection: InputZscalerHecConnection,
 ): string {
@@ -386,7 +360,6 @@ export function inputZscalerHecConnectionToJSON(
     InputZscalerHecConnection$outboundSchema.parse(inputZscalerHecConnection),
   );
 }
-
 export function inputZscalerHecConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputZscalerHecConnection, SDKValidationError> {
@@ -407,7 +380,6 @@ export const InputZscalerHecMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputZscalerHecMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputZscalerHecMode$outboundSchema: z.ZodType<
   InputZscalerHecMode,
@@ -417,17 +389,6 @@ export const InputZscalerHecMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputZscalerHecMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecMode$ {
-  /** @deprecated use `InputZscalerHecMode$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecMode$inboundSchema;
-  /** @deprecated use `InputZscalerHecMode$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecMode$outboundSchema;
-}
 
 /** @internal */
 export const InputZscalerHecCompression$inboundSchema: z.ZodType<
@@ -439,7 +400,6 @@ export const InputZscalerHecCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputZscalerHecCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputZscalerHecCompression$outboundSchema: z.ZodType<
   InputZscalerHecCompression,
@@ -450,24 +410,12 @@ export const InputZscalerHecCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecCompression$ {
-  /** @deprecated use `InputZscalerHecCompression$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecCompression$inboundSchema;
-  /** @deprecated use `InputZscalerHecCompression$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputZscalerHecPqControls$inboundSchema: z.ZodType<
   InputZscalerHecPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputZscalerHecPqControls$Outbound = {};
 
@@ -478,19 +426,6 @@ export const InputZscalerHecPqControls$outboundSchema: z.ZodType<
   InputZscalerHecPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecPqControls$ {
-  /** @deprecated use `InputZscalerHecPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecPqControls$inboundSchema;
-  /** @deprecated use `InputZscalerHecPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecPqControls$outboundSchema;
-  /** @deprecated use `InputZscalerHecPqControls$Outbound` instead. */
-  export type Outbound = InputZscalerHecPqControls$Outbound;
-}
-
 export function inputZscalerHecPqControlsToJSON(
   inputZscalerHecPqControls: InputZscalerHecPqControls,
 ): string {
@@ -498,7 +433,6 @@ export function inputZscalerHecPqControlsToJSON(
     InputZscalerHecPqControls$outboundSchema.parse(inputZscalerHecPqControls),
   );
 }
-
 export function inputZscalerHecPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputZscalerHecPqControls, SDKValidationError> {
@@ -524,7 +458,6 @@ export const InputZscalerHecPq$inboundSchema: z.ZodType<
   compress: InputZscalerHecCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputZscalerHecPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputZscalerHecPq$Outbound = {
   mode: string;
@@ -553,19 +486,6 @@ export const InputZscalerHecPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputZscalerHecPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecPq$ {
-  /** @deprecated use `InputZscalerHecPq$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecPq$inboundSchema;
-  /** @deprecated use `InputZscalerHecPq$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecPq$outboundSchema;
-  /** @deprecated use `InputZscalerHecPq$Outbound` instead. */
-  export type Outbound = InputZscalerHecPq$Outbound;
-}
-
 export function inputZscalerHecPqToJSON(
   inputZscalerHecPq: InputZscalerHecPq,
 ): string {
@@ -573,7 +493,6 @@ export function inputZscalerHecPqToJSON(
     InputZscalerHecPq$outboundSchema.parse(inputZscalerHecPq),
   );
 }
-
 export function inputZscalerHecPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputZscalerHecPq, SDKValidationError> {
@@ -594,7 +513,6 @@ export const InputZscalerHecAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputZscalerHecAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputZscalerHecAuthenticationMethod$outboundSchema: z.ZodType<
   InputZscalerHecAuthenticationMethod,
@@ -605,19 +523,6 @@ export const InputZscalerHecAuthenticationMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecAuthenticationMethod$ {
-  /** @deprecated use `InputZscalerHecAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputZscalerHecAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputZscalerHecAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputZscalerHecAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const InputZscalerHecAuthTokenMetadatum$inboundSchema: z.ZodType<
   InputZscalerHecAuthTokenMetadatum,
@@ -627,7 +532,6 @@ export const InputZscalerHecAuthTokenMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputZscalerHecAuthTokenMetadatum$Outbound = {
   name: string;
@@ -644,20 +548,6 @@ export const InputZscalerHecAuthTokenMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecAuthTokenMetadatum$ {
-  /** @deprecated use `InputZscalerHecAuthTokenMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecAuthTokenMetadatum$inboundSchema;
-  /** @deprecated use `InputZscalerHecAuthTokenMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    InputZscalerHecAuthTokenMetadatum$outboundSchema;
-  /** @deprecated use `InputZscalerHecAuthTokenMetadatum$Outbound` instead. */
-  export type Outbound = InputZscalerHecAuthTokenMetadatum$Outbound;
-}
-
 export function inputZscalerHecAuthTokenMetadatumToJSON(
   inputZscalerHecAuthTokenMetadatum: InputZscalerHecAuthTokenMetadatum,
 ): string {
@@ -667,7 +557,6 @@ export function inputZscalerHecAuthTokenMetadatumToJSON(
     ),
   );
 }
-
 export function inputZscalerHecAuthTokenMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputZscalerHecAuthTokenMetadatum, SDKValidationError> {
@@ -694,7 +583,6 @@ export const InputZscalerHecAuthToken$inboundSchema: z.ZodType<
     z.lazy(() => InputZscalerHecAuthTokenMetadatum$inboundSchema),
   ).optional(),
 });
-
 /** @internal */
 export type InputZscalerHecAuthToken$Outbound = {
   authType: string;
@@ -725,19 +613,6 @@ export const InputZscalerHecAuthToken$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecAuthToken$ {
-  /** @deprecated use `InputZscalerHecAuthToken$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecAuthToken$inboundSchema;
-  /** @deprecated use `InputZscalerHecAuthToken$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecAuthToken$outboundSchema;
-  /** @deprecated use `InputZscalerHecAuthToken$Outbound` instead. */
-  export type Outbound = InputZscalerHecAuthToken$Outbound;
-}
-
 export function inputZscalerHecAuthTokenToJSON(
   inputZscalerHecAuthToken: InputZscalerHecAuthToken,
 ): string {
@@ -745,7 +620,6 @@ export function inputZscalerHecAuthTokenToJSON(
     InputZscalerHecAuthToken$outboundSchema.parse(inputZscalerHecAuthToken),
   );
 }
-
 export function inputZscalerHecAuthTokenFromJSON(
   jsonString: string,
 ): SafeParseResult<InputZscalerHecAuthToken, SDKValidationError> {
@@ -766,7 +640,6 @@ export const InputZscalerHecMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputZscalerHecMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputZscalerHecMinimumTLSVersion$outboundSchema: z.ZodType<
   InputZscalerHecMinimumTLSVersion,
@@ -776,17 +649,6 @@ export const InputZscalerHecMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputZscalerHecMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecMinimumTLSVersion$ {
-  /** @deprecated use `InputZscalerHecMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputZscalerHecMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputZscalerHecMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -798,7 +660,6 @@ export const InputZscalerHecMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputZscalerHecMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputZscalerHecMaximumTLSVersion$outboundSchema: z.ZodType<
   InputZscalerHecMaximumTLSVersion,
@@ -808,17 +669,6 @@ export const InputZscalerHecMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputZscalerHecMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecMaximumTLSVersion$ {
-  /** @deprecated use `InputZscalerHecMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputZscalerHecMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputZscalerHecTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -838,7 +688,6 @@ export const InputZscalerHecTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputZscalerHecMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputZscalerHecMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputZscalerHecTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -873,21 +722,6 @@ export const InputZscalerHecTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputZscalerHecMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecTLSSettingsServerSide$ {
-  /** @deprecated use `InputZscalerHecTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputZscalerHecTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputZscalerHecTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputZscalerHecTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputZscalerHecTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputZscalerHecTLSSettingsServerSide$Outbound;
-}
-
 export function inputZscalerHecTLSSettingsServerSideToJSON(
   inputZscalerHecTLSSettingsServerSide: InputZscalerHecTLSSettingsServerSide,
 ): string {
@@ -897,7 +731,6 @@ export function inputZscalerHecTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputZscalerHecTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputZscalerHecTLSSettingsServerSide, SDKValidationError> {
@@ -918,7 +751,6 @@ export const InputZscalerHecMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputZscalerHecMetadatum$Outbound = {
   name: string;
@@ -935,19 +767,6 @@ export const InputZscalerHecMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHecMetadatum$ {
-  /** @deprecated use `InputZscalerHecMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHecMetadatum$inboundSchema;
-  /** @deprecated use `InputZscalerHecMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHecMetadatum$outboundSchema;
-  /** @deprecated use `InputZscalerHecMetadatum$Outbound` instead. */
-  export type Outbound = InputZscalerHecMetadatum$Outbound;
-}
-
 export function inputZscalerHecMetadatumToJSON(
   inputZscalerHecMetadatum: InputZscalerHecMetadatum,
 ): string {
@@ -955,7 +774,6 @@ export function inputZscalerHecMetadatumToJSON(
     InputZscalerHecMetadatum$outboundSchema.parse(inputZscalerHecMetadatum),
   );
 }
-
 export function inputZscalerHecMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputZscalerHecMetadatum, SDKValidationError> {
@@ -1010,7 +828,6 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   emitTokenMetrics: z.boolean().default(false),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputZscalerHec$Outbound = {
   id?: string | undefined;
@@ -1093,25 +910,11 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputZscalerHec$ {
-  /** @deprecated use `InputZscalerHec$inboundSchema` instead. */
-  export const inboundSchema = InputZscalerHec$inboundSchema;
-  /** @deprecated use `InputZscalerHec$outboundSchema` instead. */
-  export const outboundSchema = InputZscalerHec$outboundSchema;
-  /** @deprecated use `InputZscalerHec$Outbound` instead. */
-  export type Outbound = InputZscalerHec$Outbound;
-}
-
 export function inputZscalerHecToJSON(
   inputZscalerHec: InputZscalerHec,
 ): string {
   return JSON.stringify(InputZscalerHec$outboundSchema.parse(inputZscalerHec));
 }
-
 export function inputZscalerHecFromJSON(
   jsonString: string,
 ): SafeParseResult<InputZscalerHec, SDKValidationError> {

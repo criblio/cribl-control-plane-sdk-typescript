@@ -27,15 +27,6 @@ export type GetOutputByIdResponse = {
 };
 
 /** @internal */
-export const GetOutputByIdRequest$inboundSchema: z.ZodType<
-  GetOutputByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
-
-/** @internal */
 export type GetOutputByIdRequest$Outbound = {
   id: string;
 };
@@ -49,34 +40,11 @@ export const GetOutputByIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetOutputByIdRequest$ {
-  /** @deprecated use `GetOutputByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = GetOutputByIdRequest$inboundSchema;
-  /** @deprecated use `GetOutputByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = GetOutputByIdRequest$outboundSchema;
-  /** @deprecated use `GetOutputByIdRequest$Outbound` instead. */
-  export type Outbound = GetOutputByIdRequest$Outbound;
-}
-
 export function getOutputByIdRequestToJSON(
   getOutputByIdRequest: GetOutputByIdRequest,
 ): string {
   return JSON.stringify(
     GetOutputByIdRequest$outboundSchema.parse(getOutputByIdRequest),
-  );
-}
-
-export function getOutputByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetOutputByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetOutputByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetOutputByIdRequest' from JSON`,
   );
 }
 
@@ -89,43 +57,6 @@ export const GetOutputByIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.Output$inboundSchema).optional(),
 });
-
-/** @internal */
-export type GetOutputByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Output$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetOutputByIdResponse$outboundSchema: z.ZodType<
-  GetOutputByIdResponse$Outbound,
-  z.ZodTypeDef,
-  GetOutputByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Output$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetOutputByIdResponse$ {
-  /** @deprecated use `GetOutputByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = GetOutputByIdResponse$inboundSchema;
-  /** @deprecated use `GetOutputByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = GetOutputByIdResponse$outboundSchema;
-  /** @deprecated use `GetOutputByIdResponse$Outbound` instead. */
-  export type Outbound = GetOutputByIdResponse$Outbound;
-}
-
-export function getOutputByIdResponseToJSON(
-  getOutputByIdResponse: GetOutputByIdResponse,
-): string {
-  return JSON.stringify(
-    GetOutputByIdResponse$outboundSchema.parse(getOutputByIdResponse),
-  );
-}
 
 export function getOutputByIdResponseFromJSON(
   jsonString: string,

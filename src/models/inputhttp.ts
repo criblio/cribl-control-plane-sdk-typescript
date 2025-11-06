@@ -296,22 +296,10 @@ export type InputHttp = {
 export const InputHttpType$inboundSchema: z.ZodNativeEnum<
   typeof InputHttpType
 > = z.nativeEnum(InputHttpType);
-
 /** @internal */
 export const InputHttpType$outboundSchema: z.ZodNativeEnum<
   typeof InputHttpType
 > = InputHttpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpType$ {
-  /** @deprecated use `InputHttpType$inboundSchema` instead. */
-  export const inboundSchema = InputHttpType$inboundSchema;
-  /** @deprecated use `InputHttpType$outboundSchema` instead. */
-  export const outboundSchema = InputHttpType$outboundSchema;
-}
 
 /** @internal */
 export const InputHttpConnection$inboundSchema: z.ZodType<
@@ -322,7 +310,6 @@ export const InputHttpConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputHttpConnection$Outbound = {
   pipeline?: string | undefined;
@@ -339,19 +326,6 @@ export const InputHttpConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpConnection$ {
-  /** @deprecated use `InputHttpConnection$inboundSchema` instead. */
-  export const inboundSchema = InputHttpConnection$inboundSchema;
-  /** @deprecated use `InputHttpConnection$outboundSchema` instead. */
-  export const outboundSchema = InputHttpConnection$outboundSchema;
-  /** @deprecated use `InputHttpConnection$Outbound` instead. */
-  export type Outbound = InputHttpConnection$Outbound;
-}
-
 export function inputHttpConnectionToJSON(
   inputHttpConnection: InputHttpConnection,
 ): string {
@@ -359,7 +333,6 @@ export function inputHttpConnectionToJSON(
     InputHttpConnection$outboundSchema.parse(inputHttpConnection),
   );
 }
-
 export function inputHttpConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpConnection, SDKValidationError> {
@@ -380,7 +353,6 @@ export const InputHttpMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputHttpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputHttpMode$outboundSchema: z.ZodType<
   InputHttpMode,
@@ -390,17 +362,6 @@ export const InputHttpMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputHttpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpMode$ {
-  /** @deprecated use `InputHttpMode$inboundSchema` instead. */
-  export const inboundSchema = InputHttpMode$inboundSchema;
-  /** @deprecated use `InputHttpMode$outboundSchema` instead. */
-  export const outboundSchema = InputHttpMode$outboundSchema;
-}
 
 /** @internal */
 export const InputHttpCompression$inboundSchema: z.ZodType<
@@ -412,7 +373,6 @@ export const InputHttpCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputHttpCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputHttpCompression$outboundSchema: z.ZodType<
   InputHttpCompression,
@@ -423,24 +383,12 @@ export const InputHttpCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpCompression$ {
-  /** @deprecated use `InputHttpCompression$inboundSchema` instead. */
-  export const inboundSchema = InputHttpCompression$inboundSchema;
-  /** @deprecated use `InputHttpCompression$outboundSchema` instead. */
-  export const outboundSchema = InputHttpCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputHttpPqControls$inboundSchema: z.ZodType<
   InputHttpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputHttpPqControls$Outbound = {};
 
@@ -451,19 +399,6 @@ export const InputHttpPqControls$outboundSchema: z.ZodType<
   InputHttpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpPqControls$ {
-  /** @deprecated use `InputHttpPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputHttpPqControls$inboundSchema;
-  /** @deprecated use `InputHttpPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputHttpPqControls$outboundSchema;
-  /** @deprecated use `InputHttpPqControls$Outbound` instead. */
-  export type Outbound = InputHttpPqControls$Outbound;
-}
-
 export function inputHttpPqControlsToJSON(
   inputHttpPqControls: InputHttpPqControls,
 ): string {
@@ -471,7 +406,6 @@ export function inputHttpPqControlsToJSON(
     InputHttpPqControls$outboundSchema.parse(inputHttpPqControls),
   );
 }
-
 export function inputHttpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpPqControls, SDKValidationError> {
@@ -497,7 +431,6 @@ export const InputHttpPq$inboundSchema: z.ZodType<
   compress: InputHttpCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputHttpPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputHttpPq$Outbound = {
   mode: string;
@@ -526,23 +459,9 @@ export const InputHttpPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputHttpPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpPq$ {
-  /** @deprecated use `InputHttpPq$inboundSchema` instead. */
-  export const inboundSchema = InputHttpPq$inboundSchema;
-  /** @deprecated use `InputHttpPq$outboundSchema` instead. */
-  export const outboundSchema = InputHttpPq$outboundSchema;
-  /** @deprecated use `InputHttpPq$Outbound` instead. */
-  export type Outbound = InputHttpPq$Outbound;
-}
-
 export function inputHttpPqToJSON(inputHttpPq: InputHttpPq): string {
   return JSON.stringify(InputHttpPq$outboundSchema.parse(inputHttpPq));
 }
-
 export function inputHttpPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpPq, SDKValidationError> {
@@ -563,7 +482,6 @@ export const InputHttpMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputHttpMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputHttpMinimumTLSVersion$outboundSchema: z.ZodType<
   InputHttpMinimumTLSVersion,
@@ -573,17 +491,6 @@ export const InputHttpMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputHttpMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpMinimumTLSVersion$ {
-  /** @deprecated use `InputHttpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputHttpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputHttpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputHttpMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputHttpMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -595,7 +502,6 @@ export const InputHttpMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputHttpMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputHttpMaximumTLSVersion$outboundSchema: z.ZodType<
   InputHttpMaximumTLSVersion,
@@ -605,17 +511,6 @@ export const InputHttpMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputHttpMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpMaximumTLSVersion$ {
-  /** @deprecated use `InputHttpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputHttpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputHttpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputHttpMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -635,7 +530,6 @@ export const InputHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputHttpMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputHttpMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputHttpTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -670,19 +564,6 @@ export const InputHttpTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputHttpMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpTLSSettingsServerSide$ {
-  /** @deprecated use `InputHttpTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputHttpTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputHttpTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema = InputHttpTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputHttpTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputHttpTLSSettingsServerSide$Outbound;
-}
-
 export function inputHttpTLSSettingsServerSideToJSON(
   inputHttpTLSSettingsServerSide: InputHttpTLSSettingsServerSide,
 ): string {
@@ -692,7 +573,6 @@ export function inputHttpTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputHttpTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpTLSSettingsServerSide, SDKValidationError> {
@@ -712,7 +592,6 @@ export const InputHttpMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputHttpMetadatum$Outbound = {
   name: string;
@@ -729,19 +608,6 @@ export const InputHttpMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpMetadatum$ {
-  /** @deprecated use `InputHttpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputHttpMetadatum$inboundSchema;
-  /** @deprecated use `InputHttpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputHttpMetadatum$outboundSchema;
-  /** @deprecated use `InputHttpMetadatum$Outbound` instead. */
-  export type Outbound = InputHttpMetadatum$Outbound;
-}
-
 export function inputHttpMetadatumToJSON(
   inputHttpMetadatum: InputHttpMetadatum,
 ): string {
@@ -749,7 +615,6 @@ export function inputHttpMetadatumToJSON(
     InputHttpMetadatum$outboundSchema.parse(inputHttpMetadatum),
   );
 }
-
 export function inputHttpMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpMetadatum, SDKValidationError> {
@@ -769,7 +634,6 @@ export const InputHttpAuthTokensExtMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputHttpAuthTokensExtMetadatum$Outbound = {
   name: string;
@@ -786,19 +650,6 @@ export const InputHttpAuthTokensExtMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpAuthTokensExtMetadatum$ {
-  /** @deprecated use `InputHttpAuthTokensExtMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputHttpAuthTokensExtMetadatum$inboundSchema;
-  /** @deprecated use `InputHttpAuthTokensExtMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputHttpAuthTokensExtMetadatum$outboundSchema;
-  /** @deprecated use `InputHttpAuthTokensExtMetadatum$Outbound` instead. */
-  export type Outbound = InputHttpAuthTokensExtMetadatum$Outbound;
-}
-
 export function inputHttpAuthTokensExtMetadatumToJSON(
   inputHttpAuthTokensExtMetadatum: InputHttpAuthTokensExtMetadatum,
 ): string {
@@ -808,7 +659,6 @@ export function inputHttpAuthTokensExtMetadatumToJSON(
     ),
   );
 }
-
 export function inputHttpAuthTokensExtMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpAuthTokensExtMetadatum, SDKValidationError> {
@@ -830,7 +680,6 @@ export const InputHttpAuthTokensExt$inboundSchema: z.ZodType<
   metadata: z.array(z.lazy(() => InputHttpAuthTokensExtMetadatum$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type InputHttpAuthTokensExt$Outbound = {
   token: string;
@@ -851,19 +700,6 @@ export const InputHttpAuthTokensExt$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpAuthTokensExt$ {
-  /** @deprecated use `InputHttpAuthTokensExt$inboundSchema` instead. */
-  export const inboundSchema = InputHttpAuthTokensExt$inboundSchema;
-  /** @deprecated use `InputHttpAuthTokensExt$outboundSchema` instead. */
-  export const outboundSchema = InputHttpAuthTokensExt$outboundSchema;
-  /** @deprecated use `InputHttpAuthTokensExt$Outbound` instead. */
-  export type Outbound = InputHttpAuthTokensExt$Outbound;
-}
-
 export function inputHttpAuthTokensExtToJSON(
   inputHttpAuthTokensExt: InputHttpAuthTokensExt,
 ): string {
@@ -871,7 +707,6 @@ export function inputHttpAuthTokensExtToJSON(
     InputHttpAuthTokensExt$outboundSchema.parse(inputHttpAuthTokensExt),
   );
 }
-
 export function inputHttpAuthTokensExtFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpAuthTokensExt, SDKValidationError> {
@@ -923,7 +758,6 @@ export const InputHttp$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputHttp$Outbound = {
   id?: string | undefined;
@@ -1002,23 +836,9 @@ export const InputHttp$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttp$ {
-  /** @deprecated use `InputHttp$inboundSchema` instead. */
-  export const inboundSchema = InputHttp$inboundSchema;
-  /** @deprecated use `InputHttp$outboundSchema` instead. */
-  export const outboundSchema = InputHttp$outboundSchema;
-  /** @deprecated use `InputHttp$Outbound` instead. */
-  export type Outbound = InputHttp$Outbound;
-}
-
 export function inputHttpToJSON(inputHttp: InputHttp): string {
   return JSON.stringify(InputHttp$outboundSchema.parse(inputHttp));
 }
-
 export function inputHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttp, SDKValidationError> {

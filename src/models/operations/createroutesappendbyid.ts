@@ -32,20 +32,6 @@ export type CreateRoutesAppendByIdResponse = {
 };
 
 /** @internal */
-export const CreateRoutesAppendByIdRequest$inboundSchema: z.ZodType<
-  CreateRoutesAppendByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  RequestBody: z.array(models.RouteConf$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "RequestBody": "requestBody",
-  });
-});
-
-/** @internal */
 export type CreateRoutesAppendByIdRequest$Outbound = {
   id: string;
   RequestBody: Array<models.RouteConf$Outbound>;
@@ -65,19 +51,6 @@ export const CreateRoutesAppendByIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateRoutesAppendByIdRequest$ {
-  /** @deprecated use `CreateRoutesAppendByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateRoutesAppendByIdRequest$inboundSchema;
-  /** @deprecated use `CreateRoutesAppendByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateRoutesAppendByIdRequest$outboundSchema;
-  /** @deprecated use `CreateRoutesAppendByIdRequest$Outbound` instead. */
-  export type Outbound = CreateRoutesAppendByIdRequest$Outbound;
-}
-
 export function createRoutesAppendByIdRequestToJSON(
   createRoutesAppendByIdRequest: CreateRoutesAppendByIdRequest,
 ): string {
@@ -85,16 +58,6 @@ export function createRoutesAppendByIdRequestToJSON(
     CreateRoutesAppendByIdRequest$outboundSchema.parse(
       createRoutesAppendByIdRequest,
     ),
-  );
-}
-
-export function createRoutesAppendByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateRoutesAppendByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateRoutesAppendByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateRoutesAppendByIdRequest' from JSON`,
   );
 }
 
@@ -107,45 +70,6 @@ export const CreateRoutesAppendByIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.Routes$inboundSchema).optional(),
 });
-
-/** @internal */
-export type CreateRoutesAppendByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Routes$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreateRoutesAppendByIdResponse$outboundSchema: z.ZodType<
-  CreateRoutesAppendByIdResponse$Outbound,
-  z.ZodTypeDef,
-  CreateRoutesAppendByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Routes$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateRoutesAppendByIdResponse$ {
-  /** @deprecated use `CreateRoutesAppendByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateRoutesAppendByIdResponse$inboundSchema;
-  /** @deprecated use `CreateRoutesAppendByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateRoutesAppendByIdResponse$outboundSchema;
-  /** @deprecated use `CreateRoutesAppendByIdResponse$Outbound` instead. */
-  export type Outbound = CreateRoutesAppendByIdResponse$Outbound;
-}
-
-export function createRoutesAppendByIdResponseToJSON(
-  createRoutesAppendByIdResponse: CreateRoutesAppendByIdResponse,
-): string {
-  return JSON.stringify(
-    CreateRoutesAppendByIdResponse$outboundSchema.parse(
-      createRoutesAppendByIdResponse,
-    ),
-  );
-}
 
 export function createRoutesAppendByIdResponseFromJSON(
   jsonString: string,

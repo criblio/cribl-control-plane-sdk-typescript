@@ -4,26 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type CriblEvent = {
   raw: string;
 };
-
-/** @internal */
-export const CriblEvent$inboundSchema: z.ZodType<
-  CriblEvent,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  _raw: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "_raw": "raw",
-  });
-});
 
 /** @internal */
 export type CriblEvent$Outbound = {
@@ -43,29 +27,6 @@ export const CriblEvent$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CriblEvent$ {
-  /** @deprecated use `CriblEvent$inboundSchema` instead. */
-  export const inboundSchema = CriblEvent$inboundSchema;
-  /** @deprecated use `CriblEvent$outboundSchema` instead. */
-  export const outboundSchema = CriblEvent$outboundSchema;
-  /** @deprecated use `CriblEvent$Outbound` instead. */
-  export type Outbound = CriblEvent$Outbound;
-}
-
 export function criblEventToJSON(criblEvent: CriblEvent): string {
   return JSON.stringify(CriblEvent$outboundSchema.parse(criblEvent));
-}
-
-export function criblEventFromJSON(
-  jsonString: string,
-): SafeParseResult<CriblEvent, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CriblEvent$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CriblEvent' from JSON`,
-  );
 }

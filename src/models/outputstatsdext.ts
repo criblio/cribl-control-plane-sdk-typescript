@@ -236,22 +236,10 @@ export type OutputStatsdExt = {
 export const OutputStatsdExtType$inboundSchema: z.ZodNativeEnum<
   typeof OutputStatsdExtType
 > = z.nativeEnum(OutputStatsdExtType);
-
 /** @internal */
 export const OutputStatsdExtType$outboundSchema: z.ZodNativeEnum<
   typeof OutputStatsdExtType
 > = OutputStatsdExtType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtType$ {
-  /** @deprecated use `OutputStatsdExtType$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtType$inboundSchema;
-  /** @deprecated use `OutputStatsdExtType$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtType$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdExtDestinationProtocol$inboundSchema: z.ZodType<
@@ -263,7 +251,6 @@ export const OutputStatsdExtDestinationProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdExtDestinationProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdExtDestinationProtocol$outboundSchema: z.ZodType<
   OutputStatsdExtDestinationProtocol,
@@ -273,18 +260,6 @@ export const OutputStatsdExtDestinationProtocol$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdExtDestinationProtocol),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtDestinationProtocol$ {
-  /** @deprecated use `OutputStatsdExtDestinationProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtDestinationProtocol$inboundSchema;
-  /** @deprecated use `OutputStatsdExtDestinationProtocol$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputStatsdExtDestinationProtocol$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdExtBackpressureBehavior$inboundSchema: z.ZodType<
@@ -296,7 +271,6 @@ export const OutputStatsdExtBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdExtBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdExtBackpressureBehavior$outboundSchema: z.ZodType<
   OutputStatsdExtBackpressureBehavior,
@@ -306,19 +280,6 @@ export const OutputStatsdExtBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdExtBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtBackpressureBehavior$ {
-  /** @deprecated use `OutputStatsdExtBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputStatsdExtBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputStatsdExtBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputStatsdExtBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdExtMode$inboundSchema: z.ZodType<
@@ -330,7 +291,6 @@ export const OutputStatsdExtMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdExtMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdExtMode$outboundSchema: z.ZodType<
   OutputStatsdExtMode,
@@ -340,17 +300,6 @@ export const OutputStatsdExtMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdExtMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtMode$ {
-  /** @deprecated use `OutputStatsdExtMode$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtMode$inboundSchema;
-  /** @deprecated use `OutputStatsdExtMode$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdExtCompression$inboundSchema: z.ZodType<
@@ -362,7 +311,6 @@ export const OutputStatsdExtCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdExtCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdExtCompression$outboundSchema: z.ZodType<
   OutputStatsdExtCompression,
@@ -372,17 +320,6 @@ export const OutputStatsdExtCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdExtCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtCompression$ {
-  /** @deprecated use `OutputStatsdExtCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtCompression$inboundSchema;
-  /** @deprecated use `OutputStatsdExtCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdExtQueueFullBehavior$inboundSchema: z.ZodType<
@@ -394,7 +331,6 @@ export const OutputStatsdExtQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdExtQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdExtQueueFullBehavior$outboundSchema: z.ZodType<
   OutputStatsdExtQueueFullBehavior,
@@ -405,24 +341,12 @@ export const OutputStatsdExtQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtQueueFullBehavior$ {
-  /** @deprecated use `OutputStatsdExtQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputStatsdExtQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputStatsdExtPqControls$inboundSchema: z.ZodType<
   OutputStatsdExtPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputStatsdExtPqControls$Outbound = {};
 
@@ -433,19 +357,6 @@ export const OutputStatsdExtPqControls$outboundSchema: z.ZodType<
   OutputStatsdExtPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtPqControls$ {
-  /** @deprecated use `OutputStatsdExtPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtPqControls$inboundSchema;
-  /** @deprecated use `OutputStatsdExtPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtPqControls$outboundSchema;
-  /** @deprecated use `OutputStatsdExtPqControls$Outbound` instead. */
-  export type Outbound = OutputStatsdExtPqControls$Outbound;
-}
-
 export function outputStatsdExtPqControlsToJSON(
   outputStatsdExtPqControls: OutputStatsdExtPqControls,
 ): string {
@@ -453,7 +364,6 @@ export function outputStatsdExtPqControlsToJSON(
     OutputStatsdExtPqControls$outboundSchema.parse(outputStatsdExtPqControls),
   );
 }
-
 export function outputStatsdExtPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputStatsdExtPqControls, SDKValidationError> {
@@ -503,7 +413,6 @@ export const OutputStatsdExt$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputStatsdExtPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputStatsdExt$Outbound = {
   id?: string | undefined;
@@ -576,25 +485,11 @@ export const OutputStatsdExt$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputStatsdExtPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExt$ {
-  /** @deprecated use `OutputStatsdExt$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExt$inboundSchema;
-  /** @deprecated use `OutputStatsdExt$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExt$outboundSchema;
-  /** @deprecated use `OutputStatsdExt$Outbound` instead. */
-  export type Outbound = OutputStatsdExt$Outbound;
-}
-
 export function outputStatsdExtToJSON(
   outputStatsdExt: OutputStatsdExt,
 ): string {
   return JSON.stringify(OutputStatsdExt$outboundSchema.parse(outputStatsdExt));
 }
-
 export function outputStatsdExtFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputStatsdExt, SDKValidationError> {

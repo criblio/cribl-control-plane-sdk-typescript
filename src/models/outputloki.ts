@@ -393,22 +393,10 @@ export type OutputLoki = {
 export const OutputLokiType$inboundSchema: z.ZodNativeEnum<
   typeof OutputLokiType
 > = z.nativeEnum(OutputLokiType);
-
 /** @internal */
 export const OutputLokiType$outboundSchema: z.ZodNativeEnum<
   typeof OutputLokiType
 > = OutputLokiType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiType$ {
-  /** @deprecated use `OutputLokiType$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiType$inboundSchema;
-  /** @deprecated use `OutputLokiType$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiType$outboundSchema;
-}
 
 /** @internal */
 export const OutputLokiMessageFormat$inboundSchema: z.ZodType<
@@ -420,7 +408,6 @@ export const OutputLokiMessageFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputLokiMessageFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputLokiMessageFormat$outboundSchema: z.ZodType<
   OutputLokiMessageFormat,
@@ -431,17 +418,6 @@ export const OutputLokiMessageFormat$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiMessageFormat$ {
-  /** @deprecated use `OutputLokiMessageFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiMessageFormat$inboundSchema;
-  /** @deprecated use `OutputLokiMessageFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiMessageFormat$outboundSchema;
-}
-
 /** @internal */
 export const OutputLokiLabel$inboundSchema: z.ZodType<
   OutputLokiLabel,
@@ -451,7 +427,6 @@ export const OutputLokiLabel$inboundSchema: z.ZodType<
   name: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputLokiLabel$Outbound = {
   name: string;
@@ -468,25 +443,11 @@ export const OutputLokiLabel$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiLabel$ {
-  /** @deprecated use `OutputLokiLabel$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiLabel$inboundSchema;
-  /** @deprecated use `OutputLokiLabel$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiLabel$outboundSchema;
-  /** @deprecated use `OutputLokiLabel$Outbound` instead. */
-  export type Outbound = OutputLokiLabel$Outbound;
-}
-
 export function outputLokiLabelToJSON(
   outputLokiLabel: OutputLokiLabel,
 ): string {
   return JSON.stringify(OutputLokiLabel$outboundSchema.parse(outputLokiLabel));
 }
-
 export function outputLokiLabelFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputLokiLabel, SDKValidationError> {
@@ -507,7 +468,6 @@ export const OutputLokiAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(OutputLokiAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputLokiAuthenticationType$outboundSchema: z.ZodType<
   OutputLokiAuthenticationType,
@@ -518,17 +478,6 @@ export const OutputLokiAuthenticationType$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiAuthenticationType$ {
-  /** @deprecated use `OutputLokiAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiAuthenticationType$inboundSchema;
-  /** @deprecated use `OutputLokiAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiAuthenticationType$outboundSchema;
-}
-
 /** @internal */
 export const OutputLokiExtraHttpHeader$inboundSchema: z.ZodType<
   OutputLokiExtraHttpHeader,
@@ -538,7 +487,6 @@ export const OutputLokiExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputLokiExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -555,19 +503,6 @@ export const OutputLokiExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiExtraHttpHeader$ {
-  /** @deprecated use `OutputLokiExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputLokiExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputLokiExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputLokiExtraHttpHeader$Outbound;
-}
-
 export function outputLokiExtraHttpHeaderToJSON(
   outputLokiExtraHttpHeader: OutputLokiExtraHttpHeader,
 ): string {
@@ -575,7 +510,6 @@ export function outputLokiExtraHttpHeaderToJSON(
     OutputLokiExtraHttpHeader$outboundSchema.parse(outputLokiExtraHttpHeader),
   );
 }
-
 export function outputLokiExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputLokiExtraHttpHeader, SDKValidationError> {
@@ -596,7 +530,6 @@ export const OutputLokiFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputLokiFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputLokiFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputLokiFailedRequestLoggingMode,
@@ -606,18 +539,6 @@ export const OutputLokiFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputLokiFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputLokiFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputLokiFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputLokiFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputLokiResponseRetrySetting$inboundSchema: z.ZodType<
@@ -630,7 +551,6 @@ export const OutputLokiResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputLokiResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -651,19 +571,6 @@ export const OutputLokiResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiResponseRetrySetting$ {
-  /** @deprecated use `OutputLokiResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputLokiResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputLokiResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputLokiResponseRetrySetting$Outbound;
-}
-
 export function outputLokiResponseRetrySettingToJSON(
   outputLokiResponseRetrySetting: OutputLokiResponseRetrySetting,
 ): string {
@@ -673,7 +580,6 @@ export function outputLokiResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputLokiResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputLokiResponseRetrySetting, SDKValidationError> {
@@ -695,7 +601,6 @@ export const OutputLokiTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputLokiTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -716,19 +621,6 @@ export const OutputLokiTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiTimeoutRetrySettings$ {
-  /** @deprecated use `OutputLokiTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputLokiTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputLokiTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputLokiTimeoutRetrySettings$Outbound;
-}
-
 export function outputLokiTimeoutRetrySettingsToJSON(
   outputLokiTimeoutRetrySettings: OutputLokiTimeoutRetrySettings,
 ): string {
@@ -738,7 +630,6 @@ export function outputLokiTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputLokiTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputLokiTimeoutRetrySettings, SDKValidationError> {
@@ -759,7 +650,6 @@ export const OutputLokiBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputLokiBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputLokiBackpressureBehavior$outboundSchema: z.ZodType<
   OutputLokiBackpressureBehavior,
@@ -769,17 +659,6 @@ export const OutputLokiBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputLokiBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiBackpressureBehavior$ {
-  /** @deprecated use `OutputLokiBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputLokiBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputLokiMode$inboundSchema: z.ZodType<
@@ -791,7 +670,6 @@ export const OutputLokiMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputLokiMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputLokiMode$outboundSchema: z.ZodType<
   OutputLokiMode,
@@ -801,17 +679,6 @@ export const OutputLokiMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputLokiMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiMode$ {
-  /** @deprecated use `OutputLokiMode$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiMode$inboundSchema;
-  /** @deprecated use `OutputLokiMode$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputLokiCompression$inboundSchema: z.ZodType<
@@ -823,7 +690,6 @@ export const OutputLokiCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputLokiCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputLokiCompression$outboundSchema: z.ZodType<
   OutputLokiCompression,
@@ -833,17 +699,6 @@ export const OutputLokiCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputLokiCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiCompression$ {
-  /** @deprecated use `OutputLokiCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiCompression$inboundSchema;
-  /** @deprecated use `OutputLokiCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputLokiQueueFullBehavior$inboundSchema: z.ZodType<
@@ -855,7 +710,6 @@ export const OutputLokiQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputLokiQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputLokiQueueFullBehavior$outboundSchema: z.ZodType<
   OutputLokiQueueFullBehavior,
@@ -866,24 +720,12 @@ export const OutputLokiQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiQueueFullBehavior$ {
-  /** @deprecated use `OutputLokiQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputLokiQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputLokiPqControls$inboundSchema: z.ZodType<
   OutputLokiPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputLokiPqControls$Outbound = {};
 
@@ -894,19 +736,6 @@ export const OutputLokiPqControls$outboundSchema: z.ZodType<
   OutputLokiPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiPqControls$ {
-  /** @deprecated use `OutputLokiPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiPqControls$inboundSchema;
-  /** @deprecated use `OutputLokiPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiPqControls$outboundSchema;
-  /** @deprecated use `OutputLokiPqControls$Outbound` instead. */
-  export type Outbound = OutputLokiPqControls$Outbound;
-}
-
 export function outputLokiPqControlsToJSON(
   outputLokiPqControls: OutputLokiPqControls,
 ): string {
@@ -914,7 +743,6 @@ export function outputLokiPqControlsToJSON(
     OutputLokiPqControls$outboundSchema.parse(outputLokiPqControls),
   );
 }
-
 export function outputLokiPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputLokiPqControls, SDKValidationError> {
@@ -984,7 +812,6 @@ export const OutputLoki$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputLokiQueueFullBehavior$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputLokiPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputLoki$Outbound = {
   id?: string | undefined;
@@ -1098,23 +925,9 @@ export const OutputLoki$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputLokiPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLoki$ {
-  /** @deprecated use `OutputLoki$inboundSchema` instead. */
-  export const inboundSchema = OutputLoki$inboundSchema;
-  /** @deprecated use `OutputLoki$outboundSchema` instead. */
-  export const outboundSchema = OutputLoki$outboundSchema;
-  /** @deprecated use `OutputLoki$Outbound` instead. */
-  export type Outbound = OutputLoki$Outbound;
-}
-
 export function outputLokiToJSON(outputLoki: OutputLoki): string {
   return JSON.stringify(OutputLoki$outboundSchema.parse(outputLoki));
 }
-
 export function outputLokiFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputLoki, SDKValidationError> {

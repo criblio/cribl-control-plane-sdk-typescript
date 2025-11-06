@@ -32,20 +32,6 @@ export type CreateCriblLakeDatasetByLakeIdResponse = {
 };
 
 /** @internal */
-export const CreateCriblLakeDatasetByLakeIdRequest$inboundSchema: z.ZodType<
-  CreateCriblLakeDatasetByLakeIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  lakeId: z.string(),
-  CriblLakeDataset: models.CriblLakeDataset$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "CriblLakeDataset": "criblLakeDataset",
-  });
-});
-
-/** @internal */
 export type CreateCriblLakeDatasetByLakeIdRequest$Outbound = {
   lakeId: string;
   CriblLakeDataset: models.CriblLakeDataset$Outbound;
@@ -65,21 +51,6 @@ export const CreateCriblLakeDatasetByLakeIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCriblLakeDatasetByLakeIdRequest$ {
-  /** @deprecated use `CreateCriblLakeDatasetByLakeIdRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateCriblLakeDatasetByLakeIdRequest$inboundSchema;
-  /** @deprecated use `CreateCriblLakeDatasetByLakeIdRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCriblLakeDatasetByLakeIdRequest$outboundSchema;
-  /** @deprecated use `CreateCriblLakeDatasetByLakeIdRequest$Outbound` instead. */
-  export type Outbound = CreateCriblLakeDatasetByLakeIdRequest$Outbound;
-}
-
 export function createCriblLakeDatasetByLakeIdRequestToJSON(
   createCriblLakeDatasetByLakeIdRequest: CreateCriblLakeDatasetByLakeIdRequest,
 ): string {
@@ -87,17 +58,6 @@ export function createCriblLakeDatasetByLakeIdRequestToJSON(
     CreateCriblLakeDatasetByLakeIdRequest$outboundSchema.parse(
       createCriblLakeDatasetByLakeIdRequest,
     ),
-  );
-}
-
-export function createCriblLakeDatasetByLakeIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCriblLakeDatasetByLakeIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateCriblLakeDatasetByLakeIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCriblLakeDatasetByLakeIdRequest' from JSON`,
   );
 }
 
@@ -110,48 +70,6 @@ export const CreateCriblLakeDatasetByLakeIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.CriblLakeDataset$inboundSchema).optional(),
 });
-
-/** @internal */
-export type CreateCriblLakeDatasetByLakeIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.CriblLakeDataset$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreateCriblLakeDatasetByLakeIdResponse$outboundSchema: z.ZodType<
-  CreateCriblLakeDatasetByLakeIdResponse$Outbound,
-  z.ZodTypeDef,
-  CreateCriblLakeDatasetByLakeIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.CriblLakeDataset$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCriblLakeDatasetByLakeIdResponse$ {
-  /** @deprecated use `CreateCriblLakeDatasetByLakeIdResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateCriblLakeDatasetByLakeIdResponse$inboundSchema;
-  /** @deprecated use `CreateCriblLakeDatasetByLakeIdResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCriblLakeDatasetByLakeIdResponse$outboundSchema;
-  /** @deprecated use `CreateCriblLakeDatasetByLakeIdResponse$Outbound` instead. */
-  export type Outbound = CreateCriblLakeDatasetByLakeIdResponse$Outbound;
-}
-
-export function createCriblLakeDatasetByLakeIdResponseToJSON(
-  createCriblLakeDatasetByLakeIdResponse:
-    CreateCriblLakeDatasetByLakeIdResponse,
-): string {
-  return JSON.stringify(
-    CreateCriblLakeDatasetByLakeIdResponse$outboundSchema.parse(
-      createCriblLakeDatasetByLakeIdResponse,
-    ),
-  );
-}
 
 export function createCriblLakeDatasetByLakeIdResponseFromJSON(
   jsonString: string,

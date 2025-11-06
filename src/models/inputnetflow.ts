@@ -184,22 +184,10 @@ export type InputNetflow = {
 export const InputNetflowType$inboundSchema: z.ZodNativeEnum<
   typeof InputNetflowType
 > = z.nativeEnum(InputNetflowType);
-
 /** @internal */
 export const InputNetflowType$outboundSchema: z.ZodNativeEnum<
   typeof InputNetflowType
 > = InputNetflowType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputNetflowType$ {
-  /** @deprecated use `InputNetflowType$inboundSchema` instead. */
-  export const inboundSchema = InputNetflowType$inboundSchema;
-  /** @deprecated use `InputNetflowType$outboundSchema` instead. */
-  export const outboundSchema = InputNetflowType$outboundSchema;
-}
 
 /** @internal */
 export const InputNetflowConnection$inboundSchema: z.ZodType<
@@ -210,7 +198,6 @@ export const InputNetflowConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputNetflowConnection$Outbound = {
   pipeline?: string | undefined;
@@ -227,19 +214,6 @@ export const InputNetflowConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputNetflowConnection$ {
-  /** @deprecated use `InputNetflowConnection$inboundSchema` instead. */
-  export const inboundSchema = InputNetflowConnection$inboundSchema;
-  /** @deprecated use `InputNetflowConnection$outboundSchema` instead. */
-  export const outboundSchema = InputNetflowConnection$outboundSchema;
-  /** @deprecated use `InputNetflowConnection$Outbound` instead. */
-  export type Outbound = InputNetflowConnection$Outbound;
-}
-
 export function inputNetflowConnectionToJSON(
   inputNetflowConnection: InputNetflowConnection,
 ): string {
@@ -247,7 +221,6 @@ export function inputNetflowConnectionToJSON(
     InputNetflowConnection$outboundSchema.parse(inputNetflowConnection),
   );
 }
-
 export function inputNetflowConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputNetflowConnection, SDKValidationError> {
@@ -268,7 +241,6 @@ export const InputNetflowMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputNetflowMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputNetflowMode$outboundSchema: z.ZodType<
   InputNetflowMode,
@@ -278,17 +250,6 @@ export const InputNetflowMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputNetflowMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputNetflowMode$ {
-  /** @deprecated use `InputNetflowMode$inboundSchema` instead. */
-  export const inboundSchema = InputNetflowMode$inboundSchema;
-  /** @deprecated use `InputNetflowMode$outboundSchema` instead. */
-  export const outboundSchema = InputNetflowMode$outboundSchema;
-}
 
 /** @internal */
 export const InputNetflowCompression$inboundSchema: z.ZodType<
@@ -300,7 +261,6 @@ export const InputNetflowCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputNetflowCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputNetflowCompression$outboundSchema: z.ZodType<
   InputNetflowCompression,
@@ -311,24 +271,12 @@ export const InputNetflowCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputNetflowCompression$ {
-  /** @deprecated use `InputNetflowCompression$inboundSchema` instead. */
-  export const inboundSchema = InputNetflowCompression$inboundSchema;
-  /** @deprecated use `InputNetflowCompression$outboundSchema` instead. */
-  export const outboundSchema = InputNetflowCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputNetflowPqControls$inboundSchema: z.ZodType<
   InputNetflowPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputNetflowPqControls$Outbound = {};
 
@@ -339,19 +287,6 @@ export const InputNetflowPqControls$outboundSchema: z.ZodType<
   InputNetflowPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputNetflowPqControls$ {
-  /** @deprecated use `InputNetflowPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputNetflowPqControls$inboundSchema;
-  /** @deprecated use `InputNetflowPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputNetflowPqControls$outboundSchema;
-  /** @deprecated use `InputNetflowPqControls$Outbound` instead. */
-  export type Outbound = InputNetflowPqControls$Outbound;
-}
-
 export function inputNetflowPqControlsToJSON(
   inputNetflowPqControls: InputNetflowPqControls,
 ): string {
@@ -359,7 +294,6 @@ export function inputNetflowPqControlsToJSON(
     InputNetflowPqControls$outboundSchema.parse(inputNetflowPqControls),
   );
 }
-
 export function inputNetflowPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputNetflowPqControls, SDKValidationError> {
@@ -385,7 +319,6 @@ export const InputNetflowPq$inboundSchema: z.ZodType<
   compress: InputNetflowCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputNetflowPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputNetflowPq$Outbound = {
   mode: string;
@@ -414,23 +347,9 @@ export const InputNetflowPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputNetflowPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputNetflowPq$ {
-  /** @deprecated use `InputNetflowPq$inboundSchema` instead. */
-  export const inboundSchema = InputNetflowPq$inboundSchema;
-  /** @deprecated use `InputNetflowPq$outboundSchema` instead. */
-  export const outboundSchema = InputNetflowPq$outboundSchema;
-  /** @deprecated use `InputNetflowPq$Outbound` instead. */
-  export type Outbound = InputNetflowPq$Outbound;
-}
-
 export function inputNetflowPqToJSON(inputNetflowPq: InputNetflowPq): string {
   return JSON.stringify(InputNetflowPq$outboundSchema.parse(inputNetflowPq));
 }
-
 export function inputNetflowPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputNetflowPq, SDKValidationError> {
@@ -450,7 +369,6 @@ export const InputNetflowMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputNetflowMetadatum$Outbound = {
   name: string;
@@ -467,19 +385,6 @@ export const InputNetflowMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputNetflowMetadatum$ {
-  /** @deprecated use `InputNetflowMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputNetflowMetadatum$inboundSchema;
-  /** @deprecated use `InputNetflowMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputNetflowMetadatum$outboundSchema;
-  /** @deprecated use `InputNetflowMetadatum$Outbound` instead. */
-  export type Outbound = InputNetflowMetadatum$Outbound;
-}
-
 export function inputNetflowMetadatumToJSON(
   inputNetflowMetadatum: InputNetflowMetadatum,
 ): string {
@@ -487,7 +392,6 @@ export function inputNetflowMetadatumToJSON(
     InputNetflowMetadatum$outboundSchema.parse(inputNetflowMetadatum),
   );
 }
-
 export function inputNetflowMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputNetflowMetadatum, SDKValidationError> {
@@ -529,7 +433,6 @@ export const InputNetflow$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputNetflow$Outbound = {
   id?: string | undefined;
@@ -588,23 +491,9 @@ export const InputNetflow$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputNetflow$ {
-  /** @deprecated use `InputNetflow$inboundSchema` instead. */
-  export const inboundSchema = InputNetflow$inboundSchema;
-  /** @deprecated use `InputNetflow$outboundSchema` instead. */
-  export const outboundSchema = InputNetflow$outboundSchema;
-  /** @deprecated use `InputNetflow$Outbound` instead. */
-  export type Outbound = InputNetflow$Outbound;
-}
-
 export function inputNetflowToJSON(inputNetflow: InputNetflow): string {
   return JSON.stringify(InputNetflow$outboundSchema.parse(inputNetflow));
 }
-
 export function inputNetflowFromJSON(
   jsonString: string,
 ): SafeParseResult<InputNetflow, SDKValidationError> {

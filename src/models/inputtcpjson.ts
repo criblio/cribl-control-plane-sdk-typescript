@@ -265,22 +265,10 @@ export type InputTcpjson = {
 export const InputTcpjsonType$inboundSchema: z.ZodNativeEnum<
   typeof InputTcpjsonType
 > = z.nativeEnum(InputTcpjsonType);
-
 /** @internal */
 export const InputTcpjsonType$outboundSchema: z.ZodNativeEnum<
   typeof InputTcpjsonType
 > = InputTcpjsonType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonType$ {
-  /** @deprecated use `InputTcpjsonType$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonType$inboundSchema;
-  /** @deprecated use `InputTcpjsonType$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonType$outboundSchema;
-}
 
 /** @internal */
 export const InputTcpjsonConnection$inboundSchema: z.ZodType<
@@ -291,7 +279,6 @@ export const InputTcpjsonConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputTcpjsonConnection$Outbound = {
   pipeline?: string | undefined;
@@ -308,19 +295,6 @@ export const InputTcpjsonConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonConnection$ {
-  /** @deprecated use `InputTcpjsonConnection$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonConnection$inboundSchema;
-  /** @deprecated use `InputTcpjsonConnection$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonConnection$outboundSchema;
-  /** @deprecated use `InputTcpjsonConnection$Outbound` instead. */
-  export type Outbound = InputTcpjsonConnection$Outbound;
-}
-
 export function inputTcpjsonConnectionToJSON(
   inputTcpjsonConnection: InputTcpjsonConnection,
 ): string {
@@ -328,7 +302,6 @@ export function inputTcpjsonConnectionToJSON(
     InputTcpjsonConnection$outboundSchema.parse(inputTcpjsonConnection),
   );
 }
-
 export function inputTcpjsonConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpjsonConnection, SDKValidationError> {
@@ -349,7 +322,6 @@ export const InputTcpjsonMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpjsonMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpjsonMode$outboundSchema: z.ZodType<
   InputTcpjsonMode,
@@ -359,17 +331,6 @@ export const InputTcpjsonMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputTcpjsonMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonMode$ {
-  /** @deprecated use `InputTcpjsonMode$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonMode$inboundSchema;
-  /** @deprecated use `InputTcpjsonMode$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonMode$outboundSchema;
-}
 
 /** @internal */
 export const InputTcpjsonCompression$inboundSchema: z.ZodType<
@@ -381,7 +342,6 @@ export const InputTcpjsonCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpjsonCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpjsonCompression$outboundSchema: z.ZodType<
   InputTcpjsonCompression,
@@ -392,24 +352,12 @@ export const InputTcpjsonCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonCompression$ {
-  /** @deprecated use `InputTcpjsonCompression$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonCompression$inboundSchema;
-  /** @deprecated use `InputTcpjsonCompression$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputTcpjsonPqControls$inboundSchema: z.ZodType<
   InputTcpjsonPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputTcpjsonPqControls$Outbound = {};
 
@@ -420,19 +368,6 @@ export const InputTcpjsonPqControls$outboundSchema: z.ZodType<
   InputTcpjsonPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonPqControls$ {
-  /** @deprecated use `InputTcpjsonPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonPqControls$inboundSchema;
-  /** @deprecated use `InputTcpjsonPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonPqControls$outboundSchema;
-  /** @deprecated use `InputTcpjsonPqControls$Outbound` instead. */
-  export type Outbound = InputTcpjsonPqControls$Outbound;
-}
-
 export function inputTcpjsonPqControlsToJSON(
   inputTcpjsonPqControls: InputTcpjsonPqControls,
 ): string {
@@ -440,7 +375,6 @@ export function inputTcpjsonPqControlsToJSON(
     InputTcpjsonPqControls$outboundSchema.parse(inputTcpjsonPqControls),
   );
 }
-
 export function inputTcpjsonPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpjsonPqControls, SDKValidationError> {
@@ -466,7 +400,6 @@ export const InputTcpjsonPq$inboundSchema: z.ZodType<
   compress: InputTcpjsonCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputTcpjsonPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputTcpjsonPq$Outbound = {
   mode: string;
@@ -495,23 +428,9 @@ export const InputTcpjsonPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputTcpjsonPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonPq$ {
-  /** @deprecated use `InputTcpjsonPq$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonPq$inboundSchema;
-  /** @deprecated use `InputTcpjsonPq$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonPq$outboundSchema;
-  /** @deprecated use `InputTcpjsonPq$Outbound` instead. */
-  export type Outbound = InputTcpjsonPq$Outbound;
-}
-
 export function inputTcpjsonPqToJSON(inputTcpjsonPq: InputTcpjsonPq): string {
   return JSON.stringify(InputTcpjsonPq$outboundSchema.parse(inputTcpjsonPq));
 }
-
 export function inputTcpjsonPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpjsonPq, SDKValidationError> {
@@ -532,7 +451,6 @@ export const InputTcpjsonMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpjsonMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodType<
   InputTcpjsonMinimumTLSVersion,
@@ -542,17 +460,6 @@ export const InputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputTcpjsonMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonMinimumTLSVersion$ {
-  /** @deprecated use `InputTcpjsonMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputTcpjsonMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -564,7 +471,6 @@ export const InputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpjsonMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodType<
   InputTcpjsonMaximumTLSVersion,
@@ -574,17 +480,6 @@ export const InputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputTcpjsonMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonMaximumTLSVersion$ {
-  /** @deprecated use `InputTcpjsonMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputTcpjsonMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputTcpjsonTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -604,7 +499,6 @@ export const InputTcpjsonTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputTcpjsonMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputTcpjsonMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputTcpjsonTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -639,20 +533,6 @@ export const InputTcpjsonTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputTcpjsonMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonTLSSettingsServerSide$ {
-  /** @deprecated use `InputTcpjsonTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputTcpjsonTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputTcpjsonTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputTcpjsonTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputTcpjsonTLSSettingsServerSide$Outbound;
-}
-
 export function inputTcpjsonTLSSettingsServerSideToJSON(
   inputTcpjsonTLSSettingsServerSide: InputTcpjsonTLSSettingsServerSide,
 ): string {
@@ -662,7 +542,6 @@ export function inputTcpjsonTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputTcpjsonTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpjsonTLSSettingsServerSide, SDKValidationError> {
@@ -682,7 +561,6 @@ export const InputTcpjsonMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputTcpjsonMetadatum$Outbound = {
   name: string;
@@ -699,19 +577,6 @@ export const InputTcpjsonMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonMetadatum$ {
-  /** @deprecated use `InputTcpjsonMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonMetadatum$inboundSchema;
-  /** @deprecated use `InputTcpjsonMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonMetadatum$outboundSchema;
-  /** @deprecated use `InputTcpjsonMetadatum$Outbound` instead. */
-  export type Outbound = InputTcpjsonMetadatum$Outbound;
-}
-
 export function inputTcpjsonMetadatumToJSON(
   inputTcpjsonMetadatum: InputTcpjsonMetadatum,
 ): string {
@@ -719,7 +584,6 @@ export function inputTcpjsonMetadatumToJSON(
     InputTcpjsonMetadatum$outboundSchema.parse(inputTcpjsonMetadatum),
   );
 }
-
 export function inputTcpjsonMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpjsonMetadatum, SDKValidationError> {
@@ -740,7 +604,6 @@ export const InputTcpjsonAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpjsonAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpjsonAuthenticationMethod$outboundSchema: z.ZodType<
   InputTcpjsonAuthenticationMethod,
@@ -750,17 +613,6 @@ export const InputTcpjsonAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputTcpjsonAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjsonAuthenticationMethod$ {
-  /** @deprecated use `InputTcpjsonAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjsonAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputTcpjsonAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjsonAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputTcpjson$inboundSchema: z.ZodType<
@@ -796,7 +648,6 @@ export const InputTcpjson$inboundSchema: z.ZodType<
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputTcpjson$Outbound = {
   id?: string | undefined;
@@ -862,23 +713,9 @@ export const InputTcpjson$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpjson$ {
-  /** @deprecated use `InputTcpjson$inboundSchema` instead. */
-  export const inboundSchema = InputTcpjson$inboundSchema;
-  /** @deprecated use `InputTcpjson$outboundSchema` instead. */
-  export const outboundSchema = InputTcpjson$outboundSchema;
-  /** @deprecated use `InputTcpjson$Outbound` instead. */
-  export type Outbound = InputTcpjson$Outbound;
-}
-
 export function inputTcpjsonToJSON(inputTcpjson: InputTcpjson): string {
   return JSON.stringify(InputTcpjson$outboundSchema.parse(inputTcpjson));
 }
-
 export function inputTcpjsonFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpjson, SDKValidationError> {

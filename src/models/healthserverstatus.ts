@@ -4,11 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -39,48 +35,11 @@ export const Role$inboundSchema: z.ZodType<Role, z.ZodTypeDef, unknown> = z
   ]);
 
 /** @internal */
-export const Role$outboundSchema: z.ZodType<Role, z.ZodTypeDef, Role> = z.union(
-  [
-    z.nativeEnum(Role),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ],
-);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Role$ {
-  /** @deprecated use `Role$inboundSchema` instead. */
-  export const inboundSchema = Role$inboundSchema;
-  /** @deprecated use `Role$outboundSchema` instead. */
-  export const outboundSchema = Role$outboundSchema;
-}
-
-/** @internal */
 export const Status$inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> = z
   .union([
     z.nativeEnum(Status),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
-/** @internal */
-export const Status$outboundSchema: z.ZodType<Status, z.ZodTypeDef, Status> = z
-  .union([
-    z.nativeEnum(Status),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Status$ {
-  /** @deprecated use `Status$inboundSchema` instead. */
-  export const inboundSchema = Status$inboundSchema;
-  /** @deprecated use `Status$outboundSchema` instead. */
-  export const outboundSchema = Status$outboundSchema;
-}
 
 /** @internal */
 export const HealthServerStatus$inboundSchema: z.ZodType<
@@ -92,45 +51,6 @@ export const HealthServerStatus$inboundSchema: z.ZodType<
   startTime: z.number(),
   status: Status$inboundSchema,
 });
-
-/** @internal */
-export type HealthServerStatus$Outbound = {
-  role?: string | undefined;
-  startTime: number;
-  status: string;
-};
-
-/** @internal */
-export const HealthServerStatus$outboundSchema: z.ZodType<
-  HealthServerStatus$Outbound,
-  z.ZodTypeDef,
-  HealthServerStatus
-> = z.object({
-  role: Role$outboundSchema.optional(),
-  startTime: z.number(),
-  status: Status$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HealthServerStatus$ {
-  /** @deprecated use `HealthServerStatus$inboundSchema` instead. */
-  export const inboundSchema = HealthServerStatus$inboundSchema;
-  /** @deprecated use `HealthServerStatus$outboundSchema` instead. */
-  export const outboundSchema = HealthServerStatus$outboundSchema;
-  /** @deprecated use `HealthServerStatus$Outbound` instead. */
-  export type Outbound = HealthServerStatus$Outbound;
-}
-
-export function healthServerStatusToJSON(
-  healthServerStatus: HealthServerStatus,
-): string {
-  return JSON.stringify(
-    HealthServerStatus$outboundSchema.parse(healthServerStatus),
-  );
-}
 
 export function healthServerStatusFromJSON(
   jsonString: string,

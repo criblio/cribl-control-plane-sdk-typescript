@@ -455,22 +455,10 @@ export type OutputDynatraceOtlp = {
 export const OutputDynatraceOtlpType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDynatraceOtlpType
 > = z.nativeEnum(OutputDynatraceOtlpType);
-
 /** @internal */
 export const OutputDynatraceOtlpType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDynatraceOtlpType
 > = OutputDynatraceOtlpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpType$ {
-  /** @deprecated use `OutputDynatraceOtlpType$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOtlpType$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpType$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceOtlpType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceOtlpProtocol$inboundSchema: z.ZodType<
@@ -482,7 +470,6 @@ export const OutputDynatraceOtlpProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceOtlpProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceOtlpProtocol$outboundSchema: z.ZodType<
   OutputDynatraceOtlpProtocol,
@@ -492,17 +479,6 @@ export const OutputDynatraceOtlpProtocol$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDynatraceOtlpProtocol),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpProtocol$ {
-  /** @deprecated use `OutputDynatraceOtlpProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOtlpProtocol$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpProtocol$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceOtlpProtocol$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceOTLPOTLPVersion$inboundSchema: z.ZodType<
@@ -514,7 +490,6 @@ export const OutputDynatraceOTLPOTLPVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceOTLPOTLPVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceOTLPOTLPVersion$outboundSchema: z.ZodType<
   OutputDynatraceOTLPOTLPVersion,
@@ -524,17 +499,6 @@ export const OutputDynatraceOTLPOTLPVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDynatraceOTLPOTLPVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOTLPOTLPVersion$ {
-  /** @deprecated use `OutputDynatraceOTLPOTLPVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOTLPOTLPVersion$inboundSchema;
-  /** @deprecated use `OutputDynatraceOTLPOTLPVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceOTLPOTLPVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceOtlpCompressCompression$inboundSchema: z.ZodType<
@@ -546,7 +510,6 @@ export const OutputDynatraceOtlpCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceOtlpCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceOtlpCompressCompression$outboundSchema: z.ZodType<
   OutputDynatraceOtlpCompressCompression,
@@ -557,19 +520,6 @@ export const OutputDynatraceOtlpCompressCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpCompressCompression$ {
-  /** @deprecated use `OutputDynatraceOtlpCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceOtlpCompressCompression$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpCompressCompression$outboundSchema;
-}
-
 /** @internal */
 export const OutputDynatraceOtlpHttpCompressCompression$inboundSchema:
   z.ZodType<OutputDynatraceOtlpHttpCompressCompression, z.ZodTypeDef, unknown> =
@@ -578,7 +528,6 @@ export const OutputDynatraceOtlpHttpCompressCompression$inboundSchema:
         z.nativeEnum(OutputDynatraceOtlpHttpCompressCompression),
         z.string().transform(catchUnrecognizedEnum),
       ]);
-
 /** @internal */
 export const OutputDynatraceOtlpHttpCompressCompression$outboundSchema:
   z.ZodType<
@@ -590,19 +539,6 @@ export const OutputDynatraceOtlpHttpCompressCompression$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpHttpCompressCompression$ {
-  /** @deprecated use `OutputDynatraceOtlpHttpCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceOtlpHttpCompressCompression$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpHttpCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpHttpCompressCompression$outboundSchema;
-}
-
 /** @internal */
 export const OutputDynatraceOtlpMetadatum$inboundSchema: z.ZodType<
   OutputDynatraceOtlpMetadatum,
@@ -612,7 +548,6 @@ export const OutputDynatraceOtlpMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputDynatraceOtlpMetadatum$Outbound = {
   key: string;
@@ -629,19 +564,6 @@ export const OutputDynatraceOtlpMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpMetadatum$ {
-  /** @deprecated use `OutputDynatraceOtlpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOtlpMetadatum$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceOtlpMetadatum$outboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpMetadatum$Outbound` instead. */
-  export type Outbound = OutputDynatraceOtlpMetadatum$Outbound;
-}
-
 export function outputDynatraceOtlpMetadatumToJSON(
   outputDynatraceOtlpMetadatum: OutputDynatraceOtlpMetadatum,
 ): string {
@@ -651,7 +573,6 @@ export function outputDynatraceOtlpMetadatumToJSON(
     ),
   );
 }
-
 export function outputDynatraceOtlpMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDynatraceOtlpMetadatum, SDKValidationError> {
@@ -673,7 +594,6 @@ export const OutputDynatraceOtlpFailedRequestLoggingMode$inboundSchema:
       z.nativeEnum(OutputDynatraceOtlpFailedRequestLoggingMode),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputDynatraceOtlpFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
@@ -685,19 +605,6 @@ export const OutputDynatraceOtlpFailedRequestLoggingMode$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputDynatraceOtlpFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceOtlpFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpFailedRequestLoggingMode$outboundSchema;
-}
-
 /** @internal */
 export const EndpointType$inboundSchema: z.ZodType<
   EndpointType,
@@ -708,7 +615,6 @@ export const EndpointType$inboundSchema: z.ZodType<
     z.nativeEnum(EndpointType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const EndpointType$outboundSchema: z.ZodType<
   EndpointType,
@@ -718,17 +624,6 @@ export const EndpointType$outboundSchema: z.ZodType<
   z.nativeEnum(EndpointType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EndpointType$ {
-  /** @deprecated use `EndpointType$inboundSchema` instead. */
-  export const inboundSchema = EndpointType$inboundSchema;
-  /** @deprecated use `EndpointType$outboundSchema` instead. */
-  export const outboundSchema = EndpointType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceOtlpBackpressureBehavior$inboundSchema: z.ZodType<
@@ -740,7 +635,6 @@ export const OutputDynatraceOtlpBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceOtlpBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceOtlpBackpressureBehavior$outboundSchema: z.ZodType<
   OutputDynatraceOtlpBackpressureBehavior,
@@ -751,19 +645,6 @@ export const OutputDynatraceOtlpBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpBackpressureBehavior$ {
-  /** @deprecated use `OutputDynatraceOtlpBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceOtlpBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputDynatraceOtlpExtraHttpHeader$inboundSchema: z.ZodType<
   OutputDynatraceOtlpExtraHttpHeader,
@@ -773,7 +654,6 @@ export const OutputDynatraceOtlpExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputDynatraceOtlpExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -790,20 +670,6 @@ export const OutputDynatraceOtlpExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpExtraHttpHeader$ {
-  /** @deprecated use `OutputDynatraceOtlpExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOtlpExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputDynatraceOtlpExtraHttpHeader$Outbound;
-}
-
 export function outputDynatraceOtlpExtraHttpHeaderToJSON(
   outputDynatraceOtlpExtraHttpHeader: OutputDynatraceOtlpExtraHttpHeader,
 ): string {
@@ -813,7 +679,6 @@ export function outputDynatraceOtlpExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputDynatraceOtlpExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDynatraceOtlpExtraHttpHeader, SDKValidationError> {
@@ -836,7 +701,6 @@ export const OutputDynatraceOtlpResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDynatraceOtlpResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -857,21 +721,6 @@ export const OutputDynatraceOtlpResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpResponseRetrySetting$ {
-  /** @deprecated use `OutputDynatraceOtlpResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceOtlpResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputDynatraceOtlpResponseRetrySetting$Outbound;
-}
-
 export function outputDynatraceOtlpResponseRetrySettingToJSON(
   outputDynatraceOtlpResponseRetrySetting:
     OutputDynatraceOtlpResponseRetrySetting,
@@ -882,7 +731,6 @@ export function outputDynatraceOtlpResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputDynatraceOtlpResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -910,7 +758,6 @@ export const OutputDynatraceOtlpTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDynatraceOtlpTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -931,21 +778,6 @@ export const OutputDynatraceOtlpTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpTimeoutRetrySettings$ {
-  /** @deprecated use `OutputDynatraceOtlpTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceOtlpTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputDynatraceOtlpTimeoutRetrySettings$Outbound;
-}
-
 export function outputDynatraceOtlpTimeoutRetrySettingsToJSON(
   outputDynatraceOtlpTimeoutRetrySettings:
     OutputDynatraceOtlpTimeoutRetrySettings,
@@ -956,7 +788,6 @@ export function outputDynatraceOtlpTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputDynatraceOtlpTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -983,7 +814,6 @@ export const OutputDynatraceOtlpMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceOtlpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceOtlpMode$outboundSchema: z.ZodType<
   OutputDynatraceOtlpMode,
@@ -993,17 +823,6 @@ export const OutputDynatraceOtlpMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDynatraceOtlpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpMode$ {
-  /** @deprecated use `OutputDynatraceOtlpMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOtlpMode$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceOtlpMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceOtlpPqCompressCompression$inboundSchema: z.ZodType<
@@ -1015,7 +834,6 @@ export const OutputDynatraceOtlpPqCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceOtlpPqCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceOtlpPqCompressCompression$outboundSchema: z.ZodType<
   OutputDynatraceOtlpPqCompressCompression,
@@ -1025,19 +843,6 @@ export const OutputDynatraceOtlpPqCompressCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDynatraceOtlpPqCompressCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpPqCompressCompression$ {
-  /** @deprecated use `OutputDynatraceOtlpPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceOtlpPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpPqCompressCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceOtlpQueueFullBehavior$inboundSchema: z.ZodType<
@@ -1049,7 +854,6 @@ export const OutputDynatraceOtlpQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceOtlpQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceOtlpQueueFullBehavior$outboundSchema: z.ZodType<
   OutputDynatraceOtlpQueueFullBehavior,
@@ -1060,26 +864,12 @@ export const OutputDynatraceOtlpQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpQueueFullBehavior$ {
-  /** @deprecated use `OutputDynatraceOtlpQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceOtlpQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceOtlpQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputDynatraceOtlpPqControls$inboundSchema: z.ZodType<
   OutputDynatraceOtlpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputDynatraceOtlpPqControls$Outbound = {};
 
@@ -1090,19 +880,6 @@ export const OutputDynatraceOtlpPqControls$outboundSchema: z.ZodType<
   OutputDynatraceOtlpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlpPqControls$ {
-  /** @deprecated use `OutputDynatraceOtlpPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOtlpPqControls$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceOtlpPqControls$outboundSchema;
-  /** @deprecated use `OutputDynatraceOtlpPqControls$Outbound` instead. */
-  export type Outbound = OutputDynatraceOtlpPqControls$Outbound;
-}
-
 export function outputDynatraceOtlpPqControlsToJSON(
   outputDynatraceOtlpPqControls: OutputDynatraceOtlpPqControls,
 ): string {
@@ -1112,7 +889,6 @@ export function outputDynatraceOtlpPqControlsToJSON(
     ),
   );
 }
-
 export function outputDynatraceOtlpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDynatraceOtlpPqControls, SDKValidationError> {
@@ -1196,7 +972,6 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputDynatraceOtlpPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputDynatraceOtlp$Outbound = {
   id?: string | undefined;
@@ -1326,19 +1101,6 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceOtlp$ {
-  /** @deprecated use `OutputDynatraceOtlp$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceOtlp$inboundSchema;
-  /** @deprecated use `OutputDynatraceOtlp$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceOtlp$outboundSchema;
-  /** @deprecated use `OutputDynatraceOtlp$Outbound` instead. */
-  export type Outbound = OutputDynatraceOtlp$Outbound;
-}
-
 export function outputDynatraceOtlpToJSON(
   outputDynatraceOtlp: OutputDynatraceOtlp,
 ): string {
@@ -1346,7 +1108,6 @@ export function outputDynatraceOtlpToJSON(
     OutputDynatraceOtlp$outboundSchema.parse(outputDynatraceOtlp),
   );
 }
-
 export function outputDynatraceOtlpFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDynatraceOtlp, SDKValidationError> {

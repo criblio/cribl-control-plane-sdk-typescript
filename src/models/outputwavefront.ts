@@ -335,22 +335,10 @@ export type OutputWavefront = {
 export const OutputWavefrontType$inboundSchema: z.ZodNativeEnum<
   typeof OutputWavefrontType
 > = z.nativeEnum(OutputWavefrontType);
-
 /** @internal */
 export const OutputWavefrontType$outboundSchema: z.ZodNativeEnum<
   typeof OutputWavefrontType
 > = OutputWavefrontType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontType$ {
-  /** @deprecated use `OutputWavefrontType$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontType$inboundSchema;
-  /** @deprecated use `OutputWavefrontType$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontType$outboundSchema;
-}
 
 /** @internal */
 export const OutputWavefrontAuthenticationMethod$inboundSchema: z.ZodType<
@@ -362,7 +350,6 @@ export const OutputWavefrontAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontAuthenticationMethod$outboundSchema: z.ZodType<
   OutputWavefrontAuthenticationMethod,
@@ -373,19 +360,6 @@ export const OutputWavefrontAuthenticationMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontAuthenticationMethod$ {
-  /** @deprecated use `OutputWavefrontAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputWavefrontAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const OutputWavefrontExtraHttpHeader$inboundSchema: z.ZodType<
   OutputWavefrontExtraHttpHeader,
@@ -395,7 +369,6 @@ export const OutputWavefrontExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputWavefrontExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -412,19 +385,6 @@ export const OutputWavefrontExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontExtraHttpHeader$ {
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputWavefrontExtraHttpHeader$Outbound;
-}
-
 export function outputWavefrontExtraHttpHeaderToJSON(
   outputWavefrontExtraHttpHeader: OutputWavefrontExtraHttpHeader,
 ): string {
@@ -434,7 +394,6 @@ export function outputWavefrontExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputWavefrontExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefrontExtraHttpHeader, SDKValidationError> {
@@ -455,7 +414,6 @@ export const OutputWavefrontFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputWavefrontFailedRequestLoggingMode,
@@ -465,19 +423,6 @@ export const OutputWavefrontFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWavefrontFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputWavefrontFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputWavefrontFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputWavefrontResponseRetrySetting$inboundSchema: z.ZodType<
@@ -490,7 +435,6 @@ export const OutputWavefrontResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputWavefrontResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -511,21 +455,6 @@ export const OutputWavefrontResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontResponseRetrySetting$ {
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputWavefrontResponseRetrySetting$Outbound;
-}
-
 export function outputWavefrontResponseRetrySettingToJSON(
   outputWavefrontResponseRetrySetting: OutputWavefrontResponseRetrySetting,
 ): string {
@@ -535,7 +464,6 @@ export function outputWavefrontResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputWavefrontResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefrontResponseRetrySetting, SDKValidationError> {
@@ -558,7 +486,6 @@ export const OutputWavefrontTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputWavefrontTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -579,21 +506,6 @@ export const OutputWavefrontTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontTimeoutRetrySettings$ {
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputWavefrontTimeoutRetrySettings$Outbound;
-}
-
 export function outputWavefrontTimeoutRetrySettingsToJSON(
   outputWavefrontTimeoutRetrySettings: OutputWavefrontTimeoutRetrySettings,
 ): string {
@@ -603,7 +515,6 @@ export function outputWavefrontTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputWavefrontTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefrontTimeoutRetrySettings, SDKValidationError> {
@@ -625,7 +536,6 @@ export const OutputWavefrontBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontBackpressureBehavior$outboundSchema: z.ZodType<
   OutputWavefrontBackpressureBehavior,
@@ -635,19 +545,6 @@ export const OutputWavefrontBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWavefrontBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontBackpressureBehavior$ {
-  /** @deprecated use `OutputWavefrontBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputWavefrontBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputWavefrontMode$inboundSchema: z.ZodType<
@@ -659,7 +556,6 @@ export const OutputWavefrontMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontMode$outboundSchema: z.ZodType<
   OutputWavefrontMode,
@@ -669,17 +565,6 @@ export const OutputWavefrontMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWavefrontMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontMode$ {
-  /** @deprecated use `OutputWavefrontMode$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontMode$inboundSchema;
-  /** @deprecated use `OutputWavefrontMode$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputWavefrontCompression$inboundSchema: z.ZodType<
@@ -691,7 +576,6 @@ export const OutputWavefrontCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontCompression$outboundSchema: z.ZodType<
   OutputWavefrontCompression,
@@ -701,17 +585,6 @@ export const OutputWavefrontCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWavefrontCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontCompression$ {
-  /** @deprecated use `OutputWavefrontCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontCompression$inboundSchema;
-  /** @deprecated use `OutputWavefrontCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputWavefrontQueueFullBehavior$inboundSchema: z.ZodType<
@@ -723,7 +596,6 @@ export const OutputWavefrontQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontQueueFullBehavior$outboundSchema: z.ZodType<
   OutputWavefrontQueueFullBehavior,
@@ -734,24 +606,12 @@ export const OutputWavefrontQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontQueueFullBehavior$ {
-  /** @deprecated use `OutputWavefrontQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputWavefrontQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputWavefrontPqControls$inboundSchema: z.ZodType<
   OutputWavefrontPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputWavefrontPqControls$Outbound = {};
 
@@ -762,19 +622,6 @@ export const OutputWavefrontPqControls$outboundSchema: z.ZodType<
   OutputWavefrontPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontPqControls$ {
-  /** @deprecated use `OutputWavefrontPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontPqControls$inboundSchema;
-  /** @deprecated use `OutputWavefrontPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontPqControls$outboundSchema;
-  /** @deprecated use `OutputWavefrontPqControls$Outbound` instead. */
-  export type Outbound = OutputWavefrontPqControls$Outbound;
-}
-
 export function outputWavefrontPqControlsToJSON(
   outputWavefrontPqControls: OutputWavefrontPqControls,
 ): string {
@@ -782,7 +629,6 @@ export function outputWavefrontPqControlsToJSON(
     OutputWavefrontPqControls$outboundSchema.parse(outputWavefrontPqControls),
   );
 }
-
 export function outputWavefrontPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefrontPqControls, SDKValidationError> {
@@ -848,7 +694,6 @@ export const OutputWavefront$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputWavefrontPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputWavefront$Outbound = {
   id?: string | undefined;
@@ -952,25 +797,11 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputWavefrontPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefront$ {
-  /** @deprecated use `OutputWavefront$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefront$inboundSchema;
-  /** @deprecated use `OutputWavefront$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefront$outboundSchema;
-  /** @deprecated use `OutputWavefront$Outbound` instead. */
-  export type Outbound = OutputWavefront$Outbound;
-}
-
 export function outputWavefrontToJSON(
   outputWavefront: OutputWavefront,
 ): string {
   return JSON.stringify(OutputWavefront$outboundSchema.parse(outputWavefront));
 }
-
 export function outputWavefrontFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefront, SDKValidationError> {

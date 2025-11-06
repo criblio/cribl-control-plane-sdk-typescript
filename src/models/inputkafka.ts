@@ -493,22 +493,10 @@ export type InputKafka = {
 export const InputKafkaType$inboundSchema: z.ZodNativeEnum<
   typeof InputKafkaType
 > = z.nativeEnum(InputKafkaType);
-
 /** @internal */
 export const InputKafkaType$outboundSchema: z.ZodNativeEnum<
   typeof InputKafkaType
 > = InputKafkaType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaType$ {
-  /** @deprecated use `InputKafkaType$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaType$inboundSchema;
-  /** @deprecated use `InputKafkaType$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaType$outboundSchema;
-}
 
 /** @internal */
 export const InputKafkaConnection$inboundSchema: z.ZodType<
@@ -519,7 +507,6 @@ export const InputKafkaConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputKafkaConnection$Outbound = {
   pipeline?: string | undefined;
@@ -536,19 +523,6 @@ export const InputKafkaConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaConnection$ {
-  /** @deprecated use `InputKafkaConnection$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaConnection$inboundSchema;
-  /** @deprecated use `InputKafkaConnection$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaConnection$outboundSchema;
-  /** @deprecated use `InputKafkaConnection$Outbound` instead. */
-  export type Outbound = InputKafkaConnection$Outbound;
-}
-
 export function inputKafkaConnectionToJSON(
   inputKafkaConnection: InputKafkaConnection,
 ): string {
@@ -556,7 +530,6 @@ export function inputKafkaConnectionToJSON(
     InputKafkaConnection$outboundSchema.parse(inputKafkaConnection),
   );
 }
-
 export function inputKafkaConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaConnection, SDKValidationError> {
@@ -577,7 +550,6 @@ export const InputKafkaMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputKafkaMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKafkaMode$outboundSchema: z.ZodType<
   InputKafkaMode,
@@ -587,17 +559,6 @@ export const InputKafkaMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputKafkaMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaMode$ {
-  /** @deprecated use `InputKafkaMode$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaMode$inboundSchema;
-  /** @deprecated use `InputKafkaMode$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaMode$outboundSchema;
-}
 
 /** @internal */
 export const InputKafkaCompression$inboundSchema: z.ZodType<
@@ -609,7 +570,6 @@ export const InputKafkaCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputKafkaCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKafkaCompression$outboundSchema: z.ZodType<
   InputKafkaCompression,
@@ -620,24 +580,12 @@ export const InputKafkaCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaCompression$ {
-  /** @deprecated use `InputKafkaCompression$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaCompression$inboundSchema;
-  /** @deprecated use `InputKafkaCompression$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputKafkaPqControls$inboundSchema: z.ZodType<
   InputKafkaPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputKafkaPqControls$Outbound = {};
 
@@ -648,19 +596,6 @@ export const InputKafkaPqControls$outboundSchema: z.ZodType<
   InputKafkaPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaPqControls$ {
-  /** @deprecated use `InputKafkaPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaPqControls$inboundSchema;
-  /** @deprecated use `InputKafkaPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaPqControls$outboundSchema;
-  /** @deprecated use `InputKafkaPqControls$Outbound` instead. */
-  export type Outbound = InputKafkaPqControls$Outbound;
-}
-
 export function inputKafkaPqControlsToJSON(
   inputKafkaPqControls: InputKafkaPqControls,
 ): string {
@@ -668,7 +603,6 @@ export function inputKafkaPqControlsToJSON(
     InputKafkaPqControls$outboundSchema.parse(inputKafkaPqControls),
   );
 }
-
 export function inputKafkaPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaPqControls, SDKValidationError> {
@@ -694,7 +628,6 @@ export const InputKafkaPq$inboundSchema: z.ZodType<
   compress: InputKafkaCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputKafkaPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputKafkaPq$Outbound = {
   mode: string;
@@ -723,23 +656,9 @@ export const InputKafkaPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputKafkaPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaPq$ {
-  /** @deprecated use `InputKafkaPq$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaPq$inboundSchema;
-  /** @deprecated use `InputKafkaPq$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaPq$outboundSchema;
-  /** @deprecated use `InputKafkaPq$Outbound` instead. */
-  export type Outbound = InputKafkaPq$Outbound;
-}
-
 export function inputKafkaPqToJSON(inputKafkaPq: InputKafkaPq): string {
   return JSON.stringify(InputKafkaPq$outboundSchema.parse(inputKafkaPq));
 }
-
 export function inputKafkaPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaPq, SDKValidationError> {
@@ -759,7 +678,6 @@ export const InputKafkaAuth$inboundSchema: z.ZodType<
   disabled: z.boolean().default(true),
   credentialsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputKafkaAuth$Outbound = {
   disabled: boolean;
@@ -776,23 +694,9 @@ export const InputKafkaAuth$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaAuth$ {
-  /** @deprecated use `InputKafkaAuth$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaAuth$inboundSchema;
-  /** @deprecated use `InputKafkaAuth$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaAuth$outboundSchema;
-  /** @deprecated use `InputKafkaAuth$Outbound` instead. */
-  export type Outbound = InputKafkaAuth$Outbound;
-}
-
 export function inputKafkaAuthToJSON(inputKafkaAuth: InputKafkaAuth): string {
   return JSON.stringify(InputKafkaAuth$outboundSchema.parse(inputKafkaAuth));
 }
-
 export function inputKafkaAuthFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaAuth, SDKValidationError> {
@@ -814,7 +718,6 @@ export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
       z.nativeEnum(InputKafkaKafkaSchemaRegistryMinimumTLSVersion),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
   z.ZodType<
@@ -825,19 +728,6 @@ export const InputKafkaKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
     z.nativeEnum(InputKafkaKafkaSchemaRegistryMinimumTLSVersion),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaKafkaSchemaRegistryMinimumTLSVersion$ {
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputKafkaKafkaSchemaRegistryMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputKafkaKafkaSchemaRegistryMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
@@ -850,7 +740,6 @@ export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
       z.nativeEnum(InputKafkaKafkaSchemaRegistryMaximumTLSVersion),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
   z.ZodType<
@@ -861,19 +750,6 @@ export const InputKafkaKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
     z.nativeEnum(InputKafkaKafkaSchemaRegistryMaximumTLSVersion),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaKafkaSchemaRegistryMaximumTLSVersion$ {
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputKafkaKafkaSchemaRegistryMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
@@ -895,7 +771,6 @@ export const InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
     maxVersion: InputKafkaKafkaSchemaRegistryMaximumTLSVersion$inboundSchema
       .optional(),
   });
-
 /** @internal */
 export type InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -931,22 +806,6 @@ export const InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema:
       .optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$ {
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound =
-    InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$Outbound;
-}
-
 export function inputKafkaKafkaSchemaRegistryTLSSettingsClientSideToJSON(
   inputKafkaKafkaSchemaRegistryTLSSettingsClientSide:
     InputKafkaKafkaSchemaRegistryTLSSettingsClientSide,
@@ -957,7 +816,6 @@ export function inputKafkaKafkaSchemaRegistryTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function inputKafkaKafkaSchemaRegistryTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -991,7 +849,6 @@ export const InputKafkaKafkaSchemaRegistryAuthentication$inboundSchema:
       InputKafkaKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema
     ).optional(),
   });
-
 /** @internal */
 export type InputKafkaKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
@@ -1021,21 +878,6 @@ export const InputKafkaKafkaSchemaRegistryAuthentication$outboundSchema:
     ).optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaKafkaSchemaRegistryAuthentication$ {
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryAuthentication$inboundSchema` instead. */
-  export const inboundSchema =
-    InputKafkaKafkaSchemaRegistryAuthentication$inboundSchema;
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryAuthentication$outboundSchema` instead. */
-  export const outboundSchema =
-    InputKafkaKafkaSchemaRegistryAuthentication$outboundSchema;
-  /** @deprecated use `InputKafkaKafkaSchemaRegistryAuthentication$Outbound` instead. */
-  export type Outbound = InputKafkaKafkaSchemaRegistryAuthentication$Outbound;
-}
-
 export function inputKafkaKafkaSchemaRegistryAuthenticationToJSON(
   inputKafkaKafkaSchemaRegistryAuthentication:
     InputKafkaKafkaSchemaRegistryAuthentication,
@@ -1046,7 +888,6 @@ export function inputKafkaKafkaSchemaRegistryAuthenticationToJSON(
     ),
   );
 }
-
 export function inputKafkaKafkaSchemaRegistryAuthenticationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1073,7 +914,6 @@ export const InputKafkaAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputKafkaAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKafkaAuthenticationMethod$outboundSchema: z.ZodType<
   InputKafkaAuthenticationMethod,
@@ -1083,17 +923,6 @@ export const InputKafkaAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputKafkaAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaAuthenticationMethod$ {
-  /** @deprecated use `InputKafkaAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputKafkaAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputKafkaSASLMechanism$inboundSchema: z.ZodType<
@@ -1105,7 +934,6 @@ export const InputKafkaSASLMechanism$inboundSchema: z.ZodType<
     z.nativeEnum(InputKafkaSASLMechanism),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKafkaSASLMechanism$outboundSchema: z.ZodType<
   InputKafkaSASLMechanism,
@@ -1116,17 +944,6 @@ export const InputKafkaSASLMechanism$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaSASLMechanism$ {
-  /** @deprecated use `InputKafkaSASLMechanism$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaSASLMechanism$inboundSchema;
-  /** @deprecated use `InputKafkaSASLMechanism$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaSASLMechanism$outboundSchema;
-}
-
 /** @internal */
 export const InputKafkaOauthParam$inboundSchema: z.ZodType<
   InputKafkaOauthParam,
@@ -1136,7 +953,6 @@ export const InputKafkaOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputKafkaOauthParam$Outbound = {
   name: string;
@@ -1153,19 +969,6 @@ export const InputKafkaOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaOauthParam$ {
-  /** @deprecated use `InputKafkaOauthParam$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaOauthParam$inboundSchema;
-  /** @deprecated use `InputKafkaOauthParam$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaOauthParam$outboundSchema;
-  /** @deprecated use `InputKafkaOauthParam$Outbound` instead. */
-  export type Outbound = InputKafkaOauthParam$Outbound;
-}
-
 export function inputKafkaOauthParamToJSON(
   inputKafkaOauthParam: InputKafkaOauthParam,
 ): string {
@@ -1173,7 +976,6 @@ export function inputKafkaOauthParamToJSON(
     InputKafkaOauthParam$outboundSchema.parse(inputKafkaOauthParam),
   );
 }
-
 export function inputKafkaOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaOauthParam, SDKValidationError> {
@@ -1193,7 +995,6 @@ export const InputKafkaSaslExtension$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputKafkaSaslExtension$Outbound = {
   name: string;
@@ -1210,19 +1011,6 @@ export const InputKafkaSaslExtension$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaSaslExtension$ {
-  /** @deprecated use `InputKafkaSaslExtension$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaSaslExtension$inboundSchema;
-  /** @deprecated use `InputKafkaSaslExtension$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaSaslExtension$outboundSchema;
-  /** @deprecated use `InputKafkaSaslExtension$Outbound` instead. */
-  export type Outbound = InputKafkaSaslExtension$Outbound;
-}
-
 export function inputKafkaSaslExtensionToJSON(
   inputKafkaSaslExtension: InputKafkaSaslExtension,
 ): string {
@@ -1230,7 +1018,6 @@ export function inputKafkaSaslExtensionToJSON(
     InputKafkaSaslExtension$outboundSchema.parse(inputKafkaSaslExtension),
   );
 }
-
 export function inputKafkaSaslExtensionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaSaslExtension, SDKValidationError> {
@@ -1266,7 +1053,6 @@ export const InputKafkaAuthentication$inboundSchema: z.ZodType<
   saslExtensions: z.array(z.lazy(() => InputKafkaSaslExtension$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type InputKafkaAuthentication$Outbound = {
   disabled: boolean;
@@ -1313,19 +1099,6 @@ export const InputKafkaAuthentication$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaAuthentication$ {
-  /** @deprecated use `InputKafkaAuthentication$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaAuthentication$inboundSchema;
-  /** @deprecated use `InputKafkaAuthentication$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaAuthentication$outboundSchema;
-  /** @deprecated use `InputKafkaAuthentication$Outbound` instead. */
-  export type Outbound = InputKafkaAuthentication$Outbound;
-}
-
 export function inputKafkaAuthenticationToJSON(
   inputKafkaAuthentication: InputKafkaAuthentication,
 ): string {
@@ -1333,7 +1106,6 @@ export function inputKafkaAuthenticationToJSON(
     InputKafkaAuthentication$outboundSchema.parse(inputKafkaAuthentication),
   );
 }
-
 export function inputKafkaAuthenticationFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaAuthentication, SDKValidationError> {
@@ -1354,7 +1126,6 @@ export const InputKafkaMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputKafkaMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKafkaMinimumTLSVersion$outboundSchema: z.ZodType<
   InputKafkaMinimumTLSVersion,
@@ -1364,17 +1135,6 @@ export const InputKafkaMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputKafkaMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaMinimumTLSVersion$ {
-  /** @deprecated use `InputKafkaMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputKafkaMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputKafkaMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -1386,7 +1146,6 @@ export const InputKafkaMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputKafkaMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputKafkaMaximumTLSVersion$outboundSchema: z.ZodType<
   InputKafkaMaximumTLSVersion,
@@ -1396,17 +1155,6 @@ export const InputKafkaMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputKafkaMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaMaximumTLSVersion$ {
-  /** @deprecated use `InputKafkaMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputKafkaMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputKafkaTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -1425,7 +1173,6 @@ export const InputKafkaTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: InputKafkaMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputKafkaMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputKafkaTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -1458,19 +1205,6 @@ export const InputKafkaTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: InputKafkaMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaTLSSettingsClientSide$ {
-  /** @deprecated use `InputKafkaTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `InputKafkaTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `InputKafkaTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = InputKafkaTLSSettingsClientSide$Outbound;
-}
-
 export function inputKafkaTLSSettingsClientSideToJSON(
   inputKafkaTLSSettingsClientSide: InputKafkaTLSSettingsClientSide,
 ): string {
@@ -1480,7 +1214,6 @@ export function inputKafkaTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function inputKafkaTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaTLSSettingsClientSide, SDKValidationError> {
@@ -1500,7 +1233,6 @@ export const InputKafkaMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputKafkaMetadatum$Outbound = {
   name: string;
@@ -1517,19 +1249,6 @@ export const InputKafkaMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafkaMetadatum$ {
-  /** @deprecated use `InputKafkaMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputKafkaMetadatum$inboundSchema;
-  /** @deprecated use `InputKafkaMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputKafkaMetadatum$outboundSchema;
-  /** @deprecated use `InputKafkaMetadatum$Outbound` instead. */
-  export type Outbound = InputKafkaMetadatum$Outbound;
-}
-
 export function inputKafkaMetadatumToJSON(
   inputKafkaMetadatum: InputKafkaMetadatum,
 ): string {
@@ -1537,7 +1256,6 @@ export function inputKafkaMetadatumToJSON(
     InputKafkaMetadatum$outboundSchema.parse(inputKafkaMetadatum),
   );
 }
-
 export function inputKafkaMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafkaMetadatum, SDKValidationError> {
@@ -1593,7 +1311,6 @@ export const InputKafka$inboundSchema: z.ZodType<
   metadata: z.array(z.lazy(() => InputKafkaMetadatum$inboundSchema)).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputKafka$Outbound = {
   id?: string | undefined;
@@ -1682,23 +1399,9 @@ export const InputKafka$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKafka$ {
-  /** @deprecated use `InputKafka$inboundSchema` instead. */
-  export const inboundSchema = InputKafka$inboundSchema;
-  /** @deprecated use `InputKafka$outboundSchema` instead. */
-  export const outboundSchema = InputKafka$outboundSchema;
-  /** @deprecated use `InputKafka$Outbound` instead. */
-  export type Outbound = InputKafka$Outbound;
-}
-
 export function inputKafkaToJSON(inputKafka: InputKafka): string {
   return JSON.stringify(InputKafka$outboundSchema.parse(inputKafka));
 }
-
 export function inputKafkaFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKafka, SDKValidationError> {

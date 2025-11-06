@@ -3,24 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type LoginInfo = {
   password: string;
   username: string;
 };
-
-/** @internal */
-export const LoginInfo$inboundSchema: z.ZodType<
-  LoginInfo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  password: z.string(),
-  username: z.string(),
-});
 
 /** @internal */
 export type LoginInfo$Outbound = {
@@ -38,29 +25,6 @@ export const LoginInfo$outboundSchema: z.ZodType<
   username: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LoginInfo$ {
-  /** @deprecated use `LoginInfo$inboundSchema` instead. */
-  export const inboundSchema = LoginInfo$inboundSchema;
-  /** @deprecated use `LoginInfo$outboundSchema` instead. */
-  export const outboundSchema = LoginInfo$outboundSchema;
-  /** @deprecated use `LoginInfo$Outbound` instead. */
-  export type Outbound = LoginInfo$Outbound;
-}
-
 export function loginInfoToJSON(loginInfo: LoginInfo): string {
   return JSON.stringify(LoginInfo$outboundSchema.parse(loginInfo));
-}
-
-export function loginInfoFromJSON(
-  jsonString: string,
-): SafeParseResult<LoginInfo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => LoginInfo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LoginInfo' from JSON`,
-  );
 }

@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdatePacksRequest = {
   /**
@@ -15,25 +12,6 @@ export type UpdatePacksRequest = {
   filename: string;
   requestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
-
-/** @internal */
-export const UpdatePacksRequest$inboundSchema: z.ZodType<
-  UpdatePacksRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filename: z.string(),
-  RequestBody: z.union([
-    z.instanceof(ReadableStream<Uint8Array>),
-    z.instanceof(Blob),
-    z.instanceof(ArrayBuffer),
-    z.instanceof(Uint8Array),
-  ]),
-}).transform((v) => {
-  return remap$(v, {
-    "RequestBody": "requestBody",
-  });
-});
 
 /** @internal */
 export type UpdatePacksRequest$Outbound = {
@@ -60,33 +38,10 @@ export const UpdatePacksRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePacksRequest$ {
-  /** @deprecated use `UpdatePacksRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdatePacksRequest$inboundSchema;
-  /** @deprecated use `UpdatePacksRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdatePacksRequest$outboundSchema;
-  /** @deprecated use `UpdatePacksRequest$Outbound` instead. */
-  export type Outbound = UpdatePacksRequest$Outbound;
-}
-
 export function updatePacksRequestToJSON(
   updatePacksRequest: UpdatePacksRequest,
 ): string {
   return JSON.stringify(
     UpdatePacksRequest$outboundSchema.parse(updatePacksRequest),
-  );
-}
-
-export function updatePacksRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePacksRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePacksRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePacksRequest' from JSON`,
   );
 }

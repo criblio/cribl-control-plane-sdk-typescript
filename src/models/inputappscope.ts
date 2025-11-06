@@ -343,22 +343,10 @@ export type InputAppscope = {
 export const InputAppscopeType$inboundSchema: z.ZodNativeEnum<
   typeof InputAppscopeType
 > = z.nativeEnum(InputAppscopeType);
-
 /** @internal */
 export const InputAppscopeType$outboundSchema: z.ZodNativeEnum<
   typeof InputAppscopeType
 > = InputAppscopeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeType$ {
-  /** @deprecated use `InputAppscopeType$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeType$inboundSchema;
-  /** @deprecated use `InputAppscopeType$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeType$outboundSchema;
-}
 
 /** @internal */
 export const InputAppscopeConnection$inboundSchema: z.ZodType<
@@ -369,7 +357,6 @@ export const InputAppscopeConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputAppscopeConnection$Outbound = {
   pipeline?: string | undefined;
@@ -386,19 +373,6 @@ export const InputAppscopeConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeConnection$ {
-  /** @deprecated use `InputAppscopeConnection$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeConnection$inboundSchema;
-  /** @deprecated use `InputAppscopeConnection$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeConnection$outboundSchema;
-  /** @deprecated use `InputAppscopeConnection$Outbound` instead. */
-  export type Outbound = InputAppscopeConnection$Outbound;
-}
-
 export function inputAppscopeConnectionToJSON(
   inputAppscopeConnection: InputAppscopeConnection,
 ): string {
@@ -406,7 +380,6 @@ export function inputAppscopeConnectionToJSON(
     InputAppscopeConnection$outboundSchema.parse(inputAppscopeConnection),
   );
 }
-
 export function inputAppscopeConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscopeConnection, SDKValidationError> {
@@ -427,7 +400,6 @@ export const InputAppscopeMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputAppscopeMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAppscopeMode$outboundSchema: z.ZodType<
   InputAppscopeMode,
@@ -437,17 +409,6 @@ export const InputAppscopeMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputAppscopeMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeMode$ {
-  /** @deprecated use `InputAppscopeMode$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeMode$inboundSchema;
-  /** @deprecated use `InputAppscopeMode$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeMode$outboundSchema;
-}
 
 /** @internal */
 export const InputAppscopeCompression$inboundSchema: z.ZodType<
@@ -459,7 +420,6 @@ export const InputAppscopeCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputAppscopeCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAppscopeCompression$outboundSchema: z.ZodType<
   InputAppscopeCompression,
@@ -470,24 +430,12 @@ export const InputAppscopeCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeCompression$ {
-  /** @deprecated use `InputAppscopeCompression$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeCompression$inboundSchema;
-  /** @deprecated use `InputAppscopeCompression$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputAppscopePqControls$inboundSchema: z.ZodType<
   InputAppscopePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputAppscopePqControls$Outbound = {};
 
@@ -498,19 +446,6 @@ export const InputAppscopePqControls$outboundSchema: z.ZodType<
   InputAppscopePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopePqControls$ {
-  /** @deprecated use `InputAppscopePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopePqControls$inboundSchema;
-  /** @deprecated use `InputAppscopePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopePqControls$outboundSchema;
-  /** @deprecated use `InputAppscopePqControls$Outbound` instead. */
-  export type Outbound = InputAppscopePqControls$Outbound;
-}
-
 export function inputAppscopePqControlsToJSON(
   inputAppscopePqControls: InputAppscopePqControls,
 ): string {
@@ -518,7 +453,6 @@ export function inputAppscopePqControlsToJSON(
     InputAppscopePqControls$outboundSchema.parse(inputAppscopePqControls),
   );
 }
-
 export function inputAppscopePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscopePqControls, SDKValidationError> {
@@ -544,7 +478,6 @@ export const InputAppscopePq$inboundSchema: z.ZodType<
   compress: InputAppscopeCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputAppscopePqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputAppscopePq$Outbound = {
   mode: string;
@@ -573,25 +506,11 @@ export const InputAppscopePq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputAppscopePqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopePq$ {
-  /** @deprecated use `InputAppscopePq$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopePq$inboundSchema;
-  /** @deprecated use `InputAppscopePq$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopePq$outboundSchema;
-  /** @deprecated use `InputAppscopePq$Outbound` instead. */
-  export type Outbound = InputAppscopePq$Outbound;
-}
-
 export function inputAppscopePqToJSON(
   inputAppscopePq: InputAppscopePq,
 ): string {
   return JSON.stringify(InputAppscopePq$outboundSchema.parse(inputAppscopePq));
 }
-
 export function inputAppscopePqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscopePq, SDKValidationError> {
@@ -611,7 +530,6 @@ export const InputAppscopeMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputAppscopeMetadatum$Outbound = {
   name: string;
@@ -628,19 +546,6 @@ export const InputAppscopeMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeMetadatum$ {
-  /** @deprecated use `InputAppscopeMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeMetadatum$inboundSchema;
-  /** @deprecated use `InputAppscopeMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeMetadatum$outboundSchema;
-  /** @deprecated use `InputAppscopeMetadatum$Outbound` instead. */
-  export type Outbound = InputAppscopeMetadatum$Outbound;
-}
-
 export function inputAppscopeMetadatumToJSON(
   inputAppscopeMetadatum: InputAppscopeMetadatum,
 ): string {
@@ -648,7 +553,6 @@ export function inputAppscopeMetadatumToJSON(
     InputAppscopeMetadatum$outboundSchema.parse(inputAppscopeMetadatum),
   );
 }
-
 export function inputAppscopeMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscopeMetadatum, SDKValidationError> {
@@ -666,7 +570,6 @@ export const Allow$inboundSchema: z.ZodType<Allow, z.ZodTypeDef, unknown> = z
     arg: z.string().optional(),
     config: z.string(),
   });
-
 /** @internal */
 export type Allow$Outbound = {
   procname: string;
@@ -685,23 +588,9 @@ export const Allow$outboundSchema: z.ZodType<
   config: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Allow$ {
-  /** @deprecated use `Allow$inboundSchema` instead. */
-  export const inboundSchema = Allow$inboundSchema;
-  /** @deprecated use `Allow$outboundSchema` instead. */
-  export const outboundSchema = Allow$outboundSchema;
-  /** @deprecated use `Allow$Outbound` instead. */
-  export type Outbound = Allow$Outbound;
-}
-
 export function allowToJSON(allow: Allow): string {
   return JSON.stringify(Allow$outboundSchema.parse(allow));
 }
-
 export function allowFromJSON(
   jsonString: string,
 ): SafeParseResult<Allow, SDKValidationError> {
@@ -721,7 +610,6 @@ export const InputAppscopeFilter$inboundSchema: z.ZodType<
   allow: z.array(z.lazy(() => Allow$inboundSchema)).optional(),
   transportURL: z.string().optional(),
 });
-
 /** @internal */
 export type InputAppscopeFilter$Outbound = {
   allow?: Array<Allow$Outbound> | undefined;
@@ -738,19 +626,6 @@ export const InputAppscopeFilter$outboundSchema: z.ZodType<
   transportURL: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeFilter$ {
-  /** @deprecated use `InputAppscopeFilter$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeFilter$inboundSchema;
-  /** @deprecated use `InputAppscopeFilter$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeFilter$outboundSchema;
-  /** @deprecated use `InputAppscopeFilter$Outbound` instead. */
-  export type Outbound = InputAppscopeFilter$Outbound;
-}
-
 export function inputAppscopeFilterToJSON(
   inputAppscopeFilter: InputAppscopeFilter,
 ): string {
@@ -758,7 +633,6 @@ export function inputAppscopeFilterToJSON(
     InputAppscopeFilter$outboundSchema.parse(inputAppscopeFilter),
   );
 }
-
 export function inputAppscopeFilterFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscopeFilter, SDKValidationError> {
@@ -779,7 +653,6 @@ export const InputAppscopeDataCompressionFormat$inboundSchema: z.ZodType<
     z.nativeEnum(InputAppscopeDataCompressionFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAppscopeDataCompressionFormat$outboundSchema: z.ZodType<
   InputAppscopeDataCompressionFormat,
@@ -789,18 +662,6 @@ export const InputAppscopeDataCompressionFormat$outboundSchema: z.ZodType<
   z.nativeEnum(InputAppscopeDataCompressionFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeDataCompressionFormat$ {
-  /** @deprecated use `InputAppscopeDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeDataCompressionFormat$inboundSchema;
-  /** @deprecated use `InputAppscopeDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    InputAppscopeDataCompressionFormat$outboundSchema;
-}
 
 /** @internal */
 export const InputAppscopePersistence$inboundSchema: z.ZodType<
@@ -815,7 +676,6 @@ export const InputAppscopePersistence$inboundSchema: z.ZodType<
   compress: InputAppscopeDataCompressionFormat$inboundSchema.default("gzip"),
   destPath: z.string().default("$CRIBL_HOME/state/appscope"),
 });
-
 /** @internal */
 export type InputAppscopePersistence$Outbound = {
   enable: boolean;
@@ -840,19 +700,6 @@ export const InputAppscopePersistence$outboundSchema: z.ZodType<
   destPath: z.string().default("$CRIBL_HOME/state/appscope"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopePersistence$ {
-  /** @deprecated use `InputAppscopePersistence$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopePersistence$inboundSchema;
-  /** @deprecated use `InputAppscopePersistence$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopePersistence$outboundSchema;
-  /** @deprecated use `InputAppscopePersistence$Outbound` instead. */
-  export type Outbound = InputAppscopePersistence$Outbound;
-}
-
 export function inputAppscopePersistenceToJSON(
   inputAppscopePersistence: InputAppscopePersistence,
 ): string {
@@ -860,7 +707,6 @@ export function inputAppscopePersistenceToJSON(
     InputAppscopePersistence$outboundSchema.parse(inputAppscopePersistence),
   );
 }
-
 export function inputAppscopePersistenceFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscopePersistence, SDKValidationError> {
@@ -881,7 +727,6 @@ export const InputAppscopeAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputAppscopeAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAppscopeAuthenticationMethod$outboundSchema: z.ZodType<
   InputAppscopeAuthenticationMethod,
@@ -891,18 +736,6 @@ export const InputAppscopeAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputAppscopeAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeAuthenticationMethod$ {
-  /** @deprecated use `InputAppscopeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputAppscopeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputAppscopeAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputAppscopeMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -914,7 +747,6 @@ export const InputAppscopeMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputAppscopeMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAppscopeMinimumTLSVersion$outboundSchema: z.ZodType<
   InputAppscopeMinimumTLSVersion,
@@ -924,17 +756,6 @@ export const InputAppscopeMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputAppscopeMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeMinimumTLSVersion$ {
-  /** @deprecated use `InputAppscopeMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputAppscopeMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputAppscopeMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -946,7 +767,6 @@ export const InputAppscopeMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputAppscopeMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAppscopeMaximumTLSVersion$outboundSchema: z.ZodType<
   InputAppscopeMaximumTLSVersion,
@@ -956,17 +776,6 @@ export const InputAppscopeMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputAppscopeMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeMaximumTLSVersion$ {
-  /** @deprecated use `InputAppscopeMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputAppscopeMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputAppscopeTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -986,7 +795,6 @@ export const InputAppscopeTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputAppscopeMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputAppscopeMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputAppscopeTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -1021,20 +829,6 @@ export const InputAppscopeTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputAppscopeMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeTLSSettingsServerSide$ {
-  /** @deprecated use `InputAppscopeTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputAppscopeTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputAppscopeTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputAppscopeTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputAppscopeTLSSettingsServerSide$Outbound;
-}
-
 export function inputAppscopeTLSSettingsServerSideToJSON(
   inputAppscopeTLSSettingsServerSide: InputAppscopeTLSSettingsServerSide,
 ): string {
@@ -1044,7 +838,6 @@ export function inputAppscopeTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputAppscopeTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscopeTLSSettingsServerSide, SDKValidationError> {
@@ -1097,7 +890,6 @@ export const InputAppscope$inboundSchema: z.ZodType<
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputAppscope$Outbound = {
   id?: string | undefined;
@@ -1175,23 +967,9 @@ export const InputAppscope$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscope$ {
-  /** @deprecated use `InputAppscope$inboundSchema` instead. */
-  export const inboundSchema = InputAppscope$inboundSchema;
-  /** @deprecated use `InputAppscope$outboundSchema` instead. */
-  export const outboundSchema = InputAppscope$outboundSchema;
-  /** @deprecated use `InputAppscope$Outbound` instead. */
-  export type Outbound = InputAppscope$Outbound;
-}
-
 export function inputAppscopeToJSON(inputAppscope: InputAppscope): string {
   return JSON.stringify(InputAppscope$outboundSchema.parse(inputAppscope));
 }
-
 export function inputAppscopeFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscope, SDKValidationError> {

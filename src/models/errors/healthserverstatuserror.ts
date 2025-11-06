@@ -57,36 +57,3 @@ export const HealthServerStatusError$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type HealthServerStatusError$Outbound = {
-  role?: string | undefined;
-  startTime: number;
-  status: string;
-};
-
-/** @internal */
-export const HealthServerStatusError$outboundSchema: z.ZodType<
-  HealthServerStatusError$Outbound,
-  z.ZodTypeDef,
-  HealthServerStatusError
-> = z.instanceof(HealthServerStatusError)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    role: models.Role$outboundSchema.optional(),
-    startTime: z.number(),
-    status: models.Status$outboundSchema,
-  }));
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HealthServerStatusError$ {
-  /** @deprecated use `HealthServerStatusError$inboundSchema` instead. */
-  export const inboundSchema = HealthServerStatusError$inboundSchema;
-  /** @deprecated use `HealthServerStatusError$outboundSchema` instead. */
-  export const outboundSchema = HealthServerStatusError$outboundSchema;
-  /** @deprecated use `HealthServerStatusError$Outbound` instead. */
-  export type Outbound = HealthServerStatusError$Outbound;
-}

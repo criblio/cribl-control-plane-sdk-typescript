@@ -218,22 +218,10 @@ export type InputWinEventLogs = {
 export const InputWinEventLogsType$inboundSchema: z.ZodNativeEnum<
   typeof InputWinEventLogsType
 > = z.nativeEnum(InputWinEventLogsType);
-
 /** @internal */
 export const InputWinEventLogsType$outboundSchema: z.ZodNativeEnum<
   typeof InputWinEventLogsType
 > = InputWinEventLogsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWinEventLogsType$ {
-  /** @deprecated use `InputWinEventLogsType$inboundSchema` instead. */
-  export const inboundSchema = InputWinEventLogsType$inboundSchema;
-  /** @deprecated use `InputWinEventLogsType$outboundSchema` instead. */
-  export const outboundSchema = InputWinEventLogsType$outboundSchema;
-}
 
 /** @internal */
 export const InputWinEventLogsConnection$inboundSchema: z.ZodType<
@@ -244,7 +232,6 @@ export const InputWinEventLogsConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputWinEventLogsConnection$Outbound = {
   pipeline?: string | undefined;
@@ -261,19 +248,6 @@ export const InputWinEventLogsConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWinEventLogsConnection$ {
-  /** @deprecated use `InputWinEventLogsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputWinEventLogsConnection$inboundSchema;
-  /** @deprecated use `InputWinEventLogsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputWinEventLogsConnection$outboundSchema;
-  /** @deprecated use `InputWinEventLogsConnection$Outbound` instead. */
-  export type Outbound = InputWinEventLogsConnection$Outbound;
-}
-
 export function inputWinEventLogsConnectionToJSON(
   inputWinEventLogsConnection: InputWinEventLogsConnection,
 ): string {
@@ -283,7 +257,6 @@ export function inputWinEventLogsConnectionToJSON(
     ),
   );
 }
-
 export function inputWinEventLogsConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWinEventLogsConnection, SDKValidationError> {
@@ -304,7 +277,6 @@ export const InputWinEventLogsMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWinEventLogsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWinEventLogsMode$outboundSchema: z.ZodType<
   InputWinEventLogsMode,
@@ -314,17 +286,6 @@ export const InputWinEventLogsMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWinEventLogsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWinEventLogsMode$ {
-  /** @deprecated use `InputWinEventLogsMode$inboundSchema` instead. */
-  export const inboundSchema = InputWinEventLogsMode$inboundSchema;
-  /** @deprecated use `InputWinEventLogsMode$outboundSchema` instead. */
-  export const outboundSchema = InputWinEventLogsMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWinEventLogsCompression$inboundSchema: z.ZodType<
@@ -336,7 +297,6 @@ export const InputWinEventLogsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputWinEventLogsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWinEventLogsCompression$outboundSchema: z.ZodType<
   InputWinEventLogsCompression,
@@ -347,24 +307,12 @@ export const InputWinEventLogsCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWinEventLogsCompression$ {
-  /** @deprecated use `InputWinEventLogsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputWinEventLogsCompression$inboundSchema;
-  /** @deprecated use `InputWinEventLogsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputWinEventLogsCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputWinEventLogsPqControls$inboundSchema: z.ZodType<
   InputWinEventLogsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputWinEventLogsPqControls$Outbound = {};
 
@@ -375,19 +323,6 @@ export const InputWinEventLogsPqControls$outboundSchema: z.ZodType<
   InputWinEventLogsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWinEventLogsPqControls$ {
-  /** @deprecated use `InputWinEventLogsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputWinEventLogsPqControls$inboundSchema;
-  /** @deprecated use `InputWinEventLogsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputWinEventLogsPqControls$outboundSchema;
-  /** @deprecated use `InputWinEventLogsPqControls$Outbound` instead. */
-  export type Outbound = InputWinEventLogsPqControls$Outbound;
-}
-
 export function inputWinEventLogsPqControlsToJSON(
   inputWinEventLogsPqControls: InputWinEventLogsPqControls,
 ): string {
@@ -397,7 +332,6 @@ export function inputWinEventLogsPqControlsToJSON(
     ),
   );
 }
-
 export function inputWinEventLogsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWinEventLogsPqControls, SDKValidationError> {
@@ -424,7 +358,6 @@ export const InputWinEventLogsPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputWinEventLogsPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputWinEventLogsPq$Outbound = {
   mode: string;
@@ -454,19 +387,6 @@ export const InputWinEventLogsPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWinEventLogsPq$ {
-  /** @deprecated use `InputWinEventLogsPq$inboundSchema` instead. */
-  export const inboundSchema = InputWinEventLogsPq$inboundSchema;
-  /** @deprecated use `InputWinEventLogsPq$outboundSchema` instead. */
-  export const outboundSchema = InputWinEventLogsPq$outboundSchema;
-  /** @deprecated use `InputWinEventLogsPq$Outbound` instead. */
-  export type Outbound = InputWinEventLogsPq$Outbound;
-}
-
 export function inputWinEventLogsPqToJSON(
   inputWinEventLogsPq: InputWinEventLogsPq,
 ): string {
@@ -474,7 +394,6 @@ export function inputWinEventLogsPqToJSON(
     InputWinEventLogsPq$outboundSchema.parse(inputWinEventLogsPq),
   );
 }
-
 export function inputWinEventLogsPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWinEventLogsPq, SDKValidationError> {
@@ -495,7 +414,6 @@ export const ReadMode$inboundSchema: z.ZodType<
     z.nativeEnum(ReadMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ReadMode$outboundSchema: z.ZodType<
   ReadMode,
@@ -505,17 +423,6 @@ export const ReadMode$outboundSchema: z.ZodType<
   z.nativeEnum(ReadMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadMode$ {
-  /** @deprecated use `ReadMode$inboundSchema` instead. */
-  export const inboundSchema = ReadMode$inboundSchema;
-  /** @deprecated use `ReadMode$outboundSchema` instead. */
-  export const outboundSchema = ReadMode$outboundSchema;
-}
 
 /** @internal */
 export const EventFormat$inboundSchema: z.ZodType<
@@ -527,7 +434,6 @@ export const EventFormat$inboundSchema: z.ZodType<
     z.nativeEnum(EventFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const EventFormat$outboundSchema: z.ZodType<
   EventFormat,
@@ -538,17 +444,6 @@ export const EventFormat$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EventFormat$ {
-  /** @deprecated use `EventFormat$inboundSchema` instead. */
-  export const inboundSchema = EventFormat$inboundSchema;
-  /** @deprecated use `EventFormat$outboundSchema` instead. */
-  export const outboundSchema = EventFormat$outboundSchema;
-}
-
 /** @internal */
 export const InputWinEventLogsMetadatum$inboundSchema: z.ZodType<
   InputWinEventLogsMetadatum,
@@ -558,7 +453,6 @@ export const InputWinEventLogsMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputWinEventLogsMetadatum$Outbound = {
   name: string;
@@ -575,19 +469,6 @@ export const InputWinEventLogsMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWinEventLogsMetadatum$ {
-  /** @deprecated use `InputWinEventLogsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputWinEventLogsMetadatum$inboundSchema;
-  /** @deprecated use `InputWinEventLogsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputWinEventLogsMetadatum$outboundSchema;
-  /** @deprecated use `InputWinEventLogsMetadatum$Outbound` instead. */
-  export type Outbound = InputWinEventLogsMetadatum$Outbound;
-}
-
 export function inputWinEventLogsMetadatumToJSON(
   inputWinEventLogsMetadatum: InputWinEventLogsMetadatum,
 ): string {
@@ -595,7 +476,6 @@ export function inputWinEventLogsMetadatumToJSON(
     InputWinEventLogsMetadatum$outboundSchema.parse(inputWinEventLogsMetadatum),
   );
 }
-
 export function inputWinEventLogsMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWinEventLogsMetadatum, SDKValidationError> {
@@ -636,7 +516,6 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   disableJsonRendering: z.boolean().default(false),
   disableXmlRendering: z.boolean().default(true),
 });
-
 /** @internal */
 export type InputWinEventLogs$Outbound = {
   id?: string | undefined;
@@ -693,19 +572,6 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   disableXmlRendering: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWinEventLogs$ {
-  /** @deprecated use `InputWinEventLogs$inboundSchema` instead. */
-  export const inboundSchema = InputWinEventLogs$inboundSchema;
-  /** @deprecated use `InputWinEventLogs$outboundSchema` instead. */
-  export const outboundSchema = InputWinEventLogs$outboundSchema;
-  /** @deprecated use `InputWinEventLogs$Outbound` instead. */
-  export type Outbound = InputWinEventLogs$Outbound;
-}
-
 export function inputWinEventLogsToJSON(
   inputWinEventLogs: InputWinEventLogs,
 ): string {
@@ -713,7 +579,6 @@ export function inputWinEventLogsToJSON(
     InputWinEventLogs$outboundSchema.parse(inputWinEventLogs),
   );
 }
-
 export function inputWinEventLogsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWinEventLogs, SDKValidationError> {

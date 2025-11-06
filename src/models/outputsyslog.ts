@@ -485,22 +485,10 @@ export type OutputSyslog = {
 export const OutputSyslogType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSyslogType
 > = z.nativeEnum(OutputSyslogType);
-
 /** @internal */
 export const OutputSyslogType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSyslogType
 > = OutputSyslogType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogType$ {
-  /** @deprecated use `OutputSyslogType$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogType$inboundSchema;
-  /** @deprecated use `OutputSyslogType$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogProtocol$inboundSchema: z.ZodType<
@@ -512,7 +500,6 @@ export const OutputSyslogProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogProtocol$outboundSchema: z.ZodType<
   OutputSyslogProtocol,
@@ -522,17 +509,6 @@ export const OutputSyslogProtocol$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogProtocol),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogProtocol$ {
-  /** @deprecated use `OutputSyslogProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogProtocol$inboundSchema;
-  /** @deprecated use `OutputSyslogProtocol$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogProtocol$outboundSchema;
-}
 
 /** @internal */
 export const Facility$inboundSchema: z.ZodType<
@@ -544,7 +520,6 @@ export const Facility$inboundSchema: z.ZodType<
     z.nativeEnum(Facility),
     z.number().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const Facility$outboundSchema: z.ZodType<
   Facility,
@@ -554,17 +529,6 @@ export const Facility$outboundSchema: z.ZodType<
   z.nativeEnum(Facility),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Facility$ {
-  /** @deprecated use `Facility$inboundSchema` instead. */
-  export const inboundSchema = Facility$inboundSchema;
-  /** @deprecated use `Facility$outboundSchema` instead. */
-  export const outboundSchema = Facility$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogSeverity$inboundSchema: z.ZodType<
@@ -576,7 +540,6 @@ export const OutputSyslogSeverity$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogSeverity),
     z.number().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogSeverity$outboundSchema: z.ZodType<
   OutputSyslogSeverity,
@@ -586,17 +549,6 @@ export const OutputSyslogSeverity$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogSeverity),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogSeverity$ {
-  /** @deprecated use `OutputSyslogSeverity$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogSeverity$inboundSchema;
-  /** @deprecated use `OutputSyslogSeverity$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogSeverity$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogMessageFormat$inboundSchema: z.ZodType<
@@ -608,7 +560,6 @@ export const OutputSyslogMessageFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogMessageFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogMessageFormat$outboundSchema: z.ZodType<
   OutputSyslogMessageFormat,
@@ -618,17 +569,6 @@ export const OutputSyslogMessageFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogMessageFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogMessageFormat$ {
-  /** @deprecated use `OutputSyslogMessageFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogMessageFormat$inboundSchema;
-  /** @deprecated use `OutputSyslogMessageFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogMessageFormat$outboundSchema;
-}
 
 /** @internal */
 export const TimestampFormat$inboundSchema: z.ZodType<
@@ -640,7 +580,6 @@ export const TimestampFormat$inboundSchema: z.ZodType<
     z.nativeEnum(TimestampFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const TimestampFormat$outboundSchema: z.ZodType<
   TimestampFormat,
@@ -650,17 +589,6 @@ export const TimestampFormat$outboundSchema: z.ZodType<
   z.nativeEnum(TimestampFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TimestampFormat$ {
-  /** @deprecated use `TimestampFormat$inboundSchema` instead. */
-  export const inboundSchema = TimestampFormat$inboundSchema;
-  /** @deprecated use `TimestampFormat$outboundSchema` instead. */
-  export const outboundSchema = TimestampFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogTLS$inboundSchema: z.ZodType<
@@ -672,7 +600,6 @@ export const OutputSyslogTLS$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogTLS),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogTLS$outboundSchema: z.ZodType<
   OutputSyslogTLS,
@@ -682,17 +609,6 @@ export const OutputSyslogTLS$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogTLS),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogTLS$ {
-  /** @deprecated use `OutputSyslogTLS$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogTLS$inboundSchema;
-  /** @deprecated use `OutputSyslogTLS$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogTLS$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogHost$inboundSchema: z.ZodType<
@@ -706,7 +622,6 @@ export const OutputSyslogHost$inboundSchema: z.ZodType<
   servername: z.string().optional(),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputSyslogHost$Outbound = {
   host: string;
@@ -729,19 +644,6 @@ export const OutputSyslogHost$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogHost$ {
-  /** @deprecated use `OutputSyslogHost$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogHost$inboundSchema;
-  /** @deprecated use `OutputSyslogHost$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogHost$outboundSchema;
-  /** @deprecated use `OutputSyslogHost$Outbound` instead. */
-  export type Outbound = OutputSyslogHost$Outbound;
-}
-
 export function outputSyslogHostToJSON(
   outputSyslogHost: OutputSyslogHost,
 ): string {
@@ -749,7 +651,6 @@ export function outputSyslogHostToJSON(
     OutputSyslogHost$outboundSchema.parse(outputSyslogHost),
   );
 }
-
 export function outputSyslogHostFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSyslogHost, SDKValidationError> {
@@ -770,7 +671,6 @@ export const OutputSyslogMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputSyslogMinimumTLSVersion,
@@ -780,17 +680,6 @@ export const OutputSyslogMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogMinimumTLSVersion$ {
-  /** @deprecated use `OutputSyslogMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSyslogMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -802,7 +691,6 @@ export const OutputSyslogMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputSyslogMaximumTLSVersion,
@@ -812,17 +700,6 @@ export const OutputSyslogMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogMaximumTLSVersion$ {
-  /** @deprecated use `OutputSyslogMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSyslogMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -841,7 +718,6 @@ export const OutputSyslogTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputSyslogMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputSyslogMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputSyslogTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -874,20 +750,6 @@ export const OutputSyslogTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputSyslogMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogTLSSettingsClientSide$ {
-  /** @deprecated use `OutputSyslogTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputSyslogTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSyslogTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputSyslogTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputSyslogTLSSettingsClientSide$Outbound;
-}
-
 export function outputSyslogTLSSettingsClientSideToJSON(
   outputSyslogTLSSettingsClientSide: OutputSyslogTLSSettingsClientSide,
 ): string {
@@ -897,7 +759,6 @@ export function outputSyslogTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputSyslogTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSyslogTLSSettingsClientSide, SDKValidationError> {
@@ -918,7 +779,6 @@ export const OutputSyslogBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSyslogBackpressureBehavior,
@@ -928,17 +788,6 @@ export const OutputSyslogBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogBackpressureBehavior$ {
-  /** @deprecated use `OutputSyslogBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSyslogBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogMode$inboundSchema: z.ZodType<
@@ -950,7 +799,6 @@ export const OutputSyslogMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogMode$outboundSchema: z.ZodType<
   OutputSyslogMode,
@@ -960,17 +808,6 @@ export const OutputSyslogMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogMode$ {
-  /** @deprecated use `OutputSyslogMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogMode$inboundSchema;
-  /** @deprecated use `OutputSyslogMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogCompression$inboundSchema: z.ZodType<
@@ -982,7 +819,6 @@ export const OutputSyslogCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogCompression$outboundSchema: z.ZodType<
   OutputSyslogCompression,
@@ -992,17 +828,6 @@ export const OutputSyslogCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSyslogCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogCompression$ {
-  /** @deprecated use `OutputSyslogCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogCompression$inboundSchema;
-  /** @deprecated use `OutputSyslogCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputSyslogQueueFullBehavior$inboundSchema: z.ZodType<
@@ -1014,7 +839,6 @@ export const OutputSyslogQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSyslogQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSyslogQueueFullBehavior$outboundSchema: z.ZodType<
   OutputSyslogQueueFullBehavior,
@@ -1025,24 +849,12 @@ export const OutputSyslogQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogQueueFullBehavior$ {
-  /** @deprecated use `OutputSyslogQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSyslogQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogQueueFullBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSyslogPqControls$inboundSchema: z.ZodType<
   OutputSyslogPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSyslogPqControls$Outbound = {};
 
@@ -1053,19 +865,6 @@ export const OutputSyslogPqControls$outboundSchema: z.ZodType<
   OutputSyslogPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogPqControls$ {
-  /** @deprecated use `OutputSyslogPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogPqControls$inboundSchema;
-  /** @deprecated use `OutputSyslogPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogPqControls$outboundSchema;
-  /** @deprecated use `OutputSyslogPqControls$Outbound` instead. */
-  export type Outbound = OutputSyslogPqControls$Outbound;
-}
-
 export function outputSyslogPqControlsToJSON(
   outputSyslogPqControls: OutputSyslogPqControls,
 ): string {
@@ -1073,7 +872,6 @@ export function outputSyslogPqControlsToJSON(
     OutputSyslogPqControls$outboundSchema.parse(outputSyslogPqControls),
   );
 }
-
 export function outputSyslogPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSyslogPqControls, SDKValidationError> {
@@ -1136,7 +934,6 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   ),
   pqControls: z.lazy(() => OutputSyslogPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputSyslog$Outbound = {
   id?: string | undefined;
@@ -1236,23 +1033,9 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputSyslogPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslog$ {
-  /** @deprecated use `OutputSyslog$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslog$inboundSchema;
-  /** @deprecated use `OutputSyslog$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslog$outboundSchema;
-  /** @deprecated use `OutputSyslog$Outbound` instead. */
-  export type Outbound = OutputSyslog$Outbound;
-}
-
 export function outputSyslogToJSON(outputSyslog: OutputSyslog): string {
   return JSON.stringify(OutputSyslog$outboundSchema.parse(outputSyslog));
 }
-
 export function outputSyslogFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSyslog, SDKValidationError> {

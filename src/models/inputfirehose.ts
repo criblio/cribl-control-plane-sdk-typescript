@@ -261,22 +261,10 @@ export type InputFirehose = {
 export const InputFirehoseType$inboundSchema: z.ZodNativeEnum<
   typeof InputFirehoseType
 > = z.nativeEnum(InputFirehoseType);
-
 /** @internal */
 export const InputFirehoseType$outboundSchema: z.ZodNativeEnum<
   typeof InputFirehoseType
 > = InputFirehoseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseType$ {
-  /** @deprecated use `InputFirehoseType$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseType$inboundSchema;
-  /** @deprecated use `InputFirehoseType$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseType$outboundSchema;
-}
 
 /** @internal */
 export const InputFirehoseConnection$inboundSchema: z.ZodType<
@@ -287,7 +275,6 @@ export const InputFirehoseConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputFirehoseConnection$Outbound = {
   pipeline?: string | undefined;
@@ -304,19 +291,6 @@ export const InputFirehoseConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseConnection$ {
-  /** @deprecated use `InputFirehoseConnection$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseConnection$inboundSchema;
-  /** @deprecated use `InputFirehoseConnection$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseConnection$outboundSchema;
-  /** @deprecated use `InputFirehoseConnection$Outbound` instead. */
-  export type Outbound = InputFirehoseConnection$Outbound;
-}
-
 export function inputFirehoseConnectionToJSON(
   inputFirehoseConnection: InputFirehoseConnection,
 ): string {
@@ -324,7 +298,6 @@ export function inputFirehoseConnectionToJSON(
     InputFirehoseConnection$outboundSchema.parse(inputFirehoseConnection),
   );
 }
-
 export function inputFirehoseConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFirehoseConnection, SDKValidationError> {
@@ -345,7 +318,6 @@ export const InputFirehoseMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputFirehoseMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputFirehoseMode$outboundSchema: z.ZodType<
   InputFirehoseMode,
@@ -355,17 +327,6 @@ export const InputFirehoseMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputFirehoseMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseMode$ {
-  /** @deprecated use `InputFirehoseMode$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseMode$inboundSchema;
-  /** @deprecated use `InputFirehoseMode$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseMode$outboundSchema;
-}
 
 /** @internal */
 export const InputFirehoseCompression$inboundSchema: z.ZodType<
@@ -377,7 +338,6 @@ export const InputFirehoseCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputFirehoseCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputFirehoseCompression$outboundSchema: z.ZodType<
   InputFirehoseCompression,
@@ -388,24 +348,12 @@ export const InputFirehoseCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseCompression$ {
-  /** @deprecated use `InputFirehoseCompression$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseCompression$inboundSchema;
-  /** @deprecated use `InputFirehoseCompression$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputFirehosePqControls$inboundSchema: z.ZodType<
   InputFirehosePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputFirehosePqControls$Outbound = {};
 
@@ -416,19 +364,6 @@ export const InputFirehosePqControls$outboundSchema: z.ZodType<
   InputFirehosePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehosePqControls$ {
-  /** @deprecated use `InputFirehosePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputFirehosePqControls$inboundSchema;
-  /** @deprecated use `InputFirehosePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputFirehosePqControls$outboundSchema;
-  /** @deprecated use `InputFirehosePqControls$Outbound` instead. */
-  export type Outbound = InputFirehosePqControls$Outbound;
-}
-
 export function inputFirehosePqControlsToJSON(
   inputFirehosePqControls: InputFirehosePqControls,
 ): string {
@@ -436,7 +371,6 @@ export function inputFirehosePqControlsToJSON(
     InputFirehosePqControls$outboundSchema.parse(inputFirehosePqControls),
   );
 }
-
 export function inputFirehosePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFirehosePqControls, SDKValidationError> {
@@ -462,7 +396,6 @@ export const InputFirehosePq$inboundSchema: z.ZodType<
   compress: InputFirehoseCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputFirehosePqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputFirehosePq$Outbound = {
   mode: string;
@@ -491,25 +424,11 @@ export const InputFirehosePq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputFirehosePqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehosePq$ {
-  /** @deprecated use `InputFirehosePq$inboundSchema` instead. */
-  export const inboundSchema = InputFirehosePq$inboundSchema;
-  /** @deprecated use `InputFirehosePq$outboundSchema` instead. */
-  export const outboundSchema = InputFirehosePq$outboundSchema;
-  /** @deprecated use `InputFirehosePq$Outbound` instead. */
-  export type Outbound = InputFirehosePq$Outbound;
-}
-
 export function inputFirehosePqToJSON(
   inputFirehosePq: InputFirehosePq,
 ): string {
   return JSON.stringify(InputFirehosePq$outboundSchema.parse(inputFirehosePq));
 }
-
 export function inputFirehosePqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFirehosePq, SDKValidationError> {
@@ -530,7 +449,6 @@ export const InputFirehoseMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputFirehoseMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputFirehoseMinimumTLSVersion$outboundSchema: z.ZodType<
   InputFirehoseMinimumTLSVersion,
@@ -540,17 +458,6 @@ export const InputFirehoseMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputFirehoseMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseMinimumTLSVersion$ {
-  /** @deprecated use `InputFirehoseMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputFirehoseMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputFirehoseMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -562,7 +469,6 @@ export const InputFirehoseMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputFirehoseMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputFirehoseMaximumTLSVersion$outboundSchema: z.ZodType<
   InputFirehoseMaximumTLSVersion,
@@ -572,17 +478,6 @@ export const InputFirehoseMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputFirehoseMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseMaximumTLSVersion$ {
-  /** @deprecated use `InputFirehoseMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputFirehoseMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputFirehoseTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -602,7 +497,6 @@ export const InputFirehoseTLSSettingsServerSide$inboundSchema: z.ZodType<
   minVersion: InputFirehoseMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputFirehoseMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputFirehoseTLSSettingsServerSide$Outbound = {
   disabled: boolean;
@@ -637,20 +531,6 @@ export const InputFirehoseTLSSettingsServerSide$outboundSchema: z.ZodType<
   maxVersion: InputFirehoseMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseTLSSettingsServerSide$ {
-  /** @deprecated use `InputFirehoseTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputFirehoseTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputFirehoseTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputFirehoseTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputFirehoseTLSSettingsServerSide$Outbound;
-}
-
 export function inputFirehoseTLSSettingsServerSideToJSON(
   inputFirehoseTLSSettingsServerSide: InputFirehoseTLSSettingsServerSide,
 ): string {
@@ -660,7 +540,6 @@ export function inputFirehoseTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputFirehoseTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFirehoseTLSSettingsServerSide, SDKValidationError> {
@@ -681,7 +560,6 @@ export const InputFirehoseMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputFirehoseMetadatum$Outbound = {
   name: string;
@@ -698,19 +576,6 @@ export const InputFirehoseMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseMetadatum$ {
-  /** @deprecated use `InputFirehoseMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseMetadatum$inboundSchema;
-  /** @deprecated use `InputFirehoseMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseMetadatum$outboundSchema;
-  /** @deprecated use `InputFirehoseMetadatum$Outbound` instead. */
-  export type Outbound = InputFirehoseMetadatum$Outbound;
-}
-
 export function inputFirehoseMetadatumToJSON(
   inputFirehoseMetadatum: InputFirehoseMetadatum,
 ): string {
@@ -718,7 +583,6 @@ export function inputFirehoseMetadatumToJSON(
     InputFirehoseMetadatum$outboundSchema.parse(inputFirehoseMetadatum),
   );
 }
-
 export function inputFirehoseMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFirehoseMetadatum, SDKValidationError> {
@@ -766,7 +630,6 @@ export const InputFirehose$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputFirehose$Outbound = {
   id?: string | undefined;
@@ -836,23 +699,9 @@ export const InputFirehose$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehose$ {
-  /** @deprecated use `InputFirehose$inboundSchema` instead. */
-  export const inboundSchema = InputFirehose$inboundSchema;
-  /** @deprecated use `InputFirehose$outboundSchema` instead. */
-  export const outboundSchema = InputFirehose$outboundSchema;
-  /** @deprecated use `InputFirehose$Outbound` instead. */
-  export type Outbound = InputFirehose$Outbound;
-}
-
 export function inputFirehoseToJSON(inputFirehose: InputFirehose): string {
   return JSON.stringify(InputFirehose$outboundSchema.parse(inputFirehose));
 }
-
 export function inputFirehoseFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFirehose, SDKValidationError> {
