@@ -229,6 +229,12 @@ import {
   OutputLoki$outboundSchema,
 } from "./outputloki.js";
 import {
+  OutputMicrosoftFabric,
+  OutputMicrosoftFabric$inboundSchema,
+  OutputMicrosoftFabric$Outbound,
+  OutputMicrosoftFabric$outboundSchema,
+} from "./outputmicrosoftfabric.js";
+import {
   OutputMinio,
   OutputMinio$inboundSchema,
   OutputMinio$Outbound,
@@ -424,6 +430,7 @@ export type Output =
   | (OutputMinio & { type: "minio" })
   | (OutputSns & { type: "sns" })
   | (OutputSqs & { type: "sqs" })
+  | (OutputMicrosoftFabric & { type: "microsoft_fabric" })
   | (OutputDefault & { type: "default" })
   | (OutputSplunk & { type: "splunk" })
   | (OutputSplunkLb & { type: "splunk_lb" })
@@ -567,6 +574,11 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     ),
     OutputSqs$inboundSchema.and(
       z.object({ type: z.literal("sqs") }).transform((v) => ({ type: v.type })),
+    ),
+    OutputMicrosoftFabric$inboundSchema.and(
+      z.object({ type: z.literal("microsoft_fabric") }).transform((v) => ({
+        type: v.type,
+      })),
     ),
     OutputDefault$inboundSchema.and(
       z.object({ type: z.literal("default") }).transform((v) => ({
@@ -819,6 +831,7 @@ export type Output$Outbound =
   | (OutputMinio$Outbound & { type: "minio" })
   | (OutputSns$Outbound & { type: "sns" })
   | (OutputSqs$Outbound & { type: "sqs" })
+  | (OutputMicrosoftFabric$Outbound & { type: "microsoft_fabric" })
   | (OutputDefault$Outbound & { type: "default" })
   | (OutputSplunk$Outbound & { type: "splunk" })
   | (OutputSplunkLb$Outbound & { type: "splunk_lb" })
@@ -963,6 +976,11 @@ export const Output$outboundSchema: z.ZodType<
   ),
   OutputSqs$outboundSchema.and(
     z.object({ type: z.literal("sqs") }).transform((v) => ({ type: v.type })),
+  ),
+  OutputMicrosoftFabric$outboundSchema.and(
+    z.object({ type: z.literal("microsoft_fabric") }).transform((v) => ({
+      type: v.type,
+    })),
   ),
   OutputDefault$outboundSchema.and(
     z.object({ type: z.literal("default") }).transform((v) => ({

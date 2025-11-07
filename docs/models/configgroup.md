@@ -53,10 +53,10 @@ let value: ConfigGroup = {
     "<value 1>",
   ],
   tags: "<value>",
-  type: "lake_access",
+  type: "riptide",
   upgradeVersion: "<value>",
-  workerCount: 6622.93,
-  workerRemoteAccess: false,
+  workerCount: 9778.69,
+  workerRemoteAccess: true,
 };
 ```
 

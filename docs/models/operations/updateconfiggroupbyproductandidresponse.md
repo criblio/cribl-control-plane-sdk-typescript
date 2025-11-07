@@ -60,7 +60,7 @@ let value: UpdateConfigGroupByProductAndIdResponse = {
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 1068.1,
+      workerCount: 9768.27,
       workerRemoteAccess: false,
     },
   ],

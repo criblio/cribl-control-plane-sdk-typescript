@@ -20,7 +20,7 @@ let value: OutputChronicle = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 823.16,
+      httpStatus: 4950.39,
     },
   ],
   timeoutRetrySettings: {},
@@ -33,9 +33,8 @@ let value: OutputChronicle = {
   ],
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
-  totalMemoryLimitKB: 2245.68,
+  totalMemoryLimitKB: 1431.94,
   namespace: "<value>",
   logType: "<value>",
   logTextField: "<value>",
@@ -47,7 +46,7 @@ let value: OutputChronicle = {
       value: "<value>",
     },
   ],
-  description: "skyscraper since colon attribute",
+  description: "onset enlightened yippee meh inside",
   serviceAccountCredentials: "<value>",
   serviceAccountCredentialsSecret: "<value>",
   pqControls: {},

@@ -95,6 +95,18 @@ export type OutputCriblTcpTLSSettingsClientSide = {
   maxVersion?: OutputCriblTcpMaximumTLSVersion | undefined;
 };
 
+export type OutputCriblTcpAuthToken = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  /**
+   * Optional token description
+   */
+  description?: string | undefined;
+};
+
 /**
  * How to handle events when all receivers are exerting backpressure
  */
@@ -269,6 +281,10 @@ export type OutputCriblTcp = {
    * The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
    */
   tokenTTLMinutes?: number | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<OutputCriblTcpAuthToken> | undefined;
   /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
@@ -488,6 +504,51 @@ export function outputCriblTcpTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
+export const OutputCriblTcpAuthToken$inboundSchema: z.ZodType<
+  OutputCriblTcpAuthToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+/** @internal */
+export type OutputCriblTcpAuthToken$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputCriblTcpAuthToken$outboundSchema: z.ZodType<
+  OutputCriblTcpAuthToken$Outbound,
+  z.ZodTypeDef,
+  OutputCriblTcpAuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function outputCriblTcpAuthTokenToJSON(
+  outputCriblTcpAuthToken: OutputCriblTcpAuthToken,
+): string {
+  return JSON.stringify(
+    OutputCriblTcpAuthToken$outboundSchema.parse(outputCriblTcpAuthToken),
+  );
+}
+export function outputCriblTcpAuthTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblTcpAuthToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblTcpAuthToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblTcpAuthToken' from JSON`,
+  );
+}
+
+/** @internal */
 export const OutputCriblTcpBackpressureBehavior$inboundSchema: z.ZodType<
   OutputCriblTcpBackpressureBehavior,
   z.ZodTypeDef,
@@ -692,6 +753,8 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
   tokenTTLMinutes: z.number().default(60),
+  authTokens: z.array(z.lazy(() => OutputCriblTcpAuthToken$inboundSchema))
+    .optional(),
   excludeFields: z.array(z.string()).optional(),
   onBackpressure: OutputCriblTcpBackpressureBehavior$inboundSchema.default(
     "block",
@@ -734,6 +797,7 @@ export type OutputCriblTcp$Outbound = {
   connectionTimeout: number;
   writeTimeout: number;
   tokenTTLMinutes: number;
+  authTokens?: Array<OutputCriblTcpAuthToken$Outbound> | undefined;
   excludeFields?: Array<string> | undefined;
   onBackpressure: string;
   description?: string | undefined;
@@ -778,6 +842,8 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
   tokenTTLMinutes: z.number().default(60),
+  authTokens: z.array(z.lazy(() => OutputCriblTcpAuthToken$outboundSchema))
+    .optional(),
   excludeFields: z.array(z.string()).optional(),
   onBackpressure: OutputCriblTcpBackpressureBehavior$outboundSchema.default(
     "block",

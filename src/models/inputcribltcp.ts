@@ -161,6 +161,18 @@ export type InputCriblTcpMetadatum = {
   value: string;
 };
 
+export type InputCriblTcpAuthToken = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  /**
+   * Optional token description
+   */
+  description?: string | undefined;
+};
+
 export type InputCriblTcp = {
   /**
    * Unique ID for this input
@@ -230,6 +242,10 @@ export type InputCriblTcp = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+   */
+  authTokens?: Array<InputCriblTcpAuthToken> | undefined;
   description?: string | undefined;
 };
 
@@ -570,6 +586,51 @@ export function inputCriblTcpMetadatumFromJSON(
 }
 
 /** @internal */
+export const InputCriblTcpAuthToken$inboundSchema: z.ZodType<
+  InputCriblTcpAuthToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblTcpAuthToken$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblTcpAuthToken$outboundSchema: z.ZodType<
+  InputCriblTcpAuthToken$Outbound,
+  z.ZodTypeDef,
+  InputCriblTcpAuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function inputCriblTcpAuthTokenToJSON(
+  inputCriblTcpAuthToken: InputCriblTcpAuthToken,
+): string {
+  return JSON.stringify(
+    InputCriblTcpAuthToken$outboundSchema.parse(inputCriblTcpAuthToken),
+  );
+}
+export function inputCriblTcpAuthTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblTcpAuthToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblTcpAuthToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblTcpAuthToken' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputCriblTcp$inboundSchema: z.ZodType<
   InputCriblTcp,
   z.ZodTypeDef,
@@ -598,6 +659,8 @@ export const InputCriblTcp$inboundSchema: z.ZodType<
   metadata: z.array(z.lazy(() => InputCriblTcpMetadatum$inboundSchema))
     .optional(),
   enableLoadBalancing: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => InputCriblTcpAuthToken$inboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -622,6 +685,7 @@ export type InputCriblTcp$Outbound = {
   enableProxyHeader: boolean;
   metadata?: Array<InputCriblTcpMetadatum$Outbound> | undefined;
   enableLoadBalancing: boolean;
+  authTokens?: Array<InputCriblTcpAuthToken$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -654,6 +718,8 @@ export const InputCriblTcp$outboundSchema: z.ZodType<
   metadata: z.array(z.lazy(() => InputCriblTcpMetadatum$outboundSchema))
     .optional(),
   enableLoadBalancing: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => InputCriblTcpAuthToken$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 

@@ -159,6 +159,15 @@ export type OutputCriblHttpTimeoutRetrySettings = {
   maxBackoff?: number | undefined;
 };
 
+export type OutputCriblHttpAuthToken = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+};
+
 /**
  * How to handle events when all receivers are exerting backpressure
  */
@@ -350,6 +359,10 @@ export type OutputCriblHttp = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<OutputCriblHttpAuthToken> | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -724,6 +737,51 @@ export function outputCriblHttpTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
+export const OutputCriblHttpAuthToken$inboundSchema: z.ZodType<
+  OutputCriblHttpAuthToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+/** @internal */
+export type OutputCriblHttpAuthToken$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputCriblHttpAuthToken$outboundSchema: z.ZodType<
+  OutputCriblHttpAuthToken$Outbound,
+  z.ZodTypeDef,
+  OutputCriblHttpAuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function outputCriblHttpAuthTokenToJSON(
+  outputCriblHttpAuthToken: OutputCriblHttpAuthToken,
+): string {
+  return JSON.stringify(
+    OutputCriblHttpAuthToken$outboundSchema.parse(outputCriblHttpAuthToken),
+  );
+}
+export function outputCriblHttpAuthTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblHttpAuthToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblHttpAuthToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblHttpAuthToken' from JSON`,
+  );
+}
+
+/** @internal */
 export const OutputCriblHttpBackpressureBehavior$inboundSchema: z.ZodType<
   OutputCriblHttpBackpressureBehavior,
   z.ZodTypeDef,
@@ -915,6 +973,8 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
     OutputCriblHttpTimeoutRetrySettings$inboundSchema
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(z.lazy(() => OutputCriblHttpAuthToken$inboundSchema))
+    .optional(),
   onBackpressure: OutputCriblHttpBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -970,6 +1030,7 @@ export type OutputCriblHttp$Outbound = {
     | OutputCriblHttpTimeoutRetrySettings$Outbound
     | undefined;
   responseHonorRetryAfterHeader: boolean;
+  authTokens?: Array<OutputCriblHttpAuthToken$Outbound> | undefined;
   onBackpressure: string;
   description?: string | undefined;
   url?: string | undefined;
@@ -1028,6 +1089,8 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
     OutputCriblHttpTimeoutRetrySettings$outboundSchema
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(z.lazy(() => OutputCriblHttpAuthToken$outboundSchema))
+    .optional(),
   onBackpressure: OutputCriblHttpBackpressureBehavior$outboundSchema.default(
     "block",
   ),

@@ -57,10 +57,10 @@ let value: CreateConfigGroupByProductRequest = {
       "<value 3>",
     ],
     tags: "<value>",
-    type: "lake_access",
+    type: "riptide",
     upgradeVersion: "<value>",
-    workerCount: 5687.41,
-    workerRemoteAccess: false,
+    workerCount: 8876.36,
+    workerRemoteAccess: true,
   },
 };
 ```
