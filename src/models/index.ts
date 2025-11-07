@@ -152,6 +152,7 @@ export * from "./outputinfluxdb.js";
 export * from "./outputkafka.js";
 export * from "./outputkinesis.js";
 export * from "./outputloki.js";
+export * from "./outputmicrosoftfabric.js";
 export * from "./outputminio.js";
 export * from "./outputmsk.js";
 export * from "./outputnetflow.js";

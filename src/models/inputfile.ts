@@ -164,6 +164,10 @@ export type InputFile = {
    */
   filenames?: Array<string> | undefined;
   /**
+   * Apply filename allowlist to file entries in archive file types, like tar or zip.
+   */
+  filterArchivedFiles?: boolean | undefined;
+  /**
    * Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
    */
   tailOnly?: boolean | undefined;
@@ -485,6 +489,7 @@ export const InputFile$inboundSchema: z.ZodType<
   mode: InputFileMode$inboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
+  filterArchivedFiles: z.boolean().default(false),
   tailOnly: z.boolean().default(true),
   idleTimeout: z.number().default(300),
   minAgeDur: z.string().optional(),
@@ -517,6 +522,7 @@ export type InputFile$Outbound = {
   mode: string;
   interval: number;
   filenames?: Array<string> | undefined;
+  filterArchivedFiles: boolean;
   tailOnly: boolean;
   idleTimeout: number;
   minAgeDur?: string | undefined;
@@ -555,6 +561,7 @@ export const InputFile$outboundSchema: z.ZodType<
   mode: InputFileMode$outboundSchema.default("manual"),
   interval: z.number().default(10),
   filenames: z.array(z.string()).optional(),
+  filterArchivedFiles: z.boolean().default(false),
   tailOnly: z.boolean().default(true),
   idleTimeout: z.number().default(300),
   minAgeDur: z.string().optional(),

@@ -54,10 +54,10 @@ let value: GroupCreateRequest = {
     "<value 1>",
   ],
   tags: "<value>",
-  type: "lake_access",
+  type: "riptide",
   upgradeVersion: "<value>",
-  workerCount: 8735.59,
-  workerRemoteAccess: false,
+  workerCount: 6662.65,
+  workerRemoteAccess: true,
 };
 ```
 

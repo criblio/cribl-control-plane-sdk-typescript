@@ -95,6 +95,18 @@ export type InputCriblHttpPq = {
   pqControls?: InputCriblHttpPqControls | undefined;
 };
 
+export type InputCriblHttpAuthToken = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  /**
+   * Optional token description
+   */
+  description?: string | undefined;
+};
+
 export const InputCriblHttpMinimumTLSVersion = {
   TLSv1: "TLSv1",
   TLSv11: "TLSv1.1",
@@ -202,9 +214,9 @@ export type InputCriblHttp = {
    */
   port: number;
   /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
    */
-  authTokens?: Array<string> | undefined;
+  authTokens?: Array<InputCriblHttpAuthToken> | undefined;
   tls?: InputCriblHttpTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -442,6 +454,51 @@ export function inputCriblHttpPqFromJSON(
 }
 
 /** @internal */
+export const InputCriblHttpAuthToken$inboundSchema: z.ZodType<
+  InputCriblHttpAuthToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblHttpAuthToken$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblHttpAuthToken$outboundSchema: z.ZodType<
+  InputCriblHttpAuthToken$Outbound,
+  z.ZodTypeDef,
+  InputCriblHttpAuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function inputCriblHttpAuthTokenToJSON(
+  inputCriblHttpAuthToken: InputCriblHttpAuthToken,
+): string {
+  return JSON.stringify(
+    InputCriblHttpAuthToken$outboundSchema.parse(inputCriblHttpAuthToken),
+  );
+}
+export function inputCriblHttpAuthTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblHttpAuthToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblHttpAuthToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblHttpAuthToken' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
   InputCriblHttpMinimumTLSVersion,
   z.ZodTypeDef,
@@ -614,7 +671,8 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
   pq: z.lazy(() => InputCriblHttpPq$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  authTokens: z.array(z.string()).optional(),
+  authTokens: z.array(z.lazy(() => InputCriblHttpAuthToken$inboundSchema))
+    .optional(),
   tls: z.lazy(() => InputCriblHttpTLSSettingsServerSide$inboundSchema)
     .optional(),
   maxActiveReq: z.number().default(256),
@@ -646,7 +704,7 @@ export type InputCriblHttp$Outbound = {
   pq?: InputCriblHttpPq$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?: Array<string> | undefined;
+  authTokens?: Array<InputCriblHttpAuthToken$Outbound> | undefined;
   tls?: InputCriblHttpTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
@@ -682,7 +740,8 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   pq: z.lazy(() => InputCriblHttpPq$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  authTokens: z.array(z.string()).optional(),
+  authTokens: z.array(z.lazy(() => InputCriblHttpAuthToken$outboundSchema))
+    .optional(),
   tls: z.lazy(() => InputCriblHttpTLSSettingsServerSide$outboundSchema)
     .optional(),
   maxActiveReq: z.number().default(256),

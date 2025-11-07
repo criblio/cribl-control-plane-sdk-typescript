@@ -57,9 +57,9 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
       "<value 2>",
     ],
     tags: "<value>",
-    type: "lake_access",
+    type: "riptide",
     upgradeVersion: "<value>",
-    workerCount: 9082.83,
+    workerCount: 3493.89,
     workerRemoteAccess: true,
   },
 };

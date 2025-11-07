@@ -1431,7 +1431,13 @@ const value: models.InputCriblTcp = {
       value: "<value>",
     },
   ],
-  description: "as jovially edge",
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "as jovially edge",
+    },
+  ],
+  description: "airline enhance reapply needy indeed",
 };
 ```
 
@@ -1459,8 +1465,10 @@ const value: models.InputCriblHttp = {
   },
   port: 3140.1,
   authTokens: [
-    "<value 1>",
-    "<value 2>",
+    {
+      tokenSecret: "<value>",
+      description: "wearily weighty bliss language how",
+    },
   ],
   tls: {
     certificateName: "<value>",
@@ -1468,8 +1476,8 @@ const value: models.InputCriblHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1477,7 +1485,7 @@ const value: models.InputCriblHttp = {
       value: "<value>",
     },
   ],
-  description: "outrank enormously what devoted although thyme roadway woot",
+  description: "thyme roadway woot",
 };
 ```
 
