@@ -32,20 +32,6 @@ export type CreateVersionRevertResponse = {
 };
 
 /** @internal */
-export const CreateVersionRevertRequest$inboundSchema: z.ZodType<
-  CreateVersionRevertRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  groupId: z.string().optional(),
-  GitRevertParams: models.GitRevertParams$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "GitRevertParams": "gitRevertParams",
-  });
-});
-
-/** @internal */
 export type CreateVersionRevertRequest$Outbound = {
   groupId?: string | undefined;
   GitRevertParams: models.GitRevertParams$Outbound;
@@ -65,34 +51,11 @@ export const CreateVersionRevertRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateVersionRevertRequest$ {
-  /** @deprecated use `CreateVersionRevertRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateVersionRevertRequest$inboundSchema;
-  /** @deprecated use `CreateVersionRevertRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateVersionRevertRequest$outboundSchema;
-  /** @deprecated use `CreateVersionRevertRequest$Outbound` instead. */
-  export type Outbound = CreateVersionRevertRequest$Outbound;
-}
-
 export function createVersionRevertRequestToJSON(
   createVersionRevertRequest: CreateVersionRevertRequest,
 ): string {
   return JSON.stringify(
     CreateVersionRevertRequest$outboundSchema.parse(createVersionRevertRequest),
-  );
-}
-
-export function createVersionRevertRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateVersionRevertRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateVersionRevertRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateVersionRevertRequest' from JSON`,
   );
 }
 
@@ -105,45 +68,6 @@ export const CreateVersionRevertResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.GitRevertResult$inboundSchema).optional(),
 });
-
-/** @internal */
-export type CreateVersionRevertResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitRevertResult$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreateVersionRevertResponse$outboundSchema: z.ZodType<
-  CreateVersionRevertResponse$Outbound,
-  z.ZodTypeDef,
-  CreateVersionRevertResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitRevertResult$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateVersionRevertResponse$ {
-  /** @deprecated use `CreateVersionRevertResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateVersionRevertResponse$inboundSchema;
-  /** @deprecated use `CreateVersionRevertResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateVersionRevertResponse$outboundSchema;
-  /** @deprecated use `CreateVersionRevertResponse$Outbound` instead. */
-  export type Outbound = CreateVersionRevertResponse$Outbound;
-}
-
-export function createVersionRevertResponseToJSON(
-  createVersionRevertResponse: CreateVersionRevertResponse,
-): string {
-  return JSON.stringify(
-    CreateVersionRevertResponse$outboundSchema.parse(
-      createVersionRevertResponse,
-    ),
-  );
-}
 
 export function createVersionRevertResponseFromJSON(
   jsonString: string,

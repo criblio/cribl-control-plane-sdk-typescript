@@ -29,43 +29,6 @@ export const CreatePipelineResponse$inboundSchema: z.ZodType<
   items: z.array(models.Pipeline$inboundSchema).optional(),
 });
 
-/** @internal */
-export type CreatePipelineResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Pipeline$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreatePipelineResponse$outboundSchema: z.ZodType<
-  CreatePipelineResponse$Outbound,
-  z.ZodTypeDef,
-  CreatePipelineResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreatePipelineResponse$ {
-  /** @deprecated use `CreatePipelineResponse$inboundSchema` instead. */
-  export const inboundSchema = CreatePipelineResponse$inboundSchema;
-  /** @deprecated use `CreatePipelineResponse$outboundSchema` instead. */
-  export const outboundSchema = CreatePipelineResponse$outboundSchema;
-  /** @deprecated use `CreatePipelineResponse$Outbound` instead. */
-  export type Outbound = CreatePipelineResponse$Outbound;
-}
-
-export function createPipelineResponseToJSON(
-  createPipelineResponse: CreatePipelineResponse,
-): string {
-  return JSON.stringify(
-    CreatePipelineResponse$outboundSchema.parse(createPipelineResponse),
-  );
-}
-
 export function createPipelineResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CreatePipelineResponse, SDKValidationError> {

@@ -22,8 +22,17 @@ export type OutputFilesystemType = ClosedEnum<typeof OutputFilesystemType>;
  * Format of the output data
  */
 export const OutputFilesystemDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -37,7 +46,13 @@ export type OutputFilesystemDataFormat = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputFilesystemBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -51,7 +66,13 @@ export type OutputFilesystemBackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputFilesystemDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -79,8 +100,17 @@ export type OutputFilesystemCompression = OpenEnum<
  * Compression level to apply before moving files to final destination
  */
 export const OutputFilesystemCompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
@@ -94,8 +124,17 @@ export type OutputFilesystemCompressionLevel = OpenEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputFilesystemParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
@@ -109,7 +148,13 @@ export type OutputFilesystemParquetVersion = OpenEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputFilesystemDataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
@@ -228,6 +273,10 @@ export type OutputFilesystem = {
    */
   automaticSchema?: boolean | undefined;
   /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
    * Determines which data types are supported and how they are represented
    */
   parquetVersion?: OutputFilesystemParquetVersion | undefined;
@@ -281,22 +330,10 @@ export type OutputFilesystem = {
 export const OutputFilesystemType$inboundSchema: z.ZodNativeEnum<
   typeof OutputFilesystemType
 > = z.nativeEnum(OutputFilesystemType);
-
 /** @internal */
 export const OutputFilesystemType$outboundSchema: z.ZodNativeEnum<
   typeof OutputFilesystemType
 > = OutputFilesystemType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemType$ {
-  /** @deprecated use `OutputFilesystemType$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemType$inboundSchema;
-  /** @deprecated use `OutputFilesystemType$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemType$outboundSchema;
-}
 
 /** @internal */
 export const OutputFilesystemDataFormat$inboundSchema: z.ZodType<
@@ -308,7 +345,6 @@ export const OutputFilesystemDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputFilesystemDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputFilesystemDataFormat$outboundSchema: z.ZodType<
   OutputFilesystemDataFormat,
@@ -318,17 +354,6 @@ export const OutputFilesystemDataFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputFilesystemDataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemDataFormat$ {
-  /** @deprecated use `OutputFilesystemDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemDataFormat$inboundSchema;
-  /** @deprecated use `OutputFilesystemDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemDataFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputFilesystemBackpressureBehavior$inboundSchema: z.ZodType<
@@ -340,7 +365,6 @@ export const OutputFilesystemBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputFilesystemBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputFilesystemBackpressureBehavior$outboundSchema: z.ZodType<
   OutputFilesystemBackpressureBehavior,
@@ -350,19 +374,6 @@ export const OutputFilesystemBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputFilesystemBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemBackpressureBehavior$ {
-  /** @deprecated use `OutputFilesystemBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputFilesystemBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputFilesystemBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputFilesystemBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputFilesystemDiskSpaceProtection$inboundSchema: z.ZodType<
@@ -374,7 +385,6 @@ export const OutputFilesystemDiskSpaceProtection$inboundSchema: z.ZodType<
     z.nativeEnum(OutputFilesystemDiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputFilesystemDiskSpaceProtection$outboundSchema: z.ZodType<
   OutputFilesystemDiskSpaceProtection,
@@ -384,19 +394,6 @@ export const OutputFilesystemDiskSpaceProtection$outboundSchema: z.ZodType<
   z.nativeEnum(OutputFilesystemDiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemDiskSpaceProtection$ {
-  /** @deprecated use `OutputFilesystemDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputFilesystemDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputFilesystemDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputFilesystemDiskSpaceProtection$outboundSchema;
-}
 
 /** @internal */
 export const OutputFilesystemCompression$inboundSchema: z.ZodType<
@@ -408,7 +405,6 @@ export const OutputFilesystemCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputFilesystemCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputFilesystemCompression$outboundSchema: z.ZodType<
   OutputFilesystemCompression,
@@ -418,17 +414,6 @@ export const OutputFilesystemCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputFilesystemCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemCompression$ {
-  /** @deprecated use `OutputFilesystemCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemCompression$inboundSchema;
-  /** @deprecated use `OutputFilesystemCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputFilesystemCompressionLevel$inboundSchema: z.ZodType<
@@ -440,7 +425,6 @@ export const OutputFilesystemCompressionLevel$inboundSchema: z.ZodType<
     z.nativeEnum(OutputFilesystemCompressionLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputFilesystemCompressionLevel$outboundSchema: z.ZodType<
   OutputFilesystemCompressionLevel,
@@ -450,17 +434,6 @@ export const OutputFilesystemCompressionLevel$outboundSchema: z.ZodType<
   z.nativeEnum(OutputFilesystemCompressionLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemCompressionLevel$ {
-  /** @deprecated use `OutputFilesystemCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputFilesystemCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemCompressionLevel$outboundSchema;
-}
 
 /** @internal */
 export const OutputFilesystemParquetVersion$inboundSchema: z.ZodType<
@@ -472,7 +445,6 @@ export const OutputFilesystemParquetVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputFilesystemParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputFilesystemParquetVersion$outboundSchema: z.ZodType<
   OutputFilesystemParquetVersion,
@@ -482,17 +454,6 @@ export const OutputFilesystemParquetVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputFilesystemParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemParquetVersion$ {
-  /** @deprecated use `OutputFilesystemParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemParquetVersion$inboundSchema;
-  /** @deprecated use `OutputFilesystemParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemParquetVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputFilesystemDataPageVersion$inboundSchema: z.ZodType<
@@ -504,7 +465,6 @@ export const OutputFilesystemDataPageVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputFilesystemDataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputFilesystemDataPageVersion$outboundSchema: z.ZodType<
   OutputFilesystemDataPageVersion,
@@ -515,17 +475,6 @@ export const OutputFilesystemDataPageVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemDataPageVersion$ {
-  /** @deprecated use `OutputFilesystemDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputFilesystemDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemDataPageVersion$outboundSchema;
-}
-
 /** @internal */
 export const OutputFilesystemKeyValueMetadatum$inboundSchema: z.ZodType<
   OutputFilesystemKeyValueMetadatum,
@@ -535,7 +484,6 @@ export const OutputFilesystemKeyValueMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputFilesystemKeyValueMetadatum$Outbound = {
   key: string;
@@ -552,20 +500,6 @@ export const OutputFilesystemKeyValueMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemKeyValueMetadatum$ {
-  /** @deprecated use `OutputFilesystemKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputFilesystemKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputFilesystemKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputFilesystemKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputFilesystemKeyValueMetadatum$Outbound;
-}
-
 export function outputFilesystemKeyValueMetadatumToJSON(
   outputFilesystemKeyValueMetadatum: OutputFilesystemKeyValueMetadatum,
 ): string {
@@ -575,7 +509,6 @@ export function outputFilesystemKeyValueMetadatumToJSON(
     ),
   );
 }
-
 export function outputFilesystemKeyValueMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputFilesystemKeyValueMetadatum, SDKValidationError> {
@@ -628,6 +561,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputFilesystemParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -647,7 +581,6 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
 export type OutputFilesystem$Outbound = {
   id?: string | undefined;
@@ -677,6 +610,7 @@ export type OutputFilesystem$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -735,6 +669,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputFilesystemParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -754,19 +689,6 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystem$ {
-  /** @deprecated use `OutputFilesystem$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystem$inboundSchema;
-  /** @deprecated use `OutputFilesystem$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystem$outboundSchema;
-  /** @deprecated use `OutputFilesystem$Outbound` instead. */
-  export type Outbound = OutputFilesystem$Outbound;
-}
-
 export function outputFilesystemToJSON(
   outputFilesystem: OutputFilesystem,
 ): string {
@@ -774,7 +696,6 @@ export function outputFilesystemToJSON(
     OutputFilesystem$outboundSchema.parse(outputFilesystem),
   );
 }
-
 export function outputFilesystemFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputFilesystem, SDKValidationError> {

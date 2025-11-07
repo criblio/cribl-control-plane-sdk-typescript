@@ -87,7 +87,9 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.ConfigGroup, { explode: true });
+  const body = encodeJSON("body", payload.GroupCreateRequest, {
+    explode: true,
+  });
 
   const pathParams = {
     product: encodeSimple("product", payload.product, {

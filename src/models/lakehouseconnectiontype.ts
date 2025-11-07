@@ -25,7 +25,6 @@ export const LakehouseConnectionType$inboundSchema: z.ZodType<
     z.nativeEnum(LakehouseConnectionType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const LakehouseConnectionType$outboundSchema: z.ZodType<
   LakehouseConnectionType,
@@ -35,14 +34,3 @@ export const LakehouseConnectionType$outboundSchema: z.ZodType<
   z.nativeEnum(LakehouseConnectionType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LakehouseConnectionType$ {
-  /** @deprecated use `LakehouseConnectionType$inboundSchema` instead. */
-  export const inboundSchema = LakehouseConnectionType$inboundSchema;
-  /** @deprecated use `LakehouseConnectionType$outboundSchema` instead. */
-  export const outboundSchema = LakehouseConnectionType$outboundSchema;
-}

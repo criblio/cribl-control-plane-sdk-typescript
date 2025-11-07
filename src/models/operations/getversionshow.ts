@@ -39,18 +39,6 @@ export type GetVersionShowResponse = {
 };
 
 /** @internal */
-export const GetVersionShowRequest$inboundSchema: z.ZodType<
-  GetVersionShowRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  commit: z.string().optional(),
-  groupId: z.string().optional(),
-  filename: z.string().optional(),
-  diffLineLimit: z.number().optional(),
-});
-
-/** @internal */
 export type GetVersionShowRequest$Outbound = {
   commit?: string | undefined;
   groupId?: string | undefined;
@@ -70,34 +58,11 @@ export const GetVersionShowRequest$outboundSchema: z.ZodType<
   diffLineLimit: z.number().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionShowRequest$ {
-  /** @deprecated use `GetVersionShowRequest$inboundSchema` instead. */
-  export const inboundSchema = GetVersionShowRequest$inboundSchema;
-  /** @deprecated use `GetVersionShowRequest$outboundSchema` instead. */
-  export const outboundSchema = GetVersionShowRequest$outboundSchema;
-  /** @deprecated use `GetVersionShowRequest$Outbound` instead. */
-  export type Outbound = GetVersionShowRequest$Outbound;
-}
-
 export function getVersionShowRequestToJSON(
   getVersionShowRequest: GetVersionShowRequest,
 ): string {
   return JSON.stringify(
     GetVersionShowRequest$outboundSchema.parse(getVersionShowRequest),
-  );
-}
-
-export function getVersionShowRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionShowRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionShowRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionShowRequest' from JSON`,
   );
 }
 
@@ -110,43 +75,6 @@ export const GetVersionShowResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.GitShowResult$inboundSchema).optional(),
 });
-
-/** @internal */
-export type GetVersionShowResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitShowResult$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetVersionShowResponse$outboundSchema: z.ZodType<
-  GetVersionShowResponse$Outbound,
-  z.ZodTypeDef,
-  GetVersionShowResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitShowResult$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionShowResponse$ {
-  /** @deprecated use `GetVersionShowResponse$inboundSchema` instead. */
-  export const inboundSchema = GetVersionShowResponse$inboundSchema;
-  /** @deprecated use `GetVersionShowResponse$outboundSchema` instead. */
-  export const outboundSchema = GetVersionShowResponse$outboundSchema;
-  /** @deprecated use `GetVersionShowResponse$Outbound` instead. */
-  export type Outbound = GetVersionShowResponse$Outbound;
-}
-
-export function getVersionShowResponseToJSON(
-  getVersionShowResponse: GetVersionShowResponse,
-): string {
-  return JSON.stringify(
-    GetVersionShowResponse$outboundSchema.parse(getVersionShowResponse),
-  );
-}
 
 export function getVersionShowResponseFromJSON(
   jsonString: string,

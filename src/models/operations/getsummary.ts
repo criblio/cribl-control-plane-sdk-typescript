@@ -27,15 +27,6 @@ export type GetSummaryResponse = {
 };
 
 /** @internal */
-export const GetSummaryRequest$inboundSchema: z.ZodType<
-  GetSummaryRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: models.WorkerTypes$inboundSchema.optional(),
-});
-
-/** @internal */
 export type GetSummaryRequest$Outbound = {
   mode?: string | undefined;
 };
@@ -49,34 +40,11 @@ export const GetSummaryRequest$outboundSchema: z.ZodType<
   mode: models.WorkerTypes$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetSummaryRequest$ {
-  /** @deprecated use `GetSummaryRequest$inboundSchema` instead. */
-  export const inboundSchema = GetSummaryRequest$inboundSchema;
-  /** @deprecated use `GetSummaryRequest$outboundSchema` instead. */
-  export const outboundSchema = GetSummaryRequest$outboundSchema;
-  /** @deprecated use `GetSummaryRequest$Outbound` instead. */
-  export type Outbound = GetSummaryRequest$Outbound;
-}
-
 export function getSummaryRequestToJSON(
   getSummaryRequest: GetSummaryRequest,
 ): string {
   return JSON.stringify(
     GetSummaryRequest$outboundSchema.parse(getSummaryRequest),
-  );
-}
-
-export function getSummaryRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSummaryRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSummaryRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSummaryRequest' from JSON`,
   );
 }
 
@@ -89,43 +57,6 @@ export const GetSummaryResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.DistributedSummary$inboundSchema).optional(),
 });
-
-/** @internal */
-export type GetSummaryResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.DistributedSummary$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetSummaryResponse$outboundSchema: z.ZodType<
-  GetSummaryResponse$Outbound,
-  z.ZodTypeDef,
-  GetSummaryResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.DistributedSummary$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetSummaryResponse$ {
-  /** @deprecated use `GetSummaryResponse$inboundSchema` instead. */
-  export const inboundSchema = GetSummaryResponse$inboundSchema;
-  /** @deprecated use `GetSummaryResponse$outboundSchema` instead. */
-  export const outboundSchema = GetSummaryResponse$outboundSchema;
-  /** @deprecated use `GetSummaryResponse$Outbound` instead. */
-  export type Outbound = GetSummaryResponse$Outbound;
-}
-
-export function getSummaryResponseToJSON(
-  getSummaryResponse: GetSummaryResponse,
-): string {
-  return JSON.stringify(
-    GetSummaryResponse$outboundSchema.parse(getSummaryResponse),
-  );
-}
 
 export function getSummaryResponseFromJSON(
   jsonString: string,

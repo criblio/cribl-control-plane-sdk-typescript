@@ -68,7 +68,7 @@ async function main() {
   }
 
   // Create the Worker Group
-  await cribl.groups.create({ product: "stream", configGroup: group });
+  await cribl.groups.create({ product: "stream", groupCreateRequest: group });
   console.log(`✅ Worker Group created: ${group.id}`);
 
   // Scale and provision the Worker Group

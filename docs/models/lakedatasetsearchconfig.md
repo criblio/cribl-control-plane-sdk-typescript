@@ -16,12 +16,13 @@ let value: LakeDatasetSearchConfig = {
     fieldList: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     latestRunInfo: {
-      earliestScannedTime: 9246.59,
-      finishedAt: 4514.45,
-      latestScannedTime: 4750.45,
-      objectCount: 8488.95,
+      earliestScannedTime: 4514.45,
+      finishedAt: 4750.45,
+      latestScannedTime: 8488.95,
+      objectCount: 359.3,
     },
     scanMode: "detailed",
   },

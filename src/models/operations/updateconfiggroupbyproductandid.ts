@@ -36,21 +36,6 @@ export type UpdateConfigGroupByProductAndIdResponse = {
 };
 
 /** @internal */
-export const UpdateConfigGroupByProductAndIdRequest$inboundSchema: z.ZodType<
-  UpdateConfigGroupByProductAndIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  product: models.ProductsCore$inboundSchema,
-  id: z.string(),
-  ConfigGroup: models.ConfigGroup$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "ConfigGroup": "configGroup",
-  });
-});
-
-/** @internal */
 export type UpdateConfigGroupByProductAndIdRequest$Outbound = {
   product: string;
   id: string;
@@ -72,21 +57,6 @@ export const UpdateConfigGroupByProductAndIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateConfigGroupByProductAndIdRequest$ {
-  /** @deprecated use `UpdateConfigGroupByProductAndIdRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateConfigGroupByProductAndIdRequest$inboundSchema;
-  /** @deprecated use `UpdateConfigGroupByProductAndIdRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateConfigGroupByProductAndIdRequest$outboundSchema;
-  /** @deprecated use `UpdateConfigGroupByProductAndIdRequest$Outbound` instead. */
-  export type Outbound = UpdateConfigGroupByProductAndIdRequest$Outbound;
-}
-
 export function updateConfigGroupByProductAndIdRequestToJSON(
   updateConfigGroupByProductAndIdRequest:
     UpdateConfigGroupByProductAndIdRequest,
@@ -95,17 +65,6 @@ export function updateConfigGroupByProductAndIdRequestToJSON(
     UpdateConfigGroupByProductAndIdRequest$outboundSchema.parse(
       updateConfigGroupByProductAndIdRequest,
     ),
-  );
-}
-
-export function updateConfigGroupByProductAndIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateConfigGroupByProductAndIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateConfigGroupByProductAndIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateConfigGroupByProductAndIdRequest' from JSON`,
   );
 }
 
@@ -118,48 +77,6 @@ export const UpdateConfigGroupByProductAndIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.ConfigGroup$inboundSchema).optional(),
 });
-
-/** @internal */
-export type UpdateConfigGroupByProductAndIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup$Outbound> | undefined;
-};
-
-/** @internal */
-export const UpdateConfigGroupByProductAndIdResponse$outboundSchema: z.ZodType<
-  UpdateConfigGroupByProductAndIdResponse$Outbound,
-  z.ZodTypeDef,
-  UpdateConfigGroupByProductAndIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateConfigGroupByProductAndIdResponse$ {
-  /** @deprecated use `UpdateConfigGroupByProductAndIdResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateConfigGroupByProductAndIdResponse$inboundSchema;
-  /** @deprecated use `UpdateConfigGroupByProductAndIdResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateConfigGroupByProductAndIdResponse$outboundSchema;
-  /** @deprecated use `UpdateConfigGroupByProductAndIdResponse$Outbound` instead. */
-  export type Outbound = UpdateConfigGroupByProductAndIdResponse$Outbound;
-}
-
-export function updateConfigGroupByProductAndIdResponseToJSON(
-  updateConfigGroupByProductAndIdResponse:
-    UpdateConfigGroupByProductAndIdResponse,
-): string {
-  return JSON.stringify(
-    UpdateConfigGroupByProductAndIdResponse$outboundSchema.parse(
-      updateConfigGroupByProductAndIdResponse,
-    ),
-  );
-}
 
 export function updateConfigGroupByProductAndIdResponseFromJSON(
   jsonString: string,

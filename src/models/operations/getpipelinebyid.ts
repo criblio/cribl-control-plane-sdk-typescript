@@ -27,15 +27,6 @@ export type GetPipelineByIdResponse = {
 };
 
 /** @internal */
-export const GetPipelineByIdRequest$inboundSchema: z.ZodType<
-  GetPipelineByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
-
-/** @internal */
 export type GetPipelineByIdRequest$Outbound = {
   id: string;
 };
@@ -49,34 +40,11 @@ export const GetPipelineByIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPipelineByIdRequest$ {
-  /** @deprecated use `GetPipelineByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = GetPipelineByIdRequest$inboundSchema;
-  /** @deprecated use `GetPipelineByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = GetPipelineByIdRequest$outboundSchema;
-  /** @deprecated use `GetPipelineByIdRequest$Outbound` instead. */
-  export type Outbound = GetPipelineByIdRequest$Outbound;
-}
-
 export function getPipelineByIdRequestToJSON(
   getPipelineByIdRequest: GetPipelineByIdRequest,
 ): string {
   return JSON.stringify(
     GetPipelineByIdRequest$outboundSchema.parse(getPipelineByIdRequest),
-  );
-}
-
-export function getPipelineByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPipelineByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPipelineByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPipelineByIdRequest' from JSON`,
   );
 }
 
@@ -89,43 +57,6 @@ export const GetPipelineByIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.Pipeline$inboundSchema).optional(),
 });
-
-/** @internal */
-export type GetPipelineByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Pipeline$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetPipelineByIdResponse$outboundSchema: z.ZodType<
-  GetPipelineByIdResponse$Outbound,
-  z.ZodTypeDef,
-  GetPipelineByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPipelineByIdResponse$ {
-  /** @deprecated use `GetPipelineByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = GetPipelineByIdResponse$inboundSchema;
-  /** @deprecated use `GetPipelineByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = GetPipelineByIdResponse$outboundSchema;
-  /** @deprecated use `GetPipelineByIdResponse$Outbound` instead. */
-  export type Outbound = GetPipelineByIdResponse$Outbound;
-}
-
-export function getPipelineByIdResponseToJSON(
-  getPipelineByIdResponse: GetPipelineByIdResponse,
-): string {
-  return JSON.stringify(
-    GetPipelineByIdResponse$outboundSchema.parse(getPipelineByIdResponse),
-  );
-}
 
 export function getPipelineByIdResponseFromJSON(
   jsonString: string,

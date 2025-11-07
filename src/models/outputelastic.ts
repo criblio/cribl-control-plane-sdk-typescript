@@ -27,8 +27,17 @@ export type OutputElasticExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputElasticFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -96,18 +105,41 @@ export type OutputElasticAuthenticationMethod = OpenEnum<
 
 export type OutputElasticAuth = {
   disabled?: boolean | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
   authType?: OutputElasticAuthenticationMethod | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Enter API key directly
+   */
+  manualAPIKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
 /**
  * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
  */
 export const ElasticVersion = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * 6.x
+   */
   Six: "6",
+  /**
+   * 7.x
+   */
   Seven: "7",
 } as const;
 /**
@@ -119,7 +151,13 @@ export type ElasticVersion = OpenEnum<typeof ElasticVersion>;
  * Action to use when writing events. Must be set to `Create` when writing to a data stream.
  */
 export const WriteAction = {
+  /**
+   * Index
+   */
   Index: "index",
+  /**
+   * Create
+   */
   Create: "create",
 } as const;
 /**
@@ -131,8 +169,17 @@ export type WriteAction = OpenEnum<typeof WriteAction>;
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputElasticBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -154,10 +201,38 @@ export type OutputElasticUrl = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputElasticMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputElasticMode = OpenEnum<typeof OutputElasticMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputElasticCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -171,7 +246,13 @@ export type OutputElasticCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputElasticQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -180,19 +261,6 @@ export const OutputElasticQueueFullBehavior = {
 export type OutputElasticQueueFullBehavior = OpenEnum<
   typeof OutputElasticQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputElasticMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputElasticMode = OpenEnum<typeof OutputElasticMode>;
 
 export type OutputElasticPqControls = {};
 
@@ -332,6 +400,26 @@ export type OutputElastic = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputElasticMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -351,10 +439,6 @@ export type OutputElastic = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputElasticQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputElasticMode | undefined;
   pqControls?: OutputElasticPqControls | undefined;
 };
 
@@ -362,22 +446,10 @@ export type OutputElastic = {
 export const OutputElasticType$inboundSchema: z.ZodNativeEnum<
   typeof OutputElasticType
 > = z.nativeEnum(OutputElasticType);
-
 /** @internal */
 export const OutputElasticType$outboundSchema: z.ZodNativeEnum<
   typeof OutputElasticType
 > = OutputElasticType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticType$ {
-  /** @deprecated use `OutputElasticType$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticType$inboundSchema;
-  /** @deprecated use `OutputElasticType$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticType$outboundSchema;
-}
 
 /** @internal */
 export const OutputElasticExtraHttpHeader$inboundSchema: z.ZodType<
@@ -388,7 +460,6 @@ export const OutputElasticExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputElasticExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -405,19 +476,6 @@ export const OutputElasticExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticExtraHttpHeader$ {
-  /** @deprecated use `OutputElasticExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputElasticExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputElasticExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputElasticExtraHttpHeader$Outbound;
-}
-
 export function outputElasticExtraHttpHeaderToJSON(
   outputElasticExtraHttpHeader: OutputElasticExtraHttpHeader,
 ): string {
@@ -427,7 +485,6 @@ export function outputElasticExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputElasticExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticExtraHttpHeader, SDKValidationError> {
@@ -448,7 +505,6 @@ export const OutputElasticFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputElasticFailedRequestLoggingMode,
@@ -458,19 +514,6 @@ export const OutputElasticFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputElasticFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputElasticFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputElasticFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputElasticFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputElasticResponseRetrySetting$inboundSchema: z.ZodType<
@@ -483,7 +526,6 @@ export const OutputElasticResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputElasticResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -504,20 +546,6 @@ export const OutputElasticResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticResponseRetrySetting$ {
-  /** @deprecated use `OutputElasticResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputElasticResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputElasticResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputElasticResponseRetrySetting$Outbound;
-}
-
 export function outputElasticResponseRetrySettingToJSON(
   outputElasticResponseRetrySetting: OutputElasticResponseRetrySetting,
 ): string {
@@ -527,7 +555,6 @@ export function outputElasticResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputElasticResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticResponseRetrySetting, SDKValidationError> {
@@ -549,7 +576,6 @@ export const OutputElasticTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputElasticTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -570,20 +596,6 @@ export const OutputElasticTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticTimeoutRetrySettings$ {
-  /** @deprecated use `OutputElasticTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputElasticTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputElasticTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputElasticTimeoutRetrySettings$Outbound;
-}
-
 export function outputElasticTimeoutRetrySettingsToJSON(
   outputElasticTimeoutRetrySettings: OutputElasticTimeoutRetrySettings,
 ): string {
@@ -593,7 +605,6 @@ export function outputElasticTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputElasticTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticTimeoutRetrySettings, SDKValidationError> {
@@ -613,7 +624,6 @@ export const OutputElasticExtraParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputElasticExtraParam$Outbound = {
   name: string;
@@ -630,19 +640,6 @@ export const OutputElasticExtraParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticExtraParam$ {
-  /** @deprecated use `OutputElasticExtraParam$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticExtraParam$inboundSchema;
-  /** @deprecated use `OutputElasticExtraParam$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticExtraParam$outboundSchema;
-  /** @deprecated use `OutputElasticExtraParam$Outbound` instead. */
-  export type Outbound = OutputElasticExtraParam$Outbound;
-}
-
 export function outputElasticExtraParamToJSON(
   outputElasticExtraParam: OutputElasticExtraParam,
 ): string {
@@ -650,7 +647,6 @@ export function outputElasticExtraParamToJSON(
     OutputElasticExtraParam$outboundSchema.parse(outputElasticExtraParam),
   );
 }
-
 export function outputElasticExtraParamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticExtraParam, SDKValidationError> {
@@ -671,7 +667,6 @@ export const OutputElasticAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticAuthenticationMethod$outboundSchema: z.ZodType<
   OutputElasticAuthenticationMethod,
@@ -682,18 +677,6 @@ export const OutputElasticAuthenticationMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticAuthenticationMethod$ {
-  /** @deprecated use `OutputElasticAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputElasticAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const OutputElasticAuth$inboundSchema: z.ZodType<
   OutputElasticAuth,
@@ -701,13 +684,22 @@ export const OutputElasticAuth$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
   authType: OutputElasticAuthenticationMethod$inboundSchema.default("manual"),
+  credentialsSecret: z.string().optional(),
+  manualAPIKey: z.string().optional(),
+  textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputElasticAuth$Outbound = {
   disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
   authType: string;
+  credentialsSecret?: string | undefined;
+  manualAPIKey?: string | undefined;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -717,21 +709,13 @@ export const OutputElasticAuth$outboundSchema: z.ZodType<
   OutputElasticAuth
 > = z.object({
   disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
   authType: OutputElasticAuthenticationMethod$outboundSchema.default("manual"),
+  credentialsSecret: z.string().optional(),
+  manualAPIKey: z.string().optional(),
+  textSecret: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticAuth$ {
-  /** @deprecated use `OutputElasticAuth$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticAuth$inboundSchema;
-  /** @deprecated use `OutputElasticAuth$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticAuth$outboundSchema;
-  /** @deprecated use `OutputElasticAuth$Outbound` instead. */
-  export type Outbound = OutputElasticAuth$Outbound;
-}
 
 export function outputElasticAuthToJSON(
   outputElasticAuth: OutputElasticAuth,
@@ -740,7 +724,6 @@ export function outputElasticAuthToJSON(
     OutputElasticAuth$outboundSchema.parse(outputElasticAuth),
   );
 }
-
 export function outputElasticAuthFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticAuth, SDKValidationError> {
@@ -761,7 +744,6 @@ export const ElasticVersion$inboundSchema: z.ZodType<
     z.nativeEnum(ElasticVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ElasticVersion$outboundSchema: z.ZodType<
   ElasticVersion,
@@ -771,17 +753,6 @@ export const ElasticVersion$outboundSchema: z.ZodType<
   z.nativeEnum(ElasticVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ElasticVersion$ {
-  /** @deprecated use `ElasticVersion$inboundSchema` instead. */
-  export const inboundSchema = ElasticVersion$inboundSchema;
-  /** @deprecated use `ElasticVersion$outboundSchema` instead. */
-  export const outboundSchema = ElasticVersion$outboundSchema;
-}
 
 /** @internal */
 export const WriteAction$inboundSchema: z.ZodType<
@@ -793,7 +764,6 @@ export const WriteAction$inboundSchema: z.ZodType<
     z.nativeEnum(WriteAction),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const WriteAction$outboundSchema: z.ZodType<
   WriteAction,
@@ -803,17 +773,6 @@ export const WriteAction$outboundSchema: z.ZodType<
   z.nativeEnum(WriteAction),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WriteAction$ {
-  /** @deprecated use `WriteAction$inboundSchema` instead. */
-  export const inboundSchema = WriteAction$inboundSchema;
-  /** @deprecated use `WriteAction$outboundSchema` instead. */
-  export const outboundSchema = WriteAction$outboundSchema;
-}
 
 /** @internal */
 export const OutputElasticBackpressureBehavior$inboundSchema: z.ZodType<
@@ -825,7 +784,6 @@ export const OutputElasticBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticBackpressureBehavior$outboundSchema: z.ZodType<
   OutputElasticBackpressureBehavior,
@@ -836,18 +794,6 @@ export const OutputElasticBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticBackpressureBehavior$ {
-  /** @deprecated use `OutputElasticBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputElasticBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputElasticBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputElasticUrl$inboundSchema: z.ZodType<
   OutputElasticUrl,
@@ -857,7 +803,6 @@ export const OutputElasticUrl$inboundSchema: z.ZodType<
   url: z.string(),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputElasticUrl$Outbound = {
   url: string;
@@ -874,19 +819,6 @@ export const OutputElasticUrl$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticUrl$ {
-  /** @deprecated use `OutputElasticUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticUrl$inboundSchema;
-  /** @deprecated use `OutputElasticUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticUrl$outboundSchema;
-  /** @deprecated use `OutputElasticUrl$Outbound` instead. */
-  export type Outbound = OutputElasticUrl$Outbound;
-}
-
 export function outputElasticUrlToJSON(
   outputElasticUrl: OutputElasticUrl,
 ): string {
@@ -894,7 +826,6 @@ export function outputElasticUrlToJSON(
     OutputElasticUrl$outboundSchema.parse(outputElasticUrl),
   );
 }
-
 export function outputElasticUrlFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticUrl, SDKValidationError> {
@@ -903,70 +834,6 @@ export function outputElasticUrlFromJSON(
     (x) => OutputElasticUrl$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputElasticUrl' from JSON`,
   );
-}
-
-/** @internal */
-export const OutputElasticCompression$inboundSchema: z.ZodType<
-  OutputElasticCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputElasticCompression$outboundSchema: z.ZodType<
-  OutputElasticCompression,
-  z.ZodTypeDef,
-  OutputElasticCompression
-> = z.union([
-  z.nativeEnum(OutputElasticCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticCompression$ {
-  /** @deprecated use `OutputElasticCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticCompression$inboundSchema;
-  /** @deprecated use `OutputElasticCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputElasticQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputElasticQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputElasticQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputElasticQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputElasticQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputElasticQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticQueueFullBehavior$ {
-  /** @deprecated use `OutputElasticQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputElasticQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticQueueFullBehavior$outboundSchema;
 }
 
 /** @internal */
@@ -979,7 +846,6 @@ export const OutputElasticMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputElasticMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputElasticMode$outboundSchema: z.ZodType<
   OutputElasticMode,
@@ -990,16 +856,45 @@ export const OutputElasticMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticMode$ {
-  /** @deprecated use `OutputElasticMode$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticMode$inboundSchema;
-  /** @deprecated use `OutputElasticMode$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticMode$outboundSchema;
-}
+/** @internal */
+export const OutputElasticCompression$inboundSchema: z.ZodType<
+  OutputElasticCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputElasticCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputElasticCompression$outboundSchema: z.ZodType<
+  OutputElasticCompression,
+  z.ZodTypeDef,
+  OutputElasticCompression
+> = z.union([
+  z.nativeEnum(OutputElasticCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputElasticQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputElasticQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputElasticQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputElasticQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputElasticQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputElasticQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputElasticQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputElasticPqControls$inboundSchema: z.ZodType<
@@ -1007,7 +902,6 @@ export const OutputElasticPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputElasticPqControls$Outbound = {};
 
@@ -1018,19 +912,6 @@ export const OutputElasticPqControls$outboundSchema: z.ZodType<
   OutputElasticPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElasticPqControls$ {
-  /** @deprecated use `OutputElasticPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputElasticPqControls$inboundSchema;
-  /** @deprecated use `OutputElasticPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputElasticPqControls$outboundSchema;
-  /** @deprecated use `OutputElasticPqControls$Outbound` instead. */
-  export type Outbound = OutputElasticPqControls$Outbound;
-}
-
 export function outputElasticPqControlsToJSON(
   outputElasticPqControls: OutputElasticPqControls,
 ): string {
@@ -1038,7 +919,6 @@ export function outputElasticPqControlsToJSON(
     OutputElasticPqControls$outboundSchema.parse(outputElasticPqControls),
   );
 }
-
 export function outputElasticPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElasticPqControls, SDKValidationError> {
@@ -1102,6 +982,11 @@ export const OutputElastic$inboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => OutputElasticUrl$inboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputElasticMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1109,10 +994,8 @@ export const OutputElastic$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputElasticQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputElasticMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputElasticPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputElastic$Outbound = {
   id?: string | undefined;
@@ -1154,12 +1037,16 @@ export type OutputElastic$Outbound = {
   urls?: Array<OutputElasticUrl$Outbound> | undefined;
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputElasticPqControls$Outbound | undefined;
 };
 
@@ -1216,6 +1103,11 @@ export const OutputElastic$outboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => OutputElasticUrl$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputElasticMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1223,27 +1115,12 @@ export const OutputElastic$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputElasticQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputElasticMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputElasticPqControls$outboundSchema).optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputElastic$ {
-  /** @deprecated use `OutputElastic$inboundSchema` instead. */
-  export const inboundSchema = OutputElastic$inboundSchema;
-  /** @deprecated use `OutputElastic$outboundSchema` instead. */
-  export const outboundSchema = OutputElastic$outboundSchema;
-  /** @deprecated use `OutputElastic$Outbound` instead. */
-  export type Outbound = OutputElastic$Outbound;
-}
 
 export function outputElasticToJSON(outputElastic: OutputElastic): string {
   return JSON.stringify(OutputElastic$outboundSchema.parse(outputElastic));
 }
-
 export function outputElasticFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputElastic, SDKValidationError> {

@@ -3,18 +3,9 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  RouteCloneConf,
-  RouteCloneConf$inboundSchema,
-  RouteCloneConf$Outbound,
-  RouteCloneConf$outboundSchema,
-} from "./routecloneconf.js";
 
 export type RouteConf = {
-  clones?: Array<RouteCloneConf> | undefined;
+  clones?: Array<{ [k: string]: string }> | undefined;
   context?: string | undefined;
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -30,29 +21,8 @@ export type RouteConf = {
 };
 
 /** @internal */
-export const RouteConf$inboundSchema: z.ZodType<
-  RouteConf,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  clones: z.array(RouteCloneConf$inboundSchema).optional(),
-  context: z.string().optional(),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  enableOutputExpression: z.boolean().optional(),
-  filter: z.string().optional(),
-  final: z.boolean(),
-  groupId: z.string().optional(),
-  id: z.string(),
-  name: z.string(),
-  output: z.string().optional(),
-  outputExpression: z.string().optional(),
-  pipeline: z.string(),
-});
-
-/** @internal */
 export type RouteConf$Outbound = {
-  clones?: Array<RouteCloneConf$Outbound> | undefined;
+  clones?: Array<{ [k: string]: string }> | undefined;
   context?: string | undefined;
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -73,7 +43,7 @@ export const RouteConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RouteConf
 > = z.object({
-  clones: z.array(RouteCloneConf$outboundSchema).optional(),
+  clones: z.array(z.record(z.string())).optional(),
   context: z.string().optional(),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -88,29 +58,6 @@ export const RouteConf$outboundSchema: z.ZodType<
   pipeline: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RouteConf$ {
-  /** @deprecated use `RouteConf$inboundSchema` instead. */
-  export const inboundSchema = RouteConf$inboundSchema;
-  /** @deprecated use `RouteConf$outboundSchema` instead. */
-  export const outboundSchema = RouteConf$outboundSchema;
-  /** @deprecated use `RouteConf$Outbound` instead. */
-  export type Outbound = RouteConf$Outbound;
-}
-
 export function routeConfToJSON(routeConf: RouteConf): string {
   return JSON.stringify(RouteConf$outboundSchema.parse(routeConf));
-}
-
-export function routeConfFromJSON(
-  jsonString: string,
-): SafeParseResult<RouteConf, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RouteConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RouteConf' from JSON`,
-  );
 }
