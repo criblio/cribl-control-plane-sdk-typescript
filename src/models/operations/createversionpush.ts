@@ -28,43 +28,6 @@ export const CreateVersionPushResponse$inboundSchema: z.ZodType<
   items: z.array(z.string()).optional(),
 });
 
-/** @internal */
-export type CreateVersionPushResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<string> | undefined;
-};
-
-/** @internal */
-export const CreateVersionPushResponse$outboundSchema: z.ZodType<
-  CreateVersionPushResponse$Outbound,
-  z.ZodTypeDef,
-  CreateVersionPushResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateVersionPushResponse$ {
-  /** @deprecated use `CreateVersionPushResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateVersionPushResponse$inboundSchema;
-  /** @deprecated use `CreateVersionPushResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateVersionPushResponse$outboundSchema;
-  /** @deprecated use `CreateVersionPushResponse$Outbound` instead. */
-  export type Outbound = CreateVersionPushResponse$Outbound;
-}
-
-export function createVersionPushResponseToJSON(
-  createVersionPushResponse: CreateVersionPushResponse,
-): string {
-  return JSON.stringify(
-    CreateVersionPushResponse$outboundSchema.parse(createVersionPushResponse),
-  );
-}
-
 export function createVersionPushResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateVersionPushResponse, SDKValidationError> {

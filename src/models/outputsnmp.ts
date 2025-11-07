@@ -61,22 +61,10 @@ export type OutputSnmp = {
 export const OutputSnmpType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSnmpType
 > = z.nativeEnum(OutputSnmpType);
-
 /** @internal */
 export const OutputSnmpType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSnmpType
 > = OutputSnmpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnmpType$ {
-  /** @deprecated use `OutputSnmpType$inboundSchema` instead. */
-  export const inboundSchema = OutputSnmpType$inboundSchema;
-  /** @deprecated use `OutputSnmpType$outboundSchema` instead. */
-  export const outboundSchema = OutputSnmpType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSnmpHost$inboundSchema: z.ZodType<
@@ -87,7 +75,6 @@ export const OutputSnmpHost$inboundSchema: z.ZodType<
   host: z.string(),
   port: z.number().default(162),
 });
-
 /** @internal */
 export type OutputSnmpHost$Outbound = {
   host: string;
@@ -104,23 +91,9 @@ export const OutputSnmpHost$outboundSchema: z.ZodType<
   port: z.number().default(162),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnmpHost$ {
-  /** @deprecated use `OutputSnmpHost$inboundSchema` instead. */
-  export const inboundSchema = OutputSnmpHost$inboundSchema;
-  /** @deprecated use `OutputSnmpHost$outboundSchema` instead. */
-  export const outboundSchema = OutputSnmpHost$outboundSchema;
-  /** @deprecated use `OutputSnmpHost$Outbound` instead. */
-  export type Outbound = OutputSnmpHost$Outbound;
-}
-
 export function outputSnmpHostToJSON(outputSnmpHost: OutputSnmpHost): string {
   return JSON.stringify(OutputSnmpHost$outboundSchema.parse(outputSnmpHost));
 }
-
 export function outputSnmpHostFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSnmpHost, SDKValidationError> {
@@ -147,7 +120,6 @@ export const OutputSnmp$inboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(0),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputSnmp$Outbound = {
   id?: string | undefined;
@@ -178,23 +150,9 @@ export const OutputSnmp$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnmp$ {
-  /** @deprecated use `OutputSnmp$inboundSchema` instead. */
-  export const inboundSchema = OutputSnmp$inboundSchema;
-  /** @deprecated use `OutputSnmp$outboundSchema` instead. */
-  export const outboundSchema = OutputSnmp$outboundSchema;
-  /** @deprecated use `OutputSnmp$Outbound` instead. */
-  export type Outbound = OutputSnmp$Outbound;
-}
-
 export function outputSnmpToJSON(outputSnmp: OutputSnmp): string {
   return JSON.stringify(OutputSnmp$outboundSchema.parse(outputSnmp));
 }
-
 export function outputSnmpFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSnmp, SDKValidationError> {

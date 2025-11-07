@@ -4,16 +4,19 @@
 
 import { healthGet } from "../funcs/healthGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Health extends ClientSDK {
   /**
    * Retrieve health status of the server
+   *
+   * @remarks
+   * Get the current health status of the server.
    */
   async get(
     options?: RequestOptions,
-  ): Promise<operations.GetHealthInfoResponse> {
+  ): Promise<models.HealthServerStatus> {
     return unwrapAsync(healthGet(
       this,
       options,

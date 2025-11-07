@@ -4,30 +4,20 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HeartbeatMetadata,
   HeartbeatMetadata$inboundSchema,
-  HeartbeatMetadata$Outbound,
-  HeartbeatMetadata$outboundSchema,
 } from "./heartbeatmetadata.js";
 import {
   NodeProvidedInfo,
   NodeProvidedInfo$inboundSchema,
-  NodeProvidedInfo$Outbound,
-  NodeProvidedInfo$outboundSchema,
 } from "./nodeprovidedinfo.js";
 import {
   NodeUpgradeStatus,
   NodeUpgradeStatus$inboundSchema,
-  NodeUpgradeStatus$Outbound,
-  NodeUpgradeStatus$outboundSchema,
 } from "./nodeupgradestatus.js";
 
 export type LastMetrics = {};
@@ -67,33 +57,6 @@ export const LastMetrics$inboundSchema: z.ZodType<
   unknown
 > = z.object({});
 
-/** @internal */
-export type LastMetrics$Outbound = {};
-
-/** @internal */
-export const LastMetrics$outboundSchema: z.ZodType<
-  LastMetrics$Outbound,
-  z.ZodTypeDef,
-  LastMetrics
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LastMetrics$ {
-  /** @deprecated use `LastMetrics$inboundSchema` instead. */
-  export const inboundSchema = LastMetrics$inboundSchema;
-  /** @deprecated use `LastMetrics$outboundSchema` instead. */
-  export const outboundSchema = LastMetrics$outboundSchema;
-  /** @deprecated use `LastMetrics$Outbound` instead. */
-  export type Outbound = LastMetrics$Outbound;
-}
-
-export function lastMetricsToJSON(lastMetrics: LastMetrics): string {
-  return JSON.stringify(LastMetrics$outboundSchema.parse(lastMetrics));
-}
-
 export function lastMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<LastMetrics, SDKValidationError> {
@@ -116,27 +79,6 @@ export const MasterWorkerEntryType$inboundSchema: z.ZodType<
   ]);
 
 /** @internal */
-export const MasterWorkerEntryType$outboundSchema: z.ZodType<
-  MasterWorkerEntryType,
-  z.ZodTypeDef,
-  MasterWorkerEntryType
-> = z.union([
-  z.nativeEnum(MasterWorkerEntryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MasterWorkerEntryType$ {
-  /** @deprecated use `MasterWorkerEntryType$inboundSchema` instead. */
-  export const inboundSchema = MasterWorkerEntryType$inboundSchema;
-  /** @deprecated use `MasterWorkerEntryType$outboundSchema` instead. */
-  export const outboundSchema = MasterWorkerEntryType$outboundSchema;
-}
-
-/** @internal */
 export const MasterWorkerEntryWorkers$inboundSchema: z.ZodType<
   MasterWorkerEntryWorkers,
   z.ZodTypeDef,
@@ -144,41 +86,6 @@ export const MasterWorkerEntryWorkers$inboundSchema: z.ZodType<
 > = z.object({
   count: z.number(),
 });
-
-/** @internal */
-export type MasterWorkerEntryWorkers$Outbound = {
-  count: number;
-};
-
-/** @internal */
-export const MasterWorkerEntryWorkers$outboundSchema: z.ZodType<
-  MasterWorkerEntryWorkers$Outbound,
-  z.ZodTypeDef,
-  MasterWorkerEntryWorkers
-> = z.object({
-  count: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MasterWorkerEntryWorkers$ {
-  /** @deprecated use `MasterWorkerEntryWorkers$inboundSchema` instead. */
-  export const inboundSchema = MasterWorkerEntryWorkers$inboundSchema;
-  /** @deprecated use `MasterWorkerEntryWorkers$outboundSchema` instead. */
-  export const outboundSchema = MasterWorkerEntryWorkers$outboundSchema;
-  /** @deprecated use `MasterWorkerEntryWorkers$Outbound` instead. */
-  export type Outbound = MasterWorkerEntryWorkers$Outbound;
-}
-
-export function masterWorkerEntryWorkersToJSON(
-  masterWorkerEntryWorkers: MasterWorkerEntryWorkers,
-): string {
-  return JSON.stringify(
-    MasterWorkerEntryWorkers$outboundSchema.parse(masterWorkerEntryWorkers),
-  );
-}
 
 export function masterWorkerEntryWorkersFromJSON(
   jsonString: string,
@@ -211,67 +118,6 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   workerProcesses: z.number(),
   workers: z.lazy(() => MasterWorkerEntryWorkers$inboundSchema).optional(),
 });
-
-/** @internal */
-export type MasterWorkerEntry$Outbound = {
-  deployable?: boolean | undefined;
-  disconnected?: boolean | undefined;
-  firstMsgTime: number;
-  group: string;
-  id: string;
-  info: NodeProvidedInfo$Outbound;
-  lastMetrics?: LastMetrics$Outbound | undefined;
-  lastMsgTime: number;
-  metadata?: HeartbeatMetadata$Outbound | undefined;
-  nodeUpgradeStatus?: NodeUpgradeStatus$Outbound | undefined;
-  status?: string | undefined;
-  type?: string | undefined;
-  workerProcesses: number;
-  workers?: MasterWorkerEntryWorkers$Outbound | undefined;
-};
-
-/** @internal */
-export const MasterWorkerEntry$outboundSchema: z.ZodType<
-  MasterWorkerEntry$Outbound,
-  z.ZodTypeDef,
-  MasterWorkerEntry
-> = z.object({
-  deployable: z.boolean().optional(),
-  disconnected: z.boolean().optional(),
-  firstMsgTime: z.number(),
-  group: z.string(),
-  id: z.string(),
-  info: NodeProvidedInfo$outboundSchema,
-  lastMetrics: z.lazy(() => LastMetrics$outboundSchema).optional(),
-  lastMsgTime: z.number(),
-  metadata: HeartbeatMetadata$outboundSchema.optional(),
-  nodeUpgradeStatus: NodeUpgradeStatus$outboundSchema.optional(),
-  status: z.string().optional(),
-  type: MasterWorkerEntryType$outboundSchema.optional(),
-  workerProcesses: z.number(),
-  workers: z.lazy(() => MasterWorkerEntryWorkers$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MasterWorkerEntry$ {
-  /** @deprecated use `MasterWorkerEntry$inboundSchema` instead. */
-  export const inboundSchema = MasterWorkerEntry$inboundSchema;
-  /** @deprecated use `MasterWorkerEntry$outboundSchema` instead. */
-  export const outboundSchema = MasterWorkerEntry$outboundSchema;
-  /** @deprecated use `MasterWorkerEntry$Outbound` instead. */
-  export type Outbound = MasterWorkerEntry$Outbound;
-}
-
-export function masterWorkerEntryToJSON(
-  masterWorkerEntry: MasterWorkerEntry,
-): string {
-  return JSON.stringify(
-    MasterWorkerEntry$outboundSchema.parse(masterWorkerEntry),
-  );
-}
 
 export function masterWorkerEntryFromJSON(
   jsonString: string,

@@ -22,7 +22,13 @@ export type OutputSplunkType = ClosedEnum<typeof OutputSplunkType>;
  * How to serialize nested fields into index-time fields
  */
 export const OutputSplunkNestedFieldSerialization = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -107,8 +113,17 @@ export type OutputSplunkMaxS2SVersion = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputSplunkBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -136,8 +151,17 @@ export type OutputSplunkAuthenticationMethod = OpenEnum<
  * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
  */
 export const OutputSplunkCompressCompression = {
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
+  /**
+   * Automatic
+   */
   Auto: "auto",
+  /**
+   * Always
+   */
   Always: "always",
 } as const;
 /**
@@ -148,10 +172,38 @@ export type OutputSplunkCompressCompression = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputSplunkMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputSplunkMode = OpenEnum<typeof OutputSplunkMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputSplunkPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -165,7 +217,13 @@ export type OutputSplunkPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputSplunkQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -174,19 +232,6 @@ export const OutputSplunkQueueFullBehavior = {
 export type OutputSplunkQueueFullBehavior = OpenEnum<
   typeof OutputSplunkQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSplunkMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSplunkMode = OpenEnum<typeof OutputSplunkMode>;
 
 export type OutputSplunkPqControls = {};
 
@@ -271,6 +316,26 @@ export type OutputSplunk = {
    */
   compress?: OutputSplunkCompressCompression | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputSplunkMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -290,10 +355,6 @@ export type OutputSplunk = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputSplunkQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputSplunkMode | undefined;
   pqControls?: OutputSplunkPqControls | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -309,22 +370,10 @@ export type OutputSplunk = {
 export const OutputSplunkType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSplunkType
 > = z.nativeEnum(OutputSplunkType);
-
 /** @internal */
 export const OutputSplunkType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSplunkType
 > = OutputSplunkType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkType$ {
-  /** @deprecated use `OutputSplunkType$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkType$inboundSchema;
-  /** @deprecated use `OutputSplunkType$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkType$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkNestedFieldSerialization$inboundSchema: z.ZodType<
@@ -336,7 +385,6 @@ export const OutputSplunkNestedFieldSerialization$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkNestedFieldSerialization),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkNestedFieldSerialization$outboundSchema: z.ZodType<
   OutputSplunkNestedFieldSerialization,
@@ -346,19 +394,6 @@ export const OutputSplunkNestedFieldSerialization$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkNestedFieldSerialization),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkNestedFieldSerialization$ {
-  /** @deprecated use `OutputSplunkNestedFieldSerialization$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkNestedFieldSerialization$inboundSchema;
-  /** @deprecated use `OutputSplunkNestedFieldSerialization$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkNestedFieldSerialization$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -370,7 +405,6 @@ export const OutputSplunkMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputSplunkMinimumTLSVersion,
@@ -380,17 +414,6 @@ export const OutputSplunkMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMinimumTLSVersion$ {
-  /** @deprecated use `OutputSplunkMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -402,7 +425,6 @@ export const OutputSplunkMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputSplunkMaximumTLSVersion,
@@ -412,17 +434,6 @@ export const OutputSplunkMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMaximumTLSVersion$ {
-  /** @deprecated use `OutputSplunkMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -441,7 +452,6 @@ export const OutputSplunkTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputSplunkMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputSplunkMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputSplunkTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -474,20 +484,6 @@ export const OutputSplunkTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputSplunkMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkTLSSettingsClientSide$ {
-  /** @deprecated use `OutputSplunkTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputSplunkTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputSplunkTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputSplunkTLSSettingsClientSide$Outbound;
-}
-
 export function outputSplunkTLSSettingsClientSideToJSON(
   outputSplunkTLSSettingsClientSide: OutputSplunkTLSSettingsClientSide,
 ): string {
@@ -497,7 +493,6 @@ export function outputSplunkTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputSplunkTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkTLSSettingsClientSide, SDKValidationError> {
@@ -518,7 +513,6 @@ export const OutputSplunkMaxS2SVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkMaxS2SVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
   OutputSplunkMaxS2SVersion,
@@ -528,17 +522,6 @@ export const OutputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkMaxS2SVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMaxS2SVersion$ {
-  /** @deprecated use `OutputSplunkMaxS2SVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMaxS2SVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkMaxS2SVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMaxS2SVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkBackpressureBehavior$inboundSchema: z.ZodType<
@@ -550,7 +533,6 @@ export const OutputSplunkBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSplunkBackpressureBehavior,
@@ -560,17 +542,6 @@ export const OutputSplunkBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkBackpressureBehavior$ {
-  /** @deprecated use `OutputSplunkBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkAuthenticationMethod$inboundSchema: z.ZodType<
@@ -582,7 +553,6 @@ export const OutputSplunkAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkAuthenticationMethod$outboundSchema: z.ZodType<
   OutputSplunkAuthenticationMethod,
@@ -592,17 +562,6 @@ export const OutputSplunkAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkAuthenticationMethod$ {
-  /** @deprecated use `OutputSplunkAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSplunkAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkCompressCompression$inboundSchema: z.ZodType<
@@ -614,7 +573,6 @@ export const OutputSplunkCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkCompressCompression$outboundSchema: z.ZodType<
   OutputSplunkCompressCompression,
@@ -624,82 +582,6 @@ export const OutputSplunkCompressCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkCompressCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkCompressCompression$ {
-  /** @deprecated use `OutputSplunkCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkCompressCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkCompressCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkPqCompressCompression$inboundSchema: z.ZodType<
-  OutputSplunkPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkPqCompressCompression$outboundSchema: z.ZodType<
-  OutputSplunkPqCompressCompression,
-  z.ZodTypeDef,
-  OutputSplunkPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkPqCompressCompression$ {
-  /** @deprecated use `OutputSplunkPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSplunkQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSplunkQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSplunkQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkQueueFullBehavior$ {
-  /** @deprecated use `OutputSplunkQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkMode$inboundSchema: z.ZodType<
@@ -711,7 +593,6 @@ export const OutputSplunkMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkMode$outboundSchema: z.ZodType<
   OutputSplunkMode,
@@ -722,16 +603,45 @@ export const OutputSplunkMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMode$ {
-  /** @deprecated use `OutputSplunkMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMode$inboundSchema;
-  /** @deprecated use `OutputSplunkMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMode$outboundSchema;
-}
+/** @internal */
+export const OutputSplunkPqCompressCompression$inboundSchema: z.ZodType<
+  OutputSplunkPqCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkPqCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkPqCompressCompression$outboundSchema: z.ZodType<
+  OutputSplunkPqCompressCompression,
+  z.ZodTypeDef,
+  OutputSplunkPqCompressCompression
+> = z.union([
+  z.nativeEnum(OutputSplunkPqCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSplunkQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputSplunkQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputSplunkQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputSplunkQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputSplunkPqControls$inboundSchema: z.ZodType<
@@ -739,7 +649,6 @@ export const OutputSplunkPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSplunkPqControls$Outbound = {};
 
@@ -750,19 +659,6 @@ export const OutputSplunkPqControls$outboundSchema: z.ZodType<
   OutputSplunkPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkPqControls$ {
-  /** @deprecated use `OutputSplunkPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkPqControls$inboundSchema;
-  /** @deprecated use `OutputSplunkPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkPqControls$outboundSchema;
-  /** @deprecated use `OutputSplunkPqControls$Outbound` instead. */
-  export type Outbound = OutputSplunkPqControls$Outbound;
-}
-
 export function outputSplunkPqControlsToJSON(
   outputSplunkPqControls: OutputSplunkPqControls,
 ): string {
@@ -770,7 +666,6 @@ export function outputSplunkPqControlsToJSON(
     OutputSplunkPqControls$outboundSchema.parse(outputSplunkPqControls),
   );
 }
-
 export function outputSplunkPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkPqControls, SDKValidationError> {
@@ -813,6 +708,11 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().default(1),
   compress: OutputSplunkCompressCompression$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSplunkMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -820,12 +720,10 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputSplunkQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputSplunkMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSplunkPqControls$inboundSchema).optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputSplunk$Outbound = {
   id?: string | undefined;
@@ -850,12 +748,16 @@ export type OutputSplunk$Outbound = {
   description?: string | undefined;
   maxFailedHealthChecks: number;
   compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputSplunkPqControls$Outbound | undefined;
   authToken: string;
   textSecret?: string | undefined;
@@ -894,6 +796,11 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().default(1),
   compress: OutputSplunkCompressCompression$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSplunkMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -901,29 +808,14 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputSplunkQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputSplunkMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSplunkPqControls$outboundSchema).optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunk$ {
-  /** @deprecated use `OutputSplunk$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunk$inboundSchema;
-  /** @deprecated use `OutputSplunk$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunk$outboundSchema;
-  /** @deprecated use `OutputSplunk$Outbound` instead. */
-  export type Outbound = OutputSplunk$Outbound;
-}
-
 export function outputSplunkToJSON(outputSplunk: OutputSplunk): string {
   return JSON.stringify(OutputSplunk$outboundSchema.parse(outputSplunk));
 }
-
 export function outputSplunkFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunk, SDKValidationError> {

@@ -36,21 +36,6 @@ export type UpdateInputHecTokenByIdAndTokenResponse = {
 };
 
 /** @internal */
-export const UpdateInputHecTokenByIdAndTokenRequest$inboundSchema: z.ZodType<
-  UpdateInputHecTokenByIdAndTokenRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  token: z.string(),
-  UpdateHecTokenRequest: models.UpdateHecTokenRequest$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "UpdateHecTokenRequest": "updateHecTokenRequest",
-  });
-});
-
-/** @internal */
 export type UpdateInputHecTokenByIdAndTokenRequest$Outbound = {
   id: string;
   token: string;
@@ -72,21 +57,6 @@ export const UpdateInputHecTokenByIdAndTokenRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateInputHecTokenByIdAndTokenRequest$ {
-  /** @deprecated use `UpdateInputHecTokenByIdAndTokenRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateInputHecTokenByIdAndTokenRequest$inboundSchema;
-  /** @deprecated use `UpdateInputHecTokenByIdAndTokenRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateInputHecTokenByIdAndTokenRequest$outboundSchema;
-  /** @deprecated use `UpdateInputHecTokenByIdAndTokenRequest$Outbound` instead. */
-  export type Outbound = UpdateInputHecTokenByIdAndTokenRequest$Outbound;
-}
-
 export function updateInputHecTokenByIdAndTokenRequestToJSON(
   updateInputHecTokenByIdAndTokenRequest:
     UpdateInputHecTokenByIdAndTokenRequest,
@@ -95,17 +65,6 @@ export function updateInputHecTokenByIdAndTokenRequestToJSON(
     UpdateInputHecTokenByIdAndTokenRequest$outboundSchema.parse(
       updateInputHecTokenByIdAndTokenRequest,
     ),
-  );
-}
-
-export function updateInputHecTokenByIdAndTokenRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateInputHecTokenByIdAndTokenRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateInputHecTokenByIdAndTokenRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateInputHecTokenByIdAndTokenRequest' from JSON`,
   );
 }
 
@@ -118,48 +77,6 @@ export const UpdateInputHecTokenByIdAndTokenResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.InputSplunkHec$inboundSchema).optional(),
 });
-
-/** @internal */
-export type UpdateInputHecTokenByIdAndTokenResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.InputSplunkHec$Outbound> | undefined;
-};
-
-/** @internal */
-export const UpdateInputHecTokenByIdAndTokenResponse$outboundSchema: z.ZodType<
-  UpdateInputHecTokenByIdAndTokenResponse$Outbound,
-  z.ZodTypeDef,
-  UpdateInputHecTokenByIdAndTokenResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.InputSplunkHec$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateInputHecTokenByIdAndTokenResponse$ {
-  /** @deprecated use `UpdateInputHecTokenByIdAndTokenResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateInputHecTokenByIdAndTokenResponse$inboundSchema;
-  /** @deprecated use `UpdateInputHecTokenByIdAndTokenResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateInputHecTokenByIdAndTokenResponse$outboundSchema;
-  /** @deprecated use `UpdateInputHecTokenByIdAndTokenResponse$Outbound` instead. */
-  export type Outbound = UpdateInputHecTokenByIdAndTokenResponse$Outbound;
-}
-
-export function updateInputHecTokenByIdAndTokenResponseToJSON(
-  updateInputHecTokenByIdAndTokenResponse:
-    UpdateInputHecTokenByIdAndTokenResponse,
-): string {
-  return JSON.stringify(
-    UpdateInputHecTokenByIdAndTokenResponse$outboundSchema.parse(
-      updateInputHecTokenByIdAndTokenResponse,
-    ),
-  );
-}
 
 export function updateInputHecTokenByIdAndTokenResponseFromJSON(
   jsonString: string,

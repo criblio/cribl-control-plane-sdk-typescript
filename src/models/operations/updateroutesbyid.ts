@@ -32,20 +32,6 @@ export type UpdateRoutesByIdResponse = {
 };
 
 /** @internal */
-export const UpdateRoutesByIdRequest$inboundSchema: z.ZodType<
-  UpdateRoutesByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  Routes: models.Routes$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Routes": "routes",
-  });
-});
-
-/** @internal */
 export type UpdateRoutesByIdRequest$Outbound = {
   id: string;
   Routes: models.Routes$Outbound;
@@ -65,34 +51,11 @@ export const UpdateRoutesByIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateRoutesByIdRequest$ {
-  /** @deprecated use `UpdateRoutesByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateRoutesByIdRequest$inboundSchema;
-  /** @deprecated use `UpdateRoutesByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdateRoutesByIdRequest$outboundSchema;
-  /** @deprecated use `UpdateRoutesByIdRequest$Outbound` instead. */
-  export type Outbound = UpdateRoutesByIdRequest$Outbound;
-}
-
 export function updateRoutesByIdRequestToJSON(
   updateRoutesByIdRequest: UpdateRoutesByIdRequest,
 ): string {
   return JSON.stringify(
     UpdateRoutesByIdRequest$outboundSchema.parse(updateRoutesByIdRequest),
-  );
-}
-
-export function updateRoutesByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateRoutesByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateRoutesByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateRoutesByIdRequest' from JSON`,
   );
 }
 
@@ -105,43 +68,6 @@ export const UpdateRoutesByIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.Routes$inboundSchema).optional(),
 });
-
-/** @internal */
-export type UpdateRoutesByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Routes$Outbound> | undefined;
-};
-
-/** @internal */
-export const UpdateRoutesByIdResponse$outboundSchema: z.ZodType<
-  UpdateRoutesByIdResponse$Outbound,
-  z.ZodTypeDef,
-  UpdateRoutesByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Routes$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateRoutesByIdResponse$ {
-  /** @deprecated use `UpdateRoutesByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = UpdateRoutesByIdResponse$inboundSchema;
-  /** @deprecated use `UpdateRoutesByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = UpdateRoutesByIdResponse$outboundSchema;
-  /** @deprecated use `UpdateRoutesByIdResponse$Outbound` instead. */
-  export type Outbound = UpdateRoutesByIdResponse$Outbound;
-}
-
-export function updateRoutesByIdResponseToJSON(
-  updateRoutesByIdResponse: UpdateRoutesByIdResponse,
-): string {
-  return JSON.stringify(
-    UpdateRoutesByIdResponse$outboundSchema.parse(updateRoutesByIdResponse),
-  );
-}
 
 export function updateRoutesByIdResponseFromJSON(
   jsonString: string,

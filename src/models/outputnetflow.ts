@@ -61,22 +61,10 @@ export type OutputNetflow = {
 export const OutputNetflowType$inboundSchema: z.ZodNativeEnum<
   typeof OutputNetflowType
 > = z.nativeEnum(OutputNetflowType);
-
 /** @internal */
 export const OutputNetflowType$outboundSchema: z.ZodNativeEnum<
   typeof OutputNetflowType
 > = OutputNetflowType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNetflowType$ {
-  /** @deprecated use `OutputNetflowType$inboundSchema` instead. */
-  export const inboundSchema = OutputNetflowType$inboundSchema;
-  /** @deprecated use `OutputNetflowType$outboundSchema` instead. */
-  export const outboundSchema = OutputNetflowType$outboundSchema;
-}
 
 /** @internal */
 export const OutputNetflowHost$inboundSchema: z.ZodType<
@@ -87,7 +75,6 @@ export const OutputNetflowHost$inboundSchema: z.ZodType<
   host: z.string(),
   port: z.number().default(2055),
 });
-
 /** @internal */
 export type OutputNetflowHost$Outbound = {
   host: string;
@@ -104,19 +91,6 @@ export const OutputNetflowHost$outboundSchema: z.ZodType<
   port: z.number().default(2055),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNetflowHost$ {
-  /** @deprecated use `OutputNetflowHost$inboundSchema` instead. */
-  export const inboundSchema = OutputNetflowHost$inboundSchema;
-  /** @deprecated use `OutputNetflowHost$outboundSchema` instead. */
-  export const outboundSchema = OutputNetflowHost$outboundSchema;
-  /** @deprecated use `OutputNetflowHost$Outbound` instead. */
-  export type Outbound = OutputNetflowHost$Outbound;
-}
-
 export function outputNetflowHostToJSON(
   outputNetflowHost: OutputNetflowHost,
 ): string {
@@ -124,7 +98,6 @@ export function outputNetflowHostToJSON(
     OutputNetflowHost$outboundSchema.parse(outputNetflowHost),
   );
 }
-
 export function outputNetflowHostFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNetflowHost, SDKValidationError> {
@@ -151,7 +124,6 @@ export const OutputNetflow$inboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(0),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputNetflow$Outbound = {
   id?: string | undefined;
@@ -182,23 +154,9 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNetflow$ {
-  /** @deprecated use `OutputNetflow$inboundSchema` instead. */
-  export const inboundSchema = OutputNetflow$inboundSchema;
-  /** @deprecated use `OutputNetflow$outboundSchema` instead. */
-  export const outboundSchema = OutputNetflow$outboundSchema;
-  /** @deprecated use `OutputNetflow$Outbound` instead. */
-  export type Outbound = OutputNetflow$Outbound;
-}
-
 export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {
   return JSON.stringify(OutputNetflow$outboundSchema.parse(outputNetflow));
 }
-
 export function outputNetflowFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNetflow, SDKValidationError> {

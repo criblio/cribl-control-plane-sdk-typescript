@@ -27,7 +27,13 @@ export type InputCriblHttpConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputCriblHttpMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputCriblHttpMode = OpenEnum<typeof InputCriblHttpMode>;
  * Codec to use to compress the persisted data
  */
 export const InputCriblHttpCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -83,6 +95,18 @@ export type InputCriblHttpPq = {
   pqControls?: InputCriblHttpPqControls | undefined;
 };
 
+export type InputCriblHttpAuthToken = {
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  enabled?: boolean | undefined;
+  /**
+   * Optional token description
+   */
+  description?: string | undefined;
+};
+
 export const InputCriblHttpMinimumTLSVersion = {
   TLSv1: "TLSv1",
   TLSv11: "TLSv1.1",
@@ -106,6 +130,18 @@ export type InputCriblHttpMaximumTLSVersion = OpenEnum<
 export type InputCriblHttpTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -125,12 +161,6 @@ export type InputCriblHttpTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputCriblHttpMinimumTLSVersion | undefined;
   maxVersion?: InputCriblHttpMaximumTLSVersion | undefined;
 };
@@ -184,9 +214,9 @@ export type InputCriblHttp = {
    */
   port: number;
   /**
-   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
    */
-  authTokens?: Array<string> | undefined;
+  authTokens?: Array<InputCriblHttpAuthToken> | undefined;
   tls?: InputCriblHttpTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -243,22 +273,10 @@ export type InputCriblHttp = {
 export const InputCriblHttpType$inboundSchema: z.ZodNativeEnum<
   typeof InputCriblHttpType
 > = z.nativeEnum(InputCriblHttpType);
-
 /** @internal */
 export const InputCriblHttpType$outboundSchema: z.ZodNativeEnum<
   typeof InputCriblHttpType
 > = InputCriblHttpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpType$ {
-  /** @deprecated use `InputCriblHttpType$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpType$inboundSchema;
-  /** @deprecated use `InputCriblHttpType$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpType$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblHttpConnection$inboundSchema: z.ZodType<
@@ -269,7 +287,6 @@ export const InputCriblHttpConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputCriblHttpConnection$Outbound = {
   pipeline?: string | undefined;
@@ -286,19 +303,6 @@ export const InputCriblHttpConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpConnection$ {
-  /** @deprecated use `InputCriblHttpConnection$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpConnection$inboundSchema;
-  /** @deprecated use `InputCriblHttpConnection$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpConnection$outboundSchema;
-  /** @deprecated use `InputCriblHttpConnection$Outbound` instead. */
-  export type Outbound = InputCriblHttpConnection$Outbound;
-}
-
 export function inputCriblHttpConnectionToJSON(
   inputCriblHttpConnection: InputCriblHttpConnection,
 ): string {
@@ -306,7 +310,6 @@ export function inputCriblHttpConnectionToJSON(
     InputCriblHttpConnection$outboundSchema.parse(inputCriblHttpConnection),
   );
 }
-
 export function inputCriblHttpConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblHttpConnection, SDKValidationError> {
@@ -327,7 +330,6 @@ export const InputCriblHttpMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblHttpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblHttpMode$outboundSchema: z.ZodType<
   InputCriblHttpMode,
@@ -337,17 +339,6 @@ export const InputCriblHttpMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputCriblHttpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpMode$ {
-  /** @deprecated use `InputCriblHttpMode$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpMode$inboundSchema;
-  /** @deprecated use `InputCriblHttpMode$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpMode$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblHttpCompression$inboundSchema: z.ZodType<
@@ -359,7 +350,6 @@ export const InputCriblHttpCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblHttpCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblHttpCompression$outboundSchema: z.ZodType<
   InputCriblHttpCompression,
@@ -370,24 +360,12 @@ export const InputCriblHttpCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpCompression$ {
-  /** @deprecated use `InputCriblHttpCompression$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpCompression$inboundSchema;
-  /** @deprecated use `InputCriblHttpCompression$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputCriblHttpPqControls$inboundSchema: z.ZodType<
   InputCriblHttpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputCriblHttpPqControls$Outbound = {};
 
@@ -398,19 +376,6 @@ export const InputCriblHttpPqControls$outboundSchema: z.ZodType<
   InputCriblHttpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpPqControls$ {
-  /** @deprecated use `InputCriblHttpPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpPqControls$inboundSchema;
-  /** @deprecated use `InputCriblHttpPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpPqControls$outboundSchema;
-  /** @deprecated use `InputCriblHttpPqControls$Outbound` instead. */
-  export type Outbound = InputCriblHttpPqControls$Outbound;
-}
-
 export function inputCriblHttpPqControlsToJSON(
   inputCriblHttpPqControls: InputCriblHttpPqControls,
 ): string {
@@ -418,7 +383,6 @@ export function inputCriblHttpPqControlsToJSON(
     InputCriblHttpPqControls$outboundSchema.parse(inputCriblHttpPqControls),
   );
 }
-
 export function inputCriblHttpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblHttpPqControls, SDKValidationError> {
@@ -444,7 +408,6 @@ export const InputCriblHttpPq$inboundSchema: z.ZodType<
   compress: InputCriblHttpCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputCriblHttpPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputCriblHttpPq$Outbound = {
   mode: string;
@@ -473,19 +436,6 @@ export const InputCriblHttpPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputCriblHttpPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpPq$ {
-  /** @deprecated use `InputCriblHttpPq$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpPq$inboundSchema;
-  /** @deprecated use `InputCriblHttpPq$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpPq$outboundSchema;
-  /** @deprecated use `InputCriblHttpPq$Outbound` instead. */
-  export type Outbound = InputCriblHttpPq$Outbound;
-}
-
 export function inputCriblHttpPqToJSON(
   inputCriblHttpPq: InputCriblHttpPq,
 ): string {
@@ -493,7 +443,6 @@ export function inputCriblHttpPqToJSON(
     InputCriblHttpPq$outboundSchema.parse(inputCriblHttpPq),
   );
 }
-
 export function inputCriblHttpPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblHttpPq, SDKValidationError> {
@@ -501,6 +450,51 @@ export function inputCriblHttpPqFromJSON(
     jsonString,
     (x) => InputCriblHttpPq$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'InputCriblHttpPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblHttpAuthToken$inboundSchema: z.ZodType<
+  InputCriblHttpAuthToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblHttpAuthToken$Outbound = {
+  tokenSecret: string;
+  enabled: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblHttpAuthToken$outboundSchema: z.ZodType<
+  InputCriblHttpAuthToken$Outbound,
+  z.ZodTypeDef,
+  InputCriblHttpAuthToken
+> = z.object({
+  tokenSecret: z.string(),
+  enabled: z.boolean().default(true),
+  description: z.string().optional(),
+});
+
+export function inputCriblHttpAuthTokenToJSON(
+  inputCriblHttpAuthToken: InputCriblHttpAuthToken,
+): string {
+  return JSON.stringify(
+    InputCriblHttpAuthToken$outboundSchema.parse(inputCriblHttpAuthToken),
+  );
+}
+export function inputCriblHttpAuthTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblHttpAuthToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblHttpAuthToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblHttpAuthToken' from JSON`,
   );
 }
 
@@ -514,7 +508,6 @@ export const InputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblHttpMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodType<
   InputCriblHttpMinimumTLSVersion,
@@ -524,17 +517,6 @@ export const InputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputCriblHttpMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpMinimumTLSVersion$ {
-  /** @deprecated use `InputCriblHttpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputCriblHttpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -546,7 +528,6 @@ export const InputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblHttpMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodType<
   InputCriblHttpMaximumTLSVersion,
@@ -557,17 +538,6 @@ export const InputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpMaximumTLSVersion$ {
-  /** @deprecated use `InputCriblHttpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputCriblHttpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputCriblHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
   InputCriblHttpTLSSettingsServerSide,
@@ -575,29 +545,28 @@ export const InputCriblHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputCriblHttpMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputCriblHttpMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputCriblHttpTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -609,32 +578,17 @@ export const InputCriblHttpTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputCriblHttpTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputCriblHttpMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputCriblHttpMaximumTLSVersion$outboundSchema.optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpTLSSettingsServerSide$ {
-  /** @deprecated use `InputCriblHttpTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblHttpTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputCriblHttpTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblHttpTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputCriblHttpTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputCriblHttpTLSSettingsServerSide$Outbound;
-}
 
 export function inputCriblHttpTLSSettingsServerSideToJSON(
   inputCriblHttpTLSSettingsServerSide: InputCriblHttpTLSSettingsServerSide,
@@ -645,7 +599,6 @@ export function inputCriblHttpTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputCriblHttpTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblHttpTLSSettingsServerSide, SDKValidationError> {
@@ -666,7 +619,6 @@ export const InputCriblHttpMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputCriblHttpMetadatum$Outbound = {
   name: string;
@@ -683,19 +635,6 @@ export const InputCriblHttpMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttpMetadatum$ {
-  /** @deprecated use `InputCriblHttpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttpMetadatum$inboundSchema;
-  /** @deprecated use `InputCriblHttpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttpMetadatum$outboundSchema;
-  /** @deprecated use `InputCriblHttpMetadatum$Outbound` instead. */
-  export type Outbound = InputCriblHttpMetadatum$Outbound;
-}
-
 export function inputCriblHttpMetadatumToJSON(
   inputCriblHttpMetadatum: InputCriblHttpMetadatum,
 ): string {
@@ -703,7 +642,6 @@ export function inputCriblHttpMetadatumToJSON(
     InputCriblHttpMetadatum$outboundSchema.parse(inputCriblHttpMetadatum),
   );
 }
-
 export function inputCriblHttpMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblHttpMetadatum, SDKValidationError> {
@@ -733,7 +671,8 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
   pq: z.lazy(() => InputCriblHttpPq$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  authTokens: z.array(z.string()).optional(),
+  authTokens: z.array(z.lazy(() => InputCriblHttpAuthToken$inboundSchema))
+    .optional(),
   tls: z.lazy(() => InputCriblHttpTLSSettingsServerSide$inboundSchema)
     .optional(),
   maxActiveReq: z.number().default(256),
@@ -751,7 +690,6 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputCriblHttp$Outbound = {
   id?: string | undefined;
@@ -766,7 +704,7 @@ export type InputCriblHttp$Outbound = {
   pq?: InputCriblHttpPq$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?: Array<string> | undefined;
+  authTokens?: Array<InputCriblHttpAuthToken$Outbound> | undefined;
   tls?: InputCriblHttpTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
@@ -802,7 +740,8 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   pq: z.lazy(() => InputCriblHttpPq$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  authTokens: z.array(z.string()).optional(),
+  authTokens: z.array(z.lazy(() => InputCriblHttpAuthToken$outboundSchema))
+    .optional(),
   tls: z.lazy(() => InputCriblHttpTLSSettingsServerSide$outboundSchema)
     .optional(),
   maxActiveReq: z.number().default(256),
@@ -821,23 +760,9 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblHttp$ {
-  /** @deprecated use `InputCriblHttp$inboundSchema` instead. */
-  export const inboundSchema = InputCriblHttp$inboundSchema;
-  /** @deprecated use `InputCriblHttp$outboundSchema` instead. */
-  export const outboundSchema = InputCriblHttp$outboundSchema;
-  /** @deprecated use `InputCriblHttp$Outbound` instead. */
-  export type Outbound = InputCriblHttp$Outbound;
-}
-
 export function inputCriblHttpToJSON(inputCriblHttp: InputCriblHttp): string {
   return JSON.stringify(InputCriblHttp$outboundSchema.parse(inputCriblHttp));
 }
-
 export function inputCriblHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblHttp, SDKValidationError> {
