@@ -25,7 +25,7 @@ let value: HeartbeatMetadata = {
     version: "<value>",
   },
   kube: {
-    enabled: false,
+    enabled: true,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -37,7 +37,7 @@ let value: HeartbeatMetadata = {
   },
   os: {
     addresses: [],
-    enabled: true,
+    enabled: false,
     id: "<id>",
     version: "<value>",
   },

@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type DeleteOutputByIdRequest = {
   /**
    * The <code>id</code> of the Destination to delete.
    */
   id: string;
-};
-
-/**
- * a list of Destination objects
- */
-export type DeleteOutputByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Output> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function deleteOutputByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteOutputByIdRequest$outboundSchema.parse(deleteOutputByIdRequest),
-  );
-}
-
-/** @internal */
-export const DeleteOutputByIdResponse$inboundSchema: z.ZodType<
-  DeleteOutputByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Output$inboundSchema).optional(),
-});
-
-export function deleteOutputByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteOutputByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteOutputByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteOutputByIdResponse' from JSON`,
   );
 }

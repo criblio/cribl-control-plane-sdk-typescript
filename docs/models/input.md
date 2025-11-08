@@ -419,7 +419,7 @@ const value: models.InputSplunkHec = {
     {
       tokenSecret: "<value>",
       token: "<value>",
-      description: "seemingly yogurt gee yawningly meander zowie",
+      description: "throbbing sting sore",
       allowedIndexesAtToken: [
         "<value 1>",
       ],
@@ -437,8 +437,8 @@ const value: models.InputSplunkHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
   },
   enableHealthCheck: "<value>",
   metadata: [
@@ -449,9 +449,13 @@ const value: models.InputSplunkHec = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
@@ -460,9 +464,9 @@ const value: models.InputSplunkHec = {
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  description:
-    "brr plump vainly reprove dismal whoa best-seller mushy underpants suspiciously",
+  description: "what mockingly excluding",
 };
 ```
 
@@ -1219,7 +1223,7 @@ const value: models.InputEventhub = {
   ],
   topics: [],
   sasl: {
-    password: "ZVoXsr5CskK1lW7",
+    password: "ZcrxTx4Amn7CtfA",
     textSecret: "<value>",
     clientSecret: "<value>",
     clientTextSecret: "<value>",
@@ -1232,8 +1236,8 @@ const value: models.InputEventhub = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 6010.39,
-  autoCommitThreshold: 3174.01,
+  autoCommitInterval: 5448.32,
+  autoCommitThreshold: 5569.57,
   metadata: [
     {
       name: "<value>",
@@ -1241,7 +1245,7 @@ const value: models.InputEventhub = {
     },
   ],
   description:
-    "wonderfully broadcast to questionable upward haul preheat nutritious",
+    "questionable upward haul preheat nutritious since even so silently",
 };
 ```
 
@@ -1520,8 +1524,8 @@ const value: models.InputCriblLakeHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1532,8 +1536,7 @@ const value: models.InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description:
-        "even athwart after lively creator apud hold pish whenever woot",
+      description: "swear aw angrily yearningly ferociously vet trusting yum",
       metadata: [
         {
           name: "<value>",
@@ -1544,12 +1547,12 @@ const value: models.InputCriblLakeHttp = {
         enabled: true,
       },
       elasticsearchMetadata: {
-        enabled: true,
+        enabled: false,
       },
     },
   ],
   description:
-    "after whoever castanet gosh bludgeon fabricate gee incidentally",
+    "deceivingly unwilling boohoo guest obnoxiously forenenst blossom satirise before",
 };
 ```
 
@@ -1629,16 +1632,13 @@ const value: models.InputSystemMetrics = {
         devices: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
         mountpoints: [
           "<value 1>",
-          "<value 2>",
         ],
         fstypes: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
       },
     },
@@ -1654,6 +1654,7 @@ const value: models.InputSystemMetrics = {
   container: {
     dockerSocket: [
       "<value 1>",
+      "<value 2>",
     ],
     filters: [
       {
@@ -1668,7 +1669,8 @@ const value: models.InputSystemMetrics = {
     },
   ],
   persistence: {},
-  description: "but greatly see thyme",
+  description:
+    "per airbus supposing joint while apropos powerfully that instantly",
 };
 ```
 
@@ -2663,8 +2665,8 @@ const value: models.InputTcp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -2674,17 +2676,15 @@ const value: models.InputTcp = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
   preprocess: {
     command: "<value>",
     args: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
-  description: "license abseil zowie er insignificant",
+  description: "cheerful daily knowledgeably likewise everlasting",
   textSecret: "<value>",
 };
 ```
@@ -2904,7 +2904,8 @@ const value: models.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "yahoo uh-huh dirty behind manner",
+      description:
+        "consequently uh-huh massage zowie atop finally abaft quaintly place more",
     },
   ],
   maxAgeDur: "<value>",
@@ -2914,7 +2915,7 @@ const value: models.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "honored given shoulder why cheerful",
+  description: "yahoo uh-huh dirty behind manner",
 };
 ```
 
@@ -2950,13 +2951,12 @@ const value: models.InputWiz = {
   ],
   retryRules: {
     codes: [
-      718.38,
-      8167.55,
-      3424.31,
+      5668.03,
+      2663.29,
+      2735.91,
     ],
   },
-  description:
-    "masquerade overcook thump pro towards rawhide aha forearm irritably",
+  description: "psst parsnip schlep cluttered off next",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

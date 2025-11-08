@@ -27,7 +27,7 @@ export class Sources extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.ListInputResponse> {
+  ): Promise<models.CountedInput> {
     return unwrapAsync(sourcesList(
       this,
       options,
@@ -43,7 +43,7 @@ export class Sources extends ClientSDK {
   async create(
     request: models.Input,
     options?: RequestOptions,
-  ): Promise<operations.CreateInputResponse> {
+  ): Promise<models.CountedInput> {
     return unwrapAsync(sourcesCreate(
       this,
       request,
@@ -60,7 +60,7 @@ export class Sources extends ClientSDK {
   async get(
     request: operations.GetInputByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetInputByIdResponse> {
+  ): Promise<models.CountedInput> {
     return unwrapAsync(sourcesGet(
       this,
       request,
@@ -77,7 +77,7 @@ export class Sources extends ClientSDK {
   async update(
     request: operations.UpdateInputByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateInputByIdResponse> {
+  ): Promise<models.CountedInput> {
     return unwrapAsync(sourcesUpdate(
       this,
       request,
@@ -94,7 +94,7 @@ export class Sources extends ClientSDK {
   async delete(
     request: operations.DeleteInputByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteInputByIdResponse> {
+  ): Promise<models.CountedInput> {
     return unwrapAsync(sourcesDelete(
       this,
       request,

@@ -38,8 +38,8 @@ let value: OutputElasticCloud = {
     },
   ],
   auth: {
-    username: "Kylie_Harber15",
-    password: "72uE6zafEeRm9Ny",
+    username: "Jayde69",
+    password: "IRi6u29iGkmGCiq",
     credentialsSecret: "<value>",
     manualAPIKey: "<value>",
     textSecret: "<value>",
@@ -47,11 +47,12 @@ let value: OutputElasticCloud = {
   elasticPipeline: "<value>",
   responseRetrySettings: [
     {
-      httpStatus: 4676.21,
+      httpStatus: 9904.08,
     },
   ],
   timeoutRetrySettings: {},
-  description: "cheerfully arrange lest circa yet quirkily",
+  description:
+    "blacken uncomfortable pro downshift frenetically atop while though",
   pqControls: {},
 };
 ```

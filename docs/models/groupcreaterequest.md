@@ -7,7 +7,7 @@ import { GroupCreateRequest } from "cribl-control-plane/models";
 
 let value: GroupCreateRequest = {
   cloud: {
-    provider: "aws",
+    provider: "azure",
     region: "<value>",
   },
   deployingWorkerCount: 9605.52,
@@ -16,12 +16,12 @@ let value: GroupCreateRequest = {
   estimatedIngestRate: 5120,
   git: {
     commit: "<value>",
-    localChanges: 4323.13,
+    localChanges: 5624.35,
     log: [
       {
         authorEmail: "<value>",
         authorName: "<value>",
-        date: "2024-12-24",
+        date: "2024-12-12",
         hash: "<value>",
         message: "<value>",
         short: "<value>",
@@ -29,10 +29,10 @@ let value: GroupCreateRequest = {
     ],
   },
   id: "<id>",
-  incompatibleWorkerCount: 5624.35,
+  incompatibleWorkerCount: 9063.01,
   inherits: "<value>",
   isFleet: false,
-  isSearch: false,
+  isSearch: true,
   lookupDeployments: [
     {
       context: "<value>",
@@ -47,17 +47,19 @@ let value: GroupCreateRequest = {
   ],
   maxWorkerAge: "<value>",
   name: "<value>",
-  onPrem: true,
-  provisioned: false,
+  onPrem: false,
+  provisioned: true,
   sourceGroupId: "<id>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   tags: "<value>",
   type: "riptide",
   upgradeVersion: "<value>",
-  workerCount: 6662.65,
-  workerRemoteAccess: true,
+  workerCount: 2070.7,
+  workerRemoteAccess: false,
 };
 ```
 

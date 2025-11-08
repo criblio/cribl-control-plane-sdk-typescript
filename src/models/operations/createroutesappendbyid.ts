@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateRoutesAppendByIdRequest = {
@@ -18,17 +15,6 @@ export type CreateRoutesAppendByIdRequest = {
    * RouteDefinitions object
    */
   requestBody: Array<models.RouteConf>;
-};
-
-/**
- * a list of Routes objects
- */
-export type CreateRoutesAppendByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Routes> | undefined;
 };
 
 /** @internal */
@@ -58,25 +44,5 @@ export function createRoutesAppendByIdRequestToJSON(
     CreateRoutesAppendByIdRequest$outboundSchema.parse(
       createRoutesAppendByIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const CreateRoutesAppendByIdResponse$inboundSchema: z.ZodType<
-  CreateRoutesAppendByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Routes$inboundSchema).optional(),
-});
-
-export function createRoutesAppendByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateRoutesAppendByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateRoutesAppendByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateRoutesAppendByIdResponse' from JSON`,
   );
 }

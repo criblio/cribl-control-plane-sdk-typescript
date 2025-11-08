@@ -9,7 +9,7 @@ let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
     id: "<id>",
-    type: "wiz",
+    type: "http_raw",
     disabled: false,
     pipeline: "<value>",
     sendToRoutes: true,
@@ -36,46 +36,68 @@ let value: UpdateInputByIdRequest = {
       compress: "none",
       pqControls: {},
     },
-    endpoint: "https://api.<region>.app.wiz.io/graphql",
-    authUrl: "https://lost-republican.net/",
-    authAudienceOverride: "<value>",
-    clientId: "<id>",
-    contentConfig: [
-      {
-        contentType: "<value>",
-        contentDescription: "<value>",
-        enabled: false,
-      },
+    host: "0.0.0.0",
+    port: 3387.87,
+    authTokens: [
+      "<value 1>",
+      "<value 2>",
     ],
-    requestTimeout: 300,
-    keepAliveTime: 30,
-    maxMissedKeepAlives: 3,
-    ttl: "4h",
-    ignoreGroupJobsLimit: false,
+    tls: {
+      disabled: true,
+      requestCert: false,
+      rejectUnauthorized: true,
+      commonNameRegex: "/.*/",
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1",
+      maxVersion: "TLSv1.1",
+    },
+    maxActiveReq: 256,
+    maxRequestsPerSocket: 0,
+    enableProxyHeader: false,
+    captureHeaders: false,
+    activityLogSampleRate: 100,
+    requestTimeout: 0,
+    socketTimeout: 0,
+    keepAliveTimeout: 5,
+    enableHealthCheck: false,
+    ipAllowlistRegex: "/.*/",
+    ipDenylistRegex: "/^$/",
+    breakerRulesets: [
+      "<value 1>",
+    ],
+    staleChannelFlushMs: 10000,
     metadata: [
       {
         name: "<value>",
         value: "<value>",
       },
     ],
-    retryRules: {
-      type: "backoff",
-      interval: 1000,
-      limit: 5,
-      multiplier: 2,
-      codes: [
-        718.38,
-        8167.55,
-        3424.31,
-      ],
-      enableHeader: true,
-      retryConnectTimeout: false,
-      retryConnectReset: false,
-    },
-    authType: "manual",
-    description: "whereas role painfully fooey commonly",
-    clientSecret: "<value>",
-    textSecret: "<value>",
+    allowedPaths: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    allowedMethods: [
+      "<value 1>",
+    ],
+    authTokensExt: [
+      {
+        token: "<value>",
+        description:
+          "quaintly concentration very incomparable stale sidetrack incidentally freight er against",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+      },
+    ],
+    description:
+      "mockingly hygienic hm deplore thoughtfully firm yet anenst round",
   },
 };
 ```
