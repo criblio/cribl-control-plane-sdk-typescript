@@ -8,7 +8,7 @@ import { HBCriblInfo } from "cribl-control-plane/models";
 let value: HBCriblInfo = {
   config: {
     featuresRev: "<value>",
-    hbPeriodSeconds: 3261.24,
+    hbPeriodSeconds: 8719.43,
     logStreamEnv: "<value>",
     policyRev: "<value>",
     version: "<value>",
@@ -22,10 +22,10 @@ let value: HBCriblInfo = {
   installType: "<value>",
   lookupVersions: {},
   master: {
-    host: "frequent-bell.info",
-    port: 9100.63,
+    host: "bitter-poetry.net",
+    port: 4320.82,
     servername: "<value>",
-    tls: true,
+    tls: false,
   },
   pid: 8614.45,
   socksEnabled: true,

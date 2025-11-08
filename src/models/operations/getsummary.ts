@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetSummaryRequest = {
@@ -13,17 +10,6 @@ export type GetSummaryRequest = {
    * Filter for limiting the response by Cribl product: Cribl Stream (<code>worker</code>) or Cribl Edge (<code>managed-edge</code>).
    */
   mode?: models.WorkerTypes | undefined;
-};
-
-/**
- * a list of DistributedSummary objects
- */
-export type GetSummaryResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.DistributedSummary> | undefined;
 };
 
 /** @internal */
@@ -45,25 +31,5 @@ export function getSummaryRequestToJSON(
 ): string {
   return JSON.stringify(
     GetSummaryRequest$outboundSchema.parse(getSummaryRequest),
-  );
-}
-
-/** @internal */
-export const GetSummaryResponse$inboundSchema: z.ZodType<
-  GetSummaryResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.DistributedSummary$inboundSchema).optional(),
-});
-
-export function getSummaryResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSummaryResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSummaryResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSummaryResponse' from JSON`,
   );
 }

@@ -73,7 +73,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionInfoResponse](../../models/operations/getversioninforesponse.md)\>**
+**Promise\<[models.CountedGitInfo](../../models/countedgitinfo.md)\>**
 
 ### Errors
 

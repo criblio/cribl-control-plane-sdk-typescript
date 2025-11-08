@@ -5,6 +5,7 @@
 import { destinationsSamplesCreate } from "../funcs/destinationsSamplesCreate.js";
 import { destinationsSamplesGet } from "../funcs/destinationsSamplesGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,7 +19,7 @@ export class Samples extends ClientSDK {
   async get(
     request: operations.GetOutputSamplesByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetOutputSamplesByIdResponse> {
+  ): Promise<models.CountedOutputSamplesResponse> {
     return unwrapAsync(destinationsSamplesGet(
       this,
       request,
@@ -35,7 +36,7 @@ export class Samples extends ClientSDK {
   async create(
     request: operations.CreateOutputTestByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateOutputTestByIdResponse> {
+  ): Promise<models.CountedOutputTestResponse> {
     return unwrapAsync(destinationsSamplesCreate(
       this,
       request,
