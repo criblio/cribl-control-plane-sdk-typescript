@@ -95,7 +95,7 @@ async function replicateWorkerGroup(client: CriblControlPlane, sourceId: string)
     // Prepare the replica payload
     const replica = {
       product: 'stream' as const,
-      configGroup: {
+      groupCreateRequest: {
         ...replicableConfig,
         id: replicaId,
         name: replicaName,
