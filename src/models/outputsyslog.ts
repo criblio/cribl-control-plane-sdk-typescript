@@ -439,6 +439,10 @@ export type OutputSyslog = {
    */
   udpDnsResolvePeriodSec?: number | undefined;
   /**
+   * Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
+  /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
   pqStrictOrdering?: boolean | undefined;
@@ -920,6 +924,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   ),
   maxRecordSize: z.number().default(1500),
   udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
   pqMode: OutputSyslogMode$inboundSchema.default("error"),
@@ -966,6 +971,7 @@ export type OutputSyslog$Outbound = {
   onBackpressure: string;
   maxRecordSize: number;
   udpDnsResolvePeriodSec: number;
+  enableIpSpoofing: boolean;
   pqStrictOrdering: boolean;
   pqRatePerSec: number;
   pqMode: string;
@@ -1018,6 +1024,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   ),
   maxRecordSize: z.number().default(1500),
   udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
   pqMode: OutputSyslogMode$outboundSchema.default("error"),
