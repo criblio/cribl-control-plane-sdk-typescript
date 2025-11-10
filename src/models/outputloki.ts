@@ -6,163 +6,113 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import {
   catchUnrecognizedEnum,
-  ClosedEnum,
   OpenEnum,
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MessageFormatOptions,
+  MessageFormatOptions$inboundSchema,
+  MessageFormatOptions$outboundSchema,
+} from "./messageformatoptions.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
+import {
+  TypeLokiOption,
+  TypeLokiOption$inboundSchema,
+  TypeLokiOption$outboundSchema,
+} from "./typelokioption.js";
 
-export const OutputLokiType = {
-  Loki: "loki",
-} as const;
-export type OutputLokiType = ClosedEnum<typeof OutputLokiType>;
-
-/**
- * Format to use when sending logs to Loki (Protobuf or JSON)
- */
-export const OutputLokiMessageFormat = {
-  Protobuf: "protobuf",
-  Json: "json",
-} as const;
-/**
- * Format to use when sending logs to Loki (Protobuf or JSON)
- */
-export type OutputLokiMessageFormat = OpenEnum<typeof OutputLokiMessageFormat>;
-
-export type OutputLokiLabel = {
-  name?: string | undefined;
-  value: string;
-};
-
-export const OutputLokiAuthenticationType = {
+export const OutputLokiAuthenticationType9 = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Auth token
+   */
   Token: "token",
+  /**
+   * Auth token (text secret)
+   */
   TextSecret: "textSecret",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
 } as const;
-export type OutputLokiAuthenticationType = OpenEnum<
-  typeof OutputLokiAuthenticationType
+export type OutputLokiAuthenticationType9 = OpenEnum<
+  typeof OutputLokiAuthenticationType9
 >;
 
-export type OutputLokiExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputLokiFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputLokiFailedRequestLoggingMode = OpenEnum<
-  typeof OutputLokiFailedRequestLoggingMode
->;
-
-export type OutputLokiResponseRetrySetting = {
+export type OutputLokiLoki9 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * How to handle events when all receivers are exerting backpressure
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputLokiTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputLokiBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputLokiBackpressureBehavior = OpenEnum<
-  typeof OutputLokiBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputLokiCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputLokiCompression = OpenEnum<typeof OutputLokiCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputLokiQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputLokiQueueFullBehavior = OpenEnum<
-  typeof OutputLokiQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputLokiMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputLokiMode = OpenEnum<typeof OutputLokiMode>;
-
-export type OutputLokiPqControls = {};
-
-export type OutputLoki = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputLokiType;
+  type: TypeLokiOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -190,12 +140,12 @@ export type OutputLoki = {
   /**
    * Format to use when sending logs to Loki (Protobuf or JSON)
    */
-  messageFormat?: OutputLokiMessageFormat | undefined;
+  messageFormat?: MessageFormatOptions | undefined;
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<OutputLokiLabel> | undefined;
-  authType?: OutputLokiAuthenticationType | undefined;
+  labels?: Array<Metadata1Type> | undefined;
+  authType?: OutputLokiAuthenticationType9 | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
    */
@@ -227,7 +177,7 @@ export type OutputLoki = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputLokiExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -235,7 +185,7 @@ export type OutputLoki = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputLokiFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -243,8 +193,8 @@ export type OutputLoki = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputLokiResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputLokiTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -253,10 +203,6 @@ export type OutputLoki = {
    * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
    */
   enableDynamicHeaders?: boolean | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputLokiBackpressureBehavior | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -287,6 +233,26 @@ export type OutputLoki = {
    */
   credentialsSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -301,593 +267,1663 @@ export type OutputLoki = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputLokiCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputLokiQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputLokiAuthenticationType8 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Auth token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+} as const;
+export type OutputLokiAuthenticationType8 = OpenEnum<
+  typeof OutputLokiAuthenticationType8
+>;
+
+export type OutputLokiLoki8 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeLokiOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<Metadata1Type> | undefined;
+  authType?: OutputLokiAuthenticationType8 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Username for authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputLokiMode | undefined;
-  pqControls?: OutputLokiPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputLokiType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputLokiType
-> = z.nativeEnum(OutputLokiType);
+export const OutputLokiAuthenticationType7 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Auth token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+} as const;
+export type OutputLokiAuthenticationType7 = OpenEnum<
+  typeof OutputLokiAuthenticationType7
+>;
 
-/** @internal */
-export const OutputLokiType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputLokiType
-> = OutputLokiType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiType$ {
-  /** @deprecated use `OutputLokiType$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiType$inboundSchema;
-  /** @deprecated use `OutputLokiType$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiType$outboundSchema;
-}
-
-/** @internal */
-export const OutputLokiMessageFormat$inboundSchema: z.ZodType<
-  OutputLokiMessageFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiMessageFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputLokiMessageFormat$outboundSchema: z.ZodType<
-  OutputLokiMessageFormat,
-  z.ZodTypeDef,
-  OutputLokiMessageFormat
-> = z.union([
-  z.nativeEnum(OutputLokiMessageFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiMessageFormat$ {
-  /** @deprecated use `OutputLokiMessageFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiMessageFormat$inboundSchema;
-  /** @deprecated use `OutputLokiMessageFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiMessageFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputLokiLabel$inboundSchema: z.ZodType<
-  OutputLokiLabel,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().default(""),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputLokiLabel$Outbound = {
-  name: string;
-  value: string;
+export type OutputLokiLoki7 = {
+  authType?: OutputLokiAuthenticationType7 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeLokiOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Username for authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputLokiLabel$outboundSchema: z.ZodType<
-  OutputLokiLabel$Outbound,
-  z.ZodTypeDef,
-  OutputLokiLabel
-> = z.object({
-  name: z.string().default(""),
-  value: z.string(),
-});
+export const OutputLokiAuthenticationType6 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Auth token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+} as const;
+export type OutputLokiAuthenticationType6 = OpenEnum<
+  typeof OutputLokiAuthenticationType6
+>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiLabel$ {
-  /** @deprecated use `OutputLokiLabel$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiLabel$inboundSchema;
-  /** @deprecated use `OutputLokiLabel$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiLabel$outboundSchema;
-  /** @deprecated use `OutputLokiLabel$Outbound` instead. */
-  export type Outbound = OutputLokiLabel$Outbound;
-}
-
-export function outputLokiLabelToJSON(
-  outputLokiLabel: OutputLokiLabel,
-): string {
-  return JSON.stringify(OutputLokiLabel$outboundSchema.parse(outputLokiLabel));
-}
-
-export function outputLokiLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiLabel' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputLokiAuthenticationType$inboundSchema: z.ZodType<
-  OutputLokiAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputLokiAuthenticationType$outboundSchema: z.ZodType<
-  OutputLokiAuthenticationType,
-  z.ZodTypeDef,
-  OutputLokiAuthenticationType
-> = z.union([
-  z.nativeEnum(OutputLokiAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiAuthenticationType$ {
-  /** @deprecated use `OutputLokiAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiAuthenticationType$inboundSchema;
-  /** @deprecated use `OutputLokiAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiAuthenticationType$outboundSchema;
-}
-
-/** @internal */
-export const OutputLokiExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputLokiExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputLokiExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputLokiLoki6 = {
+  authType?: OutputLokiAuthenticationType6 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeLokiOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Username for authentication
+   */
+  username: string;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password: string;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputLokiExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputLokiExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputLokiExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+export const OutputLokiAuthenticationType5 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Auth token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+} as const;
+export type OutputLokiAuthenticationType5 = OpenEnum<
+  typeof OutputLokiAuthenticationType5
+>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiExtraHttpHeader$ {
-  /** @deprecated use `OutputLokiExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputLokiExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputLokiExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputLokiExtraHttpHeader$Outbound;
-}
-
-export function outputLokiExtraHttpHeaderToJSON(
-  outputLokiExtraHttpHeader: OutputLokiExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputLokiExtraHttpHeader$outboundSchema.parse(outputLokiExtraHttpHeader),
-  );
-}
-
-export function outputLokiExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputLokiFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputLokiFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputLokiFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputLokiFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputLokiFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputLokiFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputLokiFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputLokiFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputLokiFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputLokiResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputLokiResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputLokiResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputLokiLoki5 = {
+  authType?: OutputLokiAuthenticationType5 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeLokiOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * Username for authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputLokiResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputLokiResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputLokiResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
+export const OutputLokiAuthenticationType4 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Auth token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+} as const;
+export type OutputLokiAuthenticationType4 = OpenEnum<
+  typeof OutputLokiAuthenticationType4
+>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiResponseRetrySetting$ {
-  /** @deprecated use `OutputLokiResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputLokiResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputLokiResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputLokiResponseRetrySetting$Outbound;
-}
-
-export function outputLokiResponseRetrySettingToJSON(
-  outputLokiResponseRetrySetting: OutputLokiResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputLokiResponseRetrySetting$outboundSchema.parse(
-      outputLokiResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputLokiResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputLokiTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputLokiTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputLokiTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputLokiLoki4 = {
+  authType?: OutputLokiAuthenticationType4 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeLokiOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Username for authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
+export const OutputLokiAuthenticationType3 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Auth token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+} as const;
+export type OutputLokiAuthenticationType3 = OpenEnum<
+  typeof OutputLokiAuthenticationType3
+>;
+
+export type OutputLokiLoki3 = {
+  authType?: OutputLokiAuthenticationType3 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeLokiOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Username for authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputLokiAuthenticationType2 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Auth token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+} as const;
+export type OutputLokiAuthenticationType2 = OpenEnum<
+  typeof OutputLokiAuthenticationType2
+>;
+
+export type OutputLokiLoki2 = {
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: MessageFormatOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeLokiOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<Metadata1Type> | undefined;
+  authType?: OutputLokiAuthenticationType2 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Username for authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputLokiAuthenticationType1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Auth token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+} as const;
+export type OutputLokiAuthenticationType1 = OpenEnum<
+  typeof OutputLokiAuthenticationType1
+>;
+
+export type OutputLokiLoki1 = {
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: MessageFormatOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeLokiOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<Metadata1Type> | undefined;
+  authType?: OutputLokiAuthenticationType1 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Username for authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputLoki =
+  | OutputLokiLoki6
+  | OutputLokiLoki4
+  | OutputLokiLoki5
+  | OutputLokiLoki7
+  | OutputLokiLoki9
+  | OutputLokiLoki1
+  | OutputLokiLoki2
+  | OutputLokiLoki3
+  | OutputLokiLoki8;
+
 /** @internal */
-export const OutputLokiTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputLokiTimeoutRetrySettings$Outbound,
+export const OutputLokiAuthenticationType9$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType9,
   z.ZodTypeDef,
-  OutputLokiTimeoutRetrySettings
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType9$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType9,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType9
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki9$inboundSchema: z.ZodType<
+  OutputLokiLoki9,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiTimeoutRetrySettings$ {
-  /** @deprecated use `OutputLokiTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputLokiTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputLokiTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputLokiTimeoutRetrySettings$Outbound;
-}
-
-export function outputLokiTimeoutRetrySettingsToJSON(
-  outputLokiTimeoutRetrySettings: OutputLokiTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputLokiTimeoutRetrySettings$outboundSchema.parse(
-      outputLokiTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputLokiTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputLokiBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputLokiBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputLokiBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputLokiBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputLokiBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputLokiBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiBackpressureBehavior$ {
-  /** @deprecated use `OutputLokiBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputLokiBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputLokiCompression$inboundSchema: z.ZodType<
-  OutputLokiCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputLokiCompression$outboundSchema: z.ZodType<
-  OutputLokiCompression,
-  z.ZodTypeDef,
-  OutputLokiCompression
-> = z.union([
-  z.nativeEnum(OutputLokiCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiCompression$ {
-  /** @deprecated use `OutputLokiCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiCompression$inboundSchema;
-  /** @deprecated use `OutputLokiCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputLokiQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputLokiQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputLokiQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputLokiQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputLokiQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputLokiQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiQueueFullBehavior$ {
-  /** @deprecated use `OutputLokiQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputLokiQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputLokiMode$inboundSchema: z.ZodType<
-  OutputLokiMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputLokiMode$outboundSchema: z.ZodType<
-  OutputLokiMode,
-  z.ZodTypeDef,
-  OutputLokiMode
-> = z.union([
-  z.nativeEnum(OutputLokiMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiMode$ {
-  /** @deprecated use `OutputLokiMode$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiMode$inboundSchema;
-  /** @deprecated use `OutputLokiMode$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputLokiPqControls$inboundSchema: z.ZodType<
-  OutputLokiPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputLokiPqControls$Outbound = {};
-
-/** @internal */
-export const OutputLokiPqControls$outboundSchema: z.ZodType<
-  OutputLokiPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputLokiPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLokiPqControls$ {
-  /** @deprecated use `OutputLokiPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputLokiPqControls$inboundSchema;
-  /** @deprecated use `OutputLokiPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputLokiPqControls$outboundSchema;
-  /** @deprecated use `OutputLokiPqControls$Outbound` instead. */
-  export type Outbound = OutputLokiPqControls$Outbound;
-}
-
-export function outputLokiPqControlsToJSON(
-  outputLokiPqControls: OutputLokiPqControls,
-): string {
-  return JSON.stringify(
-    OutputLokiPqControls$outboundSchema.parse(outputLokiPqControls),
-  );
-}
-
-export function outputLokiPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputLokiPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputLokiPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputLokiPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputLoki$inboundSchema: z.ZodType<
-  OutputLoki,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputLokiType$inboundSchema,
+  type: TypeLokiOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   message: z.string().optional(),
-  messageFormat: OutputLokiMessageFormat$inboundSchema.default("protobuf"),
-  labels: z.array(z.lazy(() => OutputLokiLabel$inboundSchema)).optional(),
-  authType: OutputLokiAuthenticationType$inboundSchema.default("none"),
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  authType: OutputLokiAuthenticationType9$inboundSchema.default("none"),
   concurrency: z.number().default(1),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(15),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputLokiExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputLokiFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputLokiResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputLokiTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
   enableDynamicHeaders: z.boolean().default(false),
-  onBackpressure: OutputLokiBackpressureBehavior$inboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   compress: z.boolean().default(true),
@@ -896,17 +1932,21 @@ export const OutputLoki$inboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputLokiCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputLokiQueueFullBehavior$inboundSchema.default("block"),
-  pqMode: OutputLokiMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputLokiPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputLoki$Outbound = {
+export type OutputLokiLoki9$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -916,7 +1956,7 @@ export type OutputLoki$Outbound = {
   url: string;
   message?: string | undefined;
   messageFormat: string;
-  labels?: Array<OutputLokiLabel$Outbound> | undefined;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
   authType: string;
   concurrency: number;
   maxPayloadSizeKB: number;
@@ -924,14 +1964,1169 @@ export type OutputLoki$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputLokiExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputLokiResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?: OutputLokiTimeoutRetrySettings$Outbound | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress: boolean;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+};
+
+/** @internal */
+export const OutputLokiLoki9$outboundSchema: z.ZodType<
+  OutputLokiLoki9$Outbound,
+  z.ZodTypeDef,
+  OutputLokiLoki9
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeLokiOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
+  authType: OutputLokiAuthenticationType9$outboundSchema.default("none"),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
+});
+
+export function outputLokiLoki9ToJSON(
+  outputLokiLoki9: OutputLokiLoki9,
+): string {
+  return JSON.stringify(OutputLokiLoki9$outboundSchema.parse(outputLokiLoki9));
+}
+export function outputLokiLoki9FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLokiAuthenticationType8$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType8$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType8,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType8
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki8$inboundSchema: z.ZodType<
+  OutputLokiLoki8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeLokiOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  authType: OutputLokiAuthenticationType8$inboundSchema.default("none"),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputLokiLoki8$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  messageFormat: string;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
+  authType: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress: boolean;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputLokiLoki8$outboundSchema: z.ZodType<
+  OutputLokiLoki8$Outbound,
+  z.ZodTypeDef,
+  OutputLokiLoki8
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeLokiOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
+  authType: OutputLokiAuthenticationType8$outboundSchema.default("none"),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputLokiLoki8ToJSON(
+  outputLokiLoki8: OutputLokiLoki8,
+): string {
+  return JSON.stringify(OutputLokiLoki8$outboundSchema.parse(outputLokiLoki8));
+}
+export function outputLokiLoki8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLokiAuthenticationType7$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType7$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType7,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType7
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki7$inboundSchema: z.ZodType<
+  OutputLokiLoki7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: OutputLokiAuthenticationType7$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputLokiLoki7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  messageFormat: string;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress: boolean;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputLokiLoki7$outboundSchema: z.ZodType<
+  OutputLokiLoki7$Outbound,
+  z.ZodTypeDef,
+  OutputLokiLoki7
+> = z.object({
+  authType: OutputLokiAuthenticationType7$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputLokiLoki7ToJSON(
+  outputLokiLoki7: OutputLokiLoki7,
+): string {
+  return JSON.stringify(OutputLokiLoki7$outboundSchema.parse(outputLokiLoki7));
+}
+export function outputLokiLoki7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLokiAuthenticationType6$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType6$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType6,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType6
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki6$inboundSchema: z.ZodType<
+  OutputLokiLoki6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: OutputLokiAuthenticationType6$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputLokiLoki6$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  messageFormat: string;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress: boolean;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  username: string;
+  password: string;
+  credentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputLokiLoki6$outboundSchema: z.ZodType<
+  OutputLokiLoki6$Outbound,
+  z.ZodTypeDef,
+  OutputLokiLoki6
+> = z.object({
+  authType: OutputLokiAuthenticationType6$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputLokiLoki6ToJSON(
+  outputLokiLoki6: OutputLokiLoki6,
+): string {
+  return JSON.stringify(OutputLokiLoki6$outboundSchema.parse(outputLokiLoki6));
+}
+export function outputLokiLoki6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLokiAuthenticationType5$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType5$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType5,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType5
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki5$inboundSchema: z.ZodType<
+  OutputLokiLoki5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: OutputLokiAuthenticationType5$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputLokiLoki5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  messageFormat: string;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress: boolean;
+  token?: string | undefined;
+  textSecret: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputLokiLoki5$outboundSchema: z.ZodType<
+  OutputLokiLoki5$Outbound,
+  z.ZodTypeDef,
+  OutputLokiLoki5
+> = z.object({
+  authType: OutputLokiAuthenticationType5$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputLokiLoki5ToJSON(
+  outputLokiLoki5: OutputLokiLoki5,
+): string {
+  return JSON.stringify(OutputLokiLoki5$outboundSchema.parse(outputLokiLoki5));
+}
+export function outputLokiLoki5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLokiAuthenticationType4$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType4$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType4,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType4
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki4$inboundSchema: z.ZodType<
+  OutputLokiLoki4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: OutputLokiAuthenticationType4$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputLokiLoki4$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  messageFormat: string;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress: boolean;
+  token: string;
+  textSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputLokiLoki4$outboundSchema: z.ZodType<
+  OutputLokiLoki4$Outbound,
+  z.ZodTypeDef,
+  OutputLokiLoki4
+> = z.object({
+  authType: OutputLokiAuthenticationType4$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputLokiLoki4ToJSON(
+  outputLokiLoki4: OutputLokiLoki4,
+): string {
+  return JSON.stringify(OutputLokiLoki4$outboundSchema.parse(outputLokiLoki4));
+}
+export function outputLokiLoki4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLokiAuthenticationType3$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType3$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType3,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType3
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki3$inboundSchema: z.ZodType<
+  OutputLokiLoki3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: OutputLokiAuthenticationType3$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeLokiOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputLokiLoki3$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  messageFormat: string;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   enableDynamicHeaders: boolean;
   onBackpressure: string;
@@ -943,56 +3138,53 @@ export type OutputLoki$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputLokiPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputLoki$outboundSchema: z.ZodType<
-  OutputLoki$Outbound,
+export const OutputLokiLoki3$outboundSchema: z.ZodType<
+  OutputLokiLoki3$Outbound,
   z.ZodTypeDef,
-  OutputLoki
+  OutputLokiLoki3
 > = z.object({
+  authType: OutputLokiAuthenticationType3$outboundSchema.default("none"),
   id: z.string().optional(),
-  type: OutputLokiType$outboundSchema,
+  type: TypeLokiOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   message: z.string().optional(),
-  messageFormat: OutputLokiMessageFormat$outboundSchema.default("protobuf"),
-  labels: z.array(z.lazy(() => OutputLokiLabel$outboundSchema)).optional(),
-  authType: OutputLokiAuthenticationType$outboundSchema.default("none"),
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
   concurrency: z.number().default(1),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(15),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputLokiExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputLokiFailedRequestLoggingMode$outboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputLokiResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputLokiTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
   enableDynamicHeaders: z.boolean().default(false),
-  onBackpressure: OutputLokiBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   compress: z.boolean().default(true),
@@ -1001,32 +3193,468 @@ export const OutputLoki$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputLokiCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputLokiQueueFullBehavior$outboundSchema.default("block"),
-  pqMode: OutputLokiMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputLokiPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputLoki$ {
-  /** @deprecated use `OutputLoki$inboundSchema` instead. */
-  export const inboundSchema = OutputLoki$inboundSchema;
-  /** @deprecated use `OutputLoki$outboundSchema` instead. */
-  export const outboundSchema = OutputLoki$outboundSchema;
-  /** @deprecated use `OutputLoki$Outbound` instead. */
-  export type Outbound = OutputLoki$Outbound;
+export function outputLokiLoki3ToJSON(
+  outputLokiLoki3: OutputLokiLoki3,
+): string {
+  return JSON.stringify(OutputLokiLoki3$outboundSchema.parse(outputLokiLoki3));
 }
+export function outputLokiLoki3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLokiAuthenticationType2$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType2$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType2,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType2
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki2$inboundSchema: z.ZodType<
+  OutputLokiLoki2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  id: z.string().optional(),
+  type: TypeLokiOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  authType: OutputLokiAuthenticationType2$inboundSchema.default("none"),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputLokiLoki2$Outbound = {
+  messageFormat: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
+  authType: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress: boolean;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputLokiLoki2$outboundSchema: z.ZodType<
+  OutputLokiLoki2$Outbound,
+  z.ZodTypeDef,
+  OutputLokiLoki2
+> = z.object({
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  id: z.string().optional(),
+  type: TypeLokiOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
+  authType: OutputLokiAuthenticationType2$outboundSchema.default("none"),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputLokiLoki2ToJSON(
+  outputLokiLoki2: OutputLokiLoki2,
+): string {
+  return JSON.stringify(OutputLokiLoki2$outboundSchema.parse(outputLokiLoki2));
+}
+export function outputLokiLoki2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLokiAuthenticationType1$inboundSchema: z.ZodType<
+  OutputLokiAuthenticationType1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputLokiAuthenticationType1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputLokiAuthenticationType1$outboundSchema: z.ZodType<
+  OutputLokiAuthenticationType1,
+  z.ZodTypeDef,
+  OutputLokiAuthenticationType1
+> = z.union([
+  z.nativeEnum(OutputLokiAuthenticationType1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputLokiLoki1$inboundSchema: z.ZodType<
+  OutputLokiLoki1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  messageFormat: MessageFormatOptions$inboundSchema.default("protobuf"),
+  id: z.string().optional(),
+  type: TypeLokiOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  labels: z.array(Metadata1Type$inboundSchema).optional(),
+  authType: OutputLokiAuthenticationType1$inboundSchema.default("none"),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputLokiLoki1$Outbound = {
+  messageFormat: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  labels?: Array<Metadata1Type$Outbound> | undefined;
+  authType: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  enableDynamicHeaders: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress: boolean;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputLokiLoki1$outboundSchema: z.ZodType<
+  OutputLokiLoki1$Outbound,
+  z.ZodTypeDef,
+  OutputLokiLoki1
+> = z.object({
+  messageFormat: MessageFormatOptions$outboundSchema.default("protobuf"),
+  id: z.string().optional(),
+  type: TypeLokiOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  labels: z.array(Metadata1Type$outboundSchema).optional(),
+  authType: OutputLokiAuthenticationType1$outboundSchema.default("none"),
+  concurrency: z.number().default(1),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(15),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  enableDynamicHeaders: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().default(true),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputLokiLoki1ToJSON(
+  outputLokiLoki1: OutputLokiLoki1,
+): string {
+  return JSON.stringify(OutputLokiLoki1$outboundSchema.parse(outputLokiLoki1));
+}
+export function outputLokiLoki1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputLokiLoki1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputLokiLoki1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLokiLoki1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputLoki$inboundSchema: z.ZodType<
+  OutputLoki,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputLokiLoki6$inboundSchema),
+  z.lazy(() => OutputLokiLoki4$inboundSchema),
+  z.lazy(() => OutputLokiLoki5$inboundSchema),
+  z.lazy(() => OutputLokiLoki7$inboundSchema),
+  z.lazy(() => OutputLokiLoki9$inboundSchema),
+  z.lazy(() => OutputLokiLoki1$inboundSchema),
+  z.lazy(() => OutputLokiLoki2$inboundSchema),
+  z.lazy(() => OutputLokiLoki3$inboundSchema),
+  z.lazy(() => OutputLokiLoki8$inboundSchema),
+]);
+/** @internal */
+export type OutputLoki$Outbound =
+  | OutputLokiLoki6$Outbound
+  | OutputLokiLoki4$Outbound
+  | OutputLokiLoki5$Outbound
+  | OutputLokiLoki7$Outbound
+  | OutputLokiLoki9$Outbound
+  | OutputLokiLoki1$Outbound
+  | OutputLokiLoki2$Outbound
+  | OutputLokiLoki3$Outbound
+  | OutputLokiLoki8$Outbound;
+
+/** @internal */
+export const OutputLoki$outboundSchema: z.ZodType<
+  OutputLoki$Outbound,
+  z.ZodTypeDef,
+  OutputLoki
+> = z.union([
+  z.lazy(() => OutputLokiLoki6$outboundSchema),
+  z.lazy(() => OutputLokiLoki4$outboundSchema),
+  z.lazy(() => OutputLokiLoki5$outboundSchema),
+  z.lazy(() => OutputLokiLoki7$outboundSchema),
+  z.lazy(() => OutputLokiLoki9$outboundSchema),
+  z.lazy(() => OutputLokiLoki1$outboundSchema),
+  z.lazy(() => OutputLokiLoki2$outboundSchema),
+  z.lazy(() => OutputLokiLoki3$outboundSchema),
+  z.lazy(() => OutputLokiLoki8$outboundSchema),
+]);
 
 export function outputLokiToJSON(outputLoki: OutputLoki): string {
   return JSON.stringify(OutputLoki$outboundSchema.parse(outputLoki));
 }
-
 export function outputLokiFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputLoki, SDKValidationError> {

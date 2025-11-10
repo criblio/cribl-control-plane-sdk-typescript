@@ -11,11 +11,11 @@ Actions related to REST server health
 
 ## get
 
-Retrieve health status of the server
+Get the current health status of the server.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getHealthInfo" method="get" path="/health" -->
+<!-- UsageSnippet language="typescript" operationID="getHealth" method="get" path="/health" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -69,11 +69,12 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetHealthInfoResponse](../../models/operations/gethealthinforesponse.md)\>**
+**Promise\<[models.HealthServerStatus](../../models/healthserverstatus.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.HealthStatusError             | 420                                  | application/json                     |
+| errors.HealthServerStatusError       | 420                                  | application/json                     |
+| errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

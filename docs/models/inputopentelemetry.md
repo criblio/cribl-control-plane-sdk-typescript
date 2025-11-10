@@ -1,11 +1,268 @@
 # InputOpenTelemetry
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputOpenTelemetryOpenTelemetry1`
 
 ```typescript
-import { InputOpenTelemetry } from "cribl-control-plane/models";
+const value: models.InputOpenTelemetryOpenTelemetry1 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "gosh absent unaccountably pish boo slump outbid swathe where mmm",
+  username: "Maymie_Rice",
+  password: "JfooAcZtXuH4lvT",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://giving-devil.net/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
 
-let value: InputOpenTelemetry = {
+### `models.InputOpenTelemetryOpenTelemetry2`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry2 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "urgently free anxiously drat rotating onto popularize within laughter chubby",
+  username: "Therese_Stiedemann8",
+  password: "rRZfl66ePSXSo50",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://equatorial-sesame.net",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry3`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry3 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "forenenst soon disinherit",
+  username: "Clarissa20",
+  password: "TBPoUamloTSjXVs",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://made-up-lift.net/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry4`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry4 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "colorless blank equally probable until till",
+  username: "Braden.Bechtelar84",
+  password: "eNCxZvc6dE_2Fbp",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://wretched-lounge.info/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry5`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry5 = {
   id: "<id>",
   type: "open_telemetry",
   pipeline: "<value>",
@@ -30,10 +287,8 @@ let value: InputOpenTelemetry = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
   enableProxyHeader: "<value>",
   captureHeaders: "<value>",
@@ -44,13 +299,13 @@ let value: InputOpenTelemetry = {
       value: "<value>",
     },
   ],
-  description: "rewrite cow warmly clearly vamoose",
-  username: "Leonard84",
-  password: "0Rl6tiFKwlIZ_hs",
+  description: "whoever huzzah disadvantage vulgarise blindly recklessly",
+  username: "Mara4",
+  password: "7ZFfL99TOUww_22",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://quarterly-flame.org/",
+  loginUrl: "https://limited-ravioli.biz/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -69,53 +324,575 @@ let value: InputOpenTelemetry = {
 };
 ```
 
-## Fields
+### `models.InputOpenTelemetryOpenTelemetry6`
 
-| Field                                                                                                                                                                                                                                                                                                                                   | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Unique ID for this input                                                                                                                                                                                                                                                                                                                |
-| `type`                                                                                                                                                                                                                                                                                                                                  | [models.InputOpenTelemetryType](../models/inputopentelemetrytype.md)                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `disabled`                                                                                                                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `pipeline`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                                                                          |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                                     |
-| `environment`                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                    |
-| `pqEnabled`                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                            |
-| `streamtags`                                                                                                                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                           |
-| `connections`                                                                                                                                                                                                                                                                                                                           | [models.InputOpenTelemetryConnection](../models/inputopentelemetryconnection.md)[]                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                             |
-| `pq`                                                                                                                                                                                                                                                                                                                                    | [models.InputOpenTelemetryPq](../models/inputopentelemetrypq.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `host`                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                                                                                                                |
-| `port`                                                                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Port to listen on                                                                                                                                                                                                                                                                                                                       |
-| `tls`                                                                                                                                                                                                                                                                                                                                   | [models.InputOpenTelemetryTLSSettingsServerSide](../models/inputopentelemetrytlssettingsserverside.md)                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `maxActiveReq`                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                                                                                                                 |
-| `maxRequestsPerSocket`                                                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).                                                                                                                                                                                                         |
-| `enableProxyHeader`                                                                                                                                                                                                                                                                                                                     | *any*                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `captureHeaders`                                                                                                                                                                                                                                                                                                                        | *any*                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `activityLogSampleRate`                                                                                                                                                                                                                                                                                                                 | *any*                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `requestTimeout`                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | How long to wait for an incoming request to complete before aborting it. Use 0 to disable.                                                                                                                                                                                                                                              |
-| `socketTimeout`                                                                                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.                                                                                                                                                                                                                       |
-| `keepAliveTimeout`                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).                                                                                                                                                                   |
-| `enableHealthCheck`                                                                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy                                                                                                                                                                                                                                           |
-| `ipAllowlistRegex`                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Messages from matched IP addresses will be processed, unless also matched by the denylist.                                                                                                                                                                                                                                              |
-| `ipDenylistRegex`                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                                                                                                           |
-| `protocol`                                                                                                                                                                                                                                                                                                                              | [models.InputOpenTelemetryProtocol](../models/inputopentelemetryprotocol.md)                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Select whether to leverage gRPC or HTTP for OpenTelemetry                                                                                                                                                                                                                                                                               |
-| `extractSpans`                                                                                                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Enable to extract each incoming span to a separate event                                                                                                                                                                                                                                                                                |
-| `extractMetrics`                                                                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point                                                                                                                                                                                                                                         |
-| `otlpVersion`                                                                                                                                                                                                                                                                                                                           | [models.InputOpenTelemetryOTLPVersion](../models/inputopentelemetryotlpversion.md)                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | The version of OTLP Protobuf definitions to use when interpreting received data                                                                                                                                                                                                                                                         |
-| `authType`                                                                                                                                                                                                                                                                                                                              | [models.InputOpenTelemetryAuthenticationType](../models/inputopentelemetryauthenticationtype.md)                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | OpenTelemetry authentication type                                                                                                                                                                                                                                                                                                       |
-| `metadata`                                                                                                                                                                                                                                                                                                                              | [models.InputOpenTelemetryMetadatum](../models/inputopentelemetrymetadatum.md)[]                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Fields to add to events from this input                                                                                                                                                                                                                                                                                                 |
-| `maxActiveCxn`                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.                                                                                                                                                                                                                                                   |
-| `description`                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `username`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `password`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `token`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Bearer token to include in the authorization header                                                                                                                                                                                                                                                                                     |
-| `credentialsSecret`                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Select or create a secret that references your credentials                                                                                                                                                                                                                                                                              |
-| `textSecret`                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Select or create a stored text secret                                                                                                                                                                                                                                                                                                   |
-| `loginUrl`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | URL for OAuth                                                                                                                                                                                                                                                                                                                           |
-| `secretParamName`                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Secret parameter name to pass in request body                                                                                                                                                                                                                                                                                           |
-| `secret`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Secret parameter value to pass in request body                                                                                                                                                                                                                                                                                          |
-| `tokenAttributeName`                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').                                                                                                                                                                                               |
-| `authHeaderExpr`                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.                                                                                                                                         |
-| `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                          |
-| `oauthParams`                                                                                                                                                                                                                                                                                                                           | [models.InputOpenTelemetryOauthParam](../models/inputopentelemetryoauthparam.md)[]                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request. |
-| `oauthHeaders`                                                                                                                                                                                                                                                                                                                          | [models.InputOpenTelemetryOauthHeader](../models/inputopentelemetryoauthheader.md)[]                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                         |
-| `extractLogs`                                                                                                                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Enable to extract each incoming log record to a separate event                                                                                                                                                                                                                                                                          |
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry6 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "vacantly airport as",
+  username: "Wyatt.Wiza",
+  password: "3SrEII6XNCEFpAt",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://juvenile-galoshes.name/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry7`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry7 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "typeface qua indeed vanish righteously",
+  username: "Damaris.Koss51",
+  password: "AqyNcy2l8Lx78t7",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://edible-summary.info/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry8`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry8 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "coaxingly why down now above regularly beneath via",
+  username: "Aidan.Strosin",
+  password: "8KV75jWIpatForG",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://authentic-interviewer.info",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry9`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry9 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "giving meh terrorise scarcely rim graffiti ick",
+  username: "Garret37",
+  password: "f3brZjSWbu6UyR9",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://soulful-vol.biz",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry10`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry10 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "whose before pish arcade snoop zealous graft",
+  username: "Jules.Spencer",
+  password: "e85uXyFX3QSsr2F",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://quick-witted-possession.biz/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry11`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry11 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "oof masquerade synergy gleefully covenant",
+  username: "Roxane_Welch14",
+  password: "O6Ak7raTS1zwtde",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://ordinary-oil.net/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry12`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry12 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "rekindle for roughly",
+  username: "Skye.OKeefe49",
+  password: "mb9O3YdBc8x0heD",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://palatable-toaster.info/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry13`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry13 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "however almost qualified",
+  username: "Dessie_Ledner84",
+  password: "PZC8fh5KoNZozQm",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://delicious-heartbeat.name/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.InputOpenTelemetryOpenTelemetry14`
+
+```typescript
+const value: models.InputOpenTelemetryOpenTelemetry14 = {
+  id: "<id>",
+  type: "open_telemetry",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  enableProxyHeader: "<value>",
+  captureHeaders: "<value>",
+  activityLogSampleRate: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "against chiffonier phooey abaft except loyally wherever without dim accessorise",
+  username: "Oceane_Kuhn70",
+  password: "wwO6M6bIWhYcADj",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://ashamed-space.org",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+

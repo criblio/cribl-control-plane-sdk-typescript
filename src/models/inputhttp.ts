@@ -4,169 +4,54 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthTokensExtType,
+  AuthTokensExtType$inboundSchema,
+  AuthTokensExtType$Outbound,
+  AuthTokensExtType$outboundSchema,
+} from "./authtokensexttype.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
+import {
+  TypeHttpOption,
+  TypeHttpOption$inboundSchema,
+  TypeHttpOption$outboundSchema,
+} from "./typehttpoption.js";
 
-export const InputHttpType = {
-  Http: "http",
-} as const;
-export type InputHttpType = ClosedEnum<typeof InputHttpType>;
-
-export type InputHttpConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputHttpMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputHttpMode = OpenEnum<typeof InputHttpMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputHttpCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputHttpCompression = OpenEnum<typeof InputHttpCompression>;
-
-export type InputHttpPqControls = {};
-
-export type InputHttpPq = {
+export type InputHttphttp4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputHttpMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputHttpCompression | undefined;
-  pqControls?: InputHttpPqControls | undefined;
-};
-
-export const InputHttpMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputHttpMinimumTLSVersion = OpenEnum<
-  typeof InputHttpMinimumTLSVersion
->;
-
-export const InputHttpMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputHttpMaximumTLSVersion = OpenEnum<
-  typeof InputHttpMaximumTLSVersion
->;
-
-export type InputHttpTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputHttpMinimumTLSVersion | undefined;
-  maxVersion?: InputHttpMaximumTLSVersion | undefined;
-};
-
-export type InputHttpMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputHttpAuthTokensExtMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputHttpAuthTokensExt = {
-  /**
-   * Shared secret to be provided by any client (Authorization: <token>)
-   */
-  token: string;
-  description?: string | undefined;
-  /**
-   * Fields to add to events referencing this token
-   */
-  metadata?: Array<InputHttpAuthTokensExtMetadatum> | undefined;
-};
-
-export type InputHttp = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputHttpType;
+  type: TypeHttpOption;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -181,18 +66,14 @@ export type InputHttp = {
    */
   environment?: string | undefined;
   /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputHttpConnection> | undefined;
-  pq?: InputHttpPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -205,7 +86,7 @@ export type InputHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: InputHttpTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -266,625 +147,379 @@ export type InputHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputHttpMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<InputHttpAuthTokensExt> | undefined;
+  authTokensExt?: Array<AuthTokensExtType> | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputHttpType
-> = z.nativeEnum(InputHttpType);
-
-/** @internal */
-export const InputHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputHttpType
-> = InputHttpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpType$ {
-  /** @deprecated use `InputHttpType$inboundSchema` instead. */
-  export const inboundSchema = InputHttpType$inboundSchema;
-  /** @deprecated use `InputHttpType$outboundSchema` instead. */
-  export const outboundSchema = InputHttpType$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpConnection$inboundSchema: z.ZodType<
-  InputHttpConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputHttpConnection$Outbound = {
+export type InputHttphttp3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeHttpOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputHttpConnection$outboundSchema: z.ZodType<
-  InputHttpConnection$Outbound,
-  z.ZodTypeDef,
-  InputHttpConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpConnection$ {
-  /** @deprecated use `InputHttpConnection$inboundSchema` instead. */
-  export const inboundSchema = InputHttpConnection$inboundSchema;
-  /** @deprecated use `InputHttpConnection$outboundSchema` instead. */
-  export const outboundSchema = InputHttpConnection$outboundSchema;
-  /** @deprecated use `InputHttpConnection$Outbound` instead. */
-  export type Outbound = InputHttpConnection$Outbound;
-}
-
-export function inputHttpConnectionToJSON(
-  inputHttpConnection: InputHttpConnection,
-): string {
-  return JSON.stringify(
-    InputHttpConnection$outboundSchema.parse(inputHttpConnection),
-  );
-}
-
-export function inputHttpConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpMode$inboundSchema: z.ZodType<
-  InputHttpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputHttpMode$outboundSchema: z.ZodType<
-  InputHttpMode,
-  z.ZodTypeDef,
-  InputHttpMode
-> = z.union([
-  z.nativeEnum(InputHttpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpMode$ {
-  /** @deprecated use `InputHttpMode$inboundSchema` instead. */
-  export const inboundSchema = InputHttpMode$inboundSchema;
-  /** @deprecated use `InputHttpMode$outboundSchema` instead. */
-  export const outboundSchema = InputHttpMode$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpCompression$inboundSchema: z.ZodType<
-  InputHttpCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputHttpCompression$outboundSchema: z.ZodType<
-  InputHttpCompression,
-  z.ZodTypeDef,
-  InputHttpCompression
-> = z.union([
-  z.nativeEnum(InputHttpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpCompression$ {
-  /** @deprecated use `InputHttpCompression$inboundSchema` instead. */
-  export const inboundSchema = InputHttpCompression$inboundSchema;
-  /** @deprecated use `InputHttpCompression$outboundSchema` instead. */
-  export const outboundSchema = InputHttpCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpPqControls$inboundSchema: z.ZodType<
-  InputHttpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputHttpPqControls$Outbound = {};
-
-/** @internal */
-export const InputHttpPqControls$outboundSchema: z.ZodType<
-  InputHttpPqControls$Outbound,
-  z.ZodTypeDef,
-  InputHttpPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpPqControls$ {
-  /** @deprecated use `InputHttpPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputHttpPqControls$inboundSchema;
-  /** @deprecated use `InputHttpPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputHttpPqControls$outboundSchema;
-  /** @deprecated use `InputHttpPqControls$Outbound` instead. */
-  export type Outbound = InputHttpPqControls$Outbound;
-}
-
-export function inputHttpPqControlsToJSON(
-  inputHttpPqControls: InputHttpPqControls,
-): string {
-  return JSON.stringify(
-    InputHttpPqControls$outboundSchema.parse(inputHttpPqControls),
-  );
-}
-
-export function inputHttpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpPq$inboundSchema: z.ZodType<
-  InputHttpPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputHttpMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputHttpCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputHttpPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputHttpPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputHttpPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputHttpPq$outboundSchema: z.ZodType<
-  InputHttpPq$Outbound,
-  z.ZodTypeDef,
-  InputHttpPq
-> = z.object({
-  mode: InputHttpMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputHttpCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputHttpPqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpPq$ {
-  /** @deprecated use `InputHttpPq$inboundSchema` instead. */
-  export const inboundSchema = InputHttpPq$inboundSchema;
-  /** @deprecated use `InputHttpPq$outboundSchema` instead. */
-  export const outboundSchema = InputHttpPq$outboundSchema;
-  /** @deprecated use `InputHttpPq$Outbound` instead. */
-  export type Outbound = InputHttpPq$Outbound;
-}
-
-export function inputHttpPqToJSON(inputHttpPq: InputHttpPq): string {
-  return JSON.stringify(InputHttpPq$outboundSchema.parse(inputHttpPq));
-}
-
-export function inputHttpPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputHttpMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputHttpMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputHttpMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpMinimumTLSVersion$ {
-  /** @deprecated use `InputHttpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputHttpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputHttpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputHttpMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputHttpMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputHttpMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputHttpMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpMaximumTLSVersion$ {
-  /** @deprecated use `InputHttpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputHttpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputHttpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputHttpMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputHttpTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputHttpMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputHttpMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputHttpTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputHttpTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputHttpTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputHttpTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputHttpMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputHttpMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpTLSSettingsServerSide$ {
-  /** @deprecated use `InputHttpTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputHttpTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputHttpTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema = InputHttpTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputHttpTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputHttpTLSSettingsServerSide$Outbound;
-}
-
-export function inputHttpTLSSettingsServerSideToJSON(
-  inputHttpTLSSettingsServerSide: InputHttpTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputHttpTLSSettingsServerSide$outboundSchema.parse(
-      inputHttpTLSSettingsServerSide,
-    ),
-  );
-}
-
-export function inputHttpTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpMetadatum$inboundSchema: z.ZodType<
-  InputHttpMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputHttpMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputHttpMetadatum$outboundSchema: z.ZodType<
-  InputHttpMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputHttpMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpMetadatum$ {
-  /** @deprecated use `InputHttpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputHttpMetadatum$inboundSchema;
-  /** @deprecated use `InputHttpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputHttpMetadatum$outboundSchema;
-  /** @deprecated use `InputHttpMetadatum$Outbound` instead. */
-  export type Outbound = InputHttpMetadatum$Outbound;
-}
-
-export function inputHttpMetadatumToJSON(
-  inputHttpMetadatum: InputHttpMetadatum,
-): string {
-  return JSON.stringify(
-    InputHttpMetadatum$outboundSchema.parse(inputHttpMetadatum),
-  );
-}
-
-export function inputHttpMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpAuthTokensExtMetadatum$inboundSchema: z.ZodType<
-  InputHttpAuthTokensExtMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputHttpAuthTokensExtMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputHttpAuthTokensExtMetadatum$outboundSchema: z.ZodType<
-  InputHttpAuthTokensExtMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputHttpAuthTokensExtMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpAuthTokensExtMetadatum$ {
-  /** @deprecated use `InputHttpAuthTokensExtMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputHttpAuthTokensExtMetadatum$inboundSchema;
-  /** @deprecated use `InputHttpAuthTokensExtMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputHttpAuthTokensExtMetadatum$outboundSchema;
-  /** @deprecated use `InputHttpAuthTokensExtMetadatum$Outbound` instead. */
-  export type Outbound = InputHttpAuthTokensExtMetadatum$Outbound;
-}
-
-export function inputHttpAuthTokensExtMetadatumToJSON(
-  inputHttpAuthTokensExtMetadatum: InputHttpAuthTokensExtMetadatum,
-): string {
-  return JSON.stringify(
-    InputHttpAuthTokensExtMetadatum$outboundSchema.parse(
-      inputHttpAuthTokensExtMetadatum,
-    ),
-  );
-}
-
-export function inputHttpAuthTokensExtMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpAuthTokensExtMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpAuthTokensExtMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpAuthTokensExtMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpAuthTokensExt$inboundSchema: z.ZodType<
-  InputHttpAuthTokensExt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(z.lazy(() => InputHttpAuthTokensExtMetadatum$inboundSchema))
-    .optional(),
-});
-
-/** @internal */
-export type InputHttpAuthTokensExt$Outbound = {
-  token: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<AuthTokensExtType> | undefined;
   description?: string | undefined;
-  metadata?: Array<InputHttpAuthTokensExtMetadatum$Outbound> | undefined;
 };
 
+export type InputHttphttp2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeHttpOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<AuthTokensExtType> | undefined;
+  description?: string | undefined;
+};
+
+export type InputHttphttp1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeHttpOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<AuthTokensExtType> | undefined;
+  description?: string | undefined;
+};
+
+export type InputHttp =
+  | InputHttphttp2
+  | InputHttphttp4
+  | InputHttphttp1
+  | InputHttphttp3;
+
 /** @internal */
-export const InputHttpAuthTokensExt$outboundSchema: z.ZodType<
-  InputHttpAuthTokensExt$Outbound,
-  z.ZodTypeDef,
-  InputHttpAuthTokensExt
-> = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(
-    z.lazy(() => InputHttpAuthTokensExtMetadatum$outboundSchema),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpAuthTokensExt$ {
-  /** @deprecated use `InputHttpAuthTokensExt$inboundSchema` instead. */
-  export const inboundSchema = InputHttpAuthTokensExt$inboundSchema;
-  /** @deprecated use `InputHttpAuthTokensExt$outboundSchema` instead. */
-  export const outboundSchema = InputHttpAuthTokensExt$outboundSchema;
-  /** @deprecated use `InputHttpAuthTokensExt$Outbound` instead. */
-  export type Outbound = InputHttpAuthTokensExt$Outbound;
-}
-
-export function inputHttpAuthTokensExtToJSON(
-  inputHttpAuthTokensExt: InputHttpAuthTokensExt,
-): string {
-  return JSON.stringify(
-    InputHttpAuthTokensExt$outboundSchema.parse(inputHttpAuthTokensExt),
-  );
-}
-
-export function inputHttpAuthTokensExtFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpAuthTokensExt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpAuthTokensExt' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttp$inboundSchema: z.ZodType<
-  InputHttp,
+export const InputHttphttp4$inboundSchema: z.ZodType<
+  InputHttphttp4,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputHttpType$inboundSchema,
+  type: TypeHttpOption$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputHttpConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputHttpPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputHttpTLSSettingsServerSide$inboundSchema).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -900,28 +535,26 @@ export const InputHttp$inboundSchema: z.ZodType<
   elasticAPI: z.string().default("/elastic"),
   splunkHecAPI: z.string().default("/services/collector"),
   splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputHttpMetadatum$inboundSchema)).optional(),
-  authTokensExt: z.array(z.lazy(() => InputHttpAuthTokensExt$inboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  authTokensExt: z.array(AuthTokensExtType$inboundSchema).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type InputHttp$Outbound = {
+export type InputHttphttp4$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputHttpConnection$Outbound> | undefined;
-  pq?: InputHttpPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: InputHttpTLSSettingsServerSide$Outbound | undefined;
+  tls?: Tls2Type$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -937,32 +570,31 @@ export type InputHttp$Outbound = {
   elasticAPI: string;
   splunkHecAPI: string;
   splunkHecAcks: boolean;
-  metadata?: Array<InputHttpMetadatum$Outbound> | undefined;
-  authTokensExt?: Array<InputHttpAuthTokensExt$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtType$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputHttp$outboundSchema: z.ZodType<
-  InputHttp$Outbound,
+export const InputHttphttp4$outboundSchema: z.ZodType<
+  InputHttphttp4$Outbound,
   z.ZodTypeDef,
-  InputHttp
+  InputHttphttp4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputHttpType$outboundSchema,
+  type: TypeHttpOption$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputHttpConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputHttpPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputHttpTLSSettingsServerSide$outboundSchema).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -978,29 +610,441 @@ export const InputHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().default("/elastic"),
   splunkHecAPI: z.string().default("/services/collector"),
   splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputHttpMetadatum$outboundSchema)).optional(),
-  authTokensExt: z.array(z.lazy(() => InputHttpAuthTokensExt$outboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  authTokensExt: z.array(AuthTokensExtType$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttp$ {
-  /** @deprecated use `InputHttp$inboundSchema` instead. */
-  export const inboundSchema = InputHttp$inboundSchema;
-  /** @deprecated use `InputHttp$outboundSchema` instead. */
-  export const outboundSchema = InputHttp$outboundSchema;
-  /** @deprecated use `InputHttp$Outbound` instead. */
-  export type Outbound = InputHttp$Outbound;
+export function inputHTTPHTTP4ToJSON(inputHttphttp4: InputHttphttp4): string {
+  return JSON.stringify(InputHttphttp4$outboundSchema.parse(inputHttphttp4));
 }
+export function inputHTTPHTTP4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttphttp4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttphttp4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttphttp4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttphttp3$inboundSchema: z.ZodType<
+  InputHttphttp3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeHttpOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  authTokensExt: z.array(AuthTokensExtType$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputHttphttp3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtType$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputHttphttp3$outboundSchema: z.ZodType<
+  InputHttphttp3$Outbound,
+  z.ZodTypeDef,
+  InputHttphttp3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeHttpOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  authTokensExt: z.array(AuthTokensExtType$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputHTTPHTTP3ToJSON(inputHttphttp3: InputHttphttp3): string {
+  return JSON.stringify(InputHttphttp3$outboundSchema.parse(inputHttphttp3));
+}
+export function inputHTTPHTTP3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttphttp3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttphttp3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttphttp3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttphttp2$inboundSchema: z.ZodType<
+  InputHttphttp2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeHttpOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  authTokensExt: z.array(AuthTokensExtType$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputHttphttp2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtType$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputHttphttp2$outboundSchema: z.ZodType<
+  InputHttphttp2$Outbound,
+  z.ZodTypeDef,
+  InputHttphttp2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeHttpOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  authTokensExt: z.array(AuthTokensExtType$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputHTTPHTTP2ToJSON(inputHttphttp2: InputHttphttp2): string {
+  return JSON.stringify(InputHttphttp2$outboundSchema.parse(inputHttphttp2));
+}
+export function inputHTTPHTTP2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttphttp2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttphttp2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttphttp2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttphttp1$inboundSchema: z.ZodType<
+  InputHttphttp1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeHttpOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  authTokensExt: z.array(AuthTokensExtType$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputHttphttp1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtType$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputHttphttp1$outboundSchema: z.ZodType<
+  InputHttphttp1$Outbound,
+  z.ZodTypeDef,
+  InputHttphttp1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeHttpOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  authTokensExt: z.array(AuthTokensExtType$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputHTTPHTTP1ToJSON(inputHttphttp1: InputHttphttp1): string {
+  return JSON.stringify(InputHttphttp1$outboundSchema.parse(inputHttphttp1));
+}
+export function inputHTTPHTTP1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttphttp1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttphttp1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttphttp1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttp$inboundSchema: z.ZodType<
+  InputHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputHttphttp2$inboundSchema),
+  z.lazy(() => InputHttphttp4$inboundSchema),
+  z.lazy(() => InputHttphttp1$inboundSchema),
+  z.lazy(() => InputHttphttp3$inboundSchema),
+]);
+/** @internal */
+export type InputHttp$Outbound =
+  | InputHttphttp2$Outbound
+  | InputHttphttp4$Outbound
+  | InputHttphttp1$Outbound
+  | InputHttphttp3$Outbound;
+
+/** @internal */
+export const InputHttp$outboundSchema: z.ZodType<
+  InputHttp$Outbound,
+  z.ZodTypeDef,
+  InputHttp
+> = z.union([
+  z.lazy(() => InputHttphttp2$outboundSchema),
+  z.lazy(() => InputHttphttp4$outboundSchema),
+  z.lazy(() => InputHttphttp1$outboundSchema),
+  z.lazy(() => InputHttphttp3$outboundSchema),
+]);
 
 export function inputHttpToJSON(inputHttp: InputHttp): string {
   return JSON.stringify(InputHttp$outboundSchema.parse(inputHttp));
 }
-
 export function inputHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttp, SDKValidationError> {

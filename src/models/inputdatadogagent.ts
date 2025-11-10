@@ -4,146 +4,40 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
 
-export const InputDatadogAgentType = {
+export const InputDatadogAgentType4 = {
   DatadogAgent: "datadog_agent",
 } as const;
-export type InputDatadogAgentType = ClosedEnum<typeof InputDatadogAgentType>;
+export type InputDatadogAgentType4 = ClosedEnum<typeof InputDatadogAgentType4>;
 
-export type InputDatadogAgentConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputDatadogAgentMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputDatadogAgentMode = OpenEnum<typeof InputDatadogAgentMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputDatadogAgentCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputDatadogAgentCompression = OpenEnum<
-  typeof InputDatadogAgentCompression
->;
-
-export type InputDatadogAgentPqControls = {};
-
-export type InputDatadogAgentPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputDatadogAgentMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputDatadogAgentCompression | undefined;
-  pqControls?: InputDatadogAgentPqControls | undefined;
-};
-
-export const InputDatadogAgentMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputDatadogAgentMinimumTLSVersion = OpenEnum<
-  typeof InputDatadogAgentMinimumTLSVersion
->;
-
-export const InputDatadogAgentMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputDatadogAgentMaximumTLSVersion = OpenEnum<
-  typeof InputDatadogAgentMaximumTLSVersion
->;
-
-export type InputDatadogAgentTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputDatadogAgentMinimumTLSVersion | undefined;
-  maxVersion?: InputDatadogAgentMaximumTLSVersion | undefined;
-};
-
-export type InputDatadogAgentMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputDatadogAgentProxyMode = {
+export type InputDatadogAgentProxyMode4 = {
   /**
    * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
    */
@@ -154,12 +48,16 @@ export type InputDatadogAgentProxyMode = {
   rejectUnauthorized?: boolean | undefined;
 };
 
-export type InputDatadogAgent = {
+export type InputDatadogAgentDatadogAgent4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputDatadogAgentType;
+  type: InputDatadogAgentType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -174,18 +72,14 @@ export type InputDatadogAgent = {
    */
   environment?: string | undefined;
   /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputDatadogAgentConnection> | undefined;
-  pq?: InputDatadogAgentPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -194,7 +88,7 @@ export type InputDatadogAgent = {
    * Port to listen on
    */
   port: number;
-  tls?: InputDatadogAgentTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -246,573 +140,428 @@ export type InputDatadogAgent = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputDatadogAgentMetadatum> | undefined;
-  proxyMode?: InputDatadogAgentProxyMode | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode4 | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputDatadogAgentType$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentType
-> = z.nativeEnum(InputDatadogAgentType);
+export const InputDatadogAgentType3 = {
+  DatadogAgent: "datadog_agent",
+} as const;
+export type InputDatadogAgentType3 = ClosedEnum<typeof InputDatadogAgentType3>;
 
-/** @internal */
-export const InputDatadogAgentType$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentType
-> = InputDatadogAgentType$inboundSchema;
+export type InputDatadogAgentProxyMode3 = {
+  /**
+   * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+   */
+  rejectUnauthorized?: boolean | undefined;
+};
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentType$ {
-  /** @deprecated use `InputDatadogAgentType$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentType$inboundSchema;
-  /** @deprecated use `InputDatadogAgentType$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentType$outboundSchema;
-}
-
-/** @internal */
-export const InputDatadogAgentConnection$inboundSchema: z.ZodType<
-  InputDatadogAgentConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputDatadogAgentConnection$Outbound = {
+export type InputDatadogAgentDatadogAgent3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatadogAgentType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode3 | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputDatadogAgentConnection$outboundSchema: z.ZodType<
-  InputDatadogAgentConnection$Outbound,
-  z.ZodTypeDef,
-  InputDatadogAgentConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export const InputDatadogAgentType2 = {
+  DatadogAgent: "datadog_agent",
+} as const;
+export type InputDatadogAgentType2 = ClosedEnum<typeof InputDatadogAgentType2>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentConnection$ {
-  /** @deprecated use `InputDatadogAgentConnection$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentConnection$inboundSchema;
-  /** @deprecated use `InputDatadogAgentConnection$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentConnection$outboundSchema;
-  /** @deprecated use `InputDatadogAgentConnection$Outbound` instead. */
-  export type Outbound = InputDatadogAgentConnection$Outbound;
-}
-
-export function inputDatadogAgentConnectionToJSON(
-  inputDatadogAgentConnection: InputDatadogAgentConnection,
-): string {
-  return JSON.stringify(
-    InputDatadogAgentConnection$outboundSchema.parse(
-      inputDatadogAgentConnection,
-    ),
-  );
-}
-
-export function inputDatadogAgentConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputDatadogAgentConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputDatadogAgentConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatadogAgentConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputDatadogAgentMode$inboundSchema: z.ZodType<
-  InputDatadogAgentMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatadogAgentMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputDatadogAgentMode$outboundSchema: z.ZodType<
-  InputDatadogAgentMode,
-  z.ZodTypeDef,
-  InputDatadogAgentMode
-> = z.union([
-  z.nativeEnum(InputDatadogAgentMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentMode$ {
-  /** @deprecated use `InputDatadogAgentMode$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentMode$inboundSchema;
-  /** @deprecated use `InputDatadogAgentMode$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentMode$outboundSchema;
-}
-
-/** @internal */
-export const InputDatadogAgentCompression$inboundSchema: z.ZodType<
-  InputDatadogAgentCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatadogAgentCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputDatadogAgentCompression$outboundSchema: z.ZodType<
-  InputDatadogAgentCompression,
-  z.ZodTypeDef,
-  InputDatadogAgentCompression
-> = z.union([
-  z.nativeEnum(InputDatadogAgentCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentCompression$ {
-  /** @deprecated use `InputDatadogAgentCompression$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentCompression$inboundSchema;
-  /** @deprecated use `InputDatadogAgentCompression$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputDatadogAgentPqControls$inboundSchema: z.ZodType<
-  InputDatadogAgentPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputDatadogAgentPqControls$Outbound = {};
-
-/** @internal */
-export const InputDatadogAgentPqControls$outboundSchema: z.ZodType<
-  InputDatadogAgentPqControls$Outbound,
-  z.ZodTypeDef,
-  InputDatadogAgentPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentPqControls$ {
-  /** @deprecated use `InputDatadogAgentPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentPqControls$inboundSchema;
-  /** @deprecated use `InputDatadogAgentPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentPqControls$outboundSchema;
-  /** @deprecated use `InputDatadogAgentPqControls$Outbound` instead. */
-  export type Outbound = InputDatadogAgentPqControls$Outbound;
-}
-
-export function inputDatadogAgentPqControlsToJSON(
-  inputDatadogAgentPqControls: InputDatadogAgentPqControls,
-): string {
-  return JSON.stringify(
-    InputDatadogAgentPqControls$outboundSchema.parse(
-      inputDatadogAgentPqControls,
-    ),
-  );
-}
-
-export function inputDatadogAgentPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputDatadogAgentPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputDatadogAgentPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatadogAgentPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputDatadogAgentPq$inboundSchema: z.ZodType<
-  InputDatadogAgentPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputDatadogAgentMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputDatadogAgentCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputDatadogAgentPqControls$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputDatadogAgentPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputDatadogAgentPqControls$Outbound | undefined;
+export type InputDatadogAgentProxyMode2 = {
+  /**
+   * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+   */
+  rejectUnauthorized?: boolean | undefined;
 };
 
-/** @internal */
-export const InputDatadogAgentPq$outboundSchema: z.ZodType<
-  InputDatadogAgentPq$Outbound,
-  z.ZodTypeDef,
-  InputDatadogAgentPq
-> = z.object({
-  mode: InputDatadogAgentMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputDatadogAgentCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputDatadogAgentPqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentPq$ {
-  /** @deprecated use `InputDatadogAgentPq$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentPq$inboundSchema;
-  /** @deprecated use `InputDatadogAgentPq$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentPq$outboundSchema;
-  /** @deprecated use `InputDatadogAgentPq$Outbound` instead. */
-  export type Outbound = InputDatadogAgentPq$Outbound;
-}
-
-export function inputDatadogAgentPqToJSON(
-  inputDatadogAgentPq: InputDatadogAgentPq,
-): string {
-  return JSON.stringify(
-    InputDatadogAgentPq$outboundSchema.parse(inputDatadogAgentPq),
-  );
-}
-
-export function inputDatadogAgentPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputDatadogAgentPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputDatadogAgentPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatadogAgentPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputDatadogAgentMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputDatadogAgentMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatadogAgentMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputDatadogAgentMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputDatadogAgentMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputDatadogAgentMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputDatadogAgentMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentMinimumTLSVersion$ {
-  /** @deprecated use `InputDatadogAgentMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputDatadogAgentMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputDatadogAgentMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputDatadogAgentMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputDatadogAgentMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatadogAgentMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputDatadogAgentMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputDatadogAgentMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputDatadogAgentMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputDatadogAgentMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentMaximumTLSVersion$ {
-  /** @deprecated use `InputDatadogAgentMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputDatadogAgentMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputDatadogAgentMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputDatadogAgentTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputDatadogAgentTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputDatadogAgentMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputDatadogAgentMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputDatadogAgentTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+export type InputDatadogAgentDatadogAgent2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatadogAgentType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode2 | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputDatadogAgentTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputDatadogAgentTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputDatadogAgentTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputDatadogAgentMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputDatadogAgentMaximumTLSVersion$outboundSchema.optional(),
-});
+export const InputDatadogAgentType1 = {
+  DatadogAgent: "datadog_agent",
+} as const;
+export type InputDatadogAgentType1 = ClosedEnum<typeof InputDatadogAgentType1>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentTLSSettingsServerSide$ {
-  /** @deprecated use `InputDatadogAgentTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputDatadogAgentTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputDatadogAgentTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputDatadogAgentTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputDatadogAgentTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputDatadogAgentTLSSettingsServerSide$Outbound;
-}
-
-export function inputDatadogAgentTLSSettingsServerSideToJSON(
-  inputDatadogAgentTLSSettingsServerSide:
-    InputDatadogAgentTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputDatadogAgentTLSSettingsServerSide$outboundSchema.parse(
-      inputDatadogAgentTLSSettingsServerSide,
-    ),
-  );
-}
-
-export function inputDatadogAgentTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputDatadogAgentTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputDatadogAgentTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatadogAgentTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputDatadogAgentMetadatum$inboundSchema: z.ZodType<
-  InputDatadogAgentMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputDatadogAgentMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputDatadogAgentProxyMode1 = {
+  /**
+   * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+   */
+  rejectUnauthorized?: boolean | undefined;
 };
 
+export type InputDatadogAgentDatadogAgent1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatadogAgentType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode1 | undefined;
+  description?: string | undefined;
+};
+
+export type InputDatadogAgent =
+  | InputDatadogAgentDatadogAgent2
+  | InputDatadogAgentDatadogAgent4
+  | InputDatadogAgentDatadogAgent1
+  | InputDatadogAgentDatadogAgent3;
+
 /** @internal */
-export const InputDatadogAgentMetadatum$outboundSchema: z.ZodType<
-  InputDatadogAgentMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputDatadogAgentMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentMetadatum$ {
-  /** @deprecated use `InputDatadogAgentMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentMetadatum$inboundSchema;
-  /** @deprecated use `InputDatadogAgentMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentMetadatum$outboundSchema;
-  /** @deprecated use `InputDatadogAgentMetadatum$Outbound` instead. */
-  export type Outbound = InputDatadogAgentMetadatum$Outbound;
-}
-
-export function inputDatadogAgentMetadatumToJSON(
-  inputDatadogAgentMetadatum: InputDatadogAgentMetadatum,
-): string {
-  return JSON.stringify(
-    InputDatadogAgentMetadatum$outboundSchema.parse(inputDatadogAgentMetadatum),
-  );
-}
-
-export function inputDatadogAgentMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputDatadogAgentMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputDatadogAgentMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatadogAgentMetadatum' from JSON`,
-  );
-}
+export const InputDatadogAgentType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType4
+> = z.nativeEnum(InputDatadogAgentType4);
+/** @internal */
+export const InputDatadogAgentType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType4
+> = InputDatadogAgentType4$inboundSchema;
 
 /** @internal */
-export const InputDatadogAgentProxyMode$inboundSchema: z.ZodType<
-  InputDatadogAgentProxyMode,
+export const InputDatadogAgentProxyMode4$inboundSchema: z.ZodType<
+  InputDatadogAgentProxyMode4,
   z.ZodTypeDef,
   unknown
 > = z.object({
   enabled: z.boolean().default(false),
   rejectUnauthorized: z.boolean().default(true),
 });
-
 /** @internal */
-export type InputDatadogAgentProxyMode$Outbound = {
+export type InputDatadogAgentProxyMode4$Outbound = {
   enabled: boolean;
   rejectUnauthorized: boolean;
 };
 
 /** @internal */
-export const InputDatadogAgentProxyMode$outboundSchema: z.ZodType<
-  InputDatadogAgentProxyMode$Outbound,
+export const InputDatadogAgentProxyMode4$outboundSchema: z.ZodType<
+  InputDatadogAgentProxyMode4$Outbound,
   z.ZodTypeDef,
-  InputDatadogAgentProxyMode
+  InputDatadogAgentProxyMode4
 > = z.object({
   enabled: z.boolean().default(false),
   rejectUnauthorized: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentProxyMode$ {
-  /** @deprecated use `InputDatadogAgentProxyMode$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentProxyMode$inboundSchema;
-  /** @deprecated use `InputDatadogAgentProxyMode$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentProxyMode$outboundSchema;
-  /** @deprecated use `InputDatadogAgentProxyMode$Outbound` instead. */
-  export type Outbound = InputDatadogAgentProxyMode$Outbound;
-}
-
-export function inputDatadogAgentProxyModeToJSON(
-  inputDatadogAgentProxyMode: InputDatadogAgentProxyMode,
+export function inputDatadogAgentProxyMode4ToJSON(
+  inputDatadogAgentProxyMode4: InputDatadogAgentProxyMode4,
 ): string {
   return JSON.stringify(
-    InputDatadogAgentProxyMode$outboundSchema.parse(inputDatadogAgentProxyMode),
+    InputDatadogAgentProxyMode4$outboundSchema.parse(
+      inputDatadogAgentProxyMode4,
+    ),
   );
 }
-
-export function inputDatadogAgentProxyModeFromJSON(
+export function inputDatadogAgentProxyMode4FromJSON(
   jsonString: string,
-): SafeParseResult<InputDatadogAgentProxyMode, SDKValidationError> {
+): SafeParseResult<InputDatadogAgentProxyMode4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputDatadogAgentProxyMode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatadogAgentProxyMode' from JSON`,
+    (x) => InputDatadogAgentProxyMode4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentProxyMode4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputDatadogAgent$inboundSchema: z.ZodType<
-  InputDatadogAgent,
+export const InputDatadogAgentDatadogAgent4$inboundSchema: z.ZodType<
+  InputDatadogAgentDatadogAgent4,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputDatadogAgentType$inboundSchema,
+  type: InputDatadogAgentType4$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputDatadogAgentConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputDatadogAgentPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: z.lazy(() => InputDatadogAgentTLSSettingsServerSide$inboundSchema)
-    .optional(),
+  tls: Tls2Type$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -825,27 +574,25 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   extractMetrics: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputDatadogAgentMetadatum$inboundSchema))
-    .optional(),
-  proxyMode: z.lazy(() => InputDatadogAgentProxyMode$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode4$inboundSchema).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type InputDatadogAgent$Outbound = {
+export type InputDatadogAgentDatadogAgent4$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputDatadogAgentConnection$Outbound> | undefined;
-  pq?: InputDatadogAgentPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   host: string;
   port: number;
-  tls?: InputDatadogAgentTLSSettingsServerSide$Outbound | undefined;
+  tls?: Tls2Type$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -858,32 +605,30 @@ export type InputDatadogAgent$Outbound = {
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
   extractMetrics: boolean;
-  metadata?: Array<InputDatadogAgentMetadatum$Outbound> | undefined;
-  proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode4$Outbound | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputDatadogAgent$outboundSchema: z.ZodType<
-  InputDatadogAgent$Outbound,
+export const InputDatadogAgentDatadogAgent4$outboundSchema: z.ZodType<
+  InputDatadogAgentDatadogAgent4$Outbound,
   z.ZodTypeDef,
-  InputDatadogAgent
+  InputDatadogAgentDatadogAgent4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputDatadogAgentType$outboundSchema,
+  type: InputDatadogAgentType4$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputDatadogAgentConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputDatadogAgentPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: z.lazy(() => InputDatadogAgentTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: Tls2Type$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -896,24 +641,588 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   extractMetrics: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputDatadogAgentMetadatum$outboundSchema))
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode4$outboundSchema)
     .optional(),
-  proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgent$ {
-  /** @deprecated use `InputDatadogAgent$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgent$inboundSchema;
-  /** @deprecated use `InputDatadogAgent$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgent$outboundSchema;
-  /** @deprecated use `InputDatadogAgent$Outbound` instead. */
-  export type Outbound = InputDatadogAgent$Outbound;
+export function inputDatadogAgentDatadogAgent4ToJSON(
+  inputDatadogAgentDatadogAgent4: InputDatadogAgentDatadogAgent4,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentDatadogAgent4$outboundSchema.parse(
+      inputDatadogAgentDatadogAgent4,
+    ),
+  );
 }
+export function inputDatadogAgentDatadogAgent4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatadogAgentDatadogAgent4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatadogAgentDatadogAgent4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentDatadogAgent4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType3
+> = z.nativeEnum(InputDatadogAgentType3);
+/** @internal */
+export const InputDatadogAgentType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType3
+> = InputDatadogAgentType3$inboundSchema;
+
+/** @internal */
+export const InputDatadogAgentProxyMode3$inboundSchema: z.ZodType<
+  InputDatadogAgentProxyMode3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+/** @internal */
+export type InputDatadogAgentProxyMode3$Outbound = {
+  enabled: boolean;
+  rejectUnauthorized: boolean;
+};
+
+/** @internal */
+export const InputDatadogAgentProxyMode3$outboundSchema: z.ZodType<
+  InputDatadogAgentProxyMode3$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgentProxyMode3
+> = z.object({
+  enabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+
+export function inputDatadogAgentProxyMode3ToJSON(
+  inputDatadogAgentProxyMode3: InputDatadogAgentProxyMode3,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentProxyMode3$outboundSchema.parse(
+      inputDatadogAgentProxyMode3,
+    ),
+  );
+}
+export function inputDatadogAgentProxyMode3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatadogAgentProxyMode3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatadogAgentProxyMode3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentProxyMode3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentDatadogAgent3$inboundSchema: z.ZodType<
+  InputDatadogAgentDatadogAgent3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatadogAgentType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractMetrics: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode3$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputDatadogAgentDatadogAgent3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractMetrics: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode3$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatadogAgentDatadogAgent3$outboundSchema: z.ZodType<
+  InputDatadogAgentDatadogAgent3$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgentDatadogAgent3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatadogAgentType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractMetrics: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode3$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputDatadogAgentDatadogAgent3ToJSON(
+  inputDatadogAgentDatadogAgent3: InputDatadogAgentDatadogAgent3,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentDatadogAgent3$outboundSchema.parse(
+      inputDatadogAgentDatadogAgent3,
+    ),
+  );
+}
+export function inputDatadogAgentDatadogAgent3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatadogAgentDatadogAgent3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatadogAgentDatadogAgent3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentDatadogAgent3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType2
+> = z.nativeEnum(InputDatadogAgentType2);
+/** @internal */
+export const InputDatadogAgentType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType2
+> = InputDatadogAgentType2$inboundSchema;
+
+/** @internal */
+export const InputDatadogAgentProxyMode2$inboundSchema: z.ZodType<
+  InputDatadogAgentProxyMode2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+/** @internal */
+export type InputDatadogAgentProxyMode2$Outbound = {
+  enabled: boolean;
+  rejectUnauthorized: boolean;
+};
+
+/** @internal */
+export const InputDatadogAgentProxyMode2$outboundSchema: z.ZodType<
+  InputDatadogAgentProxyMode2$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgentProxyMode2
+> = z.object({
+  enabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+
+export function inputDatadogAgentProxyMode2ToJSON(
+  inputDatadogAgentProxyMode2: InputDatadogAgentProxyMode2,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentProxyMode2$outboundSchema.parse(
+      inputDatadogAgentProxyMode2,
+    ),
+  );
+}
+export function inputDatadogAgentProxyMode2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatadogAgentProxyMode2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatadogAgentProxyMode2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentProxyMode2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentDatadogAgent2$inboundSchema: z.ZodType<
+  InputDatadogAgentDatadogAgent2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatadogAgentType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractMetrics: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode2$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputDatadogAgentDatadogAgent2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractMetrics: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode2$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatadogAgentDatadogAgent2$outboundSchema: z.ZodType<
+  InputDatadogAgentDatadogAgent2$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgentDatadogAgent2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatadogAgentType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractMetrics: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode2$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputDatadogAgentDatadogAgent2ToJSON(
+  inputDatadogAgentDatadogAgent2: InputDatadogAgentDatadogAgent2,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentDatadogAgent2$outboundSchema.parse(
+      inputDatadogAgentDatadogAgent2,
+    ),
+  );
+}
+export function inputDatadogAgentDatadogAgent2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatadogAgentDatadogAgent2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatadogAgentDatadogAgent2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentDatadogAgent2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType1
+> = z.nativeEnum(InputDatadogAgentType1);
+/** @internal */
+export const InputDatadogAgentType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatadogAgentType1
+> = InputDatadogAgentType1$inboundSchema;
+
+/** @internal */
+export const InputDatadogAgentProxyMode1$inboundSchema: z.ZodType<
+  InputDatadogAgentProxyMode1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+/** @internal */
+export type InputDatadogAgentProxyMode1$Outbound = {
+  enabled: boolean;
+  rejectUnauthorized: boolean;
+};
+
+/** @internal */
+export const InputDatadogAgentProxyMode1$outboundSchema: z.ZodType<
+  InputDatadogAgentProxyMode1$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgentProxyMode1
+> = z.object({
+  enabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+});
+
+export function inputDatadogAgentProxyMode1ToJSON(
+  inputDatadogAgentProxyMode1: InputDatadogAgentProxyMode1,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentProxyMode1$outboundSchema.parse(
+      inputDatadogAgentProxyMode1,
+    ),
+  );
+}
+export function inputDatadogAgentProxyMode1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatadogAgentProxyMode1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatadogAgentProxyMode1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentProxyMode1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgentDatadogAgent1$inboundSchema: z.ZodType<
+  InputDatadogAgentDatadogAgent1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatadogAgentType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractMetrics: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode1$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputDatadogAgentDatadogAgent1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractMetrics: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputDatadogAgentProxyMode1$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatadogAgentDatadogAgent1$outboundSchema: z.ZodType<
+  InputDatadogAgentDatadogAgent1$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgentDatadogAgent1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatadogAgentType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractMetrics: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputDatadogAgentProxyMode1$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputDatadogAgentDatadogAgent1ToJSON(
+  inputDatadogAgentDatadogAgent1: InputDatadogAgentDatadogAgent1,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentDatadogAgent1$outboundSchema.parse(
+      inputDatadogAgentDatadogAgent1,
+    ),
+  );
+}
+export function inputDatadogAgentDatadogAgent1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatadogAgentDatadogAgent1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatadogAgentDatadogAgent1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatadogAgentDatadogAgent1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatadogAgent$inboundSchema: z.ZodType<
+  InputDatadogAgent,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputDatadogAgentDatadogAgent2$inboundSchema),
+  z.lazy(() => InputDatadogAgentDatadogAgent4$inboundSchema),
+  z.lazy(() => InputDatadogAgentDatadogAgent1$inboundSchema),
+  z.lazy(() => InputDatadogAgentDatadogAgent3$inboundSchema),
+]);
+/** @internal */
+export type InputDatadogAgent$Outbound =
+  | InputDatadogAgentDatadogAgent2$Outbound
+  | InputDatadogAgentDatadogAgent4$Outbound
+  | InputDatadogAgentDatadogAgent1$Outbound
+  | InputDatadogAgentDatadogAgent3$Outbound;
+
+/** @internal */
+export const InputDatadogAgent$outboundSchema: z.ZodType<
+  InputDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgent
+> = z.union([
+  z.lazy(() => InputDatadogAgentDatadogAgent2$outboundSchema),
+  z.lazy(() => InputDatadogAgentDatadogAgent4$outboundSchema),
+  z.lazy(() => InputDatadogAgentDatadogAgent1$outboundSchema),
+  z.lazy(() => InputDatadogAgentDatadogAgent3$outboundSchema),
+]);
 
 export function inputDatadogAgentToJSON(
   inputDatadogAgent: InputDatadogAgent,
@@ -922,7 +1231,6 @@ export function inputDatadogAgentToJSON(
     InputDatadogAgent$outboundSchema.parse(inputDatadogAgent),
   );
 }
-
 export function inputDatadogAgentFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatadogAgent, SDKValidationError> {

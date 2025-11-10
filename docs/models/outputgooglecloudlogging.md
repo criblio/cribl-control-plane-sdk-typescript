@@ -1,26 +1,24 @@
 # OutputGoogleCloudLogging
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging1`
 
 ```typescript
-import { OutputGoogleCloudLogging } from "cribl-control-plane/models";
-
-let value: OutputGoogleCloudLogging = {
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging1 = {
+  logLocationType: "organization",
   id: "<id>",
   type: "google_cloud_logging",
   pipeline: "<value>",
   systemFields: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  logLocationType: "folder",
   logNameExpression: "<value>",
   logLabels: [
     {
@@ -39,7 +37,7 @@ let value: OutputGoogleCloudLogging = {
   insertIdExpression: "<value>",
   serviceAccountCredentials: "<value>",
   secret: "<value>",
-  throttleRateReqPerSec: 369544,
+  throttleRateReqPerSec: 513836,
   requestMethodExpression: "<value>",
   requestUrlExpression: "<value>",
   requestSizeExpression: "<value>",
@@ -68,80 +66,731 @@ let value: OutputGoogleCloudLogging = {
   traceExpression: "<value>",
   spanIdExpression: "<value>",
   traceSampledExpression: "<value>",
-  totalMemoryLimitKB: 6994.09,
-  description: "violently tremendously hunger overdue",
+  totalMemoryLimitKB: 1779.89,
+  description:
+    "nicely mould alligator enormously bank familiar mid what drain diligently",
   logLocationExpression: "<value>",
   payloadExpression: "<value>",
   pqControls: {},
 };
 ```
 
-## Fields
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging2`
 
-| Field                                                                                                                                                                                                                                                                                                   | Type                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Unique ID for this output                                                                                                                                                                                                                                                                               |
-| `type`                                                                                                                                                                                                                                                                                                  | [models.OutputGoogleCloudLoggingType](../models/outputgooglecloudloggingtype.md)                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                     |
-| `pipeline`                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Pipeline to process data before sending out to this output                                                                                                                                                                                                                                              |
-| `systemFields`                                                                                                                                                                                                                                                                                          | *string*[]                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                    |
-| `streamtags`                                                                                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                           |
-| `logLocationType`                                                                                                                                                                                                                                                                                       | [models.LogLocationType](../models/loglocationtype.md)                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                     |
-| `logNameExpression`                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                      | JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.                                              |
-| `sanitizeLogNames`                                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                     |
-| `payloadFormat`                                                                                                                                                                                                                                                                                         | [models.PayloadFormat](../models/payloadformat.md)                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Format to use when sending payload. Defaults to Text.                                                                                                                                                                                                                                                   |
-| `logLabels`                                                                                                                                                                                                                                                                                             | [models.LogLabel](../models/loglabel.md)[]                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Labels to apply to the log entry                                                                                                                                                                                                                                                                        |
-| `resourceTypeExpression`                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".                                                                        |
-| `resourceTypeLabels`                                                                                                                                                                                                                                                                                    | [models.ResourceTypeLabel](../models/resourcetypelabel.md)[]                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.                                    |
-| `severityExpression`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".                      |
-| `insertIdExpression`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | JavaScript expression to compute the value of the insert ID field.                                                                                                                                                                                                                                      |
-| `googleAuthMethod`                                                                                                                                                                                                                                                                                      | [models.OutputGoogleCloudLoggingGoogleAuthenticationMethod](../models/outputgooglecloudlogginggoogleauthenticationmethod.md)                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.                                                                         |
-| `serviceAccountCredentials`                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.                                                                                                                                           |
-| `secret`                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Select or create a stored text secret                                                                                                                                                                                                                                                                   |
-| `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Maximum size, in KB, of the request body.                                                                                                                                                                                                                                                               |
-| `maxPayloadEvents`                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Max number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                          |
-| `flushPeriodSec`                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.                                                                                                                                                                             |
-| `concurrency`                                                                                                                                                                                                                                                                                           | *number*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Maximum number of ongoing requests before blocking.                                                                                                                                                                                                                                                     |
-| `connectionTimeout`                                                                                                                                                                                                                                                                                     | *number*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Amount of time (milliseconds) to wait for the connection to establish before retrying                                                                                                                                                                                                                   |
-| `timeoutSec`                                                                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Amount of time, in seconds, to wait for a request to complete before canceling it.                                                                                                                                                                                                                      |
-| `throttleRateReqPerSec`                                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Maximum number of requests to limit to per second.                                                                                                                                                                                                                                                      |
-| `requestMethodExpression`                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                    |
-| `requestUrlExpression`                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                       |
-| `requestSizeExpression`                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                     |
-| `statusExpression`                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                    |
-| `responseSizeExpression`                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                    |
-| `userAgentExpression`                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                |
-| `remoteIpExpression`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                 |
-| `serverIpExpression`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                 |
-| `refererExpression`                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                   |
-| `latencyExpression`                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                   |
-| `cacheLookupExpression`                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                             |
-| `cacheHitExpression`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                |
-| `cacheValidatedExpression`                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                       |
-| `cacheFillBytesExpression`                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                         |
-| `protocolExpression`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.                                                                                                  |
-| `idExpression`                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.                                                                                           |
-| `producerExpression`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.                                                                                     |
-| `firstExpression`                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.                                                                                  |
-| `lastExpression`                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.                                                                                   |
-| `fileExpression`                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.                                                                              |
-| `lineExpression`                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.                                                             |
-| `functionExpression`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.                                                                          |
-| `uidExpression`                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.                                                                                                   |
-| `indexExpression`                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.                                                                                                 |
-| `totalSplitsExpression`                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.                                                                                          |
-| `traceExpression`                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.                                                                                      |
-| `spanIdExpression`                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.                                 |
-| `traceSampledExpression`                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.                                                                                |
-| `onBackpressure`                                                                                                                                                                                                                                                                                        | [models.OutputGoogleCloudLoggingBackpressureBehavior](../models/outputgooglecloudloggingbackpressurebehavior.md)                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                       |
-| `totalMemoryLimitKB`                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.                                                                                                                                                        |
-| `description`                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                     |
-| `logLocationExpression`                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                      | JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore. |
-| `payloadExpression`                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.                                                                                    |
-| `pqMaxFileSize`                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)                                                                                                                                                                                                   |
-| `pqMaxSize`                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.                                                                                                                                                  |
-| `pqPath`                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.                                                                                                                                                                                   |
-| `pqCompress`                                                                                                                                                                                                                                                                                            | [models.OutputGoogleCloudLoggingCompression](../models/outputgooglecloudloggingcompression.md)                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | Codec to use to compress the persisted data                                                                                                                                                                                                                                                             |
-| `pqOnBackpressure`                                                                                                                                                                                                                                                                                      | [models.OutputGoogleCloudLoggingQueueFullBehavior](../models/outputgooglecloudloggingqueuefullbehavior.md)                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                   |
-| `pqMode`                                                                                                                                                                                                                                                                                                | [models.OutputGoogleCloudLoggingMode](../models/outputgooglecloudloggingmode.md)                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.                                          |
-| `pqControls`                                                                                                                                                                                                                                                                                            | [models.OutputGoogleCloudLoggingPqControls](../models/outputgooglecloudloggingpqcontrols.md)                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                     |
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging2 = {
+  logLocationType: "folder",
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 226566,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 9292.45,
+  description: "obediently detective yowza so",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging3`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging3 = {
+  logLocationType: "project",
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 692798,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 2385.84,
+  description: "quit on wasabi",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging4`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging4 = {
+  logLocationType: "folder",
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 171919,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 867.93,
+  description: "flint plugin long-term frivolous before extension meh vanish",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging5`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging5 = {
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  logLocationType: "billingAccount",
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 874275,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 3034.48,
+  description: "meanwhile phew as aside barring into yowza boggle",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging6`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging6 = {
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  logLocationType: "folder",
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 73279,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 5212.4,
+  description: "duster readmit so athwart",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging7`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging7 = {
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  logLocationType: "folder",
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 313453,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 3590.33,
+  description: "now ill-fated by after eek",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging8`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging8 = {
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  logLocationType: "billingAccount",
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 620446,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 2355.25,
+  description: "although inveigle inasmuch event uh-huh entrench",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging9`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging9 = {
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  logLocationType: "billingAccount",
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 313830,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 6185.5,
+  description: "silk flat aboard",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging10`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging10 = {
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  logLocationType: "organization",
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 143523,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 3666.04,
+  description:
+    "kiddingly until measly modulo athwart stitcher omelet lest sweet curry",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputGoogleCloudLoggingGoogleCloudLogging11`
+
+```typescript
+const value: models.OutputGoogleCloudLoggingGoogleCloudLogging11 = {
+  id: "<id>",
+  type: "google_cloud_logging",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  logLocationType: "project",
+  logNameExpression: "<value>",
+  logLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  resourceTypeExpression: "<value>",
+  resourceTypeLabels: [
+    {
+      label: "<value>",
+      valueExpression: "<value>",
+    },
+  ],
+  severityExpression: "<value>",
+  insertIdExpression: "<value>",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  throttleRateReqPerSec: 764322,
+  requestMethodExpression: "<value>",
+  requestUrlExpression: "<value>",
+  requestSizeExpression: "<value>",
+  statusExpression: "<value>",
+  responseSizeExpression: "<value>",
+  userAgentExpression: "<value>",
+  remoteIpExpression: "<value>",
+  serverIpExpression: "<value>",
+  refererExpression: "<value>",
+  latencyExpression: "<value>",
+  cacheLookupExpression: "<value>",
+  cacheHitExpression: "<value>",
+  cacheValidatedExpression: "<value>",
+  cacheFillBytesExpression: "<value>",
+  protocolExpression: "<value>",
+  idExpression: "<value>",
+  producerExpression: "<value>",
+  firstExpression: "<value>",
+  lastExpression: "<value>",
+  fileExpression: "<value>",
+  lineExpression: "<value>",
+  functionExpression: "<value>",
+  uidExpression: "<value>",
+  indexExpression: "<value>",
+  totalSplitsExpression: "<value>",
+  traceExpression: "<value>",
+  spanIdExpression: "<value>",
+  traceSampledExpression: "<value>",
+  totalMemoryLimitKB: 2120.59,
+  description: "what cash busy",
+  logLocationExpression: "<value>",
+  payloadExpression: "<value>",
+  pqControls: {},
+};
+```
+

@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListOutputResponse](../../models/operations/listoutputresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -107,6 +107,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.destinations.create({
+    onBackpressure: "block",
     id: "<id>",
     type: "elastic_cloud",
     pipeline: "<value>",
@@ -146,7 +147,12 @@ async function run() {
     ],
     auth: {
       disabled: false,
+      username: "Imogene1",
+      password: "tA9DUjJtHSnXqh9",
       authType: "manual",
+      credentialsSecret: "<value>",
+      manualAPIKey: "<value>",
+      textSecret: "<value>",
     },
     elasticPipeline: "<value>",
     includeDocId: true,
@@ -165,14 +171,17 @@ async function run() {
       maxBackoff: 10000,
     },
     responseHonorRetryAfterHeader: false,
-    onBackpressure: "block",
     description: "hourly about into",
+    pqStrictOrdering: true,
+    pqRatePerSec: 0,
+    pqMode: "error",
+    pqMaxBufferSize: 42,
+    pqMaxBackpressureSec: 30,
     pqMaxFileSize: "1 MB",
     pqMaxSize: "5GB",
     pqPath: "$CRIBL_HOME/state/queues",
     pqCompress: "none",
     pqOnBackpressure: "block",
-    pqMode: "error",
     pqControls: {},
   });
 
@@ -201,6 +210,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await destinationsCreate(criblControlPlane, {
+    onBackpressure: "block",
     id: "<id>",
     type: "elastic_cloud",
     pipeline: "<value>",
@@ -240,7 +250,12 @@ async function run() {
     ],
     auth: {
       disabled: false,
+      username: "Imogene1",
+      password: "tA9DUjJtHSnXqh9",
       authType: "manual",
+      credentialsSecret: "<value>",
+      manualAPIKey: "<value>",
+      textSecret: "<value>",
     },
     elasticPipeline: "<value>",
     includeDocId: true,
@@ -259,14 +274,17 @@ async function run() {
       maxBackoff: 10000,
     },
     responseHonorRetryAfterHeader: false,
-    onBackpressure: "block",
     description: "hourly about into",
+    pqStrictOrdering: true,
+    pqRatePerSec: 0,
+    pqMode: "error",
+    pqMaxBufferSize: 42,
+    pqMaxBackpressureSec: 30,
     pqMaxFileSize: "1 MB",
     pqMaxSize: "5GB",
     pqPath: "$CRIBL_HOME/state/queues",
     pqCompress: "none",
     pqOnBackpressure: "block",
-    pqMode: "error",
     pqControls: {},
   });
   if (res.ok) {
@@ -291,7 +309,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateOutputResponse](../../models/operations/createoutputresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -371,7 +389,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOutputByIdResponse](../../models/operations/getoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -401,6 +419,7 @@ async function run() {
   const result = await criblControlPlane.destinations.update({
     id: "<id>",
     output: {
+      authType: "manual",
       id: "<id>",
       type: "signalfx",
       pipeline: "<value>",
@@ -412,7 +431,6 @@ async function run() {
         "<value 1>",
         "<value 2>",
       ],
-      authType: "manual",
       realm: "us0",
       concurrency: 5,
       maxPayloadSizeKB: 4096,
@@ -451,12 +469,16 @@ async function run() {
       description: "phooey positively a consequently meh until",
       token: "<value>",
       textSecret: "<value>",
+      pqStrictOrdering: true,
+      pqRatePerSec: 0,
+      pqMode: "error",
+      pqMaxBufferSize: 42,
+      pqMaxBackpressureSec: 30,
       pqMaxFileSize: "1 MB",
       pqMaxSize: "5GB",
       pqPath: "$CRIBL_HOME/state/queues",
       pqCompress: "none",
       pqOnBackpressure: "block",
-      pqMode: "error",
       pqControls: {},
     },
   });
@@ -488,6 +510,7 @@ async function run() {
   const res = await destinationsUpdate(criblControlPlane, {
     id: "<id>",
     output: {
+      authType: "manual",
       id: "<id>",
       type: "signalfx",
       pipeline: "<value>",
@@ -499,7 +522,6 @@ async function run() {
         "<value 1>",
         "<value 2>",
       ],
-      authType: "manual",
       realm: "us0",
       concurrency: 5,
       maxPayloadSizeKB: 4096,
@@ -538,12 +560,16 @@ async function run() {
       description: "phooey positively a consequently meh until",
       token: "<value>",
       textSecret: "<value>",
+      pqStrictOrdering: true,
+      pqRatePerSec: 0,
+      pqMode: "error",
+      pqMaxBufferSize: 42,
+      pqMaxBackpressureSec: 30,
       pqMaxFileSize: "1 MB",
       pqMaxSize: "5GB",
       pqPath: "$CRIBL_HOME/state/queues",
       pqCompress: "none",
       pqOnBackpressure: "block",
-      pqMode: "error",
       pqControls: {},
     },
   });
@@ -569,7 +595,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateOutputByIdResponse](../../models/operations/updateoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -649,7 +675,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteOutputByIdResponse](../../models/operations/deleteoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 

@@ -11,188 +11,117 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthTypeOptions,
+  AuthTypeOptions$inboundSchema,
+  AuthTypeOptions$outboundSchema,
+} from "./authtypeoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputInfluxdbType = {
+export const OutputInfluxdbType10 = {
   Influxdb: "influxdb",
 } as const;
-export type OutputInfluxdbType = ClosedEnum<typeof OutputInfluxdbType>;
+export type OutputInfluxdbType10 = ClosedEnum<typeof OutputInfluxdbType10>;
 
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export const TimestampPrecision = {
+export const TimestampPrecision10 = {
+  /**
+   * Nanoseconds
+   */
   Ns: "ns",
+  /**
+   * Microseconds
+   */
   U: "u",
+  /**
+   * Milliseconds
+   */
   Ms: "ms",
+  /**
+   * Seconds
+   */
   S: "s",
+  /**
+   * Minutes
+   */
   M: "m",
+  /**
+   * Hours
+   */
   H: "h",
 } as const;
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export type TimestampPrecision = OpenEnum<typeof TimestampPrecision>;
+export type TimestampPrecision10 = OpenEnum<typeof TimestampPrecision10>;
 
-export type OutputInfluxdbExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputInfluxdbFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputInfluxdbFailedRequestLoggingMode = OpenEnum<
-  typeof OutputInfluxdbFailedRequestLoggingMode
->;
-
-export type OutputInfluxdbResponseRetrySetting = {
+export type OutputInfluxdbInfluxdb10 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * Splunk Search authentication type
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputInfluxdbTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputInfluxdbBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputInfluxdbBackpressureBehavior = OpenEnum<
-  typeof OutputInfluxdbBackpressureBehavior
->;
-
-/**
- * InfluxDB authentication type
- */
-export const OutputInfluxdbAuthenticationType = {
-  None: "none",
-  Basic: "basic",
-  CredentialsSecret: "credentialsSecret",
-  Token: "token",
-  TextSecret: "textSecret",
-  Oauth: "oauth",
-} as const;
-/**
- * InfluxDB authentication type
- */
-export type OutputInfluxdbAuthenticationType = OpenEnum<
-  typeof OutputInfluxdbAuthenticationType
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputInfluxdbCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputInfluxdbCompression = OpenEnum<
-  typeof OutputInfluxdbCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputInfluxdbQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputInfluxdbQueueFullBehavior = OpenEnum<
-  typeof OutputInfluxdbQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputInfluxdbMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputInfluxdbMode = OpenEnum<typeof OutputInfluxdbMode>;
-
-export type OutputInfluxdbPqControls = {};
-
-export type OutputInfluxdbOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type OutputInfluxdbOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
-
-export type OutputInfluxdb = {
+  authType?: AuthTypeOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputInfluxdbType;
+  type: OutputInfluxdbType10;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -220,7 +149,7 @@ export type OutputInfluxdb = {
   /**
    * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
    */
-  timestampPrecision?: TimestampPrecision | undefined;
+  timestampPrecision?: TimestampPrecision10 | undefined;
   /**
    * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
    */
@@ -264,7 +193,7 @@ export type OutputInfluxdb = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputInfluxdbExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -272,7 +201,7 @@ export type OutputInfluxdb = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputInfluxdbFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -280,8 +209,8 @@ export type OutputInfluxdb = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputInfluxdbResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputInfluxdbTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -289,11 +218,7 @@ export type OutputInfluxdb = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputInfluxdbBackpressureBehavior | undefined;
-  /**
-   * InfluxDB authentication type
-   */
-  authType?: OutputInfluxdbAuthenticationType | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   description?: string | undefined;
   /**
    * Database to write to.
@@ -307,6 +232,26 @@ export type OutputInfluxdb = {
    * Organization ID for this bucket.
    */
   org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -322,16 +267,1252 @@ export type OutputInfluxdb = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputInfluxdbCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputInfluxdbQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName: string;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams: Array<Metadata1Type>;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders: Array<Metadata1Type>;
+};
+
+export const OutputInfluxdbType9 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType9 = ClosedEnum<typeof OutputInfluxdbType9>;
+
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export const TimestampPrecision9 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export type TimestampPrecision9 = OpenEnum<typeof TimestampPrecision9>;
+
+export type OutputInfluxdbInfluxdb9 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType9;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision9 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputInfluxdbMode | undefined;
-  pqControls?: OutputInfluxdbPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const OutputInfluxdbType8 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType8 = ClosedEnum<typeof OutputInfluxdbType8>;
+
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export const TimestampPrecision8 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export type TimestampPrecision8 = OpenEnum<typeof TimestampPrecision8>;
+
+export type OutputInfluxdbInfluxdb8 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType8;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision8 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const OutputInfluxdbType7 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType7 = ClosedEnum<typeof OutputInfluxdbType7>;
+
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export const TimestampPrecision7 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export type TimestampPrecision7 = OpenEnum<typeof TimestampPrecision7>;
+
+export type OutputInfluxdbInfluxdb7 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType7;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision7 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token: string;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const OutputInfluxdbType6 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType6 = ClosedEnum<typeof OutputInfluxdbType6>;
+
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export const TimestampPrecision6 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export type TimestampPrecision6 = OpenEnum<typeof TimestampPrecision6>;
+
+export type OutputInfluxdbInfluxdb6 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType6;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision6 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  username: string;
+  password: string;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const OutputInfluxdbType5 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType5 = ClosedEnum<typeof OutputInfluxdbType5>;
+
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export const TimestampPrecision5 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export type TimestampPrecision5 = OpenEnum<typeof TimestampPrecision5>;
+
+export type OutputInfluxdbInfluxdb5 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision5 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -373,631 +1554,1062 @@ export type OutputInfluxdb = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<OutputInfluxdbOauthParam> | undefined;
+  oauthParams?: Array<Metadata1Type> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<OutputInfluxdbOauthHeader> | undefined;
+  oauthHeaders?: Array<Metadata1Type> | undefined;
 };
 
-/** @internal */
-export const OutputInfluxdbType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbType
-> = z.nativeEnum(OutputInfluxdbType);
-
-/** @internal */
-export const OutputInfluxdbType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbType
-> = OutputInfluxdbType$inboundSchema;
+export const OutputInfluxdbType4 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType4 = ClosedEnum<typeof OutputInfluxdbType4>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export namespace OutputInfluxdbType$ {
-  /** @deprecated use `OutputInfluxdbType$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbType$inboundSchema;
-  /** @deprecated use `OutputInfluxdbType$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbType$outboundSchema;
-}
-
-/** @internal */
-export const TimestampPrecision$inboundSchema: z.ZodType<
-  TimestampPrecision,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(TimestampPrecision),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const TimestampPrecision$outboundSchema: z.ZodType<
-  TimestampPrecision,
-  z.ZodTypeDef,
-  TimestampPrecision
-> = z.union([
-  z.nativeEnum(TimestampPrecision),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const TimestampPrecision4 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export namespace TimestampPrecision$ {
-  /** @deprecated use `TimestampPrecision$inboundSchema` instead. */
-  export const inboundSchema = TimestampPrecision$inboundSchema;
-  /** @deprecated use `TimestampPrecision$outboundSchema` instead. */
-  export const outboundSchema = TimestampPrecision$outboundSchema;
-}
+export type TimestampPrecision4 = OpenEnum<typeof TimestampPrecision4>;
 
-/** @internal */
-export const OutputInfluxdbExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputInfluxdbExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputInfluxdbExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputInfluxdbInfluxdb4 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision4 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
 };
 
-/** @internal */
-export const OutputInfluxdbExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputInfluxdbExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+export const OutputInfluxdbType3 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType3 = ClosedEnum<typeof OutputInfluxdbType3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export namespace OutputInfluxdbExtraHttpHeader$ {
-  /** @deprecated use `OutputInfluxdbExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputInfluxdbExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputInfluxdbExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputInfluxdbExtraHttpHeader$Outbound;
-}
-
-export function outputInfluxdbExtraHttpHeaderToJSON(
-  outputInfluxdbExtraHttpHeader: OutputInfluxdbExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbExtraHttpHeader$outboundSchema.parse(
-      outputInfluxdbExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputInfluxdbExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputInfluxdbExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdbFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputInfluxdbFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputInfluxdbFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputInfluxdbFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputInfluxdbFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputInfluxdbFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const TimestampPrecision3 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export namespace OutputInfluxdbFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputInfluxdbFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputInfluxdbFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputInfluxdbFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputInfluxdbFailedRequestLoggingMode$outboundSchema;
-}
+export type TimestampPrecision3 = OpenEnum<typeof TimestampPrecision3>;
 
-/** @internal */
-export const OutputInfluxdbResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputInfluxdbResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputInfluxdbResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputInfluxdbInfluxdb3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision3 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
 };
 
-/** @internal */
-export const OutputInfluxdbResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputInfluxdbResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
+export const OutputInfluxdbType2 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType2 = ClosedEnum<typeof OutputInfluxdbType2>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export namespace OutputInfluxdbResponseRetrySetting$ {
-  /** @deprecated use `OutputInfluxdbResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputInfluxdbResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputInfluxdbResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputInfluxdbResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputInfluxdbResponseRetrySetting$Outbound;
-}
+export const TimestampPrecision2 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export type TimestampPrecision2 = OpenEnum<typeof TimestampPrecision2>;
 
-export function outputInfluxdbResponseRetrySettingToJSON(
-  outputInfluxdbResponseRetrySetting: OutputInfluxdbResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbResponseRetrySetting$outboundSchema.parse(
-      outputInfluxdbResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputInfluxdbResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputInfluxdbResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdbTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputInfluxdbTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputInfluxdbTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputInfluxdbInfluxdb2 = {
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision2 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket: string;
+  /**
+   * Organization ID for this bucket.
+   */
+  org: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
 };
 
-/** @internal */
-export const OutputInfluxdbTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputInfluxdbTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
+export const OutputInfluxdbType1 = {
+  Influxdb: "influxdb",
+} as const;
+export type OutputInfluxdbType1 = ClosedEnum<typeof OutputInfluxdbType1>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export namespace OutputInfluxdbTimeoutRetrySettings$ {
-  /** @deprecated use `OutputInfluxdbTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputInfluxdbTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputInfluxdbTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputInfluxdbTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputInfluxdbTimeoutRetrySettings$Outbound;
-}
-
-export function outputInfluxdbTimeoutRetrySettingsToJSON(
-  outputInfluxdbTimeoutRetrySettings: OutputInfluxdbTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbTimeoutRetrySettings$outboundSchema.parse(
-      outputInfluxdbTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputInfluxdbTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputInfluxdbTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdbBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputInfluxdbBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputInfluxdbBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputInfluxdbBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputInfluxdbBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputInfluxdbBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const TimestampPrecision1 = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export namespace OutputInfluxdbBackpressureBehavior$ {
-  /** @deprecated use `OutputInfluxdbBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputInfluxdbBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputInfluxdbBackpressureBehavior$outboundSchema;
-}
+export type TimestampPrecision1 = OpenEnum<typeof TimestampPrecision1>;
 
-/** @internal */
-export const OutputInfluxdbAuthenticationType$inboundSchema: z.ZodType<
-  OutputInfluxdbAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputInfluxdbAuthenticationType$outboundSchema: z.ZodType<
-  OutputInfluxdbAuthenticationType,
-  z.ZodTypeDef,
-  OutputInfluxdbAuthenticationType
-> = z.union([
-  z.nativeEnum(OutputInfluxdbAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbAuthenticationType$ {
-  /** @deprecated use `OutputInfluxdbAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbAuthenticationType$inboundSchema;
-  /** @deprecated use `OutputInfluxdbAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbAuthenticationType$outboundSchema;
-}
-
-/** @internal */
-export const OutputInfluxdbCompression$inboundSchema: z.ZodType<
-  OutputInfluxdbCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputInfluxdbCompression$outboundSchema: z.ZodType<
-  OutputInfluxdbCompression,
-  z.ZodTypeDef,
-  OutputInfluxdbCompression
-> = z.union([
-  z.nativeEnum(OutputInfluxdbCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbCompression$ {
-  /** @deprecated use `OutputInfluxdbCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbCompression$inboundSchema;
-  /** @deprecated use `OutputInfluxdbCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputInfluxdbQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputInfluxdbQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputInfluxdbQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputInfluxdbQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputInfluxdbQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputInfluxdbQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbQueueFullBehavior$ {
-  /** @deprecated use `OutputInfluxdbQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputInfluxdbQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputInfluxdbMode$inboundSchema: z.ZodType<
-  OutputInfluxdbMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputInfluxdbMode$outboundSchema: z.ZodType<
-  OutputInfluxdbMode,
-  z.ZodTypeDef,
-  OutputInfluxdbMode
-> = z.union([
-  z.nativeEnum(OutputInfluxdbMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbMode$ {
-  /** @deprecated use `OutputInfluxdbMode$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbMode$inboundSchema;
-  /** @deprecated use `OutputInfluxdbMode$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputInfluxdbPqControls$inboundSchema: z.ZodType<
-  OutputInfluxdbPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputInfluxdbPqControls$Outbound = {};
-
-/** @internal */
-export const OutputInfluxdbPqControls$outboundSchema: z.ZodType<
-  OutputInfluxdbPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbPqControls$ {
-  /** @deprecated use `OutputInfluxdbPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbPqControls$inboundSchema;
-  /** @deprecated use `OutputInfluxdbPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbPqControls$outboundSchema;
-  /** @deprecated use `OutputInfluxdbPqControls$Outbound` instead. */
-  export type Outbound = OutputInfluxdbPqControls$Outbound;
-}
-
-export function outputInfluxdbPqControlsToJSON(
-  outputInfluxdbPqControls: OutputInfluxdbPqControls,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbPqControls$outboundSchema.parse(outputInfluxdbPqControls),
-  );
-}
-
-export function outputInfluxdbPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputInfluxdbPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdbOauthParam$inboundSchema: z.ZodType<
-  OutputInfluxdbOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputInfluxdbOauthParam$Outbound = {
-  name: string;
-  value: string;
+export type OutputInfluxdbInfluxdb1 = {
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputInfluxdbType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision1 | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database: string;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
 };
 
+export type OutputInfluxdb =
+  | OutputInfluxdbInfluxdb10
+  | OutputInfluxdbInfluxdb2
+  | OutputInfluxdbInfluxdb6
+  | OutputInfluxdbInfluxdb1
+  | OutputInfluxdbInfluxdb4
+  | OutputInfluxdbInfluxdb7
+  | OutputInfluxdbInfluxdb8
+  | OutputInfluxdbInfluxdb9
+  | OutputInfluxdbInfluxdb3
+  | OutputInfluxdbInfluxdb5;
+
 /** @internal */
-export const OutputInfluxdbOauthParam$outboundSchema: z.ZodType<
-  OutputInfluxdbOauthParam$Outbound,
+export const OutputInfluxdbType10$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType10
+> = z.nativeEnum(OutputInfluxdbType10);
+/** @internal */
+export const OutputInfluxdbType10$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType10
+> = OutputInfluxdbType10$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision10$inboundSchema: z.ZodType<
+  TimestampPrecision10,
   z.ZodTypeDef,
-  OutputInfluxdbOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbOauthParam$ {
-  /** @deprecated use `OutputInfluxdbOauthParam$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbOauthParam$inboundSchema;
-  /** @deprecated use `OutputInfluxdbOauthParam$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbOauthParam$outboundSchema;
-  /** @deprecated use `OutputInfluxdbOauthParam$Outbound` instead. */
-  export type Outbound = OutputInfluxdbOauthParam$Outbound;
-}
-
-export function outputInfluxdbOauthParamToJSON(
-  outputInfluxdbOauthParam: OutputInfluxdbOauthParam,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbOauthParam$outboundSchema.parse(outputInfluxdbOauthParam),
-  );
-}
-
-export function outputInfluxdbOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputInfluxdbOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbOauthParam' from JSON`,
-  );
-}
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision10),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision10$outboundSchema: z.ZodType<
+  TimestampPrecision10,
+  z.ZodTypeDef,
+  TimestampPrecision10
+> = z.union([
+  z.nativeEnum(TimestampPrecision10),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
-export const OutputInfluxdbOauthHeader$inboundSchema: z.ZodType<
-  OutputInfluxdbOauthHeader,
+export const OutputInfluxdbInfluxdb10$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb10,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputInfluxdbOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputInfluxdbOauthHeader$outboundSchema: z.ZodType<
-  OutputInfluxdbOauthHeader$Outbound,
-  z.ZodTypeDef,
-  OutputInfluxdbOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdbOauthHeader$ {
-  /** @deprecated use `OutputInfluxdbOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdbOauthHeader$inboundSchema;
-  /** @deprecated use `OutputInfluxdbOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdbOauthHeader$outboundSchema;
-  /** @deprecated use `OutputInfluxdbOauthHeader$Outbound` instead. */
-  export type Outbound = OutputInfluxdbOauthHeader$Outbound;
-}
-
-export function outputInfluxdbOauthHeaderToJSON(
-  outputInfluxdbOauthHeader: OutputInfluxdbOauthHeader,
-): string {
-  return JSON.stringify(
-    OutputInfluxdbOauthHeader$outboundSchema.parse(outputInfluxdbOauthHeader),
-  );
-}
-
-export function outputInfluxdbOauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputInfluxdbOauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputInfluxdbOauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputInfluxdbOauthHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputInfluxdb$inboundSchema: z.ZodType<
-  OutputInfluxdb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
   id: z.string().optional(),
-  type: OutputInfluxdbType$inboundSchema,
+  type: OutputInfluxdbType10$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   useV2API: z.boolean().default(false),
-  timestampPrecision: TimestampPrecision$inboundSchema.default("ms"),
+  timestampPrecision: TimestampPrecision10$inboundSchema.default("ms"),
   dynamicValueFieldName: z.boolean().default(true),
   valueFieldName: z.string().default("value"),
   concurrency: z.number().default(5),
@@ -1007,56 +2619,48 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputInfluxdbExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputInfluxdbFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputInfluxdbResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputInfluxdbTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputInfluxdbBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputInfluxdbAuthenticationType$inboundSchema.default("none"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   description: z.string().optional(),
   database: z.string().optional(),
   bucket: z.string().optional(),
   org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputInfluxdbCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputInfluxdbQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputInfluxdbMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputInfluxdbPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
+  loginUrl: z.string(),
+  secretParamName: z.string(),
+  secret: z.string(),
+  tokenAttributeName: z.string(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => OutputInfluxdbOauthParam$inboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => OutputInfluxdbOauthHeader$inboundSchema))
-    .optional(),
+  oauthParams: z.array(Metadata1Type$inboundSchema),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema),
 });
-
 /** @internal */
-export type OutputInfluxdb$Outbound = {
+export type OutputInfluxdbInfluxdb10$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1075,60 +2679,60 @@ export type OutputInfluxdb$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputInfluxdbExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputInfluxdbResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputInfluxdbTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
-  authType: string;
   description?: string | undefined;
   database?: string | undefined;
   bucket?: string | undefined;
   org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputInfluxdbPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
+  loginUrl: string;
+  secretParamName: string;
+  secret: string;
+  tokenAttributeName: string;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<OutputInfluxdbOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<OutputInfluxdbOauthHeader$Outbound> | undefined;
+  oauthParams: Array<Metadata1Type$Outbound>;
+  oauthHeaders: Array<Metadata1Type$Outbound>;
 };
 
 /** @internal */
-export const OutputInfluxdb$outboundSchema: z.ZodType<
-  OutputInfluxdb$Outbound,
+export const OutputInfluxdbInfluxdb10$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb10$Outbound,
   z.ZodTypeDef,
-  OutputInfluxdb
+  OutputInfluxdbInfluxdb10
 > = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
   id: z.string().optional(),
-  type: OutputInfluxdbType$outboundSchema,
+  type: OutputInfluxdbType10$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   useV2API: z.boolean().default(false),
-  timestampPrecision: TimestampPrecision$outboundSchema.default("ms"),
+  timestampPrecision: TimestampPrecision10$outboundSchema.default("ms"),
   dynamicValueFieldName: z.boolean().default(true),
   valueFieldName: z.string().default("value"),
   concurrency: z.number().default(5),
@@ -1138,37 +2742,1078 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputInfluxdbExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputInfluxdbFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputInfluxdbResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputInfluxdbTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputInfluxdbBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputInfluxdbAuthenticationType$outboundSchema.default("none"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   description: z.string().optional(),
   database: z.string().optional(),
   bucket: z.string().optional(),
   org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputInfluxdbCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputInfluxdbQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputInfluxdbMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputInfluxdbPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string(),
+  secretParamName: z.string(),
+  secret: z.string(),
+  tokenAttributeName: z.string(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema),
+});
+
+export function outputInfluxdbInfluxdb10ToJSON(
+  outputInfluxdbInfluxdb10: OutputInfluxdbInfluxdb10,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb10$outboundSchema.parse(outputInfluxdbInfluxdb10),
+  );
+}
+export function outputInfluxdbInfluxdb10FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb10' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType9$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType9
+> = z.nativeEnum(OutputInfluxdbType9);
+/** @internal */
+export const OutputInfluxdbType9$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType9
+> = OutputInfluxdbType9$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision9$inboundSchema: z.ZodType<
+  TimestampPrecision9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision9$outboundSchema: z.ZodType<
+  TimestampPrecision9,
+  z.ZodTypeDef,
+  TimestampPrecision9
+> = z.union([
+  z.nativeEnum(TimestampPrecision9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb9$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType9$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision9$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb9$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  useV2API: boolean;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret: string;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb9$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb9$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb9
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType9$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision9$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function outputInfluxdbInfluxdb9ToJSON(
+  outputInfluxdbInfluxdb9: OutputInfluxdbInfluxdb9,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb9$outboundSchema.parse(outputInfluxdbInfluxdb9),
+  );
+}
+export function outputInfluxdbInfluxdb9FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType8$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType8
+> = z.nativeEnum(OutputInfluxdbType8);
+/** @internal */
+export const OutputInfluxdbType8$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType8
+> = OutputInfluxdbType8$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision8$inboundSchema: z.ZodType<
+  TimestampPrecision8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision8$outboundSchema: z.ZodType<
+  TimestampPrecision8,
+  z.ZodTypeDef,
+  TimestampPrecision8
+> = z.union([
+  z.nativeEnum(TimestampPrecision8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb8$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType8$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision8$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb8$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  useV2API: boolean;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret: string;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb8$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb8$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb8
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType8$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision8$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function outputInfluxdbInfluxdb8ToJSON(
+  outputInfluxdbInfluxdb8: OutputInfluxdbInfluxdb8,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb8$outboundSchema.parse(outputInfluxdbInfluxdb8),
+  );
+}
+export function outputInfluxdbInfluxdb8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType7$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType7
+> = z.nativeEnum(OutputInfluxdbType7);
+/** @internal */
+export const OutputInfluxdbType7$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType7
+> = OutputInfluxdbType7$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision7$inboundSchema: z.ZodType<
+  TimestampPrecision7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision7$outboundSchema: z.ZodType<
+  TimestampPrecision7,
+  z.ZodTypeDef,
+  TimestampPrecision7
+> = z.union([
+  z.nativeEnum(TimestampPrecision7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb7$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType7$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision7$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  useV2API: boolean;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token: string;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb7$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb7$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb7
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType7$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision7$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function outputInfluxdbInfluxdb7ToJSON(
+  outputInfluxdbInfluxdb7: OutputInfluxdbInfluxdb7,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb7$outboundSchema.parse(outputInfluxdbInfluxdb7),
+  );
+}
+export function outputInfluxdbInfluxdb7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType6
+> = z.nativeEnum(OutputInfluxdbType6);
+/** @internal */
+export const OutputInfluxdbType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType6
+> = OutputInfluxdbType6$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision6$inboundSchema: z.ZodType<
+  TimestampPrecision6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision6$outboundSchema: z.ZodType<
+  TimestampPrecision6,
+  z.ZodTypeDef,
+  TimestampPrecision6
+> = z.union([
+  z.nativeEnum(TimestampPrecision6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb6$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType6$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision6$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  username: z.string(),
+  password: z.string(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb6$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  useV2API: boolean;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  username: string;
+  password: string;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb6$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb6$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb6
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType6$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision6$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string(),
+  password: z.string(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function outputInfluxdbInfluxdb6ToJSON(
+  outputInfluxdbInfluxdb6: OutputInfluxdbInfluxdb6,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb6$outboundSchema.parse(outputInfluxdbInfluxdb6),
+  );
+}
+export function outputInfluxdbInfluxdb6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType5
+> = z.nativeEnum(OutputInfluxdbType5);
+/** @internal */
+export const OutputInfluxdbType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType5
+> = OutputInfluxdbType5$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision5$inboundSchema: z.ZodType<
+  TimestampPrecision5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision5$outboundSchema: z.ZodType<
+  TimestampPrecision5,
+  z.ZodTypeDef,
+  TimestampPrecision5
+> = z.union([
+  z.nativeEnum(TimestampPrecision5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb5$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision5$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -1180,29 +3825,1137 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => OutputInfluxdbOauthParam$outboundSchema))
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  useV2API: boolean;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb5$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb5$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb5
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision5$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
     .optional(),
-  oauthHeaders: z.array(z.lazy(() => OutputInfluxdbOauthHeader$outboundSchema))
-    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputInfluxdb$ {
-  /** @deprecated use `OutputInfluxdb$inboundSchema` instead. */
-  export const inboundSchema = OutputInfluxdb$inboundSchema;
-  /** @deprecated use `OutputInfluxdb$outboundSchema` instead. */
-  export const outboundSchema = OutputInfluxdb$outboundSchema;
-  /** @deprecated use `OutputInfluxdb$Outbound` instead. */
-  export type Outbound = OutputInfluxdb$Outbound;
+export function outputInfluxdbInfluxdb5ToJSON(
+  outputInfluxdbInfluxdb5: OutputInfluxdbInfluxdb5,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb5$outboundSchema.parse(outputInfluxdbInfluxdb5),
+  );
 }
+export function outputInfluxdbInfluxdb5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType4
+> = z.nativeEnum(OutputInfluxdbType4);
+/** @internal */
+export const OutputInfluxdbType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType4
+> = OutputInfluxdbType4$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision4$inboundSchema: z.ZodType<
+  TimestampPrecision4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision4$outboundSchema: z.ZodType<
+  TimestampPrecision4,
+  z.ZodTypeDef,
+  TimestampPrecision4
+> = z.union([
+  z.nativeEnum(TimestampPrecision4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb4$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision4$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb4$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  useV2API: boolean;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb4$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb4$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision4$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function outputInfluxdbInfluxdb4ToJSON(
+  outputInfluxdbInfluxdb4: OutputInfluxdbInfluxdb4,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb4$outboundSchema.parse(outputInfluxdbInfluxdb4),
+  );
+}
+export function outputInfluxdbInfluxdb4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType3
+> = z.nativeEnum(OutputInfluxdbType3);
+/** @internal */
+export const OutputInfluxdbType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType3
+> = OutputInfluxdbType3$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision3$inboundSchema: z.ZodType<
+  TimestampPrecision3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision3$outboundSchema: z.ZodType<
+  TimestampPrecision3,
+  z.ZodTypeDef,
+  TimestampPrecision3
+> = z.union([
+  z.nativeEnum(TimestampPrecision3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb3$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision3$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  useV2API: boolean;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb3$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb3$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputInfluxdbType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().default(false),
+  timestampPrecision: TimestampPrecision3$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function outputInfluxdbInfluxdb3ToJSON(
+  outputInfluxdbInfluxdb3: OutputInfluxdbInfluxdb3,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb3$outboundSchema.parse(outputInfluxdbInfluxdb3),
+  );
+}
+export function outputInfluxdbInfluxdb3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType2
+> = z.nativeEnum(OutputInfluxdbType2);
+/** @internal */
+export const OutputInfluxdbType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType2
+> = OutputInfluxdbType2$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision2$inboundSchema: z.ZodType<
+  TimestampPrecision2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision2$outboundSchema: z.ZodType<
+  TimestampPrecision2,
+  z.ZodTypeDef,
+  TimestampPrecision2
+> = z.union([
+  z.nativeEnum(TimestampPrecision2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb2$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  useV2API: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputInfluxdbType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  timestampPrecision: TimestampPrecision2$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string(),
+  org: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb2$Outbound = {
+  useV2API: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType: string;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket: string;
+  org: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb2$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb2$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb2
+> = z.object({
+  useV2API: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputInfluxdbType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  timestampPrecision: TimestampPrecision2$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string(),
+  org: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function outputInfluxdbInfluxdb2ToJSON(
+  outputInfluxdbInfluxdb2: OutputInfluxdbInfluxdb2,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb2$outboundSchema.parse(outputInfluxdbInfluxdb2),
+  );
+}
+export function outputInfluxdbInfluxdb2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdbType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType1
+> = z.nativeEnum(OutputInfluxdbType1);
+/** @internal */
+export const OutputInfluxdbType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputInfluxdbType1
+> = OutputInfluxdbType1$inboundSchema;
+
+/** @internal */
+export const TimestampPrecision1$inboundSchema: z.ZodType<
+  TimestampPrecision1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampPrecision1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampPrecision1$outboundSchema: z.ZodType<
+  TimestampPrecision1,
+  z.ZodTypeDef,
+  TimestampPrecision1
+> = z.union([
+  z.nativeEnum(TimestampPrecision1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputInfluxdbInfluxdb1$inboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  useV2API: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputInfluxdbType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  timestampPrecision: TimestampPrecision1$inboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  database: z.string(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type OutputInfluxdbInfluxdb1$Outbound = {
+  useV2API: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  timestampPrecision: string;
+  dynamicValueFieldName: boolean;
+  valueFieldName: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType: string;
+  description?: string | undefined;
+  database: string;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdbInfluxdb1$outboundSchema: z.ZodType<
+  OutputInfluxdbInfluxdb1$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdbInfluxdb1
+> = z.object({
+  useV2API: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputInfluxdbType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  timestampPrecision: TimestampPrecision1$outboundSchema.default("ms"),
+  dynamicValueFieldName: z.boolean().default(true),
+  valueFieldName: z.string().default("value"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  description: z.string().optional(),
+  database: z.string(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function outputInfluxdbInfluxdb1ToJSON(
+  outputInfluxdbInfluxdb1: OutputInfluxdbInfluxdb1,
+): string {
+  return JSON.stringify(
+    OutputInfluxdbInfluxdb1$outboundSchema.parse(outputInfluxdbInfluxdb1),
+  );
+}
+export function outputInfluxdbInfluxdb1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputInfluxdbInfluxdb1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputInfluxdbInfluxdb1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputInfluxdbInfluxdb1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputInfluxdb$inboundSchema: z.ZodType<
+  OutputInfluxdb,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputInfluxdbInfluxdb10$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb2$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb6$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb1$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb4$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb7$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb8$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb9$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb3$inboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb5$inboundSchema),
+]);
+/** @internal */
+export type OutputInfluxdb$Outbound =
+  | OutputInfluxdbInfluxdb10$Outbound
+  | OutputInfluxdbInfluxdb2$Outbound
+  | OutputInfluxdbInfluxdb6$Outbound
+  | OutputInfluxdbInfluxdb1$Outbound
+  | OutputInfluxdbInfluxdb4$Outbound
+  | OutputInfluxdbInfluxdb7$Outbound
+  | OutputInfluxdbInfluxdb8$Outbound
+  | OutputInfluxdbInfluxdb9$Outbound
+  | OutputInfluxdbInfluxdb3$Outbound
+  | OutputInfluxdbInfluxdb5$Outbound;
+
+/** @internal */
+export const OutputInfluxdb$outboundSchema: z.ZodType<
+  OutputInfluxdb$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdb
+> = z.union([
+  z.lazy(() => OutputInfluxdbInfluxdb10$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb2$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb6$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb1$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb4$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb7$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb8$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb9$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb3$outboundSchema),
+  z.lazy(() => OutputInfluxdbInfluxdb5$outboundSchema),
+]);
 
 export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {
   return JSON.stringify(OutputInfluxdb$outboundSchema.parse(outputInfluxdb));
 }
-
 export function outputInfluxdbFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputInfluxdb, SDKValidationError> {

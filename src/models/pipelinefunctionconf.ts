@@ -5,9 +5,13 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConfType,
+  ConfType$inboundSchema,
+  ConfType$Outbound,
+  ConfType$outboundSchema,
+} from "./conftype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionSpecificConfigs = {};
 
 export type PipelineFunctionConf = {
   /**
@@ -30,60 +34,12 @@ export type PipelineFunctionConf = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: FunctionSpecificConfigs;
+  conf: ConfType;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const FunctionSpecificConfigs$inboundSchema: z.ZodType<
-  FunctionSpecificConfigs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type FunctionSpecificConfigs$Outbound = {};
-
-/** @internal */
-export const FunctionSpecificConfigs$outboundSchema: z.ZodType<
-  FunctionSpecificConfigs$Outbound,
-  z.ZodTypeDef,
-  FunctionSpecificConfigs
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FunctionSpecificConfigs$ {
-  /** @deprecated use `FunctionSpecificConfigs$inboundSchema` instead. */
-  export const inboundSchema = FunctionSpecificConfigs$inboundSchema;
-  /** @deprecated use `FunctionSpecificConfigs$outboundSchema` instead. */
-  export const outboundSchema = FunctionSpecificConfigs$outboundSchema;
-  /** @deprecated use `FunctionSpecificConfigs$Outbound` instead. */
-  export type Outbound = FunctionSpecificConfigs$Outbound;
-}
-
-export function functionSpecificConfigsToJSON(
-  functionSpecificConfigs: FunctionSpecificConfigs,
-): string {
-  return JSON.stringify(
-    FunctionSpecificConfigs$outboundSchema.parse(functionSpecificConfigs),
-  );
-}
-
-export function functionSpecificConfigsFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSpecificConfigs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSpecificConfigs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSpecificConfigs' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionConf$inboundSchema: z.ZodType<
@@ -96,10 +52,9 @@ export const PipelineFunctionConf$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => FunctionSpecificConfigs$inboundSchema),
+  conf: ConfType$inboundSchema,
   groupId: z.string().optional(),
 });
-
 /** @internal */
 export type PipelineFunctionConf$Outbound = {
   filter: string;
@@ -107,7 +62,7 @@ export type PipelineFunctionConf$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: FunctionSpecificConfigs$Outbound;
+  conf: ConfType$Outbound;
   groupId?: string | undefined;
 };
 
@@ -122,22 +77,9 @@ export const PipelineFunctionConf$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => FunctionSpecificConfigs$outboundSchema),
+  conf: ConfType$outboundSchema,
   groupId: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PipelineFunctionConf$ {
-  /** @deprecated use `PipelineFunctionConf$inboundSchema` instead. */
-  export const inboundSchema = PipelineFunctionConf$inboundSchema;
-  /** @deprecated use `PipelineFunctionConf$outboundSchema` instead. */
-  export const outboundSchema = PipelineFunctionConf$outboundSchema;
-  /** @deprecated use `PipelineFunctionConf$Outbound` instead. */
-  export type Outbound = PipelineFunctionConf$Outbound;
-}
 
 export function pipelineFunctionConfToJSON(
   pipelineFunctionConf: PipelineFunctionConf,
@@ -146,7 +88,6 @@ export function pipelineFunctionConfToJSON(
     PipelineFunctionConf$outboundSchema.parse(pipelineFunctionConf),
   );
 }
-
 export function pipelineFunctionConfFromJSON(
   jsonString: string,
 ): SafeParseResult<PipelineFunctionConf, SDKValidationError> {

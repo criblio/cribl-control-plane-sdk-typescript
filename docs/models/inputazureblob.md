@@ -1,11 +1,146 @@
 # InputAzureBlob
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputAzureBlobAzureBlob1`
 
 ```typescript
-import { InputAzureBlob } from "cribl-control-plane/models";
+const value: models.InputAzureBlobAzureBlob1 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "beyond barring wherever undergo scarcely",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
 
-let value: InputAzureBlob = {
+### `models.InputAzureBlobAzureBlob2`
+
+```typescript
+const value: models.InputAzureBlobAzureBlob2 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "aw deform perspire silently leap triumphantly brr messy",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.InputAzureBlobAzureBlob3`
+
+```typescript
+const value: models.InputAzureBlobAzureBlob3 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "ill-fated forage starboard",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.InputAzureBlobAzureBlob4`
+
+```typescript
+const value: models.InputAzureBlobAzureBlob4 = {
   id: "<id>",
   type: "azure_blob",
   pipeline: "<value>",
@@ -33,8 +168,9 @@ let value: InputAzureBlob = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  description: "nocturnal tattered widow hassle avaricious the agitated mid",
+  description: "feline wash inasmuch airmail meh industrialize what",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -49,40 +185,193 @@ let value: InputAzureBlob = {
 };
 ```
 
-## Fields
+### `models.InputAzureBlobAzureBlob5`
 
-| Field                                                                                                                                                                                                                                                                                                | Type                                                                                                                                                                                                                                                                                                 | Required                                                                                                                                                                                                                                                                                             | Description                                                                                                                                                                                                                                                                                          |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Unique ID for this input                                                                                                                                                                                                                                                                             |
-| `type`                                                                                                                                                                                                                                                                                               | [models.InputAzureBlobType](../models/inputazureblobtype.md)                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                                                  |
-| `disabled`                                                                                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                                                  |
-| `pipeline`                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                                       |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                  |
-| `environment`                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                 |
-| `pqEnabled`                                                                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                         |
-| `streamtags`                                                                                                                                                                                                                                                                                         | *string*[]                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                        |
-| `connections`                                                                                                                                                                                                                                                                                        | [models.InputAzureBlobConnection](../models/inputazureblobconnection.md)[]                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                          |
-| `pq`                                                                                                                                                                                                                                                                                                 | [models.InputAzureBlobPq](../models/inputazureblobpq.md)                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                                                  |
-| `queueName`                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                                                   | The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}` |
-| `fileFilter`                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Regex matching file names to download and process. Defaults to: .*                                                                                                                                                                                                                                   |
-| `visibilityTimeout`                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.                                                                                                                                                 |
-| `numReceivers`                                                                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.                                                                                                                                                                               |
-| `maxMessages`                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.                                                                                                     |
-| `servicePeriodSecs`                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | The duration (in seconds) which pollers should be validated and restarted if exited                                                                                                                                                                                                                  |
-| `skipOnError`                                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.                                                                                                                                                                                       |
-| `metadata`                                                                                                                                                                                                                                                                                           | [models.InputAzureBlobMetadatum](../models/inputazureblobmetadatum.md)[]                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Fields to add to events from this input                                                                                                                                                                                                                                                              |
-| `breakerRulesets`                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                                                                           |
-| `staleChannelFlushMs`                                                                                                                                                                                                                                                                                | *number*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                                                                                    |
-| `parquetChunkSizeMB`                                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Maximum file size for each Parquet chunk                                                                                                                                                                                                                                                             |
-| `parquetChunkDownloadTimeout`                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.                                                                                                                                                            |
-| `authType`                                                                                                                                                                                                                                                                                           | [models.InputAzureBlobAuthenticationMethod](../models/inputazureblobauthenticationmethod.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                                                  |
-| `description`                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                                                  |
-| `connectionString`                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.                                                                                                                                                                     |
-| `textSecret`                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Select or create a stored text secret                                                                                                                                                                                                                                                                |
-| `storageAccountName`                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | The name of your Azure storage account                                                                                                                                                                                                                                                               |
-| `tenantId`                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | The service principal's tenant ID                                                                                                                                                                                                                                                                    |
-| `clientId`                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | The service principal's client ID                                                                                                                                                                                                                                                                    |
-| `azureCloud`                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | The Azure cloud to use. Defaults to Azure Public Cloud.                                                                                                                                                                                                                                              |
-| `endpointSuffix`                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.                                                                                                                                                                                    |
-| `clientTextSecret`                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | Select or create a stored text secret                                                                                                                                                                                                                                                                |
-| `certificate`                                                                                                                                                                                                                                                                                        | [models.InputAzureBlobCertificate](../models/inputazureblobcertificate.md)                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                                                  |
+```typescript
+const value: models.InputAzureBlobAzureBlob5 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  description: "clinch down miserable if naturally cross after",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.InputAzureBlobAzureBlob6`
+
+```typescript
+const value: models.InputAzureBlobAzureBlob6 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  description: "crossly hence loaf",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.InputAzureBlobAzureBlob7`
+
+```typescript
+const value: models.InputAzureBlobAzureBlob7 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "if yak that dampen miserably given along",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.InputAzureBlobAzureBlob8`
+
+```typescript
+const value: models.InputAzureBlobAzureBlob8 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  queueName: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description:
+    "colorfully candid obtrude over for monasticism bah softly that the",
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+

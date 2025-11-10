@@ -1,11 +1,78 @@
 # OutputSplunk
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputSplunkSplunk1`
 
 ```typescript
-import { OutputSplunk } from "cribl-control-plane/models";
+const value: models.OutputSplunkSplunk1 = {
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  host: "decent-switchboard.biz",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description: "scented yippee ugh",
+  pqControls: {},
+  textSecret: "<value>",
+};
+```
 
-let value: OutputSplunk = {
+### `models.OutputSplunkSplunk2`
+
+```typescript
+const value: models.OutputSplunkSplunk2 = {
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  host: "sneaky-address.com",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description: "whose which ha consequently",
+  pqControls: {},
+  textSecret: "<value>",
+};
+```
+
+### `models.OutputSplunkSplunk3`
+
+```typescript
+const value: models.OutputSplunkSplunk3 = {
   id: "<id>",
   type: "splunk",
   pipeline: "<value>",
@@ -15,10 +82,8 @@ let value: OutputSplunk = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  host: "elastic-custody.com",
+  host: "selfish-scenario.net",
   tls: {
     servername: "<value>",
     certificateName: "<value>",
@@ -27,46 +92,177 @@ let value: OutputSplunk = {
     certPath: "<value>",
     passphrase: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
-  description: "colon nor tightly pants now devil fooey verbally till",
+  description:
+    "the white ferociously gah repeatedly against millet before zowie",
   pqControls: {},
   textSecret: "<value>",
 };
 ```
 
-## Fields
+### `models.OutputSplunkSplunk4`
 
-| Field                                                                                                                                                                                                                                                          | Type                                                                                                                                                                                                                                                           | Required                                                                                                                                                                                                                                                       | Description                                                                                                                                                                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Unique ID for this output                                                                                                                                                                                                                                      |
-| `type`                                                                                                                                                                                                                                                         | [models.OutputSplunkType](../models/outputsplunktype.md)                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
-| `pipeline`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Pipeline to process data before sending out to this output                                                                                                                                                                                                     |
-| `systemFields`                                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                 |
-| `environment`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                           |
-| `streamtags`                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                  |
-| `host`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                             | The hostname of the receiver                                                                                                                                                                                                                                   |
-| `port`                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The port to connect to on the provided host                                                                                                                                                                                                                    |
-| `nestedFields`                                                                                                                                                                                                                                                 | [models.OutputSplunkNestedFieldSerialization](../models/outputsplunknestedfieldserialization.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to serialize nested fields into index-time fields                                                                                                                                                                                                          |
-| `throttleRatePerSec`                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.                                                               |
-| `connectionTimeout`                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Amount of time (milliseconds) to wait for the connection to establish before retrying                                                                                                                                                                          |
-| `writeTimeout`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead                                                                                                                                                               |
-| `tls`                                                                                                                                                                                                                                                          | [models.OutputSplunkTLSSettingsClientSide](../models/outputsplunktlssettingsclientside.md)                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
-| `enableMultiMetrics`                                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.                                                                                                                                                                 |
-| `enableACK`                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.                                                                                                                                                        |
-| `logFailedRequests`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Use to troubleshoot issues with sending data                                                                                                                                                                                                                   |
-| `maxS2Sversion`                                                                                                                                                                                                                                                | [models.OutputSplunkMaxS2SVersion](../models/outputsplunkmaxs2sversion.md)                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | The highest S2S protocol version to advertise during handshake                                                                                                                                                                                                 |
-| `onBackpressure`                                                                                                                                                                                                                                               | [models.OutputSplunkBackpressureBehavior](../models/outputsplunkbackpressurebehavior.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                              |
-| `authType`                                                                                                                                                                                                                                                     | [models.OutputSplunkAuthenticationMethod](../models/outputsplunkauthenticationmethod.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate                                                                                                                                                           |
-| `description`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
-| `maxFailedHealthChecks`                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.                                                                                  |
-| `compress`                                                                                                                                                                                                                                                     | [models.OutputSplunkCompressCompression](../models/outputsplunkcompresscompression.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                             | Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.                                                               |
-| `pqMaxFileSize`                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)                                                                                                                                                          |
-| `pqMaxSize`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.                                                                                                         |
-| `pqPath`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.                                                                                                                                          |
-| `pqCompress`                                                                                                                                                                                                                                                   | [models.OutputSplunkPqCompressCompression](../models/outputsplunkpqcompresscompression.md)                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                    |
-| `pqOnBackpressure`                                                                                                                                                                                                                                             | [models.OutputSplunkQueueFullBehavior](../models/outputsplunkqueuefullbehavior.md)                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                          |
-| `pqMode`                                                                                                                                                                                                                                                       | [models.OutputSplunkMode](../models/outputsplunkmode.md)                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem. |
-| `pqControls`                                                                                                                                                                                                                                                   | [models.OutputSplunkPqControls](../models/outputsplunkpqcontrols.md)                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
-| `authToken`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Shared secret token to use when establishing a connection to a Splunk indexer.                                                                                                                                                                                 |
-| `textSecret`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Select or create a stored text secret                                                                                                                                                                                                                          |
+```typescript
+const value: models.OutputSplunkSplunk4 = {
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  host: "ajar-backbone.info",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description: "politely brand soon",
+  pqControls: {},
+  textSecret: "<value>",
+};
+```
+
+### `models.OutputSplunkSplunk5`
+
+```typescript
+const value: models.OutputSplunkSplunk5 = {
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  host: "massive-anticodon.name",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description: "eek aside colorfully provided",
+  pqControls: {},
+  textSecret: "<value>",
+};
+```
+
+### `models.OutputSplunkSplunk6`
+
+```typescript
+const value: models.OutputSplunkSplunk6 = {
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  host: "each-freezing.info",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description: "fly lobster while igloo",
+  pqControls: {},
+  textSecret: "<value>",
+};
+```
+
+### `models.OutputSplunkSplunk7`
+
+```typescript
+const value: models.OutputSplunkSplunk7 = {
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  host: "charming-trolley.info",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description: "pneumonia oh which",
+  pqControls: {},
+  textSecret: "<value>",
+};
+```
+
+### `models.OutputSplunkSplunk8`
+
+```typescript
+const value: models.OutputSplunkSplunk8 = {
+  id: "<id>",
+  type: "splunk",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  host: "winged-conservation.net",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  description: "aboard mothball into sizzling once once precious censor when",
+  pqControls: {},
+  textSecret: "<value>",
+};
+```
+

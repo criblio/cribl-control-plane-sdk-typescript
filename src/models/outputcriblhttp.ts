@@ -4,221 +4,91 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthTokens1Type,
+  AuthTokens1Type$inboundSchema,
+  AuthTokens1Type$Outbound,
+  AuthTokens1Type$outboundSchema,
+} from "./authtokens1type.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
+import {
+  Tls1Type,
+  Tls1Type$inboundSchema,
+  Tls1Type$Outbound,
+  Tls1Type$outboundSchema,
+} from "./tls1type.js";
+import {
+  TypeCriblHttpOption,
+  TypeCriblHttpOption$inboundSchema,
+  TypeCriblHttpOption$outboundSchema,
+} from "./typecriblhttpoption.js";
+import {
+  UrlsType,
+  UrlsType$inboundSchema,
+  UrlsType$Outbound,
+  UrlsType$outboundSchema,
+} from "./urlstype.js";
 
-export const OutputCriblHttpType = {
-  CriblHttp: "cribl_http",
-} as const;
-export type OutputCriblHttpType = ClosedEnum<typeof OutputCriblHttpType>;
-
-export const OutputCriblHttpMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputCriblHttpMinimumTLSVersion = OpenEnum<
-  typeof OutputCriblHttpMinimumTLSVersion
->;
-
-export const OutputCriblHttpMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputCriblHttpMaximumTLSVersion = OpenEnum<
-  typeof OutputCriblHttpMaximumTLSVersion
->;
-
-export type OutputCriblHttpTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
+export type OutputCriblHTTPCriblHttp4 = {
   /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   * How to handle events when all receivers are exerting backpressure
    */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputCriblHttpMinimumTLSVersion | undefined;
-  maxVersion?: OutputCriblHttpMaximumTLSVersion | undefined;
-};
-
-/**
- * Codec to use to compress the data before sending
- */
-export const OutputCriblHttpCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the data before sending
- */
-export type OutputCriblHttpCompression = OpenEnum<
-  typeof OutputCriblHttpCompression
->;
-
-export type OutputCriblHttpExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputCriblHttpFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputCriblHttpFailedRequestLoggingMode = OpenEnum<
-  typeof OutputCriblHttpFailedRequestLoggingMode
->;
-
-export type OutputCriblHttpResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputCriblHttpTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputCriblHttpBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputCriblHttpBackpressureBehavior = OpenEnum<
-  typeof OutputCriblHttpBackpressureBehavior
->;
-
-export type OutputCriblHttpUrl = {
-  /**
-   * URL of a Cribl Worker to send events to, such as http://localhost:10200
-   */
-  url: string;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-};
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputCriblHttpPqCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputCriblHttpPqCompressCompression = OpenEnum<
-  typeof OutputCriblHttpPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputCriblHttpQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputCriblHttpQueueFullBehavior = OpenEnum<
-  typeof OutputCriblHttpQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputCriblHttpMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputCriblHttpMode = OpenEnum<typeof OutputCriblHttpMode>;
-
-export type OutputCriblHttpPqControls = {};
-
-export type OutputCriblHttp = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCriblHttpType;
+  type: TypeCriblHttpOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -239,7 +109,7 @@ export type OutputCriblHttp = {
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
-  tls?: OutputCriblHttpTLSSettingsClientSide | undefined;
+  tls?: Tls1Type | undefined;
   /**
    * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
    */
@@ -249,9 +119,9 @@ export type OutputCriblHttp = {
    */
   excludeFields?: Array<string> | undefined;
   /**
-   * Codec to use to compress the data before sending
+   * Codec to use to compress the persisted data
    */
-  compression?: OutputCriblHttpCompression | undefined;
+  compression?: PqCompressOptions | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -283,13 +153,11 @@ export type OutputCriblHttp = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputCriblHttpExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputCriblHttpFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -297,18 +165,16 @@ export type OutputCriblHttp = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputCriblHttpResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputCriblHttpTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
    */
-  onBackpressure?: OutputCriblHttpBackpressureBehavior | undefined;
+  authTokens?: Array<AuthTokens1Type> | undefined;
   description?: string | undefined;
   /**
    * URL of a Cribl Worker to send events to, such as http://localhost:10200
@@ -322,7 +188,7 @@ export type OutputCriblHttp = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<OutputCriblHttpUrl> | undefined;
+  urls?: Array<UrlsType> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -331,6 +197,26 @@ export type OutputCriblHttp = {
    * How far back in time to keep traffic stats for load balancing purposes
    */
   loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -346,749 +232,558 @@ export type OutputCriblHttp = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputCriblHttpPqCompressCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputCriblHttpQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export type OutputCriblHTTPCriblHttp3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeCriblHttpOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
+   */
+  tokenTTLMinutes?: number | undefined;
+  /**
+   * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<AuthTokens1Type> | undefined;
+  description?: string | undefined;
+  /**
+   * URL of a Cribl Worker to send events to, such as http://localhost:10200
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputCriblHttpMode | undefined;
-  pqControls?: OutputCriblHttpPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputCriblHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblHttpType
-> = z.nativeEnum(OutputCriblHttpType);
-
-/** @internal */
-export const OutputCriblHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblHttpType
-> = OutputCriblHttpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpType$ {
-  /** @deprecated use `OutputCriblHttpType$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpType$inboundSchema;
-  /** @deprecated use `OutputCriblHttpType$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpType$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputCriblHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblHttpMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputCriblHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  OutputCriblHttpMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputCriblHttpMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpMinimumTLSVersion$ {
-  /** @deprecated use `OutputCriblHttpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputCriblHttpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputCriblHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblHttpMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputCriblHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  OutputCriblHttpMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputCriblHttpMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpMaximumTLSVersion$ {
-  /** @deprecated use `OutputCriblHttpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputCriblHttpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputCriblHttpTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputCriblHttpMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputCriblHttpMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type OutputCriblHttpTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+export type OutputCriblHTTPCriblHttp2 = {
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeCriblHttpOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
+   */
+  tokenTTLMinutes?: number | undefined;
+  /**
+   * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<AuthTokens1Type> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL of a Cribl Worker to send events to, such as http://localhost:10200
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls: Array<UrlsType>;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputCriblHttpTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputCriblHttpTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  OutputCriblHttpTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputCriblHttpMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputCriblHttpMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpTLSSettingsClientSide$ {
-  /** @deprecated use `OutputCriblHttpTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputCriblHttpTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputCriblHttpTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputCriblHttpTLSSettingsClientSide$Outbound;
-}
-
-export function outputCriblHttpTLSSettingsClientSideToJSON(
-  outputCriblHttpTLSSettingsClientSide: OutputCriblHttpTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputCriblHttpTLSSettingsClientSide$outboundSchema.parse(
-      outputCriblHttpTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function outputCriblHttpTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblHttpTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputCriblHttpTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblHttpTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCriblHttpCompression$inboundSchema: z.ZodType<
-  OutputCriblHttpCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblHttpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblHttpCompression$outboundSchema: z.ZodType<
-  OutputCriblHttpCompression,
-  z.ZodTypeDef,
-  OutputCriblHttpCompression
-> = z.union([
-  z.nativeEnum(OutputCriblHttpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpCompression$ {
-  /** @deprecated use `OutputCriblHttpCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpCompression$inboundSchema;
-  /** @deprecated use `OutputCriblHttpCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputCriblHttpExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputCriblHttpExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputCriblHttpExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputCriblHttpExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputCriblHttpExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpExtraHttpHeader$ {
-  /** @deprecated use `OutputCriblHttpExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputCriblHttpExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputCriblHttpExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputCriblHttpExtraHttpHeader$Outbound;
-}
-
-export function outputCriblHttpExtraHttpHeaderToJSON(
-  outputCriblHttpExtraHttpHeader: OutputCriblHttpExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputCriblHttpExtraHttpHeader$outboundSchema.parse(
-      outputCriblHttpExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputCriblHttpExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblHttpExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblHttpExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblHttpExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCriblHttpFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputCriblHttpFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblHttpFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblHttpFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputCriblHttpFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputCriblHttpFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputCriblHttpFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputCriblHttpFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputCriblHttpFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputCriblHttpResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputCriblHttpResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputCriblHttpResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputCriblHttpResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputCriblHttpResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpResponseRetrySetting$ {
-  /** @deprecated use `OutputCriblHttpResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputCriblHttpResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputCriblHttpResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputCriblHttpResponseRetrySetting$Outbound;
-}
-
-export function outputCriblHttpResponseRetrySettingToJSON(
-  outputCriblHttpResponseRetrySetting: OutputCriblHttpResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputCriblHttpResponseRetrySetting$outboundSchema.parse(
-      outputCriblHttpResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputCriblHttpResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblHttpResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputCriblHttpResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblHttpResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCriblHttpTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputCriblHttpTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(true),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputCriblHttpTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputCriblHttpTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputCriblHttpTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputCriblHttpTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(true),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpTimeoutRetrySettings$ {
-  /** @deprecated use `OutputCriblHttpTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputCriblHttpTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputCriblHttpTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputCriblHttpTimeoutRetrySettings$Outbound;
-}
-
-export function outputCriblHttpTimeoutRetrySettingsToJSON(
-  outputCriblHttpTimeoutRetrySettings: OutputCriblHttpTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputCriblHttpTimeoutRetrySettings$outboundSchema.parse(
-      outputCriblHttpTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputCriblHttpTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblHttpTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputCriblHttpTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblHttpTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCriblHttpBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputCriblHttpBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblHttpBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblHttpBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputCriblHttpBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputCriblHttpBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputCriblHttpBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpBackpressureBehavior$ {
-  /** @deprecated use `OutputCriblHttpBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCriblHttpBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpUrl$inboundSchema: z.ZodType<
-  OutputCriblHttpUrl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.string(),
-  weight: z.number().default(1),
-});
-
-/** @internal */
-export type OutputCriblHttpUrl$Outbound = {
+export type OutputCriblHTTPCriblHttp1 = {
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeCriblHttpOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
+   */
+  tokenTTLMinutes?: number | undefined;
+  /**
+   * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<AuthTokens1Type> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL of a Cribl Worker to send events to, such as http://localhost:10200
+   */
   url: string;
-  weight: number;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputCriblHttpUrl$outboundSchema: z.ZodType<
-  OutputCriblHttpUrl$Outbound,
-  z.ZodTypeDef,
-  OutputCriblHttpUrl
-> = z.object({
-  url: z.string(),
-  weight: z.number().default(1),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpUrl$ {
-  /** @deprecated use `OutputCriblHttpUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpUrl$inboundSchema;
-  /** @deprecated use `OutputCriblHttpUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpUrl$outboundSchema;
-  /** @deprecated use `OutputCriblHttpUrl$Outbound` instead. */
-  export type Outbound = OutputCriblHttpUrl$Outbound;
-}
-
-export function outputCriblHttpUrlToJSON(
-  outputCriblHttpUrl: OutputCriblHttpUrl,
-): string {
-  return JSON.stringify(
-    OutputCriblHttpUrl$outboundSchema.parse(outputCriblHttpUrl),
-  );
-}
-
-export function outputCriblHttpUrlFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblHttpUrl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblHttpUrl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblHttpUrl' from JSON`,
-  );
-}
+export type OutputCriblHttp =
+  | OutputCriblHTTPCriblHttp1
+  | OutputCriblHTTPCriblHttp2
+  | OutputCriblHTTPCriblHttp4
+  | OutputCriblHTTPCriblHttp3;
 
 /** @internal */
-export const OutputCriblHttpPqCompressCompression$inboundSchema: z.ZodType<
-  OutputCriblHttpPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblHttpPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblHttpPqCompressCompression$outboundSchema: z.ZodType<
-  OutputCriblHttpPqCompressCompression,
-  z.ZodTypeDef,
-  OutputCriblHttpPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputCriblHttpPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpPqCompressCompression$ {
-  /** @deprecated use `OutputCriblHttpPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblHttpPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputCriblHttpPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblHttpPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputCriblHttpQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblHttpQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblHttpQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputCriblHttpQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputCriblHttpQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputCriblHttpQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpQueueFullBehavior$ {
-  /** @deprecated use `OutputCriblHttpQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputCriblHttpQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpMode$inboundSchema: z.ZodType<
-  OutputCriblHttpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblHttpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblHttpMode$outboundSchema: z.ZodType<
-  OutputCriblHttpMode,
-  z.ZodTypeDef,
-  OutputCriblHttpMode
-> = z.union([
-  z.nativeEnum(OutputCriblHttpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpMode$ {
-  /** @deprecated use `OutputCriblHttpMode$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpMode$inboundSchema;
-  /** @deprecated use `OutputCriblHttpMode$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblHttpPqControls$inboundSchema: z.ZodType<
-  OutputCriblHttpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputCriblHttpPqControls$Outbound = {};
-
-/** @internal */
-export const OutputCriblHttpPqControls$outboundSchema: z.ZodType<
-  OutputCriblHttpPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputCriblHttpPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttpPqControls$ {
-  /** @deprecated use `OutputCriblHttpPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttpPqControls$inboundSchema;
-  /** @deprecated use `OutputCriblHttpPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttpPqControls$outboundSchema;
-  /** @deprecated use `OutputCriblHttpPqControls$Outbound` instead. */
-  export type Outbound = OutputCriblHttpPqControls$Outbound;
-}
-
-export function outputCriblHttpPqControlsToJSON(
-  outputCriblHttpPqControls: OutputCriblHttpPqControls,
-): string {
-  return JSON.stringify(
-    OutputCriblHttpPqControls$outboundSchema.parse(outputCriblHttpPqControls),
-  );
-}
-
-export function outputCriblHttpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblHttpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblHttpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblHttpPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCriblHttp$inboundSchema: z.ZodType<
-  OutputCriblHttp,
+export const OutputCriblHTTPCriblHttp4$inboundSchema: z.ZodType<
+  OutputCriblHTTPCriblHttp4,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputCriblHttpType$inboundSchema,
+  type: TypeCriblHttpOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().default(true),
-  tls: z.lazy(() => OutputCriblHttpTLSSettingsClientSide$inboundSchema)
-    .optional(),
+  tls: Tls1Type$inboundSchema.optional(),
   tokenTTLMinutes: z.number().default(60),
   excludeFields: z.array(z.string()).optional(),
-  compression: OutputCriblHttpCompression$inboundSchema.default("gzip"),
+  compression: PqCompressOptions$inboundSchema.default("none"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputCriblHttpExtraHttpHeader$inboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputCriblHttpFailedRequestLoggingMode$inboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputCriblHttpResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputCriblHttpTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputCriblHttpBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  authTokens: z.array(AuthTokens1Type$inboundSchema).optional(),
   description: z.string().optional(),
   url: z.string().optional(),
   useRoundRobinDns: z.boolean().default(false),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(z.lazy(() => OutputCriblHttpUrl$inboundSchema)).optional(),
+  urls: z.array(UrlsType$inboundSchema).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputCriblHttpPqCompressCompression$inboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputCriblHttpQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputCriblHttpMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputCriblHttpPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputCriblHttp$Outbound = {
+export type OutputCriblHTTPCriblHttp4$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1096,7 +791,7 @@ export type OutputCriblHttp$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   loadBalanced: boolean;
-  tls?: OutputCriblHttpTLSSettingsClientSide$Outbound | undefined;
+  tls?: Tls1Type$Outbound | undefined;
   tokenTTLMinutes: number;
   excludeFields?: Array<string> | undefined;
   compression: string;
@@ -1106,112 +801,645 @@ export type OutputCriblHttp$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputCriblHttpExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputCriblHttpResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputCriblHttpTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  authTokens?: Array<AuthTokens1Type$Outbound> | undefined;
   description?: string | undefined;
   url?: string | undefined;
   useRoundRobinDns: boolean;
   excludeSelf: boolean;
-  urls?: Array<OutputCriblHttpUrl$Outbound> | undefined;
+  urls?: Array<UrlsType$Outbound> | undefined;
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputCriblHttpPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputCriblHttp$outboundSchema: z.ZodType<
-  OutputCriblHttp$Outbound,
+export const OutputCriblHTTPCriblHttp4$outboundSchema: z.ZodType<
+  OutputCriblHTTPCriblHttp4$Outbound,
   z.ZodTypeDef,
-  OutputCriblHttp
+  OutputCriblHTTPCriblHttp4
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputCriblHttpType$outboundSchema,
+  type: TypeCriblHttpOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().default(true),
-  tls: z.lazy(() => OutputCriblHttpTLSSettingsClientSide$outboundSchema)
-    .optional(),
+  tls: Tls1Type$outboundSchema.optional(),
   tokenTTLMinutes: z.number().default(60),
   excludeFields: z.array(z.string()).optional(),
-  compression: OutputCriblHttpCompression$outboundSchema.default("gzip"),
+  compression: PqCompressOptions$outboundSchema.default("none"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputCriblHttpExtraHttpHeader$outboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputCriblHttpFailedRequestLoggingMode$outboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputCriblHttpResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputCriblHttpTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputCriblHttpBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  authTokens: z.array(AuthTokens1Type$outboundSchema).optional(),
   description: z.string().optional(),
   url: z.string().optional(),
   useRoundRobinDns: z.boolean().default(false),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(z.lazy(() => OutputCriblHttpUrl$outboundSchema)).optional(),
+  urls: z.array(UrlsType$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputCriblHttpPqCompressCompression$outboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputCriblHttpQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputCriblHttpMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputCriblHttpPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblHttp$ {
-  /** @deprecated use `OutputCriblHttp$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblHttp$inboundSchema;
-  /** @deprecated use `OutputCriblHttp$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblHttp$outboundSchema;
-  /** @deprecated use `OutputCriblHttp$Outbound` instead. */
-  export type Outbound = OutputCriblHttp$Outbound;
+export function outputCriblHTTPCriblHTTP4ToJSON(
+  outputCriblHTTPCriblHttp4: OutputCriblHTTPCriblHttp4,
+): string {
+  return JSON.stringify(
+    OutputCriblHTTPCriblHttp4$outboundSchema.parse(outputCriblHTTPCriblHttp4),
+  );
 }
+export function outputCriblHTTPCriblHTTP4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblHTTPCriblHttp4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblHTTPCriblHttp4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblHTTPCriblHttp4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblHTTPCriblHttp3$inboundSchema: z.ZodType<
+  OutputCriblHTTPCriblHttp3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeCriblHttpOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  tls: Tls1Type$inboundSchema.optional(),
+  tokenTTLMinutes: z.number().default(60),
+  excludeFields: z.array(z.string()).optional(),
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(AuthTokens1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputCriblHTTPCriblHttp3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced: boolean;
+  tls?: Tls1Type$Outbound | undefined;
+  tokenTTLMinutes: number;
+  excludeFields?: Array<string> | undefined;
+  compression: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authTokens?: Array<AuthTokens1Type$Outbound> | undefined;
+  description?: string | undefined;
+  url?: string | undefined;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<UrlsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCriblHTTPCriblHttp3$outboundSchema: z.ZodType<
+  OutputCriblHTTPCriblHttp3$Outbound,
+  z.ZodTypeDef,
+  OutputCriblHTTPCriblHttp3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeCriblHttpOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  tls: Tls1Type$outboundSchema.optional(),
+  tokenTTLMinutes: z.number().default(60),
+  excludeFields: z.array(z.string()).optional(),
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(AuthTokens1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputCriblHTTPCriblHTTP3ToJSON(
+  outputCriblHTTPCriblHttp3: OutputCriblHTTPCriblHttp3,
+): string {
+  return JSON.stringify(
+    OutputCriblHTTPCriblHttp3$outboundSchema.parse(outputCriblHTTPCriblHttp3),
+  );
+}
+export function outputCriblHTTPCriblHTTP3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblHTTPCriblHttp3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblHTTPCriblHttp3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblHTTPCriblHttp3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblHTTPCriblHttp2$inboundSchema: z.ZodType<
+  OutputCriblHTTPCriblHttp2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  loadBalanced: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeCriblHttpOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  tls: Tls1Type$inboundSchema.optional(),
+  tokenTTLMinutes: z.number().default(60),
+  excludeFields: z.array(z.string()).optional(),
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(AuthTokens1Type$inboundSchema).optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$inboundSchema),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputCriblHTTPCriblHttp2$Outbound = {
+  loadBalanced: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  tls?: Tls1Type$Outbound | undefined;
+  tokenTTLMinutes: number;
+  excludeFields?: Array<string> | undefined;
+  compression: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authTokens?: Array<AuthTokens1Type$Outbound> | undefined;
+  onBackpressure: string;
+  description?: string | undefined;
+  url?: string | undefined;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls: Array<UrlsType$Outbound>;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCriblHTTPCriblHttp2$outboundSchema: z.ZodType<
+  OutputCriblHTTPCriblHttp2$Outbound,
+  z.ZodTypeDef,
+  OutputCriblHTTPCriblHttp2
+> = z.object({
+  loadBalanced: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeCriblHttpOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  tls: Tls1Type$outboundSchema.optional(),
+  tokenTTLMinutes: z.number().default(60),
+  excludeFields: z.array(z.string()).optional(),
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(AuthTokens1Type$outboundSchema).optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$outboundSchema),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputCriblHTTPCriblHTTP2ToJSON(
+  outputCriblHTTPCriblHttp2: OutputCriblHTTPCriblHttp2,
+): string {
+  return JSON.stringify(
+    OutputCriblHTTPCriblHttp2$outboundSchema.parse(outputCriblHTTPCriblHttp2),
+  );
+}
+export function outputCriblHTTPCriblHTTP2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblHTTPCriblHttp2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblHTTPCriblHttp2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblHTTPCriblHttp2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblHTTPCriblHttp1$inboundSchema: z.ZodType<
+  OutputCriblHTTPCriblHttp1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  loadBalanced: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeCriblHttpOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  tls: Tls1Type$inboundSchema.optional(),
+  tokenTTLMinutes: z.number().default(60),
+  excludeFields: z.array(z.string()).optional(),
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(AuthTokens1Type$inboundSchema).optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string(),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputCriblHTTPCriblHttp1$Outbound = {
+  loadBalanced: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  tls?: Tls1Type$Outbound | undefined;
+  tokenTTLMinutes: number;
+  excludeFields?: Array<string> | undefined;
+  compression: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authTokens?: Array<AuthTokens1Type$Outbound> | undefined;
+  onBackpressure: string;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<UrlsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCriblHTTPCriblHttp1$outboundSchema: z.ZodType<
+  OutputCriblHTTPCriblHttp1$Outbound,
+  z.ZodTypeDef,
+  OutputCriblHTTPCriblHttp1
+> = z.object({
+  loadBalanced: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeCriblHttpOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  tls: Tls1Type$outboundSchema.optional(),
+  tokenTTLMinutes: z.number().default(60),
+  excludeFields: z.array(z.string()).optional(),
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authTokens: z.array(AuthTokens1Type$outboundSchema).optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string(),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputCriblHTTPCriblHTTP1ToJSON(
+  outputCriblHTTPCriblHttp1: OutputCriblHTTPCriblHttp1,
+): string {
+  return JSON.stringify(
+    OutputCriblHTTPCriblHttp1$outboundSchema.parse(outputCriblHTTPCriblHttp1),
+  );
+}
+export function outputCriblHTTPCriblHTTP1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblHTTPCriblHttp1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblHTTPCriblHttp1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblHTTPCriblHttp1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblHttp$inboundSchema: z.ZodType<
+  OutputCriblHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputCriblHTTPCriblHttp1$inboundSchema),
+  z.lazy(() => OutputCriblHTTPCriblHttp2$inboundSchema),
+  z.lazy(() => OutputCriblHTTPCriblHttp4$inboundSchema),
+  z.lazy(() => OutputCriblHTTPCriblHttp3$inboundSchema),
+]);
+/** @internal */
+export type OutputCriblHttp$Outbound =
+  | OutputCriblHTTPCriblHttp1$Outbound
+  | OutputCriblHTTPCriblHttp2$Outbound
+  | OutputCriblHTTPCriblHttp4$Outbound
+  | OutputCriblHTTPCriblHttp3$Outbound;
+
+/** @internal */
+export const OutputCriblHttp$outboundSchema: z.ZodType<
+  OutputCriblHttp$Outbound,
+  z.ZodTypeDef,
+  OutputCriblHttp
+> = z.union([
+  z.lazy(() => OutputCriblHTTPCriblHttp1$outboundSchema),
+  z.lazy(() => OutputCriblHTTPCriblHttp2$outboundSchema),
+  z.lazy(() => OutputCriblHTTPCriblHttp4$outboundSchema),
+  z.lazy(() => OutputCriblHTTPCriblHttp3$outboundSchema),
+]);
 
 export function outputCriblHttpToJSON(
   outputCriblHttp: OutputCriblHttp,
 ): string {
   return JSON.stringify(OutputCriblHttp$outboundSchema.parse(outputCriblHttp));
 }
-
 export function outputCriblHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblHttp, SDKValidationError> {

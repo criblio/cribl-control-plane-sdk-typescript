@@ -12,97 +12,76 @@ import {
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputXsiamType = {
+export const OutputXsiamType6 = {
   Xsiam: "xsiam",
 } as const;
-export type OutputXsiamType = ClosedEnum<typeof OutputXsiamType>;
-
-export type OutputXsiamExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputXsiamFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputXsiamFailedRequestLoggingMode = OpenEnum<
-  typeof OutputXsiamFailedRequestLoggingMode
->;
+export type OutputXsiamType6 = ClosedEnum<typeof OutputXsiamType6>;
 
 /**
  * Enter a token directly, or provide a secret referencing a token
  */
-export const OutputXsiamAuthenticationMethod = {
+export const OutputXsiamAuthenticationMethod6 = {
   Token: "token",
   Secret: "secret",
 } as const;
 /**
  * Enter a token directly, or provide a secret referencing a token
  */
-export type OutputXsiamAuthenticationMethod = OpenEnum<
-  typeof OutputXsiamAuthenticationMethod
+export type OutputXsiamAuthenticationMethod6 = OpenEnum<
+  typeof OutputXsiamAuthenticationMethod6
 >;
 
-export type OutputXsiamResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputXsiamTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputXsiamBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputXsiamBackpressureBehavior = OpenEnum<
-  typeof OutputXsiamBackpressureBehavior
->;
-
-export type OutputXsiamUrl = {
+export type Url6 = {
   url?: any | undefined;
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
@@ -110,53 +89,16 @@ export type OutputXsiamUrl = {
   weight?: number | undefined;
 };
 
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputXsiamCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputXsiamCompression = OpenEnum<typeof OutputXsiamCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputXsiamQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputXsiamQueueFullBehavior = OpenEnum<
-  typeof OutputXsiamQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputXsiamMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputXsiamMode = OpenEnum<typeof OutputXsiamMode>;
-
-export type OutputXsiamPqControls = {};
-
-export type OutputXsiam = {
+export type OutputXsiamXsiam6 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputXsiamType;
+  type: OutputXsiamType6;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -208,11 +150,11 @@ export type OutputXsiam = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputXsiamExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputXsiamFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -220,12 +162,12 @@ export type OutputXsiam = {
   /**
    * Enter a token directly, or provide a secret referencing a token
    */
-  authType?: OutputXsiamAuthenticationMethod | undefined;
+  authType?: OutputXsiamAuthenticationMethod6 | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputXsiamResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputXsiamTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -234,10 +176,6 @@ export type OutputXsiam = {
    * Maximum number of requests to limit to per second
    */
   throttleRateReqPerSec?: number | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputXsiamBackpressureBehavior | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -255,7 +193,7 @@ export type OutputXsiam = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<OutputXsiamUrl> | undefined;
+  urls?: Array<Url6> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -273,6 +211,26 @@ export type OutputXsiam = {
    */
   textSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -287,529 +245,1047 @@ export type OutputXsiam = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputXsiamCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputXsiamQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputXsiamType5 = {
+  Xsiam: "xsiam",
+} as const;
+export type OutputXsiamType5 = ClosedEnum<typeof OutputXsiamType5>;
+
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export const OutputXsiamAuthenticationMethod5 = {
+  Token: "token",
+  Secret: "secret",
+} as const;
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export type OutputXsiamAuthenticationMethod5 = OpenEnum<
+  typeof OutputXsiamAuthenticationMethod5
+>;
+
+export type Url5 = {
+  url?: any | undefined;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type OutputXsiamXsiam5 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputXsiamType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter a token directly, or provide a secret referencing a token
+   */
+  authType?: OutputXsiamAuthenticationMethod5 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of requests to limit to per second
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<Url5> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * XSIAM authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputXsiamMode | undefined;
-  pqControls?: OutputXsiamPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputXsiamType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputXsiamType
-> = z.nativeEnum(OutputXsiamType);
-
-/** @internal */
-export const OutputXsiamType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputXsiamType
-> = OutputXsiamType$inboundSchema;
-
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter a token directly, or provide a secret referencing a token
  */
-export namespace OutputXsiamType$ {
-  /** @deprecated use `OutputXsiamType$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamType$inboundSchema;
-  /** @deprecated use `OutputXsiamType$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamType$outboundSchema;
-}
+export const OutputXsiamAuthenticationMethod4 = {
+  Token: "token",
+  Secret: "secret",
+} as const;
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export type OutputXsiamAuthenticationMethod4 = OpenEnum<
+  typeof OutputXsiamAuthenticationMethod4
+>;
 
-/** @internal */
-export const OutputXsiamExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputXsiamExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+export const OutputXsiamType4 = {
+  Xsiam: "xsiam",
+} as const;
+export type OutputXsiamType4 = ClosedEnum<typeof OutputXsiamType4>;
 
-/** @internal */
-export type OutputXsiamExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type Url4 = {
+  url?: any | undefined;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
 };
 
-/** @internal */
-export const OutputXsiamExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputXsiamExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+export type OutputXsiamXsiam4 = {
+  /**
+   * Enter a token directly, or provide a secret referencing a token
+   */
+  authType?: OutputXsiamAuthenticationMethod4 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputXsiamType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of requests to limit to per second
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<Url4> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * XSIAM authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter a token directly, or provide a secret referencing a token
  */
-export namespace OutputXsiamExtraHttpHeader$ {
-  /** @deprecated use `OutputXsiamExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputXsiamExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputXsiamExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputXsiamExtraHttpHeader$Outbound;
-}
+export const OutputXsiamAuthenticationMethod3 = {
+  Token: "token",
+  Secret: "secret",
+} as const;
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export type OutputXsiamAuthenticationMethod3 = OpenEnum<
+  typeof OutputXsiamAuthenticationMethod3
+>;
 
-export function outputXsiamExtraHttpHeaderToJSON(
-  outputXsiamExtraHttpHeader: OutputXsiamExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputXsiamExtraHttpHeader$outboundSchema.parse(outputXsiamExtraHttpHeader),
-  );
-}
+export const OutputXsiamType3 = {
+  Xsiam: "xsiam",
+} as const;
+export type OutputXsiamType3 = ClosedEnum<typeof OutputXsiamType3>;
 
-export function outputXsiamExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputXsiamExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputXsiamExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamExtraHttpHeader' from JSON`,
-  );
-}
+export type Url3 = {
+  url?: any | undefined;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type OutputXsiamXsiam3 = {
+  /**
+   * Enter a token directly, or provide a secret referencing a token
+   */
+  authType?: OutputXsiamAuthenticationMethod3 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputXsiamType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of requests to limit to per second
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<Url3> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * XSIAM authentication token
+   */
+  token: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputXsiamType2 = {
+  Xsiam: "xsiam",
+} as const;
+export type OutputXsiamType2 = ClosedEnum<typeof OutputXsiamType2>;
+
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export const OutputXsiamAuthenticationMethod2 = {
+  Token: "token",
+  Secret: "secret",
+} as const;
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export type OutputXsiamAuthenticationMethod2 = OpenEnum<
+  typeof OutputXsiamAuthenticationMethod2
+>;
+
+export type Url2 = {
+  url?: any | undefined;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type OutputXsiamXsiam2 = {
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputXsiamType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter a token directly, or provide a secret referencing a token
+   */
+  authType?: OutputXsiamAuthenticationMethod2 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of requests to limit to per second
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls: Array<Url2>;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * XSIAM authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputXsiamType1 = {
+  Xsiam: "xsiam",
+} as const;
+export type OutputXsiamType1 = ClosedEnum<typeof OutputXsiamType1>;
+
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export const OutputXsiamAuthenticationMethod1 = {
+  Token: "token",
+  Secret: "secret",
+} as const;
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export type OutputXsiamAuthenticationMethod1 = OpenEnum<
+  typeof OutputXsiamAuthenticationMethod1
+>;
+
+export type Url1 = {
+  url?: any | undefined;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type OutputXsiamXsiam1 = {
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputXsiamType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter a token directly, or provide a secret referencing a token
+   */
+  authType?: OutputXsiamAuthenticationMethod1 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of requests to limit to per second
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<Url1> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * XSIAM authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputXsiam =
+  | OutputXsiamXsiam2
+  | OutputXsiamXsiam3
+  | OutputXsiamXsiam4
+  | OutputXsiamXsiam6
+  | OutputXsiamXsiam1
+  | OutputXsiamXsiam5;
 
 /** @internal */
-export const OutputXsiamFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputXsiamFailedRequestLoggingMode,
+export const OutputXsiamType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType6
+> = z.nativeEnum(OutputXsiamType6);
+/** @internal */
+export const OutputXsiamType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType6
+> = OutputXsiamType6$inboundSchema;
+
+/** @internal */
+export const OutputXsiamAuthenticationMethod6$inboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputXsiamFailedRequestLoggingMode),
+    z.nativeEnum(OutputXsiamAuthenticationMethod6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputXsiamFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputXsiamFailedRequestLoggingMode,
+export const OutputXsiamAuthenticationMethod6$outboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod6,
   z.ZodTypeDef,
-  OutputXsiamFailedRequestLoggingMode
+  OutputXsiamAuthenticationMethod6
 > = z.union([
-  z.nativeEnum(OutputXsiamFailedRequestLoggingMode),
+  z.nativeEnum(OutputXsiamAuthenticationMethod6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputXsiamFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputXsiamFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputXsiamFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputXsiamFailedRequestLoggingMode$outboundSchema;
-}
-
 /** @internal */
-export const OutputXsiamAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputXsiamAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
+export const Url6$inboundSchema: z.ZodType<Url6, z.ZodTypeDef, unknown> = z
+  .object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
 /** @internal */
-export const OutputXsiamAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputXsiamAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputXsiamAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputXsiamAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamAuthenticationMethod$ {
-  /** @deprecated use `OutputXsiamAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputXsiamAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputXsiamResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputXsiamResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputXsiamResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputXsiamResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputXsiamResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamResponseRetrySetting$ {
-  /** @deprecated use `OutputXsiamResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputXsiamResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputXsiamResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputXsiamResponseRetrySetting$Outbound;
-}
-
-export function outputXsiamResponseRetrySettingToJSON(
-  outputXsiamResponseRetrySetting: OutputXsiamResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputXsiamResponseRetrySetting$outboundSchema.parse(
-      outputXsiamResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputXsiamResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputXsiamResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputXsiamResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputXsiamTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputXsiamTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputXsiamTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputXsiamTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputXsiamTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamTimeoutRetrySettings$ {
-  /** @deprecated use `OutputXsiamTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputXsiamTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputXsiamTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputXsiamTimeoutRetrySettings$Outbound;
-}
-
-export function outputXsiamTimeoutRetrySettingsToJSON(
-  outputXsiamTimeoutRetrySettings: OutputXsiamTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputXsiamTimeoutRetrySettings$outboundSchema.parse(
-      outputXsiamTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputXsiamTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputXsiamTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputXsiamTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputXsiamBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputXsiamBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputXsiamBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputXsiamBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputXsiamBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputXsiamBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamBackpressureBehavior$ {
-  /** @deprecated use `OutputXsiamBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputXsiamBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputXsiamUrl$inboundSchema: z.ZodType<
-  OutputXsiamUrl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.any().optional(),
-  weight: z.number().default(1),
-});
-
-/** @internal */
-export type OutputXsiamUrl$Outbound = {
+export type Url6$Outbound = {
   url?: any | undefined;
   weight: number;
 };
 
 /** @internal */
-export const OutputXsiamUrl$outboundSchema: z.ZodType<
-  OutputXsiamUrl$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamUrl
-> = z.object({
-  url: z.any().optional(),
-  weight: z.number().default(1),
-});
+export const Url6$outboundSchema: z.ZodType<Url6$Outbound, z.ZodTypeDef, Url6> =
+  z.object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamUrl$ {
-  /** @deprecated use `OutputXsiamUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamUrl$inboundSchema;
-  /** @deprecated use `OutputXsiamUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamUrl$outboundSchema;
-  /** @deprecated use `OutputXsiamUrl$Outbound` instead. */
-  export type Outbound = OutputXsiamUrl$Outbound;
+export function url6ToJSON(url6: Url6): string {
+  return JSON.stringify(Url6$outboundSchema.parse(url6));
 }
-
-export function outputXsiamUrlToJSON(outputXsiamUrl: OutputXsiamUrl): string {
-  return JSON.stringify(OutputXsiamUrl$outboundSchema.parse(outputXsiamUrl));
-}
-
-export function outputXsiamUrlFromJSON(
+export function url6FromJSON(
   jsonString: string,
-): SafeParseResult<OutputXsiamUrl, SDKValidationError> {
+): SafeParseResult<Url6, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputXsiamUrl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamUrl' from JSON`,
+    (x) => Url6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Url6' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputXsiamCompression$inboundSchema: z.ZodType<
-  OutputXsiamCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputXsiamCompression$outboundSchema: z.ZodType<
-  OutputXsiamCompression,
-  z.ZodTypeDef,
-  OutputXsiamCompression
-> = z.union([
-  z.nativeEnum(OutputXsiamCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamCompression$ {
-  /** @deprecated use `OutputXsiamCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamCompression$inboundSchema;
-  /** @deprecated use `OutputXsiamCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputXsiamQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputXsiamQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputXsiamQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputXsiamQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputXsiamQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputXsiamQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamQueueFullBehavior$ {
-  /** @deprecated use `OutputXsiamQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputXsiamQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputXsiamMode$inboundSchema: z.ZodType<
-  OutputXsiamMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputXsiamMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputXsiamMode$outboundSchema: z.ZodType<
-  OutputXsiamMode,
-  z.ZodTypeDef,
-  OutputXsiamMode
-> = z.union([
-  z.nativeEnum(OutputXsiamMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamMode$ {
-  /** @deprecated use `OutputXsiamMode$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamMode$inboundSchema;
-  /** @deprecated use `OutputXsiamMode$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputXsiamPqControls$inboundSchema: z.ZodType<
-  OutputXsiamPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputXsiamPqControls$Outbound = {};
-
-/** @internal */
-export const OutputXsiamPqControls$outboundSchema: z.ZodType<
-  OutputXsiamPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiamPqControls$ {
-  /** @deprecated use `OutputXsiamPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiamPqControls$inboundSchema;
-  /** @deprecated use `OutputXsiamPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiamPqControls$outboundSchema;
-  /** @deprecated use `OutputXsiamPqControls$Outbound` instead. */
-  export type Outbound = OutputXsiamPqControls$Outbound;
-}
-
-export function outputXsiamPqControlsToJSON(
-  outputXsiamPqControls: OutputXsiamPqControls,
-): string {
-  return JSON.stringify(
-    OutputXsiamPqControls$outboundSchema.parse(outputXsiamPqControls),
-  );
-}
-
-export function outputXsiamPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputXsiamPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputXsiamPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputXsiam$inboundSchema: z.ZodType<
-  OutputXsiam,
+export const OutputXsiamXsiam6$inboundSchema: z.ZodType<
+  OutputXsiamXsiam6,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputXsiamType$inboundSchema,
+  type: OutputXsiamType6$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -821,45 +1297,41 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputXsiamExtraHttpHeader$inboundSchema),
-  ).optional(),
-  failedRequestLoggingMode: OutputXsiamFailedRequestLoggingMode$inboundSchema
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputXsiamAuthenticationMethod$inboundSchema.default("token"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputXsiamResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputXsiamTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  authType: OutputXsiamAuthenticationMethod6$inboundSchema.default("token"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   throttleRateReqPerSec: z.number().int().default(400),
-  onBackpressure: OutputXsiamBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   url: z.string().default("http://localhost:8088/logs/v1/event"),
   useRoundRobinDns: z.boolean().default(false),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(z.lazy(() => OutputXsiamUrl$inboundSchema)).optional(),
+  urls: z.array(z.lazy(() => Url6$inboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputXsiamCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputXsiamQueueFullBehavior$inboundSchema.default("block"),
-  pqMode: OutputXsiamMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputXsiamPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputXsiam$Outbound = {
+export type OutputXsiamXsiam6$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -873,44 +1345,46 @@ export type OutputXsiam$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputXsiamExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   authType: string;
-  responseRetrySettings?:
-    | Array<OutputXsiamResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?: OutputXsiamTimeoutRetrySettings$Outbound | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   throttleRateReqPerSec: number;
-  onBackpressure: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   url: string;
   useRoundRobinDns: boolean;
   excludeSelf: boolean;
-  urls?: Array<OutputXsiamUrl$Outbound> | undefined;
+  urls?: Array<Url6$Outbound> | undefined;
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
   token?: string | undefined;
   textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputXsiamPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputXsiam$outboundSchema: z.ZodType<
-  OutputXsiam$Outbound,
+export const OutputXsiamXsiam6$outboundSchema: z.ZodType<
+  OutputXsiamXsiam6$Outbound,
   z.ZodTypeDef,
-  OutputXsiam
+  OutputXsiamXsiam6
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputXsiamType$outboundSchema,
+  type: OutputXsiamType6$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -922,62 +1396,1245 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputXsiamExtraHttpHeader$outboundSchema),
-  ).optional(),
-  failedRequestLoggingMode: OutputXsiamFailedRequestLoggingMode$outboundSchema
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputXsiamAuthenticationMethod$outboundSchema.default("token"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputXsiamResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputXsiamTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  authType: OutputXsiamAuthenticationMethod6$outboundSchema.default("token"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   throttleRateReqPerSec: z.number().int().default(400),
-  onBackpressure: OutputXsiamBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   url: z.string().default("http://localhost:8088/logs/v1/event"),
   useRoundRobinDns: z.boolean().default(false),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(z.lazy(() => OutputXsiamUrl$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => Url6$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputXsiamCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputXsiamQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputXsiamMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputXsiamPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputXsiam$ {
-  /** @deprecated use `OutputXsiam$inboundSchema` instead. */
-  export const inboundSchema = OutputXsiam$inboundSchema;
-  /** @deprecated use `OutputXsiam$outboundSchema` instead. */
-  export const outboundSchema = OutputXsiam$outboundSchema;
-  /** @deprecated use `OutputXsiam$Outbound` instead. */
-  export type Outbound = OutputXsiam$Outbound;
+export function outputXsiamXsiam6ToJSON(
+  outputXsiamXsiam6: OutputXsiamXsiam6,
+): string {
+  return JSON.stringify(
+    OutputXsiamXsiam6$outboundSchema.parse(outputXsiamXsiam6),
+  );
 }
+export function outputXsiamXsiam6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputXsiamXsiam6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputXsiamXsiam6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputXsiamXsiam6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType5
+> = z.nativeEnum(OutputXsiamType5);
+/** @internal */
+export const OutputXsiamType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType5
+> = OutputXsiamType5$inboundSchema;
+
+/** @internal */
+export const OutputXsiamAuthenticationMethod5$inboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputXsiamAuthenticationMethod5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputXsiamAuthenticationMethod5$outboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod5,
+  z.ZodTypeDef,
+  OutputXsiamAuthenticationMethod5
+> = z.union([
+  z.nativeEnum(OutputXsiamAuthenticationMethod5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const Url5$inboundSchema: z.ZodType<Url5, z.ZodTypeDef, unknown> = z
+  .object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+/** @internal */
+export type Url5$Outbound = {
+  url?: any | undefined;
+  weight: number;
+};
+
+/** @internal */
+export const Url5$outboundSchema: z.ZodType<Url5$Outbound, z.ZodTypeDef, Url5> =
+  z.object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+
+export function url5ToJSON(url5: Url5): string {
+  return JSON.stringify(Url5$outboundSchema.parse(url5));
+}
+export function url5FromJSON(
+  jsonString: string,
+): SafeParseResult<Url5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Url5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Url5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamXsiam5$inboundSchema: z.ZodType<
+  OutputXsiamXsiam5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputXsiamType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: OutputXsiamAuthenticationMethod5$inboundSchema.default("token"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url5$inboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputXsiamXsiam5$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  throttleRateReqPerSec: number;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<Url5$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputXsiamXsiam5$outboundSchema: z.ZodType<
+  OutputXsiamXsiam5$Outbound,
+  z.ZodTypeDef,
+  OutputXsiamXsiam5
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputXsiamType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: OutputXsiamAuthenticationMethod5$outboundSchema.default("token"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url5$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputXsiamXsiam5ToJSON(
+  outputXsiamXsiam5: OutputXsiamXsiam5,
+): string {
+  return JSON.stringify(
+    OutputXsiamXsiam5$outboundSchema.parse(outputXsiamXsiam5),
+  );
+}
+export function outputXsiamXsiam5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputXsiamXsiam5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputXsiamXsiam5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputXsiamXsiam5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamAuthenticationMethod4$inboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputXsiamAuthenticationMethod4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputXsiamAuthenticationMethod4$outboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod4,
+  z.ZodTypeDef,
+  OutputXsiamAuthenticationMethod4
+> = z.union([
+  z.nativeEnum(OutputXsiamAuthenticationMethod4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputXsiamType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType4
+> = z.nativeEnum(OutputXsiamType4);
+/** @internal */
+export const OutputXsiamType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType4
+> = OutputXsiamType4$inboundSchema;
+
+/** @internal */
+export const Url4$inboundSchema: z.ZodType<Url4, z.ZodTypeDef, unknown> = z
+  .object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+/** @internal */
+export type Url4$Outbound = {
+  url?: any | undefined;
+  weight: number;
+};
+
+/** @internal */
+export const Url4$outboundSchema: z.ZodType<Url4$Outbound, z.ZodTypeDef, Url4> =
+  z.object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+
+export function url4ToJSON(url4: Url4): string {
+  return JSON.stringify(Url4$outboundSchema.parse(url4));
+}
+export function url4FromJSON(
+  jsonString: string,
+): SafeParseResult<Url4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Url4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Url4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamXsiam4$inboundSchema: z.ZodType<
+  OutputXsiamXsiam4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: OutputXsiamAuthenticationMethod4$inboundSchema.default("token"),
+  id: z.string().optional(),
+  type: OutputXsiamType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url4$inboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputXsiamXsiam4$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  throttleRateReqPerSec: number;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<Url4$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputXsiamXsiam4$outboundSchema: z.ZodType<
+  OutputXsiamXsiam4$Outbound,
+  z.ZodTypeDef,
+  OutputXsiamXsiam4
+> = z.object({
+  authType: OutputXsiamAuthenticationMethod4$outboundSchema.default("token"),
+  id: z.string().optional(),
+  type: OutputXsiamType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url4$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputXsiamXsiam4ToJSON(
+  outputXsiamXsiam4: OutputXsiamXsiam4,
+): string {
+  return JSON.stringify(
+    OutputXsiamXsiam4$outboundSchema.parse(outputXsiamXsiam4),
+  );
+}
+export function outputXsiamXsiam4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputXsiamXsiam4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputXsiamXsiam4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputXsiamXsiam4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamAuthenticationMethod3$inboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputXsiamAuthenticationMethod3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputXsiamAuthenticationMethod3$outboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod3,
+  z.ZodTypeDef,
+  OutputXsiamAuthenticationMethod3
+> = z.union([
+  z.nativeEnum(OutputXsiamAuthenticationMethod3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputXsiamType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType3
+> = z.nativeEnum(OutputXsiamType3);
+/** @internal */
+export const OutputXsiamType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType3
+> = OutputXsiamType3$inboundSchema;
+
+/** @internal */
+export const Url3$inboundSchema: z.ZodType<Url3, z.ZodTypeDef, unknown> = z
+  .object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+/** @internal */
+export type Url3$Outbound = {
+  url?: any | undefined;
+  weight: number;
+};
+
+/** @internal */
+export const Url3$outboundSchema: z.ZodType<Url3$Outbound, z.ZodTypeDef, Url3> =
+  z.object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+
+export function url3ToJSON(url3: Url3): string {
+  return JSON.stringify(Url3$outboundSchema.parse(url3));
+}
+export function url3FromJSON(
+  jsonString: string,
+): SafeParseResult<Url3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Url3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Url3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamXsiam3$inboundSchema: z.ZodType<
+  OutputXsiamXsiam3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: OutputXsiamAuthenticationMethod3$inboundSchema.default("token"),
+  id: z.string().optional(),
+  type: OutputXsiamType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url3$inboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputXsiamXsiam3$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  throttleRateReqPerSec: number;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<Url3$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token: string;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputXsiamXsiam3$outboundSchema: z.ZodType<
+  OutputXsiamXsiam3$Outbound,
+  z.ZodTypeDef,
+  OutputXsiamXsiam3
+> = z.object({
+  authType: OutputXsiamAuthenticationMethod3$outboundSchema.default("token"),
+  id: z.string().optional(),
+  type: OutputXsiamType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url3$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputXsiamXsiam3ToJSON(
+  outputXsiamXsiam3: OutputXsiamXsiam3,
+): string {
+  return JSON.stringify(
+    OutputXsiamXsiam3$outboundSchema.parse(outputXsiamXsiam3),
+  );
+}
+export function outputXsiamXsiam3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputXsiamXsiam3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputXsiamXsiam3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputXsiamXsiam3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType2
+> = z.nativeEnum(OutputXsiamType2);
+/** @internal */
+export const OutputXsiamType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType2
+> = OutputXsiamType2$inboundSchema;
+
+/** @internal */
+export const OutputXsiamAuthenticationMethod2$inboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputXsiamAuthenticationMethod2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputXsiamAuthenticationMethod2$outboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod2,
+  z.ZodTypeDef,
+  OutputXsiamAuthenticationMethod2
+> = z.union([
+  z.nativeEnum(OutputXsiamAuthenticationMethod2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const Url2$inboundSchema: z.ZodType<Url2, z.ZodTypeDef, unknown> = z
+  .object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+/** @internal */
+export type Url2$Outbound = {
+  url?: any | undefined;
+  weight: number;
+};
+
+/** @internal */
+export const Url2$outboundSchema: z.ZodType<Url2$Outbound, z.ZodTypeDef, Url2> =
+  z.object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+
+export function url2ToJSON(url2: Url2): string {
+  return JSON.stringify(Url2$outboundSchema.parse(url2));
+}
+export function url2FromJSON(
+  jsonString: string,
+): SafeParseResult<Url2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Url2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Url2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamXsiam2$inboundSchema: z.ZodType<
+  OutputXsiamXsiam2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  loadBalanced: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputXsiamType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: OutputXsiamAuthenticationMethod2$inboundSchema.default("token"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url2$inboundSchema)),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputXsiamXsiam2$Outbound = {
+  loadBalanced: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  throttleRateReqPerSec: number;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls: Array<Url2$Outbound>;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputXsiamXsiam2$outboundSchema: z.ZodType<
+  OutputXsiamXsiam2$Outbound,
+  z.ZodTypeDef,
+  OutputXsiamXsiam2
+> = z.object({
+  loadBalanced: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputXsiamType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: OutputXsiamAuthenticationMethod2$outboundSchema.default("token"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url2$outboundSchema)),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputXsiamXsiam2ToJSON(
+  outputXsiamXsiam2: OutputXsiamXsiam2,
+): string {
+  return JSON.stringify(
+    OutputXsiamXsiam2$outboundSchema.parse(outputXsiamXsiam2),
+  );
+}
+export function outputXsiamXsiam2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputXsiamXsiam2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputXsiamXsiam2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputXsiamXsiam2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType1
+> = z.nativeEnum(OutputXsiamType1);
+/** @internal */
+export const OutputXsiamType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputXsiamType1
+> = OutputXsiamType1$inboundSchema;
+
+/** @internal */
+export const OutputXsiamAuthenticationMethod1$inboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputXsiamAuthenticationMethod1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputXsiamAuthenticationMethod1$outboundSchema: z.ZodType<
+  OutputXsiamAuthenticationMethod1,
+  z.ZodTypeDef,
+  OutputXsiamAuthenticationMethod1
+> = z.union([
+  z.nativeEnum(OutputXsiamAuthenticationMethod1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const Url1$inboundSchema: z.ZodType<Url1, z.ZodTypeDef, unknown> = z
+  .object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+/** @internal */
+export type Url1$Outbound = {
+  url?: any | undefined;
+  weight: number;
+};
+
+/** @internal */
+export const Url1$outboundSchema: z.ZodType<Url1$Outbound, z.ZodTypeDef, Url1> =
+  z.object({
+    url: z.any().optional(),
+    weight: z.number().default(1),
+  });
+
+export function url1ToJSON(url1: Url1): string {
+  return JSON.stringify(Url1$outboundSchema.parse(url1));
+}
+export function url1FromJSON(
+  jsonString: string,
+): SafeParseResult<Url1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Url1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Url1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiamXsiam1$inboundSchema: z.ZodType<
+  OutputXsiamXsiam1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  loadBalanced: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputXsiamType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: OutputXsiamAuthenticationMethod1$inboundSchema.default("token"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url1$inboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputXsiamXsiam1$Outbound = {
+  loadBalanced: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  throttleRateReqPerSec: number;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<Url1$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputXsiamXsiam1$outboundSchema: z.ZodType<
+  OutputXsiamXsiam1$Outbound,
+  z.ZodTypeDef,
+  OutputXsiamXsiam1
+> = z.object({
+  loadBalanced: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputXsiamType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(10000),
+  maxPayloadEvents: z.number().default(0),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: OutputXsiamAuthenticationMethod1$outboundSchema.default("token"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  throttleRateReqPerSec: z.number().int().default(400),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/logs/v1/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(z.lazy(() => Url1$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputXsiamXsiam1ToJSON(
+  outputXsiamXsiam1: OutputXsiamXsiam1,
+): string {
+  return JSON.stringify(
+    OutputXsiamXsiam1$outboundSchema.parse(outputXsiamXsiam1),
+  );
+}
+export function outputXsiamXsiam1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputXsiamXsiam1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputXsiamXsiam1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputXsiamXsiam1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputXsiam$inboundSchema: z.ZodType<
+  OutputXsiam,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputXsiamXsiam2$inboundSchema),
+  z.lazy(() => OutputXsiamXsiam3$inboundSchema),
+  z.lazy(() => OutputXsiamXsiam4$inboundSchema),
+  z.lazy(() => OutputXsiamXsiam6$inboundSchema),
+  z.lazy(() => OutputXsiamXsiam1$inboundSchema),
+  z.lazy(() => OutputXsiamXsiam5$inboundSchema),
+]);
+/** @internal */
+export type OutputXsiam$Outbound =
+  | OutputXsiamXsiam2$Outbound
+  | OutputXsiamXsiam3$Outbound
+  | OutputXsiamXsiam4$Outbound
+  | OutputXsiamXsiam6$Outbound
+  | OutputXsiamXsiam1$Outbound
+  | OutputXsiamXsiam5$Outbound;
+
+/** @internal */
+export const OutputXsiam$outboundSchema: z.ZodType<
+  OutputXsiam$Outbound,
+  z.ZodTypeDef,
+  OutputXsiam
+> = z.union([
+  z.lazy(() => OutputXsiamXsiam2$outboundSchema),
+  z.lazy(() => OutputXsiamXsiam3$outboundSchema),
+  z.lazy(() => OutputXsiamXsiam4$outboundSchema),
+  z.lazy(() => OutputXsiamXsiam6$outboundSchema),
+  z.lazy(() => OutputXsiamXsiam1$outboundSchema),
+  z.lazy(() => OutputXsiamXsiam5$outboundSchema),
+]);
 
 export function outputXsiamToJSON(outputXsiam: OutputXsiam): string {
   return JSON.stringify(OutputXsiam$outboundSchema.parse(outputXsiam));
 }
-
 export function outputXsiamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputXsiam, SDKValidationError> {

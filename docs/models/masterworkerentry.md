@@ -14,57 +14,60 @@ let value: MasterWorkerEntry = {
   info: {
     architecture: "<value>",
     aws: {
-      enabled: true,
+      enabled: false,
+      instanceId: "<id>",
       region: "<value>",
       tags: {},
       type: "<value>",
       zone: "<value>",
     },
     connIp: "<value>",
-    cpus: 7967.06,
+    cpus: 2011.18,
     cribl: {
       config: {
         featuresRev: "<value>",
-        hbPeriodSeconds: 3261.24,
+        hbPeriodSeconds: 8719.43,
         logStreamEnv: "<value>",
         policyRev: "<value>",
         version: "<value>",
       },
       deploymentId: "<id>",
-      disableSNIRouting: false,
-      distMode: "edge",
-      edgeNodes: 6064.13,
+      disableSNIRouting: true,
+      distMode: "master",
+      edgeNodes: 8294.01,
       group: "<value>",
       guid: "<id>",
       installType: "<value>",
       lookupVersions: {},
       master: {
-        host: "frequent-bell.info",
-        port: 9100.63,
+        host: "bitter-poetry.net",
+        port: 4320.82,
         servername: "<value>",
-        tls: true,
+        tls: false,
       },
-      pid: 5354.01,
-      socksEnabled: false,
-      startTime: 2370.83,
-      tags: [],
+      pid: 809.07,
+      socksEnabled: true,
+      startTime: 1948.63,
+      tags: [
+        "<value 1>",
+        "<value 2>",
+      ],
       version: "<value>",
     },
-    freeDiskSpace: 6007.7,
+    env: {},
+    freeDiskSpace: 3273.66,
     hostOs: {
       addresses: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
       enabled: true,
       id: "<id>",
       version: "<value>",
     },
-    hostname: "interesting-cinder.info",
+    hostname: "exhausted-trash.biz",
     isSaasWorker: true,
     kube: {
-      enabled: false,
+      enabled: true,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -74,10 +77,11 @@ let value: MasterWorkerEntry = {
       pod: "<value>",
       source: "<value>",
     },
-    localTime: 6997.29,
+    localTime: 2959.09,
     metadata: {
       aws: {
         enabled: false,
+        instanceId: "<id>",
         region: "<value>",
         tags: {},
         type: "<value>",
@@ -86,10 +90,8 @@ let value: MasterWorkerEntry = {
       hostOs: {
         addresses: [
           "<value 1>",
-          "<value 2>",
-          "<value 3>",
         ],
-        enabled: false,
+        enabled: true,
         id: "<id>",
         version: "<value>",
       },
@@ -108,34 +110,34 @@ let value: MasterWorkerEntry = {
         addresses: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
-        enabled: true,
+        enabled: false,
         id: "<id>",
         version: "<value>",
       },
     },
     node: "<value>",
     os: {
-      addresses: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      enabled: false,
+      addresses: [],
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
+    outpost: {
+      guid: "<id>",
+      host: "pretty-interchange.name",
+    },
     platform: "<value>",
     release: "<value>",
-    totalDiskSpace: 774.32,
-    totalmem: 6947.29,
+    totalDiskSpace: 268.82,
+    totalmem: 8080.52,
   },
   lastMetrics: {},
   lastMsgTime: 7161.68,
   metadata: {
     aws: {
       enabled: false,
+      instanceId: "<id>",
       region: "<value>",
       tags: {},
       type: "<value>",
@@ -144,10 +146,8 @@ let value: MasterWorkerEntry = {
     hostOs: {
       addresses: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
@@ -166,25 +166,24 @@ let value: MasterWorkerEntry = {
       addresses: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
-      enabled: true,
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
   },
   nodeUpgradeStatus: {
-    active: 0,
-    failed: 1,
-    skipped: 1,
+    active: 2,
+    failed: 0,
+    skipped: 2,
     state: 3,
-    timestamp: 7875.25,
+    timestamp: 9804.66,
   },
   status: "<value>",
   type: "resp",
   workerProcesses: 3638.57,
   workers: {
-    count: 5559.98,
+    count: 2221.07,
   },
 };
 ```
@@ -199,7 +198,7 @@ let value: MasterWorkerEntry = {
 | `group`                                                                  | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `id`                                                                     | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `info`                                                                   | [models.NodeProvidedInfo](../models/nodeprovidedinfo.md)                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `lastMetrics`                                                            | [models.LastMetrics](../models/lastmetrics.md)                           | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `lastMetrics`                                                            | [models.MetadataType](../models/metadatatype.md)                         | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `lastMsgTime`                                                            | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `metadata`                                                               | [models.HeartbeatMetadata](../models/heartbeatmetadata.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `nodeUpgradeStatus`                                                      | [models.NodeUpgradeStatus](../models/nodeupgradestatus.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |

@@ -4,138 +4,57 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  QueueTypeOptions,
+  QueueTypeOptions$inboundSchema,
+  QueueTypeOptions$outboundSchema,
+} from "./queuetypeoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  TypeSqsOption,
+  TypeSqsOption$inboundSchema,
+  TypeSqsOption$outboundSchema,
+} from "./typesqsoption.js";
 
-export const InputSqsType = {
-  Sqs: "sqs",
-} as const;
-export type InputSqsType = ClosedEnum<typeof InputSqsType>;
-
-export type InputSqsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSqsMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSqsMode = OpenEnum<typeof InputSqsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSqsCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSqsCompression = OpenEnum<typeof InputSqsCompression>;
-
-export type InputSqsPqControls = {};
-
-export type InputSqsPq = {
+export type InputSqsSqs9 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * The queue type used (or created)
    */
-  mode?: InputSqsMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSqsCompression | undefined;
-  pqControls?: InputSqsPqControls | undefined;
-};
-
-/**
- * The queue type used (or created)
- */
-export const InputSqsQueueType = {
-  Standard: "standard",
-  Fifo: "fifo",
-} as const;
-/**
- * The queue type used (or created)
- */
-export type InputSqsQueueType = OpenEnum<typeof InputSqsQueueType>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputSqsAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputSqsAuthenticationMethod = OpenEnum<
-  typeof InputSqsAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing SQS requests
- */
-export const InputSqsSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing SQS requests
- */
-export type InputSqsSignatureVersion = OpenEnum<
-  typeof InputSqsSignatureVersion
->;
-
-export type InputSqsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputSqs = {
+  queueType: QueueTypeOptions;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSqsType;
+  type: TypeSqsOption;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -160,16 +79,12 @@ export type InputSqs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSqsConnection> | undefined;
-  pq?: InputSqsPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
   queueName: string;
-  /**
-   * The queue type used (or created)
-   */
-  queueType: InputSqsQueueType;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -181,7 +96,7 @@ export type InputSqs = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: InputSqsAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -192,9 +107,9 @@ export type InputSqs = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing SQS requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: InputSqsSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -230,7 +145,7 @@ export type InputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSqsMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -247,446 +162,980 @@ export type InputSqs = {
   numReceivers?: number | undefined;
 };
 
-/** @internal */
-export const InputSqsType$inboundSchema: z.ZodNativeEnum<typeof InputSqsType> =
-  z.nativeEnum(InputSqsType);
-
-/** @internal */
-export const InputSqsType$outboundSchema: z.ZodNativeEnum<typeof InputSqsType> =
-  InputSqsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsType$ {
-  /** @deprecated use `InputSqsType$inboundSchema` instead. */
-  export const inboundSchema = InputSqsType$inboundSchema;
-  /** @deprecated use `InputSqsType$outboundSchema` instead. */
-  export const outboundSchema = InputSqsType$outboundSchema;
-}
-
-/** @internal */
-export const InputSqsConnection$inboundSchema: z.ZodType<
-  InputSqsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputSqsConnection$Outbound = {
+export type InputSqsSqs8 = {
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
 };
 
-/** @internal */
-export const InputSqsConnection$outboundSchema: z.ZodType<
-  InputSqsConnection$Outbound,
-  z.ZodTypeDef,
-  InputSqsConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsConnection$ {
-  /** @deprecated use `InputSqsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSqsConnection$inboundSchema;
-  /** @deprecated use `InputSqsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSqsConnection$outboundSchema;
-  /** @deprecated use `InputSqsConnection$Outbound` instead. */
-  export type Outbound = InputSqsConnection$Outbound;
-}
-
-export function inputSqsConnectionToJSON(
-  inputSqsConnection: InputSqsConnection,
-): string {
-  return JSON.stringify(
-    InputSqsConnection$outboundSchema.parse(inputSqsConnection),
-  );
-}
-
-export function inputSqsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSqsMode$inboundSchema: z.ZodType<
-  InputSqsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSqsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSqsMode$outboundSchema: z.ZodType<
-  InputSqsMode,
-  z.ZodTypeDef,
-  InputSqsMode
-> = z.union([
-  z.nativeEnum(InputSqsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsMode$ {
-  /** @deprecated use `InputSqsMode$inboundSchema` instead. */
-  export const inboundSchema = InputSqsMode$inboundSchema;
-  /** @deprecated use `InputSqsMode$outboundSchema` instead. */
-  export const outboundSchema = InputSqsMode$outboundSchema;
-}
-
-/** @internal */
-export const InputSqsCompression$inboundSchema: z.ZodType<
-  InputSqsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSqsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSqsCompression$outboundSchema: z.ZodType<
-  InputSqsCompression,
-  z.ZodTypeDef,
-  InputSqsCompression
-> = z.union([
-  z.nativeEnum(InputSqsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsCompression$ {
-  /** @deprecated use `InputSqsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSqsCompression$inboundSchema;
-  /** @deprecated use `InputSqsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSqsCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputSqsPqControls$inboundSchema: z.ZodType<
-  InputSqsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputSqsPqControls$Outbound = {};
-
-/** @internal */
-export const InputSqsPqControls$outboundSchema: z.ZodType<
-  InputSqsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputSqsPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsPqControls$ {
-  /** @deprecated use `InputSqsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSqsPqControls$inboundSchema;
-  /** @deprecated use `InputSqsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSqsPqControls$outboundSchema;
-  /** @deprecated use `InputSqsPqControls$Outbound` instead. */
-  export type Outbound = InputSqsPqControls$Outbound;
-}
-
-export function inputSqsPqControlsToJSON(
-  inputSqsPqControls: InputSqsPqControls,
-): string {
-  return JSON.stringify(
-    InputSqsPqControls$outboundSchema.parse(inputSqsPqControls),
-  );
-}
-
-export function inputSqsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSqsPq$inboundSchema: z.ZodType<
-  InputSqsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSqsMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSqsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSqsPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputSqsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSqsPqControls$Outbound | undefined;
+export type InputSqsSqs7 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret: string;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
 };
 
-/** @internal */
-export const InputSqsPq$outboundSchema: z.ZodType<
-  InputSqsPq$Outbound,
-  z.ZodTypeDef,
-  InputSqsPq
-> = z.object({
-  mode: InputSqsMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSqsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSqsPqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsPq$ {
-  /** @deprecated use `InputSqsPq$inboundSchema` instead. */
-  export const inboundSchema = InputSqsPq$inboundSchema;
-  /** @deprecated use `InputSqsPq$outboundSchema` instead. */
-  export const outboundSchema = InputSqsPq$outboundSchema;
-  /** @deprecated use `InputSqsPq$Outbound` instead. */
-  export type Outbound = InputSqsPq$Outbound;
-}
-
-export function inputSqsPqToJSON(inputSqsPq: InputSqsPq): string {
-  return JSON.stringify(InputSqsPq$outboundSchema.parse(inputSqsPq));
-}
-
-export function inputSqsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSqsQueueType$inboundSchema: z.ZodType<
-  InputSqsQueueType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSqsQueueType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSqsQueueType$outboundSchema: z.ZodType<
-  InputSqsQueueType,
-  z.ZodTypeDef,
-  InputSqsQueueType
-> = z.union([
-  z.nativeEnum(InputSqsQueueType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsQueueType$ {
-  /** @deprecated use `InputSqsQueueType$inboundSchema` instead. */
-  export const inboundSchema = InputSqsQueueType$inboundSchema;
-  /** @deprecated use `InputSqsQueueType$outboundSchema` instead. */
-  export const outboundSchema = InputSqsQueueType$outboundSchema;
-}
-
-/** @internal */
-export const InputSqsAuthenticationMethod$inboundSchema: z.ZodType<
-  InputSqsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSqsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSqsAuthenticationMethod$outboundSchema: z.ZodType<
-  InputSqsAuthenticationMethod,
-  z.ZodTypeDef,
-  InputSqsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputSqsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsAuthenticationMethod$ {
-  /** @deprecated use `InputSqsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputSqsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputSqsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputSqsAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const InputSqsSignatureVersion$inboundSchema: z.ZodType<
-  InputSqsSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSqsSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSqsSignatureVersion$outboundSchema: z.ZodType<
-  InputSqsSignatureVersion,
-  z.ZodTypeDef,
-  InputSqsSignatureVersion
-> = z.union([
-  z.nativeEnum(InputSqsSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsSignatureVersion$ {
-  /** @deprecated use `InputSqsSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = InputSqsSignatureVersion$inboundSchema;
-  /** @deprecated use `InputSqsSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = InputSqsSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputSqsMetadatum$inboundSchema: z.ZodType<
-  InputSqsMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputSqsMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputSqsSqs6 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
 };
 
+export type InputSqsSqs5 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+};
+
+export type InputSqsSqs4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+};
+
+export type InputSqsSqs3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+};
+
+export type InputSqsSqs2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+};
+
+export type InputSqsSqs1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+};
+
+export type InputSqs =
+  | InputSqsSqs2
+  | InputSqsSqs4
+  | InputSqsSqs6
+  | InputSqsSqs7
+  | InputSqsSqs1
+  | InputSqsSqs3
+  | InputSqsSqs5
+  | InputSqsSqs8
+  | InputSqsSqs9;
+
 /** @internal */
-export const InputSqsMetadatum$outboundSchema: z.ZodType<
-  InputSqsMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputSqsMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqsMetadatum$ {
-  /** @deprecated use `InputSqsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSqsMetadatum$inboundSchema;
-  /** @deprecated use `InputSqsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSqsMetadatum$outboundSchema;
-  /** @deprecated use `InputSqsMetadatum$Outbound` instead. */
-  export type Outbound = InputSqsMetadatum$Outbound;
-}
-
-export function inputSqsMetadatumToJSON(
-  inputSqsMetadatum: InputSqsMetadatum,
-): string {
-  return JSON.stringify(
-    InputSqsMetadatum$outboundSchema.parse(inputSqsMetadatum),
-  );
-}
-
-export function inputSqsMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqsMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSqs$inboundSchema: z.ZodType<
-  InputSqs,
+export const InputSqsSqs9$inboundSchema: z.ZodType<
+  InputSqsSqs9,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  queueType: QueueTypeOptions$inboundSchema,
   id: z.string().optional(),
-  type: InputSqsType$inboundSchema,
+  type: TypeSqsOption$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSqsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSqsPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
-  queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: InputSqsAuthenticationMethod$inboundSchema.default(
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
     "auto",
   ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputSqsSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -695,16 +1144,16 @@ export const InputSqs$inboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   maxMessages: z.number().default(10),
   visibilityTimeout: z.number().default(600),
-  metadata: z.array(z.lazy(() => InputSqsMetadatum$inboundSchema)).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   pollTimeout: z.number().default(10),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   numReceivers: z.number().default(3),
 });
-
 /** @internal */
-export type InputSqs$Outbound = {
+export type InputSqsSqs9$Outbound = {
+  queueType: string;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -713,8 +1162,677 @@ export type InputSqs$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputSqsConnection$Outbound> | undefined;
-  pq?: InputSqsPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  awsAccountId?: string | undefined;
+  createQueue: boolean;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  pollTimeout: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  numReceivers: number;
+};
+
+/** @internal */
+export const InputSqsSqs9$outboundSchema: z.ZodType<
+  InputSqsSqs9$Outbound,
+  z.ZodTypeDef,
+  InputSqsSqs9
+> = z.object({
+  queueType: QueueTypeOptions$outboundSchema,
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+
+export function inputSqsSqs9ToJSON(inputSqsSqs9: InputSqsSqs9): string {
+  return JSON.stringify(InputSqsSqs9$outboundSchema.parse(inputSqsSqs9));
+}
+export function inputSqsSqs9FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs9' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqsSqs8$inboundSchema: z.ZodType<
+  InputSqsSqs8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  queueType: QueueTypeOptions$inboundSchema,
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+/** @internal */
+export type InputSqsSqs8$Outbound = {
+  queueType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  awsAccountId?: string | undefined;
+  createQueue: boolean;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  pollTimeout: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  numReceivers: number;
+};
+
+/** @internal */
+export const InputSqsSqs8$outboundSchema: z.ZodType<
+  InputSqsSqs8$Outbound,
+  z.ZodTypeDef,
+  InputSqsSqs8
+> = z.object({
+  queueType: QueueTypeOptions$outboundSchema,
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+
+export function inputSqsSqs8ToJSON(inputSqsSqs8: InputSqsSqs8): string {
+  return JSON.stringify(InputSqsSqs8$outboundSchema.parse(inputSqsSqs8));
+}
+export function inputSqsSqs8FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs8' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqsSqs7$inboundSchema: z.ZodType<
+  InputSqsSqs7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  numReceivers: z.number().default(3),
+});
+/** @internal */
+export type InputSqsSqs7$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  createQueue: boolean;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  pollTimeout: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret: string;
+  numReceivers: number;
+};
+
+/** @internal */
+export const InputSqsSqs7$outboundSchema: z.ZodType<
+  InputSqsSqs7$Outbound,
+  z.ZodTypeDef,
+  InputSqsSqs7
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  numReceivers: z.number().default(3),
+});
+
+export function inputSqsSqs7ToJSON(inputSqsSqs7: InputSqsSqs7): string {
+  return JSON.stringify(InputSqsSqs7$outboundSchema.parse(inputSqsSqs7));
+}
+export function inputSqsSqs7FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqsSqs6$inboundSchema: z.ZodType<
+  InputSqsSqs6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+/** @internal */
+export type InputSqsSqs6$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  createQueue: boolean;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  pollTimeout: number;
+  description?: string | undefined;
+  awsApiKey: string;
+  awsSecret?: string | undefined;
+  numReceivers: number;
+};
+
+/** @internal */
+export const InputSqsSqs6$outboundSchema: z.ZodType<
+  InputSqsSqs6$Outbound,
+  z.ZodTypeDef,
+  InputSqsSqs6
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+
+export function inputSqsSqs6ToJSON(inputSqsSqs6: InputSqsSqs6): string {
+  return JSON.stringify(InputSqsSqs6$outboundSchema.parse(inputSqsSqs6));
+}
+export function inputSqsSqs6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqsSqs5$inboundSchema: z.ZodType<
+  InputSqsSqs5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+/** @internal */
+export type InputSqsSqs5$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  createQueue: boolean;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  pollTimeout: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  numReceivers: number;
+};
+
+/** @internal */
+export const InputSqsSqs5$outboundSchema: z.ZodType<
+  InputSqsSqs5$Outbound,
+  z.ZodTypeDef,
+  InputSqsSqs5
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+
+export function inputSqsSqs5ToJSON(inputSqsSqs5: InputSqsSqs5): string {
+  return JSON.stringify(InputSqsSqs5$outboundSchema.parse(inputSqsSqs5));
+}
+export function inputSqsSqs5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqsSqs4$inboundSchema: z.ZodType<
+  InputSqsSqs4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+/** @internal */
+export type InputSqsSqs4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   queueName: string;
   queueType: string;
   awsAccountId?: string | undefined;
@@ -732,7 +1850,7 @@ export type InputSqs$Outbound = {
   durationSeconds: number;
   maxMessages: number;
   visibilityTimeout: number;
-  metadata?: Array<InputSqsMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   pollTimeout: number;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -741,33 +1859,31 @@ export type InputSqs$Outbound = {
 };
 
 /** @internal */
-export const InputSqs$outboundSchema: z.ZodType<
-  InputSqs$Outbound,
+export const InputSqsSqs4$outboundSchema: z.ZodType<
+  InputSqsSqs4$Outbound,
   z.ZodTypeDef,
-  InputSqs
+  InputSqsSqs4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputSqsType$outboundSchema,
+  type: TypeSqsOption$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSqsConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSqsPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   queueName: z.string(),
-  queueType: InputSqsQueueType$outboundSchema,
+  queueType: QueueTypeOptions$outboundSchema,
   awsAccountId: z.string().optional(),
   createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: InputSqsAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputSqsSignatureVersion$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -776,7 +1892,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   maxMessages: z.number().default(10),
   visibilityTimeout: z.number().default(600),
-  metadata: z.array(z.lazy(() => InputSqsMetadatum$outboundSchema)).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   pollTimeout: z.number().default(10),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
@@ -784,23 +1900,469 @@ export const InputSqs$outboundSchema: z.ZodType<
   numReceivers: z.number().default(3),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSqs$ {
-  /** @deprecated use `InputSqs$inboundSchema` instead. */
-  export const inboundSchema = InputSqs$inboundSchema;
-  /** @deprecated use `InputSqs$outboundSchema` instead. */
-  export const outboundSchema = InputSqs$outboundSchema;
-  /** @deprecated use `InputSqs$Outbound` instead. */
-  export type Outbound = InputSqs$Outbound;
+export function inputSqsSqs4ToJSON(inputSqsSqs4: InputSqsSqs4): string {
+  return JSON.stringify(InputSqsSqs4$outboundSchema.parse(inputSqsSqs4));
 }
+export function inputSqsSqs4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqsSqs3$inboundSchema: z.ZodType<
+  InputSqsSqs3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+/** @internal */
+export type InputSqsSqs3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  createQueue: boolean;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  pollTimeout: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  numReceivers: number;
+};
+
+/** @internal */
+export const InputSqsSqs3$outboundSchema: z.ZodType<
+  InputSqsSqs3$Outbound,
+  z.ZodTypeDef,
+  InputSqsSqs3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+
+export function inputSqsSqs3ToJSON(inputSqsSqs3: InputSqsSqs3): string {
+  return JSON.stringify(InputSqsSqs3$outboundSchema.parse(inputSqsSqs3));
+}
+export function inputSqsSqs3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqsSqs2$inboundSchema: z.ZodType<
+  InputSqsSqs2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+/** @internal */
+export type InputSqsSqs2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  createQueue: boolean;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  pollTimeout: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  numReceivers: number;
+};
+
+/** @internal */
+export const InputSqsSqs2$outboundSchema: z.ZodType<
+  InputSqsSqs2$Outbound,
+  z.ZodTypeDef,
+  InputSqsSqs2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+
+export function inputSqsSqs2ToJSON(inputSqsSqs2: InputSqsSqs2): string {
+  return JSON.stringify(InputSqsSqs2$outboundSchema.parse(inputSqsSqs2));
+}
+export function inputSqsSqs2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqsSqs1$inboundSchema: z.ZodType<
+  InputSqsSqs1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+/** @internal */
+export type InputSqsSqs1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  createQueue: boolean;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxMessages: number;
+  visibilityTimeout: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  pollTimeout: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  numReceivers: number;
+};
+
+/** @internal */
+export const InputSqsSqs1$outboundSchema: z.ZodType<
+  InputSqsSqs1$Outbound,
+  z.ZodTypeDef,
+  InputSqsSqs1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().default(false),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxMessages: z.number().default(10),
+  visibilityTimeout: z.number().default(600),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  pollTimeout: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().default(3),
+});
+
+export function inputSqsSqs1ToJSON(inputSqsSqs1: InputSqsSqs1): string {
+  return JSON.stringify(InputSqsSqs1$outboundSchema.parse(inputSqsSqs1));
+}
+export function inputSqsSqs1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSqsSqs1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSqsSqs1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSqsSqs1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSqs$inboundSchema: z.ZodType<
+  InputSqs,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputSqsSqs2$inboundSchema),
+  z.lazy(() => InputSqsSqs4$inboundSchema),
+  z.lazy(() => InputSqsSqs6$inboundSchema),
+  z.lazy(() => InputSqsSqs7$inboundSchema),
+  z.lazy(() => InputSqsSqs1$inboundSchema),
+  z.lazy(() => InputSqsSqs3$inboundSchema),
+  z.lazy(() => InputSqsSqs5$inboundSchema),
+  z.lazy(() => InputSqsSqs8$inboundSchema),
+  z.lazy(() => InputSqsSqs9$inboundSchema),
+]);
+/** @internal */
+export type InputSqs$Outbound =
+  | InputSqsSqs2$Outbound
+  | InputSqsSqs4$Outbound
+  | InputSqsSqs6$Outbound
+  | InputSqsSqs7$Outbound
+  | InputSqsSqs1$Outbound
+  | InputSqsSqs3$Outbound
+  | InputSqsSqs5$Outbound
+  | InputSqsSqs8$Outbound
+  | InputSqsSqs9$Outbound;
+
+/** @internal */
+export const InputSqs$outboundSchema: z.ZodType<
+  InputSqs$Outbound,
+  z.ZodTypeDef,
+  InputSqs
+> = z.union([
+  z.lazy(() => InputSqsSqs2$outboundSchema),
+  z.lazy(() => InputSqsSqs4$outboundSchema),
+  z.lazy(() => InputSqsSqs6$outboundSchema),
+  z.lazy(() => InputSqsSqs7$outboundSchema),
+  z.lazy(() => InputSqsSqs1$outboundSchema),
+  z.lazy(() => InputSqsSqs3$outboundSchema),
+  z.lazy(() => InputSqsSqs5$outboundSchema),
+  z.lazy(() => InputSqsSqs8$outboundSchema),
+  z.lazy(() => InputSqsSqs9$outboundSchema),
+]);
 
 export function inputSqsToJSON(inputSqs: InputSqs): string {
   return JSON.stringify(InputSqs$outboundSchema.parse(inputSqs));
 }
-
 export function inputSqsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSqs, SDKValidationError> {

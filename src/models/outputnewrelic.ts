@@ -11,175 +11,98 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  RegionOptions,
+  RegionOptions$inboundSchema,
+  RegionOptions$outboundSchema,
+} from "./regionoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputNewrelicType = {
+export const OutputNewrelicType6 = {
   Newrelic: "newrelic",
 } as const;
-export type OutputNewrelicType = ClosedEnum<typeof OutputNewrelicType>;
+export type OutputNewrelicType6 = ClosedEnum<typeof OutputNewrelicType6>;
 
-/**
- * Which New Relic region endpoint to use.
- */
-export const OutputNewrelicRegion = {
-  Us: "US",
-  Eu: "EU",
-  Custom: "Custom",
-} as const;
-/**
- * Which New Relic region endpoint to use.
- */
-export type OutputNewrelicRegion = OpenEnum<typeof OutputNewrelicRegion>;
-
-export const FieldName = {
+export const FieldName6 = {
   Service: "service",
   Hostname: "hostname",
   Timestamp: "timestamp",
   AuditId: "auditId",
 } as const;
-export type FieldName = OpenEnum<typeof FieldName>;
+export type FieldName6 = OpenEnum<typeof FieldName6>;
 
-export type OutputNewrelicMetadatum = {
-  name: FieldName;
+export type OutputNewrelicMetadatum6 = {
+  name: FieldName6;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
    */
   value: string;
 };
 
-export type OutputNewrelicExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputNewrelicFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputNewrelicFailedRequestLoggingMode = OpenEnum<
-  typeof OutputNewrelicFailedRequestLoggingMode
->;
-
-export type OutputNewrelicResponseRetrySetting = {
+export type OutputNewrelicNewrelic6 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * Enter credentials directly, or select a stored secret
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputNewrelicTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputNewrelicBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputNewrelicBackpressureBehavior = OpenEnum<
-  typeof OutputNewrelicBackpressureBehavior
->;
-
-/**
- * Enter API key directly, or select a stored secret
- */
-export const OutputNewrelicAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter API key directly, or select a stored secret
- */
-export type OutputNewrelicAuthenticationMethod = OpenEnum<
-  typeof OutputNewrelicAuthenticationMethod
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputNewrelicCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputNewrelicCompression = OpenEnum<
-  typeof OutputNewrelicCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputNewrelicQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputNewrelicQueueFullBehavior = OpenEnum<
-  typeof OutputNewrelicQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputNewrelicMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputNewrelicMode = OpenEnum<typeof OutputNewrelicMode>;
-
-export type OutputNewrelicPqControls = {};
-
-export type OutputNewrelic = {
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputNewrelicType;
+  type: OutputNewrelicType6;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -199,7 +122,7 @@ export type OutputNewrelic = {
   /**
    * Which New Relic region endpoint to use.
    */
-  region?: OutputNewrelicRegion | undefined;
+  region?: RegionOptions | undefined;
   /**
    * Name of the logtype to send with events, e.g.: observability, access_log. The event's 'sourcetype' field (if set) will override this value.
    */
@@ -211,7 +134,7 @@ export type OutputNewrelic = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<OutputNewrelicMetadatum> | undefined;
+  metadata?: Array<OutputNewrelicMetadatum6> | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -247,7 +170,7 @@ export type OutputNewrelic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputNewrelicExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -255,7 +178,7 @@ export type OutputNewrelic = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputNewrelicFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -263,8 +186,8 @@ export type OutputNewrelic = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputNewrelicResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputNewrelicTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -272,17 +195,33 @@ export type OutputNewrelic = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputNewrelicBackpressureBehavior | undefined;
-  /**
-   * Enter API key directly, or select a stored secret
-   */
-  authType?: OutputNewrelicAuthenticationMethod | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -298,16 +237,374 @@ export type OutputNewrelic = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputNewrelicCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputNewrelicQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * New Relic API key. Can be overridden using __newRelic_apiKey field.
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+};
+
+export const OutputNewrelicType5 = {
+  Newrelic: "newrelic",
+} as const;
+export type OutputNewrelicType5 = ClosedEnum<typeof OutputNewrelicType5>;
+
+export const FieldName5 = {
+  Service: "service",
+  Hostname: "hostname",
+  Timestamp: "timestamp",
+  AuditId: "auditId",
+} as const;
+export type FieldName5 = OpenEnum<typeof FieldName5>;
+
+export type OutputNewrelicMetadatum5 = {
+  name: FieldName5;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type OutputNewrelicNewrelic5 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputNewrelicType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Which New Relic region endpoint to use.
+   */
+  region?: RegionOptions | undefined;
+  /**
+   * Name of the logtype to send with events, e.g.: observability, access_log. The event's 'sourcetype' field (if set) will override this value.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<OutputNewrelicMetadatum5> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputNewrelicMode | undefined;
-  pqControls?: OutputNewrelicPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * New Relic API key. Can be overridden using __newRelic_apiKey field.
+   */
+  apiKey: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputNewrelicType4 = {
+  Newrelic: "newrelic",
+} as const;
+export type OutputNewrelicType4 = ClosedEnum<typeof OutputNewrelicType4>;
+
+export const FieldName4 = {
+  Service: "service",
+  Hostname: "hostname",
+  Timestamp: "timestamp",
+  AuditId: "auditId",
+} as const;
+export type FieldName4 = OpenEnum<typeof FieldName4>;
+
+export type OutputNewrelicMetadatum4 = {
+  name: FieldName4;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type OutputNewrelicNewrelic4 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputNewrelicType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Which New Relic region endpoint to use.
+   */
+  region?: RegionOptions | undefined;
+  /**
+   * Name of the logtype to send with events, e.g.: observability, access_log. The event's 'sourcetype' field (if set) will override this value.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<OutputNewrelicMetadatum4> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
    */
@@ -318,601 +615,645 @@ export type OutputNewrelic = {
   textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputNewrelicType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputNewrelicType
-> = z.nativeEnum(OutputNewrelicType);
+export const OutputNewrelicType3 = {
+  Newrelic: "newrelic",
+} as const;
+export type OutputNewrelicType3 = ClosedEnum<typeof OutputNewrelicType3>;
+
+export const FieldName3 = {
+  Service: "service",
+  Hostname: "hostname",
+  Timestamp: "timestamp",
+  AuditId: "auditId",
+} as const;
+export type FieldName3 = OpenEnum<typeof FieldName3>;
+
+export type OutputNewrelicMetadatum3 = {
+  name: FieldName3;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type OutputNewrelicNewrelic3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputNewrelicType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Which New Relic region endpoint to use.
+   */
+  region?: RegionOptions | undefined;
+  /**
+   * Name of the logtype to send with events, e.g.: observability, access_log. The event's 'sourcetype' field (if set) will override this value.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<OutputNewrelicMetadatum3> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * New Relic API key. Can be overridden using __newRelic_apiKey field.
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputNewrelicType2 = {
+  Newrelic: "newrelic",
+} as const;
+export type OutputNewrelicType2 = ClosedEnum<typeof OutputNewrelicType2>;
+
+export const FieldName2 = {
+  Service: "service",
+  Hostname: "hostname",
+  Timestamp: "timestamp",
+  AuditId: "auditId",
+} as const;
+export type FieldName2 = OpenEnum<typeof FieldName2>;
+
+export type OutputNewrelicMetadatum2 = {
+  name: FieldName2;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type OutputNewrelicNewrelic2 = {
+  /**
+   * Which New Relic region endpoint to use.
+   */
+  region?: RegionOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputNewrelicType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the logtype to send with events, e.g.: observability, access_log. The event's 'sourcetype' field (if set) will override this value.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<OutputNewrelicMetadatum2> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * New Relic API key. Can be overridden using __newRelic_apiKey field.
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputNewrelicType1 = {
+  Newrelic: "newrelic",
+} as const;
+export type OutputNewrelicType1 = ClosedEnum<typeof OutputNewrelicType1>;
+
+export const FieldName1 = {
+  Service: "service",
+  Hostname: "hostname",
+  Timestamp: "timestamp",
+  AuditId: "auditId",
+} as const;
+export type FieldName1 = OpenEnum<typeof FieldName1>;
+
+export type OutputNewrelicMetadatum1 = {
+  name: FieldName1;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type OutputNewrelicNewrelic1 = {
+  /**
+   * Which New Relic region endpoint to use.
+   */
+  region?: RegionOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputNewrelicType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the logtype to send with events, e.g.: observability, access_log. The event's 'sourcetype' field (if set) will override this value.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<OutputNewrelicMetadatum1> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * New Relic API key. Can be overridden using __newRelic_apiKey field.
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputNewrelic =
+  | OutputNewrelicNewrelic1
+  | OutputNewrelicNewrelic4
+  | OutputNewrelicNewrelic5
+  | OutputNewrelicNewrelic6
+  | OutputNewrelicNewrelic2
+  | OutputNewrelicNewrelic3;
 
 /** @internal */
-export const OutputNewrelicType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputNewrelicType
-> = OutputNewrelicType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicType$ {
-  /** @deprecated use `OutputNewrelicType$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicType$inboundSchema;
-  /** @deprecated use `OutputNewrelicType$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicType$outboundSchema;
-}
+export const OutputNewrelicType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType6
+> = z.nativeEnum(OutputNewrelicType6);
+/** @internal */
+export const OutputNewrelicType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType6
+> = OutputNewrelicType6$inboundSchema;
 
 /** @internal */
-export const OutputNewrelicRegion$inboundSchema: z.ZodType<
-  OutputNewrelicRegion,
+export const FieldName6$inboundSchema: z.ZodType<
+  FieldName6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputNewrelicRegion),
+    z.nativeEnum(FieldName6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputNewrelicRegion$outboundSchema: z.ZodType<
-  OutputNewrelicRegion,
+export const FieldName6$outboundSchema: z.ZodType<
+  FieldName6,
   z.ZodTypeDef,
-  OutputNewrelicRegion
+  FieldName6
 > = z.union([
-  z.nativeEnum(OutputNewrelicRegion),
+  z.nativeEnum(FieldName6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicRegion$ {
-  /** @deprecated use `OutputNewrelicRegion$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicRegion$inboundSchema;
-  /** @deprecated use `OutputNewrelicRegion$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicRegion$outboundSchema;
-}
-
 /** @internal */
-export const FieldName$inboundSchema: z.ZodType<
-  FieldName,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(FieldName),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const FieldName$outboundSchema: z.ZodType<
-  FieldName,
-  z.ZodTypeDef,
-  FieldName
-> = z.union([
-  z.nativeEnum(FieldName),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FieldName$ {
-  /** @deprecated use `FieldName$inboundSchema` instead. */
-  export const inboundSchema = FieldName$inboundSchema;
-  /** @deprecated use `FieldName$outboundSchema` instead. */
-  export const outboundSchema = FieldName$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicMetadatum$inboundSchema: z.ZodType<
-  OutputNewrelicMetadatum,
+export const OutputNewrelicMetadatum6$inboundSchema: z.ZodType<
+  OutputNewrelicMetadatum6,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: FieldName$inboundSchema,
+  name: FieldName6$inboundSchema,
   value: z.string(),
 });
-
 /** @internal */
-export type OutputNewrelicMetadatum$Outbound = {
+export type OutputNewrelicMetadatum6$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const OutputNewrelicMetadatum$outboundSchema: z.ZodType<
-  OutputNewrelicMetadatum$Outbound,
+export const OutputNewrelicMetadatum6$outboundSchema: z.ZodType<
+  OutputNewrelicMetadatum6$Outbound,
   z.ZodTypeDef,
-  OutputNewrelicMetadatum
+  OutputNewrelicMetadatum6
 > = z.object({
-  name: FieldName$outboundSchema,
+  name: FieldName6$outboundSchema,
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicMetadatum$ {
-  /** @deprecated use `OutputNewrelicMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicMetadatum$inboundSchema;
-  /** @deprecated use `OutputNewrelicMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicMetadatum$outboundSchema;
-  /** @deprecated use `OutputNewrelicMetadatum$Outbound` instead. */
-  export type Outbound = OutputNewrelicMetadatum$Outbound;
-}
-
-export function outputNewrelicMetadatumToJSON(
-  outputNewrelicMetadatum: OutputNewrelicMetadatum,
+export function outputNewrelicMetadatum6ToJSON(
+  outputNewrelicMetadatum6: OutputNewrelicMetadatum6,
 ): string {
   return JSON.stringify(
-    OutputNewrelicMetadatum$outboundSchema.parse(outputNewrelicMetadatum),
+    OutputNewrelicMetadatum6$outboundSchema.parse(outputNewrelicMetadatum6),
   );
 }
-
-export function outputNewrelicMetadatumFromJSON(
+export function outputNewrelicMetadatum6FromJSON(
   jsonString: string,
-): SafeParseResult<OutputNewrelicMetadatum, SDKValidationError> {
+): SafeParseResult<OutputNewrelicMetadatum6, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputNewrelicMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNewrelicMetadatum' from JSON`,
+    (x) => OutputNewrelicMetadatum6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicMetadatum6' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputNewrelicExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputNewrelicExtraHttpHeader,
+export const OutputNewrelicNewrelic6$inboundSchema: z.ZodType<
+  OutputNewrelicNewrelic6,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputNewrelicExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputNewrelicExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputNewrelicExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputNewrelicExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicExtraHttpHeader$ {
-  /** @deprecated use `OutputNewrelicExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputNewrelicExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputNewrelicExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputNewrelicExtraHttpHeader$Outbound;
-}
-
-export function outputNewrelicExtraHttpHeaderToJSON(
-  outputNewrelicExtraHttpHeader: OutputNewrelicExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputNewrelicExtraHttpHeader$outboundSchema.parse(
-      outputNewrelicExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputNewrelicExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNewrelicExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputNewrelicExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNewrelicExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputNewrelicFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputNewrelicFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputNewrelicFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputNewrelicFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputNewrelicFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputNewrelicFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputNewrelicFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputNewrelicResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputNewrelicResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputNewrelicResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputNewrelicResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputNewrelicResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicResponseRetrySetting$ {
-  /** @deprecated use `OutputNewrelicResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputNewrelicResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputNewrelicResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputNewrelicResponseRetrySetting$Outbound;
-}
-
-export function outputNewrelicResponseRetrySettingToJSON(
-  outputNewrelicResponseRetrySetting: OutputNewrelicResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputNewrelicResponseRetrySetting$outboundSchema.parse(
-      outputNewrelicResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputNewrelicResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNewrelicResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputNewrelicResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNewrelicResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputNewrelicTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputNewrelicTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputNewrelicTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputNewrelicTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputNewrelicTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputNewrelicTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicTimeoutRetrySettings$ {
-  /** @deprecated use `OutputNewrelicTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputNewrelicTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputNewrelicTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputNewrelicTimeoutRetrySettings$Outbound;
-}
-
-export function outputNewrelicTimeoutRetrySettingsToJSON(
-  outputNewrelicTimeoutRetrySettings: OutputNewrelicTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputNewrelicTimeoutRetrySettings$outboundSchema.parse(
-      outputNewrelicTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputNewrelicTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNewrelicTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputNewrelicTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNewrelicTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputNewrelicBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputNewrelicBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputNewrelicBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicBackpressureBehavior$ {
-  /** @deprecated use `OutputNewrelicBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputNewrelicBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputNewrelicAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputNewrelicAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputNewrelicAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputNewrelicAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicAuthenticationMethod$ {
-  /** @deprecated use `OutputNewrelicAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputNewrelicAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicCompression$inboundSchema: z.ZodType<
-  OutputNewrelicCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicCompression$outboundSchema: z.ZodType<
-  OutputNewrelicCompression,
-  z.ZodTypeDef,
-  OutputNewrelicCompression
-> = z.union([
-  z.nativeEnum(OutputNewrelicCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicCompression$ {
-  /** @deprecated use `OutputNewrelicCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicCompression$inboundSchema;
-  /** @deprecated use `OutputNewrelicCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputNewrelicQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputNewrelicQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicQueueFullBehavior$ {
-  /** @deprecated use `OutputNewrelicQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputNewrelicQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicMode$inboundSchema: z.ZodType<
-  OutputNewrelicMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicMode$outboundSchema: z.ZodType<
-  OutputNewrelicMode,
-  z.ZodTypeDef,
-  OutputNewrelicMode
-> = z.union([
-  z.nativeEnum(OutputNewrelicMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicMode$ {
-  /** @deprecated use `OutputNewrelicMode$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicMode$inboundSchema;
-  /** @deprecated use `OutputNewrelicMode$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicPqControls$inboundSchema: z.ZodType<
-  OutputNewrelicPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputNewrelicPqControls$Outbound = {};
-
-/** @internal */
-export const OutputNewrelicPqControls$outboundSchema: z.ZodType<
-  OutputNewrelicPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputNewrelicPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicPqControls$ {
-  /** @deprecated use `OutputNewrelicPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicPqControls$inboundSchema;
-  /** @deprecated use `OutputNewrelicPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicPqControls$outboundSchema;
-  /** @deprecated use `OutputNewrelicPqControls$Outbound` instead. */
-  export type Outbound = OutputNewrelicPqControls$Outbound;
-}
-
-export function outputNewrelicPqControlsToJSON(
-  outputNewrelicPqControls: OutputNewrelicPqControls,
-): string {
-  return JSON.stringify(
-    OutputNewrelicPqControls$outboundSchema.parse(outputNewrelicPqControls),
-  );
-}
-
-export function outputNewrelicPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNewrelicPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputNewrelicPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNewrelicPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputNewrelic$inboundSchema: z.ZodType<
-  OutputNewrelic,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputNewrelicType$inboundSchema,
+  type: OutputNewrelicType6$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: OutputNewrelicRegion$inboundSchema.default("US"),
+  region: RegionOptions$inboundSchema.default("US"),
   logType: z.string().default(""),
   messageField: z.string().default(""),
-  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum$inboundSchema))
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum6$inboundSchema))
     .optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(1024),
@@ -921,42 +1262,36 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputNewrelicExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputNewrelicFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputNewrelicResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputNewrelicTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputNewrelicBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputNewrelicAuthenticationMethod$inboundSchema.default("manual"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputNewrelicCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputNewrelicQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputNewrelicMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputNewrelicPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   apiKey: z.string().optional(),
-  textSecret: z.string().optional(),
+  textSecret: z.string(),
 });
-
 /** @internal */
-export type OutputNewrelic$Outbound = {
+export type OutputNewrelicNewrelic6$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -966,7 +1301,7 @@ export type OutputNewrelic$Outbound = {
   region: string;
   logType: string;
   messageField: string;
-  metadata?: Array<OutputNewrelicMetadatum$Outbound> | undefined;
+  metadata?: Array<OutputNewrelicMetadatum6$Outbound> | undefined;
   concurrency: number;
   maxPayloadSizeKB: number;
   maxPayloadEvents: number;
@@ -974,49 +1309,49 @@ export type OutputNewrelic$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputNewrelicExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputNewrelicResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputNewrelicTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
-  authType: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputNewrelicPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
   apiKey?: string | undefined;
-  textSecret?: string | undefined;
+  textSecret: string;
 };
 
 /** @internal */
-export const OutputNewrelic$outboundSchema: z.ZodType<
-  OutputNewrelic$Outbound,
+export const OutputNewrelicNewrelic6$outboundSchema: z.ZodType<
+  OutputNewrelicNewrelic6$Outbound,
   z.ZodTypeDef,
-  OutputNewrelic
+  OutputNewrelicNewrelic6
 > = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputNewrelicType$outboundSchema,
+  type: OutputNewrelicType6$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: OutputNewrelicRegion$outboundSchema.default("US"),
+  region: RegionOptions$outboundSchema.default("US"),
   logType: z.string().default(""),
   messageField: z.string().default(""),
-  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum$outboundSchema))
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum6$outboundSchema))
     .optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(1024),
@@ -1025,57 +1360,1285 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputNewrelicExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputNewrelicFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputNewrelicResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputNewrelicTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputNewrelicBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputNewrelicAuthenticationMethod$outboundSchema.default("manual"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputNewrelicCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputNewrelicQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputNewrelicMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputNewrelicPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+});
+
+export function outputNewrelicNewrelic6ToJSON(
+  outputNewrelicNewrelic6: OutputNewrelicNewrelic6,
+): string {
+  return JSON.stringify(
+    OutputNewrelicNewrelic6$outboundSchema.parse(outputNewrelicNewrelic6),
+  );
+}
+export function outputNewrelicNewrelic6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicNewrelic6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicNewrelic6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicNewrelic6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType5
+> = z.nativeEnum(OutputNewrelicType5);
+/** @internal */
+export const OutputNewrelicType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType5
+> = OutputNewrelicType5$inboundSchema;
+
+/** @internal */
+export const FieldName5$inboundSchema: z.ZodType<
+  FieldName5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(FieldName5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const FieldName5$outboundSchema: z.ZodType<
+  FieldName5,
+  z.ZodTypeDef,
+  FieldName5
+> = z.union([
+  z.nativeEnum(FieldName5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputNewrelicMetadatum5$inboundSchema: z.ZodType<
+  OutputNewrelicMetadatum5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: FieldName5$inboundSchema,
+  value: z.string(),
+});
+/** @internal */
+export type OutputNewrelicMetadatum5$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputNewrelicMetadatum5$outboundSchema: z.ZodType<
+  OutputNewrelicMetadatum5$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicMetadatum5
+> = z.object({
+  name: FieldName5$outboundSchema,
+  value: z.string(),
+});
+
+export function outputNewrelicMetadatum5ToJSON(
+  outputNewrelicMetadatum5: OutputNewrelicMetadatum5,
+): string {
+  return JSON.stringify(
+    OutputNewrelicMetadatum5$outboundSchema.parse(outputNewrelicMetadatum5),
+  );
+}
+export function outputNewrelicMetadatum5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicMetadatum5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicMetadatum5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicMetadatum5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicNewrelic5$inboundSchema: z.ZodType<
+  OutputNewrelicNewrelic5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputNewrelicType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: RegionOptions$inboundSchema.default("US"),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum5$inboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputNewrelicNewrelic5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  logType: string;
+  messageField: string;
+  metadata?: Array<OutputNewrelicMetadatum5$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputNewrelicNewrelic5$outboundSchema: z.ZodType<
+  OutputNewrelicNewrelic5$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicNewrelic5
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputNewrelicType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: RegionOptions$outboundSchema.default("US"),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum5$outboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string(),
+  textSecret: z.string().optional(),
+});
+
+export function outputNewrelicNewrelic5ToJSON(
+  outputNewrelicNewrelic5: OutputNewrelicNewrelic5,
+): string {
+  return JSON.stringify(
+    OutputNewrelicNewrelic5$outboundSchema.parse(outputNewrelicNewrelic5),
+  );
+}
+export function outputNewrelicNewrelic5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicNewrelic5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicNewrelic5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicNewrelic5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType4
+> = z.nativeEnum(OutputNewrelicType4);
+/** @internal */
+export const OutputNewrelicType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType4
+> = OutputNewrelicType4$inboundSchema;
+
+/** @internal */
+export const FieldName4$inboundSchema: z.ZodType<
+  FieldName4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(FieldName4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const FieldName4$outboundSchema: z.ZodType<
+  FieldName4,
+  z.ZodTypeDef,
+  FieldName4
+> = z.union([
+  z.nativeEnum(FieldName4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputNewrelicMetadatum4$inboundSchema: z.ZodType<
+  OutputNewrelicMetadatum4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: FieldName4$inboundSchema,
+  value: z.string(),
+});
+/** @internal */
+export type OutputNewrelicMetadatum4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputNewrelicMetadatum4$outboundSchema: z.ZodType<
+  OutputNewrelicMetadatum4$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicMetadatum4
+> = z.object({
+  name: FieldName4$outboundSchema,
+  value: z.string(),
+});
+
+export function outputNewrelicMetadatum4ToJSON(
+  outputNewrelicMetadatum4: OutputNewrelicMetadatum4,
+): string {
+  return JSON.stringify(
+    OutputNewrelicMetadatum4$outboundSchema.parse(outputNewrelicMetadatum4),
+  );
+}
+export function outputNewrelicMetadatum4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicMetadatum4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicMetadatum4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicMetadatum4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicNewrelic4$inboundSchema: z.ZodType<
+  OutputNewrelicNewrelic4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputNewrelicType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: RegionOptions$inboundSchema.default("US"),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum4$inboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputNewrelicNewrelic4$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  logType: string;
+  messageField: string;
+  metadata?: Array<OutputNewrelicMetadatum4$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputNewrelicNewrelic4$outboundSchema: z.ZodType<
+  OutputNewrelicNewrelic4$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicNewrelic4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputNewrelicType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: RegionOptions$outboundSchema.default("US"),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum4$outboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelic$ {
-  /** @deprecated use `OutputNewrelic$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelic$inboundSchema;
-  /** @deprecated use `OutputNewrelic$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelic$outboundSchema;
-  /** @deprecated use `OutputNewrelic$Outbound` instead. */
-  export type Outbound = OutputNewrelic$Outbound;
+export function outputNewrelicNewrelic4ToJSON(
+  outputNewrelicNewrelic4: OutputNewrelicNewrelic4,
+): string {
+  return JSON.stringify(
+    OutputNewrelicNewrelic4$outboundSchema.parse(outputNewrelicNewrelic4),
+  );
 }
+export function outputNewrelicNewrelic4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicNewrelic4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicNewrelic4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicNewrelic4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType3
+> = z.nativeEnum(OutputNewrelicType3);
+/** @internal */
+export const OutputNewrelicType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType3
+> = OutputNewrelicType3$inboundSchema;
+
+/** @internal */
+export const FieldName3$inboundSchema: z.ZodType<
+  FieldName3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(FieldName3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const FieldName3$outboundSchema: z.ZodType<
+  FieldName3,
+  z.ZodTypeDef,
+  FieldName3
+> = z.union([
+  z.nativeEnum(FieldName3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputNewrelicMetadatum3$inboundSchema: z.ZodType<
+  OutputNewrelicMetadatum3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: FieldName3$inboundSchema,
+  value: z.string(),
+});
+/** @internal */
+export type OutputNewrelicMetadatum3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputNewrelicMetadatum3$outboundSchema: z.ZodType<
+  OutputNewrelicMetadatum3$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicMetadatum3
+> = z.object({
+  name: FieldName3$outboundSchema,
+  value: z.string(),
+});
+
+export function outputNewrelicMetadatum3ToJSON(
+  outputNewrelicMetadatum3: OutputNewrelicMetadatum3,
+): string {
+  return JSON.stringify(
+    OutputNewrelicMetadatum3$outboundSchema.parse(outputNewrelicMetadatum3),
+  );
+}
+export function outputNewrelicMetadatum3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicMetadatum3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicMetadatum3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicMetadatum3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicNewrelic3$inboundSchema: z.ZodType<
+  OutputNewrelicNewrelic3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputNewrelicType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: RegionOptions$inboundSchema.default("US"),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum3$inboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputNewrelicNewrelic3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  logType: string;
+  messageField: string;
+  metadata?: Array<OutputNewrelicMetadatum3$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputNewrelicNewrelic3$outboundSchema: z.ZodType<
+  OutputNewrelicNewrelic3$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicNewrelic3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputNewrelicType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: RegionOptions$outboundSchema.default("US"),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum3$outboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputNewrelicNewrelic3ToJSON(
+  outputNewrelicNewrelic3: OutputNewrelicNewrelic3,
+): string {
+  return JSON.stringify(
+    OutputNewrelicNewrelic3$outboundSchema.parse(outputNewrelicNewrelic3),
+  );
+}
+export function outputNewrelicNewrelic3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicNewrelic3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicNewrelic3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicNewrelic3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType2
+> = z.nativeEnum(OutputNewrelicType2);
+/** @internal */
+export const OutputNewrelicType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType2
+> = OutputNewrelicType2$inboundSchema;
+
+/** @internal */
+export const FieldName2$inboundSchema: z.ZodType<
+  FieldName2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(FieldName2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const FieldName2$outboundSchema: z.ZodType<
+  FieldName2,
+  z.ZodTypeDef,
+  FieldName2
+> = z.union([
+  z.nativeEnum(FieldName2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputNewrelicMetadatum2$inboundSchema: z.ZodType<
+  OutputNewrelicMetadatum2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: FieldName2$inboundSchema,
+  value: z.string(),
+});
+/** @internal */
+export type OutputNewrelicMetadatum2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputNewrelicMetadatum2$outboundSchema: z.ZodType<
+  OutputNewrelicMetadatum2$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicMetadatum2
+> = z.object({
+  name: FieldName2$outboundSchema,
+  value: z.string(),
+});
+
+export function outputNewrelicMetadatum2ToJSON(
+  outputNewrelicMetadatum2: OutputNewrelicMetadatum2,
+): string {
+  return JSON.stringify(
+    OutputNewrelicMetadatum2$outboundSchema.parse(outputNewrelicMetadatum2),
+  );
+}
+export function outputNewrelicMetadatum2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicMetadatum2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicMetadatum2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicMetadatum2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicNewrelic2$inboundSchema: z.ZodType<
+  OutputNewrelicNewrelic2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  region: RegionOptions$inboundSchema.default("US"),
+  id: z.string().optional(),
+  type: OutputNewrelicType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum2$inboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputNewrelicNewrelic2$Outbound = {
+  region: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logType: string;
+  messageField: string;
+  metadata?: Array<OutputNewrelicMetadatum2$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputNewrelicNewrelic2$outboundSchema: z.ZodType<
+  OutputNewrelicNewrelic2$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicNewrelic2
+> = z.object({
+  region: RegionOptions$outboundSchema.default("US"),
+  id: z.string().optional(),
+  type: OutputNewrelicType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum2$outboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputNewrelicNewrelic2ToJSON(
+  outputNewrelicNewrelic2: OutputNewrelicNewrelic2,
+): string {
+  return JSON.stringify(
+    OutputNewrelicNewrelic2$outboundSchema.parse(outputNewrelicNewrelic2),
+  );
+}
+export function outputNewrelicNewrelic2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicNewrelic2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicNewrelic2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicNewrelic2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType1
+> = z.nativeEnum(OutputNewrelicType1);
+/** @internal */
+export const OutputNewrelicType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputNewrelicType1
+> = OutputNewrelicType1$inboundSchema;
+
+/** @internal */
+export const FieldName1$inboundSchema: z.ZodType<
+  FieldName1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(FieldName1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const FieldName1$outboundSchema: z.ZodType<
+  FieldName1,
+  z.ZodTypeDef,
+  FieldName1
+> = z.union([
+  z.nativeEnum(FieldName1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputNewrelicMetadatum1$inboundSchema: z.ZodType<
+  OutputNewrelicMetadatum1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: FieldName1$inboundSchema,
+  value: z.string(),
+});
+/** @internal */
+export type OutputNewrelicMetadatum1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OutputNewrelicMetadatum1$outboundSchema: z.ZodType<
+  OutputNewrelicMetadatum1$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicMetadatum1
+> = z.object({
+  name: FieldName1$outboundSchema,
+  value: z.string(),
+});
+
+export function outputNewrelicMetadatum1ToJSON(
+  outputNewrelicMetadatum1: OutputNewrelicMetadatum1,
+): string {
+  return JSON.stringify(
+    OutputNewrelicMetadatum1$outboundSchema.parse(outputNewrelicMetadatum1),
+  );
+}
+export function outputNewrelicMetadatum1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicMetadatum1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicMetadatum1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicMetadatum1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelicNewrelic1$inboundSchema: z.ZodType<
+  OutputNewrelicNewrelic1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  region: RegionOptions$inboundSchema.default("US"),
+  id: z.string().optional(),
+  type: OutputNewrelicType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum1$inboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputNewrelicNewrelic1$Outbound = {
+  region: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logType: string;
+  messageField: string;
+  metadata?: Array<OutputNewrelicMetadatum1$Outbound> | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputNewrelicNewrelic1$outboundSchema: z.ZodType<
+  OutputNewrelicNewrelic1$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicNewrelic1
+> = z.object({
+  region: RegionOptions$outboundSchema.default("US"),
+  id: z.string().optional(),
+  type: OutputNewrelicType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default(""),
+  messageField: z.string().default(""),
+  metadata: z.array(z.lazy(() => OutputNewrelicMetadatum1$outboundSchema))
+    .optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputNewrelicNewrelic1ToJSON(
+  outputNewrelicNewrelic1: OutputNewrelicNewrelic1,
+): string {
+  return JSON.stringify(
+    OutputNewrelicNewrelic1$outboundSchema.parse(outputNewrelicNewrelic1),
+  );
+}
+export function outputNewrelicNewrelic1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputNewrelicNewrelic1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputNewrelicNewrelic1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputNewrelicNewrelic1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputNewrelic$inboundSchema: z.ZodType<
+  OutputNewrelic,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputNewrelicNewrelic1$inboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic4$inboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic5$inboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic6$inboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic2$inboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic3$inboundSchema),
+]);
+/** @internal */
+export type OutputNewrelic$Outbound =
+  | OutputNewrelicNewrelic1$Outbound
+  | OutputNewrelicNewrelic4$Outbound
+  | OutputNewrelicNewrelic5$Outbound
+  | OutputNewrelicNewrelic6$Outbound
+  | OutputNewrelicNewrelic2$Outbound
+  | OutputNewrelicNewrelic3$Outbound;
+
+/** @internal */
+export const OutputNewrelic$outboundSchema: z.ZodType<
+  OutputNewrelic$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelic
+> = z.union([
+  z.lazy(() => OutputNewrelicNewrelic1$outboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic4$outboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic5$outboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic6$outboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic2$outboundSchema),
+  z.lazy(() => OutputNewrelicNewrelic3$outboundSchema),
+]);
 
 export function outputNewrelicToJSON(outputNewrelic: OutputNewrelic): string {
   return JSON.stringify(OutputNewrelic$outboundSchema.parse(outputNewrelic));
 }
-
 export function outputNewrelicFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNewrelic, SDKValidationError> {

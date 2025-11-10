@@ -11,181 +11,110 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
+import {
+  CompressOptions,
+  CompressOptions$inboundSchema,
+  CompressOptions$outboundSchema,
+} from "./compressoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  HostsType,
+  HostsType$inboundSchema,
+  HostsType$Outbound,
+  HostsType$outboundSchema,
+} from "./hoststype.js";
+import {
+  MaxS2SversionOptions,
+  MaxS2SversionOptions$inboundSchema,
+  MaxS2SversionOptions$outboundSchema,
+} from "./maxs2sversionoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  NestedFieldsOptions,
+  NestedFieldsOptions$inboundSchema,
+  NestedFieldsOptions$outboundSchema,
+} from "./nestedfieldsoptions.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  Tls1Type,
+  Tls1Type$inboundSchema,
+  Tls1Type$Outbound,
+  Tls1Type$outboundSchema,
+} from "./tls1type.js";
 
-export const OutputSplunkLbType = {
+export const OutputSplunkLbType10 = {
   SplunkLb: "splunk_lb",
 } as const;
-export type OutputSplunkLbType = ClosedEnum<typeof OutputSplunkLbType>;
-
-/**
- * How to serialize nested fields into index-time fields
- */
-export const OutputSplunkLbNestedFieldSerialization = {
-  Json: "json",
-  None: "none",
-} as const;
-/**
- * How to serialize nested fields into index-time fields
- */
-export type OutputSplunkLbNestedFieldSerialization = OpenEnum<
-  typeof OutputSplunkLbNestedFieldSerialization
->;
-
-export const OutputSplunkLbMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputSplunkLbMinimumTLSVersion = OpenEnum<
-  typeof OutputSplunkLbMinimumTLSVersion
->;
-
-export const OutputSplunkLbMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputSplunkLbMaximumTLSVersion = OpenEnum<
-  typeof OutputSplunkLbMaximumTLSVersion
->;
-
-export type OutputSplunkLbTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputSplunkLbMinimumTLSVersion | undefined;
-  maxVersion?: OutputSplunkLbMaximumTLSVersion | undefined;
-};
-
-/**
- * The highest S2S protocol version to advertise during handshake
- */
-export const OutputSplunkLbMaxS2SVersion = {
-  V3: "v3",
-  V4: "v4",
-} as const;
-/**
- * The highest S2S protocol version to advertise during handshake
- */
-export type OutputSplunkLbMaxS2SVersion = OpenEnum<
-  typeof OutputSplunkLbMaxS2SVersion
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSplunkLbBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSplunkLbBackpressureBehavior = OpenEnum<
-  typeof OutputSplunkLbBackpressureBehavior
->;
+export type OutputSplunkLbType10 = ClosedEnum<typeof OutputSplunkLbType10>;
 
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export const OutputSplunkLbAuthenticationMethod = {
+export const AuthTokenAuthenticationMethod10 = {
   Manual: "manual",
   Secret: "secret",
 } as const;
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type OutputSplunkLbAuthenticationMethod = OpenEnum<
-  typeof OutputSplunkLbAuthenticationMethod
+export type AuthTokenAuthenticationMethod10 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod10
 >;
 
-/**
- * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
- */
-export const OutputSplunkLbCompressCompression = {
-  Disabled: "disabled",
-  Auto: "auto",
-  Always: "always",
-} as const;
-/**
- * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
- */
-export type OutputSplunkLbCompressCompression = OpenEnum<
-  typeof OutputSplunkLbCompressCompression
->;
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const IndexerDiscoveryConfigsAuthTokenAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type IndexerDiscoveryConfigsAuthTokenAuthenticationMethod = OpenEnum<
-  typeof IndexerDiscoveryConfigsAuthTokenAuthenticationMethod
->;
-
-export type OutputSplunkLbAuthToken = {
+export type OutputSplunkLbAuthToken10 = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: IndexerDiscoveryConfigsAuthTokenAuthenticationMethod | undefined;
+  authType?: AuthTokenAuthenticationMethod10 | undefined;
 };
 
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export const IndexerDiscoveryConfigsAuthenticationMethod = {
+export const OutputSplunkLbAuthenticationMethod10 = {
   Manual: "manual",
   Secret: "secret",
 } as const;
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export type IndexerDiscoveryConfigsAuthenticationMethod = OpenEnum<
-  typeof IndexerDiscoveryConfigsAuthenticationMethod
+export type OutputSplunkLbAuthenticationMethod10 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod10
 >;
 
 /**
  * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
  */
-export type IndexerDiscoveryConfigs = {
+export type IndexerDiscoveryConfigs10 = {
   /**
    * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
    */
@@ -205,11 +134,11 @@ export type IndexerDiscoveryConfigs = {
   /**
    * Tokens required to authenticate to cluster manager for indexer discovery
    */
-  authTokens?: Array<OutputSplunkLbAuthToken> | undefined;
+  authTokens?: Array<OutputSplunkLbAuthToken10> | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: IndexerDiscoveryConfigsAuthenticationMethod | undefined;
+  authType?: OutputSplunkLbAuthenticationMethod10 | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
    */
@@ -220,90 +149,16 @@ export type IndexerDiscoveryConfigs = {
   textSecret?: string | undefined;
 };
 
-/**
- * Whether to inherit TLS configs from group setting or disable TLS
- */
-export const OutputSplunkLbTLS = {
-  Inherit: "inherit",
-  Off: "off",
-} as const;
-/**
- * Whether to inherit TLS configs from group setting or disable TLS
- */
-export type OutputSplunkLbTLS = OpenEnum<typeof OutputSplunkLbTLS>;
-
-export type OutputSplunkLbHost = {
+export type OutputSplunkLbSplunkLb10 = {
   /**
-   * The hostname of the receiver
+   * Enter credentials directly, or select a stored secret
    */
-  host: string;
-  /**
-   * The port to connect to on the provided host
-   */
-  port?: number | undefined;
-  /**
-   * Whether to inherit TLS configs from group setting or disable TLS
-   */
-  tls?: OutputSplunkLbTLS | undefined;
-  /**
-   * Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-   */
-  servername?: string | undefined;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-};
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSplunkLbPqCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSplunkLbPqCompressCompression = OpenEnum<
-  typeof OutputSplunkLbPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSplunkLbQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSplunkLbQueueFullBehavior = OpenEnum<
-  typeof OutputSplunkLbQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSplunkLbMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSplunkLbMode = OpenEnum<typeof OutputSplunkLbMode>;
-
-export type OutputSplunkLbPqControls = {};
-
-export type OutputSplunkLb = {
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSplunkLbType;
+  type: OutputSplunkLbType10;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -335,7 +190,7 @@ export type OutputSplunkLb = {
   /**
    * How to serialize nested fields into index-time fields
    */
-  nestedFields?: OutputSplunkLbNestedFieldSerialization | undefined;
+  nestedFields?: NestedFieldsOptions | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -348,7 +203,7 @@ export type OutputSplunkLb = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: OutputSplunkLbTLSSettingsClientSide | undefined;
+  tls?: Tls1Type | undefined;
   /**
    * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
    */
@@ -364,11 +219,11 @@ export type OutputSplunkLb = {
   /**
    * The highest S2S protocol version to advertise during handshake
    */
-  maxS2Sversion?: OutputSplunkLbMaxS2SVersion | undefined;
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputSplunkLbBackpressureBehavior | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Automatically discover indexers in indexer clustering environment.
    */
@@ -377,23 +232,19 @@ export type OutputSplunkLb = {
    * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
    */
   senderUnhealthyTimeAllowance?: number | undefined;
-  /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-   */
-  authType?: OutputSplunkLbAuthenticationMethod | undefined;
   description?: string | undefined;
   /**
    * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
    */
   maxFailedHealthChecks?: number | undefined;
   /**
-   * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
    */
-  compress?: OutputSplunkLbCompressCompression | undefined;
+  compress?: CompressOptions | undefined;
   /**
    * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
    */
-  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs | undefined;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs10 | undefined;
   /**
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
@@ -401,7 +252,27 @@ export type OutputSplunkLb = {
   /**
    * Set of Splunk indexers to load-balance data to.
    */
-  hosts: Array<OutputSplunkLbHost>;
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -417,16 +288,245 @@ export type OutputSplunkLb = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSplunkLbPqCompressCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSplunkLbQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+};
+
+export const OutputSplunkLbType9 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType9 = ClosedEnum<typeof OutputSplunkLbType9>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethod9 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod9 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod9
+>;
+
+export type OutputSplunkLbAuthToken9 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod9 | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod9 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod9 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod9
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs9 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken9> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod9 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb9 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType9;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs9 | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSplunkLbMode | undefined;
-  pqControls?: OutputSplunkLbPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
    */
@@ -437,473 +537,1973 @@ export type OutputSplunkLb = {
   textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputSplunkLbType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkLbType
-> = z.nativeEnum(OutputSplunkLbType);
-
-/** @internal */
-export const OutputSplunkLbType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkLbType
-> = OutputSplunkLbType$inboundSchema;
+export const OutputSplunkLbType8 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType8 = ClosedEnum<typeof OutputSplunkLbType8>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export namespace OutputSplunkLbType$ {
-  /** @deprecated use `OutputSplunkLbType$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbType$inboundSchema;
-  /** @deprecated use `OutputSplunkLbType$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbType$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbNestedFieldSerialization$inboundSchema: z.ZodType<
-  OutputSplunkLbNestedFieldSerialization,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbNestedFieldSerialization),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbNestedFieldSerialization$outboundSchema: z.ZodType<
-  OutputSplunkLbNestedFieldSerialization,
-  z.ZodTypeDef,
-  OutputSplunkLbNestedFieldSerialization
-> = z.union([
-  z.nativeEnum(OutputSplunkLbNestedFieldSerialization),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const AuthTokenAuthenticationMethod8 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
  */
-export namespace OutputSplunkLbNestedFieldSerialization$ {
-  /** @deprecated use `OutputSplunkLbNestedFieldSerialization$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkLbNestedFieldSerialization$inboundSchema;
-  /** @deprecated use `OutputSplunkLbNestedFieldSerialization$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkLbNestedFieldSerialization$outboundSchema;
-}
+export type AuthTokenAuthenticationMethod8 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod8
+>;
 
-/** @internal */
-export const OutputSplunkLbMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputSplunkLbMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputSplunkLbMinimumTLSVersion,
-  z.ZodTypeDef,
-  OutputSplunkLbMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkLbMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbMinimumTLSVersion$ {
-  /** @deprecated use `OutputSplunkLbMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkLbMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputSplunkLbMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputSplunkLbMaximumTLSVersion,
-  z.ZodTypeDef,
-  OutputSplunkLbMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkLbMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbMaximumTLSVersion$ {
-  /** @deprecated use `OutputSplunkLbMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkLbMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputSplunkLbTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputSplunkLbMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputSplunkLbMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type OutputSplunkLbTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+export type OutputSplunkLbAuthToken8 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod8 | undefined;
 };
 
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod8 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod8 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod8
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs8 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken8> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod8 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb8 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType8;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs8 | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputSplunkLbType7 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType7 = ClosedEnum<typeof OutputSplunkLbType7>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethod7 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod7 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod7
+>;
+
+export type OutputSplunkLbAuthToken7 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod7 | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod7 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod7 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod7
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs7 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken7> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod7 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb7 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType7;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs7 | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputSplunkLbType6 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType6 = ClosedEnum<typeof OutputSplunkLbType6>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethod6 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod6 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod6
+>;
+
+export type OutputSplunkLbAuthToken6 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod6 | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod6 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod6 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod6
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs6 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken6> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod6 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb6 = {
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType6;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs6 | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputSplunkLbType5 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType5 = ClosedEnum<typeof OutputSplunkLbType5>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethod5 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod5 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod5
+>;
+
+export type OutputSplunkLbAuthToken5 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod5 | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod5 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod5 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod5
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs5 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken5> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod5 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb5 = {
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs: IndexerDiscoveryConfigs5;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputSplunkLbType4 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType4 = ClosedEnum<typeof OutputSplunkLbType4>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethod4 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod4 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod4
+>;
+
+export type OutputSplunkLbAuthToken4 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod4 | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod4 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod4 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod4
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs4 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken4> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod4 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb4 = {
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs4 | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputSplunkLbType3 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType3 = ClosedEnum<typeof OutputSplunkLbType3>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethod3 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod3 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod3
+>;
+
+export type OutputSplunkLbAuthToken3 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod3 | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod3 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod3 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod3
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs3 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken3> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod3 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb3 = {
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs3 | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputSplunkLbType2 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType2 = ClosedEnum<typeof OutputSplunkLbType2>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethod2 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod2 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod2
+>;
+
+export type OutputSplunkLbAuthToken2 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod2 | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod2 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod2 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod2
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs2 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken2> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod2 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb2 = {
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs2 | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputSplunkLbType1 = {
+  SplunkLb: "splunk_lb",
+} as const;
+export type OutputSplunkLbType1 = ClosedEnum<typeof OutputSplunkLbType1>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const AuthTokenAuthenticationMethod1 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod1 = OpenEnum<
+  typeof AuthTokenAuthenticationMethod1
+>;
+
+export type OutputSplunkLbAuthToken1 = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: AuthTokenAuthenticationMethod1 | undefined;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputSplunkLbAuthenticationMethod1 = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputSplunkLbAuthenticationMethod1 = OpenEnum<
+  typeof OutputSplunkLbAuthenticationMethod1
+>;
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs1 = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site?: string | undefined;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec?: number | undefined;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<OutputSplunkLbAuthToken1> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: OutputSplunkLbAuthenticationMethod1 | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLbSplunkLb1 = {
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSplunkLbType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs1 | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<HostsType>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkLb =
+  | OutputSplunkLbSplunkLb5
+  | OutputSplunkLbSplunkLb8
+  | OutputSplunkLbSplunkLb10
+  | OutputSplunkLbSplunkLb1
+  | OutputSplunkLbSplunkLb2
+  | OutputSplunkLbSplunkLb3
+  | OutputSplunkLbSplunkLb4
+  | OutputSplunkLbSplunkLb6
+  | OutputSplunkLbSplunkLb7
+  | OutputSplunkLbSplunkLb9;
+
 /** @internal */
-export const OutputSplunkLbTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputSplunkLbTLSSettingsClientSide$Outbound,
+export const OutputSplunkLbType10$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType10
+> = z.nativeEnum(OutputSplunkLbType10);
+/** @internal */
+export const OutputSplunkLbType10$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType10
+> = OutputSplunkLbType10$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod10$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod10,
   z.ZodTypeDef,
-  OutputSplunkLbTLSSettingsClientSide
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod10),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod10$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod10,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod10
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod10),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken10$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken10,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputSplunkLbMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputSplunkLbMaximumTLSVersion$outboundSchema.optional(),
+  authType: AuthTokenAuthenticationMethod10$inboundSchema.default("manual"),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbTLSSettingsClientSide$ {
-  /** @deprecated use `OutputSplunkLbTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkLbTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputSplunkLbTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkLbTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputSplunkLbTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputSplunkLbTLSSettingsClientSide$Outbound;
-}
-
-export function outputSplunkLbTLSSettingsClientSideToJSON(
-  outputSplunkLbTLSSettingsClientSide: OutputSplunkLbTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputSplunkLbTLSSettingsClientSide$outboundSchema.parse(
-      outputSplunkLbTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function outputSplunkLbTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkLbTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSplunkLbTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkLbTLSSettingsClientSide' from JSON`,
-  );
-}
-
 /** @internal */
-export const OutputSplunkLbMaxS2SVersion$inboundSchema: z.ZodType<
-  OutputSplunkLbMaxS2SVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbMaxS2SVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbMaxS2SVersion$outboundSchema: z.ZodType<
-  OutputSplunkLbMaxS2SVersion,
-  z.ZodTypeDef,
-  OutputSplunkLbMaxS2SVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkLbMaxS2SVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbMaxS2SVersion$ {
-  /** @deprecated use `OutputSplunkLbMaxS2SVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbMaxS2SVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkLbMaxS2SVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbMaxS2SVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSplunkLbBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSplunkLbBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSplunkLbBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkLbBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbBackpressureBehavior$ {
-  /** @deprecated use `OutputSplunkLbBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkLbBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkLbBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSplunkLbAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSplunkLbAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputSplunkLbAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSplunkLbAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbAuthenticationMethod$ {
-  /** @deprecated use `OutputSplunkLbAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSplunkLbAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkLbAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbCompressCompression$inboundSchema: z.ZodType<
-  OutputSplunkLbCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbCompressCompression$outboundSchema: z.ZodType<
-  OutputSplunkLbCompressCompression,
-  z.ZodTypeDef,
-  OutputSplunkLbCompressCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkLbCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbCompressCompression$ {
-  /** @deprecated use `OutputSplunkLbCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbCompressCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkLbCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkLbCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    IndexerDiscoveryConfigsAuthTokenAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(IndexerDiscoveryConfigsAuthTokenAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    IndexerDiscoveryConfigsAuthTokenAuthenticationMethod,
-    z.ZodTypeDef,
-    IndexerDiscoveryConfigsAuthTokenAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(IndexerDiscoveryConfigsAuthTokenAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$ {
-  /** @deprecated use `IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$inboundSchema;
-  /** @deprecated use `IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbAuthToken$inboundSchema: z.ZodType<
-  OutputSplunkLbAuthToken,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authType: IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$inboundSchema
-    .default("manual"),
-});
-
-/** @internal */
-export type OutputSplunkLbAuthToken$Outbound = {
+export type OutputSplunkLbAuthToken10$Outbound = {
   authType: string;
 };
 
 /** @internal */
-export const OutputSplunkLbAuthToken$outboundSchema: z.ZodType<
-  OutputSplunkLbAuthToken$Outbound,
+export const OutputSplunkLbAuthToken10$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken10$Outbound,
   z.ZodTypeDef,
-  OutputSplunkLbAuthToken
+  OutputSplunkLbAuthToken10
 > = z.object({
-  authType: IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$outboundSchema
-    .default("manual"),
+  authType: AuthTokenAuthenticationMethod10$outboundSchema.default("manual"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbAuthToken$ {
-  /** @deprecated use `OutputSplunkLbAuthToken$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbAuthToken$inboundSchema;
-  /** @deprecated use `OutputSplunkLbAuthToken$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbAuthToken$outboundSchema;
-  /** @deprecated use `OutputSplunkLbAuthToken$Outbound` instead. */
-  export type Outbound = OutputSplunkLbAuthToken$Outbound;
-}
-
-export function outputSplunkLbAuthTokenToJSON(
-  outputSplunkLbAuthToken: OutputSplunkLbAuthToken,
+export function outputSplunkLbAuthToken10ToJSON(
+  outputSplunkLbAuthToken10: OutputSplunkLbAuthToken10,
 ): string {
   return JSON.stringify(
-    OutputSplunkLbAuthToken$outboundSchema.parse(outputSplunkLbAuthToken),
+    OutputSplunkLbAuthToken10$outboundSchema.parse(outputSplunkLbAuthToken10),
   );
 }
-
-export function outputSplunkLbAuthTokenFromJSON(
+export function outputSplunkLbAuthToken10FromJSON(
   jsonString: string,
-): SafeParseResult<OutputSplunkLbAuthToken, SDKValidationError> {
+): SafeParseResult<OutputSplunkLbAuthToken10, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputSplunkLbAuthToken$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkLbAuthToken' from JSON`,
+    (x) => OutputSplunkLbAuthToken10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken10' from JSON`,
   );
 }
 
 /** @internal */
-export const IndexerDiscoveryConfigsAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    IndexerDiscoveryConfigsAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(IndexerDiscoveryConfigsAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const IndexerDiscoveryConfigsAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    IndexerDiscoveryConfigsAuthenticationMethod,
-    z.ZodTypeDef,
-    IndexerDiscoveryConfigsAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(IndexerDiscoveryConfigsAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
+export const OutputSplunkLbAuthenticationMethod10$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod10,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod10),
+    z.string().transform(catchUnrecognizedEnum),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace IndexerDiscoveryConfigsAuthenticationMethod$ {
-  /** @deprecated use `IndexerDiscoveryConfigsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    IndexerDiscoveryConfigsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `IndexerDiscoveryConfigsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    IndexerDiscoveryConfigsAuthenticationMethod$outboundSchema;
-}
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod10$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod10,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod10
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod10),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
-export const IndexerDiscoveryConfigs$inboundSchema: z.ZodType<
-  IndexerDiscoveryConfigs,
+export const IndexerDiscoveryConfigs10$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs10,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -911,329 +2511,71 @@ export const IndexerDiscoveryConfigs$inboundSchema: z.ZodType<
   masterUri: z.string(),
   refreshIntervalSec: z.number().default(300),
   rejectUnauthorized: z.boolean().default(false),
-  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken$inboundSchema))
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken10$inboundSchema))
     .optional(),
-  authType: IndexerDiscoveryConfigsAuthenticationMethod$inboundSchema.default(
+  authType: OutputSplunkLbAuthenticationMethod10$inboundSchema.default(
     "manual",
   ),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
-export type IndexerDiscoveryConfigs$Outbound = {
+export type IndexerDiscoveryConfigs10$Outbound = {
   site: string;
   masterUri: string;
   refreshIntervalSec: number;
   rejectUnauthorized: boolean;
-  authTokens?: Array<OutputSplunkLbAuthToken$Outbound> | undefined;
+  authTokens?: Array<OutputSplunkLbAuthToken10$Outbound> | undefined;
   authType: string;
   authToken: string;
   textSecret?: string | undefined;
 };
 
 /** @internal */
-export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
-  IndexerDiscoveryConfigs$Outbound,
+export const IndexerDiscoveryConfigs10$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs10$Outbound,
   z.ZodTypeDef,
-  IndexerDiscoveryConfigs
+  IndexerDiscoveryConfigs10
 > = z.object({
   site: z.string().default("default"),
   masterUri: z.string(),
   refreshIntervalSec: z.number().default(300),
   rejectUnauthorized: z.boolean().default(false),
-  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken$outboundSchema))
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken10$outboundSchema))
     .optional(),
-  authType: IndexerDiscoveryConfigsAuthenticationMethod$outboundSchema.default(
+  authType: OutputSplunkLbAuthenticationMethod10$outboundSchema.default(
     "manual",
   ),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace IndexerDiscoveryConfigs$ {
-  /** @deprecated use `IndexerDiscoveryConfigs$inboundSchema` instead. */
-  export const inboundSchema = IndexerDiscoveryConfigs$inboundSchema;
-  /** @deprecated use `IndexerDiscoveryConfigs$outboundSchema` instead. */
-  export const outboundSchema = IndexerDiscoveryConfigs$outboundSchema;
-  /** @deprecated use `IndexerDiscoveryConfigs$Outbound` instead. */
-  export type Outbound = IndexerDiscoveryConfigs$Outbound;
-}
-
-export function indexerDiscoveryConfigsToJSON(
-  indexerDiscoveryConfigs: IndexerDiscoveryConfigs,
+export function indexerDiscoveryConfigs10ToJSON(
+  indexerDiscoveryConfigs10: IndexerDiscoveryConfigs10,
 ): string {
   return JSON.stringify(
-    IndexerDiscoveryConfigs$outboundSchema.parse(indexerDiscoveryConfigs),
+    IndexerDiscoveryConfigs10$outboundSchema.parse(indexerDiscoveryConfigs10),
   );
 }
-
-export function indexerDiscoveryConfigsFromJSON(
+export function indexerDiscoveryConfigs10FromJSON(
   jsonString: string,
-): SafeParseResult<IndexerDiscoveryConfigs, SDKValidationError> {
+): SafeParseResult<IndexerDiscoveryConfigs10, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => IndexerDiscoveryConfigs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'IndexerDiscoveryConfigs' from JSON`,
+    (x) => IndexerDiscoveryConfigs10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs10' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputSplunkLbTLS$inboundSchema: z.ZodType<
-  OutputSplunkLbTLS,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbTLS),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbTLS$outboundSchema: z.ZodType<
-  OutputSplunkLbTLS,
-  z.ZodTypeDef,
-  OutputSplunkLbTLS
-> = z.union([
-  z.nativeEnum(OutputSplunkLbTLS),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbTLS$ {
-  /** @deprecated use `OutputSplunkLbTLS$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbTLS$inboundSchema;
-  /** @deprecated use `OutputSplunkLbTLS$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbTLS$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbHost$inboundSchema: z.ZodType<
-  OutputSplunkLbHost,
+export const OutputSplunkLbSplunkLb10$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb10,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  host: z.string(),
-  port: z.number().default(9997),
-  tls: OutputSplunkLbTLS$inboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-/** @internal */
-export type OutputSplunkLbHost$Outbound = {
-  host: string;
-  port: number;
-  tls: string;
-  servername?: string | undefined;
-  weight: number;
-};
-
-/** @internal */
-export const OutputSplunkLbHost$outboundSchema: z.ZodType<
-  OutputSplunkLbHost$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkLbHost
-> = z.object({
-  host: z.string(),
-  port: z.number().default(9997),
-  tls: OutputSplunkLbTLS$outboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbHost$ {
-  /** @deprecated use `OutputSplunkLbHost$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbHost$inboundSchema;
-  /** @deprecated use `OutputSplunkLbHost$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbHost$outboundSchema;
-  /** @deprecated use `OutputSplunkLbHost$Outbound` instead. */
-  export type Outbound = OutputSplunkLbHost$Outbound;
-}
-
-export function outputSplunkLbHostToJSON(
-  outputSplunkLbHost: OutputSplunkLbHost,
-): string {
-  return JSON.stringify(
-    OutputSplunkLbHost$outboundSchema.parse(outputSplunkLbHost),
-  );
-}
-
-export function outputSplunkLbHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkLbHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkLbHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkLbHost' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunkLbPqCompressCompression$inboundSchema: z.ZodType<
-  OutputSplunkLbPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbPqCompressCompression$outboundSchema: z.ZodType<
-  OutputSplunkLbPqCompressCompression,
-  z.ZodTypeDef,
-  OutputSplunkLbPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkLbPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbPqCompressCompression$ {
-  /** @deprecated use `OutputSplunkLbPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkLbPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkLbPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkLbPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSplunkLbQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSplunkLbQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSplunkLbQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkLbQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbQueueFullBehavior$ {
-  /** @deprecated use `OutputSplunkLbQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkLbQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbMode$inboundSchema: z.ZodType<
-  OutputSplunkLbMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkLbMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkLbMode$outboundSchema: z.ZodType<
-  OutputSplunkLbMode,
-  z.ZodTypeDef,
-  OutputSplunkLbMode
-> = z.union([
-  z.nativeEnum(OutputSplunkLbMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbMode$ {
-  /** @deprecated use `OutputSplunkLbMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbMode$inboundSchema;
-  /** @deprecated use `OutputSplunkLbMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkLbPqControls$inboundSchema: z.ZodType<
-  OutputSplunkLbPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputSplunkLbPqControls$Outbound = {};
-
-/** @internal */
-export const OutputSplunkLbPqControls$outboundSchema: z.ZodType<
-  OutputSplunkLbPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkLbPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLbPqControls$ {
-  /** @deprecated use `OutputSplunkLbPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLbPqControls$inboundSchema;
-  /** @deprecated use `OutputSplunkLbPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLbPqControls$outboundSchema;
-  /** @deprecated use `OutputSplunkLbPqControls$Outbound` instead. */
-  export type Outbound = OutputSplunkLbPqControls$Outbound;
-}
-
-export function outputSplunkLbPqControlsToJSON(
-  outputSplunkLbPqControls: OutputSplunkLbPqControls,
-): string {
-  return JSON.stringify(
-    OutputSplunkLbPqControls$outboundSchema.parse(outputSplunkLbPqControls),
-  );
-}
-
-export function outputSplunkLbPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkLbPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkLbPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkLbPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunkLb$inboundSchema: z.ZodType<
-  OutputSplunkLb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputSplunkLbType$inboundSchema,
+  type: OutputSplunkLbType10$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1241,46 +2583,42 @@ export const OutputSplunkLb$inboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
-  nestedFields: OutputSplunkLbNestedFieldSerialization$inboundSchema.default(
-    "none",
-  ),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
   throttleRatePerSec: z.string().default("0"),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  tls: z.lazy(() => OutputSplunkLbTLSSettingsClientSide$inboundSchema)
-    .optional(),
+  tls: Tls1Type$inboundSchema.optional(),
   enableMultiMetrics: z.boolean().default(false),
   enableACK: z.boolean().default(true),
   logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: OutputSplunkLbMaxS2SVersion$inboundSchema.default("v3"),
-  onBackpressure: OutputSplunkLbBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   indexerDiscovery: z.boolean().default(false),
   senderUnhealthyTimeAllowance: z.number().default(100),
-  authType: OutputSplunkLbAuthenticationMethod$inboundSchema.default("manual"),
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().default(1),
-  compress: OutputSplunkLbCompressCompression$inboundSchema.default("disabled"),
-  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$inboundSchema)
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs10$inboundSchema)
     .optional(),
   excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputSplunkLbHost$inboundSchema)),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSplunkLbPqCompressCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSplunkLbQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSplunkLbMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSplunkLbPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   authToken: z.string().default(""),
-  textSecret: z.string().optional(),
+  textSecret: z.string(),
 });
-
 /** @internal */
-export type OutputSplunkLb$Outbound = {
+export type OutputSplunkLbSplunkLb10$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1294,9 +2632,2513 @@ export type OutputSplunkLb$Outbound = {
   throttleRatePerSec: string;
   connectionTimeout: number;
   writeTimeout: number;
-  tls?: OutputSplunkLbTLSSettingsClientSide$Outbound | undefined;
+  tls?: Tls1Type$Outbound | undefined;
   enableMultiMetrics: boolean;
   enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  onBackpressure: string;
+  indexerDiscovery: boolean;
+  senderUnhealthyTimeAllowance: number;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs10$Outbound | undefined;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret: string;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb10$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb10$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb10
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType10$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() =>
+    IndexerDiscoveryConfigs10$outboundSchema
+  ).optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string(),
+});
+
+export function outputSplunkLbSplunkLb10ToJSON(
+  outputSplunkLbSplunkLb10: OutputSplunkLbSplunkLb10,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb10$outboundSchema.parse(outputSplunkLbSplunkLb10),
+  );
+}
+export function outputSplunkLbSplunkLb10FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb10' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType9$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType9
+> = z.nativeEnum(OutputSplunkLbType9);
+/** @internal */
+export const OutputSplunkLbType9$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType9
+> = OutputSplunkLbType9$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod9$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod9$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod9,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod9
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken9$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod9$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken9$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken9$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken9$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken9
+> = z.object({
+  authType: AuthTokenAuthenticationMethod9$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken9ToJSON(
+  outputSplunkLbAuthToken9: OutputSplunkLbAuthToken9,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken9$outboundSchema.parse(outputSplunkLbAuthToken9),
+  );
+}
+export function outputSplunkLbAuthToken9FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod9$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod9$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod9,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod9
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs9$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken9$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod9$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs9$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken9$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs9$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs9$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs9
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken9$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod9$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs9ToJSON(
+  indexerDiscoveryConfigs9: IndexerDiscoveryConfigs9,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs9$outboundSchema.parse(indexerDiscoveryConfigs9),
+  );
+}
+export function indexerDiscoveryConfigs9FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb9$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType9$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs9$inboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb9$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  onBackpressure: string;
+  indexerDiscovery: boolean;
+  senderUnhealthyTimeAllowance: number;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs9$Outbound | undefined;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb9$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb9$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb9
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType9$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs9$outboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbSplunkLb9ToJSON(
+  outputSplunkLbSplunkLb9: OutputSplunkLbSplunkLb9,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb9$outboundSchema.parse(outputSplunkLbSplunkLb9),
+  );
+}
+export function outputSplunkLbSplunkLb9FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType8$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType8
+> = z.nativeEnum(OutputSplunkLbType8);
+/** @internal */
+export const OutputSplunkLbType8$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType8
+> = OutputSplunkLbType8$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod8$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod8$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod8,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod8
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken8$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod8$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken8$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken8$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken8$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken8
+> = z.object({
+  authType: AuthTokenAuthenticationMethod8$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken8ToJSON(
+  outputSplunkLbAuthToken8: OutputSplunkLbAuthToken8,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken8$outboundSchema.parse(outputSplunkLbAuthToken8),
+  );
+}
+export function outputSplunkLbAuthToken8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod8$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod8$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod8,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod8
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs8$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken8$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod8$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs8$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken8$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs8$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs8$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs8
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken8$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod8$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs8ToJSON(
+  indexerDiscoveryConfigs8: IndexerDiscoveryConfigs8,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs8$outboundSchema.parse(indexerDiscoveryConfigs8),
+  );
+}
+export function indexerDiscoveryConfigs8FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb8$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType8$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs8$inboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb8$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  indexerDiscovery: boolean;
+  senderUnhealthyTimeAllowance: number;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs8$Outbound | undefined;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb8$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb8$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb8
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType8$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs8$outboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbSplunkLb8ToJSON(
+  outputSplunkLbSplunkLb8: OutputSplunkLbSplunkLb8,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb8$outboundSchema.parse(outputSplunkLbSplunkLb8),
+  );
+}
+export function outputSplunkLbSplunkLb8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType7$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType7
+> = z.nativeEnum(OutputSplunkLbType7);
+/** @internal */
+export const OutputSplunkLbType7$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType7
+> = OutputSplunkLbType7$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod7$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod7$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod7,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod7
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken7$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod7$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken7$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken7$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken7$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken7
+> = z.object({
+  authType: AuthTokenAuthenticationMethod7$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken7ToJSON(
+  outputSplunkLbAuthToken7: OutputSplunkLbAuthToken7,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken7$outboundSchema.parse(outputSplunkLbAuthToken7),
+  );
+}
+export function outputSplunkLbAuthToken7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod7$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod7$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod7,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod7
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs7$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken7$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod7$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs7$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken7$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs7$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs7$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs7
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken7$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod7$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs7ToJSON(
+  indexerDiscoveryConfigs7: IndexerDiscoveryConfigs7,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs7$outboundSchema.parse(indexerDiscoveryConfigs7),
+  );
+}
+export function indexerDiscoveryConfigs7FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb7$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType7$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs7$inboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb7$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  indexerDiscovery: boolean;
+  senderUnhealthyTimeAllowance: number;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs7$Outbound | undefined;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb7$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb7$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb7
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType7$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs7$outboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbSplunkLb7ToJSON(
+  outputSplunkLbSplunkLb7: OutputSplunkLbSplunkLb7,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb7$outboundSchema.parse(outputSplunkLbSplunkLb7),
+  );
+}
+export function outputSplunkLbSplunkLb7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType6
+> = z.nativeEnum(OutputSplunkLbType6);
+/** @internal */
+export const OutputSplunkLbType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType6
+> = OutputSplunkLbType6$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod6$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod6$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod6,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod6
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken6$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod6$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken6$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken6$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken6$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken6
+> = z.object({
+  authType: AuthTokenAuthenticationMethod6$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken6ToJSON(
+  outputSplunkLbAuthToken6: OutputSplunkLbAuthToken6,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken6$outboundSchema.parse(outputSplunkLbAuthToken6),
+  );
+}
+export function outputSplunkLbAuthToken6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod6$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod6$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod6,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod6
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs6$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken6$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod6$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs6$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken6$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs6$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs6$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs6
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken6$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod6$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs6ToJSON(
+  indexerDiscoveryConfigs6: IndexerDiscoveryConfigs6,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs6$outboundSchema.parse(indexerDiscoveryConfigs6),
+  );
+}
+export function indexerDiscoveryConfigs6FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb6$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  indexerDiscovery: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputSplunkLbType6$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs6$inboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb6$Outbound = {
+  indexerDiscovery: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  onBackpressure: string;
+  senderUnhealthyTimeAllowance: number;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs6$Outbound | undefined;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb6$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb6$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb6
+> = z.object({
+  indexerDiscovery: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputSplunkLbType6$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs6$outboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbSplunkLb6ToJSON(
+  outputSplunkLbSplunkLb6: OutputSplunkLbSplunkLb6,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb6$outboundSchema.parse(outputSplunkLbSplunkLb6),
+  );
+}
+export function outputSplunkLbSplunkLb6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType5
+> = z.nativeEnum(OutputSplunkLbType5);
+/** @internal */
+export const OutputSplunkLbType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType5
+> = OutputSplunkLbType5$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod5$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod5$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod5,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod5
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken5$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod5$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken5$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken5$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken5$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken5
+> = z.object({
+  authType: AuthTokenAuthenticationMethod5$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken5ToJSON(
+  outputSplunkLbAuthToken5: OutputSplunkLbAuthToken5,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken5$outboundSchema.parse(outputSplunkLbAuthToken5),
+  );
+}
+export function outputSplunkLbAuthToken5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod5$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod5$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod5,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod5
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs5$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken5$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod5$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs5$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken5$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs5$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs5$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs5
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken5$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod5$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs5ToJSON(
+  indexerDiscoveryConfigs5: IndexerDiscoveryConfigs5,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs5$outboundSchema.parse(indexerDiscoveryConfigs5),
+  );
+}
+export function indexerDiscoveryConfigs5FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb5$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  indexerDiscovery: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputSplunkLbType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs5$inboundSchema),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb5$Outbound = {
+  indexerDiscovery: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  onBackpressure: string;
+  senderUnhealthyTimeAllowance: number;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs: IndexerDiscoveryConfigs5$Outbound;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb5$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb5$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb5
+> = z.object({
+  indexerDiscovery: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputSplunkLbType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() =>
+    IndexerDiscoveryConfigs5$outboundSchema
+  ),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbSplunkLb5ToJSON(
+  outputSplunkLbSplunkLb5: OutputSplunkLbSplunkLb5,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb5$outboundSchema.parse(outputSplunkLbSplunkLb5),
+  );
+}
+export function outputSplunkLbSplunkLb5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType4
+> = z.nativeEnum(OutputSplunkLbType4);
+/** @internal */
+export const OutputSplunkLbType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType4
+> = OutputSplunkLbType4$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod4$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod4$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod4,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod4
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken4$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod4$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken4$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken4$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken4$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken4
+> = z.object({
+  authType: AuthTokenAuthenticationMethod4$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken4ToJSON(
+  outputSplunkLbAuthToken4: OutputSplunkLbAuthToken4,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken4$outboundSchema.parse(outputSplunkLbAuthToken4),
+  );
+}
+export function outputSplunkLbAuthToken4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod4$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod4$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod4,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod4
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs4$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken4$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod4$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs4$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken4$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs4$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs4$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs4
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken4$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod4$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs4ToJSON(
+  indexerDiscoveryConfigs4: IndexerDiscoveryConfigs4,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs4$outboundSchema.parse(indexerDiscoveryConfigs4),
+  );
+}
+export function indexerDiscoveryConfigs4FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb4$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs4$inboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb4$Outbound = {
+  maxS2Sversion: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  onBackpressure: string;
+  indexerDiscovery: boolean;
+  senderUnhealthyTimeAllowance: number;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs4$Outbound | undefined;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb4$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb4$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb4
+> = z.object({
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs4$outboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbSplunkLb4ToJSON(
+  outputSplunkLbSplunkLb4: OutputSplunkLbSplunkLb4,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb4$outboundSchema.parse(outputSplunkLbSplunkLb4),
+  );
+}
+export function outputSplunkLbSplunkLb4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType3
+> = z.nativeEnum(OutputSplunkLbType3);
+/** @internal */
+export const OutputSplunkLbType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType3
+> = OutputSplunkLbType3$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod3$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod3$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod3,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod3
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken3$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod3$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken3$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken3$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken3$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken3
+> = z.object({
+  authType: AuthTokenAuthenticationMethod3$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken3ToJSON(
+  outputSplunkLbAuthToken3: OutputSplunkLbAuthToken3,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken3$outboundSchema.parse(outputSplunkLbAuthToken3),
+  );
+}
+export function outputSplunkLbAuthToken3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod3$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod3$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod3,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod3
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs3$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken3$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod3$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs3$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken3$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs3$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs3$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs3
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken3$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod3$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs3ToJSON(
+  indexerDiscoveryConfigs3: IndexerDiscoveryConfigs3,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs3$outboundSchema.parse(indexerDiscoveryConfigs3),
+  );
+}
+export function indexerDiscoveryConfigs3FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb3$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs3$inboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb3$Outbound = {
+  maxS2Sversion: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  onBackpressure: string;
+  indexerDiscovery: boolean;
+  senderUnhealthyTimeAllowance: number;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs3$Outbound | undefined;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb3$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb3$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb3
+> = z.object({
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  id: z.string().optional(),
+  type: OutputSplunkLbType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs3$outboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbSplunkLb3ToJSON(
+  outputSplunkLbSplunkLb3: OutputSplunkLbSplunkLb3,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb3$outboundSchema.parse(outputSplunkLbSplunkLb3),
+  );
+}
+export function outputSplunkLbSplunkLb3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType2
+> = z.nativeEnum(OutputSplunkLbType2);
+/** @internal */
+export const OutputSplunkLbType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType2
+> = OutputSplunkLbType2$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod2$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod2$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod2,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod2
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken2$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod2$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken2$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken2$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken2$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken2
+> = z.object({
+  authType: AuthTokenAuthenticationMethod2$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken2ToJSON(
+  outputSplunkLbAuthToken2: OutputSplunkLbAuthToken2,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken2$outboundSchema.parse(outputSplunkLbAuthToken2),
+  );
+}
+export function outputSplunkLbAuthToken2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod2$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod2$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod2,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod2
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs2$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken2$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod2$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs2$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken2$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs2$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs2$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs2
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken2$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod2$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs2ToJSON(
+  indexerDiscoveryConfigs2: IndexerDiscoveryConfigs2,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs2$outboundSchema.parse(indexerDiscoveryConfigs2),
+  );
+}
+export function indexerDiscoveryConfigs2FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb2$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enableACK: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputSplunkLbType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs2$inboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb2$Outbound = {
+  enableACK: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
   logFailedRequests: boolean;
   maxS2Sversion: string;
   onBackpressure: string;
@@ -1306,28 +5148,33 @@ export type OutputSplunkLb$Outbound = {
   description?: string | undefined;
   maxFailedHealthChecks: number;
   compress: string;
-  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs$Outbound | undefined;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs2$Outbound | undefined;
   excludeSelf: boolean;
-  hosts: Array<OutputSplunkLbHost$Outbound>;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputSplunkLbPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
   authToken: string;
   textSecret?: string | undefined;
 };
 
 /** @internal */
-export const OutputSplunkLb$outboundSchema: z.ZodType<
-  OutputSplunkLb$Outbound,
+export const OutputSplunkLbSplunkLb2$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb2$Outbound,
   z.ZodTypeDef,
-  OutputSplunkLb
+  OutputSplunkLbSplunkLb2
 > = z.object({
+  enableACK: z.boolean().default(true),
   id: z.string().optional(),
-  type: OutputSplunkLbType$outboundSchema,
+  type: OutputSplunkLbType2$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1335,65 +5182,421 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
-  nestedFields: OutputSplunkLbNestedFieldSerialization$outboundSchema.default(
-    "none",
-  ),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
   throttleRatePerSec: z.string().default("0"),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  tls: z.lazy(() => OutputSplunkLbTLSSettingsClientSide$outboundSchema)
-    .optional(),
+  tls: Tls1Type$outboundSchema.optional(),
   enableMultiMetrics: z.boolean().default(false),
-  enableACK: z.boolean().default(true),
   logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: OutputSplunkLbMaxS2SVersion$outboundSchema.default("v3"),
-  onBackpressure: OutputSplunkLbBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   indexerDiscovery: z.boolean().default(false),
   senderUnhealthyTimeAllowance: z.number().default(100),
-  authType: OutputSplunkLbAuthenticationMethod$outboundSchema.default("manual"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().default(1),
-  compress: OutputSplunkLbCompressCompression$outboundSchema.default(
-    "disabled",
-  ),
-  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$outboundSchema)
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs2$outboundSchema)
     .optional(),
   excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputSplunkLbHost$outboundSchema)),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSplunkLbPqCompressCompression$outboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputSplunkLbQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSplunkLbMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSplunkLbPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkLb$ {
-  /** @deprecated use `OutputSplunkLb$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkLb$inboundSchema;
-  /** @deprecated use `OutputSplunkLb$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkLb$outboundSchema;
-  /** @deprecated use `OutputSplunkLb$Outbound` instead. */
-  export type Outbound = OutputSplunkLb$Outbound;
+export function outputSplunkLbSplunkLb2ToJSON(
+  outputSplunkLbSplunkLb2: OutputSplunkLbSplunkLb2,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb2$outboundSchema.parse(outputSplunkLbSplunkLb2),
+  );
 }
+export function outputSplunkLbSplunkLb2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType1
+> = z.nativeEnum(OutputSplunkLbType1);
+/** @internal */
+export const OutputSplunkLbType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSplunkLbType1
+> = OutputSplunkLbType1$inboundSchema;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod1$inboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTokenAuthenticationMethod1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTokenAuthenticationMethod1$outboundSchema: z.ZodType<
+  AuthTokenAuthenticationMethod1,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod1
+> = z.union([
+  z.nativeEnum(AuthTokenAuthenticationMethod1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkLbAuthToken1$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTokenAuthenticationMethod1$inboundSchema.default("manual"),
+});
+/** @internal */
+export type OutputSplunkLbAuthToken1$Outbound = {
+  authType: string;
+};
+
+/** @internal */
+export const OutputSplunkLbAuthToken1$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthToken1$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthToken1
+> = z.object({
+  authType: AuthTokenAuthenticationMethod1$outboundSchema.default("manual"),
+});
+
+export function outputSplunkLbAuthToken1ToJSON(
+  outputSplunkLbAuthToken1: OutputSplunkLbAuthToken1,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbAuthToken1$outboundSchema.parse(outputSplunkLbAuthToken1),
+  );
+}
+export function outputSplunkLbAuthToken1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbAuthToken1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbAuthToken1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbAuthToken1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod1$inboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkLbAuthenticationMethod1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkLbAuthenticationMethod1$outboundSchema: z.ZodType<
+  OutputSplunkLbAuthenticationMethod1,
+  z.ZodTypeDef,
+  OutputSplunkLbAuthenticationMethod1
+> = z.union([
+  z.nativeEnum(OutputSplunkLbAuthenticationMethod1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const IndexerDiscoveryConfigs1$inboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken1$inboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod1$inboundSchema.default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type IndexerDiscoveryConfigs1$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized: boolean;
+  authTokens?: Array<OutputSplunkLbAuthToken1$Outbound> | undefined;
+  authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs1$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs1$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs1
+> = z.object({
+  site: z.string().default("default"),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number().default(300),
+  rejectUnauthorized: z.boolean().default(false),
+  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken1$outboundSchema))
+    .optional(),
+  authType: OutputSplunkLbAuthenticationMethod1$outboundSchema.default(
+    "manual",
+  ),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigs1ToJSON(
+  indexerDiscoveryConfigs1: IndexerDiscoveryConfigs1,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs1$outboundSchema.parse(indexerDiscoveryConfigs1),
+  );
+}
+export function indexerDiscoveryConfigs1FromJSON(
+  jsonString: string,
+): SafeParseResult<IndexerDiscoveryConfigs1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IndexerDiscoveryConfigs1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IndexerDiscoveryConfigs1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLbSplunkLb1$inboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enableACK: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputSplunkLbType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs1$inboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkLbSplunkLb1$Outbound = {
+  enableACK: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  onBackpressure: string;
+  indexerDiscovery: boolean;
+  senderUnhealthyTimeAllowance: number;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs1$Outbound | undefined;
+  excludeSelf: boolean;
+  hosts: Array<HostsType$Outbound>;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLbSplunkLb1$outboundSchema: z.ZodType<
+  OutputSplunkLbSplunkLb1$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLbSplunkLb1
+> = z.object({
+  enableACK: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputSplunkLbType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  indexerDiscovery: z.boolean().default(false),
+  senderUnhealthyTimeAllowance: z.number().default(100),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs1$outboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbSplunkLb1ToJSON(
+  outputSplunkLbSplunkLb1: OutputSplunkLbSplunkLb1,
+): string {
+  return JSON.stringify(
+    OutputSplunkLbSplunkLb1$outboundSchema.parse(outputSplunkLbSplunkLb1),
+  );
+}
+export function outputSplunkLbSplunkLb1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkLbSplunkLb1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkLbSplunkLb1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkLbSplunkLb1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkLb$inboundSchema: z.ZodType<
+  OutputSplunkLb,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSplunkLbSplunkLb5$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb8$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb10$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb1$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb2$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb3$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb4$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb6$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb7$inboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb9$inboundSchema),
+]);
+/** @internal */
+export type OutputSplunkLb$Outbound =
+  | OutputSplunkLbSplunkLb5$Outbound
+  | OutputSplunkLbSplunkLb8$Outbound
+  | OutputSplunkLbSplunkLb10$Outbound
+  | OutputSplunkLbSplunkLb1$Outbound
+  | OutputSplunkLbSplunkLb2$Outbound
+  | OutputSplunkLbSplunkLb3$Outbound
+  | OutputSplunkLbSplunkLb4$Outbound
+  | OutputSplunkLbSplunkLb6$Outbound
+  | OutputSplunkLbSplunkLb7$Outbound
+  | OutputSplunkLbSplunkLb9$Outbound;
+
+/** @internal */
+export const OutputSplunkLb$outboundSchema: z.ZodType<
+  OutputSplunkLb$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLb
+> = z.union([
+  z.lazy(() => OutputSplunkLbSplunkLb5$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb8$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb10$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb1$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb2$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb3$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb4$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb6$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb7$outboundSchema),
+  z.lazy(() => OutputSplunkLbSplunkLb9$outboundSchema),
+]);
 
 export function outputSplunkLbToJSON(outputSplunkLb: OutputSplunkLb): string {
   return JSON.stringify(OutputSplunkLb$outboundSchema.parse(outputSplunkLb));
 }
-
 export function outputSplunkLbFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkLb, SDKValidationError> {

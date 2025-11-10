@@ -1,24 +1,27 @@
 # OutputClickHouse
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputClickHouseClickHouse1`
 
 ```typescript
-import { OutputClickHouse } from "cribl-control-plane/models";
-
-let value: OutputClickHouse = {
+const value: models.OutputClickHouseClickHouse1 = {
   id: "<id>",
   type: "click_house",
   pipeline: "<value>",
   systemFields: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   environment: "<value>",
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  url: "https://miserable-pillow.biz/",
+  url: "https://proper-overload.com",
   database: "<value>",
   tableName: "<value>",
   tls: {
@@ -28,8 +31,8 @@ let value: OutputClickHouse = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
   },
   extraHttpHeaders: [
     {
@@ -40,21 +43,20 @@ let value: OutputClickHouse = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 7494.57,
+      httpStatus: 5033.96,
     },
   ],
   timeoutRetrySettings: {},
-  description: "without tragic deserted after uh-huh provided",
-  username: "Eino.Mante",
-  password: "PBWEf8PIjl05JJf",
+  description: "who repeatedly direct when",
+  username: "Madilyn_Lynch",
+  password: "itfSxc1XyiUm05t",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://profuse-pocket-watch.biz/",
+  loginUrl: "https://unkempt-rubric.com/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -86,63 +88,1007 @@ let value: OutputClickHouse = {
 };
 ```
 
-## Fields
+### `models.OutputClickHouseClickHouse2`
 
-| Field                                                                                                                                                                                                                                                                                                                                            | Type                                                                                                                                                                                                                                                                                                                                             | Required                                                                                                                                                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Unique ID for this output                                                                                                                                                                                                                                                                                                                        |
-| `type`                                                                                                                                                                                                                                                                                                                                           | [models.OutputClickHouseType](../models/outputclickhousetype.md)                                                                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `pipeline`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Pipeline to process data before sending out to this output                                                                                                                                                                                                                                                                                       |
-| `systemFields`                                                                                                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                                                                                                   |
-| `environment`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                             |
-| `streamtags`                                                                                                                                                                                                                                                                                                                                     | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                    |
-| `url`                                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | URL of the ClickHouse instance. Example: http://localhost:8123/                                                                                                                                                                                                                                                                                  |
-| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.OutputClickHouseAuthenticationType](../models/outputclickhouseauthenticationtype.md)                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `database`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `tableName`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".                                                                                                                                                   |
-| `format`                                                                                                                                                                                                                                                                                                                                         | [models.OutputClickHouseFormat](../models/outputclickhouseformat.md)                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data format to use when sending data to ClickHouse. Defaults to JSON Compact.                                                                                                                                                                                                                                                                    |
-| `mappingType`                                                                                                                                                                                                                                                                                                                                    | [models.MappingType](../models/mappingtype.md)                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How event fields are mapped to ClickHouse columns.                                                                                                                                                                                                                                                                                               |
-| `asyncInserts`                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.                                                                                                                                                                                                                                              |
-| `tls`                                                                                                                                                                                                                                                                                                                                            | [models.OutputClickHouseTLSSettingsClientSide](../models/outputclickhousetlssettingsclientside.md)                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `concurrency`                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of ongoing requests before blocking                                                                                                                                                                                                                                                                                               |
-| `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum size, in KB, of the request body                                                                                                                                                                                                                                                                                                         |
-| `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                                                               |
-| `compress`                                                                                                                                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Compress the payload body before sending                                                                                                                                                                                                                                                                                                         |
-| `rejectUnauthorized`                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).<br/>        Enabled by default. When this setting is also present in TLS Settings (Client Side),<br/>        that value will take precedence.                                                                             |
-| `timeoutSec`                                                                                                                                                                                                                                                                                                                                     | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Amount of time, in seconds, to wait for a request to complete before canceling it                                                                                                                                                                                                                                                                |
-| `flushPeriodSec`                                                                                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.                                                                                                                                                                                                                      |
-| `extraHttpHeaders`                                                                                                                                                                                                                                                                                                                               | [models.OutputClickHouseExtraHttpHeader](../models/outputclickhouseextrahttpheader.md)[]                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Headers to add to all events                                                                                                                                                                                                                                                                                                                     |
-| `useRoundRobinDns`                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.                                                                                                               |
-| `failedRequestLoggingMode`                                                                                                                                                                                                                                                                                                                       | [models.OutputClickHouseFailedRequestLoggingMode](../models/outputclickhousefailedrequestloggingmode.md)                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.                                                                                                                                                                                                                                      |
-| `safeHeaders`                                                                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | List of headers that are safe to log in plain text                                                                                                                                                                                                                                                                                               |
-| `responseRetrySettings`                                                                                                                                                                                                                                                                                                                          | [models.OutputClickHouseResponseRetrySetting](../models/outputclickhouseresponseretrysetting.md)[]                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)                                                                                                                                                                                                                       |
-| `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.OutputClickHouseTimeoutRetrySettings](../models/outputclickhousetimeoutretrysettings.md)                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored. |
-| `dumpFormatErrorsToDisk`                                                                                                                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Log the most recent event that fails to match the table schema                                                                                                                                                                                                                                                                                   |
-| `onBackpressure`                                                                                                                                                                                                                                                                                                                                 | [models.OutputClickHouseBackpressureBehavior](../models/outputclickhousebackpressurebehavior.md)                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                |
-| `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `username`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `password`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `token`                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Bearer token to include in the authorization header                                                                                                                                                                                                                                                                                              |
-| `credentialsSecret`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a secret that references your credentials                                                                                                                                                                                                                                                                                       |
-| `textSecret`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
-| `loginUrl`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | URL for OAuth                                                                                                                                                                                                                                                                                                                                    |
-| `secretParamName`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Secret parameter name to pass in request body                                                                                                                                                                                                                                                                                                    |
-| `secret`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Secret parameter value to pass in request body                                                                                                                                                                                                                                                                                                   |
-| `tokenAttributeName`                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').                                                                                                                                                                                                        |
-| `authHeaderExpr`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.                                                                                                                                                  |
-| `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                                   |
-| `oauthParams`                                                                                                                                                                                                                                                                                                                                    | [models.OutputClickHouseOauthParam](../models/outputclickhouseoauthparam.md)[]                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.          |
-| `oauthHeaders`                                                                                                                                                                                                                                                                                                                                   | [models.OutputClickHouseOauthHeader](../models/outputclickhouseoauthheader.md)[]                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                                  |
-| `sqlUsername`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Username for certificate authentication                                                                                                                                                                                                                                                                                                          |
-| `waitForAsyncInserts`                                                                                                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.                                                                                                           |
-| `excludeMappingFields`                                                                                                                                                                                                                                                                                                                           | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Fields to exclude from sending to ClickHouse                                                                                                                                                                                                                                                                                                     |
-| `describeTable`                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Retrieves the table schema from ClickHouse and populates the Column Mapping table                                                                                                                                                                                                                                                                |
-| `columnMappings`                                                                                                                                                                                                                                                                                                                                 | [models.ColumnMapping](../models/columnmapping.md)[]                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `pqMaxFileSize`                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)                                                                                                                                                                                                                                            |
-| `pqMaxSize`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.                                                                                                                                                                                           |
-| `pqPath`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.                                                                                                                                                                                                                            |
-| `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.OutputClickHouseCompression](../models/outputclickhousecompression.md)                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
-| `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.OutputClickHouseQueueFullBehavior](../models/outputclickhousequeuefullbehavior.md)                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
-| `pqMode`                                                                                                                                                                                                                                                                                                                                         | [models.OutputClickHouseMode](../models/outputclickhousemode.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.                                                                                   |
-| `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputClickHousePqControls](../models/outputclickhousepqcontrols.md)                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+```typescript
+const value: models.OutputClickHouseClickHouse2 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://deep-junior.info",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "haversack decide only elevation consign than sadly",
+  username: "Tyrell49",
+  password: "bVDb_piAYgBeT6M",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://curly-confusion.info",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse3`
+
+```typescript
+const value: models.OutputClickHouseClickHouse3 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://frozen-taro.com",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "for aha coop",
+  username: "Angela_Williamson-Schaefer54",
+  password: "STEt2uZ1pZ6cNKB",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://frilly-summary.org",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse4`
+
+```typescript
+const value: models.OutputClickHouseClickHouse4 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://pointed-dish.net/",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "unfortunately yum emboss or",
+  username: "Kenna95",
+  password: "w6ylPoeDoJGAk0V",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://measly-kinase.info/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse5`
+
+```typescript
+const value: models.OutputClickHouseClickHouse5 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://outrageous-dead.net",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "sans hm greedily planula",
+  username: "Edythe_McDermott",
+  password: "6lrP2iHnw4GIp0L",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://cluttered-noon.org/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse6`
+
+```typescript
+const value: models.OutputClickHouseClickHouse6 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://intrepid-stool.com",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "meanwhile affect swat frantically",
+  username: "Carmela.Balistreri",
+  password: "qymcdVAAWTMkdTD",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://crafty-pepper.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse7`
+
+```typescript
+const value: models.OutputClickHouseClickHouse7 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://better-battle.org",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "ditch controvert gladly",
+  username: "Scotty.Reichel37",
+  password: "33BZgwD3iUkaz3X",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://apt-reasoning.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse8`
+
+```typescript
+const value: models.OutputClickHouseClickHouse8 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://forsaken-event.name",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "offset promise what only underneath mid serene before",
+  username: "Miracle_Boyle68",
+  password: "aDRL6qZr9BrTm5a",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://rowdy-adrenalin.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse9`
+
+```typescript
+const value: models.OutputClickHouseClickHouse9 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://homely-thongs.org",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "honesty sock pfft quarrelsomely sniff circulate pish till",
+  username: "Blaze_Hilll17",
+  password: "4wFHFqmmqZXccMo",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://stark-birdcage.net/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse10`
+
+```typescript
+const value: models.OutputClickHouseClickHouse10 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://unaware-minion.com",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "onset hotfoot surprisingly floodlight printer ah joy tank without",
+  username: "Eloisa.Hayes",
+  password: "6HkkARxpklVwxNa",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://corrupt-hyphenation.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse11`
+
+```typescript
+const value: models.OutputClickHouseClickHouse11 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://wide-birth.org/",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "pfft although prickly huzzah if beyond furthermore blah breastplate",
+  username: "Erwin.Parisian",
+  password: "6l355PEK2QogeDv",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://honorable-council.com",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse12`
+
+```typescript
+const value: models.OutputClickHouseClickHouse12 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://criminal-publicity.net/",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "since qua incidentally usefully quaintly ack cannibalise duh immediately",
+  username: "Maymie26",
+  password: "m0m8bQqTzrSpugu",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://hairy-marksman.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputClickHouseClickHouse13`
+
+```typescript
+const value: models.OutputClickHouseClickHouse13 = {
+  id: "<id>",
+  type: "click_house",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://sudden-steeple.com",
+  database: "<value>",
+  tableName: "<value>",
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "ouch pulverize gah very torn enthusiastically inasmuch if",
+  username: "Irving.Waelchi",
+  password: "IQcQBSnl3XwDOFz",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://zealous-metal.info/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  sqlUsername: "<value>",
+  excludeMappingFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  describeTable: "<value>",
+  columnMappings: [
+    {
+      columnName: "<value>",
+      columnType: "<value>",
+      columnValueExpression: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+

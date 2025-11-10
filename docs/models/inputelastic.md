@@ -1,11 +1,12 @@
 # InputElastic
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputElasticElastic1`
 
 ```typescript
-import { InputElastic } from "cribl-control-plane/models";
-
-let value: InputElastic = {
+const value: models.InputElasticElastic1 = {
   id: "<id>",
   type: "elastic",
   pipeline: "<value>",
@@ -23,17 +24,15 @@ let value: InputElastic = {
   pq: {
     pqControls: {},
   },
-  port: 8327.88,
+  port: 7017.64,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
   extraHttpHeaders: [
     {
@@ -48,14 +47,80 @@ let value: InputElastic = {
     },
   ],
   proxyMode: {
-    url: "https://stale-discourse.name/",
+    username: "Gia_Dickens",
+    password: "WEGBsBgOAHGoNwE",
+    credentialsSecret: "<value>",
+    url: "https://glass-giggle.net",
     removeHeaders: [
       "<value 1>",
+      "<value 2>",
     ],
   },
-  description: "tall well yearly qua coordinated mad wholly outlying ugh pfft",
-  username: "Ayden99",
-  password: "N6vFmVRDEkfXqSU",
+  description: "duh yieldingly unimpressively",
+  username: "Adelle.Crist",
+  password: "M8rSdgAZ51M07ki",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+  ],
+};
+```
+
+### `models.InputElasticElastic2`
+
+```typescript
+const value: models.InputElasticElastic2 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 8866.53,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Mayra_Mayert37",
+    password: "YzZOgk03AIhLe5p",
+    credentialsSecret: "<value>",
+    url: "https://exhausted-jump.com",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  description: "um whereas fail supposing or desk drat athwart mmm",
+  username: "Elsie86",
+  password: "v3J_rIIh8wcs82l",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
@@ -65,43 +130,584 @@ let value: InputElastic = {
 };
 ```
 
-## Fields
+### `models.InputElasticElastic3`
 
-| Field                                                                                                                                                                                                                                                                                   | Type                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Unique ID for this input                                                                                                                                                                                                                                                                |
-| `type`                                                                                                                                                                                                                                                                                  | [models.InputElasticType](../models/inputelastictype.md)                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `disabled`                                                                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `pipeline`                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                          |
-| `sendToRoutes`                                                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                     |
-| `environment`                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                    |
-| `pqEnabled`                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                            |
-| `streamtags`                                                                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                           |
-| `connections`                                                                                                                                                                                                                                                                           | [models.InputElasticConnection](../models/inputelasticconnection.md)[]                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                             |
-| `pq`                                                                                                                                                                                                                                                                                    | [models.InputElasticPq](../models/inputelasticpq.md)                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `host`                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                                                                |
-| `port`                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                      | Port to listen on                                                                                                                                                                                                                                                                       |
-| `tls`                                                                                                                                                                                                                                                                                   | [models.InputElasticTLSSettingsServerSide](../models/inputelastictlssettingsserverside.md)                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `maxActiveReq`                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                                                                 |
-| `maxRequestsPerSocket`                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).                                                                                                                                                         |
-| `enableProxyHeader`                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.                                                                                                      |
-| `captureHeaders`                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Add request headers to events, in the __headers field                                                                                                                                                                                                                                   |
-| `activityLogSampleRate`                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.                                                                                                                                                             |
-| `requestTimeout`                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | How long to wait for an incoming request to complete before aborting it. Use 0 to disable.                                                                                                                                                                                              |
-| `socketTimeout`                                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.                                                                                                                                                                       |
-| `keepAliveTimeout`                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).                                                                                                           |
-| `enableHealthCheck`                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy                                                                                                                                                                                                     |
-| `ipAllowlistRegex`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Messages from matched IP addresses will be processed, unless also matched by the denylist                                                                                                                                                                                               |
-| `ipDenylistRegex`                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                                                           |
-| `elasticAPI`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success. |
-| `authType`                                                                                                                                                                                                                                                                              | [models.InputElasticAuthenticationType](../models/inputelasticauthenticationtype.md)                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `apiVersion`                                                                                                                                                                                                                                                                            | [models.InputElasticAPIVersion](../models/inputelasticapiversion.md)                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | The API version to use for communicating with the server                                                                                                                                                                                                                                |
-| `extraHttpHeaders`                                                                                                                                                                                                                                                                      | [models.InputElasticExtraHttpHeader](../models/inputelasticextrahttpheader.md)[]                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Headers to add to all events                                                                                                                                                                                                                                                            |
-| `metadata`                                                                                                                                                                                                                                                                              | [models.InputElasticMetadatum](../models/inputelasticmetadatum.md)[]                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Fields to add to events from this input                                                                                                                                                                                                                                                 |
-| `proxyMode`                                                                                                                                                                                                                                                                             | [models.InputElasticProxyMode](../models/inputelasticproxymode.md)                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `description`                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `username`                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `password`                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
-| `credentialsSecret`                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Select or create a secret that references your credentials                                                                                                                                                                                                                              |
-| `authTokens`                                                                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Bearer tokens to include in the authorization header                                                                                                                                                                                                                                    |
-| `customAPIVersion`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Custom version information to respond to requests                                                                                                                                                                                                                                       |
+```typescript
+const value: models.InputElasticElastic3 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 6682.01,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Demetrius_Kling",
+    password: "4KxkcStcQjhHRts",
+    credentialsSecret: "<value>",
+    url: "https://super-hydrant.info",
+    removeHeaders: [
+      "<value 1>",
+    ],
+  },
+  description:
+    "nasalise whoa spark excluding mysteriously consequently loyally astride similar",
+  username: "Jabari_Murray",
+  password: "rDf3ScYXWniFN4f",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
+```
+
+### `models.InputElasticElastic4`
+
+```typescript
+const value: models.InputElasticElastic4 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 47.62,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Kailee.Jaskolski-Mertz43",
+    password: "xU2tRi7rXFmGODY",
+    credentialsSecret: "<value>",
+    url: "https://finished-councilman.biz",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  description: "who admired plus quirkily clean",
+  username: "Meagan_Halvorson",
+  password: "JA0UGh7VgwxGb5D",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
+```
+
+### `models.InputElasticElastic5`
+
+```typescript
+const value: models.InputElasticElastic5 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 383.41,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Cleora.Schinner62",
+    password: "5KMRlcpcktj90M0",
+    credentialsSecret: "<value>",
+    url: "https://scientific-pepper.net",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  description: "brilliant oof avaricious flustered",
+  username: "Marvin.Brekke",
+  password: "Wkay0hS2INUpNGX",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
+```
+
+### `models.InputElasticElastic6`
+
+```typescript
+const value: models.InputElasticElastic6 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 2448.26,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Felipa_Turner",
+    password: "EqujuUaDcyygu1x",
+    credentialsSecret: "<value>",
+    url: "https://square-diver.info",
+    removeHeaders: [
+      "<value 1>",
+    ],
+  },
+  description: "cassava deeply even",
+  username: "Deron.Hilpert",
+  password: "HNS3gxxIr4jWIcz",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
+```
+
+### `models.InputElasticElastic7`
+
+```typescript
+const value: models.InputElasticElastic7 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 6742.47,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Nya93",
+    password: "APebJw2_0PrFCqw",
+    credentialsSecret: "<value>",
+    url: "https://fake-handover.biz/",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  description: "um while coordination instead forager kiddingly provided",
+  username: "Kamille61",
+  password: "7iKaQR5DMpJ4kLB",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
+```
+
+### `models.InputElasticElastic8`
+
+```typescript
+const value: models.InputElasticElastic8 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 4856.05,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Harry_Hayes",
+    password: "BrNYV9mDMMjPYs0",
+    credentialsSecret: "<value>",
+    url: "https://blushing-reasoning.net",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
+  description: "holster worth luck",
+  username: "Donna.Wintheiser41",
+  password: "d_I3G8Uc4YmZIyR",
+  credentialsSecret: "<value>",
+  authTokens: [],
+};
+```
+
+### `models.InputElasticElastic9`
+
+```typescript
+const value: models.InputElasticElastic9 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 7528.99,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Hailie_Emmerich74",
+    password: "rYzpPHgTGFGCGkT",
+    credentialsSecret: "<value>",
+    url: "https://ornate-deck.biz/",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  description: "emulsify boldly better fly before supposing excepting",
+  username: "Ruben6",
+  password: "pq4jl3oVVn15kIo",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
+```
+
+### `models.InputElasticElastic10`
+
+```typescript
+const value: models.InputElasticElastic10 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 5114.36,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Sierra83",
+    password: "QpRhWnHz1u77x6i",
+    credentialsSecret: "<value>",
+    url: "https://wretched-cricket.org",
+    removeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  },
+  description:
+    "as around contradict meh quarrelsomely dimly bemuse unkempt airman",
+  username: "Kiarra31",
+  password: "A1SlcaEVaPMB6Im",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
+```
+
+### `models.InputElasticElastic11`
+
+```typescript
+const value: models.InputElasticElastic11 = {
+  id: "<id>",
+  type: "elastic",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 276.01,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    username: "Skye_Cremin",
+    password: "xnKNerU6CjMurd8",
+    credentialsSecret: "<value>",
+    url: "https://whole-accompanist.name",
+    removeHeaders: [
+      "<value 1>",
+    ],
+  },
+  description:
+    "afore what before polarisation excepting couch drat hence airman",
+  username: "Antwan58",
+  password: "hYEWRfctUQ2HJCo",
+  credentialsSecret: "<value>",
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
+```
+

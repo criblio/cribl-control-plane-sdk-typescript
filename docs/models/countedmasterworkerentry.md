@@ -1,0 +1,201 @@
+# CountedMasterWorkerEntry
+
+## Example Usage
+
+```typescript
+import { CountedMasterWorkerEntry } from "cribl-control-plane/models";
+
+let value: CountedMasterWorkerEntry = {
+  count: 981854,
+  items: [
+    {
+      deployable: true,
+      disconnected: false,
+      firstMsgTime: 7764.97,
+      group: "<value>",
+      id: "<id>",
+      info: {
+        architecture: "<value>",
+        aws: {
+          enabled: false,
+          instanceId: "<id>",
+          region: "<value>",
+          tags: {},
+          type: "<value>",
+          zone: "<value>",
+        },
+        connIp: "<value>",
+        cpus: 2011.18,
+        cribl: {
+          config: {
+            featuresRev: "<value>",
+            hbPeriodSeconds: 8719.43,
+            logStreamEnv: "<value>",
+            policyRev: "<value>",
+            version: "<value>",
+          },
+          deploymentId: "<id>",
+          disableSNIRouting: true,
+          distMode: "master",
+          edgeNodes: 8294.01,
+          group: "<value>",
+          guid: "<id>",
+          installType: "<value>",
+          lookupVersions: {},
+          master: {
+            host: "bitter-poetry.net",
+            port: 4320.82,
+            servername: "<value>",
+            tls: false,
+          },
+          pid: 809.07,
+          socksEnabled: true,
+          startTime: 1948.63,
+          tags: [
+            "<value 1>",
+            "<value 2>",
+          ],
+          version: "<value>",
+        },
+        env: {},
+        freeDiskSpace: 3273.66,
+        hostOs: {
+          addresses: [
+            "<value 1>",
+          ],
+          enabled: true,
+          id: "<id>",
+          version: "<value>",
+        },
+        hostname: "exhausted-trash.biz",
+        isSaasWorker: true,
+        kube: {
+          enabled: true,
+          namespace: "<value>",
+          node: "<value>",
+          owner: {
+            kind: "<value>",
+            name: "<value>",
+          },
+          pod: "<value>",
+          source: "<value>",
+        },
+        localTime: 2959.09,
+        metadata: {
+          aws: {
+            enabled: false,
+            instanceId: "<id>",
+            region: "<value>",
+            tags: {},
+            type: "<value>",
+            zone: "<value>",
+          },
+          hostOs: {
+            addresses: [
+              "<value 1>",
+            ],
+            enabled: true,
+            id: "<id>",
+            version: "<value>",
+          },
+          kube: {
+            enabled: true,
+            namespace: "<value>",
+            node: "<value>",
+            owner: {
+              kind: "<value>",
+              name: "<value>",
+            },
+            pod: "<value>",
+            source: "<value>",
+          },
+          os: {
+            addresses: [
+              "<value 1>",
+              "<value 2>",
+            ],
+            enabled: false,
+            id: "<id>",
+            version: "<value>",
+          },
+        },
+        node: "<value>",
+        os: {
+          addresses: [],
+          enabled: true,
+          id: "<id>",
+          version: "<value>",
+        },
+        outpost: {
+          guid: "<id>",
+          host: "pretty-interchange.name",
+        },
+        platform: "<value>",
+        release: "<value>",
+        totalDiskSpace: 268.82,
+        totalmem: 8080.52,
+      },
+      lastMetrics: {},
+      lastMsgTime: 8197.1,
+      metadata: {
+        aws: {
+          enabled: false,
+          instanceId: "<id>",
+          region: "<value>",
+          tags: {},
+          type: "<value>",
+          zone: "<value>",
+        },
+        hostOs: {
+          addresses: [
+            "<value 1>",
+          ],
+          enabled: true,
+          id: "<id>",
+          version: "<value>",
+        },
+        kube: {
+          enabled: true,
+          namespace: "<value>",
+          node: "<value>",
+          owner: {
+            kind: "<value>",
+            name: "<value>",
+          },
+          pod: "<value>",
+          source: "<value>",
+        },
+        os: {
+          addresses: [
+            "<value 1>",
+            "<value 2>",
+          ],
+          enabled: false,
+          id: "<id>",
+          version: "<value>",
+        },
+      },
+      nodeUpgradeStatus: {
+        active: 2,
+        failed: 0,
+        skipped: 2,
+        state: 3,
+        timestamp: 9804.66,
+      },
+      status: "<value>",
+      type: "req",
+      workerProcesses: 1410.02,
+      workers: {
+        count: 2221.07,
+      },
+    },
+  ],
+};
+```
+
+## Fields
+
+| Field                                                        | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `count`                                                      | *number*                                                     | :heavy_minus_sign:                                           | number of items present in the items array                   |
+| `items`                                                      | [models.MasterWorkerEntry](../models/masterworkerentry.md)[] | :heavy_minus_sign:                                           | N/A                                                          |

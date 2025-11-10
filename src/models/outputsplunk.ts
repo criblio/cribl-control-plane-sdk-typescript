@@ -4,198 +4,76 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
+import {
+  CompressOptions,
+  CompressOptions$inboundSchema,
+  CompressOptions$outboundSchema,
+} from "./compressoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  MaxS2SversionOptions,
+  MaxS2SversionOptions$inboundSchema,
+  MaxS2SversionOptions$outboundSchema,
+} from "./maxs2sversionoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  NestedFieldsOptions,
+  NestedFieldsOptions$inboundSchema,
+  NestedFieldsOptions$outboundSchema,
+} from "./nestedfieldsoptions.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  Tls1Type,
+  Tls1Type$inboundSchema,
+  Tls1Type$Outbound,
+  Tls1Type$outboundSchema,
+} from "./tls1type.js";
+import {
+  TypeSplunkOption,
+  TypeSplunkOption$inboundSchema,
+  TypeSplunkOption$outboundSchema,
+} from "./typesplunkoption.js";
 
-export const OutputSplunkType = {
-  Splunk: "splunk",
-} as const;
-export type OutputSplunkType = ClosedEnum<typeof OutputSplunkType>;
-
-/**
- * How to serialize nested fields into index-time fields
- */
-export const OutputSplunkNestedFieldSerialization = {
-  Json: "json",
-  None: "none",
-} as const;
-/**
- * How to serialize nested fields into index-time fields
- */
-export type OutputSplunkNestedFieldSerialization = OpenEnum<
-  typeof OutputSplunkNestedFieldSerialization
->;
-
-export const OutputSplunkMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputSplunkMinimumTLSVersion = OpenEnum<
-  typeof OutputSplunkMinimumTLSVersion
->;
-
-export const OutputSplunkMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputSplunkMaximumTLSVersion = OpenEnum<
-  typeof OutputSplunkMaximumTLSVersion
->;
-
-export type OutputSplunkTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
+export type OutputSplunkSplunk8 = {
   /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   * Enter credentials directly, or select a stored secret
    */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputSplunkMinimumTLSVersion | undefined;
-  maxVersion?: OutputSplunkMaximumTLSVersion | undefined;
-};
-
-/**
- * The highest S2S protocol version to advertise during handshake
- */
-export const OutputSplunkMaxS2SVersion = {
-  V3: "v3",
-  V4: "v4",
-} as const;
-/**
- * The highest S2S protocol version to advertise during handshake
- */
-export type OutputSplunkMaxS2SVersion = OpenEnum<
-  typeof OutputSplunkMaxS2SVersion
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSplunkBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSplunkBackpressureBehavior = OpenEnum<
-  typeof OutputSplunkBackpressureBehavior
->;
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const OutputSplunkAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type OutputSplunkAuthenticationMethod = OpenEnum<
-  typeof OutputSplunkAuthenticationMethod
->;
-
-/**
- * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
- */
-export const OutputSplunkCompressCompression = {
-  Disabled: "disabled",
-  Auto: "auto",
-  Always: "always",
-} as const;
-/**
- * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
- */
-export type OutputSplunkCompressCompression = OpenEnum<
-  typeof OutputSplunkCompressCompression
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSplunkPqCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSplunkPqCompressCompression = OpenEnum<
-  typeof OutputSplunkPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSplunkQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSplunkQueueFullBehavior = OpenEnum<
-  typeof OutputSplunkQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSplunkMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSplunkMode = OpenEnum<typeof OutputSplunkMode>;
-
-export type OutputSplunkPqControls = {};
-
-export type OutputSplunk = {
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSplunkType;
+  type: TypeSplunkOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -223,7 +101,7 @@ export type OutputSplunk = {
   /**
    * How to serialize nested fields into index-time fields
    */
-  nestedFields?: OutputSplunkNestedFieldSerialization | undefined;
+  nestedFields?: NestedFieldsOptions | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -236,7 +114,7 @@ export type OutputSplunk = {
    * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
    */
   writeTimeout?: number | undefined;
-  tls?: OutputSplunkTLSSettingsClientSide | undefined;
+  tls?: Tls1Type | undefined;
   /**
    * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
    */
@@ -252,24 +130,40 @@ export type OutputSplunk = {
   /**
    * The highest S2S protocol version to advertise during handshake
    */
-  maxS2Sversion?: OutputSplunkMaxS2SVersion | undefined;
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputSplunkBackpressureBehavior | undefined;
-  /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-   */
-  authType?: OutputSplunkAuthenticationMethod | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   description?: string | undefined;
   /**
    * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
    */
   maxFailedHealthChecks?: number | undefined;
   /**
-   * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
    */
-  compress?: OutputSplunkCompressCompression | undefined;
+  compress?: CompressOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -285,16 +179,143 @@ export type OutputSplunk = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSplunkPqCompressCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSplunkQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+};
+
+export type OutputSplunkSplunk7 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSplunkMode | undefined;
-  pqControls?: OutputSplunkPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
    */
@@ -305,529 +326,847 @@ export type OutputSplunk = {
   textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputSplunkType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkType
-> = z.nativeEnum(OutputSplunkType);
-
-/** @internal */
-export const OutputSplunkType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkType
-> = OutputSplunkType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkType$ {
-  /** @deprecated use `OutputSplunkType$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkType$inboundSchema;
-  /** @deprecated use `OutputSplunkType$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkType$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkNestedFieldSerialization$inboundSchema: z.ZodType<
-  OutputSplunkNestedFieldSerialization,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkNestedFieldSerialization),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkNestedFieldSerialization$outboundSchema: z.ZodType<
-  OutputSplunkNestedFieldSerialization,
-  z.ZodTypeDef,
-  OutputSplunkNestedFieldSerialization
-> = z.union([
-  z.nativeEnum(OutputSplunkNestedFieldSerialization),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkNestedFieldSerialization$ {
-  /** @deprecated use `OutputSplunkNestedFieldSerialization$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkNestedFieldSerialization$inboundSchema;
-  /** @deprecated use `OutputSplunkNestedFieldSerialization$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkNestedFieldSerialization$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputSplunkMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputSplunkMinimumTLSVersion,
-  z.ZodTypeDef,
-  OutputSplunkMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMinimumTLSVersion$ {
-  /** @deprecated use `OutputSplunkMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputSplunkMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputSplunkMaximumTLSVersion,
-  z.ZodTypeDef,
-  OutputSplunkMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMaximumTLSVersion$ {
-  /** @deprecated use `OutputSplunkMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputSplunkTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputSplunkMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputSplunkMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type OutputSplunkTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+export type OutputSplunkSplunk6 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
+export type OutputSplunkSplunk5 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkSplunk4 = {
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkSplunk3 = {
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkSplunk2 = {
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunkSplunk1 = {
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: NestedFieldsOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SversionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CompressOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type OutputSplunk =
+  | OutputSplunkSplunk6
+  | OutputSplunkSplunk8
+  | OutputSplunkSplunk1
+  | OutputSplunkSplunk2
+  | OutputSplunkSplunk3
+  | OutputSplunkSplunk4
+  | OutputSplunkSplunk5
+  | OutputSplunkSplunk7;
+
 /** @internal */
-export const OutputSplunkTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputSplunkTLSSettingsClientSide$Outbound,
+export const OutputSplunkSplunk8$inboundSchema: z.ZodType<
+  OutputSplunkSplunk8,
   z.ZodTypeDef,
-  OutputSplunkTLSSettingsClientSide
+  unknown
 > = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputSplunkMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputSplunkMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkTLSSettingsClientSide$ {
-  /** @deprecated use `OutputSplunkTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputSplunkTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputSplunkTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputSplunkTLSSettingsClientSide$Outbound;
-}
-
-export function outputSplunkTLSSettingsClientSideToJSON(
-  outputSplunkTLSSettingsClientSide: OutputSplunkTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputSplunkTLSSettingsClientSide$outboundSchema.parse(
-      outputSplunkTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function outputSplunkTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunkMaxS2SVersion$inboundSchema: z.ZodType<
-  OutputSplunkMaxS2SVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMaxS2SVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
-  OutputSplunkMaxS2SVersion,
-  z.ZodTypeDef,
-  OutputSplunkMaxS2SVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkMaxS2SVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMaxS2SVersion$ {
-  /** @deprecated use `OutputSplunkMaxS2SVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMaxS2SVersion$inboundSchema;
-  /** @deprecated use `OutputSplunkMaxS2SVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMaxS2SVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSplunkBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSplunkBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSplunkBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkBackpressureBehavior$ {
-  /** @deprecated use `OutputSplunkBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSplunkAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSplunkAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputSplunkAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSplunkAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkAuthenticationMethod$ {
-  /** @deprecated use `OutputSplunkAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSplunkAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkCompressCompression$inboundSchema: z.ZodType<
-  OutputSplunkCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkCompressCompression$outboundSchema: z.ZodType<
-  OutputSplunkCompressCompression,
-  z.ZodTypeDef,
-  OutputSplunkCompressCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkCompressCompression$ {
-  /** @deprecated use `OutputSplunkCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkCompressCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkCompressCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkPqCompressCompression$inboundSchema: z.ZodType<
-  OutputSplunkPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkPqCompressCompression$outboundSchema: z.ZodType<
-  OutputSplunkPqCompressCompression,
-  z.ZodTypeDef,
-  OutputSplunkPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkPqCompressCompression$ {
-  /** @deprecated use `OutputSplunkPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSplunkQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSplunkQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSplunkQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkQueueFullBehavior$ {
-  /** @deprecated use `OutputSplunkQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkMode$inboundSchema: z.ZodType<
-  OutputSplunkMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkMode$outboundSchema: z.ZodType<
-  OutputSplunkMode,
-  z.ZodTypeDef,
-  OutputSplunkMode
-> = z.union([
-  z.nativeEnum(OutputSplunkMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkMode$ {
-  /** @deprecated use `OutputSplunkMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkMode$inboundSchema;
-  /** @deprecated use `OutputSplunkMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkPqControls$inboundSchema: z.ZodType<
-  OutputSplunkPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputSplunkPqControls$Outbound = {};
-
-/** @internal */
-export const OutputSplunkPqControls$outboundSchema: z.ZodType<
-  OutputSplunkPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkPqControls$ {
-  /** @deprecated use `OutputSplunkPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkPqControls$inboundSchema;
-  /** @deprecated use `OutputSplunkPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkPqControls$outboundSchema;
-  /** @deprecated use `OutputSplunkPqControls$Outbound` instead. */
-  export type Outbound = OutputSplunkPqControls$Outbound;
-}
-
-export function outputSplunkPqControlsToJSON(
-  outputSplunkPqControls: OutputSplunkPqControls,
-): string {
-  return JSON.stringify(
-    OutputSplunkPqControls$outboundSchema.parse(outputSplunkPqControls),
-  );
-}
-
-export function outputSplunkPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunk$inboundSchema: z.ZodType<
-  OutputSplunk,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputSplunkType$inboundSchema,
+  type: TypeSplunkOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   host: z.string(),
   port: z.number().default(9997),
-  nestedFields: OutputSplunkNestedFieldSerialization$inboundSchema.default(
-    "none",
-  ),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
   throttleRatePerSec: z.string().default("0"),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  tls: z.lazy(() => OutputSplunkTLSSettingsClientSide$inboundSchema).optional(),
+  tls: Tls1Type$inboundSchema.optional(),
   enableMultiMetrics: z.boolean().default(false),
   enableACK: z.boolean().default(true),
   logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: OutputSplunkMaxS2SVersion$inboundSchema.default("v3"),
-  onBackpressure: OutputSplunkBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputSplunkAuthenticationMethod$inboundSchema.default("manual"),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().default(1),
-  compress: OutputSplunkCompressCompression$inboundSchema.default("disabled"),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSplunkPqCompressCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSplunkQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSplunkMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSplunkPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   authToken: z.string().default(""),
-  textSecret: z.string().optional(),
+  textSecret: z.string(),
 });
-
 /** @internal */
-export type OutputSplunk$Outbound = {
+export type OutputSplunkSplunk8$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -840,9 +1179,854 @@ export type OutputSplunk$Outbound = {
   throttleRatePerSec: string;
   connectionTimeout: number;
   writeTimeout: number;
-  tls?: OutputSplunkTLSSettingsClientSide$Outbound | undefined;
+  tls?: Tls1Type$Outbound | undefined;
   enableMultiMetrics: boolean;
   enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  onBackpressure: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret: string;
+};
+
+/** @internal */
+export const OutputSplunkSplunk8$outboundSchema: z.ZodType<
+  OutputSplunkSplunk8$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkSplunk8
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string(),
+});
+
+export function outputSplunkSplunk8ToJSON(
+  outputSplunkSplunk8: OutputSplunkSplunk8,
+): string {
+  return JSON.stringify(
+    OutputSplunkSplunk8$outboundSchema.parse(outputSplunkSplunk8),
+  );
+}
+export function outputSplunkSplunk8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkSplunk8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkSplunk8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkSplunk8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkSplunk7$inboundSchema: z.ZodType<
+  OutputSplunkSplunk7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkSplunk7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  onBackpressure: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkSplunk7$outboundSchema: z.ZodType<
+  OutputSplunkSplunk7$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkSplunk7
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkSplunk7ToJSON(
+  outputSplunkSplunk7: OutputSplunkSplunk7,
+): string {
+  return JSON.stringify(
+    OutputSplunkSplunk7$outboundSchema.parse(outputSplunkSplunk7),
+  );
+}
+export function outputSplunkSplunk7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkSplunk7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkSplunk7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkSplunk7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkSplunk6$inboundSchema: z.ZodType<
+  OutputSplunkSplunk6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkSplunk6$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkSplunk6$outboundSchema: z.ZodType<
+  OutputSplunkSplunk6$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkSplunk6
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkSplunk6ToJSON(
+  outputSplunkSplunk6: OutputSplunkSplunk6,
+): string {
+  return JSON.stringify(
+    OutputSplunkSplunk6$outboundSchema.parse(outputSplunkSplunk6),
+  );
+}
+export function outputSplunkSplunk6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkSplunk6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkSplunk6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkSplunk6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkSplunk5$inboundSchema: z.ZodType<
+  OutputSplunkSplunk5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkSplunk5$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkSplunk5$outboundSchema: z.ZodType<
+  OutputSplunkSplunk5$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkSplunk5
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkSplunk5ToJSON(
+  outputSplunkSplunk5: OutputSplunkSplunk5,
+): string {
+  return JSON.stringify(
+    OutputSplunkSplunk5$outboundSchema.parse(outputSplunkSplunk5),
+  );
+}
+export function outputSplunkSplunk5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkSplunk5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkSplunk5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkSplunk5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkSplunk4$inboundSchema: z.ZodType<
+  OutputSplunkSplunk4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkSplunk4$Outbound = {
+  maxS2Sversion: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  onBackpressure: string;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkSplunk4$outboundSchema: z.ZodType<
+  OutputSplunkSplunk4$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkSplunk4
+> = z.object({
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkSplunk4ToJSON(
+  outputSplunkSplunk4: OutputSplunkSplunk4,
+): string {
+  return JSON.stringify(
+    OutputSplunkSplunk4$outboundSchema.parse(outputSplunkSplunk4),
+  );
+}
+export function outputSplunkSplunk4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkSplunk4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkSplunk4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkSplunk4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkSplunk3$inboundSchema: z.ZodType<
+  OutputSplunkSplunk3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkSplunk3$Outbound = {
+  maxS2Sversion: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  enableACK: boolean;
+  logFailedRequests: boolean;
+  onBackpressure: string;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkSplunk3$outboundSchema: z.ZodType<
+  OutputSplunkSplunk3$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkSplunk3
+> = z.object({
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  id: z.string().optional(),
+  type: TypeSplunkOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  enableACK: z.boolean().default(true),
+  logFailedRequests: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkSplunk3ToJSON(
+  outputSplunkSplunk3: OutputSplunkSplunk3,
+): string {
+  return JSON.stringify(
+    OutputSplunkSplunk3$outboundSchema.parse(outputSplunkSplunk3),
+  );
+}
+export function outputSplunkSplunk3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkSplunk3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkSplunk3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkSplunk3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkSplunk2$inboundSchema: z.ZodType<
+  OutputSplunkSplunk2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enableACK: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSplunkOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkSplunk2$Outbound = {
+  enableACK: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
   logFailedRequests: boolean;
   maxS2Sversion: string;
   onBackpressure: string;
@@ -850,80 +2034,267 @@ export type OutputSplunk$Outbound = {
   description?: string | undefined;
   maxFailedHealthChecks: number;
   compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputSplunkPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
   authToken: string;
   textSecret?: string | undefined;
 };
 
 /** @internal */
-export const OutputSplunk$outboundSchema: z.ZodType<
-  OutputSplunk$Outbound,
+export const OutputSplunkSplunk2$outboundSchema: z.ZodType<
+  OutputSplunkSplunk2$Outbound,
   z.ZodTypeDef,
-  OutputSplunk
+  OutputSplunkSplunk2
 > = z.object({
+  enableACK: z.boolean().default(true),
   id: z.string().optional(),
-  type: OutputSplunkType$outboundSchema,
+  type: TypeSplunkOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   host: z.string(),
   port: z.number().default(9997),
-  nestedFields: OutputSplunkNestedFieldSerialization$outboundSchema.default(
-    "none",
-  ),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
   throttleRatePerSec: z.string().default("0"),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  tls: z.lazy(() => OutputSplunkTLSSettingsClientSide$outboundSchema)
-    .optional(),
+  tls: Tls1Type$outboundSchema.optional(),
   enableMultiMetrics: z.boolean().default(false),
-  enableACK: z.boolean().default(true),
   logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: OutputSplunkMaxS2SVersion$outboundSchema.default("v3"),
-  onBackpressure: OutputSplunkBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputSplunkAuthenticationMethod$outboundSchema.default("manual"),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().default(1),
-  compress: OutputSplunkCompressCompression$outboundSchema.default("disabled"),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSplunkPqCompressCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSplunkQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSplunkMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSplunkPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunk$ {
-  /** @deprecated use `OutputSplunk$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunk$inboundSchema;
-  /** @deprecated use `OutputSplunk$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunk$outboundSchema;
-  /** @deprecated use `OutputSplunk$Outbound` instead. */
-  export type Outbound = OutputSplunk$Outbound;
+export function outputSplunkSplunk2ToJSON(
+  outputSplunkSplunk2: OutputSplunkSplunk2,
+): string {
+  return JSON.stringify(
+    OutputSplunkSplunk2$outboundSchema.parse(outputSplunkSplunk2),
+  );
 }
+export function outputSplunkSplunk2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkSplunk2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkSplunk2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkSplunk2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkSplunk1$inboundSchema: z.ZodType<
+  OutputSplunkSplunk1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enableACK: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSplunkOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$inboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$inboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$inboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputSplunkSplunk1$Outbound = {
+  enableACK: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  nestedFields: string;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  enableMultiMetrics: boolean;
+  logFailedRequests: boolean;
+  maxS2Sversion: string;
+  onBackpressure: string;
+  authType: string;
+  description?: string | undefined;
+  maxFailedHealthChecks: number;
+  compress: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkSplunk1$outboundSchema: z.ZodType<
+  OutputSplunkSplunk1$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkSplunk1
+> = z.object({
+  enableACK: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSplunkOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(9997),
+  nestedFields: NestedFieldsOptions$outboundSchema.default("none"),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  logFailedRequests: z.boolean().default(false),
+  maxS2Sversion: MaxS2SversionOptions$outboundSchema.default("v3"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().default(1),
+  compress: CompressOptions$outboundSchema.default("disabled"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkSplunk1ToJSON(
+  outputSplunkSplunk1: OutputSplunkSplunk1,
+): string {
+  return JSON.stringify(
+    OutputSplunkSplunk1$outboundSchema.parse(outputSplunkSplunk1),
+  );
+}
+export function outputSplunkSplunk1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkSplunk1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkSplunk1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkSplunk1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunk$inboundSchema: z.ZodType<
+  OutputSplunk,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSplunkSplunk6$inboundSchema),
+  z.lazy(() => OutputSplunkSplunk8$inboundSchema),
+  z.lazy(() => OutputSplunkSplunk1$inboundSchema),
+  z.lazy(() => OutputSplunkSplunk2$inboundSchema),
+  z.lazy(() => OutputSplunkSplunk3$inboundSchema),
+  z.lazy(() => OutputSplunkSplunk4$inboundSchema),
+  z.lazy(() => OutputSplunkSplunk5$inboundSchema),
+  z.lazy(() => OutputSplunkSplunk7$inboundSchema),
+]);
+/** @internal */
+export type OutputSplunk$Outbound =
+  | OutputSplunkSplunk6$Outbound
+  | OutputSplunkSplunk8$Outbound
+  | OutputSplunkSplunk1$Outbound
+  | OutputSplunkSplunk2$Outbound
+  | OutputSplunkSplunk3$Outbound
+  | OutputSplunkSplunk4$Outbound
+  | OutputSplunkSplunk5$Outbound
+  | OutputSplunkSplunk7$Outbound;
+
+/** @internal */
+export const OutputSplunk$outboundSchema: z.ZodType<
+  OutputSplunk$Outbound,
+  z.ZodTypeDef,
+  OutputSplunk
+> = z.union([
+  z.lazy(() => OutputSplunkSplunk6$outboundSchema),
+  z.lazy(() => OutputSplunkSplunk8$outboundSchema),
+  z.lazy(() => OutputSplunkSplunk1$outboundSchema),
+  z.lazy(() => OutputSplunkSplunk2$outboundSchema),
+  z.lazy(() => OutputSplunkSplunk3$outboundSchema),
+  z.lazy(() => OutputSplunkSplunk4$outboundSchema),
+  z.lazy(() => OutputSplunkSplunk5$outboundSchema),
+  z.lazy(() => OutputSplunkSplunk7$outboundSchema),
+]);
 
 export function outputSplunkToJSON(outputSplunk: OutputSplunk): string {
   return JSON.stringify(OutputSplunk$outboundSchema.parse(outputSplunk));
 }
-
 export function outputSplunkFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunk, SDKValidationError> {

@@ -16,33 +16,6 @@ export const LookupVersions$inboundSchema: z.ZodType<
   unknown
 > = z.object({});
 
-/** @internal */
-export type LookupVersions$Outbound = {};
-
-/** @internal */
-export const LookupVersions$outboundSchema: z.ZodType<
-  LookupVersions$Outbound,
-  z.ZodTypeDef,
-  LookupVersions
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LookupVersions$ {
-  /** @deprecated use `LookupVersions$inboundSchema` instead. */
-  export const inboundSchema = LookupVersions$inboundSchema;
-  /** @deprecated use `LookupVersions$outboundSchema` instead. */
-  export const outboundSchema = LookupVersions$outboundSchema;
-  /** @deprecated use `LookupVersions$Outbound` instead. */
-  export type Outbound = LookupVersions$Outbound;
-}
-
-export function lookupVersionsToJSON(lookupVersions: LookupVersions): string {
-  return JSON.stringify(LookupVersions$outboundSchema.parse(lookupVersions));
-}
-
 export function lookupVersionsFromJSON(
   jsonString: string,
 ): SafeParseResult<LookupVersions, SDKValidationError> {

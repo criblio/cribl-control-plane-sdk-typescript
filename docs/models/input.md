@@ -7,12 +7,15 @@
 
 ```typescript
 const value: models.InputCollection = {
+  sendToRoutes: true,
   id: "<id>",
+  type: "collection",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -21,18 +24,28 @@ const value: models.InputCollection = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
+  staleChannelFlushMs: 10000,
   preprocess: {
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
+  throttleRatePerSec: "0",
   metadata: [
     {
       name: "<value>",
@@ -47,14 +60,16 @@ const value: models.InputCollection = {
 
 ```typescript
 const value: models.InputKafka = {
+  sendToRoutes: true,
   id: "<id>",
   type: "kafka",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -63,49 +78,107 @@ const value: models.InputKafka = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
   ],
-  topics: [
-    "<value 1>",
-  ],
+  topics: [],
+  groupId: "Cribl",
+  fromBeginning: true,
   kafkaSchemaRegistry: {
+    disabled: true,
+    schemaRegistryURL: "http://localhost:8081",
+    connectionTimeout: 30000,
+    requestTimeout: 30000,
+    maxRetries: 1,
     auth: {
+      disabled: true,
       credentialsSecret: "<value>",
     },
     tls: {
+      disabled: true,
+      rejectUnauthorized: true,
       servername: "<value>",
       certificateName: "<value>",
       caPath: "<value>",
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.2",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
     },
   },
-  sasl: {},
+  connectionTimeout: 10000,
+  requestTimeout: 60000,
+  maxRetries: 5,
+  maxBackOff: 30000,
+  initialBackoff: 300,
+  backoffRate: 2,
+  authenticationTimeout: 10000,
+  reauthenticationThreshold: 10000,
+  sasl: {
+    disabled: true,
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    authType: "manual",
+    credentialsSecret: "<value>",
+    mechanism: "plain",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    oauthEnabled: false,
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    oauthSecretType: "secret",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
-  autoCommitInterval: 3310.55,
-  autoCommitThreshold: 1236.53,
+  sessionTimeout: 30000,
+  rebalanceTimeout: 60000,
+  heartbeatInterval: 3000,
+  autoCommitInterval: 1897.81,
+  autoCommitThreshold: 2252.45,
+  maxBytesPerPartition: 1048576,
+  maxBytes: 10485760,
+  maxSocketErrors: 0,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "mediocre per ponder ceramic by vice ceramic upset",
+  description: "contrast comparison unlike pleasure dearest naughty lox",
 };
 ```
 
@@ -113,13 +186,15 @@ const value: models.InputKafka = {
 
 ```typescript
 const value: models.InputMsk = {
+  sendToRoutes: true,
   id: "<id>",
   type: "msk",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -128,15 +203,25 @@ const value: models.InputMsk = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
-  ],
-  topics: [
-    "<value 1>",
     "<value 2>",
   ],
+  topics: [],
+  groupId: "Cribl",
+  fromBeginning: true,
+  sessionTimeout: 30000,
+  rebalanceTimeout: 60000,
+  heartbeatInterval: 3000,
   metadata: [
     {
       name: "<value>",
@@ -144,39 +229,65 @@ const value: models.InputMsk = {
     },
   ],
   kafkaSchemaRegistry: {
+    disabled: true,
+    schemaRegistryURL: "http://localhost:8081",
+    connectionTimeout: 30000,
+    requestTimeout: 30000,
+    maxRetries: 1,
     auth: {
+      disabled: true,
       credentialsSecret: "<value>",
     },
     tls: {
+      disabled: true,
+      rejectUnauthorized: true,
       servername: "<value>",
       certificateName: "<value>",
       caPath: "<value>",
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
     },
   },
+  connectionTimeout: 10000,
+  requestTimeout: 60000,
+  maxRetries: 5,
+  maxBackOff: 30000,
+  initialBackoff: 300,
+  backoffRate: 2,
+  authenticationTimeout: 10000,
+  reauthenticationThreshold: 10000,
+  awsAuthenticationMethod: "auto",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 3600,
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1.1",
   },
-  autoCommitInterval: 5538.49,
-  autoCommitThreshold: 2610.43,
-  description:
-    "selfishly unnaturally when if and along whether for beside behind",
+  autoCommitInterval: 4358.26,
+  autoCommitThreshold: 9112.9,
+  maxBytesPerPartition: 1048576,
+  maxBytes: 10485760,
+  maxSocketErrors: 0,
+  description: "zesty save eulogise energetically fluff",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -186,13 +297,15 @@ const value: models.InputMsk = {
 
 ```typescript
 const value: models.InputHttp = {
+  sendToRoutes: true,
   id: "<id>",
   type: "http",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -201,25 +314,48 @@ const value: models.InputHttp = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 1871.53,
+  host: "0.0.0.0",
+  port: 7700.44,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  criblAPI: "/cribl",
+  elasticAPI: "/elastic",
+  splunkHecAPI: "/services/collector",
+  splunkHecAcks: false,
   metadata: [
     {
       name: "<value>",
@@ -229,7 +365,7 @@ const value: models.InputHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "confide bulky gadzooks ugh concerning rightfully justly",
+      description: "demob apropos indeed ceramic scrabble however given scorn",
       metadata: [
         {
           name: "<value>",
@@ -238,7 +374,7 @@ const value: models.InputHttp = {
       ],
     },
   ],
-  description: "scorn per tentacle but naturally trim",
+  description: "meh teammate service rot international doubter sandbar",
 };
 ```
 
@@ -246,14 +382,15 @@ const value: models.InputHttp = {
 
 ```typescript
 const value: models.InputSplunk = {
+  sendToRoutes: true,
   id: "<id>",
   type: "splunk",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -262,20 +399,36 @@ const value: models.InputSplunk = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 3317.72,
+  host: "0.0.0.0",
+  port: 1846.59,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
   },
+  ipWhitelistRegex: "/.*/",
+  maxActiveCxn: 1000,
+  socketIdleTimeout: 0,
+  socketEndingMaxWait: 30,
+  socketMaxLifespan: 0,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -287,14 +440,20 @@ const value: models.InputSplunk = {
     "<value 2>",
     "<value 3>",
   ],
+  staleChannelFlushMs: 10000,
   authTokens: [
     {
       token: "<value>",
-      description: "blah after brr unto daily even",
+      description:
+        "diagram against like republican longingly huzzah where unimpressively per",
     },
   ],
-  description:
-    "suburban provision punctually as exalt fragrant brr validity soon apud",
+  maxS2Sversion: "v3",
+  description: "statement unnecessarily pepper readjust sandbar",
+  useFwdTimezone: true,
+  dropControlFields: true,
+  extractMetrics: false,
+  compress: "disabled",
 };
 ```
 
@@ -302,10 +461,13 @@ const value: models.InputSplunk = {
 
 ```typescript
 const value: models.InputSplunkSearch = {
+  sendToRoutes: true,
   id: "<id>",
   type: "splunk_search",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -318,9 +480,22 @@ const value: models.InputSplunkSearch = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  searchHead: "https://localhost:8089",
   search: "<value>",
+  earliest: "-16m@m",
+  latest: "-1m@m",
+  cronSchedule: "*/15 * * * *",
+  endpoint: "/services/search/v2/jobs/export",
+  outputMode: "json",
   endpointParams: [
     {
       name: "<value>",
@@ -333,8 +508,16 @@ const value: models.InputSplunkSearch = {
       value: "<value>",
     },
   ],
-  logLevel: "debug",
+  logLevel: "error",
+  requestTimeout: 0,
+  useRoundRobinDns: false,
+  rejectUnauthorized: false,
   encoding: "<value>",
+  keepAliveTime: 30,
+  jobTimeout: "0",
+  maxMissedKeepAlives: 3,
+  ttl: "4h",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
@@ -342,23 +525,37 @@ const value: models.InputSplunkSearch = {
     },
   ],
   retryRules: {
+    type: "backoff",
+    interval: 1000,
+    limit: 5,
+    multiplier: 2,
     codes: [
-      321.5,
+      1764.18,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  description: "blah yum glittering oh overheard hungry finally upsell",
-  username: "Abner.Mayer46",
-  password: "IdyB7lUGpeaNdPL",
+  staleChannelFlushMs: 10000,
+  authType: "basic",
+  description:
+    "gloom hopelessly spectate greatly short-term forenenst freckle accurate beyond",
+  username: "Mercedes.Weber28",
+  password: "7lUGpeaNdPL8ng3",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://sturdy-reporter.com/",
+  loginUrl: "https://illiterate-elevator.net/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "`Bearer ${token}`",
+  tokenTimeoutSecs: 3600,
   oauthParams: [
     {
       name: "<value>",
@@ -378,14 +575,15 @@ const value: models.InputSplunkSearch = {
 
 ```typescript
 const value: models.InputSplunkHec = {
+  sendToRoutes: true,
   id: "<id>",
   type: "splunk_hec",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -394,16 +592,28 @@ const value: models.InputSplunkHec = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 817.1,
+  host: "0.0.0.0",
+  port: 575.46,
   authTokens: [
     {
+      authType: "manual",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "seemingly yogurt gee yawningly meander zowie",
+      enabled: true,
+      description: "motionless jubilant agile",
       allowedIndexesAtToken: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
       metadata: [
         {
@@ -414,17 +624,30 @@ const value: models.InputSplunkHec = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  splunkHecAPI: "/services/collector",
   metadata: [
     {
       name: "<value>",
@@ -434,19 +657,28 @@ const value: models.InputSplunkHec = {
   allowedIndexes: [
     "<value 1>",
   ],
+  splunkHecAcks: false,
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
+  staleChannelFlushMs: 10000,
+  useFwdTimezone: true,
+  dropControlFields: true,
+  extractMetrics: false,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
   ],
+  emitTokenMetrics: false,
   description:
-    "brr plump vainly reprove dismal whoa best-seller mushy underpants suspiciously",
+    "farm instead cinema quaver greatly readjust premier entrench past lest",
 };
 ```
 
@@ -454,10 +686,13 @@ const value: models.InputSplunkHec = {
 
 ```typescript
 const value: models.InputAzureBlob = {
+  sendToRoutes: true,
   id: "<id>",
   type: "azure_blob",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -469,9 +704,22 @@ const value: models.InputAzureBlob = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
+  fileFilter: "/.*/",
+  visibilityTimeout: 600,
+  numReceivers: 1,
+  maxMessages: 1,
+  servicePeriodSecs: 5,
+  skipOnError: false,
   metadata: [
     {
       name: "<value>",
@@ -481,8 +729,13 @@ const value: models.InputAzureBlob = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  description: "nocturnal tattered widow hassle avaricious the agitated mid",
+  staleChannelFlushMs: 10000,
+  parquetChunkSizeMB: 5,
+  parquetChunkDownloadTimeout: 600,
+  authType: "manual",
+  description: "private webbed raw so",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -501,13 +754,17 @@ const value: models.InputAzureBlob = {
 
 ```typescript
 const value: models.InputElastic = {
+  sendToRoutes: true,
   id: "<id>",
   type: "elastic",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -516,20 +773,44 @@ const value: models.InputElastic = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 8327.88,
+  host: "0.0.0.0",
+  port: 8980.92,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  elasticAPI: "/",
+  authType: "none",
+  apiVersion: "8.3.2",
   extraHttpHeaders: [
     {
       name: "<value>",
@@ -543,20 +824,45 @@ const value: models.InputElastic = {
     },
   ],
   proxyMode: {
-    url: "https://stale-discourse.name/",
+    enabled: false,
+    authType: "none",
+    username: "Cleora.Schinner62",
+    password: "5KMRlcpcktj90M0",
+    credentialsSecret: "<value>",
+    url: "https://scientific-pepper.net",
+    rejectUnauthorized: false,
     removeHeaders: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
+    timeoutSec: 60,
   },
-  description: "tall well yearly qua coordinated mad wholly outlying ugh pfft",
-  username: "Ayden99",
-  password: "N6vFmVRDEkfXqSU",
+  description: "forenenst ah like definitive awareness carelessly",
+  username: "Davon_Hagenes",
+  password: "6vFmVRDEkfXqSUu",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  customAPIVersion: "{\n"
+    + "    \"name\": \"AzU84iL\",\n"
+    + "    \"cluster_name\": \"cribl\",\n"
+    + "    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n"
+    + "    \"version\": {\n"
+    + "        \"number\": \"8.3.2\",\n"
+    + "        \"build_type\": \"tar\",\n"
+    + "        \"build_hash\": \"bca0c8d\",\n"
+    + "        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n"
+    + "        \"build_snapshot\": false,\n"
+    + "        \"lucene_version\": \"9.7.2\",\n"
+    + "        \"minimum_wire_compatibility_version\": \"7.17.0\",\n"
+    + "        \"minimum_index_compatibility_version\": \"7.0.0\"\n"
+    + "    },\n"
+    + "    \"tagline\": \"You Know, for Search\"\n"
+    + "}",
 };
 ```
 
@@ -564,13 +870,15 @@ const value: models.InputElastic = {
 
 ```typescript
 const value: models.InputConfluentCloud = {
+  sendToRoutes: true,
   id: "<id>",
   type: "confluent_cloud",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -579,50 +887,111 @@ const value: models.InputConfluentCloud = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
   topics: [
     "<value 1>",
   ],
+  groupId: "Cribl",
+  fromBeginning: true,
   kafkaSchemaRegistry: {
+    disabled: true,
+    schemaRegistryURL: "http://localhost:8081",
+    connectionTimeout: 30000,
+    requestTimeout: 30000,
+    maxRetries: 1,
     auth: {
+      disabled: true,
       credentialsSecret: "<value>",
     },
     tls: {
+      disabled: true,
+      rejectUnauthorized: true,
       servername: "<value>",
       certificateName: "<value>",
       caPath: "<value>",
       privKeyPath: "<value>",
       certPath: "<value>",
       passphrase: "<value>",
-      minVersion: "TLSv1.3",
-      maxVersion: "TLSv1.2",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
     },
   },
-  sasl: {},
-  autoCommitInterval: 4548.16,
-  autoCommitThreshold: 9243.43,
+  connectionTimeout: 10000,
+  requestTimeout: 60000,
+  maxRetries: 5,
+  maxBackOff: 30000,
+  initialBackoff: 300,
+  backoffRate: 2,
+  authenticationTimeout: 10000,
+  reauthenticationThreshold: 10000,
+  sasl: {
+    disabled: true,
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    authType: "manual",
+    credentialsSecret: "<value>",
+    mechanism: "plain",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    oauthEnabled: false,
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    oauthSecretType: "secret",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  sessionTimeout: 30000,
+  rebalanceTimeout: 60000,
+  heartbeatInterval: 3000,
+  autoCommitInterval: 8467.43,
+  autoCommitThreshold: 5595.62,
+  maxBytesPerPartition: 1048576,
+  maxBytes: 10485760,
+  maxSocketErrors: 0,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "although obediently soupy why accessorise tune sans aware smuggle",
+  description: "after scar reconstitute illiterate hammock middle",
 };
 ```
 
@@ -662,14 +1031,14 @@ const value: models.InputGrafana = {
   port: 9330.93,
   tls: {
     disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    requestCert: false,
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.2",
   },
@@ -688,7 +1057,7 @@ const value: models.InputGrafana = {
   lokiAPI: "/loki/api/v1/push",
   prometheusAuth: {
     authType: "none",
-    username: "Evalyn_Gislason15",
+    username: "Carrie.Heaney",
     password: "R3S3RViAySqW5o8",
     token: "<value>",
     credentialsSecret: "<value>",
@@ -753,12 +1122,16 @@ const value: models.InputGrafana = {
 
 ```typescript
 const value: models.InputLoki = {
+  sendToRoutes: true,
   id: "<id>",
   type: "loki",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -767,20 +1140,43 @@ const value: models.InputLoki = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 6141.25,
+  host: "0.0.0.0",
+  port: 1220.18,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  lokiAPI: "/loki/api/v1/push",
+  authType: "basic",
   metadata: [
     {
       name: "<value>",
@@ -797,6 +1193,8 @@ const value: models.InputLoki = {
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "`Bearer ${token}`",
+  tokenTimeoutSecs: 3600,
   oauthParams: [
     {
       name: "<value>",
@@ -816,12 +1214,17 @@ const value: models.InputLoki = {
 
 ```typescript
 const value: models.InputPrometheusRw = {
+  sendToRoutes: true,
   id: "<id>",
   type: "prometheus_rw",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -830,36 +1233,61 @@ const value: models.InputPrometheusRw = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 6798.56,
+  host: "0.0.0.0",
+  port: 1762.03,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  prometheusAPI: "/write",
+  authType: "basic",
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "sheepishly upon arcade soybean onto yahoo hydrolyze gee rapid",
-  username: "Verlie.Rosenbaum",
-  password: "_EdB5gTx4wsWVVh",
+  description: "as fisherman oh gosh",
+  username: "Roberta30",
+  password: "iqAEkFnZvKxy5Fl",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://negative-ceramics.name/",
+  loginUrl: "https://gray-netsuke.net/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "`Bearer ${token}`",
+  tokenTimeoutSecs: 3600,
   oauthParams: [
     {
       name: "<value>",
@@ -879,14 +1307,16 @@ const value: models.InputPrometheusRw = {
 
 ```typescript
 const value: models.InputPrometheus = {
+  sendToRoutes: true,
   id: "<id>",
   type: "prometheus",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -895,42 +1325,68 @@ const value: models.InputPrometheus = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   dimensionList: [
     "<value 1>",
-    "<value 2>",
   ],
+  discoveryType: "static",
+  interval: 15,
+  logLevel: "error",
+  rejectUnauthorized: true,
+  keepAliveTime: 30,
+  jobTimeout: "0",
+  maxMissedKeepAlives: 3,
+  ttl: "4h",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "with proselytise mockingly yum arraign",
+  authType: "manual",
+  description: "under likewise enraged though summer",
   targetList: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  recordType: "SRV",
+  scrapePort: 9090,
   nameList: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  scrapeProtocol: "http",
+  scrapePath: "/metrics",
+  awsAuthenticationMethod: "auto",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  usePublicIp: true,
   searchFilter: [
     {
       name: "<value>",
-      values: [],
+      values: [
+        "<value 1>",
+      ],
     },
   ],
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  username: "Abner.Beahan",
-  password: "WRNYKm_4ZcnFhsM",
+  durationSeconds: 3600,
+  username: "Amalia.Hills57",
+  password: "RNYKm_4ZcnFhsMs",
   credentialsSecret: "<value>",
 };
 ```
@@ -939,13 +1395,15 @@ const value: models.InputPrometheus = {
 
 ```typescript
 const value: models.InputEdgePrometheus = {
+  sendToRoutes: true,
   id: "<id>",
   type: "edge_prometheus",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -954,47 +1412,82 @@ const value: models.InputEdgePrometheus = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   dimensionList: [
     "<value 1>",
   ],
-  persistence: {},
+  discoveryType: "static",
+  interval: 15,
+  timeout: 5000,
+  persistence: {
+    enable: false,
+    timeWindow: "10m",
+    maxDataSize: "1GB",
+    maxDataTime: "24h",
+    compress: "gzip",
+  },
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "suffocate indolent sticker especially",
+  authType: "manual",
+  description: "twin tuba ride",
   targets: [
     {
-      host: "immense-forager.name",
+      protocol: "http",
+      host: "wealthy-ceramics.com",
+      port: 9090,
+      path: "/metrics",
     },
   ],
-  nameList: [
-    "<value 1>",
-    "<value 2>",
-  ],
+  recordType: "SRV",
+  scrapePort: 9090,
+  nameList: [],
+  scrapeProtocol: "http",
+  scrapePath: "/metrics",
+  awsAuthenticationMethod: "auto",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  usePublicIp: true,
   searchFilter: [
     {
       name: "<value>",
-      values: [],
+      values: [
+        "<value 1>",
+      ],
     },
   ],
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 3600,
+  scrapeProtocolExpr: "metadata.annotations['prometheus.io/scheme'] || 'http'",
+  scrapePortExpr: "metadata.annotations['prometheus.io/port'] || 9090",
+  scrapePathExpr: "metadata.annotations['prometheus.io/path'] || '/metrics'",
   podFilter: [
     {
       filter: "<value>",
-      description: "oof wherever circa",
+      description: "boo oof wherever circa between",
     },
   ],
-  username: "Adriel_Murray86",
-  password: "GsqPbiOp5J7DY2j",
+  username: "Gretchen13",
+  password: "PbiOp5J7DY2jV5F",
   credentialsSecret: "<value>",
 };
 ```
@@ -1003,13 +1496,15 @@ const value: models.InputEdgePrometheus = {
 
 ```typescript
 const value: models.InputOffice365Mgmt = {
+  sendToRoutes: true,
   id: "<id>",
   type: "office365_mgmt",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -1018,10 +1513,24 @@ const value: models.InputOffice365Mgmt = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  planType: "enterprise_gcc",
   tenantId: "<id>",
   appId: "<id>",
+  timeout: 300,
+  keepAliveTime: 30,
+  jobTimeout: "0",
+  maxMissedKeepAlives: 3,
+  ttl: "4h",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
@@ -1032,19 +1541,28 @@ const value: models.InputOffice365Mgmt = {
   contentConfig: [
     {
       contentType: "<value>",
-      description: "frenetically fooey mill briefly twin",
-      interval: 6466.39,
+      description: "furiously illusion ice-cream if puny towards",
+      interval: 8290.81,
       logLevel: "error",
       enabled: false,
     },
   ],
+  ingestionLag: 0,
   retryRules: {
+    type: "backoff",
+    interval: 1000,
+    limit: 5,
+    multiplier: 2,
     codes: [
-      3814.72,
-      1029.82,
+      1764.18,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "as enlist despite however needily regulate likewise upon",
+  authType: "manual",
+  description:
+    "but over near absent submitter brightly steeple scarcely that ah",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -1054,10 +1572,13 @@ const value: models.InputOffice365Mgmt = {
 
 ```typescript
 const value: models.InputOffice365Service = {
+  sendToRoutes: true,
   id: "<id>",
   type: "office365_service",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -1070,10 +1591,24 @@ const value: models.InputOffice365Service = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  planType: "enterprise_gcc",
   tenantId: "<id>",
   appId: "<id>",
+  timeout: 300,
+  keepAliveTime: 30,
+  jobTimeout: "0",
+  maxMissedKeepAlives: 3,
+  ttl: "4h",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
@@ -1083,20 +1618,26 @@ const value: models.InputOffice365Service = {
   contentConfig: [
     {
       contentType: "<value>",
-      description:
-        "dowse boulevard where kindly integer mosh before yahoo consequently yuck",
-      interval: 3221.55,
-      logLevel: "debug",
+      description: "furiously illusion ice-cream if puny towards",
+      interval: 8290.81,
+      logLevel: "error",
       enabled: false,
     },
   ],
   retryRules: {
+    type: "backoff",
+    interval: 1000,
+    limit: 5,
+    multiplier: 2,
     codes: [
-      3457.75,
-      6170.34,
+      1764.18,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "which goodwill around slip oddly after often blissfully",
+  authType: "manual",
+  description: "yuck with these overconfidently mostly verify yuck blissfully",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -1106,10 +1647,13 @@ const value: models.InputOffice365Service = {
 
 ```typescript
 const value: models.InputOffice365MsgTrace = {
+  sendToRoutes: true,
   id: "<id>",
   type: "office365_msg_trace",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -1121,10 +1665,31 @@ const value: models.InputOffice365MsgTrace = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  url:
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  interval: 60,
   startDate: "<value>",
   endDate: "<value>",
+  timeout: 300,
+  disableTimeFilter: true,
+  authType: "oauth",
+  rescheduleDroppedTasks: true,
+  maxTaskReschedule: 1,
+  logLevel: "info",
+  jobTimeout: "0",
+  keepAliveTime: 30,
+  maxMissedKeepAlives: 3,
+  ttl: "4h",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
@@ -1132,18 +1697,26 @@ const value: models.InputOffice365MsgTrace = {
     },
   ],
   retryRules: {
+    type: "backoff",
+    interval: 1000,
+    limit: 5,
+    multiplier: 2,
     codes: [
-      6130.25,
-      1608.52,
+      1764.18,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description: "helpfully stage microblog ill-fated ha",
-  username: "Penelope29",
-  password: "2zUumt8MSApxEG0",
+  description: "shady meatloaf well sermon broadly below uh-huh",
+  username: "Shaniya_Kovacek",
+  password: "pxEG0kJtSiFWcxG",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
   tenantId: "<id>",
   clientId: "<id>",
+  resource: "https://outlook.office365.com",
+  planType: "enterprise_gcc",
   textSecret: "<value>",
   certOptions: {
     certificateName: "<value>",
@@ -1158,53 +1731,101 @@ const value: models.InputOffice365MsgTrace = {
 
 ```typescript
 const value: models.InputEventhub = {
+  sendToRoutes: true,
   id: "<id>",
   type: "eventhub",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+  connections: [],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   brokers: [
     "<value 1>",
+    "<value 2>",
   ],
-  topics: [],
-  sasl: {},
-  tls: {},
-  autoCommitInterval: 6010.39,
-  autoCommitThreshold: 3174.01,
+  topics: [
+    "<value 1>",
+  ],
+  groupId: "Cribl",
+  fromBeginning: true,
+  connectionTimeout: 10000,
+  requestTimeout: 60000,
+  maxRetries: 5,
+  maxBackOff: 30000,
+  initialBackoff: 300,
+  backoffRate: 2,
+  authenticationTimeout: 10000,
+  reauthenticationThreshold: 10000,
+  sasl: {
+    disabled: false,
+    authType: "manual",
+    password: "crxTx4Amn7CtfAT",
+    textSecret: "<value>",
+    mechanism: "plain",
+    username: "$ConnectionString",
+    clientSecretAuthType: "manual",
+    clientSecret: "<value>",
+    clientTextSecret: "<value>",
+    certificateName: "<value>",
+    certPath: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    oauthEndpoint: "https://login.microsoftonline.com",
+    clientId: "<id>",
+    tenantId: "<id>",
+    scope: "<value>",
+  },
+  tls: {
+    disabled: false,
+    rejectUnauthorized: true,
+  },
+  sessionTimeout: 30000,
+  rebalanceTimeout: 60000,
+  heartbeatInterval: 3000,
+  autoCommitInterval: 5569.57,
+  autoCommitThreshold: 8448.22,
+  maxBytesPerPartition: 1048576,
+  maxBytes: 10485760,
+  maxSocketErrors: 0,
+  minimizeDuplicates: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "wonderfully broadcast to questionable upward haul preheat nutritious",
+  description: "greedy wherever apud which sticky ack almost",
 };
 ```
 
-### `models.InputExec`
+### `models.InputExecUnion`
 
 ```typescript
-const value: models.InputExec = {
+const value: models.InputExecUnion = {
+  sendToRoutes: true,
   id: "<id>",
   type: "exec",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1213,20 +1834,32 @@ const value: models.InputExec = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   command: "<value>",
+  retries: 10,
+  scheduleType: "interval",
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
   ],
+  staleChannelFlushMs: 10000,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "silk or nougat",
+  description: "harp precedent scrutinise extract inasmuch solidly",
+  interval: 60,
+  cronSchedule: "* * * * *",
 };
 ```
 
@@ -1234,56 +1867,13 @@ const value: models.InputExec = {
 
 ```typescript
 const value: models.InputFirehose = {
+  sendToRoutes: true,
   id: "<id>",
   type: "firehose",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 7517.47,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "persecute firm porter",
-};
-```
-
-### `models.InputGooglePubsub`
-
-```typescript
-const value: models.InputGooglePubsub = {
-  id: "<id>",
-  type: "google_pubsub",
-  pipeline: "<value>",
-  environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -1296,30 +1886,67 @@ const value: models.InputGooglePubsub = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  subscriptionName: "<value>",
-  region: "<value>",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
+  host: "0.0.0.0",
+  port: 3362.23,
+  authTokens: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "focused consequently tomatillo ridge whoa",
+  description:
+    "modulo wealthy meh grizzled righteously clonk against sternly oh",
 };
 ```
 
-### `models.InputCribl`
+### `models.InputGooglePubsub`
 
 ```typescript
-const value: models.InputCribl = {
+const value: models.InputGooglePubsub = {
+  sendToRoutes: true,
   id: "<id>",
-  type: "cribl",
+  type: "google_pubsub",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
   ],
@@ -1330,6 +1957,68 @@ const value: models.InputCribl = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  topicName: "cribl",
+  subscriptionName: "<value>",
+  monitorSubscription: false,
+  createTopic: false,
+  createSubscription: true,
+  region: "<value>",
+  googleAuthMethod: "auto",
+  serviceAccountCredentials: "<value>",
+  secret: "<value>",
+  maxBacklog: 1000,
+  concurrency: 5,
+  requestTimeout: 60000,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "officially meh fooey solicit majestically moment beyond",
+  orderedDelivery: false,
+};
+```
+
+### `models.InputCribl`
+
+```typescript
+const value: models.InputCribl = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "cribl",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   filter: "<value>",
@@ -1339,7 +2028,8 @@ const value: models.InputCribl = {
       value: "<value>",
     },
   ],
-  description: "ugh boohoo gladly yuck well bossy what clonk",
+  description:
+    "pfft meaningfully if transom misappropriate ack and because tinderbox",
 };
 ```
 
@@ -1347,14 +2037,16 @@ const value: models.InputCribl = {
 
 ```typescript
 const value: models.InputCriblTcp = {
+  sendToRoutes: true,
   id: "<id>",
   type: "cribl_tcp",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1363,27 +2055,50 @@ const value: models.InputCriblTcp = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 4566.33,
+  host: "0.0.0.0",
+  port: 1160.64,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveCxn: 1000,
+  socketIdleTimeout: 0,
+  socketEndingMaxWait: 30,
+  socketMaxLifespan: 0,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "as jovially edge",
+  enableLoadBalancing: false,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      enabled: true,
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
+  description: "feline to coolly",
 };
 ```
 
@@ -1391,14 +2106,15 @@ const value: models.InputCriblTcp = {
 
 ```typescript
 const value: models.InputCriblHttp = {
+  sendToRoutes: true,
   id: "<id>",
   type: "cribl_http",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1407,31 +2123,55 @@ const value: models.InputCriblHttp = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 3140.1,
+  host: "0.0.0.0",
+  port: 3492.73,
   authTokens: [
-    "<value 1>",
-    "<value 2>",
+    {
+      tokenSecret: "<value>",
+      enabled: true,
+      description: "psst whoa zowie when waterspout",
+    },
   ],
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "outrank enormously what devoted although thyme roadway woot",
+  description: "that cultivated midst",
 };
 ```
 
@@ -1439,38 +2179,61 @@ const value: models.InputCriblHttp = {
 
 ```typescript
 const value: models.InputCriblLakeHttp = {
+  sendToRoutes: true,
   id: "<id>",
   type: "cribl_lake_http",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+  connections: [],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 4386.51,
+  host: "0.0.0.0",
+  port: 7454.32,
   authTokens: [
     "<value 1>",
   ],
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  criblAPI: "/cribl",
+  elasticAPI: "/elastic",
+  splunkHecAPI: "/services/collector",
+  splunkHecAcks: false,
   metadata: [
     {
       name: "<value>",
@@ -1480,8 +2243,7 @@ const value: models.InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description:
-        "even athwart after lively creator apud hold pish whenever woot",
+      description: "swear aw angrily yearningly ferociously vet trusting yum",
       metadata: [
         {
           name: "<value>",
@@ -1492,12 +2254,12 @@ const value: models.InputCriblLakeHttp = {
         enabled: true,
       },
       elasticsearchMetadata: {
-        enabled: true,
+        enabled: false,
       },
     },
   ],
   description:
-    "after whoever castanet gosh bludgeon fabricate gee incidentally",
+    "deceivingly unwilling boohoo guest obnoxiously forenenst blossom satirise before",
 };
 ```
 
@@ -1505,349 +2267,13 @@ const value: models.InputCriblLakeHttp = {
 
 ```typescript
 const value: models.InputTcpjson = {
+  sendToRoutes: true,
   id: "<id>",
   type: "tcpjson",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 6709.35,
-  tls: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.3",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "woot er likewise unlike ravioli whenever",
-  textSecret: "<value>",
-};
-```
-
-### `models.InputSystemMetrics`
-
-```typescript
-const value: models.InputSystemMetrics = {
-  id: "<id>",
-  type: "system_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  host: {
-    custom: {
-      system: {},
-      cpu: {},
-      memory: {},
-      network: {
-        devices: [
-          "<value 1>",
-        ],
-      },
-      disk: {
-        devices: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        mountpoints: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        fstypes: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-      },
-    ],
-  },
-  container: {
-    dockerSocket: [
-      "<value 1>",
-    ],
-    filters: [
-      {
-        expr: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "but greatly see thyme",
-};
-```
-
-### `models.InputSystemState`
-
-```typescript
-const value: models.InputSystemState = {
-  id: "<id>",
-  type: "system_state",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectors: {
-    hostsfile: {},
-    interfaces: {},
-    disk: {},
-    metadata: {},
-    routes: {},
-    dns: {},
-    user: {},
-    firewall: {},
-    services: {},
-    ports: {},
-    loginUsers: {},
-  },
-  persistence: {},
-  description: "formula an yahoo",
-};
-```
-
-### `models.InputKubeMetrics`
-
-```typescript
-const value: models.InputKubeMetrics = {
-  id: "<id>",
-  type: "kube_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  rules: [
-    {
-      filter: "<value>",
-      description: "boggle catalog chip ew",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description:
-    "gratefully pish whose till hydrocarbon boo eek next uh-huh signature",
-};
-```
-
-### `models.InputKubeLogs`
-
-```typescript
-const value: models.InputKubeLogs = {
-  id: "<id>",
-  type: "kube_logs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  rules: [
-    {
-      filter: "<value>",
-      description: "zowie because flu boohoo obnoxiously ew sorrowful whose aw",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  description: "over wafer following ugh strait",
-};
-```
-
-### `models.InputKubeEvents`
-
-```typescript
-const value: models.InputKubeEvents = {
-  id: "<id>",
-  type: "kube_events",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  rules: [
-    {
-      filter: "<value>",
-      description: "which incline beautifully",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "convection any mmm whereas major so regularly",
-};
-```
-
-### `models.InputWindowsMetrics`
-
-```typescript
-const value: models.InputWindowsMetrics = {
-  id: "<id>",
-  type: "windows_metrics",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  host: {
-    custom: {
-      system: {},
-      cpu: {},
-      memory: {},
-      network: {
-        devices: [
-          "<value 1>",
-          "<value 2>",
-        ],
-      },
-      disk: {
-        volumes: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  description: "printer toaster forenenst over safe between",
-};
-```
-
-### `models.InputCrowdstrike`
-
-```typescript
-const value: models.InputCrowdstrike = {
-  id: "<id>",
-  type: "crowdstrike",
-  pipeline: "<value>",
-  environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -1860,23 +2286,497 @@ const value: models.InputCrowdstrike = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  queueName: "<value>",
-  awsAccountId: "<id>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  breakerRulesets: [
+  host: "0.0.0.0",
+  port: 8074.93,
+  tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  ipWhitelistRegex: "/.*/",
+  maxActiveCxn: 1000,
+  socketIdleTimeout: 0,
+  socketEndingMaxWait: 30,
+  socketMaxLifespan: 0,
+  enableProxyHeader: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  enableLoadBalancing: false,
+  authType: "manual",
+  description: "woot er likewise unlike ravioli whenever",
+  authToken: "",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputSystemMetrics`
+
+```typescript
+const value: models.InputSystemMetrics = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "system_metrics",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
     "<value 1>",
   ],
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  preprocess: {
-    command: "<value>",
-    args: [
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  interval: 10,
+  host: {
+    mode: "basic",
+    custom: {
+      system: {
+        mode: "basic",
+        processes: false,
+      },
+      cpu: {
+        mode: "basic",
+        perCpu: false,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "basic",
+        detail: false,
+      },
+      network: {
+        mode: "basic",
+        detail: false,
+        protocols: false,
+        devices: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        perInterface: false,
+      },
+      disk: {
+        mode: "basic",
+        detail: false,
+        inodes: false,
+        devices: [
+          "<value 1>",
+        ],
+        mountpoints: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        fstypes: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        perDevice: false,
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+        includeChildren: false,
+      },
+    ],
+  },
+  container: {
+    mode: "basic",
+    dockerSocket: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
+    ],
+    dockerTimeout: 5,
+    filters: [
+      {
+        expr: "<value>",
+      },
+    ],
+    allContainers: false,
+    perDevice: false,
+    detail: false,
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {
+    enable: false,
+    timeWindow: "10m",
+    maxDataSize: "1GB",
+    maxDataTime: "24h",
+    compress: "gzip",
+    destPath: "$CRIBL_HOME/state/system_metrics",
+  },
+  description: "alliance properly brush yippee pfft to thorny um",
+};
+```
+
+### `models.InputSystemState`
+
+```typescript
+const value: models.InputSystemState = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "system_state",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  interval: 300,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectors: {
+    hostsfile: {
+      enable: true,
+    },
+    interfaces: {
+      enable: true,
+    },
+    disk: {
+      enable: true,
+    },
+    metadata: {
+      enable: true,
+    },
+    routes: {
+      enable: true,
+    },
+    dns: {
+      enable: true,
+    },
+    user: {
+      enable: true,
+    },
+    firewall: {
+      enable: true,
+    },
+    services: {
+      enable: true,
+    },
+    ports: {
+      enable: true,
+    },
+    loginUsers: {
+      enable: true,
+    },
+  },
+  persistence: {
+    enable: false,
+    timeWindow: "10m",
+    maxDataSize: "1GB",
+    maxDataTime: "24h",
+    compress: "gzip",
+    destPath: "$CRIBL_HOME/state/system_metrics",
+  },
+  disableNativeModule: false,
+  description: "ugh without when unwilling doubtfully word",
+};
+```
+
+### `models.InputKubeMetrics`
+
+```typescript
+const value: models.InputKubeMetrics = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "kube_metrics",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  interval: 15,
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "duh lest ouch brochure vivaciously broadly quizzically lamp gurn fortunately",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {
+    enable: false,
+    timeWindow: "10m",
+    maxDataSize: "1GB",
+    maxDataTime: "24h",
+    compress: "gzip",
+    destPath: "$CRIBL_HOME/state/system_metrics",
+  },
+  description: "afore progress ethyl um gratefully pish whose till hydrocarbon",
+};
+```
+
+### `models.InputKubeLogs`
+
+```typescript
+const value: models.InputKubeLogs = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "kube_logs",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  interval: 15,
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "duh lest ouch brochure vivaciously broadly quizzically lamp gurn fortunately",
+    },
+  ],
+  timestamps: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {
+    enable: false,
+    timeWindow: "10m",
+    maxDataSize: "1GB",
+    maxDataTime: "24h",
+    compress: "gzip",
+  },
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  staleChannelFlushMs: 10000,
+  enableLoadBalancing: false,
+  description: "besides around super within mmm limply fortunately syringe but",
+};
+```
+
+### `models.InputKubeEvents`
+
+```typescript
+const value: models.InputKubeEvents = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "kube_events",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "duh lest ouch brochure vivaciously broadly quizzically lamp gurn fortunately",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "near of egg mysteriously afore unpleasant past oof masquerade",
+};
+```
+
+### `models.InputWindowsMetrics`
+
+```typescript
+const value: models.InputWindowsMetrics = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "windows_metrics",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  interval: 10,
+  host: {
+    mode: "basic",
+    custom: {
+      system: {
+        mode: "basic",
+        detail: false,
+      },
+      cpu: {
+        mode: "basic",
+        perCpu: false,
+        detail: false,
+        time: false,
+      },
+      memory: {
+        mode: "basic",
+        detail: false,
+      },
+      network: {
+        mode: "basic",
+        detail: false,
+        protocols: false,
+        devices: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        perInterface: false,
+      },
+      disk: {
+        mode: "basic",
+        perVolume: false,
+        detail: false,
+        volumes: [
+          "<value 1>",
+          "<value 2>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+        includeChildren: false,
+      },
     ],
   },
   metadata: [
@@ -1885,7 +2785,93 @@ const value: models.InputCrowdstrike = {
       value: "<value>",
     },
   ],
-  checkpointing: {},
+  persistence: {
+    enable: false,
+    timeWindow: "10m",
+    maxDataSize: "1GB",
+    maxDataTime: "24h",
+    compress: "gzip",
+    destPath: "$CRIBL_HOME/state/system_metrics",
+  },
+  disableNativeModule: false,
+  description: "beside ew far pfft outside anti",
+};
+```
+
+### `models.InputCrowdstrike`
+
+```typescript
+const value: models.InputCrowdstrike = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "crowdstrike",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  queueName: "<value>",
+  fileFilter: "/.*/",
+  awsAccountId: "<id>",
+  awsAuthenticationMethod: "auto",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  staleChannelFlushMs: 10000,
+  maxMessages: 1,
+  visibilityTimeout: 21600,
+  numReceivers: 1,
+  socketTimeout: 300,
+  skipOnError: false,
+  includeSqsMetadata: false,
+  enableAssumeRole: true,
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  durationSeconds: 3600,
+  enableSQSAssumeRole: false,
+  preprocess: {
+    disabled: true,
+    command: "<value>",
+    args: [
+      "<value 1>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {
+    enabled: false,
+    retries: 5,
+  },
+  pollTimeout: 10,
   encoding: "<value>",
   description: "excitedly jovially slowly",
   awsApiKey: "<value>",
@@ -1900,14 +2886,16 @@ const value: models.InputCrowdstrike = {
 
 ```typescript
 const value: models.InputDatadogAgent = {
+  sendToRoutes: true,
   id: "<id>",
   type: "datadog_agent",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1916,28 +2904,53 @@ const value: models.InputDatadogAgent = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 3937.07,
+  host: "0.0.0.0",
+  port: 8286.83,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  extractMetrics: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  proxyMode: {},
-  description: "great than while mobility how vastly straight menacing granny",
+  proxyMode: {
+    enabled: false,
+    rejectUnauthorized: true,
+  },
+  description: "reporter loyally properly slowly generously",
 };
 ```
 
@@ -1945,35 +2958,37 @@ const value: models.InputDatadogAgent = {
 
 ```typescript
 const value: models.InputDatagen = {
+  sendToRoutes: true,
   id: "<id>",
   type: "datagen",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+  connections: [],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  samples: [
-    {
-      sample: "<value>",
-    },
-  ],
+  samples: [],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "ouch towards comparison",
+  description: "for knife midst upside-down grimy provided hearten bleach",
 };
 ```
 
@@ -1981,12 +2996,16 @@ const value: models.InputDatagen = {
 
 ```typescript
 const value: models.InputHttpRaw = {
+  sendToRoutes: true,
   id: "<id>",
   type: "http_raw",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -1995,30 +3014,49 @@ const value: models.InputHttpRaw = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 4578.26,
+  host: "0.0.0.0",
+  port: 8335.41,
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 10000,
   metadata: [
     {
       name: "<value>",
@@ -2033,12 +3071,12 @@ const value: models.InputHttpRaw = {
   allowedMethods: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   authTokensExt: [
     {
       token: "<value>",
-      description:
-        "quaintly concentration very incomparable stale sidetrack incidentally freight er against",
+      description: "demob apropos indeed ceramic scrabble however given scorn",
       metadata: [
         {
           name: "<value>",
@@ -2047,7 +3085,7 @@ const value: models.InputHttpRaw = {
       ],
     },
   ],
-  description: "know or gift why",
+  description: "ferociously while boiling median nocturnal efface",
 };
 ```
 
@@ -2055,10 +3093,13 @@ const value: models.InputHttpRaw = {
 
 ```typescript
 const value: models.InputKinesis = {
+  sendToRoutes: true,
   id: "<id>",
   type: "kinesis",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2070,21 +3111,44 @@ const value: models.InputKinesis = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   streamName: "<value>",
+  serviceInterval: 1,
+  shardExpr: "true",
+  shardIteratorType: "TRIM_HORIZON",
+  payloadFormat: "cribl",
+  getRecordsLimit: 5000,
+  getRecordsLimitTotal: 20000,
+  loadBalancingAlgorithm: "ConsistentHashing",
+  awsAuthenticationMethod: "auto",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 3600,
+  verifyKPLCheckSums: false,
+  avoidDuplicates: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "hamburger partially elegantly quietly whether perfectly",
+  description:
+    "midst beneath roundabout failing whenever the who complete shyly",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
@@ -2094,10 +3158,13 @@ const value: models.InputKinesis = {
 
 ```typescript
 const value: models.InputCriblmetrics = {
+  sendToRoutes: true,
   id: "<id>",
   type: "criblmetrics",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2110,15 +3177,24 @@ const value: models.InputCriblmetrics = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  prefix: "cribl.logstream.",
+  fullFidelity: true,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "playfully growing curl blight cone likely innocently amongst",
+  description: "near especially forenenst",
 };
 ```
 
@@ -2126,14 +3202,15 @@ const value: models.InputCriblmetrics = {
 
 ```typescript
 const value: models.InputMetrics = {
+  sendToRoutes: true,
   id: "<id>",
   type: "metrics",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -2142,18 +3219,31 @@ const value: models.InputMetrics = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  udpPort: 1525.54,
-  tcpPort: 6373.18,
+  host: "0.0.0.0",
+  udpPort: 6373.18,
+  tcpPort: 1218.28,
+  maxBufferSize: 1000,
+  ipWhitelistRegex: "/.*/",
+  enableProxyHeader: false,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.2",
   },
@@ -2163,8 +3253,8 @@ const value: models.InputMetrics = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 6579.9,
-  description: "cautiously woot similar wretched",
+  udpSocketRxBufSize: 5456.52,
+  description: "genuine aha off whose blah however blah why",
 };
 ```
 
@@ -2172,12 +3262,16 @@ const value: models.InputMetrics = {
 
 ```typescript
 const value: models.InputS3 = {
+  sendToRoutes: true,
   id: "<id>",
   type: "s3",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -2186,25 +3280,47 @@ const value: models.InputS3 = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
+  fileFilter: "/.*/",
   awsAccountId: "<id>",
+  awsAuthenticationMethod: "auto",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  staleChannelFlushMs: 10000,
+  maxMessages: 1,
+  visibilityTimeout: 600,
+  numReceivers: 1,
+  socketTimeout: 300,
+  skipOnError: false,
+  includeSqsMetadata: false,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 3600,
+  enableSQSAssumeRole: false,
   preprocess: {
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
   metadata: [
@@ -2213,8 +3329,15 @@ const value: models.InputS3 = {
       value: "<value>",
     },
   ],
-  checkpointing: {},
+  parquetChunkSizeMB: 5,
+  parquetChunkDownloadTimeout: 600,
+  checkpointing: {
+    enabled: false,
+    retries: 5,
+  },
+  pollTimeout: 10,
   encoding: "<value>",
+  tagAfterProcessing: false,
   description: "between between when frequent now until into lumpy into by",
   awsApiKey: "<value>",
   awsSecret: "<value>",
@@ -2227,14 +3350,15 @@ const value: models.InputS3 = {
 
 ```typescript
 const value: models.InputS3Inventory = {
+  sendToRoutes: true,
   id: "<id>",
   type: "s3_inventory",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -2243,21 +3367,44 @@ const value: models.InputS3Inventory = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
+  fileFilter: "/.*/",
   awsAccountId: "<id>",
+  awsAuthenticationMethod: "auto",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
+  staleChannelFlushMs: 10000,
+  maxMessages: 1,
+  visibilityTimeout: 600,
+  numReceivers: 1,
+  socketTimeout: 300,
+  skipOnError: false,
+  includeSqsMetadata: false,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 3600,
+  enableSQSAssumeRole: false,
   preprocess: {
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
@@ -2269,9 +3416,17 @@ const value: models.InputS3Inventory = {
       value: "<value>",
     },
   ],
-  checkpointing: {},
-  description:
-    "though insert inasmuch likely bah ew gadzooks anenst powerfully",
+  parquetChunkSizeMB: 5,
+  parquetChunkDownloadTimeout: 600,
+  checkpointing: {
+    enabled: false,
+    retries: 5,
+  },
+  pollTimeout: 10,
+  checksumSuffix: "checksum",
+  maxManifestSizeKB: 4096,
+  validateInventoryFiles: false,
+  description: "bestride shyly though pfft display uselessly adrenalin whereas",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "true",
@@ -2284,14 +3439,16 @@ const value: models.InputS3Inventory = {
 
 ```typescript
 const value: models.InputSnmp = {
+  sendToRoutes: true,
   id: "<id>",
   type: "snmp",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -2300,25 +3457,41 @@ const value: models.InputSnmp = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  host: "0.0.0.0",
+  port: 162,
   snmpV3Auth: {
+    v3AuthEnabled: false,
+    allowUnmatchedTrap: false,
     v3Users: [
       {
         name: "<value>",
+        authProtocol: "none",
         authKey: "<value>",
+        privProtocol: "none",
       },
     ],
   },
+  maxBufferSize: 1000,
+  ipWhitelistRegex: "/.*/",
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 3956.33,
-  description:
-    "yuck idolized possible merrily along below geez horse over zowie",
+  udpSocketRxBufSize: 9731.46,
+  varbindsWithTypes: false,
+  bestEffortParsing: false,
+  description: "e-mail reprove acclaimed inwardly huzzah",
 };
 ```
 
@@ -2326,14 +3499,15 @@ const value: models.InputSnmp = {
 
 ```typescript
 const value: models.InputOpenTelemetry = {
+  sendToRoutes: true,
   id: "<id>",
   type: "open_telemetry",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -2342,38 +3516,65 @@ const value: models.InputOpenTelemetry = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  host: "0.0.0.0",
+  port: 4317,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
   enableProxyHeader: "<value>",
   captureHeaders: "<value>",
   activityLogSampleRate: "<value>",
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 15,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  protocol: "grpc",
+  extractSpans: false,
+  extractMetrics: false,
+  otlpVersion: "0.10.0",
+  authType: "basic",
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "rewrite cow warmly clearly vamoose",
-  username: "Leonard84",
-  password: "0Rl6tiFKwlIZ_hs",
+  maxActiveCxn: 1000,
+  description: "unto gee basic",
+  username: "Twila77",
+  password: "4T9Z8qy0Rl6tiFK",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://quarterly-flame.org/",
+  loginUrl: "https://unwritten-parade.biz",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "`Bearer ${token}`",
+  tokenTimeoutSecs: 3600,
   oauthParams: [
     {
       name: "<value>",
@@ -2386,6 +3587,7 @@ const value: models.InputOpenTelemetry = {
       value: "<value>",
     },
   ],
+  extractLogs: false,
 };
 ```
 
@@ -2393,13 +3595,15 @@ const value: models.InputOpenTelemetry = {
 
 ```typescript
 const value: models.InputModelDrivenTelemetry = {
+  sendToRoutes: true,
   id: "<id>",
   type: "model_driven_telemetry",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -2408,18 +3612,29 @@ const value: models.InputModelDrivenTelemetry = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  host: "0.0.0.0",
+  port: 57000,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
   },
   metadata: [
     {
@@ -2427,8 +3642,9 @@ const value: models.InputModelDrivenTelemetry = {
       value: "<value>",
     },
   ],
-  description:
-    "toothbrush suddenly while pace now bleak huzzah psst forenenst yet",
+  maxActiveCxn: 1000,
+  shutdownTimeoutMs: 5000,
+  description: "bah at great chow upright so wherever and poppy from",
 };
 ```
 
@@ -2436,10 +3652,13 @@ const value: models.InputModelDrivenTelemetry = {
 
 ```typescript
 const value: models.InputSqs = {
+  sendToRoutes: true,
   id: "<id>",
   type: "sqs",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2452,26 +3671,43 @@ const value: models.InputSqs = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
   queueType: "fifo",
   awsAccountId: "<id>",
+  createQueue: false,
+  awsAuthenticationMethod: "auto",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 3600,
+  maxMessages: 10,
+  visibilityTimeout: 600,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "righteously poetry wherever interviewer cuddly favorable boohoo since",
+  pollTimeout: 10,
+  description: "meanwhile next mmm instead geez",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  numReceivers: 3,
 };
 ```
 
@@ -2529,102 +3765,15 @@ const value: models.InputSyslog = {
   socketMaxLifespan: 0,
   tls: {
     disabled: true,
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
     requestCert: false,
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 9849.4,
-  enableLoadBalancing: false,
-  description: "whether ouch boo",
-  enableEnhancedProxyHeaderParsing: false,
-};
-```
-
-### `models.InputFile`
-
-```typescript
-const value: models.InputFile = {
-  id: "<id>",
-  type: "file",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  filenames: [
-    "<value 1>",
-  ],
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  description: "completion viability bleak behind shyly plus finally whoa odd",
-  path: "/System",
-  depth: 849.91,
-};
-```
-
-### `models.InputTcp`
-
-```typescript
-const value: models.InputTcp = {
-  id: "<id>",
-  type: "tcp",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  port: 1733.5,
-  tls: {
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1.2",
   },
   metadata: [
@@ -2633,30 +3782,89 @@ const value: models.InputTcp = {
       value: "<value>",
     },
   ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  preprocess: {
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  description: "license abseil zowie er insignificant",
+  udpSocketRxBufSize: 4338.64,
+  enableLoadBalancing: false,
+  description: "positively yuck hmph whoa yet yahoo",
+  enableEnhancedProxyHeaderParsing: false,
 };
 ```
 
-### `models.InputAppscope`
+### `models.InputFileUnion`
 
 ```typescript
-const value: models.InputAppscope = {
+const value: models.InputFileUnion = {
+  sendToRoutes: true,
   id: "<id>",
-  type: "appscope",
+  type: "file",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  mode: "manual",
+  interval: 10,
+  filenames: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  filterArchivedFiles: false,
+  tailOnly: true,
+  idleTimeout: 300,
+  minAgeDur: "<value>",
+  maxAgeDur: "<value>",
+  checkFileModTime: false,
+  forceText: false,
+  hashLen: 256,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  staleChannelFlushMs: 10000,
+  description: "gift dreamily absent uh-huh teriyaki mould gadzooks gladly",
+  path: "/opt/include",
+  depth: 171.32,
+  suppressMissingPathErrors: false,
+  deleteFiles: false,
+  includeUnidentifiableBinary: false,
+};
+```
+
+### `models.InputTcp`
+
+```typescript
+const value: models.InputTcp = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "tcp",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
   ],
@@ -2667,8 +3875,36 @@ const value: models.InputAppscope = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  host: "0.0.0.0",
+  port: 3923.1,
+  tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  ipWhitelistRegex: "/.*/",
+  maxActiveCxn: 1000,
+  socketIdleTimeout: 0,
+  socketEndingMaxWait: 30,
+  socketMaxLifespan: 0,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -2678,6 +3914,70 @@ const value: models.InputAppscope = {
   breakerRulesets: [
     "<value 1>",
   ],
+  staleChannelFlushMs: 10000,
+  enableHeader: false,
+  preprocess: {
+    disabled: true,
+    command: "<value>",
+    args: [
+      "<value 1>",
+    ],
+  },
+  description: "mechanically airman against",
+  authToken: "",
+  authType: "manual",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputAppscope`
+
+```typescript
+const value: models.InputAppscope = {
+  sendToRoutes: true,
+  id: "<id>",
+  type: "appscope",
+  disabled: false,
+  pipeline: "<value>",
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
+    pqControls: {},
+  },
+  ipWhitelistRegex: "/.*/",
+  maxActiveCxn: 1000,
+  socketIdleTimeout: 0,
+  socketEndingMaxWait: 30,
+  socketMaxLifespan: 0,
+  enableProxyHeader: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  staleChannelFlushMs: 10000,
+  enableUnixPath: false,
   filter: {
     allow: [
       {
@@ -2686,24 +3986,36 @@ const value: models.InputAppscope = {
         config: "<value>",
       },
     ],
-    transportURL: "https://lawful-impact.net",
+    transportURL: "https://last-prohibition.name/",
   },
-  persistence: {},
-  description: "inspection adventurously gnash if scheme ew wrongly",
-  host: "twin-reporter.name",
-  port: 3370.32,
+  persistence: {
+    enable: false,
+    timeWindow: "10m",
+    maxDataSize: "1GB",
+    maxDataTime: "24h",
+    compress: "gzip",
+    destPath: "$CRIBL_HOME/state/system_metrics",
+  },
+  authType: "manual",
+  description: "following keenly oof ghost than unnecessarily",
+  host: "crushing-velocity.com",
+  port: 8056.84,
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  unixSocketPath: "$CRIBL_HOME/state/appscope.sock",
   unixSocketPerms: "<value>",
+  authToken: "",
   textSecret: "<value>",
 };
 ```
@@ -2712,12 +4024,16 @@ const value: models.InputAppscope = {
 
 ```typescript
 const value: models.InputWef = {
+  sendToRoutes: true,
   id: "<id>",
   type: "wef",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -2726,31 +4042,61 @@ const value: models.InputWef = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
+  host: "0.0.0.0",
+  port: 5986,
+  authMethod: "clientCert",
   tls: {
+    disabled: false,
+    rejectUnauthorized: true,
+    requestCert: true,
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
+    commonNameRegex: "/.*/",
     minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1.3",
+    ocspCheck: false,
     keytab: "<value>",
     principal: "<value>",
+    ocspCheckFailClose: false,
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  keepAliveTimeout: 90,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  socketTimeout: 0,
   caFingerprint: "<value>",
   keytab: "<value>",
   principal: "<value>",
+  allowMachineIdMismatch: false,
   subscriptions: [
     {
       subscriptionName: "<value>",
       version: "<value>",
-      targets: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
+      contentFormat: "Raw",
+      heartbeatInterval: 60,
+      batchTimeout: 60,
+      readExistingEvents: false,
+      sendBookmarks: true,
+      compress: true,
+      targets: [],
+      locale: "en-US",
+      querySelector: "simple",
       metadata: [
         {
           name: "<value>",
@@ -2765,7 +4111,8 @@ const value: models.InputWef = {
       value: "<value>",
     },
   ],
-  description: "bah mmm ecstatic",
+  description: "availability fellow obsess scale decongestant",
+  logFingerprintMismatch: false,
 };
 ```
 
@@ -2773,14 +4120,16 @@ const value: models.InputWef = {
 
 ```typescript
 const value: models.InputWinEventLogs = {
+  sendToRoutes: true,
   id: "<id>",
   type: "win_event_logs",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -2789,19 +4138,32 @@ const value: models.InputWinEventLogs = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  logNames: [
-    "<value 1>",
-    "<value 2>",
-  ],
+  logNames: [],
+  readMode: "newest",
+  eventFormat: "json",
+  disableNativeModule: false,
+  interval: 10,
+  batchSize: 500,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "muddy in duh institute",
+  maxEventBytes: 51200,
+  description:
+    "funny questionable knitting coal linseed mystify hard-to-find busily platter",
+  disableJsonRendering: false,
+  disableXmlRendering: true,
 };
 ```
 
@@ -2809,10 +4171,13 @@ const value: models.InputWinEventLogs = {
 
 ```typescript
 const value: models.InputRawUdp = {
+  sendToRoutes: true,
   id: "<id>",
   type: "raw_udp",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2824,30 +4189,46 @@ const value: models.InputRawUdp = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 4339.08,
-  udpSocketRxBufSize: 7664.5,
+  host: "0.0.0.0",
+  port: 7664.5,
+  maxBufferSize: 1000,
+  ipWhitelistRegex: "/.*/",
+  singleMsgUdpPackets: false,
+  ingestRawBytes: false,
+  udpSocketRxBufSize: 8140.6,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "athwart opera sour neglected happy pish widow hmph into",
+  description: "ew huzzah similar salty degrease times",
 };
 ```
 
-### `models.InputJournalFiles`
+### `models.InputJournalFilesUnion`
 
 ```typescript
-const value: models.InputJournalFiles = {
+const value: models.InputJournalFilesUnion = {
+  sendToRoutes: true,
   id: "<id>",
   type: "journal_files",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -2856,9 +4237,17 @@ const value: models.InputJournalFiles = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  path: "/private/var",
+  path: "/usr/include",
+  interval: 10,
   journals: [
     "<value 1>",
     "<value 2>",
@@ -2866,9 +4255,11 @@ const value: models.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "yahoo uh-huh dirty behind manner",
+      description:
+        "duh lest ouch brochure vivaciously broadly quizzically lamp gurn fortunately",
     },
   ],
+  currentBoot: false,
   maxAgeDur: "<value>",
   metadata: [
     {
@@ -2876,7 +4267,8 @@ const value: models.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "honored given shoulder why cheerful",
+  description:
+    "schedule numeracy vicinity usefully yet silently er excited which kosher",
 };
 ```
 
@@ -2884,26 +4276,44 @@ const value: models.InputJournalFiles = {
 
 ```typescript
 const value: models.InputWiz = {
+  sendToRoutes: true,
   id: "<id>",
   type: "wiz",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
+  connections: [],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  authUrl: "https://criminal-offset.info/",
+  endpoint: "https://api.<region>.app.wiz.io/graphql",
+  authUrl: "https://inborn-contrail.net",
   authAudienceOverride: "<value>",
   clientId: "<id>",
-  contentConfig: [],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      contentDescription: "<value>",
+      enabled: false,
+    },
+  ],
+  requestTimeout: 300,
+  keepAliveTime: 30,
+  maxMissedKeepAlives: 3,
+  ttl: "4h",
+  ignoreGroupJobsLimit: false,
   metadata: [
     {
       name: "<value>",
@@ -2911,14 +4321,19 @@ const value: models.InputWiz = {
     },
   ],
   retryRules: {
+    type: "backoff",
+    interval: 1000,
+    limit: 5,
+    multiplier: 2,
     codes: [
-      718.38,
-      8167.55,
-      3424.31,
+      1764.18,
     ],
+    enableHeader: true,
+    retryConnectTimeout: false,
+    retryConnectReset: false,
   },
-  description:
-    "masquerade overcook thump pro towards rawhide aha forearm irritably",
+  authType: "manual",
+  description: "by caring kiddingly sharply vastly",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -2928,10 +4343,13 @@ const value: models.InputWiz = {
 
 ```typescript
 const value: models.InputWizWebhook = {
+  sendToRoutes: true,
   id: "<id>",
   type: "wiz_webhook",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2944,29 +4362,51 @@ const value: models.InputWizWebhook = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 6799.14,
+  host: "0.0.0.0",
+  port: 6102.56,
   authTokens: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
+  staleChannelFlushMs: 10000,
   metadata: [
     {
       name: "<value>",
@@ -2981,11 +4421,12 @@ const value: models.InputWizWebhook = {
   allowedMethods: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   authTokensExt: [
     {
       token: "<value>",
-      description: "irritably medium reckless acceptable pish and",
+      description: "demob apropos indeed ceramic scrabble however given scorn",
       metadata: [
         {
           name: "<value>",
@@ -2994,8 +4435,7 @@ const value: models.InputWizWebhook = {
       ],
     },
   ],
-  description:
-    "instead yet rudely oh bracelet after miserably hunger optimal possible",
+  description: "longingly writhing where oof despite excepting diversity brr",
 };
 ```
 
@@ -3003,14 +4443,15 @@ const value: models.InputWizWebhook = {
 
 ```typescript
 const value: models.InputNetflow = {
+  sendToRoutes: true,
   id: "<id>",
   type: "netflow",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -3019,16 +4460,33 @@ const value: models.InputNetflow = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  udpSocketRxBufSize: 2121.68,
+  host: "0.0.0.0",
+  port: 2055,
+  enablePassThrough: false,
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  udpSocketRxBufSize: 4331.4,
+  templateCacheMinutes: 30,
+  v5Enabled: true,
+  v9Enabled: true,
+  ipfixEnabled: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "gleefully famously sequester crest zowie divert",
+  description:
+    "shakily though mixed though perfection barracks remarkable merrily ouch incidentally",
 };
 ```
 
@@ -3036,10 +4494,13 @@ const value: models.InputNetflow = {
 
 ```typescript
 const value: models.InputSecurityLake = {
+  sendToRoutes: true,
   id: "<id>",
   type: "security_lake",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -3052,25 +4513,47 @@ const value: models.InputSecurityLake = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
   queueName: "<value>",
+  fileFilter: "/.*/",
   awsAccountId: "<id>",
+  awsAuthenticationMethod: "auto",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
+  staleChannelFlushMs: 10000,
+  maxMessages: 1,
+  visibilityTimeout: 600,
+  numReceivers: 1,
+  socketTimeout: 300,
+  skipOnError: false,
+  includeSqsMetadata: false,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 3600,
+  enableSQSAssumeRole: false,
   preprocess: {
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
   metadata: [
@@ -3079,12 +4562,18 @@ const value: models.InputSecurityLake = {
       value: "<value>",
     },
   ],
-  checkpointing: {},
+  parquetChunkSizeMB: 5,
+  parquetChunkDownloadTimeout: 600,
+  checkpointing: {
+    enabled: false,
+    retries: 5,
+  },
+  pollTimeout: 10,
   encoding: "<value>",
-  description: "as aw programme ugh log after brr fearless toward pro",
+  description: "inasmuch how at qua caption wedge nearly kiddingly out",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  tagAfterProcessing: "true",
+  tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
 };
@@ -3094,13 +4583,17 @@ const value: models.InputSecurityLake = {
 
 ```typescript
 const value: models.InputZscalerHec = {
+  sendToRoutes: true,
   id: "<id>",
   type: "zscaler_hec",
+  disabled: false,
   pipeline: "<value>",
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -3109,14 +4602,24 @@ const value: models.InputZscalerHec = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 1000,
+    commitFrequency: 42,
+    maxFileSize: "1 MB",
+    maxSize: "5GB",
+    path: "$CRIBL_HOME/state/queues",
+    compress: "none",
     pqControls: {},
   },
-  port: 8324.99,
+  host: "0.0.0.0",
+  port: 1183.03,
   authTokens: [
     {
+      authType: "manual",
       tokenSecret: "<value>",
       token: "<value>",
-      description: "hmph hunger geez drug scented beep overproduce scrap",
+      enabled: true,
+      description: "motionless jubilant agile",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
@@ -3131,17 +4634,30 @@ const value: models.InputZscalerHec = {
     },
   ],
   tls: {
+    disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
+  maxActiveReq: 256,
+  maxRequestsPerSocket: 0,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 100,
+  requestTimeout: 0,
+  socketTimeout: 0,
+  keepAliveTimeout: 5,
   enableHealthCheck: "<value>",
+  ipAllowlistRegex: "/.*/",
+  ipDenylistRegex: "/^$/",
+  hecAPI: "/services/collector",
   metadata: [
     {
       name: "<value>",
@@ -3153,16 +4669,18 @@ const value: models.InputZscalerHec = {
     "<value 2>",
     "<value 3>",
   ],
+  hecAcks: false,
   accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  description: "about what gallivant",
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  emitTokenMetrics: false,
+  description: "because neatly wherever yippee despite buck",
 };
 ```
 

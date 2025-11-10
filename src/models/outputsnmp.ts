@@ -4,32 +4,26 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSnmpType = {
-  Snmp: "snmp",
-} as const;
-export type OutputSnmpType = ClosedEnum<typeof OutputSnmpType>;
-
-export type OutputSnmpHost = {
-  /**
-   * Destination host
-   */
-  host: string;
-  /**
-   * Destination port, default is 162
-   */
-  port?: number | undefined;
-};
+import {
+  Hosts1Type,
+  Hosts1Type$inboundSchema,
+  Hosts1Type$Outbound,
+  Hosts1Type$outboundSchema,
+} from "./hosts1type.js";
+import {
+  TypeSnmpOption,
+  TypeSnmpOption$inboundSchema,
+  TypeSnmpOption$outboundSchema,
+} from "./typesnmpoption.js";
 
 export type OutputSnmp = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSnmpType;
+  type: TypeSnmpOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -49,7 +43,7 @@ export type OutputSnmp = {
   /**
    * One or more SNMP destinations to forward traps to
    */
-  hosts: Array<OutputSnmpHost>;
+  hosts: Array<Hosts1Type>;
   /**
    * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
    */
@@ -58,96 +52,21 @@ export type OutputSnmp = {
 };
 
 /** @internal */
-export const OutputSnmpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnmpType
-> = z.nativeEnum(OutputSnmpType);
-
-/** @internal */
-export const OutputSnmpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnmpType
-> = OutputSnmpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnmpType$ {
-  /** @deprecated use `OutputSnmpType$inboundSchema` instead. */
-  export const inboundSchema = OutputSnmpType$inboundSchema;
-  /** @deprecated use `OutputSnmpType$outboundSchema` instead. */
-  export const outboundSchema = OutputSnmpType$outboundSchema;
-}
-
-/** @internal */
-export const OutputSnmpHost$inboundSchema: z.ZodType<
-  OutputSnmpHost,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: z.string(),
-  port: z.number().default(162),
-});
-
-/** @internal */
-export type OutputSnmpHost$Outbound = {
-  host: string;
-  port: number;
-};
-
-/** @internal */
-export const OutputSnmpHost$outboundSchema: z.ZodType<
-  OutputSnmpHost$Outbound,
-  z.ZodTypeDef,
-  OutputSnmpHost
-> = z.object({
-  host: z.string(),
-  port: z.number().default(162),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnmpHost$ {
-  /** @deprecated use `OutputSnmpHost$inboundSchema` instead. */
-  export const inboundSchema = OutputSnmpHost$inboundSchema;
-  /** @deprecated use `OutputSnmpHost$outboundSchema` instead. */
-  export const outboundSchema = OutputSnmpHost$outboundSchema;
-  /** @deprecated use `OutputSnmpHost$Outbound` instead. */
-  export type Outbound = OutputSnmpHost$Outbound;
-}
-
-export function outputSnmpHostToJSON(outputSnmpHost: OutputSnmpHost): string {
-  return JSON.stringify(OutputSnmpHost$outboundSchema.parse(outputSnmpHost));
-}
-
-export function outputSnmpHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSnmpHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSnmpHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSnmpHost' from JSON`,
-  );
-}
-
-/** @internal */
 export const OutputSnmp$inboundSchema: z.ZodType<
   OutputSnmp,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSnmpType$inboundSchema,
+  type: TypeSnmpOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  hosts: z.array(z.lazy(() => OutputSnmpHost$inboundSchema)),
+  hosts: z.array(Hosts1Type$inboundSchema),
   dnsResolvePeriodSec: z.number().default(0),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputSnmp$Outbound = {
   id?: string | undefined;
@@ -156,7 +75,7 @@ export type OutputSnmp$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  hosts: Array<OutputSnmpHost$Outbound>;
+  hosts: Array<Hosts1Type$Outbound>;
   dnsResolvePeriodSec: number;
   description?: string | undefined;
 };
@@ -168,33 +87,19 @@ export const OutputSnmp$outboundSchema: z.ZodType<
   OutputSnmp
 > = z.object({
   id: z.string().optional(),
-  type: OutputSnmpType$outboundSchema,
+  type: TypeSnmpOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  hosts: z.array(z.lazy(() => OutputSnmpHost$outboundSchema)),
+  hosts: z.array(Hosts1Type$outboundSchema),
   dnsResolvePeriodSec: z.number().default(0),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSnmp$ {
-  /** @deprecated use `OutputSnmp$inboundSchema` instead. */
-  export const inboundSchema = OutputSnmp$inboundSchema;
-  /** @deprecated use `OutputSnmp$outboundSchema` instead. */
-  export const outboundSchema = OutputSnmp$outboundSchema;
-  /** @deprecated use `OutputSnmp$Outbound` instead. */
-  export type Outbound = OutputSnmp$Outbound;
-}
-
 export function outputSnmpToJSON(outputSnmp: OutputSnmp): string {
   return JSON.stringify(OutputSnmp$outboundSchema.parse(outputSnmp));
 }
-
 export function outputSnmpFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSnmp, SDKValidationError> {

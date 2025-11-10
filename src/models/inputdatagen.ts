@@ -4,84 +4,34 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
-export const InputDatagenType = {
+export const InputDatagenType4 = {
   Datagen: "datagen",
 } as const;
-export type InputDatagenType = ClosedEnum<typeof InputDatagenType>;
+export type InputDatagenType4 = ClosedEnum<typeof InputDatagenType4>;
 
-export type InputDatagenConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputDatagenMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputDatagenMode = OpenEnum<typeof InputDatagenMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputDatagenCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputDatagenCompression = OpenEnum<typeof InputDatagenCompression>;
-
-export type InputDatagenPqControls = {};
-
-export type InputDatagenPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputDatagenMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputDatagenCompression | undefined;
-  pqControls?: InputDatagenPqControls | undefined;
-};
-
-export type Sample = {
+export type Sample4 = {
   sample: string;
   /**
    * Maximum number of events to generate per second per Worker Node. Defaults to 10.
@@ -89,20 +39,16 @@ export type Sample = {
   eventsPerSec?: number | undefined;
 };
 
-export type InputDatagenMetadatum = {
-  name: string;
+export type InputDatagenDatagen4 = {
   /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  value: string;
-};
-
-export type InputDatagen = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputDatagenType;
+  type: InputDatagenType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -112,6 +58,108 @@ export type InputDatagen = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  samples: Array<Sample4>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+};
+
+export const InputDatagenType3 = {
+  Datagen: "datagen",
+} as const;
+export type InputDatagenType3 = ClosedEnum<typeof InputDatagenType3>;
+
+export type Sample3 = {
+  sample: string;
+  /**
+   * Maximum number of events to generate per second per Worker Node. Defaults to 10.
+   */
+  eventsPerSec?: number | undefined;
+};
+
+export type InputDatagenDatagen3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatagenType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  samples: Array<Sample3>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+};
+
+export const InputDatagenType2 = {
+  Datagen: "datagen",
+} as const;
+export type InputDatagenType2 = ClosedEnum<typeof InputDatagenType2>;
+
+export type Sample2 = {
+  sample: string;
+  /**
+   * Maximum number of events to generate per second per Worker Node. Defaults to 10.
+   */
+  eventsPerSec?: number | undefined;
+};
+
+export type InputDatagenDatagen2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatagenType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -127,381 +175,548 @@ export type InputDatagen = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputDatagenConnection> | undefined;
-  pq?: InputDatagenPq | undefined;
-  samples: Array<Sample>;
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  samples: Array<Sample2>;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputDatagenMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputDatagenType$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenType
-> = z.nativeEnum(InputDatagenType);
+export const InputDatagenType1 = {
+  Datagen: "datagen",
+} as const;
+export type InputDatagenType1 = ClosedEnum<typeof InputDatagenType1>;
 
-/** @internal */
-export const InputDatagenType$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenType
-> = InputDatagenType$inboundSchema;
+export type Sample1 = {
+  sample: string;
+  /**
+   * Maximum number of events to generate per second per Worker Node. Defaults to 10.
+   */
+  eventsPerSec?: number | undefined;
+};
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenType$ {
-  /** @deprecated use `InputDatagenType$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenType$inboundSchema;
-  /** @deprecated use `InputDatagenType$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenType$outboundSchema;
-}
-
-/** @internal */
-export const InputDatagenConnection$inboundSchema: z.ZodType<
-  InputDatagenConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputDatagenConnection$Outbound = {
+export type InputDatagenDatagen1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputDatagenType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  samples: Array<Sample1>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputDatagenConnection$outboundSchema: z.ZodType<
-  InputDatagenConnection$Outbound,
-  z.ZodTypeDef,
-  InputDatagenConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenConnection$ {
-  /** @deprecated use `InputDatagenConnection$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenConnection$inboundSchema;
-  /** @deprecated use `InputDatagenConnection$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenConnection$outboundSchema;
-  /** @deprecated use `InputDatagenConnection$Outbound` instead. */
-  export type Outbound = InputDatagenConnection$Outbound;
-}
-
-export function inputDatagenConnectionToJSON(
-  inputDatagenConnection: InputDatagenConnection,
-): string {
-  return JSON.stringify(
-    InputDatagenConnection$outboundSchema.parse(inputDatagenConnection),
-  );
-}
-
-export function inputDatagenConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputDatagenConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputDatagenConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatagenConnection' from JSON`,
-  );
-}
+export type InputDatagen =
+  | InputDatagenDatagen2
+  | InputDatagenDatagen4
+  | InputDatagenDatagen1
+  | InputDatagenDatagen3;
 
 /** @internal */
-export const InputDatagenMode$inboundSchema: z.ZodType<
-  InputDatagenMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatagenMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputDatagenType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatagenType4
+> = z.nativeEnum(InputDatagenType4);
+/** @internal */
+export const InputDatagenType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatagenType4
+> = InputDatagenType4$inboundSchema;
 
 /** @internal */
-export const InputDatagenMode$outboundSchema: z.ZodType<
-  InputDatagenMode,
-  z.ZodTypeDef,
-  InputDatagenMode
-> = z.union([
-  z.nativeEnum(InputDatagenMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenMode$ {
-  /** @deprecated use `InputDatagenMode$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenMode$inboundSchema;
-  /** @deprecated use `InputDatagenMode$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenMode$outboundSchema;
-}
-
-/** @internal */
-export const InputDatagenCompression$inboundSchema: z.ZodType<
-  InputDatagenCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatagenCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputDatagenCompression$outboundSchema: z.ZodType<
-  InputDatagenCompression,
-  z.ZodTypeDef,
-  InputDatagenCompression
-> = z.union([
-  z.nativeEnum(InputDatagenCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenCompression$ {
-  /** @deprecated use `InputDatagenCompression$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenCompression$inboundSchema;
-  /** @deprecated use `InputDatagenCompression$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputDatagenPqControls$inboundSchema: z.ZodType<
-  InputDatagenPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputDatagenPqControls$Outbound = {};
-
-/** @internal */
-export const InputDatagenPqControls$outboundSchema: z.ZodType<
-  InputDatagenPqControls$Outbound,
-  z.ZodTypeDef,
-  InputDatagenPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenPqControls$ {
-  /** @deprecated use `InputDatagenPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenPqControls$inboundSchema;
-  /** @deprecated use `InputDatagenPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenPqControls$outboundSchema;
-  /** @deprecated use `InputDatagenPqControls$Outbound` instead. */
-  export type Outbound = InputDatagenPqControls$Outbound;
-}
-
-export function inputDatagenPqControlsToJSON(
-  inputDatagenPqControls: InputDatagenPqControls,
-): string {
-  return JSON.stringify(
-    InputDatagenPqControls$outboundSchema.parse(inputDatagenPqControls),
-  );
-}
-
-export function inputDatagenPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputDatagenPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputDatagenPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatagenPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputDatagenPq$inboundSchema: z.ZodType<
-  InputDatagenPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputDatagenMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputDatagenCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputDatagenPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputDatagenPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputDatagenPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputDatagenPq$outboundSchema: z.ZodType<
-  InputDatagenPq$Outbound,
-  z.ZodTypeDef,
-  InputDatagenPq
-> = z.object({
-  mode: InputDatagenMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputDatagenCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputDatagenPqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenPq$ {
-  /** @deprecated use `InputDatagenPq$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenPq$inboundSchema;
-  /** @deprecated use `InputDatagenPq$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenPq$outboundSchema;
-  /** @deprecated use `InputDatagenPq$Outbound` instead. */
-  export type Outbound = InputDatagenPq$Outbound;
-}
-
-export function inputDatagenPqToJSON(inputDatagenPq: InputDatagenPq): string {
-  return JSON.stringify(InputDatagenPq$outboundSchema.parse(inputDatagenPq));
-}
-
-export function inputDatagenPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputDatagenPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputDatagenPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatagenPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const Sample$inboundSchema: z.ZodType<Sample, z.ZodTypeDef, unknown> = z
-  .object({
+export const Sample4$inboundSchema: z.ZodType<Sample4, z.ZodTypeDef, unknown> =
+  z.object({
     sample: z.string(),
     eventsPerSec: z.number().default(10),
   });
-
 /** @internal */
-export type Sample$Outbound = {
+export type Sample4$Outbound = {
   sample: string;
   eventsPerSec: number;
 };
 
 /** @internal */
-export const Sample$outboundSchema: z.ZodType<
-  Sample$Outbound,
+export const Sample4$outboundSchema: z.ZodType<
+  Sample4$Outbound,
   z.ZodTypeDef,
-  Sample
+  Sample4
 > = z.object({
   sample: z.string(),
   eventsPerSec: z.number().default(10),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Sample$ {
-  /** @deprecated use `Sample$inboundSchema` instead. */
-  export const inboundSchema = Sample$inboundSchema;
-  /** @deprecated use `Sample$outboundSchema` instead. */
-  export const outboundSchema = Sample$outboundSchema;
-  /** @deprecated use `Sample$Outbound` instead. */
-  export type Outbound = Sample$Outbound;
+export function sample4ToJSON(sample4: Sample4): string {
+  return JSON.stringify(Sample4$outboundSchema.parse(sample4));
 }
-
-export function sampleToJSON(sample: Sample): string {
-  return JSON.stringify(Sample$outboundSchema.parse(sample));
-}
-
-export function sampleFromJSON(
+export function sample4FromJSON(
   jsonString: string,
-): SafeParseResult<Sample, SDKValidationError> {
+): SafeParseResult<Sample4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Sample$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Sample' from JSON`,
+    (x) => Sample4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Sample4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputDatagenMetadatum$inboundSchema: z.ZodType<
-  InputDatagenMetadatum,
+export const InputDatagenDatagen4$inboundSchema: z.ZodType<
+  InputDatagenDatagen4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatagenType4$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  samples: z.array(z.lazy(() => Sample4$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
 });
-
 /** @internal */
-export type InputDatagenMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputDatagenDatagen4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  samples: Array<Sample4$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputDatagenMetadatum$outboundSchema: z.ZodType<
-  InputDatagenMetadatum$Outbound,
+export const InputDatagenDatagen4$outboundSchema: z.ZodType<
+  InputDatagenDatagen4$Outbound,
   z.ZodTypeDef,
-  InputDatagenMetadatum
+  InputDatagenDatagen4
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatagenType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  samples: z.array(z.lazy(() => Sample4$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagenMetadatum$ {
-  /** @deprecated use `InputDatagenMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputDatagenMetadatum$inboundSchema;
-  /** @deprecated use `InputDatagenMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputDatagenMetadatum$outboundSchema;
-  /** @deprecated use `InputDatagenMetadatum$Outbound` instead. */
-  export type Outbound = InputDatagenMetadatum$Outbound;
-}
-
-export function inputDatagenMetadatumToJSON(
-  inputDatagenMetadatum: InputDatagenMetadatum,
+export function inputDatagenDatagen4ToJSON(
+  inputDatagenDatagen4: InputDatagenDatagen4,
 ): string {
   return JSON.stringify(
-    InputDatagenMetadatum$outboundSchema.parse(inputDatagenMetadatum),
+    InputDatagenDatagen4$outboundSchema.parse(inputDatagenDatagen4),
+  );
+}
+export function inputDatagenDatagen4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatagenDatagen4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatagenDatagen4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatagenDatagen4' from JSON`,
   );
 }
 
-export function inputDatagenMetadatumFromJSON(
+/** @internal */
+export const InputDatagenType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatagenType3
+> = z.nativeEnum(InputDatagenType3);
+/** @internal */
+export const InputDatagenType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatagenType3
+> = InputDatagenType3$inboundSchema;
+
+/** @internal */
+export const Sample3$inboundSchema: z.ZodType<Sample3, z.ZodTypeDef, unknown> =
+  z.object({
+    sample: z.string(),
+    eventsPerSec: z.number().default(10),
+  });
+/** @internal */
+export type Sample3$Outbound = {
+  sample: string;
+  eventsPerSec: number;
+};
+
+/** @internal */
+export const Sample3$outboundSchema: z.ZodType<
+  Sample3$Outbound,
+  z.ZodTypeDef,
+  Sample3
+> = z.object({
+  sample: z.string(),
+  eventsPerSec: z.number().default(10),
+});
+
+export function sample3ToJSON(sample3: Sample3): string {
+  return JSON.stringify(Sample3$outboundSchema.parse(sample3));
+}
+export function sample3FromJSON(
   jsonString: string,
-): SafeParseResult<InputDatagenMetadatum, SDKValidationError> {
+): SafeParseResult<Sample3, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputDatagenMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputDatagenMetadatum' from JSON`,
+    (x) => Sample3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Sample3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatagenDatagen3$inboundSchema: z.ZodType<
+  InputDatagenDatagen3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatagenType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample3$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputDatagenDatagen3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  samples: Array<Sample3$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatagenDatagen3$outboundSchema: z.ZodType<
+  InputDatagenDatagen3$Outbound,
+  z.ZodTypeDef,
+  InputDatagenDatagen3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputDatagenType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample3$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputDatagenDatagen3ToJSON(
+  inputDatagenDatagen3: InputDatagenDatagen3,
+): string {
+  return JSON.stringify(
+    InputDatagenDatagen3$outboundSchema.parse(inputDatagenDatagen3),
+  );
+}
+export function inputDatagenDatagen3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatagenDatagen3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatagenDatagen3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatagenDatagen3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatagenType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatagenType2
+> = z.nativeEnum(InputDatagenType2);
+/** @internal */
+export const InputDatagenType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatagenType2
+> = InputDatagenType2$inboundSchema;
+
+/** @internal */
+export const Sample2$inboundSchema: z.ZodType<Sample2, z.ZodTypeDef, unknown> =
+  z.object({
+    sample: z.string(),
+    eventsPerSec: z.number().default(10),
+  });
+/** @internal */
+export type Sample2$Outbound = {
+  sample: string;
+  eventsPerSec: number;
+};
+
+/** @internal */
+export const Sample2$outboundSchema: z.ZodType<
+  Sample2$Outbound,
+  z.ZodTypeDef,
+  Sample2
+> = z.object({
+  sample: z.string(),
+  eventsPerSec: z.number().default(10),
+});
+
+export function sample2ToJSON(sample2: Sample2): string {
+  return JSON.stringify(Sample2$outboundSchema.parse(sample2));
+}
+export function sample2FromJSON(
+  jsonString: string,
+): SafeParseResult<Sample2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Sample2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Sample2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatagenDatagen2$inboundSchema: z.ZodType<
+  InputDatagenDatagen2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatagenType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample2$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputDatagenDatagen2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  samples: Array<Sample2$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatagenDatagen2$outboundSchema: z.ZodType<
+  InputDatagenDatagen2$Outbound,
+  z.ZodTypeDef,
+  InputDatagenDatagen2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatagenType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample2$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputDatagenDatagen2ToJSON(
+  inputDatagenDatagen2: InputDatagenDatagen2,
+): string {
+  return JSON.stringify(
+    InputDatagenDatagen2$outboundSchema.parse(inputDatagenDatagen2),
+  );
+}
+export function inputDatagenDatagen2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatagenDatagen2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatagenDatagen2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatagenDatagen2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatagenType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputDatagenType1
+> = z.nativeEnum(InputDatagenType1);
+/** @internal */
+export const InputDatagenType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputDatagenType1
+> = InputDatagenType1$inboundSchema;
+
+/** @internal */
+export const Sample1$inboundSchema: z.ZodType<Sample1, z.ZodTypeDef, unknown> =
+  z.object({
+    sample: z.string(),
+    eventsPerSec: z.number().default(10),
+  });
+/** @internal */
+export type Sample1$Outbound = {
+  sample: string;
+  eventsPerSec: number;
+};
+
+/** @internal */
+export const Sample1$outboundSchema: z.ZodType<
+  Sample1$Outbound,
+  z.ZodTypeDef,
+  Sample1
+> = z.object({
+  sample: z.string(),
+  eventsPerSec: z.number().default(10),
+});
+
+export function sample1ToJSON(sample1: Sample1): string {
+  return JSON.stringify(Sample1$outboundSchema.parse(sample1));
+}
+export function sample1FromJSON(
+  jsonString: string,
+): SafeParseResult<Sample1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Sample1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Sample1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputDatagenDatagen1$inboundSchema: z.ZodType<
+  InputDatagenDatagen1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatagenType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample1$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputDatagenDatagen1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  samples: Array<Sample1$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatagenDatagen1$outboundSchema: z.ZodType<
+  InputDatagenDatagen1$Outbound,
+  z.ZodTypeDef,
+  InputDatagenDatagen1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputDatagenType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample1$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputDatagenDatagen1ToJSON(
+  inputDatagenDatagen1: InputDatagenDatagen1,
+): string {
+  return JSON.stringify(
+    InputDatagenDatagen1$outboundSchema.parse(inputDatagenDatagen1),
+  );
+}
+export function inputDatagenDatagen1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputDatagenDatagen1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputDatagenDatagen1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputDatagenDatagen1' from JSON`,
   );
 }
 
@@ -510,81 +725,34 @@ export const InputDatagen$inboundSchema: z.ZodType<
   InputDatagen,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputDatagenType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputDatagenConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputDatagenPq$inboundSchema).optional(),
-  samples: z.array(z.lazy(() => Sample$inboundSchema)),
-  metadata: z.array(z.lazy(() => InputDatagenMetadatum$inboundSchema))
-    .optional(),
-  description: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputDatagenDatagen2$inboundSchema),
+  z.lazy(() => InputDatagenDatagen4$inboundSchema),
+  z.lazy(() => InputDatagenDatagen1$inboundSchema),
+  z.lazy(() => InputDatagenDatagen3$inboundSchema),
+]);
 /** @internal */
-export type InputDatagen$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputDatagenConnection$Outbound> | undefined;
-  pq?: InputDatagenPq$Outbound | undefined;
-  samples: Array<Sample$Outbound>;
-  metadata?: Array<InputDatagenMetadatum$Outbound> | undefined;
-  description?: string | undefined;
-};
+export type InputDatagen$Outbound =
+  | InputDatagenDatagen2$Outbound
+  | InputDatagenDatagen4$Outbound
+  | InputDatagenDatagen1$Outbound
+  | InputDatagenDatagen3$Outbound;
 
 /** @internal */
 export const InputDatagen$outboundSchema: z.ZodType<
   InputDatagen$Outbound,
   z.ZodTypeDef,
   InputDatagen
-> = z.object({
-  id: z.string().optional(),
-  type: InputDatagenType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputDatagenConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputDatagenPq$outboundSchema).optional(),
-  samples: z.array(z.lazy(() => Sample$outboundSchema)),
-  metadata: z.array(z.lazy(() => InputDatagenMetadatum$outboundSchema))
-    .optional(),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatagen$ {
-  /** @deprecated use `InputDatagen$inboundSchema` instead. */
-  export const inboundSchema = InputDatagen$inboundSchema;
-  /** @deprecated use `InputDatagen$outboundSchema` instead. */
-  export const outboundSchema = InputDatagen$outboundSchema;
-  /** @deprecated use `InputDatagen$Outbound` instead. */
-  export type Outbound = InputDatagen$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputDatagenDatagen2$outboundSchema),
+  z.lazy(() => InputDatagenDatagen4$outboundSchema),
+  z.lazy(() => InputDatagenDatagen1$outboundSchema),
+  z.lazy(() => InputDatagenDatagen3$outboundSchema),
+]);
 
 export function inputDatagenToJSON(inputDatagen: InputDatagen): string {
   return JSON.stringify(InputDatagen$outboundSchema.parse(inputDatagen));
 }
-
 export function inputDatagenFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatagen, SDKValidationError> {

@@ -6,34 +6,64 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import {
   catchUnrecognizedEnum,
-  ClosedEnum,
   OpenEnum,
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSyslogType = {
-  Syslog: "syslog",
-} as const;
-export type OutputSyslogType = ClosedEnum<typeof OutputSyslogType>;
-
-/**
- * The network protocol to use for sending out syslog messages
- */
-export const OutputSyslogProtocol = {
-  Tcp: "tcp",
-  Udp: "udp",
-} as const;
-/**
- * The network protocol to use for sending out syslog messages
- */
-export type OutputSyslogProtocol = OpenEnum<typeof OutputSyslogProtocol>;
+import {
+  HostsType,
+  HostsType$inboundSchema,
+  HostsType$Outbound,
+  HostsType$outboundSchema,
+} from "./hoststype.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  Protocol1Options,
+  Protocol1Options$inboundSchema,
+  Protocol1Options$outboundSchema,
+} from "./protocol1options.js";
+import {
+  Tls1Type,
+  Tls1Type$inboundSchema,
+  Tls1Type$Outbound,
+  Tls1Type$outboundSchema,
+} from "./tls1type.js";
+import {
+  TypeSyslogOption,
+  TypeSyslogOption$inboundSchema,
+  TypeSyslogOption$outboundSchema,
+} from "./typesyslogoption.js";
 
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
-export const Facility = {
+export const Facility4 = {
   Zero: 0,
   One: 1,
   Two: 2,
@@ -60,206 +90,96 @@ export const Facility = {
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
-export type Facility = OpenEnum<typeof Facility>;
+export type Facility4 = OpenEnum<typeof Facility4>;
 
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
-export const OutputSyslogSeverity = {
+export const OutputSyslogSeverity4 = {
+  /**
+   * emergency
+   */
   Zero: 0,
+  /**
+   * alert
+   */
   One: 1,
+  /**
+   * critical
+   */
   Two: 2,
+  /**
+   * error
+   */
   Three: 3,
+  /**
+   * warning
+   */
   Four: 4,
+  /**
+   * notice
+   */
   Five: 5,
+  /**
+   * info
+   */
   Six: 6,
+  /**
+   * debug
+   */
   Seven: 7,
 } as const;
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
-export type OutputSyslogSeverity = OpenEnum<typeof OutputSyslogSeverity>;
+export type OutputSyslogSeverity4 = OpenEnum<typeof OutputSyslogSeverity4>;
 
 /**
  * The syslog message format depending on the receiver's support
  */
-export const OutputSyslogMessageFormat = {
+export const MessageFormat4 = {
+  /**
+   * RFC3164
+   */
   Rfc3164: "rfc3164",
+  /**
+   * RFC5424
+   */
   Rfc5424: "rfc5424",
 } as const;
 /**
  * The syslog message format depending on the receiver's support
  */
-export type OutputSyslogMessageFormat = OpenEnum<
-  typeof OutputSyslogMessageFormat
->;
+export type MessageFormat4 = OpenEnum<typeof MessageFormat4>;
 
 /**
  * Timestamp format to use when serializing event's time field
  */
-export const TimestampFormat = {
+export const TimestampFormat4 = {
+  /**
+   * Syslog
+   */
   Syslog: "syslog",
+  /**
+   * ISO8601
+   */
   Iso8601: "iso8601",
 } as const;
 /**
  * Timestamp format to use when serializing event's time field
  */
-export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+export type TimestampFormat4 = OpenEnum<typeof TimestampFormat4>;
 
-export const OutputSyslogMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputSyslogMinimumTLSVersion = OpenEnum<
-  typeof OutputSyslogMinimumTLSVersion
->;
-
-export const OutputSyslogMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputSyslogMaximumTLSVersion = OpenEnum<
-  typeof OutputSyslogMaximumTLSVersion
->;
-
-export type OutputSyslogTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
+export type OutputSyslogSyslog4 = {
   /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   * How to handle events when all receivers are exerting backpressure
    */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputSyslogMinimumTLSVersion | undefined;
-  maxVersion?: OutputSyslogMaximumTLSVersion | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSyslogBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSyslogBackpressureBehavior = OpenEnum<
-  typeof OutputSyslogBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSyslogCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSyslogCompression = OpenEnum<typeof OutputSyslogCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSyslogQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSyslogQueueFullBehavior = OpenEnum<
-  typeof OutputSyslogQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSyslogMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSyslogMode = OpenEnum<typeof OutputSyslogMode>;
-
-export type OutputSyslogPqControls = {};
-
-/**
- * Whether to inherit TLS configs from group setting or disable TLS
- */
-export const OutputSyslogTLS = {
-  Inherit: "inherit",
-  Off: "off",
-} as const;
-/**
- * Whether to inherit TLS configs from group setting or disable TLS
- */
-export type OutputSyslogTLS = ClosedEnum<typeof OutputSyslogTLS>;
-
-export type OutputSyslogHost = {
-  /**
-   * The hostname of the receiver
-   */
-  host: string;
-  /**
-   * The port to connect to on the provided host
-   */
-  port?: number | undefined;
-  /**
-   * Whether to inherit TLS configs from group setting or disable TLS
-   */
-  tls?: OutputSyslogTLS | undefined;
-  /**
-   * Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-   */
-  servername?: string | undefined;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-};
-
-export type OutputSyslog = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSyslogType;
+  type: TypeSyslogOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -279,15 +199,15 @@ export type OutputSyslog = {
   /**
    * The network protocol to use for sending out syslog messages
    */
-  protocol?: OutputSyslogProtocol | undefined;
+  protocol?: Protocol1Options | undefined;
   /**
    * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
    */
-  facility?: Facility | undefined;
+  facility?: Facility4 | undefined;
   /**
    * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
    */
-  severity?: OutputSyslogSeverity | undefined;
+  severity?: OutputSyslogSeverity4 | undefined;
   /**
    * Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
    */
@@ -295,11 +215,11 @@ export type OutputSyslog = {
   /**
    * The syslog message format depending on the receiver's support
    */
-  messageFormat?: OutputSyslogMessageFormat | undefined;
+  messageFormat?: MessageFormat4 | undefined;
   /**
    * Timestamp format to use when serializing event's time field
    */
-  timestampFormat?: TimestampFormat | undefined;
+  timestampFormat?: TimestampFormat4 | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -318,19 +238,6 @@ export type OutputSyslog = {
    */
   loadBalanced?: boolean | undefined;
   /**
-   * Amount of time (milliseconds) to wait for the connection to establish before retrying
-   */
-  connectionTimeout?: number | undefined;
-  /**
-   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-   */
-  writeTimeout?: number | undefined;
-  tls?: OutputSyslogTLSSettingsClientSide | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputSyslogBackpressureBehavior | undefined;
-  /**
    * The hostname of the receiver
    */
   host?: string | undefined;
@@ -339,6 +246,35 @@ export type OutputSyslog = {
    */
   port?: number | undefined;
   /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of hosts to load-balance data to
+   */
+  hosts?: Array<HostsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
    * Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
    */
   maxRecordSize?: number | undefined;
@@ -346,6 +282,30 @@ export type OutputSyslog = {
    * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
    */
   udpDnsResolvePeriodSec?: number | undefined;
+  /**
+   * Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -361,16 +321,207 @@ export type OutputSyslog = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSyslogCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSyslogQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+/**
+ * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+ */
+export const Facility3 = {
+  Zero: 0,
+  One: 1,
+  Two: 2,
+  Three: 3,
+  Four: 4,
+  Five: 5,
+  Six: 6,
+  Seven: 7,
+  Eight: 8,
+  Nine: 9,
+  Ten: 10,
+  Eleven: 11,
+  Twelve: 12,
+  Thirteen: 13,
+  Fourteen: 14,
+  Fifteen: 15,
+  Sixteen: 16,
+  Seventeen: 17,
+  Eighteen: 18,
+  Nineteen: 19,
+  Twenty: 20,
+  TwentyOne: 21,
+} as const;
+/**
+ * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+ */
+export type Facility3 = OpenEnum<typeof Facility3>;
+
+/**
+ * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+ */
+export const OutputSyslogSeverity3 = {
   /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   * emergency
    */
-  pqMode?: OutputSyslogMode | undefined;
-  pqControls?: OutputSyslogPqControls | undefined;
+  Zero: 0,
+  /**
+   * alert
+   */
+  One: 1,
+  /**
+   * critical
+   */
+  Two: 2,
+  /**
+   * error
+   */
+  Three: 3,
+  /**
+   * warning
+   */
+  Four: 4,
+  /**
+   * notice
+   */
+  Five: 5,
+  /**
+   * info
+   */
+  Six: 6,
+  /**
+   * debug
+   */
+  Seven: 7,
+} as const;
+/**
+ * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+ */
+export type OutputSyslogSeverity3 = OpenEnum<typeof OutputSyslogSeverity3>;
+
+/**
+ * The syslog message format depending on the receiver's support
+ */
+export const MessageFormat3 = {
+  /**
+   * RFC3164
+   */
+  Rfc3164: "rfc3164",
+  /**
+   * RFC5424
+   */
+  Rfc5424: "rfc5424",
+} as const;
+/**
+ * The syslog message format depending on the receiver's support
+ */
+export type MessageFormat3 = OpenEnum<typeof MessageFormat3>;
+
+/**
+ * Timestamp format to use when serializing event's time field
+ */
+export const TimestampFormat3 = {
+  /**
+   * Syslog
+   */
+  Syslog: "syslog",
+  /**
+   * ISO8601
+   */
+  Iso8601: "iso8601",
+} as const;
+/**
+ * Timestamp format to use when serializing event's time field
+ */
+export type TimestampFormat3 = OpenEnum<typeof TimestampFormat3>;
+
+export type OutputSyslogSyslog3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSyslogOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The network protocol to use for sending out syslog messages
+   */
+  protocol?: Protocol1Options | undefined;
+  /**
+   * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+   */
+  facility?: Facility3 | undefined;
+  /**
+   * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+   */
+  severity?: OutputSyslogSeverity3 | undefined;
+  /**
+   * Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
+   */
+  appName?: string | undefined;
+  /**
+   * The syslog message format depending on the receiver's support
+   */
+  messageFormat?: MessageFormat3 | undefined;
+  /**
+   * Timestamp format to use when serializing event's time field
+   */
+  timestampFormat?: TimestampFormat3 | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
+   */
+  octetCountFraming?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host?: string | undefined;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of hosts to load-balance data to
+   */
+  hosts?: Array<HostsType> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -384,658 +535,745 @@ export type OutputSyslog = {
    */
   maxConcurrentSenders?: number | undefined;
   /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
+   */
+  maxRecordSize?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
+   */
+  udpDnsResolvePeriodSec?: number | undefined;
+  /**
+   * Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+/**
+ * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+ */
+export const Facility2 = {
+  Zero: 0,
+  One: 1,
+  Two: 2,
+  Three: 3,
+  Four: 4,
+  Five: 5,
+  Six: 6,
+  Seven: 7,
+  Eight: 8,
+  Nine: 9,
+  Ten: 10,
+  Eleven: 11,
+  Twelve: 12,
+  Thirteen: 13,
+  Fourteen: 14,
+  Fifteen: 15,
+  Sixteen: 16,
+  Seventeen: 17,
+  Eighteen: 18,
+  Nineteen: 19,
+  Twenty: 20,
+  TwentyOne: 21,
+} as const;
+/**
+ * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+ */
+export type Facility2 = OpenEnum<typeof Facility2>;
+
+/**
+ * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+ */
+export const OutputSyslogSeverity2 = {
+  /**
+   * emergency
+   */
+  Zero: 0,
+  /**
+   * alert
+   */
+  One: 1,
+  /**
+   * critical
+   */
+  Two: 2,
+  /**
+   * error
+   */
+  Three: 3,
+  /**
+   * warning
+   */
+  Four: 4,
+  /**
+   * notice
+   */
+  Five: 5,
+  /**
+   * info
+   */
+  Six: 6,
+  /**
+   * debug
+   */
+  Seven: 7,
+} as const;
+/**
+ * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+ */
+export type OutputSyslogSeverity2 = OpenEnum<typeof OutputSyslogSeverity2>;
+
+/**
+ * The syslog message format depending on the receiver's support
+ */
+export const MessageFormat2 = {
+  /**
+   * RFC3164
+   */
+  Rfc3164: "rfc3164",
+  /**
+   * RFC5424
+   */
+  Rfc5424: "rfc5424",
+} as const;
+/**
+ * The syslog message format depending on the receiver's support
+ */
+export type MessageFormat2 = OpenEnum<typeof MessageFormat2>;
+
+/**
+ * Timestamp format to use when serializing event's time field
+ */
+export const TimestampFormat2 = {
+  /**
+   * Syslog
+   */
+  Syslog: "syslog",
+  /**
+   * ISO8601
+   */
+  Iso8601: "iso8601",
+} as const;
+/**
+ * Timestamp format to use when serializing event's time field
+ */
+export type TimestampFormat2 = OpenEnum<typeof TimestampFormat2>;
+
+export type OutputSyslogSyslog2 = {
+  /**
+   * The network protocol to use for sending out syslog messages
+   */
+  protocol?: Protocol1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSyslogOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+   */
+  facility?: Facility2 | undefined;
+  /**
+   * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+   */
+  severity?: OutputSyslogSeverity2 | undefined;
+  /**
+   * Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
+   */
+  appName?: string | undefined;
+  /**
+   * The syslog message format depending on the receiver's support
+   */
+  messageFormat?: MessageFormat2 | undefined;
+  /**
+   * Timestamp format to use when serializing event's time field
+   */
+  timestampFormat?: TimestampFormat2 | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
+   */
+  octetCountFraming?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port: number;
+  /**
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
   /**
-   * Set of hosts to load-balance data to.
+   * Set of hosts to load-balance data to
    */
-  hosts?: Array<OutputSyslogHost> | undefined;
+  hosts?: Array<HostsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
+   */
+  maxRecordSize?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
+   */
+  udpDnsResolvePeriodSec?: number | undefined;
+  /**
+   * Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSyslogType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSyslogType
-> = z.nativeEnum(OutputSyslogType);
-
-/** @internal */
-export const OutputSyslogType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSyslogType
-> = OutputSyslogType$inboundSchema;
+/**
+ * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+ */
+export const Facility1 = {
+  Zero: 0,
+  One: 1,
+  Two: 2,
+  Three: 3,
+  Four: 4,
+  Five: 5,
+  Six: 6,
+  Seven: 7,
+  Eight: 8,
+  Nine: 9,
+  Ten: 10,
+  Eleven: 11,
+  Twelve: 12,
+  Thirteen: 13,
+  Fourteen: 14,
+  Fifteen: 15,
+  Sixteen: 16,
+  Seventeen: 17,
+  Eighteen: 18,
+  Nineteen: 19,
+  Twenty: 20,
+  TwentyOne: 21,
+} as const;
+/**
+ * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+ */
+export type Facility1 = OpenEnum<typeof Facility1>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
-export namespace OutputSyslogType$ {
-  /** @deprecated use `OutputSyslogType$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogType$inboundSchema;
-  /** @deprecated use `OutputSyslogType$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogType$outboundSchema;
-}
+export const OutputSyslogSeverity1 = {
+  /**
+   * emergency
+   */
+  Zero: 0,
+  /**
+   * alert
+   */
+  One: 1,
+  /**
+   * critical
+   */
+  Two: 2,
+  /**
+   * error
+   */
+  Three: 3,
+  /**
+   * warning
+   */
+  Four: 4,
+  /**
+   * notice
+   */
+  Five: 5,
+  /**
+   * info
+   */
+  Six: 6,
+  /**
+   * debug
+   */
+  Seven: 7,
+} as const;
+/**
+ * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+ */
+export type OutputSyslogSeverity1 = OpenEnum<typeof OutputSyslogSeverity1>;
+
+/**
+ * The syslog message format depending on the receiver's support
+ */
+export const MessageFormat1 = {
+  /**
+   * RFC3164
+   */
+  Rfc3164: "rfc3164",
+  /**
+   * RFC5424
+   */
+  Rfc5424: "rfc5424",
+} as const;
+/**
+ * The syslog message format depending on the receiver's support
+ */
+export type MessageFormat1 = OpenEnum<typeof MessageFormat1>;
+
+/**
+ * Timestamp format to use when serializing event's time field
+ */
+export const TimestampFormat1 = {
+  /**
+   * Syslog
+   */
+  Syslog: "syslog",
+  /**
+   * ISO8601
+   */
+  Iso8601: "iso8601",
+} as const;
+/**
+ * Timestamp format to use when serializing event's time field
+ */
+export type TimestampFormat1 = OpenEnum<typeof TimestampFormat1>;
+
+export type OutputSyslogSyslog1 = {
+  /**
+   * The network protocol to use for sending out syslog messages
+   */
+  protocol?: Protocol1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSyslogOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+   */
+  facility?: Facility1 | undefined;
+  /**
+   * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+   */
+  severity?: OutputSyslogSeverity1 | undefined;
+  /**
+   * Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
+   */
+  appName?: string | undefined;
+  /**
+   * The syslog message format depending on the receiver's support
+   */
+  messageFormat?: MessageFormat1 | undefined;
+  /**
+   * Timestamp format to use when serializing event's time field
+   */
+  timestampFormat?: TimestampFormat1 | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
+   */
+  octetCountFraming?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host?: string | undefined;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of hosts to load-balance data to
+   */
+  hosts?: Array<HostsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls: Tls1Type;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
+   */
+  maxRecordSize?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
+   */
+  udpDnsResolvePeriodSec?: number | undefined;
+  /**
+   * Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputSyslog =
+  | OutputSyslogSyslog2
+  | OutputSyslogSyslog1
+  | OutputSyslogSyslog4
+  | OutputSyslogSyslog3;
 
 /** @internal */
-export const OutputSyslogProtocol$inboundSchema: z.ZodType<
-  OutputSyslogProtocol,
+export const Facility4$inboundSchema: z.ZodType<
+  Facility4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputSyslogProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSyslogProtocol$outboundSchema: z.ZodType<
-  OutputSyslogProtocol,
-  z.ZodTypeDef,
-  OutputSyslogProtocol
-> = z.union([
-  z.nativeEnum(OutputSyslogProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogProtocol$ {
-  /** @deprecated use `OutputSyslogProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogProtocol$inboundSchema;
-  /** @deprecated use `OutputSyslogProtocol$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogProtocol$outboundSchema;
-}
-
-/** @internal */
-export const Facility$inboundSchema: z.ZodType<
-  Facility,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(Facility),
+    z.nativeEnum(Facility4),
     z.number().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const Facility$outboundSchema: z.ZodType<
-  Facility,
+export const Facility4$outboundSchema: z.ZodType<
+  Facility4,
   z.ZodTypeDef,
-  Facility
+  Facility4
 > = z.union([
-  z.nativeEnum(Facility),
+  z.nativeEnum(Facility4),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Facility$ {
-  /** @deprecated use `Facility$inboundSchema` instead. */
-  export const inboundSchema = Facility$inboundSchema;
-  /** @deprecated use `Facility$outboundSchema` instead. */
-  export const outboundSchema = Facility$outboundSchema;
-}
-
 /** @internal */
-export const OutputSyslogSeverity$inboundSchema: z.ZodType<
-  OutputSyslogSeverity,
+export const OutputSyslogSeverity4$inboundSchema: z.ZodType<
+  OutputSyslogSeverity4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputSyslogSeverity),
+    z.nativeEnum(OutputSyslogSeverity4),
     z.number().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputSyslogSeverity$outboundSchema: z.ZodType<
-  OutputSyslogSeverity,
+export const OutputSyslogSeverity4$outboundSchema: z.ZodType<
+  OutputSyslogSeverity4,
   z.ZodTypeDef,
-  OutputSyslogSeverity
+  OutputSyslogSeverity4
 > = z.union([
-  z.nativeEnum(OutputSyslogSeverity),
+  z.nativeEnum(OutputSyslogSeverity4),
   z.number().and(z.custom<Unrecognized<number>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogSeverity$ {
-  /** @deprecated use `OutputSyslogSeverity$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogSeverity$inboundSchema;
-  /** @deprecated use `OutputSyslogSeverity$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogSeverity$outboundSchema;
-}
-
 /** @internal */
-export const OutputSyslogMessageFormat$inboundSchema: z.ZodType<
-  OutputSyslogMessageFormat,
+export const MessageFormat4$inboundSchema: z.ZodType<
+  MessageFormat4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputSyslogMessageFormat),
+    z.nativeEnum(MessageFormat4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputSyslogMessageFormat$outboundSchema: z.ZodType<
-  OutputSyslogMessageFormat,
+export const MessageFormat4$outboundSchema: z.ZodType<
+  MessageFormat4,
   z.ZodTypeDef,
-  OutputSyslogMessageFormat
+  MessageFormat4
 > = z.union([
-  z.nativeEnum(OutputSyslogMessageFormat),
+  z.nativeEnum(MessageFormat4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogMessageFormat$ {
-  /** @deprecated use `OutputSyslogMessageFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogMessageFormat$inboundSchema;
-  /** @deprecated use `OutputSyslogMessageFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogMessageFormat$outboundSchema;
-}
-
 /** @internal */
-export const TimestampFormat$inboundSchema: z.ZodType<
-  TimestampFormat,
+export const TimestampFormat4$inboundSchema: z.ZodType<
+  TimestampFormat4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(TimestampFormat),
+    z.nativeEnum(TimestampFormat4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const TimestampFormat$outboundSchema: z.ZodType<
-  TimestampFormat,
+export const TimestampFormat4$outboundSchema: z.ZodType<
+  TimestampFormat4,
   z.ZodTypeDef,
-  TimestampFormat
+  TimestampFormat4
 > = z.union([
-  z.nativeEnum(TimestampFormat),
+  z.nativeEnum(TimestampFormat4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TimestampFormat$ {
-  /** @deprecated use `TimestampFormat$inboundSchema` instead. */
-  export const inboundSchema = TimestampFormat$inboundSchema;
-  /** @deprecated use `TimestampFormat$outboundSchema` instead. */
-  export const outboundSchema = TimestampFormat$outboundSchema;
-}
-
 /** @internal */
-export const OutputSyslogMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputSyslogMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSyslogMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputSyslogMinimumTLSVersion,
-  z.ZodTypeDef,
-  OutputSyslogMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSyslogMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogMinimumTLSVersion$ {
-  /** @deprecated use `OutputSyslogMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSyslogMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSyslogMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputSyslogMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSyslogMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputSyslogMaximumTLSVersion,
-  z.ZodTypeDef,
-  OutputSyslogMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSyslogMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogMaximumTLSVersion$ {
-  /** @deprecated use `OutputSyslogMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputSyslogMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSyslogTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputSyslogTLSSettingsClientSide,
+export const OutputSyslogSyslog4$inboundSchema: z.ZodType<
+  OutputSyslogSyslog4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputSyslogMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputSyslogMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type OutputSyslogTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const OutputSyslogTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputSyslogTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  OutputSyslogTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputSyslogMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputSyslogMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogTLSSettingsClientSide$ {
-  /** @deprecated use `OutputSyslogTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputSyslogTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSyslogTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputSyslogTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputSyslogTLSSettingsClientSide$Outbound;
-}
-
-export function outputSyslogTLSSettingsClientSideToJSON(
-  outputSyslogTLSSettingsClientSide: OutputSyslogTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputSyslogTLSSettingsClientSide$outboundSchema.parse(
-      outputSyslogTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function outputSyslogTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSyslogTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSyslogTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSyslogTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSyslogBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSyslogBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSyslogBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSyslogBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSyslogBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSyslogBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogBackpressureBehavior$ {
-  /** @deprecated use `OutputSyslogBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSyslogBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSyslogCompression$inboundSchema: z.ZodType<
-  OutputSyslogCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSyslogCompression$outboundSchema: z.ZodType<
-  OutputSyslogCompression,
-  z.ZodTypeDef,
-  OutputSyslogCompression
-> = z.union([
-  z.nativeEnum(OutputSyslogCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogCompression$ {
-  /** @deprecated use `OutputSyslogCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogCompression$inboundSchema;
-  /** @deprecated use `OutputSyslogCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSyslogQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSyslogQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSyslogQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSyslogQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSyslogQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSyslogQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogQueueFullBehavior$ {
-  /** @deprecated use `OutputSyslogQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSyslogQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSyslogMode$inboundSchema: z.ZodType<
-  OutputSyslogMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSyslogMode$outboundSchema: z.ZodType<
-  OutputSyslogMode,
-  z.ZodTypeDef,
-  OutputSyslogMode
-> = z.union([
-  z.nativeEnum(OutputSyslogMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogMode$ {
-  /** @deprecated use `OutputSyslogMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogMode$inboundSchema;
-  /** @deprecated use `OutputSyslogMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSyslogPqControls$inboundSchema: z.ZodType<
-  OutputSyslogPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputSyslogPqControls$Outbound = {};
-
-/** @internal */
-export const OutputSyslogPqControls$outboundSchema: z.ZodType<
-  OutputSyslogPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputSyslogPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogPqControls$ {
-  /** @deprecated use `OutputSyslogPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogPqControls$inboundSchema;
-  /** @deprecated use `OutputSyslogPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogPqControls$outboundSchema;
-  /** @deprecated use `OutputSyslogPqControls$Outbound` instead. */
-  export type Outbound = OutputSyslogPqControls$Outbound;
-}
-
-export function outputSyslogPqControlsToJSON(
-  outputSyslogPqControls: OutputSyslogPqControls,
-): string {
-  return JSON.stringify(
-    OutputSyslogPqControls$outboundSchema.parse(outputSyslogPqControls),
-  );
-}
-
-export function outputSyslogPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSyslogPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSyslogPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSyslogPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSyslogTLS$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSyslogTLS
-> = z.nativeEnum(OutputSyslogTLS);
-
-/** @internal */
-export const OutputSyslogTLS$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSyslogTLS
-> = OutputSyslogTLS$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogTLS$ {
-  /** @deprecated use `OutputSyslogTLS$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogTLS$inboundSchema;
-  /** @deprecated use `OutputSyslogTLS$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogTLS$outboundSchema;
-}
-
-/** @internal */
-export const OutputSyslogHost$inboundSchema: z.ZodType<
-  OutputSyslogHost,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: z.string(),
-  port: z.number().default(9997),
-  tls: OutputSyslogTLS$inboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-/** @internal */
-export type OutputSyslogHost$Outbound = {
-  host: string;
-  port: number;
-  tls: string;
-  servername?: string | undefined;
-  weight: number;
-};
-
-/** @internal */
-export const OutputSyslogHost$outboundSchema: z.ZodType<
-  OutputSyslogHost$Outbound,
-  z.ZodTypeDef,
-  OutputSyslogHost
-> = z.object({
-  host: z.string(),
-  port: z.number().default(9997),
-  tls: OutputSyslogTLS$outboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslogHost$ {
-  /** @deprecated use `OutputSyslogHost$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslogHost$inboundSchema;
-  /** @deprecated use `OutputSyslogHost$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslogHost$outboundSchema;
-  /** @deprecated use `OutputSyslogHost$Outbound` instead. */
-  export type Outbound = OutputSyslogHost$Outbound;
-}
-
-export function outputSyslogHostToJSON(
-  outputSyslogHost: OutputSyslogHost,
-): string {
-  return JSON.stringify(
-    OutputSyslogHost$outboundSchema.parse(outputSyslogHost),
-  );
-}
-
-export function outputSyslogHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSyslogHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSyslogHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSyslogHost' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSyslog$inboundSchema: z.ZodType<
-  OutputSyslog,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSyslogType$inboundSchema,
+  type: TypeSyslogOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputSyslogProtocol$inboundSchema.default("tcp"),
-  facility: Facility$inboundSchema.default(1),
-  severity: OutputSyslogSeverity$inboundSchema.default(5),
+  protocol: Protocol1Options$inboundSchema.default("tcp"),
+  facility: Facility4$inboundSchema.default(1),
+  severity: OutputSyslogSeverity4$inboundSchema.default(5),
   appName: z.string().default("Cribl"),
-  messageFormat: OutputSyslogMessageFormat$inboundSchema.default("rfc3164"),
-  timestampFormat: TimestampFormat$inboundSchema.default("syslog"),
+  messageFormat: MessageFormat4$inboundSchema.default("rfc3164"),
+  timestampFormat: TimestampFormat4$inboundSchema.default("syslog"),
   throttleRatePerSec: z.string().default("0"),
   octetCountFraming: z.boolean().optional(),
   logFailedRequests: z.boolean().default(false),
   description: z.string().optional(),
   loadBalanced: z.boolean().default(true),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  tls: z.lazy(() => OutputSyslogTLSSettingsClientSide$inboundSchema).optional(),
-  onBackpressure: OutputSyslogBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   host: z.string().optional(),
   port: z.number().optional(),
-  maxRecordSize: z.number().default(1500),
-  udpDnsResolvePeriodSec: z.number().default(0),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSyslogCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSyslogQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSyslogMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSyslogPqControls$inboundSchema).optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputSyslogHost$inboundSchema)).optional(),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  maxRecordSize: z.number().default(1500),
+  udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputSyslog$Outbound = {
+export type OutputSyslogSyslog4$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1053,95 +1291,858 @@ export type OutputSyslog$Outbound = {
   logFailedRequests: boolean;
   description?: string | undefined;
   loadBalanced: boolean;
-  connectionTimeout: number;
-  writeTimeout: number;
-  tls?: OutputSyslogTLSSettingsClientSide$Outbound | undefined;
-  onBackpressure: string;
   host?: string | undefined;
   port?: number | undefined;
+  excludeSelf: boolean;
+  hosts?: Array<HostsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
   maxRecordSize: number;
   udpDnsResolvePeriodSec: number;
+  enableIpSpoofing: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputSyslogPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
+};
+
+/** @internal */
+export const OutputSyslogSyslog4$outboundSchema: z.ZodType<
+  OutputSyslogSyslog4$Outbound,
+  z.ZodTypeDef,
+  OutputSyslogSyslog4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSyslogOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: Protocol1Options$outboundSchema.default("tcp"),
+  facility: Facility4$outboundSchema.default(1),
+  severity: OutputSyslogSeverity4$outboundSchema.default(5),
+  appName: z.string().default("Cribl"),
+  messageFormat: MessageFormat4$outboundSchema.default("rfc3164"),
+  timestampFormat: TimestampFormat4$outboundSchema.default("syslog"),
+  throttleRatePerSec: z.string().default("0"),
+  octetCountFraming: z.boolean().optional(),
+  logFailedRequests: z.boolean().default(false),
+  description: z.string().optional(),
+  loadBalanced: z.boolean().default(true),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  maxRecordSize: z.number().default(1500),
+  udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
+});
+
+export function outputSyslogSyslog4ToJSON(
+  outputSyslogSyslog4: OutputSyslogSyslog4,
+): string {
+  return JSON.stringify(
+    OutputSyslogSyslog4$outboundSchema.parse(outputSyslogSyslog4),
+  );
+}
+export function outputSyslogSyslog4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSyslogSyslog4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSyslogSyslog4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSyslogSyslog4' from JSON`,
+  );
+}
+
+/** @internal */
+export const Facility3$inboundSchema: z.ZodType<
+  Facility3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(Facility3),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const Facility3$outboundSchema: z.ZodType<
+  Facility3,
+  z.ZodTypeDef,
+  Facility3
+> = z.union([
+  z.nativeEnum(Facility3),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
+
+/** @internal */
+export const OutputSyslogSeverity3$inboundSchema: z.ZodType<
+  OutputSyslogSeverity3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSyslogSeverity3),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSyslogSeverity3$outboundSchema: z.ZodType<
+  OutputSyslogSeverity3,
+  z.ZodTypeDef,
+  OutputSyslogSeverity3
+> = z.union([
+  z.nativeEnum(OutputSyslogSeverity3),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
+
+/** @internal */
+export const MessageFormat3$inboundSchema: z.ZodType<
+  MessageFormat3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(MessageFormat3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const MessageFormat3$outboundSchema: z.ZodType<
+  MessageFormat3,
+  z.ZodTypeDef,
+  MessageFormat3
+> = z.union([
+  z.nativeEnum(MessageFormat3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const TimestampFormat3$inboundSchema: z.ZodType<
+  TimestampFormat3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampFormat3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampFormat3$outboundSchema: z.ZodType<
+  TimestampFormat3,
+  z.ZodTypeDef,
+  TimestampFormat3
+> = z.union([
+  z.nativeEnum(TimestampFormat3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSyslogSyslog3$inboundSchema: z.ZodType<
+  OutputSyslogSyslog3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSyslogOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: Protocol1Options$inboundSchema.default("tcp"),
+  facility: Facility3$inboundSchema.default(1),
+  severity: OutputSyslogSeverity3$inboundSchema.default(5),
+  appName: z.string().default("Cribl"),
+  messageFormat: MessageFormat3$inboundSchema.default("rfc3164"),
+  timestampFormat: TimestampFormat3$inboundSchema.default("syslog"),
+  throttleRatePerSec: z.string().default("0"),
+  octetCountFraming: z.boolean().optional(),
+  logFailedRequests: z.boolean().default(false),
+  description: z.string().optional(),
+  loadBalanced: z.boolean().default(true),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  maxRecordSize: z.number().default(1500),
+  udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSyslogSyslog3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  protocol: string;
+  facility: number;
+  severity: number;
+  appName: string;
+  messageFormat: string;
+  timestampFormat: string;
+  throttleRatePerSec: string;
+  octetCountFraming?: boolean | undefined;
+  logFailedRequests: boolean;
+  description?: string | undefined;
+  loadBalanced: boolean;
+  host?: string | undefined;
+  port?: number | undefined;
+  excludeSelf: boolean;
+  hosts?: Array<HostsType$Outbound> | undefined;
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
   maxConcurrentSenders: number;
-  excludeSelf: boolean;
-  hosts?: Array<OutputSyslogHost$Outbound> | undefined;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  maxRecordSize: number;
+  udpDnsResolvePeriodSec: number;
+  enableIpSpoofing: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
 };
+
+/** @internal */
+export const OutputSyslogSyslog3$outboundSchema: z.ZodType<
+  OutputSyslogSyslog3$Outbound,
+  z.ZodTypeDef,
+  OutputSyslogSyslog3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSyslogOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: Protocol1Options$outboundSchema.default("tcp"),
+  facility: Facility3$outboundSchema.default(1),
+  severity: OutputSyslogSeverity3$outboundSchema.default(5),
+  appName: z.string().default("Cribl"),
+  messageFormat: MessageFormat3$outboundSchema.default("rfc3164"),
+  timestampFormat: TimestampFormat3$outboundSchema.default("syslog"),
+  throttleRatePerSec: z.string().default("0"),
+  octetCountFraming: z.boolean().optional(),
+  logFailedRequests: z.boolean().default(false),
+  description: z.string().optional(),
+  loadBalanced: z.boolean().default(true),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  maxRecordSize: z.number().default(1500),
+  udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSyslogSyslog3ToJSON(
+  outputSyslogSyslog3: OutputSyslogSyslog3,
+): string {
+  return JSON.stringify(
+    OutputSyslogSyslog3$outboundSchema.parse(outputSyslogSyslog3),
+  );
+}
+export function outputSyslogSyslog3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSyslogSyslog3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSyslogSyslog3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSyslogSyslog3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Facility2$inboundSchema: z.ZodType<
+  Facility2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(Facility2),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const Facility2$outboundSchema: z.ZodType<
+  Facility2,
+  z.ZodTypeDef,
+  Facility2
+> = z.union([
+  z.nativeEnum(Facility2),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
+
+/** @internal */
+export const OutputSyslogSeverity2$inboundSchema: z.ZodType<
+  OutputSyslogSeverity2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSyslogSeverity2),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSyslogSeverity2$outboundSchema: z.ZodType<
+  OutputSyslogSeverity2,
+  z.ZodTypeDef,
+  OutputSyslogSeverity2
+> = z.union([
+  z.nativeEnum(OutputSyslogSeverity2),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
+
+/** @internal */
+export const MessageFormat2$inboundSchema: z.ZodType<
+  MessageFormat2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(MessageFormat2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const MessageFormat2$outboundSchema: z.ZodType<
+  MessageFormat2,
+  z.ZodTypeDef,
+  MessageFormat2
+> = z.union([
+  z.nativeEnum(MessageFormat2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const TimestampFormat2$inboundSchema: z.ZodType<
+  TimestampFormat2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampFormat2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampFormat2$outboundSchema: z.ZodType<
+  TimestampFormat2,
+  z.ZodTypeDef,
+  TimestampFormat2
+> = z.union([
+  z.nativeEnum(TimestampFormat2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSyslogSyslog2$inboundSchema: z.ZodType<
+  OutputSyslogSyslog2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  protocol: Protocol1Options$inboundSchema.default("tcp"),
+  id: z.string().optional(),
+  type: TypeSyslogOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  facility: Facility2$inboundSchema.default(1),
+  severity: OutputSyslogSeverity2$inboundSchema.default(5),
+  appName: z.string().default("Cribl"),
+  messageFormat: MessageFormat2$inboundSchema.default("rfc3164"),
+  timestampFormat: TimestampFormat2$inboundSchema.default("syslog"),
+  throttleRatePerSec: z.string().default("0"),
+  octetCountFraming: z.boolean().optional(),
+  logFailedRequests: z.boolean().default(false),
+  description: z.string().optional(),
+  loadBalanced: z.boolean().default(true),
+  host: z.string(),
+  port: z.number(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  maxRecordSize: z.number().default(1500),
+  udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSyslogSyslog2$Outbound = {
+  protocol: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  facility: number;
+  severity: number;
+  appName: string;
+  messageFormat: string;
+  timestampFormat: string;
+  throttleRatePerSec: string;
+  octetCountFraming?: boolean | undefined;
+  logFailedRequests: boolean;
+  description?: string | undefined;
+  loadBalanced: boolean;
+  host: string;
+  port: number;
+  excludeSelf: boolean;
+  hosts?: Array<HostsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls?: Tls1Type$Outbound | undefined;
+  onBackpressure: string;
+  maxRecordSize: number;
+  udpDnsResolvePeriodSec: number;
+  enableIpSpoofing: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSyslogSyslog2$outboundSchema: z.ZodType<
+  OutputSyslogSyslog2$Outbound,
+  z.ZodTypeDef,
+  OutputSyslogSyslog2
+> = z.object({
+  protocol: Protocol1Options$outboundSchema.default("tcp"),
+  id: z.string().optional(),
+  type: TypeSyslogOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  facility: Facility2$outboundSchema.default(1),
+  severity: OutputSyslogSeverity2$outboundSchema.default(5),
+  appName: z.string().default("Cribl"),
+  messageFormat: MessageFormat2$outboundSchema.default("rfc3164"),
+  timestampFormat: TimestampFormat2$outboundSchema.default("syslog"),
+  throttleRatePerSec: z.string().default("0"),
+  octetCountFraming: z.boolean().optional(),
+  logFailedRequests: z.boolean().default(false),
+  description: z.string().optional(),
+  loadBalanced: z.boolean().default(true),
+  host: z.string(),
+  port: z.number(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  maxRecordSize: z.number().default(1500),
+  udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSyslogSyslog2ToJSON(
+  outputSyslogSyslog2: OutputSyslogSyslog2,
+): string {
+  return JSON.stringify(
+    OutputSyslogSyslog2$outboundSchema.parse(outputSyslogSyslog2),
+  );
+}
+export function outputSyslogSyslog2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSyslogSyslog2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSyslogSyslog2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSyslogSyslog2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Facility1$inboundSchema: z.ZodType<
+  Facility1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(Facility1),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const Facility1$outboundSchema: z.ZodType<
+  Facility1,
+  z.ZodTypeDef,
+  Facility1
+> = z.union([
+  z.nativeEnum(Facility1),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
+
+/** @internal */
+export const OutputSyslogSeverity1$inboundSchema: z.ZodType<
+  OutputSyslogSeverity1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSyslogSeverity1),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSyslogSeverity1$outboundSchema: z.ZodType<
+  OutputSyslogSeverity1,
+  z.ZodTypeDef,
+  OutputSyslogSeverity1
+> = z.union([
+  z.nativeEnum(OutputSyslogSeverity1),
+  z.number().and(z.custom<Unrecognized<number>>()),
+]);
+
+/** @internal */
+export const MessageFormat1$inboundSchema: z.ZodType<
+  MessageFormat1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(MessageFormat1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const MessageFormat1$outboundSchema: z.ZodType<
+  MessageFormat1,
+  z.ZodTypeDef,
+  MessageFormat1
+> = z.union([
+  z.nativeEnum(MessageFormat1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const TimestampFormat1$inboundSchema: z.ZodType<
+  TimestampFormat1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(TimestampFormat1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const TimestampFormat1$outboundSchema: z.ZodType<
+  TimestampFormat1,
+  z.ZodTypeDef,
+  TimestampFormat1
+> = z.union([
+  z.nativeEnum(TimestampFormat1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSyslogSyslog1$inboundSchema: z.ZodType<
+  OutputSyslogSyslog1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  protocol: Protocol1Options$inboundSchema.default("tcp"),
+  id: z.string().optional(),
+  type: TypeSyslogOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  facility: Facility1$inboundSchema.default(1),
+  severity: OutputSyslogSeverity1$inboundSchema.default(5),
+  appName: z.string().default("Cribl"),
+  messageFormat: MessageFormat1$inboundSchema.default("rfc3164"),
+  timestampFormat: TimestampFormat1$inboundSchema.default("syslog"),
+  throttleRatePerSec: z.string().default("0"),
+  octetCountFraming: z.boolean().optional(),
+  logFailedRequests: z.boolean().default(false),
+  description: z.string().optional(),
+  loadBalanced: z.boolean().default(true),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$inboundSchema,
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  maxRecordSize: z.number().default(1500),
+  udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSyslogSyslog1$Outbound = {
+  protocol: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  facility: number;
+  severity: number;
+  appName: string;
+  messageFormat: string;
+  timestampFormat: string;
+  throttleRatePerSec: string;
+  octetCountFraming?: boolean | undefined;
+  logFailedRequests: boolean;
+  description?: string | undefined;
+  loadBalanced: boolean;
+  host?: string | undefined;
+  port?: number | undefined;
+  excludeSelf: boolean;
+  hosts?: Array<HostsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  maxConcurrentSenders: number;
+  connectionTimeout: number;
+  writeTimeout: number;
+  tls: Tls1Type$Outbound;
+  onBackpressure: string;
+  maxRecordSize: number;
+  udpDnsResolvePeriodSec: number;
+  enableIpSpoofing: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSyslogSyslog1$outboundSchema: z.ZodType<
+  OutputSyslogSyslog1$Outbound,
+  z.ZodTypeDef,
+  OutputSyslogSyslog1
+> = z.object({
+  protocol: Protocol1Options$outboundSchema.default("tcp"),
+  id: z.string().optional(),
+  type: TypeSyslogOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  facility: Facility1$outboundSchema.default(1),
+  severity: OutputSyslogSeverity1$outboundSchema.default(5),
+  appName: z.string().default("Cribl"),
+  messageFormat: MessageFormat1$outboundSchema.default("rfc3164"),
+  timestampFormat: TimestampFormat1$outboundSchema.default("syslog"),
+  throttleRatePerSec: z.string().default("0"),
+  octetCountFraming: z.boolean().optional(),
+  logFailedRequests: z.boolean().default(false),
+  description: z.string().optional(),
+  loadBalanced: z.boolean().default(true),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().default(false),
+  hosts: z.array(HostsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  maxConcurrentSenders: z.number().default(0),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  tls: Tls1Type$outboundSchema,
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  maxRecordSize: z.number().default(1500),
+  udpDnsResolvePeriodSec: z.number().default(0),
+  enableIpSpoofing: z.boolean().default(false),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSyslogSyslog1ToJSON(
+  outputSyslogSyslog1: OutputSyslogSyslog1,
+): string {
+  return JSON.stringify(
+    OutputSyslogSyslog1$outboundSchema.parse(outputSyslogSyslog1),
+  );
+}
+export function outputSyslogSyslog1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSyslogSyslog1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSyslogSyslog1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSyslogSyslog1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSyslog$inboundSchema: z.ZodType<
+  OutputSyslog,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSyslogSyslog2$inboundSchema),
+  z.lazy(() => OutputSyslogSyslog1$inboundSchema),
+  z.lazy(() => OutputSyslogSyslog4$inboundSchema),
+  z.lazy(() => OutputSyslogSyslog3$inboundSchema),
+]);
+/** @internal */
+export type OutputSyslog$Outbound =
+  | OutputSyslogSyslog2$Outbound
+  | OutputSyslogSyslog1$Outbound
+  | OutputSyslogSyslog4$Outbound
+  | OutputSyslogSyslog3$Outbound;
 
 /** @internal */
 export const OutputSyslog$outboundSchema: z.ZodType<
   OutputSyslog$Outbound,
   z.ZodTypeDef,
   OutputSyslog
-> = z.object({
-  id: z.string().optional(),
-  type: OutputSyslogType$outboundSchema,
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  protocol: OutputSyslogProtocol$outboundSchema.default("tcp"),
-  facility: Facility$outboundSchema.default(1),
-  severity: OutputSyslogSeverity$outboundSchema.default(5),
-  appName: z.string().default("Cribl"),
-  messageFormat: OutputSyslogMessageFormat$outboundSchema.default("rfc3164"),
-  timestampFormat: TimestampFormat$outboundSchema.default("syslog"),
-  throttleRatePerSec: z.string().default("0"),
-  octetCountFraming: z.boolean().optional(),
-  logFailedRequests: z.boolean().default(false),
-  description: z.string().optional(),
-  loadBalanced: z.boolean().default(true),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  tls: z.lazy(() => OutputSyslogTLSSettingsClientSide$outboundSchema)
-    .optional(),
-  onBackpressure: OutputSyslogBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  host: z.string().optional(),
-  port: z.number().optional(),
-  maxRecordSize: z.number().default(1500),
-  udpDnsResolvePeriodSec: z.number().default(0),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSyslogCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSyslogQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSyslogMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSyslogPqControls$outboundSchema).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputSyslogHost$outboundSchema)).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSyslog$ {
-  /** @deprecated use `OutputSyslog$inboundSchema` instead. */
-  export const inboundSchema = OutputSyslog$inboundSchema;
-  /** @deprecated use `OutputSyslog$outboundSchema` instead. */
-  export const outboundSchema = OutputSyslog$outboundSchema;
-  /** @deprecated use `OutputSyslog$Outbound` instead. */
-  export type Outbound = OutputSyslog$Outbound;
-}
+> = z.union([
+  z.lazy(() => OutputSyslogSyslog2$outboundSchema),
+  z.lazy(() => OutputSyslogSyslog1$outboundSchema),
+  z.lazy(() => OutputSyslogSyslog4$outboundSchema),
+  z.lazy(() => OutputSyslogSyslog3$outboundSchema),
+]);
 
 export function outputSyslogToJSON(outputSyslog: OutputSyslog): string {
   return JSON.stringify(OutputSyslog$outboundSchema.parse(outputSyslog));
 }
-
 export function outputSyslogFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSyslog, SDKValidationError> {

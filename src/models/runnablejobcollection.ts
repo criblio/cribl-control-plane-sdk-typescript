@@ -4,204 +4,13 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import { CollectorType, CollectorType$inboundSchema } from "./collectortype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const RunnableJobCollectionJobType = {
-  Collection: "collection",
-  Executor: "executor",
-  ScheduledSearch: "scheduledSearch",
-} as const;
-export type RunnableJobCollectionJobType = OpenEnum<
-  typeof RunnableJobCollectionJobType
->;
-
-export const RunnableJobCollectionRunType = {
-  Collection: "collection",
-} as const;
-export type RunnableJobCollectionRunType = ClosedEnum<
-  typeof RunnableJobCollectionRunType
->;
-
-/**
- * Level at which to set task logging
- */
-export const RunnableJobCollectionScheduleLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Level at which to set task logging
- */
-export type RunnableJobCollectionScheduleLogLevel = ClosedEnum<
-  typeof RunnableJobCollectionScheduleLogLevel
->;
-
-export type RunnableJobCollectionScheduleTimeWarning = {};
-
-export type RunnableJobCollectionRunSettings = {
-  type?: RunnableJobCollectionRunType | undefined;
-  /**
-   * Reschedule tasks that failed with non-fatal errors
-   */
-  rescheduleDroppedTasks?: boolean | undefined;
-  /**
-   * Maximum number of times a task can be rescheduled
-   */
-  maxTaskReschedule?: number | undefined;
-  /**
-   * Level at which to set task logging
-   */
-  logLevel?: RunnableJobCollectionScheduleLogLevel | undefined;
-  /**
-   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-   */
-  jobTimeout?: string | undefined;
-  /**
-   * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-   */
-  mode?: string | undefined;
-  timeRangeType?: string | undefined;
-  /**
-   * Earliest time to collect data for the selected timezone
-   */
-  earliest?: number | undefined;
-  /**
-   * Latest time to collect data for the selected timezone
-   */
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: RunnableJobCollectionScheduleTimeWarning | undefined;
-  /**
-   * A filter for tokens in the provided collect path and/or the events being collected
-   */
-  expression?: string | undefined;
-  /**
-   * Limits the bundle size for small tasks. For example,
-   *
-   * @remarks
-   *
-   *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-   */
-  minTaskSize?: string | undefined;
-  /**
-   * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-   *
-   * @remarks
-   *
-   *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-   */
-  maxTaskSize?: string | undefined;
-};
-
-/**
- * Configuration for a scheduled job
- */
-export type RunnableJobCollectionSchedule = {
-  /**
-   * Enable to configure scheduling for this Collector
-   */
-  enabled?: boolean | undefined;
-  /**
-   * A cron schedule on which to run this job
-   */
-  cronSchedule?: string | undefined;
-  /**
-   * The maximum number of instances of this scheduled job that may be running at any time
-   */
-  maxConcurrentRuns?: number | undefined;
-  /**
-   * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-   */
-  skippable?: boolean | undefined;
-  resumeMissed?: any | undefined;
-  run?: RunnableJobCollectionRunSettings | undefined;
-};
-
-export type CollectorSpecificSettings = {};
-
-export type Collector = {
-  /**
-   * The type of collector to run
-   */
-  type: string;
-  conf: CollectorSpecificSettings;
-  /**
-   * Delete any files collected (where applicable)
-   */
-  destructive?: boolean | undefined;
-  /**
-   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-   */
-  encoding?: string | undefined;
-};
-
-export const InputType = {
-  Collection: "collection",
-} as const;
-export type InputType = OpenEnum<typeof InputType>;
-
-export type RunnableJobCollectionPreprocess = {
-  disabled?: boolean | undefined;
-  /**
-   * Command to feed the data through (via stdin) and process its output (stdout)
-   */
-  command?: string | undefined;
-  /**
-   * Arguments to be added to the custom command
-   */
-  args?: Array<string> | undefined;
-};
-
-export type RunnableJobCollectionMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type RunnableJobCollectionInput = {
-  type?: InputType | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
-   */
-  sendToRoutes?: boolean | undefined;
-  preprocess?: RunnableJobCollectionPreprocess | undefined;
-  /**
-   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-   */
-  throttleRatePerSec?: string | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<RunnableJobCollectionMetadatum> | undefined;
-  /**
-   * Pipeline to process results
-   */
-  pipeline?: string | undefined;
-  /**
-   * Destination to send results to
-   */
-  output?: string | undefined;
-};
+import { InputType, InputType$inboundSchema } from "./inputtype.js";
+import { ScheduleType, ScheduleType$inboundSchema } from "./scheduletype.js";
+import { Type1Options, Type1Options$inboundSchema } from "./type1options.js";
 
 /**
  * Level at which to set task logging
@@ -241,12 +50,24 @@ export const TimeRange = {
 } as const;
 export type TimeRange = OpenEnum<typeof TimeRange>;
 
-export type RunnableJobCollectionTimeWarning = {};
+export type TimeWarning = {};
 
 export const WhereToCapture = {
+  /**
+   * 1. Before pre-processing Pipeline
+   */
   Zero: 0,
+  /**
+   * 2. Before the Routes
+   */
   One: 1,
+  /**
+   * 3. Before post-processing Pipeline
+   */
   Two: 2,
+  /**
+   * 4. Before the Destination
+   */
   Three: 3,
 } as const;
 export type WhereToCapture = OpenEnum<typeof WhereToCapture>;
@@ -297,7 +118,7 @@ export type RunnableJobCollectionRun = {
    * Timezone to use for Earliest and Latest times
    */
   timestampTimezone?: string | undefined;
-  timeWarning?: RunnableJobCollectionTimeWarning | undefined;
+  timeWarning?: TimeWarning | undefined;
   /**
    * A filter for tokens in the provided collect path and/or the events being collected
    */
@@ -331,7 +152,7 @@ export type RunnableJobCollection = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type?: RunnableJobCollectionJobType | undefined;
+  type?: Type1Options | undefined;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -355,7 +176,7 @@ export type RunnableJobCollection = {
   /**
    * Configuration for a scheduled job
    */
-  schedule?: RunnableJobCollectionSchedule | undefined;
+  schedule?: ScheduleType | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -364,660 +185,10 @@ export type RunnableJobCollection = {
    * If enabled, tasks are created and run by the same Worker Node
    */
   workerAffinity?: boolean | undefined;
-  collector: Collector;
-  input?: RunnableJobCollectionInput | undefined;
+  collector: CollectorType;
+  input?: InputType | undefined;
   run: RunnableJobCollectionRun;
 };
-
-/** @internal */
-export const RunnableJobCollectionJobType$inboundSchema: z.ZodType<
-  RunnableJobCollectionJobType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(RunnableJobCollectionJobType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const RunnableJobCollectionJobType$outboundSchema: z.ZodType<
-  RunnableJobCollectionJobType,
-  z.ZodTypeDef,
-  RunnableJobCollectionJobType
-> = z.union([
-  z.nativeEnum(RunnableJobCollectionJobType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionJobType$ {
-  /** @deprecated use `RunnableJobCollectionJobType$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionJobType$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionJobType$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionJobType$outboundSchema;
-}
-
-/** @internal */
-export const RunnableJobCollectionRunType$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionRunType
-> = z.nativeEnum(RunnableJobCollectionRunType);
-
-/** @internal */
-export const RunnableJobCollectionRunType$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionRunType
-> = RunnableJobCollectionRunType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionRunType$ {
-  /** @deprecated use `RunnableJobCollectionRunType$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionRunType$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionRunType$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionRunType$outboundSchema;
-}
-
-/** @internal */
-export const RunnableJobCollectionScheduleLogLevel$inboundSchema:
-  z.ZodNativeEnum<typeof RunnableJobCollectionScheduleLogLevel> = z.nativeEnum(
-    RunnableJobCollectionScheduleLogLevel,
-  );
-
-/** @internal */
-export const RunnableJobCollectionScheduleLogLevel$outboundSchema:
-  z.ZodNativeEnum<typeof RunnableJobCollectionScheduleLogLevel> =
-    RunnableJobCollectionScheduleLogLevel$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionScheduleLogLevel$ {
-  /** @deprecated use `RunnableJobCollectionScheduleLogLevel$inboundSchema` instead. */
-  export const inboundSchema =
-    RunnableJobCollectionScheduleLogLevel$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionScheduleLogLevel$outboundSchema` instead. */
-  export const outboundSchema =
-    RunnableJobCollectionScheduleLogLevel$outboundSchema;
-}
-
-/** @internal */
-export const RunnableJobCollectionScheduleTimeWarning$inboundSchema: z.ZodType<
-  RunnableJobCollectionScheduleTimeWarning,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type RunnableJobCollectionScheduleTimeWarning$Outbound = {};
-
-/** @internal */
-export const RunnableJobCollectionScheduleTimeWarning$outboundSchema: z.ZodType<
-  RunnableJobCollectionScheduleTimeWarning$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollectionScheduleTimeWarning
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionScheduleTimeWarning$ {
-  /** @deprecated use `RunnableJobCollectionScheduleTimeWarning$inboundSchema` instead. */
-  export const inboundSchema =
-    RunnableJobCollectionScheduleTimeWarning$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionScheduleTimeWarning$outboundSchema` instead. */
-  export const outboundSchema =
-    RunnableJobCollectionScheduleTimeWarning$outboundSchema;
-  /** @deprecated use `RunnableJobCollectionScheduleTimeWarning$Outbound` instead. */
-  export type Outbound = RunnableJobCollectionScheduleTimeWarning$Outbound;
-}
-
-export function runnableJobCollectionScheduleTimeWarningToJSON(
-  runnableJobCollectionScheduleTimeWarning:
-    RunnableJobCollectionScheduleTimeWarning,
-): string {
-  return JSON.stringify(
-    RunnableJobCollectionScheduleTimeWarning$outboundSchema.parse(
-      runnableJobCollectionScheduleTimeWarning,
-    ),
-  );
-}
-
-export function runnableJobCollectionScheduleTimeWarningFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RunnableJobCollectionScheduleTimeWarning,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RunnableJobCollectionScheduleTimeWarning$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RunnableJobCollectionScheduleTimeWarning' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobCollectionRunSettings$inboundSchema: z.ZodType<
-  RunnableJobCollectionRunSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: RunnableJobCollectionRunType$inboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: RunnableJobCollectionScheduleLogLevel$inboundSchema.default("info"),
-  jobTimeout: z.string().default("0"),
-  mode: z.string().default("list"),
-  timeRangeType: z.string().default("relative"),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.any().optional(),
-  timeWarning: z.lazy(() =>
-    RunnableJobCollectionScheduleTimeWarning$inboundSchema
-  ).optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-});
-
-/** @internal */
-export type RunnableJobCollectionRunSettings$Outbound = {
-  type?: string | undefined;
-  rescheduleDroppedTasks: boolean;
-  maxTaskReschedule: number;
-  logLevel: string;
-  jobTimeout: string;
-  mode: string;
-  timeRangeType: string;
-  earliest?: number | undefined;
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: RunnableJobCollectionScheduleTimeWarning$Outbound | undefined;
-  expression: string;
-  minTaskSize: string;
-  maxTaskSize: string;
-};
-
-/** @internal */
-export const RunnableJobCollectionRunSettings$outboundSchema: z.ZodType<
-  RunnableJobCollectionRunSettings$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollectionRunSettings
-> = z.object({
-  type: RunnableJobCollectionRunType$outboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: RunnableJobCollectionScheduleLogLevel$outboundSchema.default(
-    "info",
-  ),
-  jobTimeout: z.string().default("0"),
-  mode: z.string().default("list"),
-  timeRangeType: z.string().default("relative"),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.any().optional(),
-  timeWarning: z.lazy(() =>
-    RunnableJobCollectionScheduleTimeWarning$outboundSchema
-  ).optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionRunSettings$ {
-  /** @deprecated use `RunnableJobCollectionRunSettings$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionRunSettings$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionRunSettings$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionRunSettings$outboundSchema;
-  /** @deprecated use `RunnableJobCollectionRunSettings$Outbound` instead. */
-  export type Outbound = RunnableJobCollectionRunSettings$Outbound;
-}
-
-export function runnableJobCollectionRunSettingsToJSON(
-  runnableJobCollectionRunSettings: RunnableJobCollectionRunSettings,
-): string {
-  return JSON.stringify(
-    RunnableJobCollectionRunSettings$outboundSchema.parse(
-      runnableJobCollectionRunSettings,
-    ),
-  );
-}
-
-export function runnableJobCollectionRunSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobCollectionRunSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobCollectionRunSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobCollectionRunSettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobCollectionSchedule$inboundSchema: z.ZodType<
-  RunnableJobCollectionSchedule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().optional(),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.any().optional(),
-  run: z.lazy(() => RunnableJobCollectionRunSettings$inboundSchema).optional(),
-});
-
-/** @internal */
-export type RunnableJobCollectionSchedule$Outbound = {
-  enabled?: boolean | undefined;
-  cronSchedule: string;
-  maxConcurrentRuns: number;
-  skippable: boolean;
-  resumeMissed?: any | undefined;
-  run?: RunnableJobCollectionRunSettings$Outbound | undefined;
-};
-
-/** @internal */
-export const RunnableJobCollectionSchedule$outboundSchema: z.ZodType<
-  RunnableJobCollectionSchedule$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollectionSchedule
-> = z.object({
-  enabled: z.boolean().optional(),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.any().optional(),
-  run: z.lazy(() => RunnableJobCollectionRunSettings$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionSchedule$ {
-  /** @deprecated use `RunnableJobCollectionSchedule$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionSchedule$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionSchedule$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionSchedule$outboundSchema;
-  /** @deprecated use `RunnableJobCollectionSchedule$Outbound` instead. */
-  export type Outbound = RunnableJobCollectionSchedule$Outbound;
-}
-
-export function runnableJobCollectionScheduleToJSON(
-  runnableJobCollectionSchedule: RunnableJobCollectionSchedule,
-): string {
-  return JSON.stringify(
-    RunnableJobCollectionSchedule$outboundSchema.parse(
-      runnableJobCollectionSchedule,
-    ),
-  );
-}
-
-export function runnableJobCollectionScheduleFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobCollectionSchedule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobCollectionSchedule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobCollectionSchedule' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorSpecificSettings$inboundSchema: z.ZodType<
-  CollectorSpecificSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type CollectorSpecificSettings$Outbound = {};
-
-/** @internal */
-export const CollectorSpecificSettings$outboundSchema: z.ZodType<
-  CollectorSpecificSettings$Outbound,
-  z.ZodTypeDef,
-  CollectorSpecificSettings
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CollectorSpecificSettings$ {
-  /** @deprecated use `CollectorSpecificSettings$inboundSchema` instead. */
-  export const inboundSchema = CollectorSpecificSettings$inboundSchema;
-  /** @deprecated use `CollectorSpecificSettings$outboundSchema` instead. */
-  export const outboundSchema = CollectorSpecificSettings$outboundSchema;
-  /** @deprecated use `CollectorSpecificSettings$Outbound` instead. */
-  export type Outbound = CollectorSpecificSettings$Outbound;
-}
-
-export function collectorSpecificSettingsToJSON(
-  collectorSpecificSettings: CollectorSpecificSettings,
-): string {
-  return JSON.stringify(
-    CollectorSpecificSettings$outboundSchema.parse(collectorSpecificSettings),
-  );
-}
-
-export function collectorSpecificSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorSpecificSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorSpecificSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorSpecificSettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const Collector$inboundSchema: z.ZodType<
-  Collector,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.string(),
-  conf: z.lazy(() => CollectorSpecificSettings$inboundSchema),
-  destructive: z.boolean().default(false),
-  encoding: z.string().optional(),
-});
-
-/** @internal */
-export type Collector$Outbound = {
-  type: string;
-  conf: CollectorSpecificSettings$Outbound;
-  destructive: boolean;
-  encoding?: string | undefined;
-};
-
-/** @internal */
-export const Collector$outboundSchema: z.ZodType<
-  Collector$Outbound,
-  z.ZodTypeDef,
-  Collector
-> = z.object({
-  type: z.string(),
-  conf: z.lazy(() => CollectorSpecificSettings$outboundSchema),
-  destructive: z.boolean().default(false),
-  encoding: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Collector$ {
-  /** @deprecated use `Collector$inboundSchema` instead. */
-  export const inboundSchema = Collector$inboundSchema;
-  /** @deprecated use `Collector$outboundSchema` instead. */
-  export const outboundSchema = Collector$outboundSchema;
-  /** @deprecated use `Collector$Outbound` instead. */
-  export type Outbound = Collector$Outbound;
-}
-
-export function collectorToJSON(collector: Collector): string {
-  return JSON.stringify(Collector$outboundSchema.parse(collector));
-}
-
-export function collectorFromJSON(
-  jsonString: string,
-): SafeParseResult<Collector, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Collector$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Collector' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputType$inboundSchema: z.ZodType<
-  InputType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputType$outboundSchema: z.ZodType<
-  InputType,
-  z.ZodTypeDef,
-  InputType
-> = z.union([
-  z.nativeEnum(InputType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputType$ {
-  /** @deprecated use `InputType$inboundSchema` instead. */
-  export const inboundSchema = InputType$inboundSchema;
-  /** @deprecated use `InputType$outboundSchema` instead. */
-  export const outboundSchema = InputType$outboundSchema;
-}
-
-/** @internal */
-export const RunnableJobCollectionPreprocess$inboundSchema: z.ZodType<
-  RunnableJobCollectionPreprocess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-
-/** @internal */
-export type RunnableJobCollectionPreprocess$Outbound = {
-  disabled: boolean;
-  command?: string | undefined;
-  args?: Array<string> | undefined;
-};
-
-/** @internal */
-export const RunnableJobCollectionPreprocess$outboundSchema: z.ZodType<
-  RunnableJobCollectionPreprocess$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollectionPreprocess
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionPreprocess$ {
-  /** @deprecated use `RunnableJobCollectionPreprocess$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionPreprocess$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionPreprocess$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionPreprocess$outboundSchema;
-  /** @deprecated use `RunnableJobCollectionPreprocess$Outbound` instead. */
-  export type Outbound = RunnableJobCollectionPreprocess$Outbound;
-}
-
-export function runnableJobCollectionPreprocessToJSON(
-  runnableJobCollectionPreprocess: RunnableJobCollectionPreprocess,
-): string {
-  return JSON.stringify(
-    RunnableJobCollectionPreprocess$outboundSchema.parse(
-      runnableJobCollectionPreprocess,
-    ),
-  );
-}
-
-export function runnableJobCollectionPreprocessFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobCollectionPreprocess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobCollectionPreprocess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobCollectionPreprocess' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobCollectionMetadatum$inboundSchema: z.ZodType<
-  RunnableJobCollectionMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type RunnableJobCollectionMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const RunnableJobCollectionMetadatum$outboundSchema: z.ZodType<
-  RunnableJobCollectionMetadatum$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollectionMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionMetadatum$ {
-  /** @deprecated use `RunnableJobCollectionMetadatum$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionMetadatum$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionMetadatum$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionMetadatum$outboundSchema;
-  /** @deprecated use `RunnableJobCollectionMetadatum$Outbound` instead. */
-  export type Outbound = RunnableJobCollectionMetadatum$Outbound;
-}
-
-export function runnableJobCollectionMetadatumToJSON(
-  runnableJobCollectionMetadatum: RunnableJobCollectionMetadatum,
-): string {
-  return JSON.stringify(
-    RunnableJobCollectionMetadatum$outboundSchema.parse(
-      runnableJobCollectionMetadatum,
-    ),
-  );
-}
-
-export function runnableJobCollectionMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobCollectionMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobCollectionMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobCollectionMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobCollectionInput$inboundSchema: z.ZodType<
-  RunnableJobCollectionInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: InputType$inboundSchema.default("collection"),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  sendToRoutes: z.boolean().default(true),
-  preprocess: z.lazy(() => RunnableJobCollectionPreprocess$inboundSchema)
-    .optional(),
-  throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(z.lazy(() => RunnableJobCollectionMetadatum$inboundSchema))
-    .optional(),
-  pipeline: z.string().optional(),
-  output: z.string().optional(),
-});
-
-/** @internal */
-export type RunnableJobCollectionInput$Outbound = {
-  type: string;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  sendToRoutes: boolean;
-  preprocess?: RunnableJobCollectionPreprocess$Outbound | undefined;
-  throttleRatePerSec: string;
-  metadata?: Array<RunnableJobCollectionMetadatum$Outbound> | undefined;
-  pipeline?: string | undefined;
-  output?: string | undefined;
-};
-
-/** @internal */
-export const RunnableJobCollectionInput$outboundSchema: z.ZodType<
-  RunnableJobCollectionInput$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollectionInput
-> = z.object({
-  type: InputType$outboundSchema.default("collection"),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  sendToRoutes: z.boolean().default(true),
-  preprocess: z.lazy(() => RunnableJobCollectionPreprocess$outboundSchema)
-    .optional(),
-  throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(z.lazy(() => RunnableJobCollectionMetadatum$outboundSchema))
-    .optional(),
-  pipeline: z.string().optional(),
-  output: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionInput$ {
-  /** @deprecated use `RunnableJobCollectionInput$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionInput$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionInput$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionInput$outboundSchema;
-  /** @deprecated use `RunnableJobCollectionInput$Outbound` instead. */
-  export type Outbound = RunnableJobCollectionInput$Outbound;
-}
-
-export function runnableJobCollectionInputToJSON(
-  runnableJobCollectionInput: RunnableJobCollectionInput,
-): string {
-  return JSON.stringify(
-    RunnableJobCollectionInput$outboundSchema.parse(runnableJobCollectionInput),
-  );
-}
-
-export function runnableJobCollectionInputFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobCollectionInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobCollectionInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobCollectionInput' from JSON`,
-  );
-}
 
 /** @internal */
 export const RunnableJobCollectionLogLevel$inboundSchema: z.ZodType<
@@ -1031,27 +202,6 @@ export const RunnableJobCollectionLogLevel$inboundSchema: z.ZodType<
   ]);
 
 /** @internal */
-export const RunnableJobCollectionLogLevel$outboundSchema: z.ZodType<
-  RunnableJobCollectionLogLevel,
-  z.ZodTypeDef,
-  RunnableJobCollectionLogLevel
-> = z.union([
-  z.nativeEnum(RunnableJobCollectionLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionLogLevel$ {
-  /** @deprecated use `RunnableJobCollectionLogLevel$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionLogLevel$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionLogLevel$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionLogLevel$outboundSchema;
-}
-
-/** @internal */
 export const RunnableJobCollectionMode$inboundSchema: z.ZodType<
   RunnableJobCollectionMode,
   z.ZodTypeDef,
@@ -1061,27 +211,6 @@ export const RunnableJobCollectionMode$inboundSchema: z.ZodType<
     z.nativeEnum(RunnableJobCollectionMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
-/** @internal */
-export const RunnableJobCollectionMode$outboundSchema: z.ZodType<
-  RunnableJobCollectionMode,
-  z.ZodTypeDef,
-  RunnableJobCollectionMode
-> = z.union([
-  z.nativeEnum(RunnableJobCollectionMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionMode$ {
-  /** @deprecated use `RunnableJobCollectionMode$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionMode$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionMode$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionMode$outboundSchema;
-}
 
 /** @internal */
 export const TimeRange$inboundSchema: z.ZodType<
@@ -1095,73 +224,19 @@ export const TimeRange$inboundSchema: z.ZodType<
   ]);
 
 /** @internal */
-export const TimeRange$outboundSchema: z.ZodType<
-  TimeRange,
-  z.ZodTypeDef,
-  TimeRange
-> = z.union([
-  z.nativeEnum(TimeRange),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TimeRange$ {
-  /** @deprecated use `TimeRange$inboundSchema` instead. */
-  export const inboundSchema = TimeRange$inboundSchema;
-  /** @deprecated use `TimeRange$outboundSchema` instead. */
-  export const outboundSchema = TimeRange$outboundSchema;
-}
-
-/** @internal */
-export const RunnableJobCollectionTimeWarning$inboundSchema: z.ZodType<
-  RunnableJobCollectionTimeWarning,
+export const TimeWarning$inboundSchema: z.ZodType<
+  TimeWarning,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 
-/** @internal */
-export type RunnableJobCollectionTimeWarning$Outbound = {};
-
-/** @internal */
-export const RunnableJobCollectionTimeWarning$outboundSchema: z.ZodType<
-  RunnableJobCollectionTimeWarning$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollectionTimeWarning
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionTimeWarning$ {
-  /** @deprecated use `RunnableJobCollectionTimeWarning$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionTimeWarning$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionTimeWarning$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionTimeWarning$outboundSchema;
-  /** @deprecated use `RunnableJobCollectionTimeWarning$Outbound` instead. */
-  export type Outbound = RunnableJobCollectionTimeWarning$Outbound;
-}
-
-export function runnableJobCollectionTimeWarningToJSON(
-  runnableJobCollectionTimeWarning: RunnableJobCollectionTimeWarning,
-): string {
-  return JSON.stringify(
-    RunnableJobCollectionTimeWarning$outboundSchema.parse(
-      runnableJobCollectionTimeWarning,
-    ),
-  );
-}
-
-export function runnableJobCollectionTimeWarningFromJSON(
+export function timeWarningFromJSON(
   jsonString: string,
-): SafeParseResult<RunnableJobCollectionTimeWarning, SDKValidationError> {
+): SafeParseResult<TimeWarning, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RunnableJobCollectionTimeWarning$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobCollectionTimeWarning' from JSON`,
+    (x) => TimeWarning$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TimeWarning' from JSON`,
   );
 }
 
@@ -1177,27 +252,6 @@ export const WhereToCapture$inboundSchema: z.ZodType<
   ]);
 
 /** @internal */
-export const WhereToCapture$outboundSchema: z.ZodType<
-  WhereToCapture,
-  z.ZodTypeDef,
-  WhereToCapture
-> = z.union([
-  z.nativeEnum(WhereToCapture),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WhereToCapture$ {
-  /** @deprecated use `WhereToCapture$inboundSchema` instead. */
-  export const inboundSchema = WhereToCapture$inboundSchema;
-  /** @deprecated use `WhereToCapture$outboundSchema` instead. */
-  export const outboundSchema = WhereToCapture$outboundSchema;
-}
-
-/** @internal */
 export const CaptureSettings$inboundSchema: z.ZodType<
   CaptureSettings,
   z.ZodTypeDef,
@@ -1207,43 +261,6 @@ export const CaptureSettings$inboundSchema: z.ZodType<
   maxEvents: z.number().default(100),
   level: WhereToCapture$inboundSchema,
 });
-
-/** @internal */
-export type CaptureSettings$Outbound = {
-  duration: number;
-  maxEvents: number;
-  level: number;
-};
-
-/** @internal */
-export const CaptureSettings$outboundSchema: z.ZodType<
-  CaptureSettings$Outbound,
-  z.ZodTypeDef,
-  CaptureSettings
-> = z.object({
-  duration: z.number().default(60),
-  maxEvents: z.number().default(100),
-  level: WhereToCapture$outboundSchema.default(0),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureSettings$ {
-  /** @deprecated use `CaptureSettings$inboundSchema` instead. */
-  export const inboundSchema = CaptureSettings$inboundSchema;
-  /** @deprecated use `CaptureSettings$outboundSchema` instead. */
-  export const outboundSchema = CaptureSettings$outboundSchema;
-  /** @deprecated use `CaptureSettings$Outbound` instead. */
-  export type Outbound = CaptureSettings$Outbound;
-}
-
-export function captureSettingsToJSON(
-  captureSettings: CaptureSettings,
-): string {
-  return JSON.stringify(CaptureSettings$outboundSchema.parse(captureSettings));
-}
 
 export function captureSettingsFromJSON(
   jsonString: string,
@@ -1270,78 +287,13 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   earliest: z.number().optional(),
   latest: z.number().optional(),
   timestampTimezone: z.string().default("UTC"),
-  timeWarning: z.lazy(() => RunnableJobCollectionTimeWarning$inboundSchema)
-    .optional(),
+  timeWarning: z.lazy(() => TimeWarning$inboundSchema).optional(),
   expression: z.string().default("true"),
   minTaskSize: z.string().default("1MB"),
   maxTaskSize: z.string().default("10MB"),
   discoverToRoutes: z.boolean().default(false),
   capture: z.lazy(() => CaptureSettings$inboundSchema).optional(),
 });
-
-/** @internal */
-export type RunnableJobCollectionRun$Outbound = {
-  rescheduleDroppedTasks: boolean;
-  maxTaskReschedule: number;
-  logLevel: string;
-  jobTimeout: string;
-  mode: string;
-  timeRangeType: string;
-  earliest?: number | undefined;
-  latest?: number | undefined;
-  timestampTimezone: string;
-  timeWarning?: RunnableJobCollectionTimeWarning$Outbound | undefined;
-  expression: string;
-  minTaskSize: string;
-  maxTaskSize: string;
-  discoverToRoutes: boolean;
-  capture?: CaptureSettings$Outbound | undefined;
-};
-
-/** @internal */
-export const RunnableJobCollectionRun$outboundSchema: z.ZodType<
-  RunnableJobCollectionRun$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollectionRun
-> = z.object({
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: RunnableJobCollectionLogLevel$outboundSchema.default("info"),
-  jobTimeout: z.string().default("0"),
-  mode: RunnableJobCollectionMode$outboundSchema.default("list"),
-  timeRangeType: TimeRange$outboundSchema.default("relative"),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.string().default("UTC"),
-  timeWarning: z.lazy(() => RunnableJobCollectionTimeWarning$outboundSchema)
-    .optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-  discoverToRoutes: z.boolean().default(false),
-  capture: z.lazy(() => CaptureSettings$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollectionRun$ {
-  /** @deprecated use `RunnableJobCollectionRun$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollectionRun$inboundSchema;
-  /** @deprecated use `RunnableJobCollectionRun$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollectionRun$outboundSchema;
-  /** @deprecated use `RunnableJobCollectionRun$Outbound` instead. */
-  export type Outbound = RunnableJobCollectionRun$Outbound;
-}
-
-export function runnableJobCollectionRunToJSON(
-  runnableJobCollectionRun: RunnableJobCollectionRun,
-): string {
-  return JSON.stringify(
-    RunnableJobCollectionRun$outboundSchema.parse(runnableJobCollectionRun),
-  );
-}
 
 export function runnableJobCollectionRunFromJSON(
   jsonString: string,
@@ -1361,82 +313,19 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
-  type: RunnableJobCollectionJobType$inboundSchema.optional(),
+  type: Type1Options$inboundSchema.optional(),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
   removeFields: z.array(z.string()).optional(),
   resumeOnBoot: z.boolean().default(false),
   environment: z.string().optional(),
-  schedule: z.lazy(() => RunnableJobCollectionSchedule$inboundSchema)
-    .optional(),
+  schedule: ScheduleType$inboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().default(false),
-  collector: z.lazy(() => Collector$inboundSchema),
-  input: z.lazy(() => RunnableJobCollectionInput$inboundSchema).optional(),
+  collector: CollectorType$inboundSchema,
+  input: InputType$inboundSchema.optional(),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
 });
-
-/** @internal */
-export type RunnableJobCollection$Outbound = {
-  id?: string | undefined;
-  description?: string | undefined;
-  type?: string | undefined;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
-  removeFields?: Array<string> | undefined;
-  resumeOnBoot: boolean;
-  environment?: string | undefined;
-  schedule?: RunnableJobCollectionSchedule$Outbound | undefined;
-  streamtags?: Array<string> | undefined;
-  workerAffinity: boolean;
-  collector: Collector$Outbound;
-  input?: RunnableJobCollectionInput$Outbound | undefined;
-  run: RunnableJobCollectionRun$Outbound;
-};
-
-/** @internal */
-export const RunnableJobCollection$outboundSchema: z.ZodType<
-  RunnableJobCollection$Outbound,
-  z.ZodTypeDef,
-  RunnableJobCollection
-> = z.object({
-  id: z.string().optional(),
-  description: z.string().optional(),
-  type: RunnableJobCollectionJobType$outboundSchema.optional(),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
-  removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
-  environment: z.string().optional(),
-  schedule: z.lazy(() => RunnableJobCollectionSchedule$outboundSchema)
-    .optional(),
-  streamtags: z.array(z.string()).optional(),
-  workerAffinity: z.boolean().default(false),
-  collector: z.lazy(() => Collector$outboundSchema),
-  input: z.lazy(() => RunnableJobCollectionInput$outboundSchema).optional(),
-  run: z.lazy(() => RunnableJobCollectionRun$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobCollection$ {
-  /** @deprecated use `RunnableJobCollection$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobCollection$inboundSchema;
-  /** @deprecated use `RunnableJobCollection$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobCollection$outboundSchema;
-  /** @deprecated use `RunnableJobCollection$Outbound` instead. */
-  export type Outbound = RunnableJobCollection$Outbound;
-}
-
-export function runnableJobCollectionToJSON(
-  runnableJobCollection: RunnableJobCollection,
-): string {
-  return JSON.stringify(
-    RunnableJobCollection$outboundSchema.parse(runnableJobCollection),
-  );
-}
 
 export function runnableJobCollectionFromJSON(
   jsonString: string,

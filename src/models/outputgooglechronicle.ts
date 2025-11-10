@@ -12,169 +12,144 @@ import {
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TagsType,
+  TagsType$inboundSchema,
+  TagsType$Outbound,
+  TagsType$outboundSchema,
+} from "./tagstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputGoogleChronicleType = {
+export const OutputGoogleChronicleType10 = {
   GoogleChronicle: "google_chronicle",
 } as const;
-export type OutputGoogleChronicleType = ClosedEnum<
-  typeof OutputGoogleChronicleType
+export type OutputGoogleChronicleType10 = ClosedEnum<
+  typeof OutputGoogleChronicleType10
 >;
 
-export const OutputGoogleChronicleAPIVersion = {
+export const OutputGoogleChronicleAPIVersion10 = {
+  /**
+   * V1
+   */
   V1: "v1",
+  /**
+   * V2
+   */
   V2: "v2",
 } as const;
-export type OutputGoogleChronicleAPIVersion = OpenEnum<
-  typeof OutputGoogleChronicleAPIVersion
+export type OutputGoogleChronicleAPIVersion10 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion10
 >;
 
-export const OutputGoogleChronicleAuthenticationMethod = {
+export const OutputGoogleChronicleAuthenticationMethod10 = {
+  /**
+   * API key
+   */
   Manual: "manual",
+  /**
+   * API key secret
+   */
   Secret: "secret",
+  /**
+   * Service account credentials
+   */
   ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
-export type OutputGoogleChronicleAuthenticationMethod = OpenEnum<
-  typeof OutputGoogleChronicleAuthenticationMethod
+export type OutputGoogleChronicleAuthenticationMethod10 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod10
 >;
 
-export type OutputGoogleChronicleResponseRetrySetting = {
+export const SendEventsAs10 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * Unstructured
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputGoogleChronicleTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export const SendEventsAs = {
   Unstructured: "unstructured",
+  /**
+   * UDM
+   */
   Udm: "udm",
 } as const;
-export type SendEventsAs = OpenEnum<typeof SendEventsAs>;
+export type SendEventsAs10 = OpenEnum<typeof SendEventsAs10>;
 
-export type OutputGoogleChronicleExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputGoogleChronicleFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputGoogleChronicleFailedRequestLoggingMode = OpenEnum<
-  typeof OutputGoogleChronicleFailedRequestLoggingMode
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputGoogleChronicleBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputGoogleChronicleBackpressureBehavior = OpenEnum<
-  typeof OutputGoogleChronicleBackpressureBehavior
->;
-
-export type ExtraLogType = {
+export type ExtraLogType10 = {
   logType: string;
   description?: string | undefined;
 };
 
-export type OutputGoogleChronicleCustomLabel = {
-  key: string;
-  value: string;
-};
-
 /**
- * Codec to use to compress the persisted data
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
-export const OutputGoogleChronicleCompression = {
-  None: "none",
-  Gzip: "gzip",
+export const UDMType10 = {
+  Entities: "entities",
+  Logs: "logs",
 } as const;
 /**
- * Codec to use to compress the persisted data
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
-export type OutputGoogleChronicleCompression = OpenEnum<
-  typeof OutputGoogleChronicleCompression
->;
+export type UDMType10 = OpenEnum<typeof UDMType10>;
 
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputGoogleChronicleQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputGoogleChronicleQueueFullBehavior = OpenEnum<
-  typeof OutputGoogleChronicleQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGoogleChronicleMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGoogleChronicleMode = OpenEnum<
-  typeof OutputGoogleChronicleMode
->;
-
-export type OutputGoogleChroniclePqControls = {};
-
-export type OutputGoogleChronicle = {
+export type OutputGoogleChronicleGoogleChronicle10 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGoogleChronicleType;
+  type: OutputGoogleChronicleType10;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -191,20 +166,20 @@ export type OutputGoogleChronicle = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  apiVersion?: OutputGoogleChronicleAPIVersion | undefined;
-  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod | undefined;
+  apiVersion?: OutputGoogleChronicleAPIVersion10 | undefined;
+  authenticationMethod?:
+    | OutputGoogleChronicleAuthenticationMethod10
+    | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputGoogleChronicleResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputGoogleChronicleTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  logFormatType?: SendEventsAs | undefined;
+  logFormatType?: SendEventsAs10 | undefined;
   /**
    * Regional endpoint to send events to
    */
@@ -244,13 +219,11 @@ export type OutputGoogleChronicle = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputGoogleChronicleExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputGoogleChronicleFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -260,10 +233,6 @@ export type OutputGoogleChronicle = {
    */
   useRoundRobinDns?: boolean | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputGoogleChronicleBackpressureBehavior | undefined;
-  /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
@@ -271,7 +240,7 @@ export type OutputGoogleChronicle = {
   /**
    * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
    */
-  extraLogTypes?: Array<ExtraLogType> | undefined;
+  extraLogTypes?: Array<ExtraLogType10> | undefined;
   /**
    * Default log type value to send to SecOps. Can be overwritten by event field __logType.
    */
@@ -291,7 +260,11 @@ export type OutputGoogleChronicle = {
   /**
    * Custom labels to be added to every batch
    */
-  customLabels?: Array<OutputGoogleChronicleCustomLabel> | undefined;
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType10 | undefined;
   /**
    * Organization's API key in Google SecOps
    */
@@ -309,6 +282,26 @@ export type OutputGoogleChronicle = {
    */
   serviceAccountCredentialsSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -323,704 +316,2464 @@ export type OutputGoogleChronicle = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputGoogleChronicleCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputGoogleChronicleQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputGoogleChronicleType9 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType9 = ClosedEnum<
+  typeof OutputGoogleChronicleType9
+>;
+
+export const OutputGoogleChronicleAPIVersion9 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion9 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion9
+>;
+
+export const OutputGoogleChronicleAuthenticationMethod9 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod9 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod9
+>;
+
+export const SendEventsAs9 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs9 = OpenEnum<typeof SendEventsAs9>;
+
+export type ExtraLogType9 = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType9 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType9 = OpenEnum<typeof UDMType9>;
+
+export type OutputGoogleChronicleGoogleChronicle9 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType9;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: OutputGoogleChronicleAPIVersion9 | undefined;
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod9 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType?: SendEventsAs9 | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType9> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType9 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputGoogleChronicleMode | undefined;
-  pqControls?: OutputGoogleChroniclePqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputGoogleChronicleType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleChronicleType
-> = z.nativeEnum(OutputGoogleChronicleType);
+export const OutputGoogleChronicleAPIVersion8 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion8 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion8
+>;
 
-/** @internal */
-export const OutputGoogleChronicleType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleChronicleType
-> = OutputGoogleChronicleType$inboundSchema;
+export const OutputGoogleChronicleType8 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType8 = ClosedEnum<
+  typeof OutputGoogleChronicleType8
+>;
+
+export const OutputGoogleChronicleAuthenticationMethod8 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod8 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod8
+>;
+
+export const SendEventsAs8 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs8 = OpenEnum<typeof SendEventsAs8>;
+
+export type ExtraLogType8 = {
+  logType: string;
+  description?: string | undefined;
+};
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
-export namespace OutputGoogleChronicleType$ {
-  /** @deprecated use `OutputGoogleChronicleType$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleType$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleType$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleType$outboundSchema;
-}
+export const UDMType8 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType8 = OpenEnum<typeof UDMType8>;
+
+export type OutputGoogleChronicleGoogleChronicle8 = {
+  apiVersion?: OutputGoogleChronicleAPIVersion8 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType8;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod8 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType?: SendEventsAs8 | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType8> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType8 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputGoogleChronicleAPIVersion7 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion7 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion7
+>;
+
+export const OutputGoogleChronicleType7 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType7 = ClosedEnum<
+  typeof OutputGoogleChronicleType7
+>;
+
+export const OutputGoogleChronicleAuthenticationMethod7 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod7 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod7
+>;
+
+export const SendEventsAs7 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs7 = OpenEnum<typeof SendEventsAs7>;
+
+export type ExtraLogType7 = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType7 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType7 = OpenEnum<typeof UDMType7>;
+
+export type OutputGoogleChronicleGoogleChronicle7 = {
+  apiVersion?: OutputGoogleChronicleAPIVersion7 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType7;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod7 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType?: SendEventsAs7 | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType7> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType7 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputGoogleChronicleAuthenticationMethod6 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod6 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod6
+>;
+
+export const OutputGoogleChronicleType6 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType6 = ClosedEnum<
+  typeof OutputGoogleChronicleType6
+>;
+
+export const OutputGoogleChronicleAPIVersion6 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion6 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion6
+>;
+
+export const SendEventsAs6 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs6 = OpenEnum<typeof SendEventsAs6>;
+
+export type ExtraLogType6 = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType6 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType6 = OpenEnum<typeof UDMType6>;
+
+export type OutputGoogleChronicleGoogleChronicle6 = {
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod6 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType6;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: OutputGoogleChronicleAPIVersion6 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType?: SendEventsAs6 | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType6> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType6 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputGoogleChronicleAuthenticationMethod5 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod5 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod5
+>;
+
+export const OutputGoogleChronicleType5 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType5 = ClosedEnum<
+  typeof OutputGoogleChronicleType5
+>;
+
+export const OutputGoogleChronicleAPIVersion5 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion5 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion5
+>;
+
+export const SendEventsAs5 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs5 = OpenEnum<typeof SendEventsAs5>;
+
+export type ExtraLogType5 = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType5 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType5 = OpenEnum<typeof UDMType5>;
+
+export type OutputGoogleChronicleGoogleChronicle5 = {
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod5 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: OutputGoogleChronicleAPIVersion5 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType?: SendEventsAs5 | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType5> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType5 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials: string;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputGoogleChronicleAuthenticationMethod4 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod4 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod4
+>;
+
+export const OutputGoogleChronicleType4 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType4 = ClosedEnum<
+  typeof OutputGoogleChronicleType4
+>;
+
+export const OutputGoogleChronicleAPIVersion4 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion4 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion4
+>;
+
+export const SendEventsAs4 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs4 = OpenEnum<typeof SendEventsAs4>;
+
+export type ExtraLogType4 = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType4 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType4 = OpenEnum<typeof UDMType4>;
+
+export type OutputGoogleChronicleGoogleChronicle4 = {
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod4 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: OutputGoogleChronicleAPIVersion4 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType?: SendEventsAs4 | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType4> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType4 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret: string;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputGoogleChronicleAuthenticationMethod3 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod3 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod3
+>;
+
+export const OutputGoogleChronicleType3 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType3 = ClosedEnum<
+  typeof OutputGoogleChronicleType3
+>;
+
+export const OutputGoogleChronicleAPIVersion3 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion3 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion3
+>;
+
+export const SendEventsAs3 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs3 = OpenEnum<typeof SendEventsAs3>;
+
+export type ExtraLogType3 = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType3 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType3 = OpenEnum<typeof UDMType3>;
+
+export type OutputGoogleChronicleGoogleChronicle3 = {
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod3 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: OutputGoogleChronicleAPIVersion3 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType?: SendEventsAs3 | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType3> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType3 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey: string;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const SendEventsAs2 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs2 = OpenEnum<typeof SendEventsAs2>;
+
+export const OutputGoogleChronicleType2 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType2 = ClosedEnum<
+  typeof OutputGoogleChronicleType2
+>;
+
+export const OutputGoogleChronicleAPIVersion2 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion2 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion2
+>;
+
+export const OutputGoogleChronicleAuthenticationMethod2 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod2 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod2
+>;
+
+export type ExtraLogType2 = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType2 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType2 = OpenEnum<typeof UDMType2>;
+
+export type OutputGoogleChronicleGoogleChronicle2 = {
+  logFormatType?: SendEventsAs2 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: OutputGoogleChronicleAPIVersion2 | undefined;
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod2 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType2> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<TagsType> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType2 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const SendEventsAs1 = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs1 = OpenEnum<typeof SendEventsAs1>;
+
+export const OutputGoogleChronicleType1 = {
+  GoogleChronicle: "google_chronicle",
+} as const;
+export type OutputGoogleChronicleType1 = ClosedEnum<
+  typeof OutputGoogleChronicleType1
+>;
+
+export const OutputGoogleChronicleAPIVersion1 = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputGoogleChronicleAPIVersion1 = OpenEnum<
+  typeof OutputGoogleChronicleAPIVersion1
+>;
+
+export const OutputGoogleChronicleAuthenticationMethod1 = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type OutputGoogleChronicleAuthenticationMethod1 = OpenEnum<
+  typeof OutputGoogleChronicleAuthenticationMethod1
+>;
+
+export type ExtraLogType1 = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType1 = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType1 = OpenEnum<typeof UDMType1>;
+
+export type OutputGoogleChronicleGoogleChronicle1 = {
+  logFormatType?: SendEventsAs1 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleChronicleType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: OutputGoogleChronicleAPIVersion1 | undefined;
+  authenticationMethod?: OutputGoogleChronicleAuthenticationMethod1 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes: Array<ExtraLogType1>;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType: string;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField: string;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId: string;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace: string;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels: Array<TagsType>;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType1 | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputGoogleChronicle =
+  | OutputGoogleChronicleGoogleChronicle1
+  | OutputGoogleChronicleGoogleChronicle3
+  | OutputGoogleChronicleGoogleChronicle4
+  | OutputGoogleChronicleGoogleChronicle5
+  | OutputGoogleChronicleGoogleChronicle6
+  | OutputGoogleChronicleGoogleChronicle10
+  | OutputGoogleChronicleGoogleChronicle2
+  | OutputGoogleChronicleGoogleChronicle7
+  | OutputGoogleChronicleGoogleChronicle8
+  | OutputGoogleChronicleGoogleChronicle9;
 
 /** @internal */
-export const OutputGoogleChronicleAPIVersion$inboundSchema: z.ZodType<
-  OutputGoogleChronicleAPIVersion,
+export const OutputGoogleChronicleType10$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType10
+> = z.nativeEnum(OutputGoogleChronicleType10);
+/** @internal */
+export const OutputGoogleChronicleType10$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType10
+> = OutputGoogleChronicleType10$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion10$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion10,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputGoogleChronicleAPIVersion),
+    z.nativeEnum(OutputGoogleChronicleAPIVersion10),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputGoogleChronicleAPIVersion$outboundSchema: z.ZodType<
-  OutputGoogleChronicleAPIVersion,
+export const OutputGoogleChronicleAPIVersion10$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion10,
   z.ZodTypeDef,
-  OutputGoogleChronicleAPIVersion
+  OutputGoogleChronicleAPIVersion10
 > = z.union([
-  z.nativeEnum(OutputGoogleChronicleAPIVersion),
+  z.nativeEnum(OutputGoogleChronicleAPIVersion10),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleAPIVersion$ {
-  /** @deprecated use `OutputGoogleChronicleAPIVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleAPIVersion$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleAPIVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleAPIVersion$outboundSchema;
-}
-
 /** @internal */
-export const OutputGoogleChronicleAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputGoogleChronicleAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleChronicleAuthenticationMethod$outboundSchema:
+export const OutputGoogleChronicleAuthenticationMethod10$inboundSchema:
   z.ZodType<
-    OutputGoogleChronicleAuthenticationMethod,
-    z.ZodTypeDef,
-    OutputGoogleChronicleAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleAuthenticationMethod$ {
-  /** @deprecated use `OutputGoogleChronicleAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleChronicleResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputGoogleChronicleResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputGoogleChronicleResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputGoogleChronicleResponseRetrySetting$outboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleResponseRetrySetting$Outbound,
-    z.ZodTypeDef,
-    OutputGoogleChronicleResponseRetrySetting
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleResponseRetrySetting$ {
-  /** @deprecated use `OutputGoogleChronicleResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicleResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicleResponseRetrySetting$Outbound;
-}
-
-export function outputGoogleChronicleResponseRetrySettingToJSON(
-  outputGoogleChronicleResponseRetrySetting:
-    OutputGoogleChronicleResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputGoogleChronicleResponseRetrySetting$outboundSchema.parse(
-      outputGoogleChronicleResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputGoogleChronicleResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputGoogleChronicleResponseRetrySetting,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGoogleChronicleResponseRetrySetting$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputGoogleChronicleResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGoogleChronicleTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputGoogleChronicleTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputGoogleChronicleTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputGoogleChronicleTimeoutRetrySettings$outboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleTimeoutRetrySettings$Outbound,
-    z.ZodTypeDef,
-    OutputGoogleChronicleTimeoutRetrySettings
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleTimeoutRetrySettings$ {
-  /** @deprecated use `OutputGoogleChronicleTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicleTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicleTimeoutRetrySettings$Outbound;
-}
-
-export function outputGoogleChronicleTimeoutRetrySettingsToJSON(
-  outputGoogleChronicleTimeoutRetrySettings:
-    OutputGoogleChronicleTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputGoogleChronicleTimeoutRetrySettings$outboundSchema.parse(
-      outputGoogleChronicleTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputGoogleChronicleTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputGoogleChronicleTimeoutRetrySettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGoogleChronicleTimeoutRetrySettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputGoogleChronicleTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const SendEventsAs$inboundSchema: z.ZodType<
-  SendEventsAs,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(SendEventsAs),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const SendEventsAs$outboundSchema: z.ZodType<
-  SendEventsAs,
-  z.ZodTypeDef,
-  SendEventsAs
-> = z.union([
-  z.nativeEnum(SendEventsAs),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SendEventsAs$ {
-  /** @deprecated use `SendEventsAs$inboundSchema` instead. */
-  export const inboundSchema = SendEventsAs$inboundSchema;
-  /** @deprecated use `SendEventsAs$outboundSchema` instead. */
-  export const outboundSchema = SendEventsAs$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleChronicleExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputGoogleChronicleExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputGoogleChronicleExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputGoogleChronicleExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputGoogleChronicleExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputGoogleChronicleExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleExtraHttpHeader$ {
-  /** @deprecated use `OutputGoogleChronicleExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicleExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicleExtraHttpHeader$Outbound;
-}
-
-export function outputGoogleChronicleExtraHttpHeaderToJSON(
-  outputGoogleChronicleExtraHttpHeader: OutputGoogleChronicleExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputGoogleChronicleExtraHttpHeader$outboundSchema.parse(
-      outputGoogleChronicleExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputGoogleChronicleExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleChronicleExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGoogleChronicleExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleChronicleExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleFailedRequestLoggingMode,
+    OutputGoogleChronicleAuthenticationMethod10,
     z.ZodTypeDef,
     unknown
   > = z
     .union([
-      z.nativeEnum(OutputGoogleChronicleFailedRequestLoggingMode),
+      z.nativeEnum(OutputGoogleChronicleAuthenticationMethod10),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
-export const OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema:
+export const OutputGoogleChronicleAuthenticationMethod10$outboundSchema:
   z.ZodType<
-    OutputGoogleChronicleFailedRequestLoggingMode,
+    OutputGoogleChronicleAuthenticationMethod10,
     z.ZodTypeDef,
-    OutputGoogleChronicleFailedRequestLoggingMode
+    OutputGoogleChronicleAuthenticationMethod10
   > = z.union([
-    z.nativeEnum(OutputGoogleChronicleFailedRequestLoggingMode),
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod10),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema;
-}
-
 /** @internal */
-export const OutputGoogleChronicleBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputGoogleChronicleBackpressureBehavior,
+export const SendEventsAs10$inboundSchema: z.ZodType<
+  SendEventsAs10,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputGoogleChronicleBackpressureBehavior),
+    z.nativeEnum(SendEventsAs10),
     z.string().transform(catchUnrecognizedEnum),
   ]);
+/** @internal */
+export const SendEventsAs10$outboundSchema: z.ZodType<
+  SendEventsAs10,
+  z.ZodTypeDef,
+  SendEventsAs10
+> = z.union([
+  z.nativeEnum(SendEventsAs10),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
-export const OutputGoogleChronicleBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleBackpressureBehavior,
-    z.ZodTypeDef,
-    OutputGoogleChronicleBackpressureBehavior
-  > = z.union([
-    z.nativeEnum(OutputGoogleChronicleBackpressureBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleBackpressureBehavior$ {
-  /** @deprecated use `OutputGoogleChronicleBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const ExtraLogType$inboundSchema: z.ZodType<
-  ExtraLogType,
+export const ExtraLogType10$inboundSchema: z.ZodType<
+  ExtraLogType10,
   z.ZodTypeDef,
   unknown
 > = z.object({
   logType: z.string(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type ExtraLogType$Outbound = {
+export type ExtraLogType10$Outbound = {
   logType: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const ExtraLogType$outboundSchema: z.ZodType<
-  ExtraLogType$Outbound,
+export const ExtraLogType10$outboundSchema: z.ZodType<
+  ExtraLogType10$Outbound,
   z.ZodTypeDef,
-  ExtraLogType
+  ExtraLogType10
 > = z.object({
   logType: z.string(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ExtraLogType$ {
-  /** @deprecated use `ExtraLogType$inboundSchema` instead. */
-  export const inboundSchema = ExtraLogType$inboundSchema;
-  /** @deprecated use `ExtraLogType$outboundSchema` instead. */
-  export const outboundSchema = ExtraLogType$outboundSchema;
-  /** @deprecated use `ExtraLogType$Outbound` instead. */
-  export type Outbound = ExtraLogType$Outbound;
+export function extraLogType10ToJSON(extraLogType10: ExtraLogType10): string {
+  return JSON.stringify(ExtraLogType10$outboundSchema.parse(extraLogType10));
 }
-
-export function extraLogTypeToJSON(extraLogType: ExtraLogType): string {
-  return JSON.stringify(ExtraLogType$outboundSchema.parse(extraLogType));
-}
-
-export function extraLogTypeFromJSON(
+export function extraLogType10FromJSON(
   jsonString: string,
-): SafeParseResult<ExtraLogType, SDKValidationError> {
+): SafeParseResult<ExtraLogType10, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ExtraLogType$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ExtraLogType' from JSON`,
+    (x) => ExtraLogType10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType10' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputGoogleChronicleCustomLabel$inboundSchema: z.ZodType<
-  OutputGoogleChronicleCustomLabel,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputGoogleChronicleCustomLabel$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputGoogleChronicleCustomLabel$outboundSchema: z.ZodType<
-  OutputGoogleChronicleCustomLabel$Outbound,
-  z.ZodTypeDef,
-  OutputGoogleChronicleCustomLabel
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleCustomLabel$ {
-  /** @deprecated use `OutputGoogleChronicleCustomLabel$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleCustomLabel$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleCustomLabel$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleCustomLabel$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicleCustomLabel$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicleCustomLabel$Outbound;
-}
-
-export function outputGoogleChronicleCustomLabelToJSON(
-  outputGoogleChronicleCustomLabel: OutputGoogleChronicleCustomLabel,
-): string {
-  return JSON.stringify(
-    OutputGoogleChronicleCustomLabel$outboundSchema.parse(
-      outputGoogleChronicleCustomLabel,
-    ),
-  );
-}
-
-export function outputGoogleChronicleCustomLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleChronicleCustomLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGoogleChronicleCustomLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleChronicleCustomLabel' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGoogleChronicleCompression$inboundSchema: z.ZodType<
-  OutputGoogleChronicleCompression,
+export const UDMType10$inboundSchema: z.ZodType<
+  UDMType10,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputGoogleChronicleCompression),
+    z.nativeEnum(UDMType10),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputGoogleChronicleCompression$outboundSchema: z.ZodType<
-  OutputGoogleChronicleCompression,
+export const UDMType10$outboundSchema: z.ZodType<
+  UDMType10,
   z.ZodTypeDef,
-  OutputGoogleChronicleCompression
+  UDMType10
 > = z.union([
-  z.nativeEnum(OutputGoogleChronicleCompression),
+  z.nativeEnum(UDMType10),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleCompression$ {
-  /** @deprecated use `OutputGoogleChronicleCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleCompression$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleCompression$outboundSchema;
-}
-
 /** @internal */
-export const OutputGoogleChronicleQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputGoogleChronicleQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleChronicleQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputGoogleChronicleQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputGoogleChronicleQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputGoogleChronicleQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleQueueFullBehavior$ {
-  /** @deprecated use `OutputGoogleChronicleQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleChronicleQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleChronicleQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleChronicleMode$inboundSchema: z.ZodType<
-  OutputGoogleChronicleMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleChronicleMode$outboundSchema: z.ZodType<
-  OutputGoogleChronicleMode,
-  z.ZodTypeDef,
-  OutputGoogleChronicleMode
-> = z.union([
-  z.nativeEnum(OutputGoogleChronicleMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicleMode$ {
-  /** @deprecated use `OutputGoogleChronicleMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicleMode$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicleMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicleMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleChroniclePqControls$inboundSchema: z.ZodType<
-  OutputGoogleChroniclePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputGoogleChroniclePqControls$Outbound = {};
-
-/** @internal */
-export const OutputGoogleChroniclePqControls$outboundSchema: z.ZodType<
-  OutputGoogleChroniclePqControls$Outbound,
-  z.ZodTypeDef,
-  OutputGoogleChroniclePqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChroniclePqControls$ {
-  /** @deprecated use `OutputGoogleChroniclePqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChroniclePqControls$inboundSchema;
-  /** @deprecated use `OutputGoogleChroniclePqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChroniclePqControls$outboundSchema;
-  /** @deprecated use `OutputGoogleChroniclePqControls$Outbound` instead. */
-  export type Outbound = OutputGoogleChroniclePqControls$Outbound;
-}
-
-export function outputGoogleChroniclePqControlsToJSON(
-  outputGoogleChroniclePqControls: OutputGoogleChroniclePqControls,
-): string {
-  return JSON.stringify(
-    OutputGoogleChroniclePqControls$outboundSchema.parse(
-      outputGoogleChroniclePqControls,
-    ),
-  );
-}
-
-export function outputGoogleChroniclePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGoogleChroniclePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGoogleChroniclePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGoogleChroniclePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGoogleChronicle$inboundSchema: z.ZodType<
-  OutputGoogleChronicle,
+export const OutputGoogleChronicleGoogleChronicle10$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle10,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputGoogleChronicleType$inboundSchema,
+  type: OutputGoogleChronicleType10$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  apiVersion: OutputGoogleChronicleAPIVersion$inboundSchema.default("v1"),
-  authenticationMethod: OutputGoogleChronicleAuthenticationMethod$inboundSchema
-    .default("serviceAccount"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputGoogleChronicleResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputGoogleChronicleTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion10$inboundSchema.default("v1"),
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod10$inboundSchema.default(
+      "serviceAccount",
+    ),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  logFormatType: SendEventsAs$inboundSchema.default("unstructured"),
+  logFormatType: SendEventsAs10$inboundSchema.default("unstructured"),
   region: z.string().optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(1024),
@@ -1029,42 +2782,39 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(90),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputGoogleChronicleExtraHttpHeader$inboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: OutputGoogleChronicleBackpressureBehavior$inboundSchema
-    .default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  extraLogTypes: z.array(z.lazy(() => ExtraLogType$inboundSchema)).optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType10$inboundSchema)).optional(),
   logType: z.string().optional(),
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
-  customLabels: z.array(
-    z.lazy(() => OutputGoogleChronicleCustomLabel$inboundSchema),
-  ).optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType10$inboundSchema.default("logs"),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGoogleChronicleCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputGoogleChronicleQueueFullBehavior$inboundSchema
-    .default("block"),
-  pqMode: OutputGoogleChronicleMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputGoogleChronicle$Outbound = {
+export type OutputGoogleChronicleGoogleChronicle10$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1073,12 +2823,8 @@ export type OutputGoogleChronicle$Outbound = {
   streamtags?: Array<string> | undefined;
   apiVersion: string;
   authenticationMethod: string;
-  responseRetrySettings?:
-    | Array<OutputGoogleChronicleResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputGoogleChronicleTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   logFormatType: string;
   region?: string | undefined;
@@ -1089,57 +2835,59 @@ export type OutputGoogleChronicle$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputGoogleChronicleExtraHttpHeader$Outbound>
-    | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   useRoundRobinDns: boolean;
-  onBackpressure: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  extraLogTypes?: Array<ExtraLogType$Outbound> | undefined;
+  extraLogTypes?: Array<ExtraLogType10$Outbound> | undefined;
   logType?: string | undefined;
   logTextField?: string | undefined;
   customerId?: string | undefined;
   namespace?: string | undefined;
-  customLabels?: Array<OutputGoogleChronicleCustomLabel$Outbound> | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
   apiKey?: string | undefined;
   apiKeySecret?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputGoogleChroniclePqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputGoogleChronicle$outboundSchema: z.ZodType<
-  OutputGoogleChronicle$Outbound,
+export const OutputGoogleChronicleGoogleChronicle10$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle10$Outbound,
   z.ZodTypeDef,
-  OutputGoogleChronicle
+  OutputGoogleChronicleGoogleChronicle10
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputGoogleChronicleType$outboundSchema,
+  type: OutputGoogleChronicleType10$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  apiVersion: OutputGoogleChronicleAPIVersion$outboundSchema.default("v1"),
-  authenticationMethod: OutputGoogleChronicleAuthenticationMethod$outboundSchema
-    .default("serviceAccount"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputGoogleChronicleResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputGoogleChronicleTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion10$outboundSchema.default("v1"),
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod10$outboundSchema.default(
+      "serviceAccount",
+    ),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  logFormatType: SendEventsAs$outboundSchema.default("unstructured"),
+  logFormatType: SendEventsAs10$outboundSchema.default("unstructured"),
   region: z.string().optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(1024),
@@ -1148,54 +2896,2986 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(90),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputGoogleChronicleExtraHttpHeader$outboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema.default(
-      "none",
-    ),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: OutputGoogleChronicleBackpressureBehavior$outboundSchema
-    .default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  extraLogTypes: z.array(z.lazy(() => ExtraLogType$outboundSchema)).optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType10$outboundSchema))
+    .optional(),
   logType: z.string().optional(),
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
-  customLabels: z.array(
-    z.lazy(() => OutputGoogleChronicleCustomLabel$outboundSchema),
-  ).optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType10$outboundSchema.default("logs"),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGoogleChronicleCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputGoogleChronicleQueueFullBehavior$outboundSchema
-    .default("block"),
-  pqMode: OutputGoogleChronicleMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputGoogleChroniclePqControls$outboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleChronicle$ {
-  /** @deprecated use `OutputGoogleChronicle$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleChronicle$inboundSchema;
-  /** @deprecated use `OutputGoogleChronicle$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleChronicle$outboundSchema;
-  /** @deprecated use `OutputGoogleChronicle$Outbound` instead. */
-  export type Outbound = OutputGoogleChronicle$Outbound;
+export function outputGoogleChronicleGoogleChronicle10ToJSON(
+  outputGoogleChronicleGoogleChronicle10:
+    OutputGoogleChronicleGoogleChronicle10,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle10$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle10,
+    ),
+  );
 }
+export function outputGoogleChronicleGoogleChronicle10FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle10' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleChronicleType9$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType9
+> = z.nativeEnum(OutputGoogleChronicleType9);
+/** @internal */
+export const OutputGoogleChronicleType9$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType9
+> = OutputGoogleChronicleType9$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion9$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion9$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion9,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion9
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod9$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod9, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod9),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod9$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod9,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod9
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod9),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const SendEventsAs9$inboundSchema: z.ZodType<
+  SendEventsAs9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs9$outboundSchema: z.ZodType<
+  SendEventsAs9,
+  z.ZodTypeDef,
+  SendEventsAs9
+> = z.union([
+  z.nativeEnum(SendEventsAs9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtraLogType9$inboundSchema: z.ZodType<
+  ExtraLogType9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType9$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType9$outboundSchema: z.ZodType<
+  ExtraLogType9$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType9
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType9ToJSON(extraLogType9: ExtraLogType9): string {
+  return JSON.stringify(ExtraLogType9$outboundSchema.parse(extraLogType9));
+}
+export function extraLogType9FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType9' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType9$inboundSchema: z.ZodType<
+  UDMType9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType9$outboundSchema: z.ZodType<
+  UDMType9,
+  z.ZodTypeDef,
+  UDMType9
+> = z.union([
+  z.nativeEnum(UDMType9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle9$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType9$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion9$inboundSchema.default("v1"),
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod9$inboundSchema
+    .default("serviceAccount"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs9$inboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType9$inboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType9$inboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle9$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion: string;
+  authenticationMethod: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType9$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle9$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle9$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle9
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType9$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion9$outboundSchema.default("v1"),
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod9$outboundSchema.default(
+      "serviceAccount",
+    ),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs9$outboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType9$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType9$outboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle9ToJSON(
+  outputGoogleChronicleGoogleChronicle9: OutputGoogleChronicleGoogleChronicle9,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle9$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle9,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle9FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion8$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion8$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion8,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion8
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleType8$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType8
+> = z.nativeEnum(OutputGoogleChronicleType8);
+/** @internal */
+export const OutputGoogleChronicleType8$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType8
+> = OutputGoogleChronicleType8$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod8$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod8, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod8),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod8$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod8,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod8
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod8),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const SendEventsAs8$inboundSchema: z.ZodType<
+  SendEventsAs8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs8$outboundSchema: z.ZodType<
+  SendEventsAs8,
+  z.ZodTypeDef,
+  SendEventsAs8
+> = z.union([
+  z.nativeEnum(SendEventsAs8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtraLogType8$inboundSchema: z.ZodType<
+  ExtraLogType8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType8$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType8$outboundSchema: z.ZodType<
+  ExtraLogType8$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType8
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType8ToJSON(extraLogType8: ExtraLogType8): string {
+  return JSON.stringify(ExtraLogType8$outboundSchema.parse(extraLogType8));
+}
+export function extraLogType8FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType8' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType8$inboundSchema: z.ZodType<
+  UDMType8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType8$outboundSchema: z.ZodType<
+  UDMType8,
+  z.ZodTypeDef,
+  UDMType8
+> = z.union([
+  z.nativeEnum(UDMType8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle8$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  apiVersion: OutputGoogleChronicleAPIVersion8$inboundSchema.default("v1"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType8$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod8$inboundSchema
+    .default("serviceAccount"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs8$inboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType8$inboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType8$inboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle8$Outbound = {
+  apiVersion: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  authenticationMethod: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType8$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle8$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle8$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle8
+> = z.object({
+  apiVersion: OutputGoogleChronicleAPIVersion8$outboundSchema.default("v1"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType8$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod8$outboundSchema.default(
+      "serviceAccount",
+    ),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs8$outboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType8$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType8$outboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle8ToJSON(
+  outputGoogleChronicleGoogleChronicle8: OutputGoogleChronicleGoogleChronicle8,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle8$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle8,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion7$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion7$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion7,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion7
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleType7$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType7
+> = z.nativeEnum(OutputGoogleChronicleType7);
+/** @internal */
+export const OutputGoogleChronicleType7$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType7
+> = OutputGoogleChronicleType7$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod7$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod7, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod7),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod7$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod7,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod7
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod7),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const SendEventsAs7$inboundSchema: z.ZodType<
+  SendEventsAs7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs7$outboundSchema: z.ZodType<
+  SendEventsAs7,
+  z.ZodTypeDef,
+  SendEventsAs7
+> = z.union([
+  z.nativeEnum(SendEventsAs7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtraLogType7$inboundSchema: z.ZodType<
+  ExtraLogType7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType7$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType7$outboundSchema: z.ZodType<
+  ExtraLogType7$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType7
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType7ToJSON(extraLogType7: ExtraLogType7): string {
+  return JSON.stringify(ExtraLogType7$outboundSchema.parse(extraLogType7));
+}
+export function extraLogType7FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType7' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType7$inboundSchema: z.ZodType<
+  UDMType7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType7$outboundSchema: z.ZodType<
+  UDMType7,
+  z.ZodTypeDef,
+  UDMType7
+> = z.union([
+  z.nativeEnum(UDMType7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle7$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  apiVersion: OutputGoogleChronicleAPIVersion7$inboundSchema.default("v1"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType7$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod7$inboundSchema
+    .default("serviceAccount"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs7$inboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType7$inboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType7$inboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle7$Outbound = {
+  apiVersion: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  authenticationMethod: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType7$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle7$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle7$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle7
+> = z.object({
+  apiVersion: OutputGoogleChronicleAPIVersion7$outboundSchema.default("v1"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType7$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod7$outboundSchema.default(
+      "serviceAccount",
+    ),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs7$outboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType7$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType7$outboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle7ToJSON(
+  outputGoogleChronicleGoogleChronicle7: OutputGoogleChronicleGoogleChronicle7,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle7$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle7,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod6$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod6, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod6),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod6$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod6,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod6
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod6),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputGoogleChronicleType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType6
+> = z.nativeEnum(OutputGoogleChronicleType6);
+/** @internal */
+export const OutputGoogleChronicleType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType6
+> = OutputGoogleChronicleType6$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion6$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion6$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion6,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion6
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const SendEventsAs6$inboundSchema: z.ZodType<
+  SendEventsAs6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs6$outboundSchema: z.ZodType<
+  SendEventsAs6,
+  z.ZodTypeDef,
+  SendEventsAs6
+> = z.union([
+  z.nativeEnum(SendEventsAs6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtraLogType6$inboundSchema: z.ZodType<
+  ExtraLogType6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType6$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType6$outboundSchema: z.ZodType<
+  ExtraLogType6$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType6
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType6ToJSON(extraLogType6: ExtraLogType6): string {
+  return JSON.stringify(ExtraLogType6$outboundSchema.parse(extraLogType6));
+}
+export function extraLogType6FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType6' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType6$inboundSchema: z.ZodType<
+  UDMType6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType6$outboundSchema: z.ZodType<
+  UDMType6,
+  z.ZodTypeDef,
+  UDMType6
+> = z.union([
+  z.nativeEnum(UDMType6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle6$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod6$inboundSchema
+    .default("serviceAccount"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType6$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion6$inboundSchema.default("v1"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs6$inboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType6$inboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType6$inboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle6$Outbound = {
+  authenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType6$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle6$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle6$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle6
+> = z.object({
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod6$outboundSchema.default(
+      "serviceAccount",
+    ),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType6$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion6$outboundSchema.default("v1"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs6$outboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType6$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType6$outboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle6ToJSON(
+  outputGoogleChronicleGoogleChronicle6: OutputGoogleChronicleGoogleChronicle6,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle6$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle6,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod5$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod5, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod5),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod5$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod5,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod5
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod5),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputGoogleChronicleType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType5
+> = z.nativeEnum(OutputGoogleChronicleType5);
+/** @internal */
+export const OutputGoogleChronicleType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType5
+> = OutputGoogleChronicleType5$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion5$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion5$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion5,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion5
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const SendEventsAs5$inboundSchema: z.ZodType<
+  SendEventsAs5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs5$outboundSchema: z.ZodType<
+  SendEventsAs5,
+  z.ZodTypeDef,
+  SendEventsAs5
+> = z.union([
+  z.nativeEnum(SendEventsAs5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtraLogType5$inboundSchema: z.ZodType<
+  ExtraLogType5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType5$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType5$outboundSchema: z.ZodType<
+  ExtraLogType5$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType5
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType5ToJSON(extraLogType5: ExtraLogType5): string {
+  return JSON.stringify(ExtraLogType5$outboundSchema.parse(extraLogType5));
+}
+export function extraLogType5FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType5' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType5$inboundSchema: z.ZodType<
+  UDMType5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType5$outboundSchema: z.ZodType<
+  UDMType5,
+  z.ZodTypeDef,
+  UDMType5
+> = z.union([
+  z.nativeEnum(UDMType5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle5$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod5$inboundSchema
+    .default("serviceAccount"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion5$inboundSchema.default("v1"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs5$inboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType5$inboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType5$inboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle5$Outbound = {
+  authenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType5$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials: string;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle5$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle5$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle5
+> = z.object({
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod5$outboundSchema.default(
+      "serviceAccount",
+    ),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion5$outboundSchema.default("v1"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs5$outboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType5$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType5$outboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle5ToJSON(
+  outputGoogleChronicleGoogleChronicle5: OutputGoogleChronicleGoogleChronicle5,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle5$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle5,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod4$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod4, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod4),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod4$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod4,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod4
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod4),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputGoogleChronicleType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType4
+> = z.nativeEnum(OutputGoogleChronicleType4);
+/** @internal */
+export const OutputGoogleChronicleType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType4
+> = OutputGoogleChronicleType4$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion4$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion4$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion4,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion4
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const SendEventsAs4$inboundSchema: z.ZodType<
+  SendEventsAs4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs4$outboundSchema: z.ZodType<
+  SendEventsAs4,
+  z.ZodTypeDef,
+  SendEventsAs4
+> = z.union([
+  z.nativeEnum(SendEventsAs4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtraLogType4$inboundSchema: z.ZodType<
+  ExtraLogType4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType4$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType4$outboundSchema: z.ZodType<
+  ExtraLogType4$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType4
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType4ToJSON(extraLogType4: ExtraLogType4): string {
+  return JSON.stringify(ExtraLogType4$outboundSchema.parse(extraLogType4));
+}
+export function extraLogType4FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType4' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType4$inboundSchema: z.ZodType<
+  UDMType4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType4$outboundSchema: z.ZodType<
+  UDMType4,
+  z.ZodTypeDef,
+  UDMType4
+> = z.union([
+  z.nativeEnum(UDMType4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle4$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod4$inboundSchema
+    .default("serviceAccount"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion4$inboundSchema.default("v1"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs4$inboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType4$inboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType4$inboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle4$Outbound = {
+  authenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType4$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
+  apiKey?: string | undefined;
+  apiKeySecret: string;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle4$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle4$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle4
+> = z.object({
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod4$outboundSchema.default(
+      "serviceAccount",
+    ),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion4$outboundSchema.default("v1"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs4$outboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType4$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType4$outboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle4ToJSON(
+  outputGoogleChronicleGoogleChronicle4: OutputGoogleChronicleGoogleChronicle4,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle4$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle4,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod3$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod3, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod3),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod3$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod3,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod3
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod3),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputGoogleChronicleType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType3
+> = z.nativeEnum(OutputGoogleChronicleType3);
+/** @internal */
+export const OutputGoogleChronicleType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType3
+> = OutputGoogleChronicleType3$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion3$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion3$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion3,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion3
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const SendEventsAs3$inboundSchema: z.ZodType<
+  SendEventsAs3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs3$outboundSchema: z.ZodType<
+  SendEventsAs3,
+  z.ZodTypeDef,
+  SendEventsAs3
+> = z.union([
+  z.nativeEnum(SendEventsAs3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtraLogType3$inboundSchema: z.ZodType<
+  ExtraLogType3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType3$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType3$outboundSchema: z.ZodType<
+  ExtraLogType3$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType3
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType3ToJSON(extraLogType3: ExtraLogType3): string {
+  return JSON.stringify(ExtraLogType3$outboundSchema.parse(extraLogType3));
+}
+export function extraLogType3FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType3' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType3$inboundSchema: z.ZodType<
+  UDMType3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType3$outboundSchema: z.ZodType<
+  UDMType3,
+  z.ZodTypeDef,
+  UDMType3
+> = z.union([
+  z.nativeEnum(UDMType3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle3$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod3$inboundSchema
+    .default("serviceAccount"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion3$inboundSchema.default("v1"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs3$inboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType3$inboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType3$inboundSchema.default("logs"),
+  apiKey: z.string(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle3$Outbound = {
+  authenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType3$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
+  apiKey: string;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle3$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle3$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle3
+> = z.object({
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod3$outboundSchema.default(
+      "serviceAccount",
+    ),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion3$outboundSchema.default("v1"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  logFormatType: SendEventsAs3$outboundSchema.default("unstructured"),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType3$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType3$outboundSchema.default("logs"),
+  apiKey: z.string(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle3ToJSON(
+  outputGoogleChronicleGoogleChronicle3: OutputGoogleChronicleGoogleChronicle3,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle3$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle3,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle3' from JSON`,
+  );
+}
+
+/** @internal */
+export const SendEventsAs2$inboundSchema: z.ZodType<
+  SendEventsAs2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs2$outboundSchema: z.ZodType<
+  SendEventsAs2,
+  z.ZodTypeDef,
+  SendEventsAs2
+> = z.union([
+  z.nativeEnum(SendEventsAs2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType2
+> = z.nativeEnum(OutputGoogleChronicleType2);
+/** @internal */
+export const OutputGoogleChronicleType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType2
+> = OutputGoogleChronicleType2$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion2$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion2$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion2,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion2
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod2$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod2, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod2),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod2$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod2,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod2
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const ExtraLogType2$inboundSchema: z.ZodType<
+  ExtraLogType2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType2$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType2$outboundSchema: z.ZodType<
+  ExtraLogType2$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType2
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType2ToJSON(extraLogType2: ExtraLogType2): string {
+  return JSON.stringify(ExtraLogType2$outboundSchema.parse(extraLogType2));
+}
+export function extraLogType2FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType2' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType2$inboundSchema: z.ZodType<
+  UDMType2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType2$outboundSchema: z.ZodType<
+  UDMType2,
+  z.ZodTypeDef,
+  UDMType2
+> = z.union([
+  z.nativeEnum(UDMType2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle2$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logFormatType: SendEventsAs2$inboundSchema.default("unstructured"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion2$inboundSchema.default("v1"),
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod2$inboundSchema
+    .default("serviceAccount"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType2$inboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$inboundSchema).optional(),
+  udmType: UDMType2$inboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle2$Outbound = {
+  logFormatType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion: string;
+  authenticationMethod: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType2$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<TagsType$Outbound> | undefined;
+  udmType: string;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle2$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle2$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle2
+> = z.object({
+  logFormatType: SendEventsAs2$outboundSchema.default("unstructured"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion2$outboundSchema.default("v1"),
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod2$outboundSchema.default(
+      "serviceAccount",
+    ),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType2$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(TagsType$outboundSchema).optional(),
+  udmType: UDMType2$outboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle2ToJSON(
+  outputGoogleChronicleGoogleChronicle2: OutputGoogleChronicleGoogleChronicle2,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle2$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle2,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle2' from JSON`,
+  );
+}
+
+/** @internal */
+export const SendEventsAs1$inboundSchema: z.ZodType<
+  SendEventsAs1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(SendEventsAs1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const SendEventsAs1$outboundSchema: z.ZodType<
+  SendEventsAs1,
+  z.ZodTypeDef,
+  SendEventsAs1
+> = z.union([
+  z.nativeEnum(SendEventsAs1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType1
+> = z.nativeEnum(OutputGoogleChronicleType1);
+/** @internal */
+export const OutputGoogleChronicleType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleChronicleType1
+> = OutputGoogleChronicleType1$inboundSchema;
+
+/** @internal */
+export const OutputGoogleChronicleAPIVersion1$inboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputGoogleChronicleAPIVersion1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputGoogleChronicleAPIVersion1$outboundSchema: z.ZodType<
+  OutputGoogleChronicleAPIVersion1,
+  z.ZodTypeDef,
+  OutputGoogleChronicleAPIVersion1
+> = z.union([
+  z.nativeEnum(OutputGoogleChronicleAPIVersion1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod1$inboundSchema:
+  z.ZodType<OutputGoogleChronicleAuthenticationMethod1, z.ZodTypeDef, unknown> =
+    z
+      .union([
+        z.nativeEnum(OutputGoogleChronicleAuthenticationMethod1),
+        z.string().transform(catchUnrecognizedEnum),
+      ]);
+/** @internal */
+export const OutputGoogleChronicleAuthenticationMethod1$outboundSchema:
+  z.ZodType<
+    OutputGoogleChronicleAuthenticationMethod1,
+    z.ZodTypeDef,
+    OutputGoogleChronicleAuthenticationMethod1
+  > = z.union([
+    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const ExtraLogType1$inboundSchema: z.ZodType<
+  ExtraLogType1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type ExtraLogType1$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType1$outboundSchema: z.ZodType<
+  ExtraLogType1$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType1
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogType1ToJSON(extraLogType1: ExtraLogType1): string {
+  return JSON.stringify(ExtraLogType1$outboundSchema.parse(extraLogType1));
+}
+export function extraLogType1FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraLogType1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraLogType1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraLogType1' from JSON`,
+  );
+}
+
+/** @internal */
+export const UDMType1$inboundSchema: z.ZodType<
+  UDMType1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(UDMType1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const UDMType1$outboundSchema: z.ZodType<
+  UDMType1,
+  z.ZodTypeDef,
+  UDMType1
+> = z.union([
+  z.nativeEnum(UDMType1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle1$inboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logFormatType: SendEventsAs1$inboundSchema.default("unstructured"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion1$inboundSchema.default("v1"),
+  authenticationMethod: OutputGoogleChronicleAuthenticationMethod1$inboundSchema
+    .default("serviceAccount"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType1$inboundSchema)),
+  logType: z.string(),
+  logTextField: z.string(),
+  customerId: z.string(),
+  namespace: z.string(),
+  customLabels: z.array(TagsType$inboundSchema),
+  udmType: UDMType1$inboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGoogleChronicleGoogleChronicle1$Outbound = {
+  logFormatType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion: string;
+  authenticationMethod: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  region?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes: Array<ExtraLogType1$Outbound>;
+  logType: string;
+  logTextField: string;
+  customerId: string;
+  namespace: string;
+  customLabels: Array<TagsType$Outbound>;
+  udmType: string;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicleGoogleChronicle1$outboundSchema: z.ZodType<
+  OutputGoogleChronicleGoogleChronicle1$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicleGoogleChronicle1
+> = z.object({
+  logFormatType: SendEventsAs1$outboundSchema.default("unstructured"),
+  id: z.string().optional(),
+  type: OutputGoogleChronicleType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: OutputGoogleChronicleAPIVersion1$outboundSchema.default("v1"),
+  authenticationMethod:
+    OutputGoogleChronicleAuthenticationMethod1$outboundSchema.default(
+      "serviceAccount",
+    ),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  region: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(90),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType1$outboundSchema)),
+  logType: z.string(),
+  logTextField: z.string(),
+  customerId: z.string(),
+  namespace: z.string(),
+  customLabels: z.array(TagsType$outboundSchema),
+  udmType: UDMType1$outboundSchema.default("logs"),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGoogleChronicleGoogleChronicle1ToJSON(
+  outputGoogleChronicleGoogleChronicle1: OutputGoogleChronicleGoogleChronicle1,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicleGoogleChronicle1$outboundSchema.parse(
+      outputGoogleChronicleGoogleChronicle1,
+    ),
+  );
+}
+export function outputGoogleChronicleGoogleChronicle1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGoogleChronicleGoogleChronicle1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleChronicleGoogleChronicle1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGoogleChronicleGoogleChronicle1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleChronicle$inboundSchema: z.ZodType<
+  OutputGoogleChronicle,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle1$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle3$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle4$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle5$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle6$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle10$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle2$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle7$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle8$inboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle9$inboundSchema),
+]);
+/** @internal */
+export type OutputGoogleChronicle$Outbound =
+  | OutputGoogleChronicleGoogleChronicle1$Outbound
+  | OutputGoogleChronicleGoogleChronicle3$Outbound
+  | OutputGoogleChronicleGoogleChronicle4$Outbound
+  | OutputGoogleChronicleGoogleChronicle5$Outbound
+  | OutputGoogleChronicleGoogleChronicle6$Outbound
+  | OutputGoogleChronicleGoogleChronicle10$Outbound
+  | OutputGoogleChronicleGoogleChronicle2$Outbound
+  | OutputGoogleChronicleGoogleChronicle7$Outbound
+  | OutputGoogleChronicleGoogleChronicle8$Outbound
+  | OutputGoogleChronicleGoogleChronicle9$Outbound;
+
+/** @internal */
+export const OutputGoogleChronicle$outboundSchema: z.ZodType<
+  OutputGoogleChronicle$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicle
+> = z.union([
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle1$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle3$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle4$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle5$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle6$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle10$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle2$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle7$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle8$outboundSchema),
+  z.lazy(() => OutputGoogleChronicleGoogleChronicle9$outboundSchema),
+]);
 
 export function outputGoogleChronicleToJSON(
   outputGoogleChronicle: OutputGoogleChronicle,
@@ -1204,7 +5884,6 @@ export function outputGoogleChronicleToJSON(
     OutputGoogleChronicle$outboundSchema.parse(outputGoogleChronicle),
   );
 }
-
 export function outputGoogleChronicleFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleChronicle, SDKValidationError> {

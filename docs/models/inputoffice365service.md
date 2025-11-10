@@ -1,11 +1,158 @@
 # InputOffice365Service
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputOffice365ServiceOffice365Service1`
 
 ```typescript
-import { InputOffice365Service } from "cribl-control-plane/models";
+const value: models.InputOffice365ServiceOffice365Service1 = {
+  id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "furiously illusion ice-cream if puny towards",
+      interval: 8290.81,
+      logLevel: "error",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      1764.18,
+    ],
+  },
+  description: "than fooey too except",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
+```
 
-let value: InputOffice365Service = {
+### `models.InputOffice365ServiceOffice365Service2`
+
+```typescript
+const value: models.InputOffice365ServiceOffice365Service2 = {
+  id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "furiously illusion ice-cream if puny towards",
+      interval: 8290.81,
+      logLevel: "error",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      1764.18,
+    ],
+  },
+  description: "lest now purse as softly venom intermesh scarily pro",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputOffice365ServiceOffice365Service3`
+
+```typescript
+const value: models.InputOffice365ServiceOffice365Service3 = {
+  id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "furiously illusion ice-cream if puny towards",
+      interval: 8290.81,
+      logLevel: "error",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      1764.18,
+    ],
+  },
+  description:
+    "slump defiantly besides silent what fax dishonor gah converse next",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputOffice365ServiceOffice365Service4`
+
+```typescript
+const value: models.InputOffice365ServiceOffice365Service4 = {
   id: "<id>",
   type: "office365_service",
   pipeline: "<value>",
@@ -35,52 +182,121 @@ let value: InputOffice365Service = {
   contentConfig: [
     {
       contentType: "<value>",
-      description:
-        "dowse boulevard where kindly integer mosh before yahoo consequently yuck",
-      interval: 3221.55,
-      logLevel: "debug",
+      description: "furiously illusion ice-cream if puny towards",
+      interval: 8290.81,
+      logLevel: "error",
       enabled: false,
     },
   ],
   retryRules: {
     codes: [
-      3457.75,
-      6170.34,
+      1764.18,
     ],
   },
-  description: "which goodwill around slip oddly after often blissfully",
+  description: "gratefully against vice",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
 ```
 
-## Fields
+### `models.InputOffice365ServiceOffice365Service5`
 
-| Field                                                                                                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                                                                                                        | Required                                                                                                                                                                                                                                                                                                                    | Description                                                                                                                                                                                                                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Unique ID for this input                                                                                                                                                                                                                                                                                                    |
-| `type`                                                                                                                                                                                                                                                                                                                      | [models.InputOffice365ServiceType](../models/inputoffice365servicetype.md)                                                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                         |
-| `disabled`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                         |
-| `pipeline`                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                                                              |
-| `sendToRoutes`                                                                                                                                                                                                                                                                                                              | *boolean*                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                                                         |
-| `environment`                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                        |
-| `pqEnabled`                                                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                                                                |
-| `streamtags`                                                                                                                                                                                                                                                                                                                | *string*[]                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                               |
-| `connections`                                                                                                                                                                                                                                                                                                               | [models.InputOffice365ServiceConnection](../models/inputoffice365serviceconnection.md)[]                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                 |
-| `pq`                                                                                                                                                                                                                                                                                                                        | [models.InputOffice365ServicePq](../models/inputoffice365servicepq.md)                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                         |
-| `planType`                                                                                                                                                                                                                                                                                                                  | [models.InputOffice365ServiceSubscriptionPlan](../models/inputoffice365servicesubscriptionplan.md)                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Office 365 subscription plan for your organization, typically Office 365 Enterprise                                                                                                                                                                                                                                         |
-| `tenantId`                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                          | Office 365 Azure Tenant ID                                                                                                                                                                                                                                                                                                  |
-| `appId`                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                          | Office 365 Azure Application ID                                                                                                                                                                                                                                                                                             |
-| `timeout`                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | HTTP request inactivity timeout, use 0 to disable                                                                                                                                                                                                                                                                           |
-| `keepAliveTime`                                                                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | How often workers should check in with the scheduler to keep job subscription alive                                                                                                                                                                                                                                         |
-| `jobTimeout`                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.                                                                                                                                                                                             |
-| `maxMissedKeepAlives`                                                                                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.                                                                                                                                                                                                                     |
-| `ttl`                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                                                                                                                                             |
-| `ignoreGroupJobsLimit`                                                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                                                                                                                                    |
-| `metadata`                                                                                                                                                                                                                                                                                                                  | [models.InputOffice365ServiceMetadatum](../models/inputoffice365servicemetadatum.md)[]                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Fields to add to events from this input                                                                                                                                                                                                                                                                                     |
-| `contentConfig`                                                                                                                                                                                                                                                                                                             | [models.InputOffice365ServiceContentConfig](../models/inputoffice365servicecontentconfig.md)[]                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule. |
-| `retryRules`                                                                                                                                                                                                                                                                                                                | [models.InputOffice365ServiceRetryRules](../models/inputoffice365serviceretryrules.md)                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                         |
-| `authType`                                                                                                                                                                                                                                                                                                                  | [models.InputOffice365ServiceAuthenticationMethod](../models/inputoffice365serviceauthenticationmethod.md)                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Enter client secret directly, or select a stored secret                                                                                                                                                                                                                                                                     |
-| `description`                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                         |
-| `clientSecret`                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Office 365 Azure client secret                                                                                                                                                                                                                                                                                              |
-| `textSecret`                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                          | Select or create a stored text secret                                                                                                                                                                                                                                                                                       |
+```typescript
+const value: models.InputOffice365ServiceOffice365Service5 = {
+  id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "furiously illusion ice-cream if puny towards",
+      interval: 8290.81,
+      logLevel: "error",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      1764.18,
+    ],
+  },
+  description: "assured impanel elver across woot stool whoa although er",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
+```
+
+### `models.InputOffice365ServiceOffice365Service6`
+
+```typescript
+const value: models.InputOffice365ServiceOffice365Service6 = {
+  id: "<id>",
+  type: "office365_service",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  tenantId: "<id>",
+  appId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  contentConfig: [
+    {
+      contentType: "<value>",
+      description: "furiously illusion ice-cream if puny towards",
+      interval: 8290.81,
+      logLevel: "error",
+      enabled: false,
+    },
+  ],
+  retryRules: {
+    codes: [
+      1764.18,
+    ],
+  },
+  description:
+    "versus where astride platter alive blah forgather wherever slump",
+  clientSecret: "<value>",
+  textSecret: "<value>",
+};
+```
+

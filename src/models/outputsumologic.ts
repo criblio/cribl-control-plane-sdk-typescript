@@ -4,153 +4,79 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  Format2Options,
+  Format2Options$inboundSchema,
+  Format2Options$outboundSchema,
+} from "./format2options.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputSumoLogicType = {
+export const OutputSumoLogicType2 = {
   SumoLogic: "sumo_logic",
 } as const;
-export type OutputSumoLogicType = ClosedEnum<typeof OutputSumoLogicType>;
+export type OutputSumoLogicType2 = ClosedEnum<typeof OutputSumoLogicType2>;
 
-/**
- * Preserve the raw event format instead of JSONifying it
- */
-export const OutputSumoLogicDataFormat = {
-  Json: "json",
-  Raw: "raw",
-} as const;
-/**
- * Preserve the raw event format instead of JSONifying it
- */
-export type OutputSumoLogicDataFormat = OpenEnum<
-  typeof OutputSumoLogicDataFormat
->;
-
-export type OutputSumoLogicExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputSumoLogicFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputSumoLogicFailedRequestLoggingMode = OpenEnum<
-  typeof OutputSumoLogicFailedRequestLoggingMode
->;
-
-export type OutputSumoLogicResponseRetrySetting = {
+export type OutputSumoLogicSumoLogic2 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * How to handle events when all receivers are exerting backpressure
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputSumoLogicTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSumoLogicBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSumoLogicBackpressureBehavior = OpenEnum<
-  typeof OutputSumoLogicBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSumoLogicCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSumoLogicCompression = OpenEnum<
-  typeof OutputSumoLogicCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSumoLogicQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSumoLogicQueueFullBehavior = OpenEnum<
-  typeof OutputSumoLogicQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSumoLogicMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSumoLogicMode = OpenEnum<typeof OutputSumoLogicMode>;
-
-export type OutputSumoLogicPqControls = {};
-
-export type OutputSumoLogic = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSumoLogicType;
+  type: OutputSumoLogicType2;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -180,9 +106,9 @@ export type OutputSumoLogic = {
    */
   customCategory?: string | undefined;
   /**
-   * Preserve the raw event format instead of JSONifying it
+   * Format to use to serialize events before writing to the Event Hubs Kafka brokers
    */
-  format?: OutputSumoLogicDataFormat | undefined;
+  format?: Format2Options | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -218,7 +144,7 @@ export type OutputSumoLogic = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputSumoLogicExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -226,9 +152,7 @@ export type OutputSumoLogic = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputSumoLogicFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -236,23 +160,37 @@ export type OutputSumoLogic = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputSumoLogicResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputSumoLogicTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputSumoLogicBackpressureBehavior | undefined;
-  /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -268,486 +206,188 @@ export type OutputSumoLogic = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSumoLogicCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSumoLogicQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputSumoLogicType1 = {
+  SumoLogic: "sumo_logic",
+} as const;
+export type OutputSumoLogicType1 = ClosedEnum<typeof OutputSumoLogicType1>;
+
+export type OutputSumoLogicSumoLogic1 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSumoLogicType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Sumo Logic HTTP collector URL to which events should be sent
+   */
+  url: string;
+  /**
+   * Override the source name configured on the Sumo Logic HTTP collector. This can also be overridden at the event level with the __sourceName field.
+   */
+  customSource?: string | undefined;
+  /**
+   * Override the source category configured on the Sumo Logic HTTP collector. This can also be overridden at the event level with the __sourceCategory field.
+   */
+  customCategory?: string | undefined;
+  /**
+   * Format to use to serialize events before writing to the Event Hubs Kafka brokers
+   */
+  format?: Format2Options | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSumoLogicMode | undefined;
-  pqControls?: OutputSumoLogicPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSumoLogicType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicType
-> = z.nativeEnum(OutputSumoLogicType);
+export type OutputSumoLogic =
+  | OutputSumoLogicSumoLogic2
+  | OutputSumoLogicSumoLogic1;
 
 /** @internal */
-export const OutputSumoLogicType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicType
-> = OutputSumoLogicType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicType$ {
-  /** @deprecated use `OutputSumoLogicType$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicType$inboundSchema;
-  /** @deprecated use `OutputSumoLogicType$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicType$outboundSchema;
-}
+export const OutputSumoLogicType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSumoLogicType2
+> = z.nativeEnum(OutputSumoLogicType2);
+/** @internal */
+export const OutputSumoLogicType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSumoLogicType2
+> = OutputSumoLogicType2$inboundSchema;
 
 /** @internal */
-export const OutputSumoLogicDataFormat$inboundSchema: z.ZodType<
-  OutputSumoLogicDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSumoLogicDataFormat$outboundSchema: z.ZodType<
-  OutputSumoLogicDataFormat,
-  z.ZodTypeDef,
-  OutputSumoLogicDataFormat
-> = z.union([
-  z.nativeEnum(OutputSumoLogicDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicDataFormat$ {
-  /** @deprecated use `OutputSumoLogicDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicDataFormat$inboundSchema;
-  /** @deprecated use `OutputSumoLogicDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicDataFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputSumoLogicExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputSumoLogicExtraHttpHeader,
+export const OutputSumoLogicSumoLogic2$inboundSchema: z.ZodType<
+  OutputSumoLogicSumoLogic2,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputSumoLogicExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputSumoLogicExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputSumoLogicExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputSumoLogicExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicExtraHttpHeader$ {
-  /** @deprecated use `OutputSumoLogicExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSumoLogicExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSumoLogicExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSumoLogicExtraHttpHeader$Outbound;
-}
-
-export function outputSumoLogicExtraHttpHeaderToJSON(
-  outputSumoLogicExtraHttpHeader: OutputSumoLogicExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputSumoLogicExtraHttpHeader$outboundSchema.parse(
-      outputSumoLogicExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputSumoLogicExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSumoLogicExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSumoLogicExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSumoLogicExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSumoLogicFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputSumoLogicFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSumoLogicFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputSumoLogicFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputSumoLogicFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputSumoLogicFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSumoLogicFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSumoLogicFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSumoLogicFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSumoLogicFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSumoLogicResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputSumoLogicResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputSumoLogicResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputSumoLogicResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputSumoLogicResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputSumoLogicResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicResponseRetrySetting$ {
-  /** @deprecated use `OutputSumoLogicResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSumoLogicResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSumoLogicResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSumoLogicResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSumoLogicResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSumoLogicResponseRetrySetting$Outbound;
-}
-
-export function outputSumoLogicResponseRetrySettingToJSON(
-  outputSumoLogicResponseRetrySetting: OutputSumoLogicResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputSumoLogicResponseRetrySetting$outboundSchema.parse(
-      outputSumoLogicResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputSumoLogicResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSumoLogicResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSumoLogicResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSumoLogicResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSumoLogicTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputSumoLogicTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputSumoLogicTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputSumoLogicTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputSumoLogicTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputSumoLogicTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSumoLogicTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSumoLogicTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSumoLogicTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSumoLogicTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSumoLogicTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSumoLogicTimeoutRetrySettings$Outbound;
-}
-
-export function outputSumoLogicTimeoutRetrySettingsToJSON(
-  outputSumoLogicTimeoutRetrySettings: OutputSumoLogicTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputSumoLogicTimeoutRetrySettings$outboundSchema.parse(
-      outputSumoLogicTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputSumoLogicTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSumoLogicTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSumoLogicTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSumoLogicTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSumoLogicBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSumoLogicBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSumoLogicBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSumoLogicBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSumoLogicBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSumoLogicBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicBackpressureBehavior$ {
-  /** @deprecated use `OutputSumoLogicBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSumoLogicBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSumoLogicBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSumoLogicBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSumoLogicCompression$inboundSchema: z.ZodType<
-  OutputSumoLogicCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSumoLogicCompression$outboundSchema: z.ZodType<
-  OutputSumoLogicCompression,
-  z.ZodTypeDef,
-  OutputSumoLogicCompression
-> = z.union([
-  z.nativeEnum(OutputSumoLogicCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicCompression$ {
-  /** @deprecated use `OutputSumoLogicCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicCompression$inboundSchema;
-  /** @deprecated use `OutputSumoLogicCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSumoLogicQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSumoLogicQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSumoLogicQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSumoLogicQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSumoLogicQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSumoLogicQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicQueueFullBehavior$ {
-  /** @deprecated use `OutputSumoLogicQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSumoLogicQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSumoLogicMode$inboundSchema: z.ZodType<
-  OutputSumoLogicMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSumoLogicMode$outboundSchema: z.ZodType<
-  OutputSumoLogicMode,
-  z.ZodTypeDef,
-  OutputSumoLogicMode
-> = z.union([
-  z.nativeEnum(OutputSumoLogicMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicMode$ {
-  /** @deprecated use `OutputSumoLogicMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicMode$inboundSchema;
-  /** @deprecated use `OutputSumoLogicMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSumoLogicPqControls$inboundSchema: z.ZodType<
-  OutputSumoLogicPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputSumoLogicPqControls$Outbound = {};
-
-/** @internal */
-export const OutputSumoLogicPqControls$outboundSchema: z.ZodType<
-  OutputSumoLogicPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputSumoLogicPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogicPqControls$ {
-  /** @deprecated use `OutputSumoLogicPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogicPqControls$inboundSchema;
-  /** @deprecated use `OutputSumoLogicPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogicPqControls$outboundSchema;
-  /** @deprecated use `OutputSumoLogicPqControls$Outbound` instead. */
-  export type Outbound = OutputSumoLogicPqControls$Outbound;
-}
-
-export function outputSumoLogicPqControlsToJSON(
-  outputSumoLogicPqControls: OutputSumoLogicPqControls,
-): string {
-  return JSON.stringify(
-    OutputSumoLogicPqControls$outboundSchema.parse(outputSumoLogicPqControls),
-  );
-}
-
-export function outputSumoLogicPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSumoLogicPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSumoLogicPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSumoLogicPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSumoLogic$inboundSchema: z.ZodType<
-  OutputSumoLogic,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSumoLogicType$inboundSchema,
+  type: OutputSumoLogicType2$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -755,7 +395,7 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   url: z.string(),
   customSource: z.string().optional(),
   customCategory: z.string().optional(),
-  format: OutputSumoLogicDataFormat$inboundSchema.default("json"),
+  format: Format2Options$inboundSchema.default("json"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(1024),
   maxPayloadEvents: z.number().default(0),
@@ -763,38 +403,32 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSumoLogicExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputSumoLogicFailedRequestLoggingMode$inboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSumoLogicResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSumoLogicTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputSumoLogicBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSumoLogicCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSumoLogicQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSumoLogicMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSumoLogicPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputSumoLogic$Outbound = {
+export type OutputSumoLogicSumoLogic2$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -812,37 +446,37 @@ export type OutputSumoLogic$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputSumoLogicExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputSumoLogicResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputSumoLogicTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputSumoLogicPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputSumoLogic$outboundSchema: z.ZodType<
-  OutputSumoLogic$Outbound,
+export const OutputSumoLogicSumoLogic2$outboundSchema: z.ZodType<
+  OutputSumoLogicSumoLogic2$Outbound,
   z.ZodTypeDef,
-  OutputSumoLogic
+  OutputSumoLogicSumoLogic2
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSumoLogicType$outboundSchema,
+  type: OutputSumoLogicType2$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -850,7 +484,7 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   url: z.string(),
   customSource: z.string().optional(),
   customCategory: z.string().optional(),
-  format: OutputSumoLogicDataFormat$outboundSchema.default("json"),
+  format: Format2Options$outboundSchema.default("json"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(1024),
   maxPayloadEvents: z.number().default(0),
@@ -858,55 +492,239 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSumoLogicExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputSumoLogicFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSumoLogicResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSumoLogicTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputSumoLogicBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSumoLogicCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSumoLogicQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSumoLogicMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSumoLogicPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSumoLogic$ {
-  /** @deprecated use `OutputSumoLogic$inboundSchema` instead. */
-  export const inboundSchema = OutputSumoLogic$inboundSchema;
-  /** @deprecated use `OutputSumoLogic$outboundSchema` instead. */
-  export const outboundSchema = OutputSumoLogic$outboundSchema;
-  /** @deprecated use `OutputSumoLogic$Outbound` instead. */
-  export type Outbound = OutputSumoLogic$Outbound;
+export function outputSumoLogicSumoLogic2ToJSON(
+  outputSumoLogicSumoLogic2: OutputSumoLogicSumoLogic2,
+): string {
+  return JSON.stringify(
+    OutputSumoLogicSumoLogic2$outboundSchema.parse(outputSumoLogicSumoLogic2),
+  );
 }
+export function outputSumoLogicSumoLogic2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSumoLogicSumoLogic2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSumoLogicSumoLogic2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSumoLogicSumoLogic2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSumoLogicType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSumoLogicType1
+> = z.nativeEnum(OutputSumoLogicType1);
+/** @internal */
+export const OutputSumoLogicType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSumoLogicType1
+> = OutputSumoLogicType1$inboundSchema;
+
+/** @internal */
+export const OutputSumoLogicSumoLogic1$inboundSchema: z.ZodType<
+  OutputSumoLogicSumoLogic1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSumoLogicType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  customSource: z.string().optional(),
+  customCategory: z.string().optional(),
+  format: Format2Options$inboundSchema.default("json"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSumoLogicSumoLogic1$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  customSource?: string | undefined;
+  customCategory?: string | undefined;
+  format: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSumoLogicSumoLogic1$outboundSchema: z.ZodType<
+  OutputSumoLogicSumoLogic1$Outbound,
+  z.ZodTypeDef,
+  OutputSumoLogicSumoLogic1
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSumoLogicType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  customSource: z.string().optional(),
+  customCategory: z.string().optional(),
+  format: Format2Options$outboundSchema.default("json"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSumoLogicSumoLogic1ToJSON(
+  outputSumoLogicSumoLogic1: OutputSumoLogicSumoLogic1,
+): string {
+  return JSON.stringify(
+    OutputSumoLogicSumoLogic1$outboundSchema.parse(outputSumoLogicSumoLogic1),
+  );
+}
+export function outputSumoLogicSumoLogic1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSumoLogicSumoLogic1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSumoLogicSumoLogic1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSumoLogicSumoLogic1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSumoLogic$inboundSchema: z.ZodType<
+  OutputSumoLogic,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSumoLogicSumoLogic2$inboundSchema),
+  z.lazy(() => OutputSumoLogicSumoLogic1$inboundSchema),
+]);
+/** @internal */
+export type OutputSumoLogic$Outbound =
+  | OutputSumoLogicSumoLogic2$Outbound
+  | OutputSumoLogicSumoLogic1$Outbound;
+
+/** @internal */
+export const OutputSumoLogic$outboundSchema: z.ZodType<
+  OutputSumoLogic$Outbound,
+  z.ZodTypeDef,
+  OutputSumoLogic
+> = z.union([
+  z.lazy(() => OutputSumoLogicSumoLogic2$outboundSchema),
+  z.lazy(() => OutputSumoLogicSumoLogic1$outboundSchema),
+]);
 
 export function outputSumoLogicToJSON(
   outputSumoLogic: OutputSumoLogic,
 ): string {
   return JSON.stringify(OutputSumoLogic$outboundSchema.parse(outputSumoLogic));
 }
-
 export function outputSumoLogicFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSumoLogic, SDKValidationError> {

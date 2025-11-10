@@ -1,11 +1,53 @@
 # InputKinesis
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputKinesisKinesis1`
 
 ```typescript
-import { InputKinesis } from "cribl-control-plane/models";
+const value: models.InputKinesisKinesis1 = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  streamName: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "nerve well-made as against usually fortunately until when similar why",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
 
-let value: InputKinesis = {
+### `models.InputKinesisKinesis2`
+
+```typescript
+const value: models.InputKinesisKinesis2 = {
   id: "<id>",
   type: "kinesis",
   pipeline: "<value>",
@@ -35,48 +77,207 @@ let value: InputKinesis = {
       value: "<value>",
     },
   ],
-  description: "hamburger partially elegantly quietly whether perfectly",
+  description:
+    "secondary desecrate youthful instead affiliate writ kindheartedly inasmuch so",
   awsApiKey: "<value>",
   awsSecret: "<value>",
 };
 ```
 
-## Fields
+### `models.InputKinesisKinesis3`
 
-| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | [models.InputKinesisType](../models/inputkinesistype.md)                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
-| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                | [models.InputKinesisConnection](../models/inputkinesisconnection.md)[]                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                         | [models.InputKinesisPq](../models/inputkinesispq.md)                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `streamName`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Kinesis Data Stream to read data from                                                                                                                                                                                                        |
-| `serviceInterval`                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time interval in minutes between consecutive service calls                                                                                                                                                                                   |
-| `shardExpr`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.                                                                                           |
-| `shardIteratorType`                                                                                                                                                                                                                          | [models.ShardIteratorStart](../models/sharditeratorstart.md)                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Location at which to start reading a shard for the first time                                                                                                                                                                                |
-| `payloadFormat`                                                                                                                                                                                                                              | [models.InputKinesisRecordDataFormat](../models/inputkinesisrecorddataformat.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.                                                                                                                                                |
-| `getRecordsLimit`                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of records per getRecords call                                                                                                                                                                                                |
-| `getRecordsLimitTotal`                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of records, across all shards, to pull down at once per Worker Process                                                                                                                                                        |
-| `loadBalancingAlgorithm`                                                                                                                                                                                                                     | [models.ShardLoadBalancing](../models/shardloadbalancing.md)                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes                                                                                                                                             |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                    | [models.InputKinesisAuthenticationMethod](../models/inputkinesisauthenticationmethod.md)                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                     |
-| `awsSecretKey`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `region`                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Region where the Kinesis stream is located                                                                                                                                                                                                   |
-| `endpoint`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.                                                                                     |
-| `signatureVersion`                                                                                                                                                                                                                           | [models.InputKinesisSignatureVersion](../models/inputkinesissignatureversion.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | Signature version to use for signing Kinesis stream requests                                                                                                                                                                                 |
-| `reuseConnections`                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Reuse connections between requests, which can improve performance                                                                                                                                                                            |
-| `rejectUnauthorized`                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Reject certificates that cannot be verified against a valid CA, such as self-signed certificates                                                                                                                                             |
-| `enableAssumeRole`                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use Assume Role credentials to access Kinesis stream                                                                                                                                                                                         |
-| `assumeRoleArn`                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Amazon Resource Name (ARN) of the role to assume                                                                                                                                                                                             |
-| `assumeRoleExternalId`                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | External ID to use when assuming role                                                                                                                                                                                                        |
-| `durationSeconds`                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).                                                                                                  |
-| `verifyKPLCheckSums`                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Verify Kinesis Producer Library (KPL) event checksums                                                                                                                                                                                        |
-| `avoidDuplicates`                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.         |
-| `metadata`                                                                                                                                                                                                                                   | [models.InputKinesisMetadatum](../models/inputkinesismetadatum.md)[]                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
-| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `awsApiKey`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `awsSecret`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a stored secret that references your access key and secret key                                                                                                                                                              |
+```typescript
+const value: models.InputKinesisKinesis3 = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  streamName: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "after intently now oof woot cuddly custody",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.InputKinesisKinesis4`
+
+```typescript
+const value: models.InputKinesisKinesis4 = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  streamName: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "gee er whoever headline",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.InputKinesisKinesis5`
+
+```typescript
+const value: models.InputKinesisKinesis5 = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  streamName: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "kindheartedly after mouser because hence haze psst",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.InputKinesisKinesis6`
+
+```typescript
+const value: models.InputKinesisKinesis6 = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  streamName: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "drab so partially per why",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.InputKinesisKinesis7`
+
+```typescript
+const value: models.InputKinesisKinesis7 = {
+  id: "<id>",
+  type: "kinesis",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  streamName: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "ill flowery gentle nutritious unbalance meh verify vaguely whether",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+

@@ -8,7 +8,8 @@ import { NodeProvidedInfo } from "cribl-control-plane/models";
 let value: NodeProvidedInfo = {
   architecture: "<value>",
   aws: {
-    enabled: true,
+    enabled: false,
+    instanceId: "<id>",
     region: "<value>",
     tags: {},
     type: "<value>",
@@ -19,46 +20,51 @@ let value: NodeProvidedInfo = {
   cribl: {
     config: {
       featuresRev: "<value>",
-      hbPeriodSeconds: 3261.24,
+      hbPeriodSeconds: 8719.43,
       logStreamEnv: "<value>",
       policyRev: "<value>",
       version: "<value>",
     },
     deploymentId: "<id>",
-    disableSNIRouting: false,
-    distMode: "edge",
-    edgeNodes: 6064.13,
+    disableSNIRouting: true,
+    distMode: "master",
+    edgeNodes: 8294.01,
     group: "<value>",
     guid: "<id>",
     installType: "<value>",
     lookupVersions: {},
     master: {
-      host: "frequent-bell.info",
-      port: 9100.63,
+      host: "bitter-poetry.net",
+      port: 4320.82,
       servername: "<value>",
-      tls: true,
+      tls: false,
     },
-    pid: 5354.01,
-    socksEnabled: false,
-    startTime: 2370.83,
-    tags: [],
+    pid: 809.07,
+    socksEnabled: true,
+    startTime: 1948.63,
+    tags: [
+      "<value 1>",
+      "<value 2>",
+    ],
     version: "<value>",
   },
-  freeDiskSpace: 6220.45,
+  env: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
+  freeDiskSpace: 6937.14,
   hostOs: {
     addresses: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     enabled: true,
     id: "<id>",
     version: "<value>",
   },
-  hostname: "round-squid.org",
+  hostname: "tender-thigh.com",
   isSaasWorker: true,
   kube: {
-    enabled: false,
+    enabled: true,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -68,10 +74,11 @@ let value: NodeProvidedInfo = {
     pod: "<value>",
     source: "<value>",
   },
-  localTime: 1451.52,
+  localTime: 813.42,
   metadata: {
     aws: {
       enabled: false,
+      instanceId: "<id>",
       region: "<value>",
       tags: {},
       type: "<value>",
@@ -80,10 +87,8 @@ let value: NodeProvidedInfo = {
     hostOs: {
       addresses: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
@@ -102,9 +107,8 @@ let value: NodeProvidedInfo = {
       addresses: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
-      enabled: true,
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
@@ -113,39 +117,40 @@ let value: NodeProvidedInfo = {
   os: {
     addresses: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-    enabled: false,
-    id: "<id>",
-    version: "<value>",
+  },
+  outpost: {
+    guid: "<id>",
+    host: "pretty-interchange.name",
   },
   platform: "<value>",
   release: "<value>",
-  totalDiskSpace: 7682.09,
-  totalmem: 4145.33,
+  totalDiskSpace: 5590.59,
+  totalmem: 5398.99,
 };
 ```
 
 ## Fields
 
-| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `architecture`                                                       | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
-| `aws`                                                                | [models.NodeProvidedInfoAws](../models/nodeprovidedinfoaws.md)       | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `connIp`                                                             | *string*                                                             | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `cpus`                                                               | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
-| `cribl`                                                              | [models.HBCriblInfo](../models/hbcriblinfo.md)                       | :heavy_check_mark:                                                   | N/A                                                                  |
-| `freeDiskSpace`                                                      | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
-| `hostOs`                                                             | [models.NodeProvidedInfoHostOs](../models/nodeprovidedinfohostos.md) | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `hostname`                                                           | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
-| `isSaasWorker`                                                       | *boolean*                                                            | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `kube`                                                               | [models.NodeProvidedInfoKube](../models/nodeprovidedinfokube.md)     | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `localTime`                                                          | *number*                                                             | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `metadata`                                                           | [models.HeartbeatMetadata](../models/heartbeatmetadata.md)           | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `node`                                                               | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
-| `os`                                                                 | *models.Os*                                                          | :heavy_minus_sign:                                                   | N/A                                                                  |
-| `platform`                                                           | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
-| `release`                                                            | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
-| `totalDiskSpace`                                                     | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
-| `totalmem`                                                           | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `architecture`                                             | *string*                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `aws`                                                      | [models.AwsType](../models/awstype.md)                     | :heavy_minus_sign:                                         | N/A                                                        |
+| `connIp`                                                   | *string*                                                   | :heavy_minus_sign:                                         | N/A                                                        |
+| `cpus`                                                     | *number*                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `cribl`                                                    | [models.HBCriblInfo](../models/hbcriblinfo.md)             | :heavy_check_mark:                                         | N/A                                                        |
+| `env`                                                      | Record<string, *string*>                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `freeDiskSpace`                                            | *number*                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `hostOs`                                                   | [models.HostOsType](../models/hostostype.md)               | :heavy_minus_sign:                                         | N/A                                                        |
+| `hostname`                                                 | *string*                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `isSaasWorker`                                             | *boolean*                                                  | :heavy_minus_sign:                                         | N/A                                                        |
+| `kube`                                                     | [models.KubeType](../models/kubetype.md)                   | :heavy_minus_sign:                                         | N/A                                                        |
+| `localTime`                                                | *number*                                                   | :heavy_minus_sign:                                         | N/A                                                        |
+| `metadata`                                                 | [models.HeartbeatMetadata](../models/heartbeatmetadata.md) | :heavy_minus_sign:                                         | N/A                                                        |
+| `node`                                                     | *string*                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `os`                                                       | *models.OsUnion*                                           | :heavy_minus_sign:                                         | N/A                                                        |
+| `outpost`                                                  | [models.OutpostNodeInfo](../models/outpostnodeinfo.md)     | :heavy_minus_sign:                                         | N/A                                                        |
+| `platform`                                                 | *string*                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `release`                                                  | *string*                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `totalDiskSpace`                                           | *number*                                                   | :heavy_check_mark:                                         | N/A                                                        |
+| `totalmem`                                                 | *number*                                                   | :heavy_check_mark:                                         | N/A                                                        |

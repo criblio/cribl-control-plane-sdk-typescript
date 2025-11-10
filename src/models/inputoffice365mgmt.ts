@@ -4,212 +4,67 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
+import {
+  ContentConfigType,
+  ContentConfigType$inboundSchema,
+  ContentConfigType$Outbound,
+  ContentConfigType$outboundSchema,
+} from "./contentconfigtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PlanTypeOptions,
+  PlanTypeOptions$inboundSchema,
+  PlanTypeOptions$outboundSchema,
+} from "./plantypeoptions.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  RetryRulesType,
+  RetryRulesType$inboundSchema,
+  RetryRulesType$Outbound,
+  RetryRulesType$outboundSchema,
+} from "./retryrulestype.js";
 
-export const InputOffice365MgmtType = {
+export const InputOffice365MgmtType6 = {
   Office365Mgmt: "office365_mgmt",
 } as const;
-export type InputOffice365MgmtType = ClosedEnum<typeof InputOffice365MgmtType>;
-
-export type InputOffice365MgmtConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputOffice365MgmtMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputOffice365MgmtMode = OpenEnum<typeof InputOffice365MgmtMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputOffice365MgmtCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputOffice365MgmtCompression = OpenEnum<
-  typeof InputOffice365MgmtCompression
+export type InputOffice365MgmtType6 = ClosedEnum<
+  typeof InputOffice365MgmtType6
 >;
 
-export type InputOffice365MgmtPqControls = {};
-
-export type InputOffice365MgmtPq = {
+export type InputOffice365MgmtOffice365Mgmt6 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Enter credentials directly, or select a stored secret
    */
-  mode?: InputOffice365MgmtMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputOffice365MgmtCompression | undefined;
-  pqControls?: InputOffice365MgmtPqControls | undefined;
-};
-
-/**
- * Office 365 subscription plan for your organization, typically Office 365 Enterprise
- */
-export const InputOffice365MgmtSubscriptionPlan = {
-  EnterpriseGcc: "enterprise_gcc",
-  Gcc: "gcc",
-  GccHigh: "gcc_high",
-  Dod: "dod",
-} as const;
-/**
- * Office 365 subscription plan for your organization, typically Office 365 Enterprise
- */
-export type InputOffice365MgmtSubscriptionPlan = OpenEnum<
-  typeof InputOffice365MgmtSubscriptionPlan
->;
-
-export type InputOffice365MgmtMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-/**
- * Collector runtime Log Level
- */
-export const InputOffice365MgmtLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-} as const;
-/**
- * Collector runtime Log Level
- */
-export type InputOffice365MgmtLogLevel = OpenEnum<
-  typeof InputOffice365MgmtLogLevel
->;
-
-export type InputOffice365MgmtContentConfig = {
-  /**
-   * Office 365 Management Activity API Content Type
-   */
-  contentType?: string | undefined;
-  /**
-   * If interval type is minutes the value entered must evenly divisible by 60 or save will fail
-   */
-  description?: string | undefined;
-  interval?: number | undefined;
-  /**
-   * Collector runtime Log Level
-   */
-  logLevel?: InputOffice365MgmtLogLevel | undefined;
-  enabled?: boolean | undefined;
-};
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const InputOffice365MgmtRetryType = {
-  None: "none",
-  Backoff: "backoff",
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type InputOffice365MgmtRetryType = OpenEnum<
-  typeof InputOffice365MgmtRetryType
->;
-
-export type InputOffice365MgmtRetryRules = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type?: InputOffice365MgmtRetryType | undefined;
-  /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * The maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-   */
-  multiplier?: number | undefined;
-  /**
-   * List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
-};
-
-/**
- * Enter client secret directly, or select a stored secret
- */
-export const InputOffice365MgmtAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter client secret directly, or select a stored secret
- */
-export type InputOffice365MgmtAuthenticationMethod = OpenEnum<
-  typeof InputOffice365MgmtAuthenticationMethod
->;
-
-export type InputOffice365Mgmt = {
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOffice365MgmtType;
+  type: InputOffice365MgmtType6;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -234,12 +89,12 @@ export type InputOffice365Mgmt = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputOffice365MgmtConnection> | undefined;
-  pq?: InputOffice365MgmtPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
-  planType?: InputOffice365MgmtSubscriptionPlan | undefined;
+  planType?: PlanTypeOptions | undefined;
   /**
    * Office 365 Azure Tenant ID
    */
@@ -275,7 +130,7 @@ export type InputOffice365Mgmt = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputOffice365MgmtMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
    */
@@ -283,16 +138,226 @@ export type InputOffice365Mgmt = {
   /**
    * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
    */
-  contentConfig?: Array<InputOffice365MgmtContentConfig> | undefined;
+  contentConfig?: Array<ContentConfigType> | undefined;
   /**
    * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
    */
   ingestionLag?: number | undefined;
-  retryRules?: InputOffice365MgmtRetryRules | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
   /**
-   * Enter client secret directly, or select a stored secret
+   * Office 365 Azure client secret
    */
-  authType?: InputOffice365MgmtAuthenticationMethod | undefined;
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+};
+
+export const InputOffice365MgmtType5 = {
+  Office365Mgmt: "office365_mgmt",
+} as const;
+export type InputOffice365MgmtType5 = ClosedEnum<
+  typeof InputOffice365MgmtType5
+>;
+
+export type InputOffice365MgmtOffice365Mgmt5 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MgmtType5;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
+   */
+  publisherIdentifier?: string | undefined;
+  /**
+   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<ContentConfigType> | undefined;
+  /**
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   */
+  ingestionLag?: number | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const InputOffice365MgmtType4 = {
+  Office365Mgmt: "office365_mgmt",
+} as const;
+export type InputOffice365MgmtType4 = ClosedEnum<
+  typeof InputOffice365MgmtType4
+>;
+
+export type InputOffice365MgmtOffice365Mgmt4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MgmtType4;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
+   */
+  publisherIdentifier?: string | undefined;
+  /**
+   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<ContentConfigType> | undefined;
+  /**
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   */
+  ingestionLag?: number | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
   description?: string | undefined;
   /**
    * Office 365 Azure client secret
@@ -304,632 +369,362 @@ export type InputOffice365Mgmt = {
   textSecret?: string | undefined;
 };
 
-/** @internal */
-export const InputOffice365MgmtType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MgmtType
-> = z.nativeEnum(InputOffice365MgmtType);
+export const InputOffice365MgmtType3 = {
+  Office365Mgmt: "office365_mgmt",
+} as const;
+export type InputOffice365MgmtType3 = ClosedEnum<
+  typeof InputOffice365MgmtType3
+>;
 
-/** @internal */
-export const InputOffice365MgmtType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MgmtType
-> = InputOffice365MgmtType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtType$ {
-  /** @deprecated use `InputOffice365MgmtType$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtType$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtType$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtType$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365MgmtConnection$inboundSchema: z.ZodType<
-  InputOffice365MgmtConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputOffice365MgmtConnection$Outbound = {
+export type InputOffice365MgmtOffice365Mgmt3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MgmtType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputOffice365MgmtConnection$outboundSchema: z.ZodType<
-  InputOffice365MgmtConnection$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MgmtConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtConnection$ {
-  /** @deprecated use `InputOffice365MgmtConnection$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtConnection$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtConnection$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtConnection$outboundSchema;
-  /** @deprecated use `InputOffice365MgmtConnection$Outbound` instead. */
-  export type Outbound = InputOffice365MgmtConnection$Outbound;
-}
-
-export function inputOffice365MgmtConnectionToJSON(
-  inputOffice365MgmtConnection: InputOffice365MgmtConnection,
-): string {
-  return JSON.stringify(
-    InputOffice365MgmtConnection$outboundSchema.parse(
-      inputOffice365MgmtConnection,
-    ),
-  );
-}
-
-export function inputOffice365MgmtConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MgmtConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MgmtConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MgmtConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MgmtMode$inboundSchema: z.ZodType<
-  InputOffice365MgmtMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MgmtMode$outboundSchema: z.ZodType<
-  InputOffice365MgmtMode,
-  z.ZodTypeDef,
-  InputOffice365MgmtMode
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtMode$ {
-  /** @deprecated use `InputOffice365MgmtMode$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtMode$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtMode$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtMode$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365MgmtCompression$inboundSchema: z.ZodType<
-  InputOffice365MgmtCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MgmtCompression$outboundSchema: z.ZodType<
-  InputOffice365MgmtCompression,
-  z.ZodTypeDef,
-  InputOffice365MgmtCompression
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtCompression$ {
-  /** @deprecated use `InputOffice365MgmtCompression$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtCompression$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtCompression$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365MgmtPqControls$inboundSchema: z.ZodType<
-  InputOffice365MgmtPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputOffice365MgmtPqControls$Outbound = {};
-
-/** @internal */
-export const InputOffice365MgmtPqControls$outboundSchema: z.ZodType<
-  InputOffice365MgmtPqControls$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MgmtPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtPqControls$ {
-  /** @deprecated use `InputOffice365MgmtPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtPqControls$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtPqControls$outboundSchema;
-  /** @deprecated use `InputOffice365MgmtPqControls$Outbound` instead. */
-  export type Outbound = InputOffice365MgmtPqControls$Outbound;
-}
-
-export function inputOffice365MgmtPqControlsToJSON(
-  inputOffice365MgmtPqControls: InputOffice365MgmtPqControls,
-): string {
-  return JSON.stringify(
-    InputOffice365MgmtPqControls$outboundSchema.parse(
-      inputOffice365MgmtPqControls,
-    ),
-  );
-}
-
-export function inputOffice365MgmtPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MgmtPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MgmtPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MgmtPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MgmtPq$inboundSchema: z.ZodType<
-  InputOffice365MgmtPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputOffice365MgmtMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputOffice365MgmtCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputOffice365MgmtPqControls$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputOffice365MgmtPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputOffice365MgmtPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputOffice365MgmtPq$outboundSchema: z.ZodType<
-  InputOffice365MgmtPq$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MgmtPq
-> = z.object({
-  mode: InputOffice365MgmtMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputOffice365MgmtCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputOffice365MgmtPqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtPq$ {
-  /** @deprecated use `InputOffice365MgmtPq$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtPq$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtPq$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtPq$outboundSchema;
-  /** @deprecated use `InputOffice365MgmtPq$Outbound` instead. */
-  export type Outbound = InputOffice365MgmtPq$Outbound;
-}
-
-export function inputOffice365MgmtPqToJSON(
-  inputOffice365MgmtPq: InputOffice365MgmtPq,
-): string {
-  return JSON.stringify(
-    InputOffice365MgmtPq$outboundSchema.parse(inputOffice365MgmtPq),
-  );
-}
-
-export function inputOffice365MgmtPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MgmtPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MgmtPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MgmtPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MgmtSubscriptionPlan$inboundSchema: z.ZodType<
-  InputOffice365MgmtSubscriptionPlan,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtSubscriptionPlan),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MgmtSubscriptionPlan$outboundSchema: z.ZodType<
-  InputOffice365MgmtSubscriptionPlan,
-  z.ZodTypeDef,
-  InputOffice365MgmtSubscriptionPlan
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtSubscriptionPlan),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtSubscriptionPlan$ {
-  /** @deprecated use `InputOffice365MgmtSubscriptionPlan$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtSubscriptionPlan$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtSubscriptionPlan$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365MgmtSubscriptionPlan$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365MgmtMetadatum$inboundSchema: z.ZodType<
-  InputOffice365MgmtMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputOffice365MgmtMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputOffice365MgmtMetadatum$outboundSchema: z.ZodType<
-  InputOffice365MgmtMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MgmtMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtMetadatum$ {
-  /** @deprecated use `InputOffice365MgmtMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtMetadatum$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtMetadatum$outboundSchema;
-  /** @deprecated use `InputOffice365MgmtMetadatum$Outbound` instead. */
-  export type Outbound = InputOffice365MgmtMetadatum$Outbound;
-}
-
-export function inputOffice365MgmtMetadatumToJSON(
-  inputOffice365MgmtMetadatum: InputOffice365MgmtMetadatum,
-): string {
-  return JSON.stringify(
-    InputOffice365MgmtMetadatum$outboundSchema.parse(
-      inputOffice365MgmtMetadatum,
-    ),
-  );
-}
-
-export function inputOffice365MgmtMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MgmtMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MgmtMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MgmtMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MgmtLogLevel$inboundSchema: z.ZodType<
-  InputOffice365MgmtLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MgmtLogLevel$outboundSchema: z.ZodType<
-  InputOffice365MgmtLogLevel,
-  z.ZodTypeDef,
-  InputOffice365MgmtLogLevel
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtLogLevel$ {
-  /** @deprecated use `InputOffice365MgmtLogLevel$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtLogLevel$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtLogLevel$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtLogLevel$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365MgmtContentConfig$inboundSchema: z.ZodType<
-  InputOffice365MgmtContentConfig,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  contentType: z.string().optional(),
-  description: z.string().optional(),
-  interval: z.number().optional(),
-  logLevel: InputOffice365MgmtLogLevel$inboundSchema.optional(),
-  enabled: z.boolean().optional(),
-});
-
-/** @internal */
-export type InputOffice365MgmtContentConfig$Outbound = {
-  contentType?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
+   */
+  publisherIdentifier?: string | undefined;
+  /**
+   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<ContentConfigType> | undefined;
+  /**
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   */
+  ingestionLag?: number | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
   description?: string | undefined;
-  interval?: number | undefined;
-  logLevel?: string | undefined;
-  enabled?: boolean | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const InputOffice365MgmtContentConfig$outboundSchema: z.ZodType<
-  InputOffice365MgmtContentConfig$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MgmtContentConfig
-> = z.object({
-  contentType: z.string().optional(),
-  description: z.string().optional(),
-  interval: z.number().optional(),
-  logLevel: InputOffice365MgmtLogLevel$outboundSchema.optional(),
-  enabled: z.boolean().optional(),
-});
+export const InputOffice365MgmtType2 = {
+  Office365Mgmt: "office365_mgmt",
+} as const;
+export type InputOffice365MgmtType2 = ClosedEnum<
+  typeof InputOffice365MgmtType2
+>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtContentConfig$ {
-  /** @deprecated use `InputOffice365MgmtContentConfig$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtContentConfig$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtContentConfig$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtContentConfig$outboundSchema;
-  /** @deprecated use `InputOffice365MgmtContentConfig$Outbound` instead. */
-  export type Outbound = InputOffice365MgmtContentConfig$Outbound;
-}
-
-export function inputOffice365MgmtContentConfigToJSON(
-  inputOffice365MgmtContentConfig: InputOffice365MgmtContentConfig,
-): string {
-  return JSON.stringify(
-    InputOffice365MgmtContentConfig$outboundSchema.parse(
-      inputOffice365MgmtContentConfig,
-    ),
-  );
-}
-
-export function inputOffice365MgmtContentConfigFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MgmtContentConfig, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MgmtContentConfig$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MgmtContentConfig' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MgmtRetryType$inboundSchema: z.ZodType<
-  InputOffice365MgmtRetryType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MgmtRetryType$outboundSchema: z.ZodType<
-  InputOffice365MgmtRetryType,
-  z.ZodTypeDef,
-  InputOffice365MgmtRetryType
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtRetryType$ {
-  /** @deprecated use `InputOffice365MgmtRetryType$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtRetryType$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtRetryType$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtRetryType$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365MgmtRetryRules$inboundSchema: z.ZodType<
-  InputOffice365MgmtRetryRules,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: InputOffice365MgmtRetryType$inboundSchema.default("backoff"),
-  interval: z.number().default(1000),
-  limit: z.number().default(5),
-  multiplier: z.number().default(2),
-  codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().default(true),
-  retryConnectTimeout: z.boolean().default(false),
-  retryConnectReset: z.boolean().default(false),
-});
-
-/** @internal */
-export type InputOffice365MgmtRetryRules$Outbound = {
-  type: string;
-  interval: number;
-  limit: number;
-  multiplier: number;
-  codes?: Array<number> | undefined;
-  enableHeader: boolean;
-  retryConnectTimeout: boolean;
-  retryConnectReset: boolean;
+export type InputOffice365MgmtOffice365Mgmt2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MgmtType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
+   */
+  publisherIdentifier?: string | undefined;
+  /**
+   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<ContentConfigType> | undefined;
+  /**
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   */
+  ingestionLag?: number | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
+export const InputOffice365MgmtType1 = {
+  Office365Mgmt: "office365_mgmt",
+} as const;
+export type InputOffice365MgmtType1 = ClosedEnum<
+  typeof InputOffice365MgmtType1
+>;
+
+export type InputOffice365MgmtOffice365Mgmt1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MgmtType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
+   */
+  publisherIdentifier?: string | undefined;
+  /**
+   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<ContentConfigType> | undefined;
+  /**
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   */
+  ingestionLag?: number | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputOffice365Mgmt =
+  | InputOffice365MgmtOffice365Mgmt2
+  | InputOffice365MgmtOffice365Mgmt4
+  | InputOffice365MgmtOffice365Mgmt5
+  | InputOffice365MgmtOffice365Mgmt6
+  | InputOffice365MgmtOffice365Mgmt1
+  | InputOffice365MgmtOffice365Mgmt3;
+
 /** @internal */
-export const InputOffice365MgmtRetryRules$outboundSchema: z.ZodType<
-  InputOffice365MgmtRetryRules$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MgmtRetryRules
-> = z.object({
-  type: InputOffice365MgmtRetryType$outboundSchema.default("backoff"),
-  interval: z.number().default(1000),
-  limit: z.number().default(5),
-  multiplier: z.number().default(2),
-  codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().default(true),
-  retryConnectTimeout: z.boolean().default(false),
-  retryConnectReset: z.boolean().default(false),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtRetryRules$ {
-  /** @deprecated use `InputOffice365MgmtRetryRules$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MgmtRetryRules$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtRetryRules$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MgmtRetryRules$outboundSchema;
-  /** @deprecated use `InputOffice365MgmtRetryRules$Outbound` instead. */
-  export type Outbound = InputOffice365MgmtRetryRules$Outbound;
-}
-
-export function inputOffice365MgmtRetryRulesToJSON(
-  inputOffice365MgmtRetryRules: InputOffice365MgmtRetryRules,
-): string {
-  return JSON.stringify(
-    InputOffice365MgmtRetryRules$outboundSchema.parse(
-      inputOffice365MgmtRetryRules,
-    ),
-  );
-}
-
-export function inputOffice365MgmtRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MgmtRetryRules, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MgmtRetryRules$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MgmtRetryRules' from JSON`,
-  );
-}
+export const InputOffice365MgmtType6$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType6
+> = z.nativeEnum(InputOffice365MgmtType6);
+/** @internal */
+export const InputOffice365MgmtType6$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType6
+> = InputOffice365MgmtType6$inboundSchema;
 
 /** @internal */
-export const InputOffice365MgmtAuthenticationMethod$inboundSchema: z.ZodType<
-  InputOffice365MgmtAuthenticationMethod,
+export const InputOffice365MgmtOffice365Mgmt6$inboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt6,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MgmtAuthenticationMethod$outboundSchema: z.ZodType<
-  InputOffice365MgmtAuthenticationMethod,
-  z.ZodTypeDef,
-  InputOffice365MgmtAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MgmtAuthenticationMethod$ {
-  /** @deprecated use `InputOffice365MgmtAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOffice365MgmtAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputOffice365MgmtAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365MgmtAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365Mgmt$inboundSchema: z.ZodType<
-  InputOffice365Mgmt,
-  z.ZodTypeDef,
-  unknown
 > = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: InputOffice365MgmtType$inboundSchema,
+  type: InputOffice365MgmtType6$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputOffice365MgmtConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputOffice365MgmtPq$inboundSchema).optional(),
-  planType: InputOffice365MgmtSubscriptionPlan$inboundSchema.default(
-    "enterprise_gcc",
-  ),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
   tenantId: z.string(),
   appId: z.string(),
   timeout: z.number().default(300),
@@ -938,25 +733,18 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputOffice365MgmtMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   publisherIdentifier: z.string().optional(),
-  contentConfig: z.array(
-    z.lazy(() => InputOffice365MgmtContentConfig$inboundSchema),
-  ).optional(),
+  contentConfig: z.array(ContentConfigType$inboundSchema).optional(),
   ingestionLag: z.number().default(0),
-  retryRules: z.lazy(() => InputOffice365MgmtRetryRules$inboundSchema)
-    .optional(),
-  authType: InputOffice365MgmtAuthenticationMethod$inboundSchema.default(
-    "manual",
-  ),
+  retryRules: RetryRulesType$inboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
-  textSecret: z.string().optional(),
+  textSecret: z.string(),
 });
-
 /** @internal */
-export type InputOffice365Mgmt$Outbound = {
+export type InputOffice365MgmtOffice365Mgmt6$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -965,8 +753,8 @@ export type InputOffice365Mgmt$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputOffice365MgmtConnection$Outbound> | undefined;
-  pq?: InputOffice365MgmtPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   planType: string;
   tenantId: string;
   appId: string;
@@ -976,38 +764,34 @@ export type InputOffice365Mgmt$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<InputOffice365MgmtMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   publisherIdentifier?: string | undefined;
-  contentConfig?: Array<InputOffice365MgmtContentConfig$Outbound> | undefined;
+  contentConfig?: Array<ContentConfigType$Outbound> | undefined;
   ingestionLag: number;
-  retryRules?: InputOffice365MgmtRetryRules$Outbound | undefined;
-  authType: string;
+  retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
-  textSecret?: string | undefined;
+  textSecret: string;
 };
 
 /** @internal */
-export const InputOffice365Mgmt$outboundSchema: z.ZodType<
-  InputOffice365Mgmt$Outbound,
+export const InputOffice365MgmtOffice365Mgmt6$outboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt6$Outbound,
   z.ZodTypeDef,
-  InputOffice365Mgmt
+  InputOffice365MgmtOffice365Mgmt6
 > = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
   id: z.string().optional(),
-  type: InputOffice365MgmtType$outboundSchema,
+  type: InputOffice365MgmtType6$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputOffice365MgmtConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputOffice365MgmtPq$outboundSchema).optional(),
-  planType: InputOffice365MgmtSubscriptionPlan$outboundSchema.default(
-    "enterprise_gcc",
-  ),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
   tenantId: z.string(),
   appId: z.string(),
   timeout: z.number().default(300),
@@ -1016,35 +800,725 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputOffice365MgmtMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   publisherIdentifier: z.string().optional(),
-  contentConfig: z.array(
-    z.lazy(() => InputOffice365MgmtContentConfig$outboundSchema),
-  ).optional(),
+  contentConfig: z.array(ContentConfigType$outboundSchema).optional(),
   ingestionLag: z.number().default(0),
-  retryRules: z.lazy(() => InputOffice365MgmtRetryRules$outboundSchema)
-    .optional(),
-  authType: InputOffice365MgmtAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string(),
+});
+
+export function inputOffice365MgmtOffice365Mgmt6ToJSON(
+  inputOffice365MgmtOffice365Mgmt6: InputOffice365MgmtOffice365Mgmt6,
+): string {
+  return JSON.stringify(
+    InputOffice365MgmtOffice365Mgmt6$outboundSchema.parse(
+      inputOffice365MgmtOffice365Mgmt6,
+    ),
+  );
+}
+export function inputOffice365MgmtOffice365Mgmt6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MgmtOffice365Mgmt6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MgmtOffice365Mgmt6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MgmtOffice365Mgmt6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MgmtType5$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType5
+> = z.nativeEnum(InputOffice365MgmtType5);
+/** @internal */
+export const InputOffice365MgmtType5$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType5
+> = InputOffice365MgmtType5$inboundSchema;
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt5$inboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType5$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$inboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  clientSecret: z.string(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputOffice365MgmtOffice365Mgmt5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout: number;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  publisherIdentifier?: string | undefined;
+  contentConfig?: Array<ContentConfigType$Outbound> | undefined;
+  ingestionLag: number;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  clientSecret: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt5$outboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt5$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MgmtOffice365Mgmt5
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType5$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$outboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  clientSecret: z.string(),
+  textSecret: z.string().optional(),
+});
+
+export function inputOffice365MgmtOffice365Mgmt5ToJSON(
+  inputOffice365MgmtOffice365Mgmt5: InputOffice365MgmtOffice365Mgmt5,
+): string {
+  return JSON.stringify(
+    InputOffice365MgmtOffice365Mgmt5$outboundSchema.parse(
+      inputOffice365MgmtOffice365Mgmt5,
+    ),
+  );
+}
+export function inputOffice365MgmtOffice365Mgmt5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MgmtOffice365Mgmt5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MgmtOffice365Mgmt5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MgmtOffice365Mgmt5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MgmtType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType4
+> = z.nativeEnum(InputOffice365MgmtType4);
+/** @internal */
+export const InputOffice365MgmtType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType4
+> = InputOffice365MgmtType4$inboundSchema;
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt4$inboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType4$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$inboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputOffice365MgmtOffice365Mgmt4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout: number;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  publisherIdentifier?: string | undefined;
+  contentConfig?: Array<ContentConfigType$Outbound> | undefined;
+  ingestionLag: number;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt4$outboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt4$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MgmtOffice365Mgmt4
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$outboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365Mgmt$ {
-  /** @deprecated use `InputOffice365Mgmt$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365Mgmt$inboundSchema;
-  /** @deprecated use `InputOffice365Mgmt$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365Mgmt$outboundSchema;
-  /** @deprecated use `InputOffice365Mgmt$Outbound` instead. */
-  export type Outbound = InputOffice365Mgmt$Outbound;
+export function inputOffice365MgmtOffice365Mgmt4ToJSON(
+  inputOffice365MgmtOffice365Mgmt4: InputOffice365MgmtOffice365Mgmt4,
+): string {
+  return JSON.stringify(
+    InputOffice365MgmtOffice365Mgmt4$outboundSchema.parse(
+      inputOffice365MgmtOffice365Mgmt4,
+    ),
+  );
 }
+export function inputOffice365MgmtOffice365Mgmt4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MgmtOffice365Mgmt4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MgmtOffice365Mgmt4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MgmtOffice365Mgmt4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MgmtType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType3
+> = z.nativeEnum(InputOffice365MgmtType3);
+/** @internal */
+export const InputOffice365MgmtType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType3
+> = InputOffice365MgmtType3$inboundSchema;
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt3$inboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$inboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputOffice365MgmtOffice365Mgmt3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout: number;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  publisherIdentifier?: string | undefined;
+  contentConfig?: Array<ContentConfigType$Outbound> | undefined;
+  ingestionLag: number;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt3$outboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt3$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MgmtOffice365Mgmt3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$outboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputOffice365MgmtOffice365Mgmt3ToJSON(
+  inputOffice365MgmtOffice365Mgmt3: InputOffice365MgmtOffice365Mgmt3,
+): string {
+  return JSON.stringify(
+    InputOffice365MgmtOffice365Mgmt3$outboundSchema.parse(
+      inputOffice365MgmtOffice365Mgmt3,
+    ),
+  );
+}
+export function inputOffice365MgmtOffice365Mgmt3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MgmtOffice365Mgmt3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MgmtOffice365Mgmt3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MgmtOffice365Mgmt3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MgmtType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType2
+> = z.nativeEnum(InputOffice365MgmtType2);
+/** @internal */
+export const InputOffice365MgmtType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType2
+> = InputOffice365MgmtType2$inboundSchema;
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt2$inboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$inboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputOffice365MgmtOffice365Mgmt2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout: number;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  publisherIdentifier?: string | undefined;
+  contentConfig?: Array<ContentConfigType$Outbound> | undefined;
+  ingestionLag: number;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt2$outboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt2$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MgmtOffice365Mgmt2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$outboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputOffice365MgmtOffice365Mgmt2ToJSON(
+  inputOffice365MgmtOffice365Mgmt2: InputOffice365MgmtOffice365Mgmt2,
+): string {
+  return JSON.stringify(
+    InputOffice365MgmtOffice365Mgmt2$outboundSchema.parse(
+      inputOffice365MgmtOffice365Mgmt2,
+    ),
+  );
+}
+export function inputOffice365MgmtOffice365Mgmt2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MgmtOffice365Mgmt2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MgmtOffice365Mgmt2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MgmtOffice365Mgmt2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MgmtType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType1
+> = z.nativeEnum(InputOffice365MgmtType1);
+/** @internal */
+export const InputOffice365MgmtType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MgmtType1
+> = InputOffice365MgmtType1$inboundSchema;
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt1$inboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$inboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputOffice365MgmtOffice365Mgmt1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout: number;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  publisherIdentifier?: string | undefined;
+  contentConfig?: Array<ContentConfigType$Outbound> | undefined;
+  ingestionLag: number;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365MgmtOffice365Mgmt1$outboundSchema: z.ZodType<
+  InputOffice365MgmtOffice365Mgmt1$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MgmtOffice365Mgmt1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputOffice365MgmtType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().default(300),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(ContentConfigType$outboundSchema).optional(),
+  ingestionLag: z.number().default(0),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputOffice365MgmtOffice365Mgmt1ToJSON(
+  inputOffice365MgmtOffice365Mgmt1: InputOffice365MgmtOffice365Mgmt1,
+): string {
+  return JSON.stringify(
+    InputOffice365MgmtOffice365Mgmt1$outboundSchema.parse(
+      inputOffice365MgmtOffice365Mgmt1,
+    ),
+  );
+}
+export function inputOffice365MgmtOffice365Mgmt1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOffice365MgmtOffice365Mgmt1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOffice365MgmtOffice365Mgmt1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOffice365MgmtOffice365Mgmt1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365Mgmt$inboundSchema: z.ZodType<
+  InputOffice365Mgmt,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt2$inboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt4$inboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt5$inboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt6$inboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt1$inboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt3$inboundSchema),
+]);
+/** @internal */
+export type InputOffice365Mgmt$Outbound =
+  | InputOffice365MgmtOffice365Mgmt2$Outbound
+  | InputOffice365MgmtOffice365Mgmt4$Outbound
+  | InputOffice365MgmtOffice365Mgmt5$Outbound
+  | InputOffice365MgmtOffice365Mgmt6$Outbound
+  | InputOffice365MgmtOffice365Mgmt1$Outbound
+  | InputOffice365MgmtOffice365Mgmt3$Outbound;
+
+/** @internal */
+export const InputOffice365Mgmt$outboundSchema: z.ZodType<
+  InputOffice365Mgmt$Outbound,
+  z.ZodTypeDef,
+  InputOffice365Mgmt
+> = z.union([
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt2$outboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt4$outboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt5$outboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt6$outboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt1$outboundSchema),
+  z.lazy(() => InputOffice365MgmtOffice365Mgmt3$outboundSchema),
+]);
 
 export function inputOffice365MgmtToJSON(
   inputOffice365Mgmt: InputOffice365Mgmt,
@@ -1053,7 +1527,6 @@ export function inputOffice365MgmtToJSON(
     InputOffice365Mgmt$outboundSchema.parse(inputOffice365Mgmt),
   );
 }
-
 export function inputOffice365MgmtFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365Mgmt, SDKValidationError> {

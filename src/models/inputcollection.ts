@@ -4,111 +4,49 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  PreprocessType,
+  PreprocessType$inboundSchema,
+  PreprocessType$Outbound,
+  PreprocessType$outboundSchema,
+} from "./preprocesstype.js";
 
-export const InputCollectionType = {
+export const InputCollectionType4 = {
   Collection: "collection",
 } as const;
-export type InputCollectionType = ClosedEnum<typeof InputCollectionType>;
+export type InputCollectionType4 = ClosedEnum<typeof InputCollectionType4>;
 
-export type InputCollectionConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputCollectionMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputCollectionMode = OpenEnum<typeof InputCollectionMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputCollectionCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputCollectionCompression = OpenEnum<
-  typeof InputCollectionCompression
->;
-
-export type InputCollectionPqControls = {};
-
-export type InputCollectionPq = {
+export type InputCollectionCollection4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputCollectionMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputCollectionCompression | undefined;
-  pqControls?: InputCollectionPqControls | undefined;
-};
-
-export type InputCollectionPreprocess = {
-  disabled?: boolean | undefined;
-  /**
-   * Command to feed the data through (via stdin) and process its output (stdout)
-   */
-  command?: string | undefined;
-  /**
-   * Arguments to be added to the custom command
-   */
-  args?: Array<string> | undefined;
-};
-
-export type InputCollectionMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputCollection = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputCollectionType | undefined;
+  type?: InputCollectionType4 | undefined;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process results
@@ -118,6 +56,122 @@ export type InputCollection = {
    * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  preprocess?: PreprocessType | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Destination to send results to
+   */
+  output?: string | undefined;
+};
+
+export const InputCollectionType3 = {
+  Collection: "collection",
+} as const;
+export type InputCollectionType3 = ClosedEnum<typeof InputCollectionType3>;
+
+export type InputCollectionCollection3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type?: InputCollectionType3 | undefined;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process results
+   */
+  pipeline?: string | undefined;
+  /**
+   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  preprocess?: PreprocessType | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Destination to send results to
+   */
+  output?: string | undefined;
+};
+
+export const InputCollectionType2 = {
+  Collection: "collection",
+} as const;
+export type InputCollectionType2 = ClosedEnum<typeof InputCollectionType2>;
+
+export type InputCollectionCollection2 = {
+  /**
+   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type?: InputCollectionType2 | undefined;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process results
+   */
+  pipeline: string;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -133,8 +187,8 @@ export type InputCollection = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputCollectionConnection> | undefined;
-  pq?: InputCollectionPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -143,7 +197,7 @@ export type InputCollection = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
-  preprocess?: InputCollectionPreprocess | undefined;
+  preprocess?: PreprocessType | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -151,392 +205,448 @@ export type InputCollection = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputCollectionMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Destination to send results to
+   */
+  output: string;
+};
+
+export const InputCollectionType1 = {
+  Collection: "collection",
+} as const;
+export type InputCollectionType1 = ClosedEnum<typeof InputCollectionType1>;
+
+export type InputCollectionCollection1 = {
+  /**
+   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type?: InputCollectionType1 | undefined;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process results
+   */
+  pipeline: string;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  preprocess?: PreprocessType | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * Destination to send results to
    */
   output?: string | undefined;
 };
 
-/** @internal */
-export const InputCollectionType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionType
-> = z.nativeEnum(InputCollectionType);
+export type InputCollection =
+  | InputCollectionCollection2
+  | InputCollectionCollection1
+  | InputCollectionCollection4
+  | InputCollectionCollection3;
 
 /** @internal */
-export const InputCollectionType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionType
-> = InputCollectionType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollectionType$ {
-  /** @deprecated use `InputCollectionType$inboundSchema` instead. */
-  export const inboundSchema = InputCollectionType$inboundSchema;
-  /** @deprecated use `InputCollectionType$outboundSchema` instead. */
-  export const outboundSchema = InputCollectionType$outboundSchema;
-}
+export const InputCollectionType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputCollectionType4
+> = z.nativeEnum(InputCollectionType4);
+/** @internal */
+export const InputCollectionType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputCollectionType4
+> = InputCollectionType4$inboundSchema;
 
 /** @internal */
-export const InputCollectionConnection$inboundSchema: z.ZodType<
-  InputCollectionConnection,
+export const InputCollectionCollection4$inboundSchema: z.ZodType<
+  InputCollectionCollection4,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCollectionType4$inboundSchema.default("collection"),
+  disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  output: z.string(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  preprocess: PreprocessType$inboundSchema.optional(),
+  throttleRatePerSec: z.string().default("0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  output: z.string().optional(),
 });
+/** @internal */
+export type InputCollectionCollection4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  preprocess?: PreprocessType$Outbound | undefined;
+  throttleRatePerSec: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  output?: string | undefined;
+};
 
 /** @internal */
-export type InputCollectionConnection$Outbound = {
+export const InputCollectionCollection4$outboundSchema: z.ZodType<
+  InputCollectionCollection4$Outbound,
+  z.ZodTypeDef,
+  InputCollectionCollection4
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCollectionType4$outboundSchema.default("collection"),
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  preprocess: PreprocessType$outboundSchema.optional(),
+  throttleRatePerSec: z.string().default("0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  output: z.string().optional(),
+});
+
+export function inputCollectionCollection4ToJSON(
+  inputCollectionCollection4: InputCollectionCollection4,
+): string {
+  return JSON.stringify(
+    InputCollectionCollection4$outboundSchema.parse(inputCollectionCollection4),
+  );
+}
+export function inputCollectionCollection4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCollectionCollection4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCollectionCollection4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionCollection4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCollectionType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputCollectionType3
+> = z.nativeEnum(InputCollectionType3);
+/** @internal */
+export const InputCollectionType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputCollectionType3
+> = InputCollectionType3$inboundSchema;
+
+/** @internal */
+export const InputCollectionCollection3$inboundSchema: z.ZodType<
+  InputCollectionCollection3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCollectionType3$inboundSchema.default("collection"),
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  preprocess: PreprocessType$inboundSchema.optional(),
+  throttleRatePerSec: z.string().default("0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  output: z.string().optional(),
+});
+/** @internal */
+export type InputCollectionCollection3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
   pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  preprocess?: PreprocessType$Outbound | undefined;
+  throttleRatePerSec: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  output?: string | undefined;
+};
+
+/** @internal */
+export const InputCollectionCollection3$outboundSchema: z.ZodType<
+  InputCollectionCollection3$Outbound,
+  z.ZodTypeDef,
+  InputCollectionCollection3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCollectionType3$outboundSchema.default("collection"),
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  preprocess: PreprocessType$outboundSchema.optional(),
+  throttleRatePerSec: z.string().default("0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  output: z.string().optional(),
+});
+
+export function inputCollectionCollection3ToJSON(
+  inputCollectionCollection3: InputCollectionCollection3,
+): string {
+  return JSON.stringify(
+    InputCollectionCollection3$outboundSchema.parse(inputCollectionCollection3),
+  );
+}
+export function inputCollectionCollection3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCollectionCollection3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCollectionCollection3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionCollection3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCollectionType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputCollectionType2
+> = z.nativeEnum(InputCollectionType2);
+/** @internal */
+export const InputCollectionType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputCollectionType2
+> = InputCollectionType2$inboundSchema;
+
+/** @internal */
+export const InputCollectionCollection2$inboundSchema: z.ZodType<
+  InputCollectionCollection2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCollectionType2$inboundSchema.default("collection"),
+  disabled: z.boolean().default(false),
+  pipeline: z.string(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  preprocess: PreprocessType$inboundSchema.optional(),
+  throttleRatePerSec: z.string().default("0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputCollectionCollection2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline: string;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  preprocess?: PreprocessType$Outbound | undefined;
+  throttleRatePerSec: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   output: string;
 };
 
 /** @internal */
-export const InputCollectionConnection$outboundSchema: z.ZodType<
-  InputCollectionConnection$Outbound,
+export const InputCollectionCollection2$outboundSchema: z.ZodType<
+  InputCollectionCollection2$Outbound,
   z.ZodTypeDef,
-  InputCollectionConnection
+  InputCollectionCollection2
 > = z.object({
-  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCollectionType2$outboundSchema.default("collection"),
+  disabled: z.boolean().default(false),
+  pipeline: z.string(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  preprocess: PreprocessType$outboundSchema.optional(),
+  throttleRatePerSec: z.string().default("0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollectionConnection$ {
-  /** @deprecated use `InputCollectionConnection$inboundSchema` instead. */
-  export const inboundSchema = InputCollectionConnection$inboundSchema;
-  /** @deprecated use `InputCollectionConnection$outboundSchema` instead. */
-  export const outboundSchema = InputCollectionConnection$outboundSchema;
-  /** @deprecated use `InputCollectionConnection$Outbound` instead. */
-  export type Outbound = InputCollectionConnection$Outbound;
-}
-
-export function inputCollectionConnectionToJSON(
-  inputCollectionConnection: InputCollectionConnection,
+export function inputCollectionCollection2ToJSON(
+  inputCollectionCollection2: InputCollectionCollection2,
 ): string {
   return JSON.stringify(
-    InputCollectionConnection$outboundSchema.parse(inputCollectionConnection),
+    InputCollectionCollection2$outboundSchema.parse(inputCollectionCollection2),
   );
 }
-
-export function inputCollectionConnectionFromJSON(
+export function inputCollectionCollection2FromJSON(
   jsonString: string,
-): SafeParseResult<InputCollectionConnection, SDKValidationError> {
+): SafeParseResult<InputCollectionCollection2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputCollectionConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionConnection' from JSON`,
+    (x) => InputCollectionCollection2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionCollection2' from JSON`,
   );
 }
 
 /** @internal */
-export const InputCollectionMode$inboundSchema: z.ZodType<
-  InputCollectionMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCollectionMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputCollectionType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputCollectionType1
+> = z.nativeEnum(InputCollectionType1);
+/** @internal */
+export const InputCollectionType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputCollectionType1
+> = InputCollectionType1$inboundSchema;
 
 /** @internal */
-export const InputCollectionMode$outboundSchema: z.ZodType<
-  InputCollectionMode,
-  z.ZodTypeDef,
-  InputCollectionMode
-> = z.union([
-  z.nativeEnum(InputCollectionMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollectionMode$ {
-  /** @deprecated use `InputCollectionMode$inboundSchema` instead. */
-  export const inboundSchema = InputCollectionMode$inboundSchema;
-  /** @deprecated use `InputCollectionMode$outboundSchema` instead. */
-  export const outboundSchema = InputCollectionMode$outboundSchema;
-}
-
-/** @internal */
-export const InputCollectionCompression$inboundSchema: z.ZodType<
-  InputCollectionCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCollectionCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputCollectionCompression$outboundSchema: z.ZodType<
-  InputCollectionCompression,
-  z.ZodTypeDef,
-  InputCollectionCompression
-> = z.union([
-  z.nativeEnum(InputCollectionCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollectionCompression$ {
-  /** @deprecated use `InputCollectionCompression$inboundSchema` instead. */
-  export const inboundSchema = InputCollectionCompression$inboundSchema;
-  /** @deprecated use `InputCollectionCompression$outboundSchema` instead. */
-  export const outboundSchema = InputCollectionCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputCollectionPqControls$inboundSchema: z.ZodType<
-  InputCollectionPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputCollectionPqControls$Outbound = {};
-
-/** @internal */
-export const InputCollectionPqControls$outboundSchema: z.ZodType<
-  InputCollectionPqControls$Outbound,
-  z.ZodTypeDef,
-  InputCollectionPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollectionPqControls$ {
-  /** @deprecated use `InputCollectionPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputCollectionPqControls$inboundSchema;
-  /** @deprecated use `InputCollectionPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputCollectionPqControls$outboundSchema;
-  /** @deprecated use `InputCollectionPqControls$Outbound` instead. */
-  export type Outbound = InputCollectionPqControls$Outbound;
-}
-
-export function inputCollectionPqControlsToJSON(
-  inputCollectionPqControls: InputCollectionPqControls,
-): string {
-  return JSON.stringify(
-    InputCollectionPqControls$outboundSchema.parse(inputCollectionPqControls),
-  );
-}
-
-export function inputCollectionPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCollectionPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCollectionPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCollectionPq$inboundSchema: z.ZodType<
-  InputCollectionPq,
+export const InputCollectionCollection1$inboundSchema: z.ZodType<
+  InputCollectionCollection1,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputCollectionMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCollectionCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCollectionPqControls$inboundSchema).optional(),
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCollectionType1$inboundSchema.default("collection"),
+  disabled: z.boolean().default(false),
+  pipeline: z.string(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  preprocess: PreprocessType$inboundSchema.optional(),
+  throttleRatePerSec: z.string().default("0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  output: z.string().optional(),
 });
-
 /** @internal */
-export type InputCollectionPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputCollectionPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputCollectionPq$outboundSchema: z.ZodType<
-  InputCollectionPq$Outbound,
-  z.ZodTypeDef,
-  InputCollectionPq
-> = z.object({
-  mode: InputCollectionMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCollectionCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCollectionPqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollectionPq$ {
-  /** @deprecated use `InputCollectionPq$inboundSchema` instead. */
-  export const inboundSchema = InputCollectionPq$inboundSchema;
-  /** @deprecated use `InputCollectionPq$outboundSchema` instead. */
-  export const outboundSchema = InputCollectionPq$outboundSchema;
-  /** @deprecated use `InputCollectionPq$Outbound` instead. */
-  export type Outbound = InputCollectionPq$Outbound;
-}
-
-export function inputCollectionPqToJSON(
-  inputCollectionPq: InputCollectionPq,
-): string {
-  return JSON.stringify(
-    InputCollectionPq$outboundSchema.parse(inputCollectionPq),
-  );
-}
-
-export function inputCollectionPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCollectionPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCollectionPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCollectionPreprocess$inboundSchema: z.ZodType<
-  InputCollectionPreprocess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-
-/** @internal */
-export type InputCollectionPreprocess$Outbound = {
+export type InputCollectionCollection1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
   disabled: boolean;
-  command?: string | undefined;
-  args?: Array<string> | undefined;
+  pipeline: string;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  preprocess?: PreprocessType$Outbound | undefined;
+  throttleRatePerSec: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  output?: string | undefined;
 };
 
 /** @internal */
-export const InputCollectionPreprocess$outboundSchema: z.ZodType<
-  InputCollectionPreprocess$Outbound,
+export const InputCollectionCollection1$outboundSchema: z.ZodType<
+  InputCollectionCollection1$Outbound,
   z.ZodTypeDef,
-  InputCollectionPreprocess
+  InputCollectionCollection1
 > = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCollectionType1$outboundSchema.default("collection"),
+  disabled: z.boolean().default(false),
+  pipeline: z.string(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  preprocess: PreprocessType$outboundSchema.optional(),
+  throttleRatePerSec: z.string().default("0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  output: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollectionPreprocess$ {
-  /** @deprecated use `InputCollectionPreprocess$inboundSchema` instead. */
-  export const inboundSchema = InputCollectionPreprocess$inboundSchema;
-  /** @deprecated use `InputCollectionPreprocess$outboundSchema` instead. */
-  export const outboundSchema = InputCollectionPreprocess$outboundSchema;
-  /** @deprecated use `InputCollectionPreprocess$Outbound` instead. */
-  export type Outbound = InputCollectionPreprocess$Outbound;
-}
-
-export function inputCollectionPreprocessToJSON(
-  inputCollectionPreprocess: InputCollectionPreprocess,
+export function inputCollectionCollection1ToJSON(
+  inputCollectionCollection1: InputCollectionCollection1,
 ): string {
   return JSON.stringify(
-    InputCollectionPreprocess$outboundSchema.parse(inputCollectionPreprocess),
+    InputCollectionCollection1$outboundSchema.parse(inputCollectionCollection1),
   );
 }
-
-export function inputCollectionPreprocessFromJSON(
+export function inputCollectionCollection1FromJSON(
   jsonString: string,
-): SafeParseResult<InputCollectionPreprocess, SDKValidationError> {
+): SafeParseResult<InputCollectionCollection1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputCollectionPreprocess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionPreprocess' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCollectionMetadatum$inboundSchema: z.ZodType<
-  InputCollectionMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputCollectionMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputCollectionMetadatum$outboundSchema: z.ZodType<
-  InputCollectionMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputCollectionMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollectionMetadatum$ {
-  /** @deprecated use `InputCollectionMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputCollectionMetadatum$inboundSchema;
-  /** @deprecated use `InputCollectionMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputCollectionMetadatum$outboundSchema;
-  /** @deprecated use `InputCollectionMetadatum$Outbound` instead. */
-  export type Outbound = InputCollectionMetadatum$Outbound;
-}
-
-export function inputCollectionMetadatumToJSON(
-  inputCollectionMetadatum: InputCollectionMetadatum,
-): string {
-  return JSON.stringify(
-    InputCollectionMetadatum$outboundSchema.parse(inputCollectionMetadatum),
-  );
-}
-
-export function inputCollectionMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCollectionMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCollectionMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCollectionMetadatum' from JSON`,
+    (x) => InputCollectionCollection1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCollectionCollection1' from JSON`,
   );
 }
 
@@ -545,92 +655,36 @@ export const InputCollection$inboundSchema: z.ZodType<
   InputCollection,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputCollectionType$inboundSchema.default("collection"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCollectionConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCollectionPq$inboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  preprocess: z.lazy(() => InputCollectionPreprocess$inboundSchema).optional(),
-  throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(z.lazy(() => InputCollectionMetadatum$inboundSchema))
-    .optional(),
-  output: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputCollectionCollection2$inboundSchema),
+  z.lazy(() => InputCollectionCollection1$inboundSchema),
+  z.lazy(() => InputCollectionCollection4$inboundSchema),
+  z.lazy(() => InputCollectionCollection3$inboundSchema),
+]);
 /** @internal */
-export type InputCollection$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputCollectionConnection$Outbound> | undefined;
-  pq?: InputCollectionPq$Outbound | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  preprocess?: InputCollectionPreprocess$Outbound | undefined;
-  throttleRatePerSec: string;
-  metadata?: Array<InputCollectionMetadatum$Outbound> | undefined;
-  output?: string | undefined;
-};
+export type InputCollection$Outbound =
+  | InputCollectionCollection2$Outbound
+  | InputCollectionCollection1$Outbound
+  | InputCollectionCollection4$Outbound
+  | InputCollectionCollection3$Outbound;
 
 /** @internal */
 export const InputCollection$outboundSchema: z.ZodType<
   InputCollection$Outbound,
   z.ZodTypeDef,
   InputCollection
-> = z.object({
-  id: z.string().optional(),
-  type: InputCollectionType$outboundSchema.default("collection"),
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCollectionConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCollectionPq$outboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  preprocess: z.lazy(() => InputCollectionPreprocess$outboundSchema).optional(),
-  throttleRatePerSec: z.string().default("0"),
-  metadata: z.array(z.lazy(() => InputCollectionMetadatum$outboundSchema))
-    .optional(),
-  output: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCollection$ {
-  /** @deprecated use `InputCollection$inboundSchema` instead. */
-  export const inboundSchema = InputCollection$inboundSchema;
-  /** @deprecated use `InputCollection$outboundSchema` instead. */
-  export const outboundSchema = InputCollection$outboundSchema;
-  /** @deprecated use `InputCollection$Outbound` instead. */
-  export type Outbound = InputCollection$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputCollectionCollection2$outboundSchema),
+  z.lazy(() => InputCollectionCollection1$outboundSchema),
+  z.lazy(() => InputCollectionCollection4$outboundSchema),
+  z.lazy(() => InputCollectionCollection3$outboundSchema),
+]);
 
 export function inputCollectionToJSON(
   inputCollection: InputCollection,
 ): string {
   return JSON.stringify(InputCollection$outboundSchema.parse(inputCollection));
 }
-
 export function inputCollectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCollection, SDKValidationError> {

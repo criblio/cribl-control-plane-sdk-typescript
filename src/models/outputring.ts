@@ -4,53 +4,29 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Format2Options,
+  Format2Options$inboundSchema,
+  Format2Options$outboundSchema,
+} from "./format2options.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
 
 export const OutputRingType = {
   Ring: "ring",
 } as const;
 export type OutputRingType = ClosedEnum<typeof OutputRingType>;
-
-/**
- * Format of the output data.
- */
-export const OutputRingDataFormat = {
-  Json: "json",
-  Raw: "raw",
-} as const;
-/**
- * Format of the output data.
- */
-export type OutputRingDataFormat = OpenEnum<typeof OutputRingDataFormat>;
-
-export const OutputRingDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type OutputRingDataCompressionFormat = OpenEnum<
-  typeof OutputRingDataCompressionFormat
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputRingBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputRingBackpressureBehavior = OpenEnum<
-  typeof OutputRingBackpressureBehavior
->;
 
 export type OutputRing = {
   /**
@@ -75,9 +51,9 @@ export type OutputRing = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Format of the output data.
+   * Format to use to serialize events before writing to the Event Hubs Kafka brokers
    */
-  format?: OutputRingDataFormat | undefined;
+  format?: Format2Options | undefined;
   /**
    * JS expression to define how files are partitioned and organized. If left blank, Cribl Stream will fallback on event.__partition.
    */
@@ -90,15 +66,18 @@ export type OutputRing = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: OutputRingDataCompressionFormat | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
    */
   destPath?: string | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onBackpressure?: OutputRingBackpressureBehavior | undefined;
+  onBackpressure?: PqOnBackpressureOptions | undefined;
   description?: string | undefined;
 };
 
@@ -106,118 +85,10 @@ export type OutputRing = {
 export const OutputRingType$inboundSchema: z.ZodNativeEnum<
   typeof OutputRingType
 > = z.nativeEnum(OutputRingType);
-
 /** @internal */
 export const OutputRingType$outboundSchema: z.ZodNativeEnum<
   typeof OutputRingType
 > = OutputRingType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRingType$ {
-  /** @deprecated use `OutputRingType$inboundSchema` instead. */
-  export const inboundSchema = OutputRingType$inboundSchema;
-  /** @deprecated use `OutputRingType$outboundSchema` instead. */
-  export const outboundSchema = OutputRingType$outboundSchema;
-}
-
-/** @internal */
-export const OutputRingDataFormat$inboundSchema: z.ZodType<
-  OutputRingDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputRingDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputRingDataFormat$outboundSchema: z.ZodType<
-  OutputRingDataFormat,
-  z.ZodTypeDef,
-  OutputRingDataFormat
-> = z.union([
-  z.nativeEnum(OutputRingDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRingDataFormat$ {
-  /** @deprecated use `OutputRingDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputRingDataFormat$inboundSchema;
-  /** @deprecated use `OutputRingDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputRingDataFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputRingDataCompressionFormat$inboundSchema: z.ZodType<
-  OutputRingDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputRingDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputRingDataCompressionFormat$outboundSchema: z.ZodType<
-  OutputRingDataCompressionFormat,
-  z.ZodTypeDef,
-  OutputRingDataCompressionFormat
-> = z.union([
-  z.nativeEnum(OutputRingDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRingDataCompressionFormat$ {
-  /** @deprecated use `OutputRingDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputRingDataCompressionFormat$inboundSchema;
-  /** @deprecated use `OutputRingDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputRingDataCompressionFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputRingBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputRingBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputRingBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputRingBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputRingBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputRingBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputRingBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRingBackpressureBehavior$ {
-  /** @deprecated use `OutputRingBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputRingBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputRingBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputRingBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputRing$inboundSchema: z.ZodType<
@@ -231,16 +102,15 @@ export const OutputRing$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: OutputRingDataFormat$inboundSchema.default("json"),
+  format: Format2Options$inboundSchema.default("json"),
   partitionExpr: z.string().optional(),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: OutputRingDataCompressionFormat$inboundSchema.default("gzip"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
   destPath: z.string().optional(),
-  onBackpressure: OutputRingBackpressureBehavior$inboundSchema.default("block"),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputRing$Outbound = {
   id?: string | undefined;
@@ -271,35 +141,19 @@ export const OutputRing$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: OutputRingDataFormat$outboundSchema.default("json"),
+  format: Format2Options$outboundSchema.default("json"),
   partitionExpr: z.string().optional(),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: OutputRingDataCompressionFormat$outboundSchema.default("gzip"),
+  compress: PqCompressOptions$outboundSchema.default("none"),
   destPath: z.string().optional(),
-  onBackpressure: OutputRingBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
   description: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRing$ {
-  /** @deprecated use `OutputRing$inboundSchema` instead. */
-  export const inboundSchema = OutputRing$inboundSchema;
-  /** @deprecated use `OutputRing$outboundSchema` instead. */
-  export const outboundSchema = OutputRing$outboundSchema;
-  /** @deprecated use `OutputRing$Outbound` instead. */
-  export type Outbound = OutputRing$Outbound;
-}
 
 export function outputRingToJSON(outputRing: OutputRing): string {
   return JSON.stringify(OutputRing$outboundSchema.parse(outputRing));
 }
-
 export function outputRingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputRing, SDKValidationError> {

@@ -4,100 +4,45 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ObjectAcl1Options,
+  ObjectAcl1Options$inboundSchema,
+  ObjectAcl1Options$outboundSchema,
+} from "./objectacl1options.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  StorageClass1Options,
+  StorageClass1Options$inboundSchema,
+  StorageClass1Options$outboundSchema,
+} from "./storageclass1options.js";
 
-export const OutputExabeamType = {
+export const OutputExabeamType4 = {
   Exabeam: "exabeam",
 } as const;
-export type OutputExabeamType = ClosedEnum<typeof OutputExabeamType>;
+export type OutputExabeamType4 = ClosedEnum<typeof OutputExabeamType4>;
 
-/**
- * Signature version to use for signing Google Cloud Storage requests
- */
-export const OutputExabeamSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing Google Cloud Storage requests
- */
-export type OutputExabeamSignatureVersion = OpenEnum<
-  typeof OutputExabeamSignatureVersion
->;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputExabeamObjectACL = {
-  Private: "private",
-  BucketOwnerRead: "bucket-owner-read",
-  BucketOwnerFullControl: "bucket-owner-full-control",
-  ProjectPrivate: "project-private",
-  AuthenticatedRead: "authenticated-read",
-  PublicRead: "public-read",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputExabeamObjectACL = OpenEnum<typeof OutputExabeamObjectACL>;
-
-/**
- * Storage class to select for uploaded objects
- */
-export const OutputExabeamStorageClass = {
-  Standard: "STANDARD",
-  Nearline: "NEARLINE",
-  Coldline: "COLDLINE",
-  Archive: "ARCHIVE",
-} as const;
-/**
- * Storage class to select for uploaded objects
- */
-export type OutputExabeamStorageClass = OpenEnum<
-  typeof OutputExabeamStorageClass
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputExabeamBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputExabeamBackpressureBehavior = OpenEnum<
-  typeof OutputExabeamBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputExabeamDiskSpaceProtection = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputExabeamDiskSpaceProtection = OpenEnum<
-  typeof OutputExabeamDiskSpaceProtection
->;
-
-export type OutputExabeam = {
+export type OutputExabeamExabeam4 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputExabeamType;
+  type: OutputExabeamType4;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -131,17 +76,17 @@ export type OutputExabeam = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing Google Cloud Storage requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: OutputExabeamSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: OutputExabeamObjectACL | undefined;
+  objectACL?: ObjectAcl1Options | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputExabeamStorageClass | undefined;
+  storageClass?: StorageClass1Options | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -171,17 +116,13 @@ export type OutputExabeam = {
    */
   maxOpenFiles?: number | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onBackpressure?: OutputExabeamBackpressureBehavior | undefined;
+  onBackpressure?: PqOnBackpressureOptions | undefined;
   /**
-   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  deadletterEnabled?: boolean | undefined;
-  /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
-   */
-  onDiskFullBackpressure?: OutputExabeamDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
   /**
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
@@ -228,196 +169,453 @@ export type OutputExabeam = {
   maxRetryNum?: number | undefined;
 };
 
-/** @internal */
-export const OutputExabeamType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputExabeamType
-> = z.nativeEnum(OutputExabeamType);
+export const OutputExabeamType3 = {
+  Exabeam: "exabeam",
+} as const;
+export type OutputExabeamType3 = ClosedEnum<typeof OutputExabeamType3>;
+
+export type OutputExabeamExabeam3 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputExabeamType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. A constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a JavaScript Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Enter an encoded string containing Exabeam configurations
+   */
+  encodedConfiguration?: string | undefined;
+  /**
+   * ID of the Exabeam Collector where data should be sent. Example: 11112222-3333-4444-5555-666677778888
+   *
+   * @remarks
+   */
+  collectorInstanceId: string;
+  /**
+   * Constant or JavaScript expression to create an Exabeam site name. Values that aren't successfully evaluated will be treated as string constants.
+   */
+  siteName?: string | undefined;
+  /**
+   * Exabeam site ID. If left blank, @{product} will use the value of the Exabeam site name.
+   */
+  siteId?: string | undefined;
+  timezoneOffset?: string | undefined;
+  /**
+   * HMAC access key. Can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputExabeamType2 = {
+  Exabeam: "exabeam",
+} as const;
+export type OutputExabeamType2 = ClosedEnum<typeof OutputExabeamType2>;
+
+export type OutputExabeamExabeam2 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputExabeamType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. A constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a JavaScript Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Enter an encoded string containing Exabeam configurations
+   */
+  encodedConfiguration?: string | undefined;
+  /**
+   * ID of the Exabeam Collector where data should be sent. Example: 11112222-3333-4444-5555-666677778888
+   *
+   * @remarks
+   */
+  collectorInstanceId: string;
+  /**
+   * Constant or JavaScript expression to create an Exabeam site name. Values that aren't successfully evaluated will be treated as string constants.
+   */
+  siteName?: string | undefined;
+  /**
+   * Exabeam site ID. If left blank, @{product} will use the value of the Exabeam site name.
+   */
+  siteId?: string | undefined;
+  timezoneOffset?: string | undefined;
+  /**
+   * HMAC access key. Can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputExabeamType1 = {
+  Exabeam: "exabeam",
+} as const;
+export type OutputExabeamType1 = ClosedEnum<typeof OutputExabeamType1>;
+
+export type OutputExabeamExabeam1 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputExabeamType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. A constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a JavaScript Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Enter an encoded string containing Exabeam configurations
+   */
+  encodedConfiguration?: string | undefined;
+  /**
+   * ID of the Exabeam Collector where data should be sent. Example: 11112222-3333-4444-5555-666677778888
+   *
+   * @remarks
+   */
+  collectorInstanceId: string;
+  /**
+   * Constant or JavaScript expression to create an Exabeam site name. Values that aren't successfully evaluated will be treated as string constants.
+   */
+  siteName?: string | undefined;
+  /**
+   * Exabeam site ID. If left blank, @{product} will use the value of the Exabeam site name.
+   */
+  siteId?: string | undefined;
+  timezoneOffset?: string | undefined;
+  /**
+   * HMAC access key. Can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputExabeam =
+  | OutputExabeamExabeam1
+  | OutputExabeamExabeam2
+  | OutputExabeamExabeam3
+  | OutputExabeamExabeam4;
 
 /** @internal */
-export const OutputExabeamType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputExabeamType
-> = OutputExabeamType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamType$ {
-  /** @deprecated use `OutputExabeamType$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamType$inboundSchema;
-  /** @deprecated use `OutputExabeamType$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamType$outboundSchema;
-}
+export const OutputExabeamType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputExabeamType4
+> = z.nativeEnum(OutputExabeamType4);
+/** @internal */
+export const OutputExabeamType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputExabeamType4
+> = OutputExabeamType4$inboundSchema;
 
 /** @internal */
-export const OutputExabeamSignatureVersion$inboundSchema: z.ZodType<
-  OutputExabeamSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputExabeamSignatureVersion$outboundSchema: z.ZodType<
-  OutputExabeamSignatureVersion,
-  z.ZodTypeDef,
-  OutputExabeamSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputExabeamSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamSignatureVersion$ {
-  /** @deprecated use `OutputExabeamSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputExabeamSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputExabeamObjectACL$inboundSchema: z.ZodType<
-  OutputExabeamObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputExabeamObjectACL$outboundSchema: z.ZodType<
-  OutputExabeamObjectACL,
-  z.ZodTypeDef,
-  OutputExabeamObjectACL
-> = z.union([
-  z.nativeEnum(OutputExabeamObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamObjectACL$ {
-  /** @deprecated use `OutputExabeamObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamObjectACL$inboundSchema;
-  /** @deprecated use `OutputExabeamObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamObjectACL$outboundSchema;
-}
-
-/** @internal */
-export const OutputExabeamStorageClass$inboundSchema: z.ZodType<
-  OutputExabeamStorageClass,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamStorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputExabeamStorageClass$outboundSchema: z.ZodType<
-  OutputExabeamStorageClass,
-  z.ZodTypeDef,
-  OutputExabeamStorageClass
-> = z.union([
-  z.nativeEnum(OutputExabeamStorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamStorageClass$ {
-  /** @deprecated use `OutputExabeamStorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamStorageClass$inboundSchema;
-  /** @deprecated use `OutputExabeamStorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamStorageClass$outboundSchema;
-}
-
-/** @internal */
-export const OutputExabeamBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputExabeamBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputExabeamBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputExabeamBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputExabeamBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputExabeamBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamBackpressureBehavior$ {
-  /** @deprecated use `OutputExabeamBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputExabeamBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputExabeamBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputExabeamDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputExabeamDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputExabeamDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputExabeamDiskSpaceProtection,
-  z.ZodTypeDef,
-  OutputExabeamDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputExabeamDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeamDiskSpaceProtection$ {
-  /** @deprecated use `OutputExabeamDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeamDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputExabeamDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeamDiskSpaceProtection$outboundSchema;
-}
-
-/** @internal */
-export const OutputExabeam$inboundSchema: z.ZodType<
-  OutputExabeam,
+export const OutputExabeamExabeam4$inboundSchema: z.ZodType<
+  OutputExabeamExabeam4,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  deadletterEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: OutputExabeamType$inboundSchema,
+  type: OutputExabeamType4$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -426,9 +624,9 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   region: z.string(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: OutputExabeamSignatureVersion$inboundSchema.default("v4"),
-  objectACL: OutputExabeamObjectACL$inboundSchema.default("private"),
-  storageClass: OutputExabeamStorageClass$inboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+  storageClass: StorageClass1Options$inboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   addIdToStagePath: z.boolean().default(true),
@@ -436,12 +634,10 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxOpenFiles: z.number().default(100),
-  onBackpressure: OutputExabeamBackpressureBehavior$inboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputExabeamDiskSpaceProtection$inboundSchema
-    .default("block"),
   maxFileSizeMB: z.number().default(10),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
@@ -455,9 +651,9 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
-export type OutputExabeam$Outbound = {
+export type OutputExabeamExabeam4$Outbound = {
+  deadletterEnabled: boolean;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -479,6 +675,313 @@ export type OutputExabeam$Outbound = {
   maxFileIdleTimeSec: number;
   maxOpenFiles: number;
   onBackpressure: string;
+  onDiskFullBackpressure: string;
+  maxFileSizeMB: number;
+  encodedConfiguration?: string | undefined;
+  collectorInstanceId: string;
+  siteName?: string | undefined;
+  siteId?: string | undefined;
+  timezoneOffset?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  description?: string | undefined;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputExabeamExabeam4$outboundSchema: z.ZodType<
+  OutputExabeamExabeam4$Outbound,
+  z.ZodTypeDef,
+  OutputExabeamExabeam4
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputExabeamType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  endpoint: z.string().default("https://storage.googleapis.com"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+  storageClass: StorageClass1Options$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileSizeMB: z.number().default(10),
+  encodedConfiguration: z.string().optional(),
+  collectorInstanceId: z.string(),
+  siteName: z.string().optional(),
+  siteId: z.string().optional(),
+  timezoneOffset: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputExabeamExabeam4ToJSON(
+  outputExabeamExabeam4: OutputExabeamExabeam4,
+): string {
+  return JSON.stringify(
+    OutputExabeamExabeam4$outboundSchema.parse(outputExabeamExabeam4),
+  );
+}
+export function outputExabeamExabeam4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputExabeamExabeam4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputExabeamExabeam4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputExabeamExabeam4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputExabeamType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputExabeamType3
+> = z.nativeEnum(OutputExabeamType3);
+/** @internal */
+export const OutputExabeamType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputExabeamType3
+> = OutputExabeamType3$inboundSchema;
+
+/** @internal */
+export const OutputExabeamExabeam3$inboundSchema: z.ZodType<
+  OutputExabeamExabeam3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputExabeamType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  endpoint: z.string().default("https://storage.googleapis.com"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+  storageClass: StorageClass1Options$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileSizeMB: z.number().default(10),
+  encodedConfiguration: z.string().optional(),
+  collectorInstanceId: z.string(),
+  siteName: z.string().optional(),
+  siteId: z.string().optional(),
+  timezoneOffset: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputExabeamExabeam3$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  stagePath: string;
+  endpoint: string;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  maxFileSizeMB: number;
+  encodedConfiguration?: string | undefined;
+  collectorInstanceId: string;
+  siteName?: string | undefined;
+  siteId?: string | undefined;
+  timezoneOffset?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  description?: string | undefined;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputExabeamExabeam3$outboundSchema: z.ZodType<
+  OutputExabeamExabeam3$Outbound,
+  z.ZodTypeDef,
+  OutputExabeamExabeam3
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputExabeamType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  endpoint: z.string().default("https://storage.googleapis.com"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+  storageClass: StorageClass1Options$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileSizeMB: z.number().default(10),
+  encodedConfiguration: z.string().optional(),
+  collectorInstanceId: z.string(),
+  siteName: z.string().optional(),
+  siteId: z.string().optional(),
+  timezoneOffset: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputExabeamExabeam3ToJSON(
+  outputExabeamExabeam3: OutputExabeamExabeam3,
+): string {
+  return JSON.stringify(
+    OutputExabeamExabeam3$outboundSchema.parse(outputExabeamExabeam3),
+  );
+}
+export function outputExabeamExabeam3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputExabeamExabeam3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputExabeamExabeam3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputExabeamExabeam3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputExabeamType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputExabeamType2
+> = z.nativeEnum(OutputExabeamType2);
+/** @internal */
+export const OutputExabeamType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputExabeamType2
+> = OutputExabeamType2$inboundSchema;
+
+/** @internal */
+export const OutputExabeamExabeam2$inboundSchema: z.ZodType<
+  OutputExabeamExabeam2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputExabeamType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  endpoint: z.string().default("https://storage.googleapis.com"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+  storageClass: StorageClass1Options$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  addIdToStagePath: z.boolean().default(true),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileSizeMB: z.number().default(10),
+  encodedConfiguration: z.string().optional(),
+  collectorInstanceId: z.string(),
+  siteName: z.string().optional(),
+  siteId: z.string().optional(),
+  timezoneOffset: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputExabeamExabeam2$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  stagePath: string;
+  endpoint: string;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
   maxFileSizeMB: number;
@@ -496,13 +999,14 @@ export type OutputExabeam$Outbound = {
 };
 
 /** @internal */
-export const OutputExabeam$outboundSchema: z.ZodType<
-  OutputExabeam$Outbound,
+export const OutputExabeamExabeam2$outboundSchema: z.ZodType<
+  OutputExabeamExabeam2$Outbound,
   z.ZodTypeDef,
-  OutputExabeam
+  OutputExabeamExabeam2
 > = z.object({
+  removeEmptyDirs: z.boolean().default(true),
   id: z.string().optional(),
-  type: OutputExabeamType$outboundSchema,
+  type: OutputExabeamType2$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -511,22 +1015,20 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   region: z.string(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: OutputExabeamSignatureVersion$outboundSchema.default("v4"),
-  objectACL: OutputExabeamObjectACL$outboundSchema.default("private"),
-  storageClass: OutputExabeamStorageClass$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+  storageClass: StorageClass1Options$outboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxOpenFiles: z.number().default(100),
-  onBackpressure: OutputExabeamBackpressureBehavior$outboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputExabeamDiskSpaceProtection$outboundSchema
-    .default("block"),
   maxFileSizeMB: z.number().default(10),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
@@ -541,23 +1043,210 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputExabeam$ {
-  /** @deprecated use `OutputExabeam$inboundSchema` instead. */
-  export const inboundSchema = OutputExabeam$inboundSchema;
-  /** @deprecated use `OutputExabeam$outboundSchema` instead. */
-  export const outboundSchema = OutputExabeam$outboundSchema;
-  /** @deprecated use `OutputExabeam$Outbound` instead. */
-  export type Outbound = OutputExabeam$Outbound;
+export function outputExabeamExabeam2ToJSON(
+  outputExabeamExabeam2: OutputExabeamExabeam2,
+): string {
+  return JSON.stringify(
+    OutputExabeamExabeam2$outboundSchema.parse(outputExabeamExabeam2),
+  );
 }
+export function outputExabeamExabeam2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputExabeamExabeam2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputExabeamExabeam2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputExabeamExabeam2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputExabeamType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputExabeamType1
+> = z.nativeEnum(OutputExabeamType1);
+/** @internal */
+export const OutputExabeamType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputExabeamType1
+> = OutputExabeamType1$inboundSchema;
+
+/** @internal */
+export const OutputExabeamExabeam1$inboundSchema: z.ZodType<
+  OutputExabeamExabeam1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputExabeamType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  endpoint: z.string().default("https://storage.googleapis.com"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+  storageClass: StorageClass1Options$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  addIdToStagePath: z.boolean().default(true),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileSizeMB: z.number().default(10),
+  encodedConfiguration: z.string().optional(),
+  collectorInstanceId: z.string(),
+  siteName: z.string().optional(),
+  siteId: z.string().optional(),
+  timezoneOffset: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputExabeamExabeam1$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  stagePath: string;
+  endpoint: string;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileSizeMB: number;
+  encodedConfiguration?: string | undefined;
+  collectorInstanceId: string;
+  siteName?: string | undefined;
+  siteId?: string | undefined;
+  timezoneOffset?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  description?: string | undefined;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputExabeamExabeam1$outboundSchema: z.ZodType<
+  OutputExabeamExabeam1$Outbound,
+  z.ZodTypeDef,
+  OutputExabeamExabeam1
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputExabeamType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  endpoint: z.string().default("https://storage.googleapis.com"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+  storageClass: StorageClass1Options$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  addIdToStagePath: z.boolean().default(true),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileSizeMB: z.number().default(10),
+  encodedConfiguration: z.string().optional(),
+  collectorInstanceId: z.string(),
+  siteName: z.string().optional(),
+  siteId: z.string().optional(),
+  timezoneOffset: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputExabeamExabeam1ToJSON(
+  outputExabeamExabeam1: OutputExabeamExabeam1,
+): string {
+  return JSON.stringify(
+    OutputExabeamExabeam1$outboundSchema.parse(outputExabeamExabeam1),
+  );
+}
+export function outputExabeamExabeam1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputExabeamExabeam1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputExabeamExabeam1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputExabeamExabeam1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputExabeam$inboundSchema: z.ZodType<
+  OutputExabeam,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputExabeamExabeam1$inboundSchema),
+  z.lazy(() => OutputExabeamExabeam2$inboundSchema),
+  z.lazy(() => OutputExabeamExabeam3$inboundSchema),
+  z.lazy(() => OutputExabeamExabeam4$inboundSchema),
+]);
+/** @internal */
+export type OutputExabeam$Outbound =
+  | OutputExabeamExabeam1$Outbound
+  | OutputExabeamExabeam2$Outbound
+  | OutputExabeamExabeam3$Outbound
+  | OutputExabeamExabeam4$Outbound;
+
+/** @internal */
+export const OutputExabeam$outboundSchema: z.ZodType<
+  OutputExabeam$Outbound,
+  z.ZodTypeDef,
+  OutputExabeam
+> = z.union([
+  z.lazy(() => OutputExabeamExabeam1$outboundSchema),
+  z.lazy(() => OutputExabeamExabeam2$outboundSchema),
+  z.lazy(() => OutputExabeamExabeam3$outboundSchema),
+  z.lazy(() => OutputExabeamExabeam4$outboundSchema),
+]);
 
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {
   return JSON.stringify(OutputExabeam$outboundSchema.parse(outputExabeam));
 }
-
 export function outputExabeamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputExabeam, SDKValidationError> {

@@ -1,11 +1,12 @@
 # InputSystemState
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputSystemStateSystemState1`
 
 ```typescript
-import { InputSystemState } from "cribl-control-plane/models";
-
-let value: InputSystemState = {
+const value: models.InputSystemStateSystemState1 = {
   id: "<id>",
   type: "system_state",
   pipeline: "<value>",
@@ -42,27 +43,136 @@ let value: InputSystemState = {
     loginUsers: {},
   },
   persistence: {},
-  description: "formula an yahoo",
+  description: "after yet geez plait boohoo wire",
 };
 ```
 
-## Fields
+### `models.InputSystemStateSystemState2`
 
-| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | [models.InputSystemStateType](../models/inputsystemstatetype.md)                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
-| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                | [models.InputSystemStateConnection](../models/inputsystemstateconnection.md)[]                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                         | [models.InputSystemStatePq](../models/inputsystemstatepq.md)                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).                                                                                                                                                 |
-| `metadata`                                                                                                                                                                                                                                   | [models.InputSystemStateMetadatum](../models/inputsystemstatemetadatum.md)[]                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
-| `collectors`                                                                                                                                                                                                                                 | [models.Collectors](../models/collectors.md)                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `persistence`                                                                                                                                                                                                                                | [models.InputSystemStatePersistence](../models/inputsystemstatepersistence.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disableNativeModule`                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)                                                                      |
-| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+```typescript
+const value: models.InputSystemStateSystemState2 = {
+  id: "<id>",
+  type: "system_state",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [],
+  pq: {
+    pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectors: {
+    hostsfile: {},
+    interfaces: {},
+    disk: {},
+    metadata: {},
+    routes: {},
+    dns: {},
+    user: {},
+    firewall: {},
+    services: {},
+    ports: {},
+    loginUsers: {},
+  },
+  persistence: {},
+  description: "fearless fooey without hmph thoroughly middle rusty",
+};
+```
+
+### `models.InputSystemStateSystemState3`
+
+```typescript
+const value: models.InputSystemStateSystemState3 = {
+  id: "<id>",
+  type: "system_state",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectors: {
+    hostsfile: {},
+    interfaces: {},
+    disk: {},
+    metadata: {},
+    routes: {},
+    dns: {},
+    user: {},
+    firewall: {},
+    services: {},
+    ports: {},
+    loginUsers: {},
+  },
+  persistence: {},
+  description: "ugh entry scarily",
+};
+```
+
+### `models.InputSystemStateSystemState4`
+
+```typescript
+const value: models.InputSystemStateSystemState4 = {
+  id: "<id>",
+  type: "system_state",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectors: {
+    hostsfile: {},
+    interfaces: {},
+    disk: {},
+    metadata: {},
+    routes: {},
+    dns: {},
+    user: {},
+    firewall: {},
+    services: {},
+    ports: {},
+    loginUsers: {},
+  },
+  persistence: {},
+  description: "membership entry barring",
+};
+```
+

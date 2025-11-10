@@ -4,94 +4,51 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  Persistence1Type,
+  Persistence1Type$inboundSchema,
+  Persistence1Type$Outbound,
+  Persistence1Type$outboundSchema,
+} from "./persistence1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
 
-export const InputAppscopeType = {
+export const InputAppscopeType8 = {
   Appscope: "appscope",
 } as const;
-export type InputAppscopeType = ClosedEnum<typeof InputAppscopeType>;
+export type InputAppscopeType8 = ClosedEnum<typeof InputAppscopeType8>;
 
-export type InputAppscopeConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputAppscopeMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputAppscopeMode = OpenEnum<typeof InputAppscopeMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputAppscopeCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputAppscopeCompression = OpenEnum<
-  typeof InputAppscopeCompression
->;
-
-export type InputAppscopePqControls = {};
-
-export type InputAppscopePq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputAppscopeMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputAppscopeCompression | undefined;
-  pqControls?: InputAppscopePqControls | undefined;
-};
-
-export type InputAppscopeMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type Allow = {
+export type Allow8 = {
   /**
    * Specify the name of a process or family of processes.
    */
@@ -106,121 +63,27 @@ export type Allow = {
   config: string;
 };
 
-export type InputAppscopeFilter = {
+export type InputAppscopeFilter8 = {
   /**
    * Specify processes that AppScope should be loaded into, and the config to use.
    */
-  allow?: Array<Allow> | undefined;
+  allow?: Array<Allow8> | undefined;
   /**
    * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
    */
   transportURL?: string | undefined;
 };
 
-export const InputAppscopeDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type InputAppscopeDataCompressionFormat = OpenEnum<
-  typeof InputAppscopeDataCompressionFormat
->;
-
-export type InputAppscopePersistence = {
+export type InputAppscopeAppscope8 = {
   /**
-   * Spool events and metrics on disk for Cribl Edge and Search
+   * Enter credentials directly, or select a stored secret
    */
-  enable?: boolean | undefined;
-  /**
-   * Time span for each file bucket
-   */
-  timeWindow?: string | undefined;
-  /**
-   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-   */
-  maxDataSize?: string | undefined;
-  /**
-   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-   */
-  maxDataTime?: string | undefined;
-  compress?: InputAppscopeDataCompressionFormat | undefined;
-  /**
-   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
-   */
-  destPath?: string | undefined;
-};
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const InputAppscopeAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type InputAppscopeAuthenticationMethod = OpenEnum<
-  typeof InputAppscopeAuthenticationMethod
->;
-
-export const InputAppscopeMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputAppscopeMinimumTLSVersion = OpenEnum<
-  typeof InputAppscopeMinimumTLSVersion
->;
-
-export const InputAppscopeMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputAppscopeMaximumTLSVersion = OpenEnum<
-  typeof InputAppscopeMaximumTLSVersion
->;
-
-export type InputAppscopeTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputAppscopeMinimumTLSVersion | undefined;
-  maxVersion?: InputAppscopeMaximumTLSVersion | undefined;
-};
-
-export type InputAppscope = {
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputAppscopeType;
+  type: InputAppscopeType8;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -245,8 +108,8 @@ export type InputAppscope = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputAppscopeConnection> | undefined;
-  pq?: InputAppscopePq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -274,7 +137,7 @@ export type InputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputAppscopeMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -287,12 +150,8 @@ export type InputAppscope = {
    * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
    */
   enableUnixPath?: boolean | undefined;
-  filter?: InputAppscopeFilter | undefined;
-  persistence?: InputAppscopePersistence | undefined;
-  /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-   */
-  authType?: InputAppscopeAuthenticationMethod | undefined;
+  filter?: InputAppscopeFilter8 | undefined;
+  persistence?: Persistence1Type | undefined;
   description?: string | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -302,7 +161,144 @@ export type InputAppscope = {
    * Port to listen on
    */
   port?: number | undefined;
-  tls?: InputAppscopeTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Path to the UNIX domain socket to listen on.
+   */
+  unixSocketPath?: string | undefined;
+  /**
+   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+   */
+  unixSocketPerms?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+};
+
+export const InputAppscopeType7 = {
+  Appscope: "appscope",
+} as const;
+export type InputAppscopeType7 = ClosedEnum<typeof InputAppscopeType7>;
+
+export type Allow7 = {
+  /**
+   * Specify the name of a process or family of processes.
+   */
+  procname: string;
+  /**
+   * Specify a string to substring-match against process command-line.
+   */
+  arg?: string | undefined;
+  /**
+   * Choose a config to apply to processes that match the process name and/or argument.
+   */
+  config: string;
+};
+
+export type InputAppscopeFilter7 = {
+  /**
+   * Specify processes that AppScope should be loaded into, and the config to use.
+   */
+  allow?: Array<Allow7> | undefined;
+  /**
+   * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+   */
+  transportURL?: string | undefined;
+};
+
+export type InputAppscopeAppscope7 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputAppscopeType7;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+   */
+  enableUnixPath?: boolean | undefined;
+  filter?: InputAppscopeFilter7 | undefined;
+  persistence?: Persistence1Type | undefined;
+  description?: string | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Path to the UNIX domain socket to listen on.
    */
@@ -321,767 +317,968 @@ export type InputAppscope = {
   textSecret?: string | undefined;
 };
 
-/** @internal */
-export const InputAppscopeType$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeType
-> = z.nativeEnum(InputAppscopeType);
+export const InputAppscopeType6 = {
+  Appscope: "appscope",
+} as const;
+export type InputAppscopeType6 = ClosedEnum<typeof InputAppscopeType6>;
 
-/** @internal */
-export const InputAppscopeType$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeType
-> = InputAppscopeType$inboundSchema;
+export type Allow6 = {
+  /**
+   * Specify the name of a process or family of processes.
+   */
+  procname: string;
+  /**
+   * Specify a string to substring-match against process command-line.
+   */
+  arg?: string | undefined;
+  /**
+   * Choose a config to apply to processes that match the process name and/or argument.
+   */
+  config: string;
+};
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeType$ {
-  /** @deprecated use `InputAppscopeType$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeType$inboundSchema;
-  /** @deprecated use `InputAppscopeType$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeType$outboundSchema;
-}
+export type InputAppscopeFilter6 = {
+  /**
+   * Specify processes that AppScope should be loaded into, and the config to use.
+   */
+  allow?: Array<Allow6> | undefined;
+  /**
+   * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+   */
+  transportURL?: string | undefined;
+};
 
-/** @internal */
-export const InputAppscopeConnection$inboundSchema: z.ZodType<
-  InputAppscopeConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputAppscopeConnection$Outbound = {
+export type InputAppscopeAppscope6 = {
+  /**
+   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+   */
+  enableUnixPath?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputAppscopeType6;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  filter?: InputAppscopeFilter6 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Path to the UNIX domain socket to listen on.
+   */
+  unixSocketPath?: string | undefined;
+  /**
+   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+   */
+  unixSocketPerms: string;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const InputAppscopeConnection$outboundSchema: z.ZodType<
-  InputAppscopeConnection$Outbound,
-  z.ZodTypeDef,
-  InputAppscopeConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export const InputAppscopeType5 = {
+  Appscope: "appscope",
+} as const;
+export type InputAppscopeType5 = ClosedEnum<typeof InputAppscopeType5>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeConnection$ {
-  /** @deprecated use `InputAppscopeConnection$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeConnection$inboundSchema;
-  /** @deprecated use `InputAppscopeConnection$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeConnection$outboundSchema;
-  /** @deprecated use `InputAppscopeConnection$Outbound` instead. */
-  export type Outbound = InputAppscopeConnection$Outbound;
-}
-
-export function inputAppscopeConnectionToJSON(
-  inputAppscopeConnection: InputAppscopeConnection,
-): string {
-  return JSON.stringify(
-    InputAppscopeConnection$outboundSchema.parse(inputAppscopeConnection),
-  );
-}
-
-export function inputAppscopeConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopeConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopeConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopeConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopeMode$inboundSchema: z.ZodType<
-  InputAppscopeMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputAppscopeMode$outboundSchema: z.ZodType<
-  InputAppscopeMode,
-  z.ZodTypeDef,
-  InputAppscopeMode
-> = z.union([
-  z.nativeEnum(InputAppscopeMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeMode$ {
-  /** @deprecated use `InputAppscopeMode$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeMode$inboundSchema;
-  /** @deprecated use `InputAppscopeMode$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeMode$outboundSchema;
-}
-
-/** @internal */
-export const InputAppscopeCompression$inboundSchema: z.ZodType<
-  InputAppscopeCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputAppscopeCompression$outboundSchema: z.ZodType<
-  InputAppscopeCompression,
-  z.ZodTypeDef,
-  InputAppscopeCompression
-> = z.union([
-  z.nativeEnum(InputAppscopeCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeCompression$ {
-  /** @deprecated use `InputAppscopeCompression$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeCompression$inboundSchema;
-  /** @deprecated use `InputAppscopeCompression$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputAppscopePqControls$inboundSchema: z.ZodType<
-  InputAppscopePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputAppscopePqControls$Outbound = {};
-
-/** @internal */
-export const InputAppscopePqControls$outboundSchema: z.ZodType<
-  InputAppscopePqControls$Outbound,
-  z.ZodTypeDef,
-  InputAppscopePqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopePqControls$ {
-  /** @deprecated use `InputAppscopePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopePqControls$inboundSchema;
-  /** @deprecated use `InputAppscopePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopePqControls$outboundSchema;
-  /** @deprecated use `InputAppscopePqControls$Outbound` instead. */
-  export type Outbound = InputAppscopePqControls$Outbound;
-}
-
-export function inputAppscopePqControlsToJSON(
-  inputAppscopePqControls: InputAppscopePqControls,
-): string {
-  return JSON.stringify(
-    InputAppscopePqControls$outboundSchema.parse(inputAppscopePqControls),
-  );
-}
-
-export function inputAppscopePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopePq$inboundSchema: z.ZodType<
-  InputAppscopePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputAppscopeMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputAppscopeCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputAppscopePqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputAppscopePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputAppscopePqControls$Outbound | undefined;
+export type Allow5 = {
+  /**
+   * Specify the name of a process or family of processes.
+   */
+  procname: string;
+  /**
+   * Specify a string to substring-match against process command-line.
+   */
+  arg?: string | undefined;
+  /**
+   * Choose a config to apply to processes that match the process name and/or argument.
+   */
+  config: string;
 };
 
-/** @internal */
-export const InputAppscopePq$outboundSchema: z.ZodType<
-  InputAppscopePq$Outbound,
-  z.ZodTypeDef,
-  InputAppscopePq
-> = z.object({
-  mode: InputAppscopeMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputAppscopeCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputAppscopePqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopePq$ {
-  /** @deprecated use `InputAppscopePq$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopePq$inboundSchema;
-  /** @deprecated use `InputAppscopePq$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopePq$outboundSchema;
-  /** @deprecated use `InputAppscopePq$Outbound` instead. */
-  export type Outbound = InputAppscopePq$Outbound;
-}
-
-export function inputAppscopePqToJSON(
-  inputAppscopePq: InputAppscopePq,
-): string {
-  return JSON.stringify(InputAppscopePq$outboundSchema.parse(inputAppscopePq));
-}
-
-export function inputAppscopePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopePq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopeMetadatum$inboundSchema: z.ZodType<
-  InputAppscopeMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputAppscopeMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputAppscopeFilter5 = {
+  /**
+   * Specify processes that AppScope should be loaded into, and the config to use.
+   */
+  allow?: Array<Allow5> | undefined;
+  /**
+   * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+   */
+  transportURL?: string | undefined;
 };
 
+export type InputAppscopeAppscope5 = {
+  /**
+   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+   */
+  enableUnixPath?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputAppscopeType5;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  filter?: InputAppscopeFilter5 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls: Tls2Type;
+  /**
+   * Path to the UNIX domain socket to listen on.
+   */
+  unixSocketPath?: string | undefined;
+  /**
+   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+   */
+  unixSocketPerms?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const InputAppscopeType4 = {
+  Appscope: "appscope",
+} as const;
+export type InputAppscopeType4 = ClosedEnum<typeof InputAppscopeType4>;
+
+export type Allow4 = {
+  /**
+   * Specify the name of a process or family of processes.
+   */
+  procname: string;
+  /**
+   * Specify a string to substring-match against process command-line.
+   */
+  arg?: string | undefined;
+  /**
+   * Choose a config to apply to processes that match the process name and/or argument.
+   */
+  config: string;
+};
+
+export type InputAppscopeFilter4 = {
+  /**
+   * Specify processes that AppScope should be loaded into, and the config to use.
+   */
+  allow?: Array<Allow4> | undefined;
+  /**
+   * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+   */
+  transportURL?: string | undefined;
+};
+
+export type InputAppscopeAppscope4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputAppscopeType4;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+   */
+  enableUnixPath?: boolean | undefined;
+  filter?: InputAppscopeFilter4 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Path to the UNIX domain socket to listen on.
+   */
+  unixSocketPath?: string | undefined;
+  /**
+   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+   */
+  unixSocketPerms?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const InputAppscopeType3 = {
+  Appscope: "appscope",
+} as const;
+export type InputAppscopeType3 = ClosedEnum<typeof InputAppscopeType3>;
+
+export type Allow3 = {
+  /**
+   * Specify the name of a process or family of processes.
+   */
+  procname: string;
+  /**
+   * Specify a string to substring-match against process command-line.
+   */
+  arg?: string | undefined;
+  /**
+   * Choose a config to apply to processes that match the process name and/or argument.
+   */
+  config: string;
+};
+
+export type InputAppscopeFilter3 = {
+  /**
+   * Specify processes that AppScope should be loaded into, and the config to use.
+   */
+  allow?: Array<Allow3> | undefined;
+  /**
+   * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+   */
+  transportURL?: string | undefined;
+};
+
+export type InputAppscopeAppscope3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputAppscopeType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+   */
+  enableUnixPath?: boolean | undefined;
+  filter?: InputAppscopeFilter3 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Path to the UNIX domain socket to listen on.
+   */
+  unixSocketPath?: string | undefined;
+  /**
+   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+   */
+  unixSocketPerms?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const InputAppscopeType2 = {
+  Appscope: "appscope",
+} as const;
+export type InputAppscopeType2 = ClosedEnum<typeof InputAppscopeType2>;
+
+export type Allow2 = {
+  /**
+   * Specify the name of a process or family of processes.
+   */
+  procname: string;
+  /**
+   * Specify a string to substring-match against process command-line.
+   */
+  arg?: string | undefined;
+  /**
+   * Choose a config to apply to processes that match the process name and/or argument.
+   */
+  config: string;
+};
+
+export type InputAppscopeFilter2 = {
+  /**
+   * Specify processes that AppScope should be loaded into, and the config to use.
+   */
+  allow?: Array<Allow2> | undefined;
+  /**
+   * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+   */
+  transportURL?: string | undefined;
+};
+
+export type InputAppscopeAppscope2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputAppscopeType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+   */
+  enableUnixPath?: boolean | undefined;
+  filter?: InputAppscopeFilter2 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Path to the UNIX domain socket to listen on.
+   */
+  unixSocketPath?: string | undefined;
+  /**
+   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+   */
+  unixSocketPerms?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const InputAppscopeType1 = {
+  Appscope: "appscope",
+} as const;
+export type InputAppscopeType1 = ClosedEnum<typeof InputAppscopeType1>;
+
+export type Allow1 = {
+  /**
+   * Specify the name of a process or family of processes.
+   */
+  procname: string;
+  /**
+   * Specify a string to substring-match against process command-line.
+   */
+  arg?: string | undefined;
+  /**
+   * Choose a config to apply to processes that match the process name and/or argument.
+   */
+  config: string;
+};
+
+export type InputAppscopeFilter1 = {
+  /**
+   * Specify processes that AppScope should be loaded into, and the config to use.
+   */
+  allow?: Array<Allow1> | undefined;
+  /**
+   * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+   */
+  transportURL?: string | undefined;
+};
+
+export type InputAppscopeAppscope1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputAppscopeType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+   */
+  enableUnixPath?: boolean | undefined;
+  filter?: InputAppscopeFilter1 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Path to the UNIX domain socket to listen on.
+   */
+  unixSocketPath?: string | undefined;
+  /**
+   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+   */
+  unixSocketPerms?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputAppscope =
+  | InputAppscopeAppscope5
+  | InputAppscopeAppscope2
+  | InputAppscopeAppscope4
+  | InputAppscopeAppscope6
+  | InputAppscopeAppscope8
+  | InputAppscopeAppscope1
+  | InputAppscopeAppscope3
+  | InputAppscopeAppscope7;
+
 /** @internal */
-export const InputAppscopeMetadatum$outboundSchema: z.ZodType<
-  InputAppscopeMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputAppscopeMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeMetadatum$ {
-  /** @deprecated use `InputAppscopeMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeMetadatum$inboundSchema;
-  /** @deprecated use `InputAppscopeMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeMetadatum$outboundSchema;
-  /** @deprecated use `InputAppscopeMetadatum$Outbound` instead. */
-  export type Outbound = InputAppscopeMetadatum$Outbound;
-}
-
-export function inputAppscopeMetadatumToJSON(
-  inputAppscopeMetadatum: InputAppscopeMetadatum,
-): string {
-  return JSON.stringify(
-    InputAppscopeMetadatum$outboundSchema.parse(inputAppscopeMetadatum),
-  );
-}
-
-export function inputAppscopeMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopeMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopeMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopeMetadatum' from JSON`,
-  );
-}
+export const InputAppscopeType8$inboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType8
+> = z.nativeEnum(InputAppscopeType8);
+/** @internal */
+export const InputAppscopeType8$outboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType8
+> = InputAppscopeType8$inboundSchema;
 
 /** @internal */
-export const Allow$inboundSchema: z.ZodType<Allow, z.ZodTypeDef, unknown> = z
+export const Allow8$inboundSchema: z.ZodType<Allow8, z.ZodTypeDef, unknown> = z
   .object({
     procname: z.string(),
     arg: z.string().optional(),
     config: z.string(),
   });
-
 /** @internal */
-export type Allow$Outbound = {
+export type Allow8$Outbound = {
   procname: string;
   arg?: string | undefined;
   config: string;
 };
 
 /** @internal */
-export const Allow$outboundSchema: z.ZodType<
-  Allow$Outbound,
+export const Allow8$outboundSchema: z.ZodType<
+  Allow8$Outbound,
   z.ZodTypeDef,
-  Allow
+  Allow8
 > = z.object({
   procname: z.string(),
   arg: z.string().optional(),
   config: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Allow$ {
-  /** @deprecated use `Allow$inboundSchema` instead. */
-  export const inboundSchema = Allow$inboundSchema;
-  /** @deprecated use `Allow$outboundSchema` instead. */
-  export const outboundSchema = Allow$outboundSchema;
-  /** @deprecated use `Allow$Outbound` instead. */
-  export type Outbound = Allow$Outbound;
+export function allow8ToJSON(allow8: Allow8): string {
+  return JSON.stringify(Allow8$outboundSchema.parse(allow8));
 }
-
-export function allowToJSON(allow: Allow): string {
-  return JSON.stringify(Allow$outboundSchema.parse(allow));
-}
-
-export function allowFromJSON(
+export function allow8FromJSON(
   jsonString: string,
-): SafeParseResult<Allow, SDKValidationError> {
+): SafeParseResult<Allow8, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Allow$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Allow' from JSON`,
+    (x) => Allow8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Allow8' from JSON`,
   );
 }
 
 /** @internal */
-export const InputAppscopeFilter$inboundSchema: z.ZodType<
-  InputAppscopeFilter,
+export const InputAppscopeFilter8$inboundSchema: z.ZodType<
+  InputAppscopeFilter8,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  allow: z.array(z.lazy(() => Allow$inboundSchema)).optional(),
+  allow: z.array(z.lazy(() => Allow8$inboundSchema)).optional(),
   transportURL: z.string().optional(),
 });
-
 /** @internal */
-export type InputAppscopeFilter$Outbound = {
-  allow?: Array<Allow$Outbound> | undefined;
+export type InputAppscopeFilter8$Outbound = {
+  allow?: Array<Allow8$Outbound> | undefined;
   transportURL?: string | undefined;
 };
 
 /** @internal */
-export const InputAppscopeFilter$outboundSchema: z.ZodType<
-  InputAppscopeFilter$Outbound,
+export const InputAppscopeFilter8$outboundSchema: z.ZodType<
+  InputAppscopeFilter8$Outbound,
   z.ZodTypeDef,
-  InputAppscopeFilter
+  InputAppscopeFilter8
 > = z.object({
-  allow: z.array(z.lazy(() => Allow$outboundSchema)).optional(),
+  allow: z.array(z.lazy(() => Allow8$outboundSchema)).optional(),
   transportURL: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeFilter$ {
-  /** @deprecated use `InputAppscopeFilter$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeFilter$inboundSchema;
-  /** @deprecated use `InputAppscopeFilter$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeFilter$outboundSchema;
-  /** @deprecated use `InputAppscopeFilter$Outbound` instead. */
-  export type Outbound = InputAppscopeFilter$Outbound;
-}
-
-export function inputAppscopeFilterToJSON(
-  inputAppscopeFilter: InputAppscopeFilter,
+export function inputAppscopeFilter8ToJSON(
+  inputAppscopeFilter8: InputAppscopeFilter8,
 ): string {
   return JSON.stringify(
-    InputAppscopeFilter$outboundSchema.parse(inputAppscopeFilter),
+    InputAppscopeFilter8$outboundSchema.parse(inputAppscopeFilter8),
   );
 }
-
-export function inputAppscopeFilterFromJSON(
+export function inputAppscopeFilter8FromJSON(
   jsonString: string,
-): SafeParseResult<InputAppscopeFilter, SDKValidationError> {
+): SafeParseResult<InputAppscopeFilter8, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputAppscopeFilter$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopeFilter' from JSON`,
+    (x) => InputAppscopeFilter8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeFilter8' from JSON`,
   );
 }
 
 /** @internal */
-export const InputAppscopeDataCompressionFormat$inboundSchema: z.ZodType<
-  InputAppscopeDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputAppscopeDataCompressionFormat$outboundSchema: z.ZodType<
-  InputAppscopeDataCompressionFormat,
-  z.ZodTypeDef,
-  InputAppscopeDataCompressionFormat
-> = z.union([
-  z.nativeEnum(InputAppscopeDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeDataCompressionFormat$ {
-  /** @deprecated use `InputAppscopeDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeDataCompressionFormat$inboundSchema;
-  /** @deprecated use `InputAppscopeDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    InputAppscopeDataCompressionFormat$outboundSchema;
-}
-
-/** @internal */
-export const InputAppscopePersistence$inboundSchema: z.ZodType<
-  InputAppscopePersistence,
+export const InputAppscopeAppscope8$inboundSchema: z.ZodType<
+  InputAppscopeAppscope8,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputAppscopeDataCompressionFormat$inboundSchema.default("gzip"),
-  destPath: z.string().default("$CRIBL_HOME/state/appscope"),
-});
-
-/** @internal */
-export type InputAppscopePersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
-};
-
-/** @internal */
-export const InputAppscopePersistence$outboundSchema: z.ZodType<
-  InputAppscopePersistence$Outbound,
-  z.ZodTypeDef,
-  InputAppscopePersistence
-> = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputAppscopeDataCompressionFormat$outboundSchema.default("gzip"),
-  destPath: z.string().default("$CRIBL_HOME/state/appscope"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopePersistence$ {
-  /** @deprecated use `InputAppscopePersistence$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopePersistence$inboundSchema;
-  /** @deprecated use `InputAppscopePersistence$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopePersistence$outboundSchema;
-  /** @deprecated use `InputAppscopePersistence$Outbound` instead. */
-  export type Outbound = InputAppscopePersistence$Outbound;
-}
-
-export function inputAppscopePersistenceToJSON(
-  inputAppscopePersistence: InputAppscopePersistence,
-): string {
-  return JSON.stringify(
-    InputAppscopePersistence$outboundSchema.parse(inputAppscopePersistence),
-  );
-}
-
-export function inputAppscopePersistenceFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopePersistence, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputAppscopePersistence$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopePersistence' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopeAuthenticationMethod$inboundSchema: z.ZodType<
-  InputAppscopeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputAppscopeAuthenticationMethod$outboundSchema: z.ZodType<
-  InputAppscopeAuthenticationMethod,
-  z.ZodTypeDef,
-  InputAppscopeAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputAppscopeAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeAuthenticationMethod$ {
-  /** @deprecated use `InputAppscopeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputAppscopeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputAppscopeAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const InputAppscopeMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputAppscopeMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputAppscopeMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputAppscopeMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputAppscopeMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputAppscopeMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeMinimumTLSVersion$ {
-  /** @deprecated use `InputAppscopeMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputAppscopeMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputAppscopeMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputAppscopeMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputAppscopeMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputAppscopeMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputAppscopeMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputAppscopeMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeMaximumTLSVersion$ {
-  /** @deprecated use `InputAppscopeMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputAppscopeMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputAppscopeMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputAppscopeTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputAppscopeTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputAppscopeMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputAppscopeMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputAppscopeTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputAppscopeTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputAppscopeTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputAppscopeTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputAppscopeMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputAppscopeMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscopeTLSSettingsServerSide$ {
-  /** @deprecated use `InputAppscopeTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputAppscopeTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputAppscopeTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputAppscopeTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputAppscopeTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputAppscopeTLSSettingsServerSide$Outbound;
-}
-
-export function inputAppscopeTLSSettingsServerSideToJSON(
-  inputAppscopeTLSSettingsServerSide: InputAppscopeTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputAppscopeTLSSettingsServerSide$outboundSchema.parse(
-      inputAppscopeTLSSettingsServerSide,
-    ),
-  );
-}
-
-export function inputAppscopeTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopeTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputAppscopeTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopeTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscope$inboundSchema: z.ZodType<
-  InputAppscope,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: InputAppscopeType$inboundSchema,
+  type: InputAppscopeType8$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputAppscopeConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputAppscopePq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputAppscopeMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableUnixPath: z.boolean().default(false),
-  filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
-  persistence: z.lazy(() => InputAppscopePersistence$inboundSchema).optional(),
-  authType: InputAppscopeAuthenticationMethod$inboundSchema.default("manual"),
+  filter: z.lazy(() => InputAppscopeFilter8$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  tls: z.lazy(() => InputAppscopeTLSSettingsServerSide$inboundSchema)
-    .optional(),
+  tls: Tls2Type$inboundSchema.optional(),
   unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
   unixSocketPerms: z.string().optional(),
   authToken: z.string().default(""),
-  textSecret: z.string().optional(),
+  textSecret: z.string(),
 });
-
 /** @internal */
-export type InputAppscope$Outbound = {
+export type InputAppscopeAppscope8$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1090,25 +1287,242 @@ export type InputAppscope$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputAppscopeConnection$Outbound> | undefined;
-  pq?: InputAppscopePq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   ipWhitelistRegex: string;
   maxActiveCxn: number;
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
   enableProxyHeader: boolean;
-  metadata?: Array<InputAppscopeMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   enableUnixPath: boolean;
-  filter?: InputAppscopeFilter$Outbound | undefined;
-  persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
+  filter?: InputAppscopeFilter8$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
-  tls?: InputAppscopeTLSSettingsServerSide$Outbound | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  unixSocketPath: string;
+  unixSocketPerms?: string | undefined;
+  authToken: string;
+  textSecret: string;
+};
+
+/** @internal */
+export const InputAppscopeAppscope8$outboundSchema: z.ZodType<
+  InputAppscopeAppscope8$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeAppscope8
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: InputAppscopeType8$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter8$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string(),
+});
+
+export function inputAppscopeAppscope8ToJSON(
+  inputAppscopeAppscope8: InputAppscopeAppscope8,
+): string {
+  return JSON.stringify(
+    InputAppscopeAppscope8$outboundSchema.parse(inputAppscopeAppscope8),
+  );
+}
+export function inputAppscopeAppscope8FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeAppscope8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeAppscope8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeAppscope8' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeType7$inboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType7
+> = z.nativeEnum(InputAppscopeType7);
+/** @internal */
+export const InputAppscopeType7$outboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType7
+> = InputAppscopeType7$inboundSchema;
+
+/** @internal */
+export const Allow7$inboundSchema: z.ZodType<Allow7, z.ZodTypeDef, unknown> = z
+  .object({
+    procname: z.string(),
+    arg: z.string().optional(),
+    config: z.string(),
+  });
+/** @internal */
+export type Allow7$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const Allow7$outboundSchema: z.ZodType<
+  Allow7$Outbound,
+  z.ZodTypeDef,
+  Allow7
+> = z.object({
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
+});
+
+export function allow7ToJSON(allow7: Allow7): string {
+  return JSON.stringify(Allow7$outboundSchema.parse(allow7));
+}
+export function allow7FromJSON(
+  jsonString: string,
+): SafeParseResult<Allow7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Allow7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Allow7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeFilter7$inboundSchema: z.ZodType<
+  InputAppscopeFilter7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allow: z.array(z.lazy(() => Allow7$inboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeFilter7$Outbound = {
+  allow?: Array<Allow7$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeFilter7$outboundSchema: z.ZodType<
+  InputAppscopeFilter7$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeFilter7
+> = z.object({
+  allow: z.array(z.lazy(() => Allow7$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+
+export function inputAppscopeFilter7ToJSON(
+  inputAppscopeFilter7: InputAppscopeFilter7,
+): string {
+  return JSON.stringify(
+    InputAppscopeFilter7$outboundSchema.parse(inputAppscopeFilter7),
+  );
+}
+export function inputAppscopeFilter7FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeFilter7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeFilter7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeFilter7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeAppscope7$inboundSchema: z.ZodType<
+  InputAppscopeAppscope7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: InputAppscopeType7$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter7$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeAppscope7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  enableUnixPath: boolean;
+  filter?: InputAppscopeFilter7$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: Tls2Type$Outbound | undefined;
   unixSocketPath: string;
   unixSocketPerms?: string | undefined;
   authToken: string;
@@ -1116,64 +1530,1414 @@ export type InputAppscope$Outbound = {
 };
 
 /** @internal */
-export const InputAppscope$outboundSchema: z.ZodType<
-  InputAppscope$Outbound,
+export const InputAppscopeAppscope7$outboundSchema: z.ZodType<
+  InputAppscopeAppscope7$Outbound,
   z.ZodTypeDef,
-  InputAppscope
+  InputAppscopeAppscope7
 > = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
   id: z.string().optional(),
-  type: InputAppscopeType$outboundSchema,
+  type: InputAppscopeType7$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputAppscopeConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputAppscopePq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputAppscopeMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableUnixPath: z.boolean().default(false),
-  filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
-  persistence: z.lazy(() => InputAppscopePersistence$outboundSchema).optional(),
-  authType: InputAppscopeAuthenticationMethod$outboundSchema.default("manual"),
+  filter: z.lazy(() => InputAppscopeFilter7$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  tls: z.lazy(() => InputAppscopeTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: Tls2Type$outboundSchema.optional(),
   unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
   unixSocketPerms: z.string().optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAppscope$ {
-  /** @deprecated use `InputAppscope$inboundSchema` instead. */
-  export const inboundSchema = InputAppscope$inboundSchema;
-  /** @deprecated use `InputAppscope$outboundSchema` instead. */
-  export const outboundSchema = InputAppscope$outboundSchema;
-  /** @deprecated use `InputAppscope$Outbound` instead. */
-  export type Outbound = InputAppscope$Outbound;
+export function inputAppscopeAppscope7ToJSON(
+  inputAppscopeAppscope7: InputAppscopeAppscope7,
+): string {
+  return JSON.stringify(
+    InputAppscopeAppscope7$outboundSchema.parse(inputAppscopeAppscope7),
+  );
 }
+export function inputAppscopeAppscope7FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeAppscope7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeAppscope7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeAppscope7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeType6$inboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType6
+> = z.nativeEnum(InputAppscopeType6);
+/** @internal */
+export const InputAppscopeType6$outboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType6
+> = InputAppscopeType6$inboundSchema;
+
+/** @internal */
+export const Allow6$inboundSchema: z.ZodType<Allow6, z.ZodTypeDef, unknown> = z
+  .object({
+    procname: z.string(),
+    arg: z.string().optional(),
+    config: z.string(),
+  });
+/** @internal */
+export type Allow6$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const Allow6$outboundSchema: z.ZodType<
+  Allow6$Outbound,
+  z.ZodTypeDef,
+  Allow6
+> = z.object({
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
+});
+
+export function allow6ToJSON(allow6: Allow6): string {
+  return JSON.stringify(Allow6$outboundSchema.parse(allow6));
+}
+export function allow6FromJSON(
+  jsonString: string,
+): SafeParseResult<Allow6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Allow6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Allow6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeFilter6$inboundSchema: z.ZodType<
+  InputAppscopeFilter6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allow: z.array(z.lazy(() => Allow6$inboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeFilter6$Outbound = {
+  allow?: Array<Allow6$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeFilter6$outboundSchema: z.ZodType<
+  InputAppscopeFilter6$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeFilter6
+> = z.object({
+  allow: z.array(z.lazy(() => Allow6$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+
+export function inputAppscopeFilter6ToJSON(
+  inputAppscopeFilter6: InputAppscopeFilter6,
+): string {
+  return JSON.stringify(
+    InputAppscopeFilter6$outboundSchema.parse(inputAppscopeFilter6),
+  );
+}
+export function inputAppscopeFilter6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeFilter6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeFilter6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeFilter6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeAppscope6$inboundSchema: z.ZodType<
+  InputAppscopeAppscope6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enableUnixPath: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputAppscopeType6$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  filter: z.lazy(() => InputAppscopeFilter6$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeAppscope6$Outbound = {
+  enableUnixPath: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  filter?: InputAppscopeFilter6$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  unixSocketPath: string;
+  unixSocketPerms: string;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeAppscope6$outboundSchema: z.ZodType<
+  InputAppscopeAppscope6$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeAppscope6
+> = z.object({
+  enableUnixPath: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputAppscopeType6$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  filter: z.lazy(() => InputAppscopeFilter6$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function inputAppscopeAppscope6ToJSON(
+  inputAppscopeAppscope6: InputAppscopeAppscope6,
+): string {
+  return JSON.stringify(
+    InputAppscopeAppscope6$outboundSchema.parse(inputAppscopeAppscope6),
+  );
+}
+export function inputAppscopeAppscope6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeAppscope6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeAppscope6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeAppscope6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeType5$inboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType5
+> = z.nativeEnum(InputAppscopeType5);
+/** @internal */
+export const InputAppscopeType5$outboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType5
+> = InputAppscopeType5$inboundSchema;
+
+/** @internal */
+export const Allow5$inboundSchema: z.ZodType<Allow5, z.ZodTypeDef, unknown> = z
+  .object({
+    procname: z.string(),
+    arg: z.string().optional(),
+    config: z.string(),
+  });
+/** @internal */
+export type Allow5$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const Allow5$outboundSchema: z.ZodType<
+  Allow5$Outbound,
+  z.ZodTypeDef,
+  Allow5
+> = z.object({
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
+});
+
+export function allow5ToJSON(allow5: Allow5): string {
+  return JSON.stringify(Allow5$outboundSchema.parse(allow5));
+}
+export function allow5FromJSON(
+  jsonString: string,
+): SafeParseResult<Allow5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Allow5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Allow5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeFilter5$inboundSchema: z.ZodType<
+  InputAppscopeFilter5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allow: z.array(z.lazy(() => Allow5$inboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeFilter5$Outbound = {
+  allow?: Array<Allow5$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeFilter5$outboundSchema: z.ZodType<
+  InputAppscopeFilter5$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeFilter5
+> = z.object({
+  allow: z.array(z.lazy(() => Allow5$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+
+export function inputAppscopeFilter5ToJSON(
+  inputAppscopeFilter5: InputAppscopeFilter5,
+): string {
+  return JSON.stringify(
+    InputAppscopeFilter5$outboundSchema.parse(inputAppscopeFilter5),
+  );
+}
+export function inputAppscopeFilter5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeFilter5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeFilter5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeFilter5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeAppscope5$inboundSchema: z.ZodType<
+  InputAppscopeAppscope5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enableUnixPath: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputAppscopeType5$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  filter: z.lazy(() => InputAppscopeFilter5$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema,
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeAppscope5$Outbound = {
+  enableUnixPath: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  filter?: InputAppscopeFilter5$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  host: string;
+  port: number;
+  tls: Tls2Type$Outbound;
+  unixSocketPath: string;
+  unixSocketPerms?: string | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeAppscope5$outboundSchema: z.ZodType<
+  InputAppscopeAppscope5$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeAppscope5
+> = z.object({
+  enableUnixPath: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputAppscopeType5$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  filter: z.lazy(() => InputAppscopeFilter5$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema,
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function inputAppscopeAppscope5ToJSON(
+  inputAppscopeAppscope5: InputAppscopeAppscope5,
+): string {
+  return JSON.stringify(
+    InputAppscopeAppscope5$outboundSchema.parse(inputAppscopeAppscope5),
+  );
+}
+export function inputAppscopeAppscope5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeAppscope5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeAppscope5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeAppscope5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType4
+> = z.nativeEnum(InputAppscopeType4);
+/** @internal */
+export const InputAppscopeType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType4
+> = InputAppscopeType4$inboundSchema;
+
+/** @internal */
+export const Allow4$inboundSchema: z.ZodType<Allow4, z.ZodTypeDef, unknown> = z
+  .object({
+    procname: z.string(),
+    arg: z.string().optional(),
+    config: z.string(),
+  });
+/** @internal */
+export type Allow4$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const Allow4$outboundSchema: z.ZodType<
+  Allow4$Outbound,
+  z.ZodTypeDef,
+  Allow4
+> = z.object({
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
+});
+
+export function allow4ToJSON(allow4: Allow4): string {
+  return JSON.stringify(Allow4$outboundSchema.parse(allow4));
+}
+export function allow4FromJSON(
+  jsonString: string,
+): SafeParseResult<Allow4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Allow4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Allow4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeFilter4$inboundSchema: z.ZodType<
+  InputAppscopeFilter4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allow: z.array(z.lazy(() => Allow4$inboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeFilter4$Outbound = {
+  allow?: Array<Allow4$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeFilter4$outboundSchema: z.ZodType<
+  InputAppscopeFilter4$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeFilter4
+> = z.object({
+  allow: z.array(z.lazy(() => Allow4$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+
+export function inputAppscopeFilter4ToJSON(
+  inputAppscopeFilter4: InputAppscopeFilter4,
+): string {
+  return JSON.stringify(
+    InputAppscopeFilter4$outboundSchema.parse(inputAppscopeFilter4),
+  );
+}
+export function inputAppscopeFilter4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeFilter4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeFilter4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeFilter4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeAppscope4$inboundSchema: z.ZodType<
+  InputAppscopeAppscope4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputAppscopeType4$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter4$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeAppscope4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  enableUnixPath: boolean;
+  filter?: InputAppscopeFilter4$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  unixSocketPath: string;
+  unixSocketPerms?: string | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeAppscope4$outboundSchema: z.ZodType<
+  InputAppscopeAppscope4$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeAppscope4
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputAppscopeType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter4$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function inputAppscopeAppscope4ToJSON(
+  inputAppscopeAppscope4: InputAppscopeAppscope4,
+): string {
+  return JSON.stringify(
+    InputAppscopeAppscope4$outboundSchema.parse(inputAppscopeAppscope4),
+  );
+}
+export function inputAppscopeAppscope4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeAppscope4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeAppscope4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeAppscope4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType3
+> = z.nativeEnum(InputAppscopeType3);
+/** @internal */
+export const InputAppscopeType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType3
+> = InputAppscopeType3$inboundSchema;
+
+/** @internal */
+export const Allow3$inboundSchema: z.ZodType<Allow3, z.ZodTypeDef, unknown> = z
+  .object({
+    procname: z.string(),
+    arg: z.string().optional(),
+    config: z.string(),
+  });
+/** @internal */
+export type Allow3$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const Allow3$outboundSchema: z.ZodType<
+  Allow3$Outbound,
+  z.ZodTypeDef,
+  Allow3
+> = z.object({
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
+});
+
+export function allow3ToJSON(allow3: Allow3): string {
+  return JSON.stringify(Allow3$outboundSchema.parse(allow3));
+}
+export function allow3FromJSON(
+  jsonString: string,
+): SafeParseResult<Allow3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Allow3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Allow3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeFilter3$inboundSchema: z.ZodType<
+  InputAppscopeFilter3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allow: z.array(z.lazy(() => Allow3$inboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeFilter3$Outbound = {
+  allow?: Array<Allow3$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeFilter3$outboundSchema: z.ZodType<
+  InputAppscopeFilter3$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeFilter3
+> = z.object({
+  allow: z.array(z.lazy(() => Allow3$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+
+export function inputAppscopeFilter3ToJSON(
+  inputAppscopeFilter3: InputAppscopeFilter3,
+): string {
+  return JSON.stringify(
+    InputAppscopeFilter3$outboundSchema.parse(inputAppscopeFilter3),
+  );
+}
+export function inputAppscopeFilter3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeFilter3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeFilter3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeFilter3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeAppscope3$inboundSchema: z.ZodType<
+  InputAppscopeAppscope3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputAppscopeType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter3$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeAppscope3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  enableUnixPath: boolean;
+  filter?: InputAppscopeFilter3$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  unixSocketPath: string;
+  unixSocketPerms?: string | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeAppscope3$outboundSchema: z.ZodType<
+  InputAppscopeAppscope3$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeAppscope3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputAppscopeType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter3$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function inputAppscopeAppscope3ToJSON(
+  inputAppscopeAppscope3: InputAppscopeAppscope3,
+): string {
+  return JSON.stringify(
+    InputAppscopeAppscope3$outboundSchema.parse(inputAppscopeAppscope3),
+  );
+}
+export function inputAppscopeAppscope3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeAppscope3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeAppscope3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeAppscope3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType2
+> = z.nativeEnum(InputAppscopeType2);
+/** @internal */
+export const InputAppscopeType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType2
+> = InputAppscopeType2$inboundSchema;
+
+/** @internal */
+export const Allow2$inboundSchema: z.ZodType<Allow2, z.ZodTypeDef, unknown> = z
+  .object({
+    procname: z.string(),
+    arg: z.string().optional(),
+    config: z.string(),
+  });
+/** @internal */
+export type Allow2$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const Allow2$outboundSchema: z.ZodType<
+  Allow2$Outbound,
+  z.ZodTypeDef,
+  Allow2
+> = z.object({
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
+});
+
+export function allow2ToJSON(allow2: Allow2): string {
+  return JSON.stringify(Allow2$outboundSchema.parse(allow2));
+}
+export function allow2FromJSON(
+  jsonString: string,
+): SafeParseResult<Allow2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Allow2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Allow2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeFilter2$inboundSchema: z.ZodType<
+  InputAppscopeFilter2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allow: z.array(z.lazy(() => Allow2$inboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeFilter2$Outbound = {
+  allow?: Array<Allow2$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeFilter2$outboundSchema: z.ZodType<
+  InputAppscopeFilter2$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeFilter2
+> = z.object({
+  allow: z.array(z.lazy(() => Allow2$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+
+export function inputAppscopeFilter2ToJSON(
+  inputAppscopeFilter2: InputAppscopeFilter2,
+): string {
+  return JSON.stringify(
+    InputAppscopeFilter2$outboundSchema.parse(inputAppscopeFilter2),
+  );
+}
+export function inputAppscopeFilter2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeFilter2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeFilter2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeFilter2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeAppscope2$inboundSchema: z.ZodType<
+  InputAppscopeAppscope2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputAppscopeType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter2$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeAppscope2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  enableUnixPath: boolean;
+  filter?: InputAppscopeFilter2$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  unixSocketPath: string;
+  unixSocketPerms?: string | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeAppscope2$outboundSchema: z.ZodType<
+  InputAppscopeAppscope2$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeAppscope2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputAppscopeType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter2$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function inputAppscopeAppscope2ToJSON(
+  inputAppscopeAppscope2: InputAppscopeAppscope2,
+): string {
+  return JSON.stringify(
+    InputAppscopeAppscope2$outboundSchema.parse(inputAppscopeAppscope2),
+  );
+}
+export function inputAppscopeAppscope2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeAppscope2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeAppscope2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeAppscope2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType1
+> = z.nativeEnum(InputAppscopeType1);
+/** @internal */
+export const InputAppscopeType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputAppscopeType1
+> = InputAppscopeType1$inboundSchema;
+
+/** @internal */
+export const Allow1$inboundSchema: z.ZodType<Allow1, z.ZodTypeDef, unknown> = z
+  .object({
+    procname: z.string(),
+    arg: z.string().optional(),
+    config: z.string(),
+  });
+/** @internal */
+export type Allow1$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const Allow1$outboundSchema: z.ZodType<
+  Allow1$Outbound,
+  z.ZodTypeDef,
+  Allow1
+> = z.object({
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
+});
+
+export function allow1ToJSON(allow1: Allow1): string {
+  return JSON.stringify(Allow1$outboundSchema.parse(allow1));
+}
+export function allow1FromJSON(
+  jsonString: string,
+): SafeParseResult<Allow1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Allow1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Allow1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeFilter1$inboundSchema: z.ZodType<
+  InputAppscopeFilter1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allow: z.array(z.lazy(() => Allow1$inboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeFilter1$Outbound = {
+  allow?: Array<Allow1$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeFilter1$outboundSchema: z.ZodType<
+  InputAppscopeFilter1$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeFilter1
+> = z.object({
+  allow: z.array(z.lazy(() => Allow1$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+
+export function inputAppscopeFilter1ToJSON(
+  inputAppscopeFilter1: InputAppscopeFilter1,
+): string {
+  return JSON.stringify(
+    InputAppscopeFilter1$outboundSchema.parse(inputAppscopeFilter1),
+  );
+}
+export function inputAppscopeFilter1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeFilter1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeFilter1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeFilter1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscopeAppscope1$inboundSchema: z.ZodType<
+  InputAppscopeAppscope1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputAppscopeType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter1$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type InputAppscopeAppscope1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  ipWhitelistRegex: string;
+  maxActiveCxn: number;
+  socketIdleTimeout: number;
+  socketEndingMaxWait: number;
+  socketMaxLifespan: number;
+  enableProxyHeader: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  enableUnixPath: boolean;
+  filter?: InputAppscopeFilter1$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  authType: string;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  unixSocketPath: string;
+  unixSocketPerms?: string | undefined;
+  authToken: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscopeAppscope1$outboundSchema: z.ZodType<
+  InputAppscopeAppscope1$Outbound,
+  z.ZodTypeDef,
+  InputAppscopeAppscope1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputAppscopeType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  maxActiveCxn: z.number().default(1000),
+  socketIdleTimeout: z.number().default(0),
+  socketEndingMaxWait: z.number().default(30),
+  socketMaxLifespan: z.number().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  enableUnixPath: z.boolean().default(false),
+  filter: z.lazy(() => InputAppscopeFilter1$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
+});
+
+export function inputAppscopeAppscope1ToJSON(
+  inputAppscopeAppscope1: InputAppscopeAppscope1,
+): string {
+  return JSON.stringify(
+    InputAppscopeAppscope1$outboundSchema.parse(inputAppscopeAppscope1),
+  );
+}
+export function inputAppscopeAppscope1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputAppscopeAppscope1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputAppscopeAppscope1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputAppscopeAppscope1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputAppscope$inboundSchema: z.ZodType<
+  InputAppscope,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputAppscopeAppscope5$inboundSchema),
+  z.lazy(() => InputAppscopeAppscope2$inboundSchema),
+  z.lazy(() => InputAppscopeAppscope4$inboundSchema),
+  z.lazy(() => InputAppscopeAppscope6$inboundSchema),
+  z.lazy(() => InputAppscopeAppscope8$inboundSchema),
+  z.lazy(() => InputAppscopeAppscope1$inboundSchema),
+  z.lazy(() => InputAppscopeAppscope3$inboundSchema),
+  z.lazy(() => InputAppscopeAppscope7$inboundSchema),
+]);
+/** @internal */
+export type InputAppscope$Outbound =
+  | InputAppscopeAppscope5$Outbound
+  | InputAppscopeAppscope2$Outbound
+  | InputAppscopeAppscope4$Outbound
+  | InputAppscopeAppscope6$Outbound
+  | InputAppscopeAppscope8$Outbound
+  | InputAppscopeAppscope1$Outbound
+  | InputAppscopeAppscope3$Outbound
+  | InputAppscopeAppscope7$Outbound;
+
+/** @internal */
+export const InputAppscope$outboundSchema: z.ZodType<
+  InputAppscope$Outbound,
+  z.ZodTypeDef,
+  InputAppscope
+> = z.union([
+  z.lazy(() => InputAppscopeAppscope5$outboundSchema),
+  z.lazy(() => InputAppscopeAppscope2$outboundSchema),
+  z.lazy(() => InputAppscopeAppscope4$outboundSchema),
+  z.lazy(() => InputAppscopeAppscope6$outboundSchema),
+  z.lazy(() => InputAppscopeAppscope8$outboundSchema),
+  z.lazy(() => InputAppscopeAppscope1$outboundSchema),
+  z.lazy(() => InputAppscopeAppscope3$outboundSchema),
+  z.lazy(() => InputAppscopeAppscope7$outboundSchema),
+]);
 
 export function inputAppscopeToJSON(inputAppscope: InputAppscope): string {
   return JSON.stringify(InputAppscope$outboundSchema.parse(inputAppscope));
 }
-
 export function inputAppscopeFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAppscope, SDKValidationError> {

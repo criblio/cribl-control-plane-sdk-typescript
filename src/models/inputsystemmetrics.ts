@@ -11,117 +11,106 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  Persistence1Type,
+  Persistence1Type$inboundSchema,
+  Persistence1Type$Outbound,
+  Persistence1Type$outboundSchema,
+} from "./persistence1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  ProcessType,
+  ProcessType$inboundSchema,
+  ProcessType$Outbound,
+  ProcessType$outboundSchema,
+} from "./processtype.js";
 
-export const InputSystemMetricsType = {
+export const InputSystemMetricsType4 = {
   SystemMetrics: "system_metrics",
 } as const;
-export type InputSystemMetricsType = ClosedEnum<typeof InputSystemMetricsType>;
-
-export type InputSystemMetricsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSystemMetricsPqMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSystemMetricsPqMode = OpenEnum<
-  typeof InputSystemMetricsPqMode
+export type InputSystemMetricsType4 = ClosedEnum<
+  typeof InputSystemMetricsType4
 >;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSystemMetricsCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSystemMetricsCompression = OpenEnum<
-  typeof InputSystemMetricsCompression
->;
-
-export type InputSystemMetricsPqControls = {};
-
-export type InputSystemMetricsPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSystemMetricsPqMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSystemMetricsCompression | undefined;
-  pqControls?: InputSystemMetricsPqControls | undefined;
-};
 
 /**
  * Select level of detail for host metrics
  */
-export const InputSystemMetricsHostMode = {
+export const InputSystemMetricsHostMode4 = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
  * Select level of detail for host metrics
  */
-export type InputSystemMetricsHostMode = OpenEnum<
-  typeof InputSystemMetricsHostMode
+export type InputSystemMetricsHostMode4 = OpenEnum<
+  typeof InputSystemMetricsHostMode4
 >;
 
 /**
  * Select the level of detail for system metrics
  */
-export const InputSystemMetricsSystemMode = {
+export const InputSystemMetricsSystemMode4 = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
  * Select the level of detail for system metrics
  */
-export type InputSystemMetricsSystemMode = OpenEnum<
-  typeof InputSystemMetricsSystemMode
+export type InputSystemMetricsSystemMode4 = OpenEnum<
+  typeof InputSystemMetricsSystemMode4
 >;
 
-export type InputSystemMetricsSystem = {
+export type InputSystemMetricsSystem4 = {
   /**
    * Select the level of detail for system metrics
    */
-  mode?: InputSystemMetricsSystemMode | undefined;
+  mode?: InputSystemMetricsSystemMode4 | undefined;
   /**
    * Generate metrics for the numbers of processes in various states
    */
@@ -131,24 +120,36 @@ export type InputSystemMetricsSystem = {
 /**
  * Select the level of detail for CPU metrics
  */
-export const InputSystemMetricsCpuMode = {
+export const InputSystemMetricsCpuMode4 = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
  * Select the level of detail for CPU metrics
  */
-export type InputSystemMetricsCpuMode = OpenEnum<
-  typeof InputSystemMetricsCpuMode
+export type InputSystemMetricsCpuMode4 = OpenEnum<
+  typeof InputSystemMetricsCpuMode4
 >;
 
-export type InputSystemMetricsCpu = {
+export type InputSystemMetricsCpu4 = {
   /**
    * Select the level of detail for CPU metrics
    */
-  mode?: InputSystemMetricsCpuMode | undefined;
+  mode?: InputSystemMetricsCpuMode4 | undefined;
   /**
    * Generate metrics for each CPU
    */
@@ -166,24 +167,36 @@ export type InputSystemMetricsCpu = {
 /**
  * Select the level of detail for memory metrics
  */
-export const InputSystemMetricsMemoryMode = {
+export const InputSystemMetricsMemoryMode4 = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
  * Select the level of detail for memory metrics
  */
-export type InputSystemMetricsMemoryMode = OpenEnum<
-  typeof InputSystemMetricsMemoryMode
+export type InputSystemMetricsMemoryMode4 = OpenEnum<
+  typeof InputSystemMetricsMemoryMode4
 >;
 
-export type InputSystemMetricsMemory = {
+export type InputSystemMetricsMemory4 = {
   /**
    * Select the level of detail for memory metrics
    */
-  mode?: InputSystemMetricsMemoryMode | undefined;
+  mode?: InputSystemMetricsMemoryMode4 | undefined;
   /**
    * Generate metrics for all memory states
    */
@@ -193,24 +206,44 @@ export type InputSystemMetricsMemory = {
 /**
  * Select the level of detail for network metrics
  */
-export const InputSystemMetricsNetworkMode = {
+export const InputSystemMetricsNetworkMode4 = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
  * Select the level of detail for network metrics
  */
-export type InputSystemMetricsNetworkMode = OpenEnum<
-  typeof InputSystemMetricsNetworkMode
+export type InputSystemMetricsNetworkMode4 = OpenEnum<
+  typeof InputSystemMetricsNetworkMode4
 >;
 
-export type InputSystemMetricsNetwork = {
+export type InputSystemMetricsNetwork4 = {
   /**
    * Select the level of detail for network metrics
    */
-  mode?: InputSystemMetricsNetworkMode | undefined;
+  mode?: InputSystemMetricsNetworkMode4 | undefined;
+  /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
   /**
    * Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
    */
@@ -219,33 +252,49 @@ export type InputSystemMetricsNetwork = {
    * Generate separate metrics for each interface
    */
   perInterface?: boolean | undefined;
-  /**
-   * Generate full network metrics
-   */
-  detail?: boolean | undefined;
 };
 
 /**
  * Select the level of detail for disk metrics
  */
-export const InputSystemMetricsDiskMode = {
+export const InputSystemMetricsDiskMode4 = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
  * Select the level of detail for disk metrics
  */
-export type InputSystemMetricsDiskMode = OpenEnum<
-  typeof InputSystemMetricsDiskMode
+export type InputSystemMetricsDiskMode4 = OpenEnum<
+  typeof InputSystemMetricsDiskMode4
 >;
 
-export type InputSystemMetricsDisk = {
+export type InputSystemMetricsDisk4 = {
   /**
    * Select the level of detail for disk metrics
    */
-  mode?: InputSystemMetricsDiskMode | undefined;
+  mode?: InputSystemMetricsDiskMode4 | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate filesystem inode metrics
+   */
+  inodes?: boolean | undefined;
   /**
    * Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
    */
@@ -262,64 +311,59 @@ export type InputSystemMetricsDisk = {
    * Generate separate metrics for each device
    */
   perDevice?: boolean | undefined;
-  /**
-   * Generate full disk metrics
-   */
-  detail?: boolean | undefined;
 };
 
-export type InputSystemMetricsCustom = {
-  system?: InputSystemMetricsSystem | undefined;
-  cpu?: InputSystemMetricsCpu | undefined;
-  memory?: InputSystemMetricsMemory | undefined;
-  network?: InputSystemMetricsNetwork | undefined;
-  disk?: InputSystemMetricsDisk | undefined;
+export type InputSystemMetricsCustom4 = {
+  system?: InputSystemMetricsSystem4 | undefined;
+  cpu?: InputSystemMetricsCpu4 | undefined;
+  memory?: InputSystemMetricsMemory4 | undefined;
+  network?: InputSystemMetricsNetwork4 | undefined;
+  disk?: InputSystemMetricsDisk4 | undefined;
 };
 
-export type InputSystemMetricsHost = {
+export type InputSystemMetricsHost4 = {
   /**
    * Select level of detail for host metrics
    */
-  mode?: InputSystemMetricsHostMode | undefined;
-  custom?: InputSystemMetricsCustom | undefined;
-};
-
-export type InputSystemMetricsSet = {
-  name: string;
-  filter: string;
-  includeChildren?: boolean | undefined;
-};
-
-export type InputSystemMetricsProcess = {
-  /**
-   * Configure sets to collect process metrics
-   */
-  sets?: Array<InputSystemMetricsSet> | undefined;
+  mode?: InputSystemMetricsHostMode4 | undefined;
+  custom?: InputSystemMetricsCustom4 | undefined;
 };
 
 /**
  * Select the level of detail for container metrics
  */
-export const ContainerMode = {
+export const ContainerMode4 = {
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * All
+   */
   All: "all",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Disabled
+   */
   Disabled: "disabled",
 } as const;
 /**
  * Select the level of detail for container metrics
  */
-export type ContainerMode = OpenEnum<typeof ContainerMode>;
+export type ContainerMode4 = OpenEnum<typeof ContainerMode4>;
 
-export type InputSystemMetricsFilter = {
+export type InputSystemMetricsFilter4 = {
   expr: string;
 };
 
-export type Container = {
+export type Container4 = {
   /**
    * Select the level of detail for container metrics
    */
-  mode?: ContainerMode | undefined;
+  mode?: ContainerMode4 | undefined;
   /**
    * Full paths for Docker's UNIX-domain socket
    */
@@ -331,7 +375,7 @@ export type Container = {
   /**
    * Containers matching any of these will be included. All are included if no filters are added.
    */
-  filters?: Array<InputSystemMetricsFilter> | undefined;
+  filters?: Array<InputSystemMetricsFilter4> | undefined;
   /**
    * Include stopped and paused containers
    */
@@ -346,52 +390,16 @@ export type Container = {
   detail?: boolean | undefined;
 };
 
-export type InputSystemMetricsMetadatum = {
-  name: string;
+export type InputSystemMetricsSystemMetrics4 = {
   /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  value: string;
-};
-
-export const InputSystemMetricsDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type InputSystemMetricsDataCompressionFormat = OpenEnum<
-  typeof InputSystemMetricsDataCompressionFormat
->;
-
-export type InputSystemMetricsPersistence = {
-  /**
-   * Spool metrics to disk for Cribl Edge and Search
-   */
-  enable?: boolean | undefined;
-  /**
-   * Time span for each file bucket
-   */
-  timeWindow?: string | undefined;
-  /**
-   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-   */
-  maxDataSize?: string | undefined;
-  /**
-   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-   */
-  maxDataTime?: string | undefined;
-  compress?: InputSystemMetricsDataCompressionFormat | undefined;
-  /**
-   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
-   */
-  destPath?: string | undefined;
-};
-
-export type InputSystemMetrics = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSystemMetricsType;
+  type: InputSystemMetricsType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -401,6 +409,790 @@ export type InputSystemMetrics = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: InputSystemMetricsHost4 | undefined;
+  process?: ProcessType | undefined;
+  container?: Container4 | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  persistence?: Persistence1Type | undefined;
+  description?: string | undefined;
+};
+
+export const InputSystemMetricsType3 = {
+  SystemMetrics: "system_metrics",
+} as const;
+export type InputSystemMetricsType3 = ClosedEnum<
+  typeof InputSystemMetricsType3
+>;
+
+/**
+ * Select level of detail for host metrics
+ */
+export const InputSystemMetricsHostMode3 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select level of detail for host metrics
+ */
+export type InputSystemMetricsHostMode3 = OpenEnum<
+  typeof InputSystemMetricsHostMode3
+>;
+
+/**
+ * Select the level of detail for system metrics
+ */
+export const InputSystemMetricsSystemMode3 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for system metrics
+ */
+export type InputSystemMetricsSystemMode3 = OpenEnum<
+  typeof InputSystemMetricsSystemMode3
+>;
+
+export type InputSystemMetricsSystem3 = {
+  /**
+   * Select the level of detail for system metrics
+   */
+  mode?: InputSystemMetricsSystemMode3 | undefined;
+  /**
+   * Generate metrics for the numbers of processes in various states
+   */
+  processes?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for CPU metrics
+ */
+export const InputSystemMetricsCpuMode3 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for CPU metrics
+ */
+export type InputSystemMetricsCpuMode3 = OpenEnum<
+  typeof InputSystemMetricsCpuMode3
+>;
+
+export type InputSystemMetricsCpu3 = {
+  /**
+   * Select the level of detail for CPU metrics
+   */
+  mode?: InputSystemMetricsCpuMode3 | undefined;
+  /**
+   * Generate metrics for each CPU
+   */
+  perCpu?: boolean | undefined;
+  /**
+   * Generate metrics for all CPU states
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate raw, monotonic CPU time counters
+   */
+  time?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for memory metrics
+ */
+export const InputSystemMetricsMemoryMode3 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for memory metrics
+ */
+export type InputSystemMetricsMemoryMode3 = OpenEnum<
+  typeof InputSystemMetricsMemoryMode3
+>;
+
+export type InputSystemMetricsMemory3 = {
+  /**
+   * Select the level of detail for memory metrics
+   */
+  mode?: InputSystemMetricsMemoryMode3 | undefined;
+  /**
+   * Generate metrics for all memory states
+   */
+  detail?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for network metrics
+ */
+export const InputSystemMetricsNetworkMode3 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for network metrics
+ */
+export type InputSystemMetricsNetworkMode3 = OpenEnum<
+  typeof InputSystemMetricsNetworkMode3
+>;
+
+export type InputSystemMetricsNetwork3 = {
+  /**
+   * Select the level of detail for network metrics
+   */
+  mode?: InputSystemMetricsNetworkMode3 | undefined;
+  /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
+  /**
+   * Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each interface
+   */
+  perInterface?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for disk metrics
+ */
+export const InputSystemMetricsDiskMode3 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for disk metrics
+ */
+export type InputSystemMetricsDiskMode3 = OpenEnum<
+  typeof InputSystemMetricsDiskMode3
+>;
+
+export type InputSystemMetricsDisk3 = {
+  /**
+   * Select the level of detail for disk metrics
+   */
+  mode?: InputSystemMetricsDiskMode3 | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate filesystem inode metrics
+   */
+  inodes?: boolean | undefined;
+  /**
+   * Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
+   */
+  mountpoints?: Array<string> | undefined;
+  /**
+   * Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
+   */
+  fstypes?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each device
+   */
+  perDevice?: boolean | undefined;
+};
+
+export type InputSystemMetricsCustom3 = {
+  system?: InputSystemMetricsSystem3 | undefined;
+  cpu?: InputSystemMetricsCpu3 | undefined;
+  memory?: InputSystemMetricsMemory3 | undefined;
+  network?: InputSystemMetricsNetwork3 | undefined;
+  disk?: InputSystemMetricsDisk3 | undefined;
+};
+
+export type InputSystemMetricsHost3 = {
+  /**
+   * Select level of detail for host metrics
+   */
+  mode?: InputSystemMetricsHostMode3 | undefined;
+  custom?: InputSystemMetricsCustom3 | undefined;
+};
+
+/**
+ * Select the level of detail for container metrics
+ */
+export const ContainerMode3 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for container metrics
+ */
+export type ContainerMode3 = OpenEnum<typeof ContainerMode3>;
+
+export type InputSystemMetricsFilter3 = {
+  expr: string;
+};
+
+export type Container3 = {
+  /**
+   * Select the level of detail for container metrics
+   */
+  mode?: ContainerMode3 | undefined;
+  /**
+   * Full paths for Docker's UNIX-domain socket
+   */
+  dockerSocket?: Array<string> | undefined;
+  /**
+   * Timeout, in seconds, for the Docker API
+   */
+  dockerTimeout?: number | undefined;
+  /**
+   * Containers matching any of these will be included. All are included if no filters are added.
+   */
+  filters?: Array<InputSystemMetricsFilter3> | undefined;
+  /**
+   * Include stopped and paused containers
+   */
+  allContainers?: boolean | undefined;
+  /**
+   * Generate separate metrics for each device
+   */
+  perDevice?: boolean | undefined;
+  /**
+   * Generate full container metrics
+   */
+  detail?: boolean | undefined;
+};
+
+export type InputSystemMetricsSystemMetrics3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemMetricsType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: InputSystemMetricsHost3 | undefined;
+  process?: ProcessType | undefined;
+  container?: Container3 | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  persistence?: Persistence1Type | undefined;
+  description?: string | undefined;
+};
+
+export const InputSystemMetricsType2 = {
+  SystemMetrics: "system_metrics",
+} as const;
+export type InputSystemMetricsType2 = ClosedEnum<
+  typeof InputSystemMetricsType2
+>;
+
+/**
+ * Select level of detail for host metrics
+ */
+export const InputSystemMetricsHostMode2 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select level of detail for host metrics
+ */
+export type InputSystemMetricsHostMode2 = OpenEnum<
+  typeof InputSystemMetricsHostMode2
+>;
+
+/**
+ * Select the level of detail for system metrics
+ */
+export const InputSystemMetricsSystemMode2 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for system metrics
+ */
+export type InputSystemMetricsSystemMode2 = OpenEnum<
+  typeof InputSystemMetricsSystemMode2
+>;
+
+export type InputSystemMetricsSystem2 = {
+  /**
+   * Select the level of detail for system metrics
+   */
+  mode?: InputSystemMetricsSystemMode2 | undefined;
+  /**
+   * Generate metrics for the numbers of processes in various states
+   */
+  processes?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for CPU metrics
+ */
+export const InputSystemMetricsCpuMode2 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for CPU metrics
+ */
+export type InputSystemMetricsCpuMode2 = OpenEnum<
+  typeof InputSystemMetricsCpuMode2
+>;
+
+export type InputSystemMetricsCpu2 = {
+  /**
+   * Select the level of detail for CPU metrics
+   */
+  mode?: InputSystemMetricsCpuMode2 | undefined;
+  /**
+   * Generate metrics for each CPU
+   */
+  perCpu?: boolean | undefined;
+  /**
+   * Generate metrics for all CPU states
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate raw, monotonic CPU time counters
+   */
+  time?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for memory metrics
+ */
+export const InputSystemMetricsMemoryMode2 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for memory metrics
+ */
+export type InputSystemMetricsMemoryMode2 = OpenEnum<
+  typeof InputSystemMetricsMemoryMode2
+>;
+
+export type InputSystemMetricsMemory2 = {
+  /**
+   * Select the level of detail for memory metrics
+   */
+  mode?: InputSystemMetricsMemoryMode2 | undefined;
+  /**
+   * Generate metrics for all memory states
+   */
+  detail?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for network metrics
+ */
+export const InputSystemMetricsNetworkMode2 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for network metrics
+ */
+export type InputSystemMetricsNetworkMode2 = OpenEnum<
+  typeof InputSystemMetricsNetworkMode2
+>;
+
+export type InputSystemMetricsNetwork2 = {
+  /**
+   * Select the level of detail for network metrics
+   */
+  mode?: InputSystemMetricsNetworkMode2 | undefined;
+  /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
+  /**
+   * Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each interface
+   */
+  perInterface?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for disk metrics
+ */
+export const InputSystemMetricsDiskMode2 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for disk metrics
+ */
+export type InputSystemMetricsDiskMode2 = OpenEnum<
+  typeof InputSystemMetricsDiskMode2
+>;
+
+export type InputSystemMetricsDisk2 = {
+  /**
+   * Select the level of detail for disk metrics
+   */
+  mode?: InputSystemMetricsDiskMode2 | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate filesystem inode metrics
+   */
+  inodes?: boolean | undefined;
+  /**
+   * Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
+   */
+  mountpoints?: Array<string> | undefined;
+  /**
+   * Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
+   */
+  fstypes?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each device
+   */
+  perDevice?: boolean | undefined;
+};
+
+export type InputSystemMetricsCustom2 = {
+  system?: InputSystemMetricsSystem2 | undefined;
+  cpu?: InputSystemMetricsCpu2 | undefined;
+  memory?: InputSystemMetricsMemory2 | undefined;
+  network?: InputSystemMetricsNetwork2 | undefined;
+  disk?: InputSystemMetricsDisk2 | undefined;
+};
+
+export type InputSystemMetricsHost2 = {
+  /**
+   * Select level of detail for host metrics
+   */
+  mode?: InputSystemMetricsHostMode2 | undefined;
+  custom?: InputSystemMetricsCustom2 | undefined;
+};
+
+/**
+ * Select the level of detail for container metrics
+ */
+export const ContainerMode2 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for container metrics
+ */
+export type ContainerMode2 = OpenEnum<typeof ContainerMode2>;
+
+export type InputSystemMetricsFilter2 = {
+  expr: string;
+};
+
+export type Container2 = {
+  /**
+   * Select the level of detail for container metrics
+   */
+  mode?: ContainerMode2 | undefined;
+  /**
+   * Full paths for Docker's UNIX-domain socket
+   */
+  dockerSocket?: Array<string> | undefined;
+  /**
+   * Timeout, in seconds, for the Docker API
+   */
+  dockerTimeout?: number | undefined;
+  /**
+   * Containers matching any of these will be included. All are included if no filters are added.
+   */
+  filters?: Array<InputSystemMetricsFilter2> | undefined;
+  /**
+   * Include stopped and paused containers
+   */
+  allContainers?: boolean | undefined;
+  /**
+   * Generate separate metrics for each device
+   */
+  perDevice?: boolean | undefined;
+  /**
+   * Generate full container metrics
+   */
+  detail?: boolean | undefined;
+};
+
+export type InputSystemMetricsSystemMetrics2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemMetricsType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -416,461 +1208,547 @@ export type InputSystemMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSystemMetricsConnection> | undefined;
-  pq?: InputSystemMetricsPq | undefined;
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
-  host?: InputSystemMetricsHost | undefined;
-  process?: InputSystemMetricsProcess | undefined;
-  container?: Container | undefined;
+  host?: InputSystemMetricsHost2 | undefined;
+  process?: ProcessType | undefined;
+  container?: Container2 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSystemMetricsMetadatum> | undefined;
-  persistence?: InputSystemMetricsPersistence | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  persistence?: Persistence1Type | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputSystemMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSystemMetricsType
-> = z.nativeEnum(InputSystemMetricsType);
-
-/** @internal */
-export const InputSystemMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSystemMetricsType
-> = InputSystemMetricsType$inboundSchema;
+export const InputSystemMetricsType1 = {
+  SystemMetrics: "system_metrics",
+} as const;
+export type InputSystemMetricsType1 = ClosedEnum<
+  typeof InputSystemMetricsType1
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Select level of detail for host metrics
  */
-export namespace InputSystemMetricsType$ {
-  /** @deprecated use `InputSystemMetricsType$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsType$inboundSchema;
-  /** @deprecated use `InputSystemMetricsType$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsType$outboundSchema;
-}
+export const InputSystemMetricsHostMode1 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select level of detail for host metrics
+ */
+export type InputSystemMetricsHostMode1 = OpenEnum<
+  typeof InputSystemMetricsHostMode1
+>;
 
-/** @internal */
-export const InputSystemMetricsConnection$inboundSchema: z.ZodType<
-  InputSystemMetricsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+/**
+ * Select the level of detail for system metrics
+ */
+export const InputSystemMetricsSystemMode1 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for system metrics
+ */
+export type InputSystemMetricsSystemMode1 = OpenEnum<
+  typeof InputSystemMetricsSystemMode1
+>;
 
-/** @internal */
-export type InputSystemMetricsConnection$Outbound = {
+export type InputSystemMetricsSystem1 = {
+  /**
+   * Select the level of detail for system metrics
+   */
+  mode?: InputSystemMetricsSystemMode1 | undefined;
+  /**
+   * Generate metrics for the numbers of processes in various states
+   */
+  processes?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for CPU metrics
+ */
+export const InputSystemMetricsCpuMode1 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for CPU metrics
+ */
+export type InputSystemMetricsCpuMode1 = OpenEnum<
+  typeof InputSystemMetricsCpuMode1
+>;
+
+export type InputSystemMetricsCpu1 = {
+  /**
+   * Select the level of detail for CPU metrics
+   */
+  mode?: InputSystemMetricsCpuMode1 | undefined;
+  /**
+   * Generate metrics for each CPU
+   */
+  perCpu?: boolean | undefined;
+  /**
+   * Generate metrics for all CPU states
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate raw, monotonic CPU time counters
+   */
+  time?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for memory metrics
+ */
+export const InputSystemMetricsMemoryMode1 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for memory metrics
+ */
+export type InputSystemMetricsMemoryMode1 = OpenEnum<
+  typeof InputSystemMetricsMemoryMode1
+>;
+
+export type InputSystemMetricsMemory1 = {
+  /**
+   * Select the level of detail for memory metrics
+   */
+  mode?: InputSystemMetricsMemoryMode1 | undefined;
+  /**
+   * Generate metrics for all memory states
+   */
+  detail?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for network metrics
+ */
+export const InputSystemMetricsNetworkMode1 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for network metrics
+ */
+export type InputSystemMetricsNetworkMode1 = OpenEnum<
+  typeof InputSystemMetricsNetworkMode1
+>;
+
+export type InputSystemMetricsNetwork1 = {
+  /**
+   * Select the level of detail for network metrics
+   */
+  mode?: InputSystemMetricsNetworkMode1 | undefined;
+  /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
+  /**
+   * Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each interface
+   */
+  perInterface?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for disk metrics
+ */
+export const InputSystemMetricsDiskMode1 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for disk metrics
+ */
+export type InputSystemMetricsDiskMode1 = OpenEnum<
+  typeof InputSystemMetricsDiskMode1
+>;
+
+export type InputSystemMetricsDisk1 = {
+  /**
+   * Select the level of detail for disk metrics
+   */
+  mode?: InputSystemMetricsDiskMode1 | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate filesystem inode metrics
+   */
+  inodes?: boolean | undefined;
+  /**
+   * Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
+   */
+  mountpoints?: Array<string> | undefined;
+  /**
+   * Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
+   */
+  fstypes?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each device
+   */
+  perDevice?: boolean | undefined;
+};
+
+export type InputSystemMetricsCustom1 = {
+  system?: InputSystemMetricsSystem1 | undefined;
+  cpu?: InputSystemMetricsCpu1 | undefined;
+  memory?: InputSystemMetricsMemory1 | undefined;
+  network?: InputSystemMetricsNetwork1 | undefined;
+  disk?: InputSystemMetricsDisk1 | undefined;
+};
+
+export type InputSystemMetricsHost1 = {
+  /**
+   * Select level of detail for host metrics
+   */
+  mode?: InputSystemMetricsHostMode1 | undefined;
+  custom?: InputSystemMetricsCustom1 | undefined;
+};
+
+/**
+ * Select the level of detail for container metrics
+ */
+export const ContainerMode1 = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for container metrics
+ */
+export type ContainerMode1 = OpenEnum<typeof ContainerMode1>;
+
+export type InputSystemMetricsFilter1 = {
+  expr: string;
+};
+
+export type Container1 = {
+  /**
+   * Select the level of detail for container metrics
+   */
+  mode?: ContainerMode1 | undefined;
+  /**
+   * Full paths for Docker's UNIX-domain socket
+   */
+  dockerSocket?: Array<string> | undefined;
+  /**
+   * Timeout, in seconds, for the Docker API
+   */
+  dockerTimeout?: number | undefined;
+  /**
+   * Containers matching any of these will be included. All are included if no filters are added.
+   */
+  filters?: Array<InputSystemMetricsFilter1> | undefined;
+  /**
+   * Include stopped and paused containers
+   */
+  allContainers?: boolean | undefined;
+  /**
+   * Generate separate metrics for each device
+   */
+  perDevice?: boolean | undefined;
+  /**
+   * Generate full container metrics
+   */
+  detail?: boolean | undefined;
+};
+
+export type InputSystemMetricsSystemMetrics1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemMetricsType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: InputSystemMetricsHost1 | undefined;
+  process?: ProcessType | undefined;
+  container?: Container1 | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  persistence?: Persistence1Type | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputSystemMetricsConnection$outboundSchema: z.ZodType<
-  InputSystemMetricsConnection$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsConnection$ {
-  /** @deprecated use `InputSystemMetricsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsConnection$inboundSchema;
-  /** @deprecated use `InputSystemMetricsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsConnection$outboundSchema;
-  /** @deprecated use `InputSystemMetricsConnection$Outbound` instead. */
-  export type Outbound = InputSystemMetricsConnection$Outbound;
-}
-
-export function inputSystemMetricsConnectionToJSON(
-  inputSystemMetricsConnection: InputSystemMetricsConnection,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsConnection$outboundSchema.parse(
-      inputSystemMetricsConnection,
-    ),
-  );
-}
-
-export function inputSystemMetricsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsConnection' from JSON`,
-  );
-}
+export type InputSystemMetrics =
+  | InputSystemMetricsSystemMetrics2
+  | InputSystemMetricsSystemMetrics4
+  | InputSystemMetricsSystemMetrics1
+  | InputSystemMetricsSystemMetrics3;
 
 /** @internal */
-export const InputSystemMetricsPqMode$inboundSchema: z.ZodType<
-  InputSystemMetricsPqMode,
+export const InputSystemMetricsType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType4
+> = z.nativeEnum(InputSystemMetricsType4);
+/** @internal */
+export const InputSystemMetricsType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType4
+> = InputSystemMetricsType4$inboundSchema;
+
+/** @internal */
+export const InputSystemMetricsHostMode4$inboundSchema: z.ZodType<
+  InputSystemMetricsHostMode4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputSystemMetricsPqMode),
+    z.nativeEnum(InputSystemMetricsHostMode4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputSystemMetricsPqMode$outboundSchema: z.ZodType<
-  InputSystemMetricsPqMode,
+export const InputSystemMetricsHostMode4$outboundSchema: z.ZodType<
+  InputSystemMetricsHostMode4,
   z.ZodTypeDef,
-  InputSystemMetricsPqMode
+  InputSystemMetricsHostMode4
 > = z.union([
-  z.nativeEnum(InputSystemMetricsPqMode),
+  z.nativeEnum(InputSystemMetricsHostMode4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsPqMode$ {
-  /** @deprecated use `InputSystemMetricsPqMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsPqMode$inboundSchema;
-  /** @deprecated use `InputSystemMetricsPqMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsPqMode$outboundSchema;
-}
-
 /** @internal */
-export const InputSystemMetricsCompression$inboundSchema: z.ZodType<
-  InputSystemMetricsCompression,
+export const InputSystemMetricsSystemMode4$inboundSchema: z.ZodType<
+  InputSystemMetricsSystemMode4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputSystemMetricsCompression),
+    z.nativeEnum(InputSystemMetricsSystemMode4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputSystemMetricsCompression$outboundSchema: z.ZodType<
-  InputSystemMetricsCompression,
+export const InputSystemMetricsSystemMode4$outboundSchema: z.ZodType<
+  InputSystemMetricsSystemMode4,
   z.ZodTypeDef,
-  InputSystemMetricsCompression
+  InputSystemMetricsSystemMode4
 > = z.union([
-  z.nativeEnum(InputSystemMetricsCompression),
+  z.nativeEnum(InputSystemMetricsSystemMode4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsCompression$ {
-  /** @deprecated use `InputSystemMetricsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsCompression$inboundSchema;
-  /** @deprecated use `InputSystemMetricsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsCompression$outboundSchema;
-}
-
 /** @internal */
-export const InputSystemMetricsPqControls$inboundSchema: z.ZodType<
-  InputSystemMetricsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputSystemMetricsPqControls$Outbound = {};
-
-/** @internal */
-export const InputSystemMetricsPqControls$outboundSchema: z.ZodType<
-  InputSystemMetricsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsPqControls$ {
-  /** @deprecated use `InputSystemMetricsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsPqControls$inboundSchema;
-  /** @deprecated use `InputSystemMetricsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsPqControls$outboundSchema;
-  /** @deprecated use `InputSystemMetricsPqControls$Outbound` instead. */
-  export type Outbound = InputSystemMetricsPqControls$Outbound;
-}
-
-export function inputSystemMetricsPqControlsToJSON(
-  inputSystemMetricsPqControls: InputSystemMetricsPqControls,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsPqControls$outboundSchema.parse(
-      inputSystemMetricsPqControls,
-    ),
-  );
-}
-
-export function inputSystemMetricsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsPq$inboundSchema: z.ZodType<
-  InputSystemMetricsPq,
+export const InputSystemMetricsSystem4$inboundSchema: z.ZodType<
+  InputSystemMetricsSystem4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsPqMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSystemMetricsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSystemMetricsPqControls$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputSystemMetricsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSystemMetricsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputSystemMetricsPq$outboundSchema: z.ZodType<
-  InputSystemMetricsPq$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsPq
-> = z.object({
-  mode: InputSystemMetricsPqMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSystemMetricsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSystemMetricsPqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsPq$ {
-  /** @deprecated use `InputSystemMetricsPq$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsPq$inboundSchema;
-  /** @deprecated use `InputSystemMetricsPq$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsPq$outboundSchema;
-  /** @deprecated use `InputSystemMetricsPq$Outbound` instead. */
-  export type Outbound = InputSystemMetricsPq$Outbound;
-}
-
-export function inputSystemMetricsPqToJSON(
-  inputSystemMetricsPq: InputSystemMetricsPq,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsPq$outboundSchema.parse(inputSystemMetricsPq),
-  );
-}
-
-export function inputSystemMetricsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsHostMode$inboundSchema: z.ZodType<
-  InputSystemMetricsHostMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsHostMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSystemMetricsHostMode$outboundSchema: z.ZodType<
-  InputSystemMetricsHostMode,
-  z.ZodTypeDef,
-  InputSystemMetricsHostMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsHostMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsHostMode$ {
-  /** @deprecated use `InputSystemMetricsHostMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsHostMode$inboundSchema;
-  /** @deprecated use `InputSystemMetricsHostMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsHostMode$outboundSchema;
-}
-
-/** @internal */
-export const InputSystemMetricsSystemMode$inboundSchema: z.ZodType<
-  InputSystemMetricsSystemMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsSystemMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSystemMetricsSystemMode$outboundSchema: z.ZodType<
-  InputSystemMetricsSystemMode,
-  z.ZodTypeDef,
-  InputSystemMetricsSystemMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsSystemMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsSystemMode$ {
-  /** @deprecated use `InputSystemMetricsSystemMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsSystemMode$inboundSchema;
-  /** @deprecated use `InputSystemMetricsSystemMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsSystemMode$outboundSchema;
-}
-
-/** @internal */
-export const InputSystemMetricsSystem$inboundSchema: z.ZodType<
-  InputSystemMetricsSystem,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSystemMetricsSystemMode$inboundSchema.default("basic"),
+  mode: InputSystemMetricsSystemMode4$inboundSchema.default("basic"),
   processes: z.boolean().default(false),
 });
-
 /** @internal */
-export type InputSystemMetricsSystem$Outbound = {
+export type InputSystemMetricsSystem4$Outbound = {
   mode: string;
   processes: boolean;
 };
 
 /** @internal */
-export const InputSystemMetricsSystem$outboundSchema: z.ZodType<
-  InputSystemMetricsSystem$Outbound,
+export const InputSystemMetricsSystem4$outboundSchema: z.ZodType<
+  InputSystemMetricsSystem4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsSystem
+  InputSystemMetricsSystem4
 > = z.object({
-  mode: InputSystemMetricsSystemMode$outboundSchema.default("basic"),
+  mode: InputSystemMetricsSystemMode4$outboundSchema.default("basic"),
   processes: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsSystem$ {
-  /** @deprecated use `InputSystemMetricsSystem$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsSystem$inboundSchema;
-  /** @deprecated use `InputSystemMetricsSystem$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsSystem$outboundSchema;
-  /** @deprecated use `InputSystemMetricsSystem$Outbound` instead. */
-  export type Outbound = InputSystemMetricsSystem$Outbound;
-}
-
-export function inputSystemMetricsSystemToJSON(
-  inputSystemMetricsSystem: InputSystemMetricsSystem,
+export function inputSystemMetricsSystem4ToJSON(
+  inputSystemMetricsSystem4: InputSystemMetricsSystem4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsSystem$outboundSchema.parse(inputSystemMetricsSystem),
+    InputSystemMetricsSystem4$outboundSchema.parse(inputSystemMetricsSystem4),
   );
 }
-
-export function inputSystemMetricsSystemFromJSON(
+export function inputSystemMetricsSystem4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsSystem, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsSystem4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsSystem$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsSystem' from JSON`,
+    (x) => InputSystemMetricsSystem4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsSystem4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsCpuMode$inboundSchema: z.ZodType<
-  InputSystemMetricsCpuMode,
+export const InputSystemMetricsCpuMode4$inboundSchema: z.ZodType<
+  InputSystemMetricsCpuMode4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputSystemMetricsCpuMode),
+    z.nativeEnum(InputSystemMetricsCpuMode4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputSystemMetricsCpuMode$outboundSchema: z.ZodType<
-  InputSystemMetricsCpuMode,
+export const InputSystemMetricsCpuMode4$outboundSchema: z.ZodType<
+  InputSystemMetricsCpuMode4,
   z.ZodTypeDef,
-  InputSystemMetricsCpuMode
+  InputSystemMetricsCpuMode4
 > = z.union([
-  z.nativeEnum(InputSystemMetricsCpuMode),
+  z.nativeEnum(InputSystemMetricsCpuMode4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsCpuMode$ {
-  /** @deprecated use `InputSystemMetricsCpuMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsCpuMode$inboundSchema;
-  /** @deprecated use `InputSystemMetricsCpuMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsCpuMode$outboundSchema;
-}
-
 /** @internal */
-export const InputSystemMetricsCpu$inboundSchema: z.ZodType<
-  InputSystemMetricsCpu,
+export const InputSystemMetricsCpu4$inboundSchema: z.ZodType<
+  InputSystemMetricsCpu4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsCpuMode$inboundSchema.default("basic"),
+  mode: InputSystemMetricsCpuMode4$inboundSchema.default("basic"),
   perCpu: z.boolean().default(false),
   detail: z.boolean().default(false),
   time: z.boolean().default(false),
 });
-
 /** @internal */
-export type InputSystemMetricsCpu$Outbound = {
+export type InputSystemMetricsCpu4$Outbound = {
   mode: string;
   perCpu: boolean;
   detail: boolean;
@@ -878,891 +1756,2532 @@ export type InputSystemMetricsCpu$Outbound = {
 };
 
 /** @internal */
-export const InputSystemMetricsCpu$outboundSchema: z.ZodType<
-  InputSystemMetricsCpu$Outbound,
+export const InputSystemMetricsCpu4$outboundSchema: z.ZodType<
+  InputSystemMetricsCpu4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsCpu
+  InputSystemMetricsCpu4
 > = z.object({
-  mode: InputSystemMetricsCpuMode$outboundSchema.default("basic"),
+  mode: InputSystemMetricsCpuMode4$outboundSchema.default("basic"),
   perCpu: z.boolean().default(false),
   detail: z.boolean().default(false),
   time: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsCpu$ {
-  /** @deprecated use `InputSystemMetricsCpu$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsCpu$inboundSchema;
-  /** @deprecated use `InputSystemMetricsCpu$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsCpu$outboundSchema;
-  /** @deprecated use `InputSystemMetricsCpu$Outbound` instead. */
-  export type Outbound = InputSystemMetricsCpu$Outbound;
-}
-
-export function inputSystemMetricsCpuToJSON(
-  inputSystemMetricsCpu: InputSystemMetricsCpu,
+export function inputSystemMetricsCpu4ToJSON(
+  inputSystemMetricsCpu4: InputSystemMetricsCpu4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsCpu$outboundSchema.parse(inputSystemMetricsCpu),
+    InputSystemMetricsCpu4$outboundSchema.parse(inputSystemMetricsCpu4),
   );
 }
-
-export function inputSystemMetricsCpuFromJSON(
+export function inputSystemMetricsCpu4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsCpu, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsCpu4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsCpu$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsCpu' from JSON`,
+    (x) => InputSystemMetricsCpu4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsCpu4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsMemoryMode$inboundSchema: z.ZodType<
-  InputSystemMetricsMemoryMode,
+export const InputSystemMetricsMemoryMode4$inboundSchema: z.ZodType<
+  InputSystemMetricsMemoryMode4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputSystemMetricsMemoryMode),
+    z.nativeEnum(InputSystemMetricsMemoryMode4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputSystemMetricsMemoryMode$outboundSchema: z.ZodType<
-  InputSystemMetricsMemoryMode,
+export const InputSystemMetricsMemoryMode4$outboundSchema: z.ZodType<
+  InputSystemMetricsMemoryMode4,
   z.ZodTypeDef,
-  InputSystemMetricsMemoryMode
+  InputSystemMetricsMemoryMode4
 > = z.union([
-  z.nativeEnum(InputSystemMetricsMemoryMode),
+  z.nativeEnum(InputSystemMetricsMemoryMode4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsMemoryMode$ {
-  /** @deprecated use `InputSystemMetricsMemoryMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsMemoryMode$inboundSchema;
-  /** @deprecated use `InputSystemMetricsMemoryMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsMemoryMode$outboundSchema;
-}
-
 /** @internal */
-export const InputSystemMetricsMemory$inboundSchema: z.ZodType<
-  InputSystemMetricsMemory,
+export const InputSystemMetricsMemory4$inboundSchema: z.ZodType<
+  InputSystemMetricsMemory4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsMemoryMode$inboundSchema.default("basic"),
+  mode: InputSystemMetricsMemoryMode4$inboundSchema.default("basic"),
   detail: z.boolean().default(false),
 });
-
 /** @internal */
-export type InputSystemMetricsMemory$Outbound = {
+export type InputSystemMetricsMemory4$Outbound = {
   mode: string;
   detail: boolean;
 };
 
 /** @internal */
-export const InputSystemMetricsMemory$outboundSchema: z.ZodType<
-  InputSystemMetricsMemory$Outbound,
+export const InputSystemMetricsMemory4$outboundSchema: z.ZodType<
+  InputSystemMetricsMemory4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsMemory
+  InputSystemMetricsMemory4
 > = z.object({
-  mode: InputSystemMetricsMemoryMode$outboundSchema.default("basic"),
+  mode: InputSystemMetricsMemoryMode4$outboundSchema.default("basic"),
   detail: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsMemory$ {
-  /** @deprecated use `InputSystemMetricsMemory$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsMemory$inboundSchema;
-  /** @deprecated use `InputSystemMetricsMemory$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsMemory$outboundSchema;
-  /** @deprecated use `InputSystemMetricsMemory$Outbound` instead. */
-  export type Outbound = InputSystemMetricsMemory$Outbound;
-}
-
-export function inputSystemMetricsMemoryToJSON(
-  inputSystemMetricsMemory: InputSystemMetricsMemory,
+export function inputSystemMetricsMemory4ToJSON(
+  inputSystemMetricsMemory4: InputSystemMetricsMemory4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsMemory$outboundSchema.parse(inputSystemMetricsMemory),
+    InputSystemMetricsMemory4$outboundSchema.parse(inputSystemMetricsMemory4),
   );
 }
-
-export function inputSystemMetricsMemoryFromJSON(
+export function inputSystemMetricsMemory4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsMemory, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsMemory4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsMemory$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsMemory' from JSON`,
+    (x) => InputSystemMetricsMemory4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsMemory4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsNetworkMode$inboundSchema: z.ZodType<
-  InputSystemMetricsNetworkMode,
+export const InputSystemMetricsNetworkMode4$inboundSchema: z.ZodType<
+  InputSystemMetricsNetworkMode4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputSystemMetricsNetworkMode),
+    z.nativeEnum(InputSystemMetricsNetworkMode4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputSystemMetricsNetworkMode$outboundSchema: z.ZodType<
-  InputSystemMetricsNetworkMode,
+export const InputSystemMetricsNetworkMode4$outboundSchema: z.ZodType<
+  InputSystemMetricsNetworkMode4,
   z.ZodTypeDef,
-  InputSystemMetricsNetworkMode
+  InputSystemMetricsNetworkMode4
 > = z.union([
-  z.nativeEnum(InputSystemMetricsNetworkMode),
+  z.nativeEnum(InputSystemMetricsNetworkMode4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsNetworkMode$ {
-  /** @deprecated use `InputSystemMetricsNetworkMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsNetworkMode$inboundSchema;
-  /** @deprecated use `InputSystemMetricsNetworkMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsNetworkMode$outboundSchema;
-}
-
 /** @internal */
-export const InputSystemMetricsNetwork$inboundSchema: z.ZodType<
-  InputSystemMetricsNetwork,
+export const InputSystemMetricsNetwork4$inboundSchema: z.ZodType<
+  InputSystemMetricsNetwork4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsNetworkMode$inboundSchema.default("basic"),
+  mode: InputSystemMetricsNetworkMode4$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
-
 /** @internal */
-export type InputSystemMetricsNetwork$Outbound = {
+export type InputSystemMetricsNetwork4$Outbound = {
   mode: string;
+  detail: boolean;
+  protocols: boolean;
   devices?: Array<string> | undefined;
   perInterface: boolean;
-  detail: boolean;
 };
 
 /** @internal */
-export const InputSystemMetricsNetwork$outboundSchema: z.ZodType<
-  InputSystemMetricsNetwork$Outbound,
+export const InputSystemMetricsNetwork4$outboundSchema: z.ZodType<
+  InputSystemMetricsNetwork4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsNetwork
+  InputSystemMetricsNetwork4
 > = z.object({
-  mode: InputSystemMetricsNetworkMode$outboundSchema.default("basic"),
+  mode: InputSystemMetricsNetworkMode4$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsNetwork$ {
-  /** @deprecated use `InputSystemMetricsNetwork$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsNetwork$inboundSchema;
-  /** @deprecated use `InputSystemMetricsNetwork$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsNetwork$outboundSchema;
-  /** @deprecated use `InputSystemMetricsNetwork$Outbound` instead. */
-  export type Outbound = InputSystemMetricsNetwork$Outbound;
-}
-
-export function inputSystemMetricsNetworkToJSON(
-  inputSystemMetricsNetwork: InputSystemMetricsNetwork,
+export function inputSystemMetricsNetwork4ToJSON(
+  inputSystemMetricsNetwork4: InputSystemMetricsNetwork4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsNetwork$outboundSchema.parse(inputSystemMetricsNetwork),
+    InputSystemMetricsNetwork4$outboundSchema.parse(inputSystemMetricsNetwork4),
   );
 }
-
-export function inputSystemMetricsNetworkFromJSON(
+export function inputSystemMetricsNetwork4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsNetwork, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsNetwork4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsNetwork$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsNetwork' from JSON`,
+    (x) => InputSystemMetricsNetwork4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsNetwork4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsDiskMode$inboundSchema: z.ZodType<
-  InputSystemMetricsDiskMode,
+export const InputSystemMetricsDiskMode4$inboundSchema: z.ZodType<
+  InputSystemMetricsDiskMode4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputSystemMetricsDiskMode),
+    z.nativeEnum(InputSystemMetricsDiskMode4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputSystemMetricsDiskMode$outboundSchema: z.ZodType<
-  InputSystemMetricsDiskMode,
+export const InputSystemMetricsDiskMode4$outboundSchema: z.ZodType<
+  InputSystemMetricsDiskMode4,
   z.ZodTypeDef,
-  InputSystemMetricsDiskMode
+  InputSystemMetricsDiskMode4
 > = z.union([
-  z.nativeEnum(InputSystemMetricsDiskMode),
+  z.nativeEnum(InputSystemMetricsDiskMode4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsDiskMode$ {
-  /** @deprecated use `InputSystemMetricsDiskMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsDiskMode$inboundSchema;
-  /** @deprecated use `InputSystemMetricsDiskMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsDiskMode$outboundSchema;
-}
-
 /** @internal */
-export const InputSystemMetricsDisk$inboundSchema: z.ZodType<
-  InputSystemMetricsDisk,
+export const InputSystemMetricsDisk4$inboundSchema: z.ZodType<
+  InputSystemMetricsDisk4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsDiskMode$inboundSchema.default("basic"),
+  mode: InputSystemMetricsDiskMode4$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   mountpoints: z.array(z.string()).optional(),
   fstypes: z.array(z.string()).optional(),
   perDevice: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
-
 /** @internal */
-export type InputSystemMetricsDisk$Outbound = {
+export type InputSystemMetricsDisk4$Outbound = {
   mode: string;
+  detail: boolean;
+  inodes: boolean;
   devices?: Array<string> | undefined;
   mountpoints?: Array<string> | undefined;
   fstypes?: Array<string> | undefined;
   perDevice: boolean;
-  detail: boolean;
 };
 
 /** @internal */
-export const InputSystemMetricsDisk$outboundSchema: z.ZodType<
-  InputSystemMetricsDisk$Outbound,
+export const InputSystemMetricsDisk4$outboundSchema: z.ZodType<
+  InputSystemMetricsDisk4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsDisk
+  InputSystemMetricsDisk4
 > = z.object({
-  mode: InputSystemMetricsDiskMode$outboundSchema.default("basic"),
+  mode: InputSystemMetricsDiskMode4$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
   devices: z.array(z.string()).optional(),
   mountpoints: z.array(z.string()).optional(),
   fstypes: z.array(z.string()).optional(),
   perDevice: z.boolean().default(false),
-  detail: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsDisk$ {
-  /** @deprecated use `InputSystemMetricsDisk$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsDisk$inboundSchema;
-  /** @deprecated use `InputSystemMetricsDisk$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsDisk$outboundSchema;
-  /** @deprecated use `InputSystemMetricsDisk$Outbound` instead. */
-  export type Outbound = InputSystemMetricsDisk$Outbound;
-}
-
-export function inputSystemMetricsDiskToJSON(
-  inputSystemMetricsDisk: InputSystemMetricsDisk,
+export function inputSystemMetricsDisk4ToJSON(
+  inputSystemMetricsDisk4: InputSystemMetricsDisk4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsDisk$outboundSchema.parse(inputSystemMetricsDisk),
+    InputSystemMetricsDisk4$outboundSchema.parse(inputSystemMetricsDisk4),
   );
 }
-
-export function inputSystemMetricsDiskFromJSON(
+export function inputSystemMetricsDisk4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsDisk, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsDisk4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsDisk$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsDisk' from JSON`,
+    (x) => InputSystemMetricsDisk4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsDisk4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsCustom$inboundSchema: z.ZodType<
-  InputSystemMetricsCustom,
+export const InputSystemMetricsCustom4$inboundSchema: z.ZodType<
+  InputSystemMetricsCustom4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  system: z.lazy(() => InputSystemMetricsSystem$inboundSchema).optional(),
-  cpu: z.lazy(() => InputSystemMetricsCpu$inboundSchema).optional(),
-  memory: z.lazy(() => InputSystemMetricsMemory$inboundSchema).optional(),
-  network: z.lazy(() => InputSystemMetricsNetwork$inboundSchema).optional(),
-  disk: z.lazy(() => InputSystemMetricsDisk$inboundSchema).optional(),
+  system: z.lazy(() => InputSystemMetricsSystem4$inboundSchema).optional(),
+  cpu: z.lazy(() => InputSystemMetricsCpu4$inboundSchema).optional(),
+  memory: z.lazy(() => InputSystemMetricsMemory4$inboundSchema).optional(),
+  network: z.lazy(() => InputSystemMetricsNetwork4$inboundSchema).optional(),
+  disk: z.lazy(() => InputSystemMetricsDisk4$inboundSchema).optional(),
 });
-
 /** @internal */
-export type InputSystemMetricsCustom$Outbound = {
-  system?: InputSystemMetricsSystem$Outbound | undefined;
-  cpu?: InputSystemMetricsCpu$Outbound | undefined;
-  memory?: InputSystemMetricsMemory$Outbound | undefined;
-  network?: InputSystemMetricsNetwork$Outbound | undefined;
-  disk?: InputSystemMetricsDisk$Outbound | undefined;
+export type InputSystemMetricsCustom4$Outbound = {
+  system?: InputSystemMetricsSystem4$Outbound | undefined;
+  cpu?: InputSystemMetricsCpu4$Outbound | undefined;
+  memory?: InputSystemMetricsMemory4$Outbound | undefined;
+  network?: InputSystemMetricsNetwork4$Outbound | undefined;
+  disk?: InputSystemMetricsDisk4$Outbound | undefined;
 };
 
 /** @internal */
-export const InputSystemMetricsCustom$outboundSchema: z.ZodType<
-  InputSystemMetricsCustom$Outbound,
+export const InputSystemMetricsCustom4$outboundSchema: z.ZodType<
+  InputSystemMetricsCustom4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsCustom
+  InputSystemMetricsCustom4
 > = z.object({
-  system: z.lazy(() => InputSystemMetricsSystem$outboundSchema).optional(),
-  cpu: z.lazy(() => InputSystemMetricsCpu$outboundSchema).optional(),
-  memory: z.lazy(() => InputSystemMetricsMemory$outboundSchema).optional(),
-  network: z.lazy(() => InputSystemMetricsNetwork$outboundSchema).optional(),
-  disk: z.lazy(() => InputSystemMetricsDisk$outboundSchema).optional(),
+  system: z.lazy(() => InputSystemMetricsSystem4$outboundSchema).optional(),
+  cpu: z.lazy(() => InputSystemMetricsCpu4$outboundSchema).optional(),
+  memory: z.lazy(() => InputSystemMetricsMemory4$outboundSchema).optional(),
+  network: z.lazy(() => InputSystemMetricsNetwork4$outboundSchema).optional(),
+  disk: z.lazy(() => InputSystemMetricsDisk4$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsCustom$ {
-  /** @deprecated use `InputSystemMetricsCustom$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsCustom$inboundSchema;
-  /** @deprecated use `InputSystemMetricsCustom$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsCustom$outboundSchema;
-  /** @deprecated use `InputSystemMetricsCustom$Outbound` instead. */
-  export type Outbound = InputSystemMetricsCustom$Outbound;
-}
-
-export function inputSystemMetricsCustomToJSON(
-  inputSystemMetricsCustom: InputSystemMetricsCustom,
+export function inputSystemMetricsCustom4ToJSON(
+  inputSystemMetricsCustom4: InputSystemMetricsCustom4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsCustom$outboundSchema.parse(inputSystemMetricsCustom),
+    InputSystemMetricsCustom4$outboundSchema.parse(inputSystemMetricsCustom4),
   );
 }
-
-export function inputSystemMetricsCustomFromJSON(
+export function inputSystemMetricsCustom4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsCustom, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsCustom4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsCustom$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsCustom' from JSON`,
+    (x) => InputSystemMetricsCustom4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsCustom4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsHost$inboundSchema: z.ZodType<
-  InputSystemMetricsHost,
+export const InputSystemMetricsHost4$inboundSchema: z.ZodType<
+  InputSystemMetricsHost4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsHostMode$inboundSchema.default("basic"),
-  custom: z.lazy(() => InputSystemMetricsCustom$inboundSchema).optional(),
+  mode: InputSystemMetricsHostMode4$inboundSchema.default("basic"),
+  custom: z.lazy(() => InputSystemMetricsCustom4$inboundSchema).optional(),
 });
-
 /** @internal */
-export type InputSystemMetricsHost$Outbound = {
+export type InputSystemMetricsHost4$Outbound = {
   mode: string;
-  custom?: InputSystemMetricsCustom$Outbound | undefined;
+  custom?: InputSystemMetricsCustom4$Outbound | undefined;
 };
 
 /** @internal */
-export const InputSystemMetricsHost$outboundSchema: z.ZodType<
-  InputSystemMetricsHost$Outbound,
+export const InputSystemMetricsHost4$outboundSchema: z.ZodType<
+  InputSystemMetricsHost4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsHost
+  InputSystemMetricsHost4
 > = z.object({
-  mode: InputSystemMetricsHostMode$outboundSchema.default("basic"),
-  custom: z.lazy(() => InputSystemMetricsCustom$outboundSchema).optional(),
+  mode: InputSystemMetricsHostMode4$outboundSchema.default("basic"),
+  custom: z.lazy(() => InputSystemMetricsCustom4$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsHost$ {
-  /** @deprecated use `InputSystemMetricsHost$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsHost$inboundSchema;
-  /** @deprecated use `InputSystemMetricsHost$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsHost$outboundSchema;
-  /** @deprecated use `InputSystemMetricsHost$Outbound` instead. */
-  export type Outbound = InputSystemMetricsHost$Outbound;
-}
-
-export function inputSystemMetricsHostToJSON(
-  inputSystemMetricsHost: InputSystemMetricsHost,
+export function inputSystemMetricsHost4ToJSON(
+  inputSystemMetricsHost4: InputSystemMetricsHost4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsHost$outboundSchema.parse(inputSystemMetricsHost),
+    InputSystemMetricsHost4$outboundSchema.parse(inputSystemMetricsHost4),
   );
 }
-
-export function inputSystemMetricsHostFromJSON(
+export function inputSystemMetricsHost4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsHost, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsHost4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsHost' from JSON`,
+    (x) => InputSystemMetricsHost4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsHost4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsSet$inboundSchema: z.ZodType<
-  InputSystemMetricsSet,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  filter: z.string(),
-  includeChildren: z.boolean().default(false),
-});
-
-/** @internal */
-export type InputSystemMetricsSet$Outbound = {
-  name: string;
-  filter: string;
-  includeChildren: boolean;
-};
-
-/** @internal */
-export const InputSystemMetricsSet$outboundSchema: z.ZodType<
-  InputSystemMetricsSet$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsSet
-> = z.object({
-  name: z.string(),
-  filter: z.string(),
-  includeChildren: z.boolean().default(false),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsSet$ {
-  /** @deprecated use `InputSystemMetricsSet$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsSet$inboundSchema;
-  /** @deprecated use `InputSystemMetricsSet$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsSet$outboundSchema;
-  /** @deprecated use `InputSystemMetricsSet$Outbound` instead. */
-  export type Outbound = InputSystemMetricsSet$Outbound;
-}
-
-export function inputSystemMetricsSetToJSON(
-  inputSystemMetricsSet: InputSystemMetricsSet,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsSet$outboundSchema.parse(inputSystemMetricsSet),
-  );
-}
-
-export function inputSystemMetricsSetFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsSet, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsSet$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsSet' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemMetricsProcess$inboundSchema: z.ZodType<
-  InputSystemMetricsProcess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sets: z.array(z.lazy(() => InputSystemMetricsSet$inboundSchema)).optional(),
-});
-
-/** @internal */
-export type InputSystemMetricsProcess$Outbound = {
-  sets?: Array<InputSystemMetricsSet$Outbound> | undefined;
-};
-
-/** @internal */
-export const InputSystemMetricsProcess$outboundSchema: z.ZodType<
-  InputSystemMetricsProcess$Outbound,
-  z.ZodTypeDef,
-  InputSystemMetricsProcess
-> = z.object({
-  sets: z.array(z.lazy(() => InputSystemMetricsSet$outboundSchema)).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsProcess$ {
-  /** @deprecated use `InputSystemMetricsProcess$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsProcess$inboundSchema;
-  /** @deprecated use `InputSystemMetricsProcess$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsProcess$outboundSchema;
-  /** @deprecated use `InputSystemMetricsProcess$Outbound` instead. */
-  export type Outbound = InputSystemMetricsProcess$Outbound;
-}
-
-export function inputSystemMetricsProcessToJSON(
-  inputSystemMetricsProcess: InputSystemMetricsProcess,
-): string {
-  return JSON.stringify(
-    InputSystemMetricsProcess$outboundSchema.parse(inputSystemMetricsProcess),
-  );
-}
-
-export function inputSystemMetricsProcessFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemMetricsProcess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemMetricsProcess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsProcess' from JSON`,
-  );
-}
-
-/** @internal */
-export const ContainerMode$inboundSchema: z.ZodType<
-  ContainerMode,
+export const ContainerMode4$inboundSchema: z.ZodType<
+  ContainerMode4,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(ContainerMode),
+    z.nativeEnum(ContainerMode4),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const ContainerMode$outboundSchema: z.ZodType<
-  ContainerMode,
+export const ContainerMode4$outboundSchema: z.ZodType<
+  ContainerMode4,
   z.ZodTypeDef,
-  ContainerMode
+  ContainerMode4
 > = z.union([
-  z.nativeEnum(ContainerMode),
+  z.nativeEnum(ContainerMode4),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ContainerMode$ {
-  /** @deprecated use `ContainerMode$inboundSchema` instead. */
-  export const inboundSchema = ContainerMode$inboundSchema;
-  /** @deprecated use `ContainerMode$outboundSchema` instead. */
-  export const outboundSchema = ContainerMode$outboundSchema;
-}
-
 /** @internal */
-export const InputSystemMetricsFilter$inboundSchema: z.ZodType<
-  InputSystemMetricsFilter,
+export const InputSystemMetricsFilter4$inboundSchema: z.ZodType<
+  InputSystemMetricsFilter4,
   z.ZodTypeDef,
   unknown
 > = z.object({
   expr: z.string(),
 });
-
 /** @internal */
-export type InputSystemMetricsFilter$Outbound = {
+export type InputSystemMetricsFilter4$Outbound = {
   expr: string;
 };
 
 /** @internal */
-export const InputSystemMetricsFilter$outboundSchema: z.ZodType<
-  InputSystemMetricsFilter$Outbound,
+export const InputSystemMetricsFilter4$outboundSchema: z.ZodType<
+  InputSystemMetricsFilter4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsFilter
+  InputSystemMetricsFilter4
 > = z.object({
   expr: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsFilter$ {
-  /** @deprecated use `InputSystemMetricsFilter$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsFilter$inboundSchema;
-  /** @deprecated use `InputSystemMetricsFilter$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsFilter$outboundSchema;
-  /** @deprecated use `InputSystemMetricsFilter$Outbound` instead. */
-  export type Outbound = InputSystemMetricsFilter$Outbound;
-}
-
-export function inputSystemMetricsFilterToJSON(
-  inputSystemMetricsFilter: InputSystemMetricsFilter,
+export function inputSystemMetricsFilter4ToJSON(
+  inputSystemMetricsFilter4: InputSystemMetricsFilter4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsFilter$outboundSchema.parse(inputSystemMetricsFilter),
+    InputSystemMetricsFilter4$outboundSchema.parse(inputSystemMetricsFilter4),
   );
 }
-
-export function inputSystemMetricsFilterFromJSON(
+export function inputSystemMetricsFilter4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsFilter, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsFilter4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsFilter$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsFilter' from JSON`,
+    (x) => InputSystemMetricsFilter4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsFilter4' from JSON`,
   );
 }
 
 /** @internal */
-export const Container$inboundSchema: z.ZodType<
-  Container,
+export const Container4$inboundSchema: z.ZodType<
+  Container4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: ContainerMode$inboundSchema.default("basic"),
+  mode: ContainerMode4$inboundSchema.default("basic"),
   dockerSocket: z.array(z.string()).optional(),
   dockerTimeout: z.number().default(5),
-  filters: z.array(z.lazy(() => InputSystemMetricsFilter$inboundSchema))
+  filters: z.array(z.lazy(() => InputSystemMetricsFilter4$inboundSchema))
     .optional(),
   allContainers: z.boolean().default(false),
   perDevice: z.boolean().default(false),
   detail: z.boolean().default(false),
 });
-
 /** @internal */
-export type Container$Outbound = {
+export type Container4$Outbound = {
   mode: string;
   dockerSocket?: Array<string> | undefined;
   dockerTimeout: number;
-  filters?: Array<InputSystemMetricsFilter$Outbound> | undefined;
+  filters?: Array<InputSystemMetricsFilter4$Outbound> | undefined;
   allContainers: boolean;
   perDevice: boolean;
   detail: boolean;
 };
 
 /** @internal */
-export const Container$outboundSchema: z.ZodType<
-  Container$Outbound,
+export const Container4$outboundSchema: z.ZodType<
+  Container4$Outbound,
   z.ZodTypeDef,
-  Container
+  Container4
 > = z.object({
-  mode: ContainerMode$outboundSchema.default("basic"),
+  mode: ContainerMode4$outboundSchema.default("basic"),
   dockerSocket: z.array(z.string()).optional(),
   dockerTimeout: z.number().default(5),
-  filters: z.array(z.lazy(() => InputSystemMetricsFilter$outboundSchema))
+  filters: z.array(z.lazy(() => InputSystemMetricsFilter4$outboundSchema))
     .optional(),
   allContainers: z.boolean().default(false),
   perDevice: z.boolean().default(false),
   detail: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Container$ {
-  /** @deprecated use `Container$inboundSchema` instead. */
-  export const inboundSchema = Container$inboundSchema;
-  /** @deprecated use `Container$outboundSchema` instead. */
-  export const outboundSchema = Container$outboundSchema;
-  /** @deprecated use `Container$Outbound` instead. */
-  export type Outbound = Container$Outbound;
+export function container4ToJSON(container4: Container4): string {
+  return JSON.stringify(Container4$outboundSchema.parse(container4));
 }
-
-export function containerToJSON(container: Container): string {
-  return JSON.stringify(Container$outboundSchema.parse(container));
-}
-
-export function containerFromJSON(
+export function container4FromJSON(
   jsonString: string,
-): SafeParseResult<Container, SDKValidationError> {
+): SafeParseResult<Container4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Container$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Container' from JSON`,
+    (x) => Container4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Container4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsMetadatum$inboundSchema: z.ZodType<
-  InputSystemMetricsMetadatum,
+export const InputSystemMetricsSystemMetrics4$inboundSchema: z.ZodType<
+  InputSystemMetricsSystemMetrics4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemMetricsType4$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  interval: z.number().default(10),
+  host: z.lazy(() => InputSystemMetricsHost4$inboundSchema).optional(),
+  process: ProcessType$inboundSchema.optional(),
+  container: z.lazy(() => Container4$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  description: z.string().optional(),
 });
-
 /** @internal */
-export type InputSystemMetricsMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputSystemMetricsSystemMetrics4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  interval: number;
+  host?: InputSystemMetricsHost4$Outbound | undefined;
+  process?: ProcessType$Outbound | undefined;
+  container?: Container4$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputSystemMetricsMetadatum$outboundSchema: z.ZodType<
-  InputSystemMetricsMetadatum$Outbound,
+export const InputSystemMetricsSystemMetrics4$outboundSchema: z.ZodType<
+  InputSystemMetricsSystemMetrics4$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsMetadatum
+  InputSystemMetricsSystemMetrics4
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemMetricsType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  interval: z.number().default(10),
+  host: z.lazy(() => InputSystemMetricsHost4$outboundSchema).optional(),
+  process: ProcessType$outboundSchema.optional(),
+  container: z.lazy(() => Container4$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsMetadatum$ {
-  /** @deprecated use `InputSystemMetricsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsMetadatum$inboundSchema;
-  /** @deprecated use `InputSystemMetricsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsMetadatum$outboundSchema;
-  /** @deprecated use `InputSystemMetricsMetadatum$Outbound` instead. */
-  export type Outbound = InputSystemMetricsMetadatum$Outbound;
-}
-
-export function inputSystemMetricsMetadatumToJSON(
-  inputSystemMetricsMetadatum: InputSystemMetricsMetadatum,
+export function inputSystemMetricsSystemMetrics4ToJSON(
+  inputSystemMetricsSystemMetrics4: InputSystemMetricsSystemMetrics4,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsMetadatum$outboundSchema.parse(
-      inputSystemMetricsMetadatum,
+    InputSystemMetricsSystemMetrics4$outboundSchema.parse(
+      inputSystemMetricsSystemMetrics4,
     ),
   );
 }
-
-export function inputSystemMetricsMetadatumFromJSON(
+export function inputSystemMetricsSystemMetrics4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsMetadatum, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsSystemMetrics4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsMetadatum' from JSON`,
+    (x) => InputSystemMetricsSystemMetrics4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsSystemMetrics4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSystemMetricsDataCompressionFormat$inboundSchema: z.ZodType<
-  InputSystemMetricsDataCompressionFormat,
+export const InputSystemMetricsType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType3
+> = z.nativeEnum(InputSystemMetricsType3);
+/** @internal */
+export const InputSystemMetricsType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType3
+> = InputSystemMetricsType3$inboundSchema;
+
+/** @internal */
+export const InputSystemMetricsHostMode3$inboundSchema: z.ZodType<
+  InputSystemMetricsHostMode3,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputSystemMetricsDataCompressionFormat),
+    z.nativeEnum(InputSystemMetricsHostMode3),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputSystemMetricsDataCompressionFormat$outboundSchema: z.ZodType<
-  InputSystemMetricsDataCompressionFormat,
+export const InputSystemMetricsHostMode3$outboundSchema: z.ZodType<
+  InputSystemMetricsHostMode3,
   z.ZodTypeDef,
-  InputSystemMetricsDataCompressionFormat
+  InputSystemMetricsHostMode3
 > = z.union([
-  z.nativeEnum(InputSystemMetricsDataCompressionFormat),
+  z.nativeEnum(InputSystemMetricsHostMode3),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsDataCompressionFormat$ {
-  /** @deprecated use `InputSystemMetricsDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema =
-    InputSystemMetricsDataCompressionFormat$inboundSchema;
-  /** @deprecated use `InputSystemMetricsDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSystemMetricsDataCompressionFormat$outboundSchema;
-}
+/** @internal */
+export const InputSystemMetricsSystemMode3$inboundSchema: z.ZodType<
+  InputSystemMetricsSystemMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsSystemMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsSystemMode3$outboundSchema: z.ZodType<
+  InputSystemMetricsSystemMode3,
+  z.ZodTypeDef,
+  InputSystemMetricsSystemMode3
+> = z.union([
+  z.nativeEnum(InputSystemMetricsSystemMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
-export const InputSystemMetricsPersistence$inboundSchema: z.ZodType<
-  InputSystemMetricsPersistence,
+export const InputSystemMetricsSystem3$inboundSchema: z.ZodType<
+  InputSystemMetricsSystem3,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputSystemMetricsDataCompressionFormat$inboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/system_metrics"),
+  mode: InputSystemMetricsSystemMode3$inboundSchema.default("basic"),
+  processes: z.boolean().default(false),
 });
-
 /** @internal */
-export type InputSystemMetricsPersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
+export type InputSystemMetricsSystem3$Outbound = {
+  mode: string;
+  processes: boolean;
 };
 
 /** @internal */
-export const InputSystemMetricsPersistence$outboundSchema: z.ZodType<
-  InputSystemMetricsPersistence$Outbound,
+export const InputSystemMetricsSystem3$outboundSchema: z.ZodType<
+  InputSystemMetricsSystem3$Outbound,
   z.ZodTypeDef,
-  InputSystemMetricsPersistence
+  InputSystemMetricsSystem3
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputSystemMetricsDataCompressionFormat$outboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/system_metrics"),
+  mode: InputSystemMetricsSystemMode3$outboundSchema.default("basic"),
+  processes: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetricsPersistence$ {
-  /** @deprecated use `InputSystemMetricsPersistence$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetricsPersistence$inboundSchema;
-  /** @deprecated use `InputSystemMetricsPersistence$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetricsPersistence$outboundSchema;
-  /** @deprecated use `InputSystemMetricsPersistence$Outbound` instead. */
-  export type Outbound = InputSystemMetricsPersistence$Outbound;
-}
-
-export function inputSystemMetricsPersistenceToJSON(
-  inputSystemMetricsPersistence: InputSystemMetricsPersistence,
+export function inputSystemMetricsSystem3ToJSON(
+  inputSystemMetricsSystem3: InputSystemMetricsSystem3,
 ): string {
   return JSON.stringify(
-    InputSystemMetricsPersistence$outboundSchema.parse(
-      inputSystemMetricsPersistence,
-    ),
+    InputSystemMetricsSystem3$outboundSchema.parse(inputSystemMetricsSystem3),
+  );
+}
+export function inputSystemMetricsSystem3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsSystem3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsSystem3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsSystem3' from JSON`,
   );
 }
 
-export function inputSystemMetricsPersistenceFromJSON(
+/** @internal */
+export const InputSystemMetricsCpuMode3$inboundSchema: z.ZodType<
+  InputSystemMetricsCpuMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsCpuMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsCpuMode3$outboundSchema: z.ZodType<
+  InputSystemMetricsCpuMode3,
+  z.ZodTypeDef,
+  InputSystemMetricsCpuMode3
+> = z.union([
+  z.nativeEnum(InputSystemMetricsCpuMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsCpu3$inboundSchema: z.ZodType<
+  InputSystemMetricsCpu3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsCpuMode3$inboundSchema.default("basic"),
+  perCpu: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  time: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsCpu3$Outbound = {
+  mode: string;
+  perCpu: boolean;
+  detail: boolean;
+  time: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsCpu3$outboundSchema: z.ZodType<
+  InputSystemMetricsCpu3$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsCpu3
+> = z.object({
+  mode: InputSystemMetricsCpuMode3$outboundSchema.default("basic"),
+  perCpu: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  time: z.boolean().default(false),
+});
+
+export function inputSystemMetricsCpu3ToJSON(
+  inputSystemMetricsCpu3: InputSystemMetricsCpu3,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsCpu3$outboundSchema.parse(inputSystemMetricsCpu3),
+  );
+}
+export function inputSystemMetricsCpu3FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemMetricsPersistence, SDKValidationError> {
+): SafeParseResult<InputSystemMetricsCpu3, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemMetricsPersistence$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemMetricsPersistence' from JSON`,
+    (x) => InputSystemMetricsCpu3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsCpu3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsMemoryMode3$inboundSchema: z.ZodType<
+  InputSystemMetricsMemoryMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsMemoryMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsMemoryMode3$outboundSchema: z.ZodType<
+  InputSystemMetricsMemoryMode3,
+  z.ZodTypeDef,
+  InputSystemMetricsMemoryMode3
+> = z.union([
+  z.nativeEnum(InputSystemMetricsMemoryMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsMemory3$inboundSchema: z.ZodType<
+  InputSystemMetricsMemory3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsMemoryMode3$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsMemory3$Outbound = {
+  mode: string;
+  detail: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsMemory3$outboundSchema: z.ZodType<
+  InputSystemMetricsMemory3$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsMemory3
+> = z.object({
+  mode: InputSystemMetricsMemoryMode3$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+});
+
+export function inputSystemMetricsMemory3ToJSON(
+  inputSystemMetricsMemory3: InputSystemMetricsMemory3,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsMemory3$outboundSchema.parse(inputSystemMetricsMemory3),
+  );
+}
+export function inputSystemMetricsMemory3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsMemory3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsMemory3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsMemory3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsNetworkMode3$inboundSchema: z.ZodType<
+  InputSystemMetricsNetworkMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsNetworkMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsNetworkMode3$outboundSchema: z.ZodType<
+  InputSystemMetricsNetworkMode3,
+  z.ZodTypeDef,
+  InputSystemMetricsNetworkMode3
+> = z.union([
+  z.nativeEnum(InputSystemMetricsNetworkMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsNetwork3$inboundSchema: z.ZodType<
+  InputSystemMetricsNetwork3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsNetworkMode3$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsNetwork3$Outbound = {
+  mode: string;
+  detail: boolean;
+  protocols: boolean;
+  devices?: Array<string> | undefined;
+  perInterface: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsNetwork3$outboundSchema: z.ZodType<
+  InputSystemMetricsNetwork3$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsNetwork3
+> = z.object({
+  mode: InputSystemMetricsNetworkMode3$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().default(false),
+});
+
+export function inputSystemMetricsNetwork3ToJSON(
+  inputSystemMetricsNetwork3: InputSystemMetricsNetwork3,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsNetwork3$outboundSchema.parse(inputSystemMetricsNetwork3),
+  );
+}
+export function inputSystemMetricsNetwork3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsNetwork3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsNetwork3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsNetwork3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsDiskMode3$inboundSchema: z.ZodType<
+  InputSystemMetricsDiskMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsDiskMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsDiskMode3$outboundSchema: z.ZodType<
+  InputSystemMetricsDiskMode3,
+  z.ZodTypeDef,
+  InputSystemMetricsDiskMode3
+> = z.union([
+  z.nativeEnum(InputSystemMetricsDiskMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsDisk3$inboundSchema: z.ZodType<
+  InputSystemMetricsDisk3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsDiskMode3$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  mountpoints: z.array(z.string()).optional(),
+  fstypes: z.array(z.string()).optional(),
+  perDevice: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsDisk3$Outbound = {
+  mode: string;
+  detail: boolean;
+  inodes: boolean;
+  devices?: Array<string> | undefined;
+  mountpoints?: Array<string> | undefined;
+  fstypes?: Array<string> | undefined;
+  perDevice: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsDisk3$outboundSchema: z.ZodType<
+  InputSystemMetricsDisk3$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsDisk3
+> = z.object({
+  mode: InputSystemMetricsDiskMode3$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  mountpoints: z.array(z.string()).optional(),
+  fstypes: z.array(z.string()).optional(),
+  perDevice: z.boolean().default(false),
+});
+
+export function inputSystemMetricsDisk3ToJSON(
+  inputSystemMetricsDisk3: InputSystemMetricsDisk3,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsDisk3$outboundSchema.parse(inputSystemMetricsDisk3),
+  );
+}
+export function inputSystemMetricsDisk3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsDisk3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsDisk3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsDisk3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsCustom3$inboundSchema: z.ZodType<
+  InputSystemMetricsCustom3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  system: z.lazy(() => InputSystemMetricsSystem3$inboundSchema).optional(),
+  cpu: z.lazy(() => InputSystemMetricsCpu3$inboundSchema).optional(),
+  memory: z.lazy(() => InputSystemMetricsMemory3$inboundSchema).optional(),
+  network: z.lazy(() => InputSystemMetricsNetwork3$inboundSchema).optional(),
+  disk: z.lazy(() => InputSystemMetricsDisk3$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSystemMetricsCustom3$Outbound = {
+  system?: InputSystemMetricsSystem3$Outbound | undefined;
+  cpu?: InputSystemMetricsCpu3$Outbound | undefined;
+  memory?: InputSystemMetricsMemory3$Outbound | undefined;
+  network?: InputSystemMetricsNetwork3$Outbound | undefined;
+  disk?: InputSystemMetricsDisk3$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsCustom3$outboundSchema: z.ZodType<
+  InputSystemMetricsCustom3$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsCustom3
+> = z.object({
+  system: z.lazy(() => InputSystemMetricsSystem3$outboundSchema).optional(),
+  cpu: z.lazy(() => InputSystemMetricsCpu3$outboundSchema).optional(),
+  memory: z.lazy(() => InputSystemMetricsMemory3$outboundSchema).optional(),
+  network: z.lazy(() => InputSystemMetricsNetwork3$outboundSchema).optional(),
+  disk: z.lazy(() => InputSystemMetricsDisk3$outboundSchema).optional(),
+});
+
+export function inputSystemMetricsCustom3ToJSON(
+  inputSystemMetricsCustom3: InputSystemMetricsCustom3,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsCustom3$outboundSchema.parse(inputSystemMetricsCustom3),
+  );
+}
+export function inputSystemMetricsCustom3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsCustom3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsCustom3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsCustom3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsHost3$inboundSchema: z.ZodType<
+  InputSystemMetricsHost3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsHostMode3$inboundSchema.default("basic"),
+  custom: z.lazy(() => InputSystemMetricsCustom3$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSystemMetricsHost3$Outbound = {
+  mode: string;
+  custom?: InputSystemMetricsCustom3$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsHost3$outboundSchema: z.ZodType<
+  InputSystemMetricsHost3$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsHost3
+> = z.object({
+  mode: InputSystemMetricsHostMode3$outboundSchema.default("basic"),
+  custom: z.lazy(() => InputSystemMetricsCustom3$outboundSchema).optional(),
+});
+
+export function inputSystemMetricsHost3ToJSON(
+  inputSystemMetricsHost3: InputSystemMetricsHost3,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsHost3$outboundSchema.parse(inputSystemMetricsHost3),
+  );
+}
+export function inputSystemMetricsHost3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsHost3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsHost3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsHost3' from JSON`,
+  );
+}
+
+/** @internal */
+export const ContainerMode3$inboundSchema: z.ZodType<
+  ContainerMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ContainerMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ContainerMode3$outboundSchema: z.ZodType<
+  ContainerMode3,
+  z.ZodTypeDef,
+  ContainerMode3
+> = z.union([
+  z.nativeEnum(ContainerMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsFilter3$inboundSchema: z.ZodType<
+  InputSystemMetricsFilter3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  expr: z.string(),
+});
+/** @internal */
+export type InputSystemMetricsFilter3$Outbound = {
+  expr: string;
+};
+
+/** @internal */
+export const InputSystemMetricsFilter3$outboundSchema: z.ZodType<
+  InputSystemMetricsFilter3$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsFilter3
+> = z.object({
+  expr: z.string(),
+});
+
+export function inputSystemMetricsFilter3ToJSON(
+  inputSystemMetricsFilter3: InputSystemMetricsFilter3,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsFilter3$outboundSchema.parse(inputSystemMetricsFilter3),
+  );
+}
+export function inputSystemMetricsFilter3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsFilter3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsFilter3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsFilter3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Container3$inboundSchema: z.ZodType<
+  Container3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: ContainerMode3$inboundSchema.default("basic"),
+  dockerSocket: z.array(z.string()).optional(),
+  dockerTimeout: z.number().default(5),
+  filters: z.array(z.lazy(() => InputSystemMetricsFilter3$inboundSchema))
+    .optional(),
+  allContainers: z.boolean().default(false),
+  perDevice: z.boolean().default(false),
+  detail: z.boolean().default(false),
+});
+/** @internal */
+export type Container3$Outbound = {
+  mode: string;
+  dockerSocket?: Array<string> | undefined;
+  dockerTimeout: number;
+  filters?: Array<InputSystemMetricsFilter3$Outbound> | undefined;
+  allContainers: boolean;
+  perDevice: boolean;
+  detail: boolean;
+};
+
+/** @internal */
+export const Container3$outboundSchema: z.ZodType<
+  Container3$Outbound,
+  z.ZodTypeDef,
+  Container3
+> = z.object({
+  mode: ContainerMode3$outboundSchema.default("basic"),
+  dockerSocket: z.array(z.string()).optional(),
+  dockerTimeout: z.number().default(5),
+  filters: z.array(z.lazy(() => InputSystemMetricsFilter3$outboundSchema))
+    .optional(),
+  allContainers: z.boolean().default(false),
+  perDevice: z.boolean().default(false),
+  detail: z.boolean().default(false),
+});
+
+export function container3ToJSON(container3: Container3): string {
+  return JSON.stringify(Container3$outboundSchema.parse(container3));
+}
+export function container3FromJSON(
+  jsonString: string,
+): SafeParseResult<Container3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Container3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Container3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsSystemMetrics3$inboundSchema: z.ZodType<
+  InputSystemMetricsSystemMetrics3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemMetricsType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(10),
+  host: z.lazy(() => InputSystemMetricsHost3$inboundSchema).optional(),
+  process: ProcessType$inboundSchema.optional(),
+  container: z.lazy(() => Container3$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemMetricsSystemMetrics3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  host?: InputSystemMetricsHost3$Outbound | undefined;
+  process?: ProcessType$Outbound | undefined;
+  container?: Container3$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsSystemMetrics3$outboundSchema: z.ZodType<
+  InputSystemMetricsSystemMetrics3$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsSystemMetrics3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemMetricsType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(10),
+  host: z.lazy(() => InputSystemMetricsHost3$outboundSchema).optional(),
+  process: ProcessType$outboundSchema.optional(),
+  container: z.lazy(() => Container3$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  description: z.string().optional(),
+});
+
+export function inputSystemMetricsSystemMetrics3ToJSON(
+  inputSystemMetricsSystemMetrics3: InputSystemMetricsSystemMetrics3,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsSystemMetrics3$outboundSchema.parse(
+      inputSystemMetricsSystemMetrics3,
+    ),
+  );
+}
+export function inputSystemMetricsSystemMetrics3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsSystemMetrics3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsSystemMetrics3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsSystemMetrics3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType2
+> = z.nativeEnum(InputSystemMetricsType2);
+/** @internal */
+export const InputSystemMetricsType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType2
+> = InputSystemMetricsType2$inboundSchema;
+
+/** @internal */
+export const InputSystemMetricsHostMode2$inboundSchema: z.ZodType<
+  InputSystemMetricsHostMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsHostMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsHostMode2$outboundSchema: z.ZodType<
+  InputSystemMetricsHostMode2,
+  z.ZodTypeDef,
+  InputSystemMetricsHostMode2
+> = z.union([
+  z.nativeEnum(InputSystemMetricsHostMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsSystemMode2$inboundSchema: z.ZodType<
+  InputSystemMetricsSystemMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsSystemMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsSystemMode2$outboundSchema: z.ZodType<
+  InputSystemMetricsSystemMode2,
+  z.ZodTypeDef,
+  InputSystemMetricsSystemMode2
+> = z.union([
+  z.nativeEnum(InputSystemMetricsSystemMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsSystem2$inboundSchema: z.ZodType<
+  InputSystemMetricsSystem2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsSystemMode2$inboundSchema.default("basic"),
+  processes: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsSystem2$Outbound = {
+  mode: string;
+  processes: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsSystem2$outboundSchema: z.ZodType<
+  InputSystemMetricsSystem2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsSystem2
+> = z.object({
+  mode: InputSystemMetricsSystemMode2$outboundSchema.default("basic"),
+  processes: z.boolean().default(false),
+});
+
+export function inputSystemMetricsSystem2ToJSON(
+  inputSystemMetricsSystem2: InputSystemMetricsSystem2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsSystem2$outboundSchema.parse(inputSystemMetricsSystem2),
+  );
+}
+export function inputSystemMetricsSystem2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsSystem2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsSystem2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsSystem2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsCpuMode2$inboundSchema: z.ZodType<
+  InputSystemMetricsCpuMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsCpuMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsCpuMode2$outboundSchema: z.ZodType<
+  InputSystemMetricsCpuMode2,
+  z.ZodTypeDef,
+  InputSystemMetricsCpuMode2
+> = z.union([
+  z.nativeEnum(InputSystemMetricsCpuMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsCpu2$inboundSchema: z.ZodType<
+  InputSystemMetricsCpu2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsCpuMode2$inboundSchema.default("basic"),
+  perCpu: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  time: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsCpu2$Outbound = {
+  mode: string;
+  perCpu: boolean;
+  detail: boolean;
+  time: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsCpu2$outboundSchema: z.ZodType<
+  InputSystemMetricsCpu2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsCpu2
+> = z.object({
+  mode: InputSystemMetricsCpuMode2$outboundSchema.default("basic"),
+  perCpu: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  time: z.boolean().default(false),
+});
+
+export function inputSystemMetricsCpu2ToJSON(
+  inputSystemMetricsCpu2: InputSystemMetricsCpu2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsCpu2$outboundSchema.parse(inputSystemMetricsCpu2),
+  );
+}
+export function inputSystemMetricsCpu2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsCpu2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsCpu2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsCpu2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsMemoryMode2$inboundSchema: z.ZodType<
+  InputSystemMetricsMemoryMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsMemoryMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsMemoryMode2$outboundSchema: z.ZodType<
+  InputSystemMetricsMemoryMode2,
+  z.ZodTypeDef,
+  InputSystemMetricsMemoryMode2
+> = z.union([
+  z.nativeEnum(InputSystemMetricsMemoryMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsMemory2$inboundSchema: z.ZodType<
+  InputSystemMetricsMemory2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsMemoryMode2$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsMemory2$Outbound = {
+  mode: string;
+  detail: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsMemory2$outboundSchema: z.ZodType<
+  InputSystemMetricsMemory2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsMemory2
+> = z.object({
+  mode: InputSystemMetricsMemoryMode2$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+});
+
+export function inputSystemMetricsMemory2ToJSON(
+  inputSystemMetricsMemory2: InputSystemMetricsMemory2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsMemory2$outboundSchema.parse(inputSystemMetricsMemory2),
+  );
+}
+export function inputSystemMetricsMemory2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsMemory2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsMemory2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsMemory2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsNetworkMode2$inboundSchema: z.ZodType<
+  InputSystemMetricsNetworkMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsNetworkMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsNetworkMode2$outboundSchema: z.ZodType<
+  InputSystemMetricsNetworkMode2,
+  z.ZodTypeDef,
+  InputSystemMetricsNetworkMode2
+> = z.union([
+  z.nativeEnum(InputSystemMetricsNetworkMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsNetwork2$inboundSchema: z.ZodType<
+  InputSystemMetricsNetwork2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsNetworkMode2$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsNetwork2$Outbound = {
+  mode: string;
+  detail: boolean;
+  protocols: boolean;
+  devices?: Array<string> | undefined;
+  perInterface: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsNetwork2$outboundSchema: z.ZodType<
+  InputSystemMetricsNetwork2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsNetwork2
+> = z.object({
+  mode: InputSystemMetricsNetworkMode2$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().default(false),
+});
+
+export function inputSystemMetricsNetwork2ToJSON(
+  inputSystemMetricsNetwork2: InputSystemMetricsNetwork2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsNetwork2$outboundSchema.parse(inputSystemMetricsNetwork2),
+  );
+}
+export function inputSystemMetricsNetwork2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsNetwork2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsNetwork2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsNetwork2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsDiskMode2$inboundSchema: z.ZodType<
+  InputSystemMetricsDiskMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsDiskMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsDiskMode2$outboundSchema: z.ZodType<
+  InputSystemMetricsDiskMode2,
+  z.ZodTypeDef,
+  InputSystemMetricsDiskMode2
+> = z.union([
+  z.nativeEnum(InputSystemMetricsDiskMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsDisk2$inboundSchema: z.ZodType<
+  InputSystemMetricsDisk2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsDiskMode2$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  mountpoints: z.array(z.string()).optional(),
+  fstypes: z.array(z.string()).optional(),
+  perDevice: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsDisk2$Outbound = {
+  mode: string;
+  detail: boolean;
+  inodes: boolean;
+  devices?: Array<string> | undefined;
+  mountpoints?: Array<string> | undefined;
+  fstypes?: Array<string> | undefined;
+  perDevice: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsDisk2$outboundSchema: z.ZodType<
+  InputSystemMetricsDisk2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsDisk2
+> = z.object({
+  mode: InputSystemMetricsDiskMode2$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  mountpoints: z.array(z.string()).optional(),
+  fstypes: z.array(z.string()).optional(),
+  perDevice: z.boolean().default(false),
+});
+
+export function inputSystemMetricsDisk2ToJSON(
+  inputSystemMetricsDisk2: InputSystemMetricsDisk2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsDisk2$outboundSchema.parse(inputSystemMetricsDisk2),
+  );
+}
+export function inputSystemMetricsDisk2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsDisk2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsDisk2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsDisk2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsCustom2$inboundSchema: z.ZodType<
+  InputSystemMetricsCustom2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  system: z.lazy(() => InputSystemMetricsSystem2$inboundSchema).optional(),
+  cpu: z.lazy(() => InputSystemMetricsCpu2$inboundSchema).optional(),
+  memory: z.lazy(() => InputSystemMetricsMemory2$inboundSchema).optional(),
+  network: z.lazy(() => InputSystemMetricsNetwork2$inboundSchema).optional(),
+  disk: z.lazy(() => InputSystemMetricsDisk2$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSystemMetricsCustom2$Outbound = {
+  system?: InputSystemMetricsSystem2$Outbound | undefined;
+  cpu?: InputSystemMetricsCpu2$Outbound | undefined;
+  memory?: InputSystemMetricsMemory2$Outbound | undefined;
+  network?: InputSystemMetricsNetwork2$Outbound | undefined;
+  disk?: InputSystemMetricsDisk2$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsCustom2$outboundSchema: z.ZodType<
+  InputSystemMetricsCustom2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsCustom2
+> = z.object({
+  system: z.lazy(() => InputSystemMetricsSystem2$outboundSchema).optional(),
+  cpu: z.lazy(() => InputSystemMetricsCpu2$outboundSchema).optional(),
+  memory: z.lazy(() => InputSystemMetricsMemory2$outboundSchema).optional(),
+  network: z.lazy(() => InputSystemMetricsNetwork2$outboundSchema).optional(),
+  disk: z.lazy(() => InputSystemMetricsDisk2$outboundSchema).optional(),
+});
+
+export function inputSystemMetricsCustom2ToJSON(
+  inputSystemMetricsCustom2: InputSystemMetricsCustom2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsCustom2$outboundSchema.parse(inputSystemMetricsCustom2),
+  );
+}
+export function inputSystemMetricsCustom2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsCustom2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsCustom2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsCustom2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsHost2$inboundSchema: z.ZodType<
+  InputSystemMetricsHost2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsHostMode2$inboundSchema.default("basic"),
+  custom: z.lazy(() => InputSystemMetricsCustom2$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSystemMetricsHost2$Outbound = {
+  mode: string;
+  custom?: InputSystemMetricsCustom2$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsHost2$outboundSchema: z.ZodType<
+  InputSystemMetricsHost2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsHost2
+> = z.object({
+  mode: InputSystemMetricsHostMode2$outboundSchema.default("basic"),
+  custom: z.lazy(() => InputSystemMetricsCustom2$outboundSchema).optional(),
+});
+
+export function inputSystemMetricsHost2ToJSON(
+  inputSystemMetricsHost2: InputSystemMetricsHost2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsHost2$outboundSchema.parse(inputSystemMetricsHost2),
+  );
+}
+export function inputSystemMetricsHost2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsHost2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsHost2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsHost2' from JSON`,
+  );
+}
+
+/** @internal */
+export const ContainerMode2$inboundSchema: z.ZodType<
+  ContainerMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ContainerMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ContainerMode2$outboundSchema: z.ZodType<
+  ContainerMode2,
+  z.ZodTypeDef,
+  ContainerMode2
+> = z.union([
+  z.nativeEnum(ContainerMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsFilter2$inboundSchema: z.ZodType<
+  InputSystemMetricsFilter2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  expr: z.string(),
+});
+/** @internal */
+export type InputSystemMetricsFilter2$Outbound = {
+  expr: string;
+};
+
+/** @internal */
+export const InputSystemMetricsFilter2$outboundSchema: z.ZodType<
+  InputSystemMetricsFilter2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsFilter2
+> = z.object({
+  expr: z.string(),
+});
+
+export function inputSystemMetricsFilter2ToJSON(
+  inputSystemMetricsFilter2: InputSystemMetricsFilter2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsFilter2$outboundSchema.parse(inputSystemMetricsFilter2),
+  );
+}
+export function inputSystemMetricsFilter2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsFilter2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsFilter2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsFilter2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Container2$inboundSchema: z.ZodType<
+  Container2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: ContainerMode2$inboundSchema.default("basic"),
+  dockerSocket: z.array(z.string()).optional(),
+  dockerTimeout: z.number().default(5),
+  filters: z.array(z.lazy(() => InputSystemMetricsFilter2$inboundSchema))
+    .optional(),
+  allContainers: z.boolean().default(false),
+  perDevice: z.boolean().default(false),
+  detail: z.boolean().default(false),
+});
+/** @internal */
+export type Container2$Outbound = {
+  mode: string;
+  dockerSocket?: Array<string> | undefined;
+  dockerTimeout: number;
+  filters?: Array<InputSystemMetricsFilter2$Outbound> | undefined;
+  allContainers: boolean;
+  perDevice: boolean;
+  detail: boolean;
+};
+
+/** @internal */
+export const Container2$outboundSchema: z.ZodType<
+  Container2$Outbound,
+  z.ZodTypeDef,
+  Container2
+> = z.object({
+  mode: ContainerMode2$outboundSchema.default("basic"),
+  dockerSocket: z.array(z.string()).optional(),
+  dockerTimeout: z.number().default(5),
+  filters: z.array(z.lazy(() => InputSystemMetricsFilter2$outboundSchema))
+    .optional(),
+  allContainers: z.boolean().default(false),
+  perDevice: z.boolean().default(false),
+  detail: z.boolean().default(false),
+});
+
+export function container2ToJSON(container2: Container2): string {
+  return JSON.stringify(Container2$outboundSchema.parse(container2));
+}
+export function container2FromJSON(
+  jsonString: string,
+): SafeParseResult<Container2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Container2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Container2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsSystemMetrics2$inboundSchema: z.ZodType<
+  InputSystemMetricsSystemMetrics2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemMetricsType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(10),
+  host: z.lazy(() => InputSystemMetricsHost2$inboundSchema).optional(),
+  process: ProcessType$inboundSchema.optional(),
+  container: z.lazy(() => Container2$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemMetricsSystemMetrics2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  host?: InputSystemMetricsHost2$Outbound | undefined;
+  process?: ProcessType$Outbound | undefined;
+  container?: Container2$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsSystemMetrics2$outboundSchema: z.ZodType<
+  InputSystemMetricsSystemMetrics2$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsSystemMetrics2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemMetricsType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(10),
+  host: z.lazy(() => InputSystemMetricsHost2$outboundSchema).optional(),
+  process: ProcessType$outboundSchema.optional(),
+  container: z.lazy(() => Container2$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  description: z.string().optional(),
+});
+
+export function inputSystemMetricsSystemMetrics2ToJSON(
+  inputSystemMetricsSystemMetrics2: InputSystemMetricsSystemMetrics2,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsSystemMetrics2$outboundSchema.parse(
+      inputSystemMetricsSystemMetrics2,
+    ),
+  );
+}
+export function inputSystemMetricsSystemMetrics2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsSystemMetrics2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsSystemMetrics2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsSystemMetrics2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType1
+> = z.nativeEnum(InputSystemMetricsType1);
+/** @internal */
+export const InputSystemMetricsType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemMetricsType1
+> = InputSystemMetricsType1$inboundSchema;
+
+/** @internal */
+export const InputSystemMetricsHostMode1$inboundSchema: z.ZodType<
+  InputSystemMetricsHostMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsHostMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsHostMode1$outboundSchema: z.ZodType<
+  InputSystemMetricsHostMode1,
+  z.ZodTypeDef,
+  InputSystemMetricsHostMode1
+> = z.union([
+  z.nativeEnum(InputSystemMetricsHostMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsSystemMode1$inboundSchema: z.ZodType<
+  InputSystemMetricsSystemMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsSystemMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsSystemMode1$outboundSchema: z.ZodType<
+  InputSystemMetricsSystemMode1,
+  z.ZodTypeDef,
+  InputSystemMetricsSystemMode1
+> = z.union([
+  z.nativeEnum(InputSystemMetricsSystemMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsSystem1$inboundSchema: z.ZodType<
+  InputSystemMetricsSystem1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsSystemMode1$inboundSchema.default("basic"),
+  processes: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsSystem1$Outbound = {
+  mode: string;
+  processes: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsSystem1$outboundSchema: z.ZodType<
+  InputSystemMetricsSystem1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsSystem1
+> = z.object({
+  mode: InputSystemMetricsSystemMode1$outboundSchema.default("basic"),
+  processes: z.boolean().default(false),
+});
+
+export function inputSystemMetricsSystem1ToJSON(
+  inputSystemMetricsSystem1: InputSystemMetricsSystem1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsSystem1$outboundSchema.parse(inputSystemMetricsSystem1),
+  );
+}
+export function inputSystemMetricsSystem1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsSystem1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsSystem1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsSystem1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsCpuMode1$inboundSchema: z.ZodType<
+  InputSystemMetricsCpuMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsCpuMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsCpuMode1$outboundSchema: z.ZodType<
+  InputSystemMetricsCpuMode1,
+  z.ZodTypeDef,
+  InputSystemMetricsCpuMode1
+> = z.union([
+  z.nativeEnum(InputSystemMetricsCpuMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsCpu1$inboundSchema: z.ZodType<
+  InputSystemMetricsCpu1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsCpuMode1$inboundSchema.default("basic"),
+  perCpu: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  time: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsCpu1$Outbound = {
+  mode: string;
+  perCpu: boolean;
+  detail: boolean;
+  time: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsCpu1$outboundSchema: z.ZodType<
+  InputSystemMetricsCpu1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsCpu1
+> = z.object({
+  mode: InputSystemMetricsCpuMode1$outboundSchema.default("basic"),
+  perCpu: z.boolean().default(false),
+  detail: z.boolean().default(false),
+  time: z.boolean().default(false),
+});
+
+export function inputSystemMetricsCpu1ToJSON(
+  inputSystemMetricsCpu1: InputSystemMetricsCpu1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsCpu1$outboundSchema.parse(inputSystemMetricsCpu1),
+  );
+}
+export function inputSystemMetricsCpu1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsCpu1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsCpu1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsCpu1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsMemoryMode1$inboundSchema: z.ZodType<
+  InputSystemMetricsMemoryMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsMemoryMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsMemoryMode1$outboundSchema: z.ZodType<
+  InputSystemMetricsMemoryMode1,
+  z.ZodTypeDef,
+  InputSystemMetricsMemoryMode1
+> = z.union([
+  z.nativeEnum(InputSystemMetricsMemoryMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsMemory1$inboundSchema: z.ZodType<
+  InputSystemMetricsMemory1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsMemoryMode1$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsMemory1$Outbound = {
+  mode: string;
+  detail: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsMemory1$outboundSchema: z.ZodType<
+  InputSystemMetricsMemory1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsMemory1
+> = z.object({
+  mode: InputSystemMetricsMemoryMode1$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+});
+
+export function inputSystemMetricsMemory1ToJSON(
+  inputSystemMetricsMemory1: InputSystemMetricsMemory1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsMemory1$outboundSchema.parse(inputSystemMetricsMemory1),
+  );
+}
+export function inputSystemMetricsMemory1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsMemory1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsMemory1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsMemory1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsNetworkMode1$inboundSchema: z.ZodType<
+  InputSystemMetricsNetworkMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsNetworkMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsNetworkMode1$outboundSchema: z.ZodType<
+  InputSystemMetricsNetworkMode1,
+  z.ZodTypeDef,
+  InputSystemMetricsNetworkMode1
+> = z.union([
+  z.nativeEnum(InputSystemMetricsNetworkMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsNetwork1$inboundSchema: z.ZodType<
+  InputSystemMetricsNetwork1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsNetworkMode1$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsNetwork1$Outbound = {
+  mode: string;
+  detail: boolean;
+  protocols: boolean;
+  devices?: Array<string> | undefined;
+  perInterface: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsNetwork1$outboundSchema: z.ZodType<
+  InputSystemMetricsNetwork1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsNetwork1
+> = z.object({
+  mode: InputSystemMetricsNetworkMode1$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  protocols: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().default(false),
+});
+
+export function inputSystemMetricsNetwork1ToJSON(
+  inputSystemMetricsNetwork1: InputSystemMetricsNetwork1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsNetwork1$outboundSchema.parse(inputSystemMetricsNetwork1),
+  );
+}
+export function inputSystemMetricsNetwork1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsNetwork1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsNetwork1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsNetwork1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsDiskMode1$inboundSchema: z.ZodType<
+  InputSystemMetricsDiskMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputSystemMetricsDiskMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputSystemMetricsDiskMode1$outboundSchema: z.ZodType<
+  InputSystemMetricsDiskMode1,
+  z.ZodTypeDef,
+  InputSystemMetricsDiskMode1
+> = z.union([
+  z.nativeEnum(InputSystemMetricsDiskMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsDisk1$inboundSchema: z.ZodType<
+  InputSystemMetricsDisk1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsDiskMode1$inboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  mountpoints: z.array(z.string()).optional(),
+  fstypes: z.array(z.string()).optional(),
+  perDevice: z.boolean().default(false),
+});
+/** @internal */
+export type InputSystemMetricsDisk1$Outbound = {
+  mode: string;
+  detail: boolean;
+  inodes: boolean;
+  devices?: Array<string> | undefined;
+  mountpoints?: Array<string> | undefined;
+  fstypes?: Array<string> | undefined;
+  perDevice: boolean;
+};
+
+/** @internal */
+export const InputSystemMetricsDisk1$outboundSchema: z.ZodType<
+  InputSystemMetricsDisk1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsDisk1
+> = z.object({
+  mode: InputSystemMetricsDiskMode1$outboundSchema.default("basic"),
+  detail: z.boolean().default(false),
+  inodes: z.boolean().default(false),
+  devices: z.array(z.string()).optional(),
+  mountpoints: z.array(z.string()).optional(),
+  fstypes: z.array(z.string()).optional(),
+  perDevice: z.boolean().default(false),
+});
+
+export function inputSystemMetricsDisk1ToJSON(
+  inputSystemMetricsDisk1: InputSystemMetricsDisk1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsDisk1$outboundSchema.parse(inputSystemMetricsDisk1),
+  );
+}
+export function inputSystemMetricsDisk1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsDisk1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsDisk1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsDisk1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsCustom1$inboundSchema: z.ZodType<
+  InputSystemMetricsCustom1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  system: z.lazy(() => InputSystemMetricsSystem1$inboundSchema).optional(),
+  cpu: z.lazy(() => InputSystemMetricsCpu1$inboundSchema).optional(),
+  memory: z.lazy(() => InputSystemMetricsMemory1$inboundSchema).optional(),
+  network: z.lazy(() => InputSystemMetricsNetwork1$inboundSchema).optional(),
+  disk: z.lazy(() => InputSystemMetricsDisk1$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSystemMetricsCustom1$Outbound = {
+  system?: InputSystemMetricsSystem1$Outbound | undefined;
+  cpu?: InputSystemMetricsCpu1$Outbound | undefined;
+  memory?: InputSystemMetricsMemory1$Outbound | undefined;
+  network?: InputSystemMetricsNetwork1$Outbound | undefined;
+  disk?: InputSystemMetricsDisk1$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsCustom1$outboundSchema: z.ZodType<
+  InputSystemMetricsCustom1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsCustom1
+> = z.object({
+  system: z.lazy(() => InputSystemMetricsSystem1$outboundSchema).optional(),
+  cpu: z.lazy(() => InputSystemMetricsCpu1$outboundSchema).optional(),
+  memory: z.lazy(() => InputSystemMetricsMemory1$outboundSchema).optional(),
+  network: z.lazy(() => InputSystemMetricsNetwork1$outboundSchema).optional(),
+  disk: z.lazy(() => InputSystemMetricsDisk1$outboundSchema).optional(),
+});
+
+export function inputSystemMetricsCustom1ToJSON(
+  inputSystemMetricsCustom1: InputSystemMetricsCustom1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsCustom1$outboundSchema.parse(inputSystemMetricsCustom1),
+  );
+}
+export function inputSystemMetricsCustom1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsCustom1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsCustom1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsCustom1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsHost1$inboundSchema: z.ZodType<
+  InputSystemMetricsHost1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSystemMetricsHostMode1$inboundSchema.default("basic"),
+  custom: z.lazy(() => InputSystemMetricsCustom1$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSystemMetricsHost1$Outbound = {
+  mode: string;
+  custom?: InputSystemMetricsCustom1$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsHost1$outboundSchema: z.ZodType<
+  InputSystemMetricsHost1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsHost1
+> = z.object({
+  mode: InputSystemMetricsHostMode1$outboundSchema.default("basic"),
+  custom: z.lazy(() => InputSystemMetricsCustom1$outboundSchema).optional(),
+});
+
+export function inputSystemMetricsHost1ToJSON(
+  inputSystemMetricsHost1: InputSystemMetricsHost1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsHost1$outboundSchema.parse(inputSystemMetricsHost1),
+  );
+}
+export function inputSystemMetricsHost1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsHost1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsHost1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsHost1' from JSON`,
+  );
+}
+
+/** @internal */
+export const ContainerMode1$inboundSchema: z.ZodType<
+  ContainerMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ContainerMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ContainerMode1$outboundSchema: z.ZodType<
+  ContainerMode1,
+  z.ZodTypeDef,
+  ContainerMode1
+> = z.union([
+  z.nativeEnum(ContainerMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSystemMetricsFilter1$inboundSchema: z.ZodType<
+  InputSystemMetricsFilter1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  expr: z.string(),
+});
+/** @internal */
+export type InputSystemMetricsFilter1$Outbound = {
+  expr: string;
+};
+
+/** @internal */
+export const InputSystemMetricsFilter1$outboundSchema: z.ZodType<
+  InputSystemMetricsFilter1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsFilter1
+> = z.object({
+  expr: z.string(),
+});
+
+export function inputSystemMetricsFilter1ToJSON(
+  inputSystemMetricsFilter1: InputSystemMetricsFilter1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsFilter1$outboundSchema.parse(inputSystemMetricsFilter1),
+  );
+}
+export function inputSystemMetricsFilter1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsFilter1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsFilter1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsFilter1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Container1$inboundSchema: z.ZodType<
+  Container1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: ContainerMode1$inboundSchema.default("basic"),
+  dockerSocket: z.array(z.string()).optional(),
+  dockerTimeout: z.number().default(5),
+  filters: z.array(z.lazy(() => InputSystemMetricsFilter1$inboundSchema))
+    .optional(),
+  allContainers: z.boolean().default(false),
+  perDevice: z.boolean().default(false),
+  detail: z.boolean().default(false),
+});
+/** @internal */
+export type Container1$Outbound = {
+  mode: string;
+  dockerSocket?: Array<string> | undefined;
+  dockerTimeout: number;
+  filters?: Array<InputSystemMetricsFilter1$Outbound> | undefined;
+  allContainers: boolean;
+  perDevice: boolean;
+  detail: boolean;
+};
+
+/** @internal */
+export const Container1$outboundSchema: z.ZodType<
+  Container1$Outbound,
+  z.ZodTypeDef,
+  Container1
+> = z.object({
+  mode: ContainerMode1$outboundSchema.default("basic"),
+  dockerSocket: z.array(z.string()).optional(),
+  dockerTimeout: z.number().default(5),
+  filters: z.array(z.lazy(() => InputSystemMetricsFilter1$outboundSchema))
+    .optional(),
+  allContainers: z.boolean().default(false),
+  perDevice: z.boolean().default(false),
+  detail: z.boolean().default(false),
+});
+
+export function container1ToJSON(container1: Container1): string {
+  return JSON.stringify(Container1$outboundSchema.parse(container1));
+}
+export function container1FromJSON(
+  jsonString: string,
+): SafeParseResult<Container1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Container1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Container1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemMetricsSystemMetrics1$inboundSchema: z.ZodType<
+  InputSystemMetricsSystemMetrics1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemMetricsType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(10),
+  host: z.lazy(() => InputSystemMetricsHost1$inboundSchema).optional(),
+  process: ProcessType$inboundSchema.optional(),
+  container: z.lazy(() => Container1$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemMetricsSystemMetrics1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  host?: InputSystemMetricsHost1$Outbound | undefined;
+  process?: ProcessType$Outbound | undefined;
+  container?: Container1$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemMetricsSystemMetrics1$outboundSchema: z.ZodType<
+  InputSystemMetricsSystemMetrics1$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetricsSystemMetrics1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemMetricsType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(10),
+  host: z.lazy(() => InputSystemMetricsHost1$outboundSchema).optional(),
+  process: ProcessType$outboundSchema.optional(),
+  container: z.lazy(() => Container1$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  description: z.string().optional(),
+});
+
+export function inputSystemMetricsSystemMetrics1ToJSON(
+  inputSystemMetricsSystemMetrics1: InputSystemMetricsSystemMetrics1,
+): string {
+  return JSON.stringify(
+    InputSystemMetricsSystemMetrics1$outboundSchema.parse(
+      inputSystemMetricsSystemMetrics1,
+    ),
+  );
+}
+export function inputSystemMetricsSystemMetrics1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemMetricsSystemMetrics1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemMetricsSystemMetrics1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemMetricsSystemMetrics1' from JSON`,
   );
 }
 
@@ -1771,91 +4290,30 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   InputSystemMetrics,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputSystemMetricsType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSystemMetricsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSystemMetricsPq$inboundSchema).optional(),
-  interval: z.number().default(10),
-  host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
-  process: z.lazy(() => InputSystemMetricsProcess$inboundSchema).optional(),
-  container: z.lazy(() => Container$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputSystemMetricsMetadatum$inboundSchema))
-    .optional(),
-  persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputSystemMetricsSystemMetrics2$inboundSchema),
+  z.lazy(() => InputSystemMetricsSystemMetrics4$inboundSchema),
+  z.lazy(() => InputSystemMetricsSystemMetrics1$inboundSchema),
+  z.lazy(() => InputSystemMetricsSystemMetrics3$inboundSchema),
+]);
 /** @internal */
-export type InputSystemMetrics$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputSystemMetricsConnection$Outbound> | undefined;
-  pq?: InputSystemMetricsPq$Outbound | undefined;
-  interval: number;
-  host?: InputSystemMetricsHost$Outbound | undefined;
-  process?: InputSystemMetricsProcess$Outbound | undefined;
-  container?: Container$Outbound | undefined;
-  metadata?: Array<InputSystemMetricsMetadatum$Outbound> | undefined;
-  persistence?: InputSystemMetricsPersistence$Outbound | undefined;
-  description?: string | undefined;
-};
+export type InputSystemMetrics$Outbound =
+  | InputSystemMetricsSystemMetrics2$Outbound
+  | InputSystemMetricsSystemMetrics4$Outbound
+  | InputSystemMetricsSystemMetrics1$Outbound
+  | InputSystemMetricsSystemMetrics3$Outbound;
 
 /** @internal */
 export const InputSystemMetrics$outboundSchema: z.ZodType<
   InputSystemMetrics$Outbound,
   z.ZodTypeDef,
   InputSystemMetrics
-> = z.object({
-  id: z.string().optional(),
-  type: InputSystemMetricsType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputSystemMetricsConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputSystemMetricsPq$outboundSchema).optional(),
-  interval: z.number().default(10),
-  host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
-  process: z.lazy(() => InputSystemMetricsProcess$outboundSchema).optional(),
-  container: z.lazy(() => Container$outboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputSystemMetricsMetadatum$outboundSchema))
-    .optional(),
-  persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemMetrics$ {
-  /** @deprecated use `InputSystemMetrics$inboundSchema` instead. */
-  export const inboundSchema = InputSystemMetrics$inboundSchema;
-  /** @deprecated use `InputSystemMetrics$outboundSchema` instead. */
-  export const outboundSchema = InputSystemMetrics$outboundSchema;
-  /** @deprecated use `InputSystemMetrics$Outbound` instead. */
-  export type Outbound = InputSystemMetrics$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputSystemMetricsSystemMetrics2$outboundSchema),
+  z.lazy(() => InputSystemMetricsSystemMetrics4$outboundSchema),
+  z.lazy(() => InputSystemMetricsSystemMetrics1$outboundSchema),
+  z.lazy(() => InputSystemMetricsSystemMetrics3$outboundSchema),
+]);
 
 export function inputSystemMetricsToJSON(
   inputSystemMetrics: InputSystemMetrics,
@@ -1864,7 +4322,6 @@ export function inputSystemMetricsToJSON(
     InputSystemMetrics$outboundSchema.parse(inputSystemMetrics),
   );
 }
-
 export function inputSystemMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemMetrics, SDKValidationError> {

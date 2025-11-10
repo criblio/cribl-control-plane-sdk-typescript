@@ -4,253 +4,101 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  Compress1Options,
+  Compress1Options$inboundSchema,
+  Compress1Options$outboundSchema,
+} from "./compress1options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  OtlpVersion131Option,
+  OtlpVersion131Option$inboundSchema,
+  OtlpVersion131Option$outboundSchema,
+} from "./otlpversion131option.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ProtocolOptions,
+  ProtocolOptions$inboundSchema,
+  ProtocolOptions$outboundSchema,
+} from "./protocoloptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TagsType,
+  TagsType$inboundSchema,
+  TagsType$Outbound,
+  TagsType$outboundSchema,
+} from "./tagstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
+import {
+  Tls5Type,
+  Tls5Type$inboundSchema,
+  Tls5Type$Outbound,
+  Tls5Type$outboundSchema,
+} from "./tls5type.js";
 
-export const OutputServiceNowType = {
+export const OutputServiceNowType4 = {
   ServiceNow: "service_now",
 } as const;
-export type OutputServiceNowType = ClosedEnum<typeof OutputServiceNowType>;
+export type OutputServiceNowType4 = ClosedEnum<typeof OutputServiceNowType4>;
 
-/**
- * The version of OTLP Protobuf definitions to use when structuring data to send
- */
-export const OutputServiceNowOTLPVersion = {
-  OneDot3Dot1: "1.3.1",
-} as const;
-/**
- * The version of OTLP Protobuf definitions to use when structuring data to send
- */
-export type OutputServiceNowOTLPVersion = OpenEnum<
-  typeof OutputServiceNowOTLPVersion
->;
-
-/**
- * Select a transport option for OpenTelemetry
- */
-export const OutputServiceNowProtocol = {
-  Grpc: "grpc",
-  Http: "http",
-} as const;
-/**
- * Select a transport option for OpenTelemetry
- */
-export type OutputServiceNowProtocol = OpenEnum<
-  typeof OutputServiceNowProtocol
->;
-
-/**
- * Type of compression to apply to messages sent to the OpenTelemetry endpoint
- */
-export const OutputServiceNowCompressCompression = {
-  None: "none",
-  Deflate: "deflate",
-  Gzip: "gzip",
-} as const;
-/**
- * Type of compression to apply to messages sent to the OpenTelemetry endpoint
- */
-export type OutputServiceNowCompressCompression = OpenEnum<
-  typeof OutputServiceNowCompressCompression
->;
-
-/**
- * Type of compression to apply to messages sent to the OpenTelemetry endpoint
- */
-export const OutputServiceNowHttpCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Type of compression to apply to messages sent to the OpenTelemetry endpoint
- */
-export type OutputServiceNowHttpCompressCompression = OpenEnum<
-  typeof OutputServiceNowHttpCompressCompression
->;
-
-export type OutputServiceNowMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputServiceNowFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputServiceNowFailedRequestLoggingMode = OpenEnum<
-  typeof OutputServiceNowFailedRequestLoggingMode
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputServiceNowBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputServiceNowBackpressureBehavior = OpenEnum<
-  typeof OutputServiceNowBackpressureBehavior
->;
-
-export type OutputServiceNowExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-export type OutputServiceNowResponseRetrySetting = {
+export type OutputServiceNowServiceNow4 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * How to handle events when all receivers are exerting backpressure
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputServiceNowTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export const OutputServiceNowMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputServiceNowMinimumTLSVersion = OpenEnum<
-  typeof OutputServiceNowMinimumTLSVersion
->;
-
-export const OutputServiceNowMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputServiceNowMaximumTLSVersion = OpenEnum<
-  typeof OutputServiceNowMaximumTLSVersion
->;
-
-export type OutputServiceNowTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputServiceNowMinimumTLSVersion | undefined;
-  maxVersion?: OutputServiceNowMaximumTLSVersion | undefined;
-};
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputServiceNowPqCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputServiceNowPqCompressCompression = OpenEnum<
-  typeof OutputServiceNowPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputServiceNowQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputServiceNowQueueFullBehavior = OpenEnum<
-  typeof OutputServiceNowQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputServiceNowMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputServiceNowMode = OpenEnum<typeof OutputServiceNowMode>;
-
-export type OutputServiceNowPqControls = {};
-
-export type OutputServiceNow = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputServiceNowType;
+  type: OutputServiceNowType4;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -279,23 +127,23 @@ export type OutputServiceNow = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion?: OutputServiceNowOTLPVersion | undefined;
+  otlpVersion?: OtlpVersion131Option | undefined;
   /**
    * Maximum size, in KB, of the request body
    */
   maxPayloadSizeKB?: number | undefined;
   /**
-   * Select a transport option for OpenTelemetry
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
    */
-  protocol?: OutputServiceNowProtocol | undefined;
+  protocol?: ProtocolOptions | undefined;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
-  compress?: OutputServiceNowCompressCompression | undefined;
+  compress?: Compress1Options | undefined;
   /**
-   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   * Codec to use to compress the persisted data
    */
-  httpCompress?: OutputServiceNowHttpCompressCompression | undefined;
+  httpCompress?: PqCompressOptions | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
    */
@@ -311,7 +159,7 @@ export type OutputServiceNow = {
   /**
    * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
    */
-  metadata?: Array<OutputServiceNowMetadatum> | undefined;
+  metadata?: Array<TagsType> | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -327,9 +175,7 @@ export type OutputServiceNow = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputServiceNowFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -342,10 +188,6 @@ export type OutputServiceNow = {
    * Disable to close the connection immediately after sending the outgoing request
    */
   keepAlive?: boolean | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputServiceNowBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
@@ -362,7 +204,7 @@ export type OutputServiceNow = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputServiceNowExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -370,15 +212,33 @@ export type OutputServiceNow = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputServiceNowResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputServiceNowTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: OutputServiceNowTLSSettingsClientSide | undefined;
+  tls?: Tls5Type | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -394,795 +254,572 @@ export type OutputServiceNow = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputServiceNowPqCompressCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputServiceNowQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputServiceNowType3 = {
+  ServiceNow: "service_now",
+} as const;
+export type OutputServiceNowType3 = ClosedEnum<typeof OutputServiceNowType3>;
+
+export type OutputServiceNowServiceNow3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputServiceNowType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint where ServiceNow events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
+   */
+  endpoint?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  authTokenName?: string | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when structuring data to send
+   */
+  otlpVersion?: OtlpVersion131Option | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  compress?: Compress1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  httpCompress?: PqCompressOptions | undefined;
+  /**
+   * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpTracesEndpointOverride?: string | undefined;
+  /**
+   * If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpMetricsEndpointOverride?: string | undefined;
+  /**
+   * If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpLogsEndpointOverride?: string | undefined;
+  /**
+   * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+   */
+  metadata?: Array<TagsType> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * How often the sender should ping the peer to keep the connection open
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: Tls5Type | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputServiceNowMode | undefined;
-  pqControls?: OutputServiceNowPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputServiceNowType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowType
-> = z.nativeEnum(OutputServiceNowType);
+export const OutputServiceNowType2 = {
+  ServiceNow: "service_now",
+} as const;
+export type OutputServiceNowType2 = ClosedEnum<typeof OutputServiceNowType2>;
 
-/** @internal */
-export const OutputServiceNowType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowType
-> = OutputServiceNowType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowType$ {
-  /** @deprecated use `OutputServiceNowType$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowType$inboundSchema;
-  /** @deprecated use `OutputServiceNowType$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowType$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowOTLPVersion$inboundSchema: z.ZodType<
-  OutputServiceNowOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowOTLPVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowOTLPVersion$outboundSchema: z.ZodType<
-  OutputServiceNowOTLPVersion,
-  z.ZodTypeDef,
-  OutputServiceNowOTLPVersion
-> = z.union([
-  z.nativeEnum(OutputServiceNowOTLPVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowOTLPVersion$ {
-  /** @deprecated use `OutputServiceNowOTLPVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowOTLPVersion$inboundSchema;
-  /** @deprecated use `OutputServiceNowOTLPVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowOTLPVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowProtocol$inboundSchema: z.ZodType<
-  OutputServiceNowProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowProtocol$outboundSchema: z.ZodType<
-  OutputServiceNowProtocol,
-  z.ZodTypeDef,
-  OutputServiceNowProtocol
-> = z.union([
-  z.nativeEnum(OutputServiceNowProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowProtocol$ {
-  /** @deprecated use `OutputServiceNowProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowProtocol$inboundSchema;
-  /** @deprecated use `OutputServiceNowProtocol$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowProtocol$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowCompressCompression$inboundSchema: z.ZodType<
-  OutputServiceNowCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowCompressCompression$outboundSchema: z.ZodType<
-  OutputServiceNowCompressCompression,
-  z.ZodTypeDef,
-  OutputServiceNowCompressCompression
-> = z.union([
-  z.nativeEnum(OutputServiceNowCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowCompressCompression$ {
-  /** @deprecated use `OutputServiceNowCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowCompressCompression$inboundSchema;
-  /** @deprecated use `OutputServiceNowCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowHttpCompressCompression$inboundSchema: z.ZodType<
-  OutputServiceNowHttpCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowHttpCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowHttpCompressCompression$outboundSchema: z.ZodType<
-  OutputServiceNowHttpCompressCompression,
-  z.ZodTypeDef,
-  OutputServiceNowHttpCompressCompression
-> = z.union([
-  z.nativeEnum(OutputServiceNowHttpCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowHttpCompressCompression$ {
-  /** @deprecated use `OutputServiceNowHttpCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowHttpCompressCompression$inboundSchema;
-  /** @deprecated use `OutputServiceNowHttpCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowHttpCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowMetadatum$inboundSchema: z.ZodType<
-  OutputServiceNowMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputServiceNowMetadatum$Outbound = {
-  key: string;
-  value: string;
+export type OutputServiceNowServiceNow2 = {
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputServiceNowType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint where ServiceNow events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
+   */
+  endpoint?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  authTokenName?: string | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when structuring data to send
+   */
+  otlpVersion?: OtlpVersion131Option | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  compress?: Compress1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  httpCompress?: PqCompressOptions | undefined;
+  /**
+   * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpTracesEndpointOverride?: string | undefined;
+  /**
+   * If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpMetricsEndpointOverride?: string | undefined;
+  /**
+   * If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpLogsEndpointOverride?: string | undefined;
+  /**
+   * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+   */
+  metadata: Array<TagsType>;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * How often the sender should ping the peer to keep the connection open
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls: Tls5Type;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputServiceNowMetadatum$outboundSchema: z.ZodType<
-  OutputServiceNowMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputServiceNowMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
+export const OutputServiceNowType1 = {
+  ServiceNow: "service_now",
+} as const;
+export type OutputServiceNowType1 = ClosedEnum<typeof OutputServiceNowType1>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMetadatum$ {
-  /** @deprecated use `OutputServiceNowMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMetadatum$inboundSchema;
-  /** @deprecated use `OutputServiceNowMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowMetadatum$outboundSchema;
-  /** @deprecated use `OutputServiceNowMetadatum$Outbound` instead. */
-  export type Outbound = OutputServiceNowMetadatum$Outbound;
-}
-
-export function outputServiceNowMetadatumToJSON(
-  outputServiceNowMetadatum: OutputServiceNowMetadatum,
-): string {
-  return JSON.stringify(
-    OutputServiceNowMetadatum$outboundSchema.parse(outputServiceNowMetadatum),
-  );
-}
-
-export function outputServiceNowMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputServiceNowMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputServiceNowMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputServiceNowMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputServiceNowFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputServiceNowFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputServiceNowFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputServiceNowFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputServiceNowFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputServiceNowFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputServiceNowFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputServiceNowBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputServiceNowBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputServiceNowBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputServiceNowBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowBackpressureBehavior$ {
-  /** @deprecated use `OutputServiceNowBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputServiceNowBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputServiceNowExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputServiceNowExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputServiceNowServiceNow1 = {
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputServiceNowType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint where ServiceNow events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
+   */
+  endpoint?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  authTokenName?: string | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when structuring data to send
+   */
+  otlpVersion?: OtlpVersion131Option | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  compress?: Compress1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  httpCompress?: PqCompressOptions | undefined;
+  /**
+   * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpTracesEndpointOverride: string;
+  /**
+   * If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpMetricsEndpointOverride: string;
+  /**
+   * If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpLogsEndpointOverride: string;
+  /**
+   * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+   */
+  metadata?: Array<TagsType> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * How often the sender should ping the peer to keep the connection open
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders: Array<ExtraHttpHeadersType>;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders: Array<string>;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings: Array<ResponseRetrySettingsType>;
+  timeoutRetrySettings: TimeoutRetrySettingsType;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: Tls5Type | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputServiceNowExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputServiceNowExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputServiceNowExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowExtraHttpHeader$ {
-  /** @deprecated use `OutputServiceNowExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputServiceNowExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputServiceNowExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputServiceNowExtraHttpHeader$Outbound;
-}
-
-export function outputServiceNowExtraHttpHeaderToJSON(
-  outputServiceNowExtraHttpHeader: OutputServiceNowExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputServiceNowExtraHttpHeader$outboundSchema.parse(
-      outputServiceNowExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputServiceNowExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputServiceNowExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputServiceNowExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputServiceNowExtraHttpHeader' from JSON`,
-  );
-}
+export type OutputServiceNow =
+  | OutputServiceNowServiceNow1
+  | OutputServiceNowServiceNow2
+  | OutputServiceNowServiceNow4
+  | OutputServiceNowServiceNow3;
 
 /** @internal */
-export const OutputServiceNowResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputServiceNowResponseRetrySetting,
+export const OutputServiceNowType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputServiceNowType4
+> = z.nativeEnum(OutputServiceNowType4);
+/** @internal */
+export const OutputServiceNowType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputServiceNowType4
+> = OutputServiceNowType4$inboundSchema;
+
+/** @internal */
+export const OutputServiceNowServiceNow4$inboundSchema: z.ZodType<
+  OutputServiceNowServiceNow4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputServiceNowResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputServiceNowResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputServiceNowResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputServiceNowResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowResponseRetrySetting$ {
-  /** @deprecated use `OutputServiceNowResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputServiceNowResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputServiceNowResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputServiceNowResponseRetrySetting$Outbound;
-}
-
-export function outputServiceNowResponseRetrySettingToJSON(
-  outputServiceNowResponseRetrySetting: OutputServiceNowResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputServiceNowResponseRetrySetting$outboundSchema.parse(
-      outputServiceNowResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputServiceNowResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputServiceNowResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputServiceNowResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputServiceNowResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputServiceNowTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputServiceNowTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputServiceNowTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputServiceNowTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputServiceNowTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputServiceNowTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowTimeoutRetrySettings$ {
-  /** @deprecated use `OutputServiceNowTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputServiceNowTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputServiceNowTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputServiceNowTimeoutRetrySettings$Outbound;
-}
-
-export function outputServiceNowTimeoutRetrySettingsToJSON(
-  outputServiceNowTimeoutRetrySettings: OutputServiceNowTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputServiceNowTimeoutRetrySettings$outboundSchema.parse(
-      outputServiceNowTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputServiceNowTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputServiceNowTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputServiceNowTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputServiceNowTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputServiceNowMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputServiceNowMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputServiceNowMinimumTLSVersion,
-  z.ZodTypeDef,
-  OutputServiceNowMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputServiceNowMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMinimumTLSVersion$ {
-  /** @deprecated use `OutputServiceNowMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputServiceNowMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputServiceNowMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputServiceNowMaximumTLSVersion,
-  z.ZodTypeDef,
-  OutputServiceNowMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputServiceNowMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMaximumTLSVersion$ {
-  /** @deprecated use `OutputServiceNowMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputServiceNowMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputServiceNowTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputServiceNowMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputServiceNowMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type OutputServiceNowTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const OutputServiceNowTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputServiceNowTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  OutputServiceNowTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputServiceNowMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputServiceNowMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowTLSSettingsClientSide$ {
-  /** @deprecated use `OutputServiceNowTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputServiceNowTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputServiceNowTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputServiceNowTLSSettingsClientSide$Outbound;
-}
-
-export function outputServiceNowTLSSettingsClientSideToJSON(
-  outputServiceNowTLSSettingsClientSide: OutputServiceNowTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputServiceNowTLSSettingsClientSide$outboundSchema.parse(
-      outputServiceNowTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function outputServiceNowTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputServiceNowTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputServiceNowTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputServiceNowTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputServiceNowPqCompressCompression$inboundSchema: z.ZodType<
-  OutputServiceNowPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowPqCompressCompression$outboundSchema: z.ZodType<
-  OutputServiceNowPqCompressCompression,
-  z.ZodTypeDef,
-  OutputServiceNowPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputServiceNowPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowPqCompressCompression$ {
-  /** @deprecated use `OutputServiceNowPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputServiceNowPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputServiceNowQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputServiceNowQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputServiceNowQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputServiceNowQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowQueueFullBehavior$ {
-  /** @deprecated use `OutputServiceNowQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputServiceNowQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowMode$inboundSchema: z.ZodType<
-  OutputServiceNowMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowMode$outboundSchema: z.ZodType<
-  OutputServiceNowMode,
-  z.ZodTypeDef,
-  OutputServiceNowMode
-> = z.union([
-  z.nativeEnum(OutputServiceNowMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMode$ {
-  /** @deprecated use `OutputServiceNowMode$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMode$inboundSchema;
-  /** @deprecated use `OutputServiceNowMode$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowPqControls$inboundSchema: z.ZodType<
-  OutputServiceNowPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputServiceNowPqControls$Outbound = {};
-
-/** @internal */
-export const OutputServiceNowPqControls$outboundSchema: z.ZodType<
-  OutputServiceNowPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputServiceNowPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowPqControls$ {
-  /** @deprecated use `OutputServiceNowPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowPqControls$inboundSchema;
-  /** @deprecated use `OutputServiceNowPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowPqControls$outboundSchema;
-  /** @deprecated use `OutputServiceNowPqControls$Outbound` instead. */
-  export type Outbound = OutputServiceNowPqControls$Outbound;
-}
-
-export function outputServiceNowPqControlsToJSON(
-  outputServiceNowPqControls: OutputServiceNowPqControls,
-): string {
-  return JSON.stringify(
-    OutputServiceNowPqControls$outboundSchema.parse(outputServiceNowPqControls),
-  );
-}
-
-export function outputServiceNowPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputServiceNowPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputServiceNowPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputServiceNowPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputServiceNow$inboundSchema: z.ZodType<
-  OutputServiceNow,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputServiceNowType$inboundSchema,
+  type: OutputServiceNowType4$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1190,60 +827,48 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
   endpoint: z.string().default("ingest.lightstep.com:443"),
   tokenSecret: z.string(),
   authTokenName: z.string().default("lightstep-access-token"),
-  otlpVersion: OutputServiceNowOTLPVersion$inboundSchema.default("1.3.1"),
+  otlpVersion: OtlpVersion131Option$inboundSchema.default("1.3.1"),
   maxPayloadSizeKB: z.number().default(2048),
-  protocol: OutputServiceNowProtocol$inboundSchema.default("grpc"),
-  compress: OutputServiceNowCompressCompression$inboundSchema.default("gzip"),
-  httpCompress: OutputServiceNowHttpCompressCompression$inboundSchema.default(
-    "gzip",
-  ),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  compress: Compress1Options$inboundSchema.default("gzip"),
+  httpCompress: PqCompressOptions$inboundSchema.default("none"),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
-  metadata: z.array(z.lazy(() => OutputServiceNowMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(TagsType$inboundSchema).optional(),
   concurrency: z.number().default(5),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  failedRequestLoggingMode:
-    OutputServiceNowFailedRequestLoggingMode$inboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   connectionTimeout: z.number().default(10000),
   keepAliveTime: z.number().default(30),
   keepAlive: z.boolean().default(true),
-  onBackpressure: OutputServiceNowBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   rejectUnauthorized: z.boolean().default(true),
   useRoundRobinDns: z.boolean().default(false),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputServiceNowExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputServiceNowResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputServiceNowTimeoutRetrySettings$inboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  tls: z.lazy(() => OutputServiceNowTLSSettingsClientSide$inboundSchema)
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
     .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  tls: Tls5Type$inboundSchema.optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputServiceNowPqCompressCompression$inboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputServiceNowQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputServiceNowMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputServiceNowPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputServiceNow$Outbound = {
+export type OutputServiceNowServiceNow4$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1261,7 +886,384 @@ export type OutputServiceNow$Outbound = {
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
-  metadata?: Array<OutputServiceNowMetadatum$Outbound> | undefined;
+  metadata?: Array<TagsType$Outbound> | undefined;
+  concurrency: number;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  failedRequestLoggingMode: string;
+  connectionTimeout: number;
+  keepAliveTime: number;
+  keepAlive: boolean;
+  description?: string | undefined;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  tls?: Tls5Type$Outbound | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+};
+
+/** @internal */
+export const OutputServiceNowServiceNow4$outboundSchema: z.ZodType<
+  OutputServiceNowServiceNow4$Outbound,
+  z.ZodTypeDef,
+  OutputServiceNowServiceNow4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputServiceNowType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string().default("ingest.lightstep.com:443"),
+  tokenSecret: z.string(),
+  authTokenName: z.string().default("lightstep-access-token"),
+  otlpVersion: OtlpVersion131Option$outboundSchema.default("1.3.1"),
+  maxPayloadSizeKB: z.number().default(2048),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  compress: Compress1Options$outboundSchema.default("gzip"),
+  httpCompress: PqCompressOptions$outboundSchema.default("none"),
+  httpTracesEndpointOverride: z.string().optional(),
+  httpMetricsEndpointOverride: z.string().optional(),
+  httpLogsEndpointOverride: z.string().optional(),
+  metadata: z.array(TagsType$outboundSchema).optional(),
+  concurrency: z.number().default(5),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  connectionTimeout: z.number().default(10000),
+  keepAliveTime: z.number().default(30),
+  keepAlive: z.boolean().default(true),
+  description: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  tls: Tls5Type$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
+});
+
+export function outputServiceNowServiceNow4ToJSON(
+  outputServiceNowServiceNow4: OutputServiceNowServiceNow4,
+): string {
+  return JSON.stringify(
+    OutputServiceNowServiceNow4$outboundSchema.parse(
+      outputServiceNowServiceNow4,
+    ),
+  );
+}
+export function outputServiceNowServiceNow4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputServiceNowServiceNow4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputServiceNowServiceNow4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputServiceNowServiceNow4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputServiceNowType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputServiceNowType3
+> = z.nativeEnum(OutputServiceNowType3);
+/** @internal */
+export const OutputServiceNowType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputServiceNowType3
+> = OutputServiceNowType3$inboundSchema;
+
+/** @internal */
+export const OutputServiceNowServiceNow3$inboundSchema: z.ZodType<
+  OutputServiceNowServiceNow3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputServiceNowType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string().default("ingest.lightstep.com:443"),
+  tokenSecret: z.string(),
+  authTokenName: z.string().default("lightstep-access-token"),
+  otlpVersion: OtlpVersion131Option$inboundSchema.default("1.3.1"),
+  maxPayloadSizeKB: z.number().default(2048),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  compress: Compress1Options$inboundSchema.default("gzip"),
+  httpCompress: PqCompressOptions$inboundSchema.default("none"),
+  httpTracesEndpointOverride: z.string().optional(),
+  httpMetricsEndpointOverride: z.string().optional(),
+  httpLogsEndpointOverride: z.string().optional(),
+  metadata: z.array(TagsType$inboundSchema).optional(),
+  concurrency: z.number().default(5),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  connectionTimeout: z.number().default(10000),
+  keepAliveTime: z.number().default(30),
+  keepAlive: z.boolean().default(true),
+  description: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  tls: Tls5Type$inboundSchema.optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputServiceNowServiceNow3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  tokenSecret: string;
+  authTokenName: string;
+  otlpVersion: string;
+  maxPayloadSizeKB: number;
+  protocol: string;
+  compress: string;
+  httpCompress: string;
+  httpTracesEndpointOverride?: string | undefined;
+  httpMetricsEndpointOverride?: string | undefined;
+  httpLogsEndpointOverride?: string | undefined;
+  metadata?: Array<TagsType$Outbound> | undefined;
+  concurrency: number;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  failedRequestLoggingMode: string;
+  connectionTimeout: number;
+  keepAliveTime: number;
+  keepAlive: boolean;
+  description?: string | undefined;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  tls?: Tls5Type$Outbound | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputServiceNowServiceNow3$outboundSchema: z.ZodType<
+  OutputServiceNowServiceNow3$Outbound,
+  z.ZodTypeDef,
+  OutputServiceNowServiceNow3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputServiceNowType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string().default("ingest.lightstep.com:443"),
+  tokenSecret: z.string(),
+  authTokenName: z.string().default("lightstep-access-token"),
+  otlpVersion: OtlpVersion131Option$outboundSchema.default("1.3.1"),
+  maxPayloadSizeKB: z.number().default(2048),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  compress: Compress1Options$outboundSchema.default("gzip"),
+  httpCompress: PqCompressOptions$outboundSchema.default("none"),
+  httpTracesEndpointOverride: z.string().optional(),
+  httpMetricsEndpointOverride: z.string().optional(),
+  httpLogsEndpointOverride: z.string().optional(),
+  metadata: z.array(TagsType$outboundSchema).optional(),
+  concurrency: z.number().default(5),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  connectionTimeout: z.number().default(10000),
+  keepAliveTime: z.number().default(30),
+  keepAlive: z.boolean().default(true),
+  description: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  tls: Tls5Type$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputServiceNowServiceNow3ToJSON(
+  outputServiceNowServiceNow3: OutputServiceNowServiceNow3,
+): string {
+  return JSON.stringify(
+    OutputServiceNowServiceNow3$outboundSchema.parse(
+      outputServiceNowServiceNow3,
+    ),
+  );
+}
+export function outputServiceNowServiceNow3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputServiceNowServiceNow3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputServiceNowServiceNow3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputServiceNowServiceNow3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputServiceNowType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputServiceNowType2
+> = z.nativeEnum(OutputServiceNowType2);
+/** @internal */
+export const OutputServiceNowType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputServiceNowType2
+> = OutputServiceNowType2$inboundSchema;
+
+/** @internal */
+export const OutputServiceNowServiceNow2$inboundSchema: z.ZodType<
+  OutputServiceNowServiceNow2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  id: z.string().optional(),
+  type: OutputServiceNowType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string().default("ingest.lightstep.com:443"),
+  tokenSecret: z.string(),
+  authTokenName: z.string().default("lightstep-access-token"),
+  otlpVersion: OtlpVersion131Option$inboundSchema.default("1.3.1"),
+  maxPayloadSizeKB: z.number().default(2048),
+  compress: Compress1Options$inboundSchema.default("gzip"),
+  httpCompress: PqCompressOptions$inboundSchema.default("none"),
+  httpTracesEndpointOverride: z.string().optional(),
+  httpMetricsEndpointOverride: z.string().optional(),
+  httpLogsEndpointOverride: z.string().optional(),
+  metadata: z.array(TagsType$inboundSchema),
+  concurrency: z.number().default(5),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  connectionTimeout: z.number().default(10000),
+  keepAliveTime: z.number().default(30),
+  keepAlive: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  tls: Tls5Type$inboundSchema,
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputServiceNowServiceNow2$Outbound = {
+  protocol: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  tokenSecret: string;
+  authTokenName: string;
+  otlpVersion: string;
+  maxPayloadSizeKB: number;
+  compress: string;
+  httpCompress: string;
+  httpTracesEndpointOverride?: string | undefined;
+  httpMetricsEndpointOverride?: string | undefined;
+  httpLogsEndpointOverride?: string | undefined;
+  metadata: Array<TagsType$Outbound>;
   concurrency: number;
   timeoutSec: number;
   flushPeriodSec: number;
@@ -1273,35 +1275,34 @@ export type OutputServiceNow$Outbound = {
   description?: string | undefined;
   rejectUnauthorized: boolean;
   useRoundRobinDns: boolean;
-  extraHttpHeaders?:
-    | Array<OutputServiceNowExtraHttpHeader$Outbound>
-    | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputServiceNowResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputServiceNowTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
-  tls?: OutputServiceNowTLSSettingsClientSide$Outbound | undefined;
+  tls: Tls5Type$Outbound;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputServiceNowPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputServiceNow$outboundSchema: z.ZodType<
-  OutputServiceNow$Outbound,
+export const OutputServiceNowServiceNow2$outboundSchema: z.ZodType<
+  OutputServiceNowServiceNow2$Outbound,
   z.ZodTypeDef,
-  OutputServiceNow
+  OutputServiceNowServiceNow2
 > = z.object({
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
   id: z.string().optional(),
-  type: OutputServiceNowType$outboundSchema,
+  type: OutputServiceNowType2$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1309,71 +1310,281 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   endpoint: z.string().default("ingest.lightstep.com:443"),
   tokenSecret: z.string(),
   authTokenName: z.string().default("lightstep-access-token"),
-  otlpVersion: OutputServiceNowOTLPVersion$outboundSchema.default("1.3.1"),
+  otlpVersion: OtlpVersion131Option$outboundSchema.default("1.3.1"),
   maxPayloadSizeKB: z.number().default(2048),
-  protocol: OutputServiceNowProtocol$outboundSchema.default("grpc"),
-  compress: OutputServiceNowCompressCompression$outboundSchema.default("gzip"),
-  httpCompress: OutputServiceNowHttpCompressCompression$outboundSchema.default(
-    "gzip",
-  ),
+  compress: Compress1Options$outboundSchema.default("gzip"),
+  httpCompress: PqCompressOptions$outboundSchema.default("none"),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
-  metadata: z.array(z.lazy(() => OutputServiceNowMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(TagsType$outboundSchema),
   concurrency: z.number().default(5),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  failedRequestLoggingMode:
-    OutputServiceNowFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   connectionTimeout: z.number().default(10000),
   keepAliveTime: z.number().default(30),
   keepAlive: z.boolean().default(true),
-  onBackpressure: OutputServiceNowBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   description: z.string().optional(),
   rejectUnauthorized: z.boolean().default(true),
   useRoundRobinDns: z.boolean().default(false),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputServiceNowExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputServiceNowResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputServiceNowTimeoutRetrySettings$outboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  tls: z.lazy(() => OutputServiceNowTLSSettingsClientSide$outboundSchema)
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
     .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  tls: Tls5Type$outboundSchema,
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputServiceNowPqCompressCompression$outboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputServiceNowQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputServiceNowMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputServiceNowPqControls$outboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNow$ {
-  /** @deprecated use `OutputServiceNow$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNow$inboundSchema;
-  /** @deprecated use `OutputServiceNow$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNow$outboundSchema;
-  /** @deprecated use `OutputServiceNow$Outbound` instead. */
-  export type Outbound = OutputServiceNow$Outbound;
+export function outputServiceNowServiceNow2ToJSON(
+  outputServiceNowServiceNow2: OutputServiceNowServiceNow2,
+): string {
+  return JSON.stringify(
+    OutputServiceNowServiceNow2$outboundSchema.parse(
+      outputServiceNowServiceNow2,
+    ),
+  );
 }
+export function outputServiceNowServiceNow2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputServiceNowServiceNow2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputServiceNowServiceNow2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputServiceNowServiceNow2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputServiceNowType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputServiceNowType1
+> = z.nativeEnum(OutputServiceNowType1);
+/** @internal */
+export const OutputServiceNowType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputServiceNowType1
+> = OutputServiceNowType1$inboundSchema;
+
+/** @internal */
+export const OutputServiceNowServiceNow1$inboundSchema: z.ZodType<
+  OutputServiceNowServiceNow1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  id: z.string().optional(),
+  type: OutputServiceNowType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string().default("ingest.lightstep.com:443"),
+  tokenSecret: z.string(),
+  authTokenName: z.string().default("lightstep-access-token"),
+  otlpVersion: OtlpVersion131Option$inboundSchema.default("1.3.1"),
+  maxPayloadSizeKB: z.number().default(2048),
+  compress: Compress1Options$inboundSchema.default("gzip"),
+  httpCompress: PqCompressOptions$inboundSchema.default("none"),
+  httpTracesEndpointOverride: z.string(),
+  httpMetricsEndpointOverride: z.string(),
+  httpLogsEndpointOverride: z.string(),
+  metadata: z.array(TagsType$inboundSchema).optional(),
+  concurrency: z.number().default(5),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  connectionTimeout: z.number().default(10000),
+  keepAliveTime: z.number().default(30),
+  keepAlive: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema),
+  safeHeaders: z.array(z.string()),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema,
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  tls: Tls5Type$inboundSchema.optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputServiceNowServiceNow1$Outbound = {
+  protocol: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  tokenSecret: string;
+  authTokenName: string;
+  otlpVersion: string;
+  maxPayloadSizeKB: number;
+  compress: string;
+  httpCompress: string;
+  httpTracesEndpointOverride: string;
+  httpMetricsEndpointOverride: string;
+  httpLogsEndpointOverride: string;
+  metadata?: Array<TagsType$Outbound> | undefined;
+  concurrency: number;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  failedRequestLoggingMode: string;
+  connectionTimeout: number;
+  keepAliveTime: number;
+  keepAlive: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  extraHttpHeaders: Array<ExtraHttpHeadersType$Outbound>;
+  safeHeaders: Array<string>;
+  responseRetrySettings: Array<ResponseRetrySettingsType$Outbound>;
+  timeoutRetrySettings: TimeoutRetrySettingsType$Outbound;
+  responseHonorRetryAfterHeader: boolean;
+  tls?: Tls5Type$Outbound | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputServiceNowServiceNow1$outboundSchema: z.ZodType<
+  OutputServiceNowServiceNow1$Outbound,
+  z.ZodTypeDef,
+  OutputServiceNowServiceNow1
+> = z.object({
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  id: z.string().optional(),
+  type: OutputServiceNowType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string().default("ingest.lightstep.com:443"),
+  tokenSecret: z.string(),
+  authTokenName: z.string().default("lightstep-access-token"),
+  otlpVersion: OtlpVersion131Option$outboundSchema.default("1.3.1"),
+  maxPayloadSizeKB: z.number().default(2048),
+  compress: Compress1Options$outboundSchema.default("gzip"),
+  httpCompress: PqCompressOptions$outboundSchema.default("none"),
+  httpTracesEndpointOverride: z.string(),
+  httpMetricsEndpointOverride: z.string(),
+  httpLogsEndpointOverride: z.string(),
+  metadata: z.array(TagsType$outboundSchema).optional(),
+  concurrency: z.number().default(5),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  connectionTimeout: z.number().default(10000),
+  keepAliveTime: z.number().default(30),
+  keepAlive: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema),
+  safeHeaders: z.array(z.string()),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema,
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  tls: Tls5Type$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputServiceNowServiceNow1ToJSON(
+  outputServiceNowServiceNow1: OutputServiceNowServiceNow1,
+): string {
+  return JSON.stringify(
+    OutputServiceNowServiceNow1$outboundSchema.parse(
+      outputServiceNowServiceNow1,
+    ),
+  );
+}
+export function outputServiceNowServiceNow1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputServiceNowServiceNow1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputServiceNowServiceNow1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputServiceNowServiceNow1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputServiceNow$inboundSchema: z.ZodType<
+  OutputServiceNow,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputServiceNowServiceNow1$inboundSchema),
+  z.lazy(() => OutputServiceNowServiceNow2$inboundSchema),
+  z.lazy(() => OutputServiceNowServiceNow4$inboundSchema),
+  z.lazy(() => OutputServiceNowServiceNow3$inboundSchema),
+]);
+/** @internal */
+export type OutputServiceNow$Outbound =
+  | OutputServiceNowServiceNow1$Outbound
+  | OutputServiceNowServiceNow2$Outbound
+  | OutputServiceNowServiceNow4$Outbound
+  | OutputServiceNowServiceNow3$Outbound;
+
+/** @internal */
+export const OutputServiceNow$outboundSchema: z.ZodType<
+  OutputServiceNow$Outbound,
+  z.ZodTypeDef,
+  OutputServiceNow
+> = z.union([
+  z.lazy(() => OutputServiceNowServiceNow1$outboundSchema),
+  z.lazy(() => OutputServiceNowServiceNow2$outboundSchema),
+  z.lazy(() => OutputServiceNowServiceNow4$outboundSchema),
+  z.lazy(() => OutputServiceNowServiceNow3$outboundSchema),
+]);
 
 export function outputServiceNowToJSON(
   outputServiceNow: OutputServiceNow,
@@ -1382,7 +1593,6 @@ export function outputServiceNowToJSON(
     OutputServiceNow$outboundSchema.parse(outputServiceNow),
   );
 }
-
 export function outputServiceNowFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputServiceNow, SDKValidationError> {

@@ -4,164 +4,90 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
+import {
+  Tls4Type,
+  Tls4Type$inboundSchema,
+  Tls4Type$Outbound,
+  Tls4Type$outboundSchema,
+} from "./tls4type.js";
+import {
+  TypeSplunkHecOption,
+  TypeSplunkHecOption$inboundSchema,
+  TypeSplunkHecOption$outboundSchema,
+} from "./typesplunkhecoption.js";
+import {
+  UrlsType,
+  UrlsType$inboundSchema,
+  UrlsType$Outbound,
+  UrlsType$outboundSchema,
+} from "./urlstype.js";
 
-export const OutputSplunkHecType = {
-  SplunkHec: "splunk_hec",
-} as const;
-export type OutputSplunkHecType = ClosedEnum<typeof OutputSplunkHecType>;
-
-export type OutputSplunkHecExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputSplunkHecFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputSplunkHecFailedRequestLoggingMode = OpenEnum<
-  typeof OutputSplunkHecFailedRequestLoggingMode
->;
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const OutputSplunkHecAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type OutputSplunkHecAuthenticationMethod = OpenEnum<
-  typeof OutputSplunkHecAuthenticationMethod
->;
-
-export type OutputSplunkHecResponseRetrySetting = {
+export type OutputSplunkHecSplunkHec6 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * How to handle events when all receivers are exerting backpressure
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputSplunkHecTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSplunkHecBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSplunkHecBackpressureBehavior = OpenEnum<
-  typeof OutputSplunkHecBackpressureBehavior
->;
-
-export type OutputSplunkHecUrl = {
-  /**
-   * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
-   */
-  url?: string | undefined;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-};
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSplunkHecCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSplunkHecCompression = OpenEnum<
-  typeof OutputSplunkHecCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSplunkHecQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSplunkHecQueueFullBehavior = OpenEnum<
-  typeof OutputSplunkHecQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSplunkHecMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSplunkHecMode = OpenEnum<typeof OutputSplunkHecMode>;
-
-export type OutputSplunkHecPqControls = {};
-
-export type OutputSplunkHec = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSplunkHecType;
+  type: TypeSplunkHecOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -190,6 +116,7 @@ export type OutputSplunkHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
+  tls?: Tls4Type | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -225,13 +152,11 @@ export type OutputSplunkHec = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputSplunkHecExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputSplunkHecFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -241,24 +166,18 @@ export type OutputSplunkHec = {
    */
   enableMultiMetrics?: boolean | undefined;
   /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   * Enter credentials directly, or select a stored secret
    */
-  authType?: OutputSplunkHecAuthenticationMethod | undefined;
+  authType?: AuthType2Options | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputSplunkHecResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputSplunkHecTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputSplunkHecBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
    * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
@@ -272,7 +191,7 @@ export type OutputSplunkHec = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<OutputSplunkHecUrl> | undefined;
+  urls?: Array<UrlsType> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -290,6 +209,26 @@ export type OutputSplunkHec = {
    */
   textSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -304,545 +243,896 @@ export type OutputSplunkHec = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSplunkHecCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSplunkHecQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export type OutputSplunkHecSplunkHec5 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkHecOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: Tls4Type | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Splunk HEC authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSplunkHecMode | undefined;
-  pqControls?: OutputSplunkHecPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSplunkHecType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkHecType
-> = z.nativeEnum(OutputSplunkHecType);
-
-/** @internal */
-export const OutputSplunkHecType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkHecType
-> = OutputSplunkHecType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecType$ {
-  /** @deprecated use `OutputSplunkHecType$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecType$inboundSchema;
-  /** @deprecated use `OutputSplunkHecType$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecType$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkHecExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputSplunkHecExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputSplunkHecExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputSplunkHecSplunkHec4 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkHecOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: Tls4Type | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Splunk HEC authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSplunkHecExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputSplunkHecExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkHecExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecExtraHttpHeader$ {
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSplunkHecExtraHttpHeader$Outbound;
-}
-
-export function outputSplunkHecExtraHttpHeaderToJSON(
-  outputSplunkHecExtraHttpHeader: OutputSplunkHecExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputSplunkHecExtraHttpHeader$outboundSchema.parse(
-      outputSplunkHecExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputSplunkHecExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkHecExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkHecExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkHecExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunkHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputSplunkHecFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputSplunkHecFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputSplunkHecFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputSplunkHecFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSplunkHecFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSplunkHecFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkHecAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSplunkHecAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkHecAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSplunkHecAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputSplunkHecAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSplunkHecAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecAuthenticationMethod$ {
-  /** @deprecated use `OutputSplunkHecAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSplunkHecAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkHecResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputSplunkHecResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputSplunkHecResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputSplunkHecSplunkHec3 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkHecOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: Tls4Type | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Splunk HEC authentication token
+   */
+  token: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSplunkHecResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputSplunkHecResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkHecResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecResponseRetrySetting$ {
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSplunkHecResponseRetrySetting$Outbound;
-}
-
-export function outputSplunkHecResponseRetrySettingToJSON(
-  outputSplunkHecResponseRetrySetting: OutputSplunkHecResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputSplunkHecResponseRetrySetting$outboundSchema.parse(
-      outputSplunkHecResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputSplunkHecResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkHecResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSplunkHecResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkHecResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunkHecTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputSplunkHecTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputSplunkHecTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputSplunkHecSplunkHec2 = {
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkHecOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: Tls4Type | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls: Array<UrlsType>;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Splunk HEC authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSplunkHecTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputSplunkHecTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkHecTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSplunkHecTimeoutRetrySettings$Outbound;
-}
-
-export function outputSplunkHecTimeoutRetrySettingsToJSON(
-  outputSplunkHecTimeoutRetrySettings: OutputSplunkHecTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputSplunkHecTimeoutRetrySettings$outboundSchema.parse(
-      outputSplunkHecTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputSplunkHecTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkHecTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSplunkHecTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkHecTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunkHecBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSplunkHecBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkHecBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSplunkHecBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSplunkHecBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkHecBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecBackpressureBehavior$ {
-  /** @deprecated use `OutputSplunkHecBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkHecBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkHecUrl$inboundSchema: z.ZodType<
-  OutputSplunkHecUrl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.string().default("http://localhost:8088/services/collector/event"),
-  weight: z.number().default(1),
-});
-
-/** @internal */
-export type OutputSplunkHecUrl$Outbound = {
-  url: string;
-  weight: number;
+export type OutputSplunkHecSplunkHec1 = {
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSplunkHecOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: Tls4Type | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlsType> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Splunk HEC authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSplunkHecUrl$outboundSchema: z.ZodType<
-  OutputSplunkHecUrl$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkHecUrl
-> = z.object({
-  url: z.string().default("http://localhost:8088/services/collector/event"),
-  weight: z.number().default(1),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecUrl$ {
-  /** @deprecated use `OutputSplunkHecUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecUrl$inboundSchema;
-  /** @deprecated use `OutputSplunkHecUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecUrl$outboundSchema;
-  /** @deprecated use `OutputSplunkHecUrl$Outbound` instead. */
-  export type Outbound = OutputSplunkHecUrl$Outbound;
-}
-
-export function outputSplunkHecUrlToJSON(
-  outputSplunkHecUrl: OutputSplunkHecUrl,
-): string {
-  return JSON.stringify(
-    OutputSplunkHecUrl$outboundSchema.parse(outputSplunkHecUrl),
-  );
-}
-
-export function outputSplunkHecUrlFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkHecUrl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkHecUrl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkHecUrl' from JSON`,
-  );
-}
+export type OutputSplunkHec =
+  | OutputSplunkHecSplunkHec2
+  | OutputSplunkHecSplunkHec3
+  | OutputSplunkHecSplunkHec4
+  | OutputSplunkHecSplunkHec6
+  | OutputSplunkHecSplunkHec1
+  | OutputSplunkHecSplunkHec5;
 
 /** @internal */
-export const OutputSplunkHecCompression$inboundSchema: z.ZodType<
-  OutputSplunkHecCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkHecCompression$outboundSchema: z.ZodType<
-  OutputSplunkHecCompression,
-  z.ZodTypeDef,
-  OutputSplunkHecCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkHecCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecCompression$ {
-  /** @deprecated use `OutputSplunkHecCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkHecCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkHecQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSplunkHecQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkHecQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSplunkHecQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSplunkHecQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkHecQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecQueueFullBehavior$ {
-  /** @deprecated use `OutputSplunkHecQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkHecQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkHecMode$inboundSchema: z.ZodType<
-  OutputSplunkHecMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkHecMode$outboundSchema: z.ZodType<
-  OutputSplunkHecMode,
-  z.ZodTypeDef,
-  OutputSplunkHecMode
-> = z.union([
-  z.nativeEnum(OutputSplunkHecMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecMode$ {
-  /** @deprecated use `OutputSplunkHecMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecMode$inboundSchema;
-  /** @deprecated use `OutputSplunkHecMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkHecPqControls$inboundSchema: z.ZodType<
-  OutputSplunkHecPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputSplunkHecPqControls$Outbound = {};
-
-/** @internal */
-export const OutputSplunkHecPqControls$outboundSchema: z.ZodType<
-  OutputSplunkHecPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputSplunkHecPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecPqControls$ {
-  /** @deprecated use `OutputSplunkHecPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecPqControls$inboundSchema;
-  /** @deprecated use `OutputSplunkHecPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecPqControls$outboundSchema;
-  /** @deprecated use `OutputSplunkHecPqControls$Outbound` instead. */
-  export type Outbound = OutputSplunkHecPqControls$Outbound;
-}
-
-export function outputSplunkHecPqControlsToJSON(
-  outputSplunkHecPqControls: OutputSplunkHecPqControls,
-): string {
-  return JSON.stringify(
-    OutputSplunkHecPqControls$outboundSchema.parse(outputSplunkHecPqControls),
-  );
-}
-
-export function outputSplunkHecPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSplunkHecPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSplunkHecPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSplunkHecPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSplunkHec$inboundSchema: z.ZodType<
-  OutputSplunkHec,
+export const OutputSplunkHecSplunkHec6$inboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec6,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSplunkHecType$inboundSchema,
+  type: TypeSplunkHecOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -850,6 +1140,7 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   loadBalanced: z.boolean().default(true),
   nextQueue: z.string().default("indexQueue"),
   tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$inboundSchema.optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -857,46 +1148,40 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSplunkHecExtraHttpHeader$inboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputSplunkHecFailedRequestLoggingMode$inboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   enableMultiMetrics: z.boolean().default(false),
-  authType: OutputSplunkHecAuthenticationMethod$inboundSchema.default("manual"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSplunkHecResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSplunkHecTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputSplunkHecBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   url: z.string().default("http://localhost:8088/services/collector/event"),
   useRoundRobinDns: z.boolean().default(false),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(z.lazy(() => OutputSplunkHecUrl$inboundSchema)).optional(),
+  urls: z.array(UrlsType$inboundSchema).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSplunkHecCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSplunkHecQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSplunkHecMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSplunkHecPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputSplunkHec$Outbound = {
+export type OutputSplunkHecSplunkHec6$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -906,6 +1191,7 @@ export type OutputSplunkHec$Outbound = {
   loadBalanced: boolean;
   nextQueue: string;
   tcpRouting: string;
+  tls?: Tls4Type$Outbound | undefined;
   concurrency: number;
   maxPayloadSizeKB: number;
   maxPayloadEvents: number;
@@ -913,45 +1199,45 @@ export type OutputSplunkHec$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputSplunkHecExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   enableMultiMetrics: boolean;
   authType: string;
-  responseRetrySettings?:
-    | Array<OutputSplunkHecResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputSplunkHecTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
   description?: string | undefined;
   url: string;
   useRoundRobinDns: boolean;
   excludeSelf: boolean;
-  urls?: Array<OutputSplunkHecUrl$Outbound> | undefined;
+  urls?: Array<UrlsType$Outbound> | undefined;
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
   token?: string | undefined;
   textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputSplunkHecPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputSplunkHec$outboundSchema: z.ZodType<
-  OutputSplunkHec$Outbound,
+export const OutputSplunkHecSplunkHec6$outboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec6$Outbound,
   z.ZodTypeDef,
-  OutputSplunkHec
+  OutputSplunkHecSplunkHec6
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSplunkHecType$outboundSchema,
+  type: TypeSplunkHecOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -959,6 +1245,7 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   loadBalanced: z.boolean().default(true),
   nextQueue: z.string().default("indexQueue"),
   tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$outboundSchema.optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -966,65 +1253,986 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSplunkHecExtraHttpHeader$outboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputSplunkHecFailedRequestLoggingMode$outboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   enableMultiMetrics: z.boolean().default(false),
-  authType: OutputSplunkHecAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSplunkHecResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSplunkHecTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputSplunkHecBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   url: z.string().default("http://localhost:8088/services/collector/event"),
   useRoundRobinDns: z.boolean().default(false),
   excludeSelf: z.boolean().default(false),
-  urls: z.array(z.lazy(() => OutputSplunkHecUrl$outboundSchema)).optional(),
+  urls: z.array(UrlsType$outboundSchema).optional(),
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSplunkHecCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSplunkHecQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSplunkHecMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSplunkHecPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHec$ {
-  /** @deprecated use `OutputSplunkHec$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHec$inboundSchema;
-  /** @deprecated use `OutputSplunkHec$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHec$outboundSchema;
-  /** @deprecated use `OutputSplunkHec$Outbound` instead. */
-  export type Outbound = OutputSplunkHec$Outbound;
+export function outputSplunkHecSplunkHec6ToJSON(
+  outputSplunkHecSplunkHec6: OutputSplunkHecSplunkHec6,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecSplunkHec6$outboundSchema.parse(outputSplunkHecSplunkHec6),
+  );
 }
+export function outputSplunkHecSplunkHec6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecSplunkHec6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkHecSplunkHec6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecSplunkHec6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecSplunkHec5$inboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$inboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSplunkHecSplunkHec5$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced: boolean;
+  nextQueue: string;
+  tcpRouting: string;
+  tls?: Tls4Type$Outbound | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics: boolean;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<UrlsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSplunkHecSplunkHec5$outboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec5$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecSplunkHec5
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$outboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSplunkHecSplunkHec5ToJSON(
+  outputSplunkHecSplunkHec5: OutputSplunkHecSplunkHec5,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecSplunkHec5$outboundSchema.parse(outputSplunkHecSplunkHec5),
+  );
+}
+export function outputSplunkHecSplunkHec5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecSplunkHec5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkHecSplunkHec5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecSplunkHec5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecSplunkHec4$inboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$inboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSplunkHecSplunkHec4$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced: boolean;
+  nextQueue: string;
+  tcpRouting: string;
+  tls?: Tls4Type$Outbound | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics: boolean;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<UrlsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSplunkHecSplunkHec4$outboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec4$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecSplunkHec4
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$outboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSplunkHecSplunkHec4ToJSON(
+  outputSplunkHecSplunkHec4: OutputSplunkHecSplunkHec4,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecSplunkHec4$outboundSchema.parse(outputSplunkHecSplunkHec4),
+  );
+}
+export function outputSplunkHecSplunkHec4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecSplunkHec4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkHecSplunkHec4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecSplunkHec4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecSplunkHec3$inboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$inboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSplunkHecSplunkHec3$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced: boolean;
+  nextQueue: string;
+  tcpRouting: string;
+  tls?: Tls4Type$Outbound | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics: boolean;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<UrlsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token: string;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSplunkHecSplunkHec3$outboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec3$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecSplunkHec3
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().default(true),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$outboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSplunkHecSplunkHec3ToJSON(
+  outputSplunkHecSplunkHec3: OutputSplunkHecSplunkHec3,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecSplunkHec3$outboundSchema.parse(outputSplunkHecSplunkHec3),
+  );
+}
+export function outputSplunkHecSplunkHec3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecSplunkHec3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkHecSplunkHec3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecSplunkHec3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecSplunkHec2$inboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  loadBalanced: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$inboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$inboundSchema),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSplunkHecSplunkHec2$Outbound = {
+  loadBalanced: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  nextQueue: string;
+  tcpRouting: string;
+  tls?: Tls4Type$Outbound | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics: boolean;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls: Array<UrlsType$Outbound>;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSplunkHecSplunkHec2$outboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec2$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecSplunkHec2
+> = z.object({
+  loadBalanced: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$outboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$outboundSchema),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSplunkHecSplunkHec2ToJSON(
+  outputSplunkHecSplunkHec2: OutputSplunkHecSplunkHec2,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecSplunkHec2$outboundSchema.parse(outputSplunkHecSplunkHec2),
+  );
+}
+export function outputSplunkHecSplunkHec2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecSplunkHec2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkHecSplunkHec2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecSplunkHec2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHecSplunkHec1$inboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  loadBalanced: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$inboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSplunkHecSplunkHec1$Outbound = {
+  loadBalanced: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  nextQueue: string;
+  tcpRouting: string;
+  tls?: Tls4Type$Outbound | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics: boolean;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  url: string;
+  useRoundRobinDns: boolean;
+  excludeSelf: boolean;
+  urls?: Array<UrlsType$Outbound> | undefined;
+  dnsResolvePeriodSec: number;
+  loadBalanceStatsPeriodSec: number;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSplunkHecSplunkHec1$outboundSchema: z.ZodType<
+  OutputSplunkHecSplunkHec1$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecSplunkHec1
+> = z.object({
+  loadBalanced: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSplunkHecOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  nextQueue: z.string().default("indexQueue"),
+  tcpRouting: z.string().default("nowhere"),
+  tls: Tls4Type$outboundSchema.optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().default(false),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  url: z.string().default("http://localhost:8088/services/collector/event"),
+  useRoundRobinDns: z.boolean().default(false),
+  excludeSelf: z.boolean().default(false),
+  urls: z.array(UrlsType$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().default(600),
+  loadBalanceStatsPeriodSec: z.number().default(300),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSplunkHecSplunkHec1ToJSON(
+  outputSplunkHecSplunkHec1: OutputSplunkHecSplunkHec1,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecSplunkHec1$outboundSchema.parse(outputSplunkHecSplunkHec1),
+  );
+}
+export function outputSplunkHecSplunkHec1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecSplunkHec1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSplunkHecSplunkHec1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecSplunkHec1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSplunkHec$inboundSchema: z.ZodType<
+  OutputSplunkHec,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSplunkHecSplunkHec2$inboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec3$inboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec4$inboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec6$inboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec1$inboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec5$inboundSchema),
+]);
+/** @internal */
+export type OutputSplunkHec$Outbound =
+  | OutputSplunkHecSplunkHec2$Outbound
+  | OutputSplunkHecSplunkHec3$Outbound
+  | OutputSplunkHecSplunkHec4$Outbound
+  | OutputSplunkHecSplunkHec6$Outbound
+  | OutputSplunkHecSplunkHec1$Outbound
+  | OutputSplunkHecSplunkHec5$Outbound;
+
+/** @internal */
+export const OutputSplunkHec$outboundSchema: z.ZodType<
+  OutputSplunkHec$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHec
+> = z.union([
+  z.lazy(() => OutputSplunkHecSplunkHec2$outboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec3$outboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec4$outboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec6$outboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec1$outboundSchema),
+  z.lazy(() => OutputSplunkHecSplunkHec5$outboundSchema),
+]);
 
 export function outputSplunkHecToJSON(
   outputSplunkHec: OutputSplunkHec,
 ): string {
   return JSON.stringify(OutputSplunkHec$outboundSchema.parse(outputSplunkHec));
 }
-
 export function outputSplunkHecFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHec, SDKValidationError> {

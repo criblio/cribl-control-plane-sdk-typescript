@@ -1,11 +1,12 @@
 # InputMetrics
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputMetricsMetrics1`
 
 ```typescript
-import { InputMetrics } from "cribl-control-plane/models";
-
-let value: InputMetrics = {
+const value: models.InputMetricsMetrics1 = {
   id: "<id>",
   type: "metrics",
   pipeline: "<value>",
@@ -13,7 +14,6 @@ let value: InputMetrics = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -24,16 +24,14 @@ let value: InputMetrics = {
   pq: {
     pqControls: {},
   },
-  udpPort: 1525.54,
-  tcpPort: 6373.18,
+  udpPort: 5600.7,
+  tcpPort: 5995.98,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.2",
   },
@@ -43,32 +41,132 @@ let value: InputMetrics = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 6579.9,
-  description: "cautiously woot similar wretched",
+  udpSocketRxBufSize: 1619.05,
+  description: "suspiciously meh tenderly drat while indeed meh",
 };
 ```
 
-## Fields
+### `models.InputMetricsMetrics2`
 
-| Field                                                                                                                                                                                                                                                                              | Type                                                                                                                                                                                                                                                                               | Required                                                                                                                                                                                                                                                                           | Description                                                                                                                                                                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Unique ID for this input                                                                                                                                                                                                                                                           |
-| `type`                                                                                                                                                                                                                                                                             | [models.InputMetricsType](../models/inputmetricstype.md)                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
-| `disabled`                                                                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
-| `pipeline`                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                     |
-| `sendToRoutes`                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                |
-| `environment`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                               |
-| `pqEnabled`                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                       |
-| `streamtags`                                                                                                                                                                                                                                                                       | *string*[]                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                      |
-| `connections`                                                                                                                                                                                                                                                                      | [models.InputMetricsConnection](../models/inputmetricsconnection.md)[]                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                        |
-| `pq`                                                                                                                                                                                                                                                                               | [models.InputMetricsPq](../models/inputmetricspq.md)                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
-| `host`                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.                                                                                                                                            |
-| `udpPort`                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Enter UDP port number to listen on. Not required if listening on TCP.                                                                                                                                                                                                              |
-| `tcpPort`                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Enter TCP port number to listen on. Not required if listening on UDP.                                                                                                                                                                                                              |
-| `maxBufferSize`                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Maximum number of events to buffer when downstream is blocking. Only applies to UDP.                                                                                                                                                                                               |
-| `ipWhitelistRegex`                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Regex matching IP addresses that are allowed to send data                                                                                                                                                                                                                          |
-| `enableProxyHeader`                                                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2                                                                                                                                                                                              |
-| `tls`                                                                                                                                                                                                                                                                              | [models.InputMetricsTLSSettingsServerSide](../models/inputmetricstlssettingsserverside.md)                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
-| `metadata`                                                                                                                                                                                                                                                                         | [models.InputMetricsMetadatum](../models/inputmetricsmetadatum.md)[]                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Fields to add to events from this input                                                                                                                                                                                                                                            |
-| `udpSocketRxBufSize`                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization. |
-| `description`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                 | N/A                                                                                                                                                                                                                                                                                |
+```typescript
+const value: models.InputMetricsMetrics2 = {
+  id: "<id>",
+  type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [],
+  pq: {
+    pqControls: {},
+  },
+  udpPort: 998.21,
+  tcpPort: 6376.53,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 1919.22,
+  description: "throughout bah pace afore motionless",
+};
+```
+
+### `models.InputMetricsMetrics3`
+
+```typescript
+const value: models.InputMetricsMetrics3 = {
+  id: "<id>",
+  type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  udpPort: 5072.57,
+  tcpPort: 8252.01,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 3492.11,
+  description: "grounded positively phooey phew lock",
+};
+```
+
+### `models.InputMetricsMetrics4`
+
+```typescript
+const value: models.InputMetricsMetrics4 = {
+  id: "<id>",
+  type: "metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  udpPort: 1186.52,
+  tcpPort: 1248.91,
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  udpSocketRxBufSize: 1513.26,
+  description: "graceful while cheetah pleased um fussy",
+};
+```
+

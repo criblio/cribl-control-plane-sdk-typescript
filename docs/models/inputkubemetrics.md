@@ -1,11 +1,12 @@
 # InputKubeMetrics
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputKubeMetricsKubeMetrics1`
 
 ```typescript
-import { InputKubeMetrics } from "cribl-control-plane/models";
-
-let value: InputKubeMetrics = {
+const value: models.InputKubeMetricsKubeMetrics1 = {
   id: "<id>",
   type: "kube_metrics",
   pipeline: "<value>",
@@ -26,7 +27,126 @@ let value: InputKubeMetrics = {
   rules: [
     {
       filter: "<value>",
-      description: "boggle catalog chip ew",
+      description:
+        "duh lest ouch brochure vivaciously broadly quizzically lamp gurn fortunately",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "as like lovingly",
+};
+```
+
+### `models.InputKubeMetricsKubeMetrics2`
+
+```typescript
+const value: models.InputKubeMetricsKubeMetrics2 = {
+  id: "<id>",
+  type: "kube_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "duh lest ouch brochure vivaciously broadly quizzically lamp gurn fortunately",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "miskey onto optimistic amid angelic cheetah till phew why",
+};
+```
+
+### `models.InputKubeMetricsKubeMetrics3`
+
+```typescript
+const value: models.InputKubeMetricsKubeMetrics3 = {
+  id: "<id>",
+  type: "kube_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "duh lest ouch brochure vivaciously broadly quizzically lamp gurn fortunately",
+    },
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {},
+  description: "yum so arrogantly well-documented knitting scarcely tensely",
+};
+```
+
+### `models.InputKubeMetricsKubeMetrics4`
+
+```typescript
+const value: models.InputKubeMetricsKubeMetrics4 = {
+  id: "<id>",
+  type: "kube_metrics",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  rules: [
+    {
+      filter: "<value>",
+      description:
+        "duh lest ouch brochure vivaciously broadly quizzically lamp gurn fortunately",
     },
   ],
   metadata: [
@@ -37,26 +157,7 @@ let value: InputKubeMetrics = {
   ],
   persistence: {},
   description:
-    "gratefully pish whose till hydrocarbon boo eek next uh-huh signature",
+    "amidst similar um kindheartedly disconnection expense upon finally anti eek",
 };
 ```
 
-## Fields
-
-| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | [models.InputKubeMetricsType](../models/inputkubemetricstype.md)                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
-| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                | [models.InputKubeMetricsConnection](../models/inputkubemetricsconnection.md)[]                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                         | [models.InputKubeMetricsPq](../models/inputkubemetricspq.md)                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time, in seconds, between consecutive metrics collections. Default is 15 secs.                                                                                                                                                               |
-| `rules`                                                                                                                                                                                                                                      | [models.InputKubeMetricsRule](../models/inputkubemetricsrule.md)[]                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.                                                                          |
-| `metadata`                                                                                                                                                                                                                                   | [models.InputKubeMetricsMetadatum](../models/inputkubemetricsmetadatum.md)[]                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
-| `persistence`                                                                                                                                                                                                                                | [models.InputKubeMetricsPersistence](../models/inputkubemetricspersistence.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

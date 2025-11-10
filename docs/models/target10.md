@@ -1,0 +1,20 @@
+# Target10
+
+## Example Usage
+
+```typescript
+import { Target10 } from "cribl-control-plane/models";
+
+let value: Target10 = {
+  host: "tough-quart.biz",
+};
+```
+
+## Fields
+
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `protocol`                                                  | [models.Protocol10](../models/protocol10.md)                | :heavy_minus_sign:                                          | Protocol to use when collecting metrics                     |
+| `host`                                                      | *string*                                                    | :heavy_check_mark:                                          | Name of host from which to pull metrics.                    |
+| `port`                                                      | *number*                                                    | :heavy_minus_sign:                                          | The port number in the metrics URL for discovered targets.  |
+| `path`                                                      | *string*                                                    | :heavy_minus_sign:                                          | Path to use when collecting metrics from discovered targets |

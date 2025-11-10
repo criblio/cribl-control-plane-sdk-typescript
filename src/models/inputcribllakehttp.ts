@@ -4,138 +4,42 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
 
-export const InputCriblLakeHttpType = {
+export const InputCriblLakeHttpType4 = {
   CriblLakeHttp: "cribl_lake_http",
 } as const;
-export type InputCriblLakeHttpType = ClosedEnum<typeof InputCriblLakeHttpType>;
-
-export type InputCriblLakeHttpConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputCriblLakeHttpMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputCriblLakeHttpMode = OpenEnum<typeof InputCriblLakeHttpMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputCriblLakeHttpCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputCriblLakeHttpCompression = OpenEnum<
-  typeof InputCriblLakeHttpCompression
+export type InputCriblLakeHttpType4 = ClosedEnum<
+  typeof InputCriblLakeHttpType4
 >;
 
-export type InputCriblLakeHttpPqControls = {};
-
-export type InputCriblLakeHttpPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputCriblLakeHttpMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputCriblLakeHttpCompression | undefined;
-  pqControls?: InputCriblLakeHttpPqControls | undefined;
-};
-
-export const InputCriblLakeHttpMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputCriblLakeHttpMinimumTLSVersion = OpenEnum<
-  typeof InputCriblLakeHttpMinimumTLSVersion
->;
-
-export const InputCriblLakeHttpMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputCriblLakeHttpMaximumTLSVersion = OpenEnum<
-  typeof InputCriblLakeHttpMaximumTLSVersion
->;
-
-export type InputCriblLakeHttpTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputCriblLakeHttpMinimumTLSVersion | undefined;
-  maxVersion?: InputCriblLakeHttpMaximumTLSVersion | undefined;
-};
-
-export type InputCriblLakeHttpMetadatum = {
+export type InputCriblLakeHttpMetadatum4 = {
   name: string;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -143,39 +47,35 @@ export type InputCriblLakeHttpMetadatum = {
   value: string;
 };
 
-export type InputCriblLakeHttpAuthTokensExtMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type SplunkHecMetadata = {
+export type SplunkHecMetadata4 = {
   enabled?: boolean | undefined;
 };
 
-export type ElasticsearchMetadata = {
+export type ElasticsearchMetadata4 = {
   enabled?: boolean | undefined;
 };
 
-export type InputCriblLakeHttpAuthTokensExt = {
+export type AuthTokensExt4 = {
   token: string;
   description?: string | undefined;
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<InputCriblLakeHttpAuthTokensExtMetadatum> | undefined;
-  splunkHecMetadata?: SplunkHecMetadata | undefined;
-  elasticsearchMetadata?: ElasticsearchMetadata | undefined;
+  metadata?: Array<InputCriblLakeHttpMetadatum4> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata4 | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata4 | undefined;
 };
 
-export type InputCriblLakeHttp = {
+export type InputCriblLakeHTTPCriblLakeHttp4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCriblLakeHttpType;
+  type: InputCriblLakeHttpType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -190,18 +90,14 @@ export type InputCriblLakeHttp = {
    */
   environment?: string | undefined;
   /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputCriblLakeHttpConnection> | undefined;
-  pq?: InputCriblLakeHttpPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -214,7 +110,7 @@ export type InputCriblLakeHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: InputCriblLakeHttpTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -275,778 +171,651 @@ export type InputCriblLakeHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputCriblLakeHttpMetadatum> | undefined;
-  authTokensExt?: Array<InputCriblLakeHttpAuthTokensExt> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  authTokensExt?: Array<AuthTokensExt4> | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputCriblLakeHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblLakeHttpType
-> = z.nativeEnum(InputCriblLakeHttpType);
+export const InputCriblLakeHttpType3 = {
+  CriblLakeHttp: "cribl_lake_http",
+} as const;
+export type InputCriblLakeHttpType3 = ClosedEnum<
+  typeof InputCriblLakeHttpType3
+>;
 
-/** @internal */
-export const InputCriblLakeHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblLakeHttpType
-> = InputCriblLakeHttpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpType$ {
-  /** @deprecated use `InputCriblLakeHttpType$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpType$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpType$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpType$outboundSchema;
-}
-
-/** @internal */
-export const InputCriblLakeHttpConnection$inboundSchema: z.ZodType<
-  InputCriblLakeHttpConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputCriblLakeHttpConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputCriblLakeHttpConnection$outboundSchema: z.ZodType<
-  InputCriblLakeHttpConnection$Outbound,
-  z.ZodTypeDef,
-  InputCriblLakeHttpConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpConnection$ {
-  /** @deprecated use `InputCriblLakeHttpConnection$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpConnection$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpConnection$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpConnection$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpConnection$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpConnection$Outbound;
-}
-
-export function inputCriblLakeHttpConnectionToJSON(
-  inputCriblLakeHttpConnection: InputCriblLakeHttpConnection,
-): string {
-  return JSON.stringify(
-    InputCriblLakeHttpConnection$outboundSchema.parse(
-      inputCriblLakeHttpConnection,
-    ),
-  );
-}
-
-export function inputCriblLakeHttpConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblLakeHttpConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblLakeHttpConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblLakeHttpConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblLakeHttpMode$inboundSchema: z.ZodType<
-  InputCriblLakeHttpMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblLakeHttpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputCriblLakeHttpMode$outboundSchema: z.ZodType<
-  InputCriblLakeHttpMode,
-  z.ZodTypeDef,
-  InputCriblLakeHttpMode
-> = z.union([
-  z.nativeEnum(InputCriblLakeHttpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpMode$ {
-  /** @deprecated use `InputCriblLakeHttpMode$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpMode$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMode$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpMode$outboundSchema;
-}
-
-/** @internal */
-export const InputCriblLakeHttpCompression$inboundSchema: z.ZodType<
-  InputCriblLakeHttpCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblLakeHttpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputCriblLakeHttpCompression$outboundSchema: z.ZodType<
-  InputCriblLakeHttpCompression,
-  z.ZodTypeDef,
-  InputCriblLakeHttpCompression
-> = z.union([
-  z.nativeEnum(InputCriblLakeHttpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpCompression$ {
-  /** @deprecated use `InputCriblLakeHttpCompression$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpCompression$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpCompression$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputCriblLakeHttpPqControls$inboundSchema: z.ZodType<
-  InputCriblLakeHttpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputCriblLakeHttpPqControls$Outbound = {};
-
-/** @internal */
-export const InputCriblLakeHttpPqControls$outboundSchema: z.ZodType<
-  InputCriblLakeHttpPqControls$Outbound,
-  z.ZodTypeDef,
-  InputCriblLakeHttpPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpPqControls$ {
-  /** @deprecated use `InputCriblLakeHttpPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpPqControls$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpPqControls$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpPqControls$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpPqControls$Outbound;
-}
-
-export function inputCriblLakeHttpPqControlsToJSON(
-  inputCriblLakeHttpPqControls: InputCriblLakeHttpPqControls,
-): string {
-  return JSON.stringify(
-    InputCriblLakeHttpPqControls$outboundSchema.parse(
-      inputCriblLakeHttpPqControls,
-    ),
-  );
-}
-
-export function inputCriblLakeHttpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblLakeHttpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblLakeHttpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblLakeHttpPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblLakeHttpPq$inboundSchema: z.ZodType<
-  InputCriblLakeHttpPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputCriblLakeHttpMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCriblLakeHttpCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCriblLakeHttpPqControls$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputCriblLakeHttpPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputCriblLakeHttpPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputCriblLakeHttpPq$outboundSchema: z.ZodType<
-  InputCriblLakeHttpPq$Outbound,
-  z.ZodTypeDef,
-  InputCriblLakeHttpPq
-> = z.object({
-  mode: InputCriblLakeHttpMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCriblLakeHttpCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCriblLakeHttpPqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpPq$ {
-  /** @deprecated use `InputCriblLakeHttpPq$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpPq$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpPq$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpPq$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpPq$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpPq$Outbound;
-}
-
-export function inputCriblLakeHttpPqToJSON(
-  inputCriblLakeHttpPq: InputCriblLakeHttpPq,
-): string {
-  return JSON.stringify(
-    InputCriblLakeHttpPq$outboundSchema.parse(inputCriblLakeHttpPq),
-  );
-}
-
-export function inputCriblLakeHttpPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblLakeHttpPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblLakeHttpPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblLakeHttpPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblLakeHttpMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputCriblLakeHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblLakeHttpMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputCriblLakeHttpMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblLakeHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputCriblLakeHttpMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblLakeHttpMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpMinimumTLSVersion$ {
-  /** @deprecated use `InputCriblLakeHttpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblLakeHttpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblLakeHttpMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputCriblLakeHttpMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputCriblLakeHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblLakeHttpMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputCriblLakeHttpMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblLakeHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputCriblLakeHttpMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblLakeHttpMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpMaximumTLSVersion$ {
-  /** @deprecated use `InputCriblLakeHttpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblLakeHttpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblLakeHttpMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputCriblLakeHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputCriblLakeHttpTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputCriblLakeHttpMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputCriblLakeHttpMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputCriblLakeHttpTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputCriblLakeHttpTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputCriblLakeHttpTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputCriblLakeHttpTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputCriblLakeHttpMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputCriblLakeHttpMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpTLSSettingsServerSide$ {
-  /** @deprecated use `InputCriblLakeHttpTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblLakeHttpTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblLakeHttpTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpTLSSettingsServerSide$Outbound;
-}
-
-export function inputCriblLakeHttpTLSSettingsServerSideToJSON(
-  inputCriblLakeHttpTLSSettingsServerSide:
-    InputCriblLakeHttpTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputCriblLakeHttpTLSSettingsServerSide$outboundSchema.parse(
-      inputCriblLakeHttpTLSSettingsServerSide,
-    ),
-  );
-}
-
-export function inputCriblLakeHttpTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCriblLakeHttpTLSSettingsServerSide,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCriblLakeHttpTLSSettingsServerSide$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCriblLakeHttpTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblLakeHttpMetadatum$inboundSchema: z.ZodType<
-  InputCriblLakeHttpMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputCriblLakeHttpMetadatum$Outbound = {
+export type InputCriblLakeHttpMetadatum3 = {
   name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
   value: string;
 };
 
-/** @internal */
-export const InputCriblLakeHttpMetadatum$outboundSchema: z.ZodType<
-  InputCriblLakeHttpMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputCriblLakeHttpMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpMetadatum$ {
-  /** @deprecated use `InputCriblLakeHttpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpMetadatum$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpMetadatum$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpMetadatum$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpMetadatum$Outbound;
-}
-
-export function inputCriblLakeHttpMetadatumToJSON(
-  inputCriblLakeHttpMetadatum: InputCriblLakeHttpMetadatum,
-): string {
-  return JSON.stringify(
-    InputCriblLakeHttpMetadatum$outboundSchema.parse(
-      inputCriblLakeHttpMetadatum,
-    ),
-  );
-}
-
-export function inputCriblLakeHttpMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblLakeHttpMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblLakeHttpMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblLakeHttpMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema: z.ZodType<
-  InputCriblLakeHttpAuthTokensExtMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputCriblLakeHttpAuthTokensExtMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema: z.ZodType<
-  InputCriblLakeHttpAuthTokensExtMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputCriblLakeHttpAuthTokensExtMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpAuthTokensExtMetadatum$ {
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExtMetadatum$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpAuthTokensExtMetadatum$Outbound;
-}
-
-export function inputCriblLakeHttpAuthTokensExtMetadatumToJSON(
-  inputCriblLakeHttpAuthTokensExtMetadatum:
-    InputCriblLakeHttpAuthTokensExtMetadatum,
-): string {
-  return JSON.stringify(
-    InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema.parse(
-      inputCriblLakeHttpAuthTokensExtMetadatum,
-    ),
-  );
-}
-
-export function inputCriblLakeHttpAuthTokensExtMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCriblLakeHttpAuthTokensExtMetadatum,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCriblLakeHttpAuthTokensExtMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const SplunkHecMetadata$inboundSchema: z.ZodType<
-  SplunkHecMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().optional(),
-});
-
-/** @internal */
-export type SplunkHecMetadata$Outbound = {
+export type SplunkHecMetadata3 = {
   enabled?: boolean | undefined;
 };
 
-/** @internal */
-export const SplunkHecMetadata$outboundSchema: z.ZodType<
-  SplunkHecMetadata$Outbound,
-  z.ZodTypeDef,
-  SplunkHecMetadata
-> = z.object({
-  enabled: z.boolean().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SplunkHecMetadata$ {
-  /** @deprecated use `SplunkHecMetadata$inboundSchema` instead. */
-  export const inboundSchema = SplunkHecMetadata$inboundSchema;
-  /** @deprecated use `SplunkHecMetadata$outboundSchema` instead. */
-  export const outboundSchema = SplunkHecMetadata$outboundSchema;
-  /** @deprecated use `SplunkHecMetadata$Outbound` instead. */
-  export type Outbound = SplunkHecMetadata$Outbound;
-}
-
-export function splunkHecMetadataToJSON(
-  splunkHecMetadata: SplunkHecMetadata,
-): string {
-  return JSON.stringify(
-    SplunkHecMetadata$outboundSchema.parse(splunkHecMetadata),
-  );
-}
-
-export function splunkHecMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<SplunkHecMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SplunkHecMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SplunkHecMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const ElasticsearchMetadata$inboundSchema: z.ZodType<
-  ElasticsearchMetadata,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().optional(),
-});
-
-/** @internal */
-export type ElasticsearchMetadata$Outbound = {
+export type ElasticsearchMetadata3 = {
   enabled?: boolean | undefined;
 };
 
-/** @internal */
-export const ElasticsearchMetadata$outboundSchema: z.ZodType<
-  ElasticsearchMetadata$Outbound,
-  z.ZodTypeDef,
-  ElasticsearchMetadata
-> = z.object({
-  enabled: z.boolean().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ElasticsearchMetadata$ {
-  /** @deprecated use `ElasticsearchMetadata$inboundSchema` instead. */
-  export const inboundSchema = ElasticsearchMetadata$inboundSchema;
-  /** @deprecated use `ElasticsearchMetadata$outboundSchema` instead. */
-  export const outboundSchema = ElasticsearchMetadata$outboundSchema;
-  /** @deprecated use `ElasticsearchMetadata$Outbound` instead. */
-  export type Outbound = ElasticsearchMetadata$Outbound;
-}
-
-export function elasticsearchMetadataToJSON(
-  elasticsearchMetadata: ElasticsearchMetadata,
-): string {
-  return JSON.stringify(
-    ElasticsearchMetadata$outboundSchema.parse(elasticsearchMetadata),
-  );
-}
-
-export function elasticsearchMetadataFromJSON(
-  jsonString: string,
-): SafeParseResult<ElasticsearchMetadata, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ElasticsearchMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ElasticsearchMetadata' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblLakeHttpAuthTokensExt$inboundSchema: z.ZodType<
-  InputCriblLakeHttpAuthTokensExt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(
-    z.lazy(() => InputCriblLakeHttpAuthTokensExtMetadatum$inboundSchema),
-  ).optional(),
-  splunkHecMetadata: z.lazy(() => SplunkHecMetadata$inboundSchema).optional(),
-  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputCriblLakeHttpAuthTokensExt$Outbound = {
+export type AuthTokensExt3 = {
   token: string;
   description?: string | undefined;
-  metadata?:
-    | Array<InputCriblLakeHttpAuthTokensExtMetadatum$Outbound>
-    | undefined;
-  splunkHecMetadata?: SplunkHecMetadata$Outbound | undefined;
-  elasticsearchMetadata?: ElasticsearchMetadata$Outbound | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<InputCriblLakeHttpMetadatum3> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata3 | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata3 | undefined;
 };
 
+export type InputCriblLakeHTTPCriblLakeHttp3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblLakeHttpType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  authTokensExt?: Array<AuthTokensExt3> | undefined;
+  description?: string | undefined;
+};
+
+export const InputCriblLakeHttpType2 = {
+  CriblLakeHttp: "cribl_lake_http",
+} as const;
+export type InputCriblLakeHttpType2 = ClosedEnum<
+  typeof InputCriblLakeHttpType2
+>;
+
+export type InputCriblLakeHttpMetadatum2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type SplunkHecMetadata2 = {
+  enabled?: boolean | undefined;
+};
+
+export type ElasticsearchMetadata2 = {
+  enabled?: boolean | undefined;
+};
+
+export type AuthTokensExt2 = {
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<InputCriblLakeHttpMetadatum2> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata2 | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata2 | undefined;
+};
+
+export type InputCriblLakeHTTPCriblLakeHttp2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblLakeHttpType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  authTokensExt?: Array<AuthTokensExt2> | undefined;
+  description?: string | undefined;
+};
+
+export const InputCriblLakeHttpType1 = {
+  CriblLakeHttp: "cribl_lake_http",
+} as const;
+export type InputCriblLakeHttpType1 = ClosedEnum<
+  typeof InputCriblLakeHttpType1
+>;
+
+export type InputCriblLakeHttpMetadatum1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type SplunkHecMetadata1 = {
+  enabled?: boolean | undefined;
+};
+
+export type ElasticsearchMetadata1 = {
+  enabled?: boolean | undefined;
+};
+
+export type AuthTokensExt1 = {
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<InputCriblLakeHttpMetadatum1> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata1 | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata1 | undefined;
+};
+
+export type InputCriblLakeHTTPCriblLakeHttp1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblLakeHttpType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  authTokensExt?: Array<AuthTokensExt1> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblLakeHttp =
+  | InputCriblLakeHTTPCriblLakeHttp2
+  | InputCriblLakeHTTPCriblLakeHttp4
+  | InputCriblLakeHTTPCriblLakeHttp1
+  | InputCriblLakeHTTPCriblLakeHttp3;
+
 /** @internal */
-export const InputCriblLakeHttpAuthTokensExt$outboundSchema: z.ZodType<
-  InputCriblLakeHttpAuthTokensExt$Outbound,
-  z.ZodTypeDef,
-  InputCriblLakeHttpAuthTokensExt
-> = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(
-    z.lazy(() => InputCriblLakeHttpAuthTokensExtMetadatum$outboundSchema),
-  ).optional(),
-  splunkHecMetadata: z.lazy(() => SplunkHecMetadata$outboundSchema).optional(),
-  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttpAuthTokensExt$ {
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttpAuthTokensExt$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttpAuthTokensExt$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttpAuthTokensExt$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttpAuthTokensExt$Outbound;
-}
-
-export function inputCriblLakeHttpAuthTokensExtToJSON(
-  inputCriblLakeHttpAuthTokensExt: InputCriblLakeHttpAuthTokensExt,
-): string {
-  return JSON.stringify(
-    InputCriblLakeHttpAuthTokensExt$outboundSchema.parse(
-      inputCriblLakeHttpAuthTokensExt,
-    ),
-  );
-}
-
-export function inputCriblLakeHttpAuthTokensExtFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblLakeHttpAuthTokensExt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblLakeHttpAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblLakeHttpAuthTokensExt' from JSON`,
-  );
-}
+export const InputCriblLakeHttpType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType4
+> = z.nativeEnum(InputCriblLakeHttpType4);
+/** @internal */
+export const InputCriblLakeHttpType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType4
+> = InputCriblLakeHttpType4$inboundSchema;
 
 /** @internal */
-export const InputCriblLakeHttp$inboundSchema: z.ZodType<
-  InputCriblLakeHttp,
+export const InputCriblLakeHttpMetadatum4$inboundSchema: z.ZodType<
+  InputCriblLakeHttpMetadatum4,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputCriblLakeHttpMetadatum4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputCriblLakeHttpMetadatum4$outboundSchema: z.ZodType<
+  InputCriblLakeHttpMetadatum4$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttpMetadatum4
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputCriblLakeHttpMetadatum4ToJSON(
+  inputCriblLakeHttpMetadatum4: InputCriblLakeHttpMetadatum4,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpMetadatum4$outboundSchema.parse(
+      inputCriblLakeHttpMetadatum4,
+    ),
+  );
+}
+export function inputCriblLakeHttpMetadatum4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHttpMetadatum4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHttpMetadatum4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHttpMetadatum4' from JSON`,
+  );
+}
+
+/** @internal */
+export const SplunkHecMetadata4$inboundSchema: z.ZodType<
+  SplunkHecMetadata4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type SplunkHecMetadata4$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const SplunkHecMetadata4$outboundSchema: z.ZodType<
+  SplunkHecMetadata4$Outbound,
+  z.ZodTypeDef,
+  SplunkHecMetadata4
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function splunkHecMetadata4ToJSON(
+  splunkHecMetadata4: SplunkHecMetadata4,
+): string {
+  return JSON.stringify(
+    SplunkHecMetadata4$outboundSchema.parse(splunkHecMetadata4),
+  );
+}
+export function splunkHecMetadata4FromJSON(
+  jsonString: string,
+): SafeParseResult<SplunkHecMetadata4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SplunkHecMetadata4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SplunkHecMetadata4' from JSON`,
+  );
+}
+
+/** @internal */
+export const ElasticsearchMetadata4$inboundSchema: z.ZodType<
+  ElasticsearchMetadata4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type ElasticsearchMetadata4$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const ElasticsearchMetadata4$outboundSchema: z.ZodType<
+  ElasticsearchMetadata4$Outbound,
+  z.ZodTypeDef,
+  ElasticsearchMetadata4
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function elasticsearchMetadata4ToJSON(
+  elasticsearchMetadata4: ElasticsearchMetadata4,
+): string {
+  return JSON.stringify(
+    ElasticsearchMetadata4$outboundSchema.parse(elasticsearchMetadata4),
+  );
+}
+export function elasticsearchMetadata4FromJSON(
+  jsonString: string,
+): SafeParseResult<ElasticsearchMetadata4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ElasticsearchMetadata4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ElasticsearchMetadata4' from JSON`,
+  );
+}
+
+/** @internal */
+export const AuthTokensExt4$inboundSchema: z.ZodType<
+  AuthTokensExt4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum4$inboundSchema))
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata4$inboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata4$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type AuthTokensExt4$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<InputCriblLakeHttpMetadatum4$Outbound> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata4$Outbound | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata4$Outbound | undefined;
+};
+
+/** @internal */
+export const AuthTokensExt4$outboundSchema: z.ZodType<
+  AuthTokensExt4$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExt4
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum4$outboundSchema))
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata4$outboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata4$outboundSchema)
+    .optional(),
+});
+
+export function authTokensExt4ToJSON(authTokensExt4: AuthTokensExt4): string {
+  return JSON.stringify(AuthTokensExt4$outboundSchema.parse(authTokensExt4));
+}
+export function authTokensExt4FromJSON(
+  jsonString: string,
+): SafeParseResult<AuthTokensExt4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthTokensExt4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTokensExt4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHTTPCriblLakeHttp4$inboundSchema: z.ZodType<
+  InputCriblLakeHTTPCriblLakeHttp4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputCriblLakeHttpType$inboundSchema,
+  type: InputCriblLakeHttpType4$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCriblLakeHttpConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCriblLakeHttpPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputCriblLakeHttpTLSSettingsServerSide$inboundSchema)
-    .optional(),
+  tls: Tls2Type$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -1062,30 +831,26 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   elasticAPI: z.string().default("/elastic"),
   splunkHecAPI: z.string().default("/services/collector"),
   splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum$inboundSchema))
-    .optional(),
-  authTokensExt: z.array(
-    z.lazy(() => InputCriblLakeHttpAuthTokensExt$inboundSchema),
-  ).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt4$inboundSchema)).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type InputCriblLakeHttp$Outbound = {
+export type InputCriblLakeHTTPCriblLakeHttp4$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputCriblLakeHttpConnection$Outbound> | undefined;
-  pq?: InputCriblLakeHttpPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: InputCriblLakeHttpTLSSettingsServerSide$Outbound | undefined;
+  tls?: Tls2Type$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -1101,34 +866,31 @@ export type InputCriblLakeHttp$Outbound = {
   elasticAPI: string;
   splunkHecAPI: string;
   splunkHecAcks: boolean;
-  metadata?: Array<InputCriblLakeHttpMetadatum$Outbound> | undefined;
-  authTokensExt?: Array<InputCriblLakeHttpAuthTokensExt$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExt4$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblLakeHttp$outboundSchema: z.ZodType<
-  InputCriblLakeHttp$Outbound,
+export const InputCriblLakeHTTPCriblLakeHttp4$outboundSchema: z.ZodType<
+  InputCriblLakeHTTPCriblLakeHttp4$Outbound,
   z.ZodTypeDef,
-  InputCriblLakeHttp
+  InputCriblLakeHTTPCriblLakeHttp4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputCriblLakeHttpType$outboundSchema,
+  type: InputCriblLakeHttpType4$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputCriblLakeHttpConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputCriblLakeHttpPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputCriblLakeHttpTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: Tls2Type$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -1144,26 +906,1011 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().default("/elastic"),
   splunkHecAPI: z.string().default("/services/collector"),
   splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum$outboundSchema))
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt4$outboundSchema))
     .optional(),
-  authTokensExt: z.array(
-    z.lazy(() => InputCriblLakeHttpAuthTokensExt$outboundSchema),
-  ).optional(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblLakeHttp$ {
-  /** @deprecated use `InputCriblLakeHttp$inboundSchema` instead. */
-  export const inboundSchema = InputCriblLakeHttp$inboundSchema;
-  /** @deprecated use `InputCriblLakeHttp$outboundSchema` instead. */
-  export const outboundSchema = InputCriblLakeHttp$outboundSchema;
-  /** @deprecated use `InputCriblLakeHttp$Outbound` instead. */
-  export type Outbound = InputCriblLakeHttp$Outbound;
+export function inputCriblLakeHTTPCriblLakeHTTP4ToJSON(
+  inputCriblLakeHTTPCriblLakeHttp4: InputCriblLakeHTTPCriblLakeHttp4,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHTTPCriblLakeHttp4$outboundSchema.parse(
+      inputCriblLakeHTTPCriblLakeHttp4,
+    ),
+  );
 }
+export function inputCriblLakeHTTPCriblLakeHTTP4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHTTPCriblLakeHttp4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHTTPCriblLakeHttp4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHTTPCriblLakeHttp4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttpType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType3
+> = z.nativeEnum(InputCriblLakeHttpType3);
+/** @internal */
+export const InputCriblLakeHttpType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType3
+> = InputCriblLakeHttpType3$inboundSchema;
+
+/** @internal */
+export const InputCriblLakeHttpMetadatum3$inboundSchema: z.ZodType<
+  InputCriblLakeHttpMetadatum3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputCriblLakeHttpMetadatum3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputCriblLakeHttpMetadatum3$outboundSchema: z.ZodType<
+  InputCriblLakeHttpMetadatum3$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttpMetadatum3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputCriblLakeHttpMetadatum3ToJSON(
+  inputCriblLakeHttpMetadatum3: InputCriblLakeHttpMetadatum3,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpMetadatum3$outboundSchema.parse(
+      inputCriblLakeHttpMetadatum3,
+    ),
+  );
+}
+export function inputCriblLakeHttpMetadatum3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHttpMetadatum3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHttpMetadatum3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHttpMetadatum3' from JSON`,
+  );
+}
+
+/** @internal */
+export const SplunkHecMetadata3$inboundSchema: z.ZodType<
+  SplunkHecMetadata3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type SplunkHecMetadata3$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const SplunkHecMetadata3$outboundSchema: z.ZodType<
+  SplunkHecMetadata3$Outbound,
+  z.ZodTypeDef,
+  SplunkHecMetadata3
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function splunkHecMetadata3ToJSON(
+  splunkHecMetadata3: SplunkHecMetadata3,
+): string {
+  return JSON.stringify(
+    SplunkHecMetadata3$outboundSchema.parse(splunkHecMetadata3),
+  );
+}
+export function splunkHecMetadata3FromJSON(
+  jsonString: string,
+): SafeParseResult<SplunkHecMetadata3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SplunkHecMetadata3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SplunkHecMetadata3' from JSON`,
+  );
+}
+
+/** @internal */
+export const ElasticsearchMetadata3$inboundSchema: z.ZodType<
+  ElasticsearchMetadata3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type ElasticsearchMetadata3$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const ElasticsearchMetadata3$outboundSchema: z.ZodType<
+  ElasticsearchMetadata3$Outbound,
+  z.ZodTypeDef,
+  ElasticsearchMetadata3
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function elasticsearchMetadata3ToJSON(
+  elasticsearchMetadata3: ElasticsearchMetadata3,
+): string {
+  return JSON.stringify(
+    ElasticsearchMetadata3$outboundSchema.parse(elasticsearchMetadata3),
+  );
+}
+export function elasticsearchMetadata3FromJSON(
+  jsonString: string,
+): SafeParseResult<ElasticsearchMetadata3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ElasticsearchMetadata3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ElasticsearchMetadata3' from JSON`,
+  );
+}
+
+/** @internal */
+export const AuthTokensExt3$inboundSchema: z.ZodType<
+  AuthTokensExt3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum3$inboundSchema))
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata3$inboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata3$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type AuthTokensExt3$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<InputCriblLakeHttpMetadatum3$Outbound> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata3$Outbound | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata3$Outbound | undefined;
+};
+
+/** @internal */
+export const AuthTokensExt3$outboundSchema: z.ZodType<
+  AuthTokensExt3$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExt3
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum3$outboundSchema))
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata3$outboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata3$outboundSchema)
+    .optional(),
+});
+
+export function authTokensExt3ToJSON(authTokensExt3: AuthTokensExt3): string {
+  return JSON.stringify(AuthTokensExt3$outboundSchema.parse(authTokensExt3));
+}
+export function authTokensExt3FromJSON(
+  jsonString: string,
+): SafeParseResult<AuthTokensExt3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthTokensExt3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTokensExt3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHTTPCriblLakeHttp3$inboundSchema: z.ZodType<
+  InputCriblLakeHTTPCriblLakeHttp3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCriblLakeHttpType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt3$inboundSchema)).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblLakeHTTPCriblLakeHttp3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExt3$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblLakeHTTPCriblLakeHttp3$outboundSchema: z.ZodType<
+  InputCriblLakeHTTPCriblLakeHttp3$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHTTPCriblLakeHttp3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCriblLakeHttpType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt3$outboundSchema))
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblLakeHTTPCriblLakeHTTP3ToJSON(
+  inputCriblLakeHTTPCriblLakeHttp3: InputCriblLakeHTTPCriblLakeHttp3,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHTTPCriblLakeHttp3$outboundSchema.parse(
+      inputCriblLakeHTTPCriblLakeHttp3,
+    ),
+  );
+}
+export function inputCriblLakeHTTPCriblLakeHTTP3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHTTPCriblLakeHttp3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHTTPCriblLakeHttp3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHTTPCriblLakeHttp3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttpType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType2
+> = z.nativeEnum(InputCriblLakeHttpType2);
+/** @internal */
+export const InputCriblLakeHttpType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType2
+> = InputCriblLakeHttpType2$inboundSchema;
+
+/** @internal */
+export const InputCriblLakeHttpMetadatum2$inboundSchema: z.ZodType<
+  InputCriblLakeHttpMetadatum2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputCriblLakeHttpMetadatum2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputCriblLakeHttpMetadatum2$outboundSchema: z.ZodType<
+  InputCriblLakeHttpMetadatum2$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttpMetadatum2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputCriblLakeHttpMetadatum2ToJSON(
+  inputCriblLakeHttpMetadatum2: InputCriblLakeHttpMetadatum2,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpMetadatum2$outboundSchema.parse(
+      inputCriblLakeHttpMetadatum2,
+    ),
+  );
+}
+export function inputCriblLakeHttpMetadatum2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHttpMetadatum2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHttpMetadatum2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHttpMetadatum2' from JSON`,
+  );
+}
+
+/** @internal */
+export const SplunkHecMetadata2$inboundSchema: z.ZodType<
+  SplunkHecMetadata2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type SplunkHecMetadata2$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const SplunkHecMetadata2$outboundSchema: z.ZodType<
+  SplunkHecMetadata2$Outbound,
+  z.ZodTypeDef,
+  SplunkHecMetadata2
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function splunkHecMetadata2ToJSON(
+  splunkHecMetadata2: SplunkHecMetadata2,
+): string {
+  return JSON.stringify(
+    SplunkHecMetadata2$outboundSchema.parse(splunkHecMetadata2),
+  );
+}
+export function splunkHecMetadata2FromJSON(
+  jsonString: string,
+): SafeParseResult<SplunkHecMetadata2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SplunkHecMetadata2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SplunkHecMetadata2' from JSON`,
+  );
+}
+
+/** @internal */
+export const ElasticsearchMetadata2$inboundSchema: z.ZodType<
+  ElasticsearchMetadata2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type ElasticsearchMetadata2$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const ElasticsearchMetadata2$outboundSchema: z.ZodType<
+  ElasticsearchMetadata2$Outbound,
+  z.ZodTypeDef,
+  ElasticsearchMetadata2
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function elasticsearchMetadata2ToJSON(
+  elasticsearchMetadata2: ElasticsearchMetadata2,
+): string {
+  return JSON.stringify(
+    ElasticsearchMetadata2$outboundSchema.parse(elasticsearchMetadata2),
+  );
+}
+export function elasticsearchMetadata2FromJSON(
+  jsonString: string,
+): SafeParseResult<ElasticsearchMetadata2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ElasticsearchMetadata2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ElasticsearchMetadata2' from JSON`,
+  );
+}
+
+/** @internal */
+export const AuthTokensExt2$inboundSchema: z.ZodType<
+  AuthTokensExt2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum2$inboundSchema))
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata2$inboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata2$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type AuthTokensExt2$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<InputCriblLakeHttpMetadatum2$Outbound> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata2$Outbound | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata2$Outbound | undefined;
+};
+
+/** @internal */
+export const AuthTokensExt2$outboundSchema: z.ZodType<
+  AuthTokensExt2$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExt2
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum2$outboundSchema))
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata2$outboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata2$outboundSchema)
+    .optional(),
+});
+
+export function authTokensExt2ToJSON(authTokensExt2: AuthTokensExt2): string {
+  return JSON.stringify(AuthTokensExt2$outboundSchema.parse(authTokensExt2));
+}
+export function authTokensExt2FromJSON(
+  jsonString: string,
+): SafeParseResult<AuthTokensExt2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthTokensExt2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTokensExt2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHTTPCriblLakeHttp2$inboundSchema: z.ZodType<
+  InputCriblLakeHTTPCriblLakeHttp2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblLakeHttpType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt2$inboundSchema)).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblLakeHTTPCriblLakeHttp2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExt2$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblLakeHTTPCriblLakeHttp2$outboundSchema: z.ZodType<
+  InputCriblLakeHTTPCriblLakeHttp2$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHTTPCriblLakeHttp2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblLakeHttpType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt2$outboundSchema))
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblLakeHTTPCriblLakeHTTP2ToJSON(
+  inputCriblLakeHTTPCriblLakeHttp2: InputCriblLakeHTTPCriblLakeHttp2,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHTTPCriblLakeHttp2$outboundSchema.parse(
+      inputCriblLakeHTTPCriblLakeHttp2,
+    ),
+  );
+}
+export function inputCriblLakeHTTPCriblLakeHTTP2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHTTPCriblLakeHttp2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHTTPCriblLakeHttp2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHTTPCriblLakeHttp2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttpType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType1
+> = z.nativeEnum(InputCriblLakeHttpType1);
+/** @internal */
+export const InputCriblLakeHttpType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblLakeHttpType1
+> = InputCriblLakeHttpType1$inboundSchema;
+
+/** @internal */
+export const InputCriblLakeHttpMetadatum1$inboundSchema: z.ZodType<
+  InputCriblLakeHttpMetadatum1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputCriblLakeHttpMetadatum1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputCriblLakeHttpMetadatum1$outboundSchema: z.ZodType<
+  InputCriblLakeHttpMetadatum1$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttpMetadatum1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputCriblLakeHttpMetadatum1ToJSON(
+  inputCriblLakeHttpMetadatum1: InputCriblLakeHttpMetadatum1,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttpMetadatum1$outboundSchema.parse(
+      inputCriblLakeHttpMetadatum1,
+    ),
+  );
+}
+export function inputCriblLakeHttpMetadatum1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHttpMetadatum1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHttpMetadatum1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHttpMetadatum1' from JSON`,
+  );
+}
+
+/** @internal */
+export const SplunkHecMetadata1$inboundSchema: z.ZodType<
+  SplunkHecMetadata1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type SplunkHecMetadata1$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const SplunkHecMetadata1$outboundSchema: z.ZodType<
+  SplunkHecMetadata1$Outbound,
+  z.ZodTypeDef,
+  SplunkHecMetadata1
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function splunkHecMetadata1ToJSON(
+  splunkHecMetadata1: SplunkHecMetadata1,
+): string {
+  return JSON.stringify(
+    SplunkHecMetadata1$outboundSchema.parse(splunkHecMetadata1),
+  );
+}
+export function splunkHecMetadata1FromJSON(
+  jsonString: string,
+): SafeParseResult<SplunkHecMetadata1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SplunkHecMetadata1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SplunkHecMetadata1' from JSON`,
+  );
+}
+
+/** @internal */
+export const ElasticsearchMetadata1$inboundSchema: z.ZodType<
+  ElasticsearchMetadata1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+/** @internal */
+export type ElasticsearchMetadata1$Outbound = {
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const ElasticsearchMetadata1$outboundSchema: z.ZodType<
+  ElasticsearchMetadata1$Outbound,
+  z.ZodTypeDef,
+  ElasticsearchMetadata1
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function elasticsearchMetadata1ToJSON(
+  elasticsearchMetadata1: ElasticsearchMetadata1,
+): string {
+  return JSON.stringify(
+    ElasticsearchMetadata1$outboundSchema.parse(elasticsearchMetadata1),
+  );
+}
+export function elasticsearchMetadata1FromJSON(
+  jsonString: string,
+): SafeParseResult<ElasticsearchMetadata1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ElasticsearchMetadata1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ElasticsearchMetadata1' from JSON`,
+  );
+}
+
+/** @internal */
+export const AuthTokensExt1$inboundSchema: z.ZodType<
+  AuthTokensExt1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum1$inboundSchema))
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata1$inboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata1$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type AuthTokensExt1$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<InputCriblLakeHttpMetadatum1$Outbound> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata1$Outbound | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata1$Outbound | undefined;
+};
+
+/** @internal */
+export const AuthTokensExt1$outboundSchema: z.ZodType<
+  AuthTokensExt1$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExt1
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputCriblLakeHttpMetadatum1$outboundSchema))
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata1$outboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata1$outboundSchema)
+    .optional(),
+});
+
+export function authTokensExt1ToJSON(authTokensExt1: AuthTokensExt1): string {
+  return JSON.stringify(AuthTokensExt1$outboundSchema.parse(authTokensExt1));
+}
+export function authTokensExt1FromJSON(
+  jsonString: string,
+): SafeParseResult<AuthTokensExt1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AuthTokensExt1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AuthTokensExt1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHTTPCriblLakeHttp1$inboundSchema: z.ZodType<
+  InputCriblLakeHTTPCriblLakeHttp1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblLakeHttpType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt1$inboundSchema)).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblLakeHTTPCriblLakeHttp1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  criblAPI: string;
+  elasticAPI: string;
+  splunkHecAPI: string;
+  splunkHecAcks: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExt1$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblLakeHTTPCriblLakeHttp1$outboundSchema: z.ZodType<
+  InputCriblLakeHTTPCriblLakeHttp1$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHTTPCriblLakeHttp1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblLakeHttpType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  criblAPI: z.string().default("/cribl"),
+  elasticAPI: z.string().default("/elastic"),
+  splunkHecAPI: z.string().default("/services/collector"),
+  splunkHecAcks: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt1$outboundSchema))
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblLakeHTTPCriblLakeHTTP1ToJSON(
+  inputCriblLakeHTTPCriblLakeHttp1: InputCriblLakeHTTPCriblLakeHttp1,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHTTPCriblLakeHttp1$outboundSchema.parse(
+      inputCriblLakeHTTPCriblLakeHttp1,
+    ),
+  );
+}
+export function inputCriblLakeHTTPCriblLakeHTTP1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblLakeHTTPCriblLakeHttp1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblLakeHTTPCriblLakeHttp1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblLakeHTTPCriblLakeHttp1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblLakeHttp$inboundSchema: z.ZodType<
+  InputCriblLakeHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputCriblLakeHTTPCriblLakeHttp2$inboundSchema),
+  z.lazy(() => InputCriblLakeHTTPCriblLakeHttp4$inboundSchema),
+  z.lazy(() => InputCriblLakeHTTPCriblLakeHttp1$inboundSchema),
+  z.lazy(() => InputCriblLakeHTTPCriblLakeHttp3$inboundSchema),
+]);
+/** @internal */
+export type InputCriblLakeHttp$Outbound =
+  | InputCriblLakeHTTPCriblLakeHttp2$Outbound
+  | InputCriblLakeHTTPCriblLakeHttp4$Outbound
+  | InputCriblLakeHTTPCriblLakeHttp1$Outbound
+  | InputCriblLakeHTTPCriblLakeHttp3$Outbound;
+
+/** @internal */
+export const InputCriblLakeHttp$outboundSchema: z.ZodType<
+  InputCriblLakeHttp$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttp
+> = z.union([
+  z.lazy(() => InputCriblLakeHTTPCriblLakeHttp2$outboundSchema),
+  z.lazy(() => InputCriblLakeHTTPCriblLakeHttp4$outboundSchema),
+  z.lazy(() => InputCriblLakeHTTPCriblLakeHttp1$outboundSchema),
+  z.lazy(() => InputCriblLakeHTTPCriblLakeHttp3$outboundSchema),
+]);
 
 export function inputCriblLakeHttpToJSON(
   inputCriblLakeHttp: InputCriblLakeHttp,
@@ -1172,7 +1919,6 @@ export function inputCriblLakeHttpToJSON(
     InputCriblLakeHttp$outboundSchema.parse(inputCriblLakeHttp),
   );
 }
-
 export function inputCriblLakeHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblLakeHttp, SDKValidationError> {

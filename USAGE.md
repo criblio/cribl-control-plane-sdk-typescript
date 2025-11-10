@@ -36,6 +36,10 @@ async function run() {
       format: "ddss",
       httpDAUsed: true,
       id: "<id>",
+      metrics: {
+        currentSizeBytes: 6170.04,
+        metricsDate: "<value>",
+      },
       retentionPeriodInDays: 456.37,
       searchConfig: {
         datatypes: [

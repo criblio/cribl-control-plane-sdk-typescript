@@ -11,19 +11,73 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputSentinelOneAiSiemType = {
+export const OutputSentinelOneAiSiemType8 = {
   SentinelOneAiSiem: "sentinel_one_ai_siem",
 } as const;
-export type OutputSentinelOneAiSiemType = ClosedEnum<
-  typeof OutputSentinelOneAiSiemType
+export type OutputSentinelOneAiSiemType8 = ClosedEnum<
+  typeof OutputSentinelOneAiSiemType8
 >;
 
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export const OutputSentinelOneAiSiemRegion = {
+export const Region8 = {
   Us: "US",
   Ca: "CA",
   Emea: "EMEA",
@@ -35,157 +89,30 @@ export const OutputSentinelOneAiSiemRegion = {
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export type OutputSentinelOneAiSiemRegion = OpenEnum<
-  typeof OutputSentinelOneAiSiemRegion
->;
+export type Region8 = OpenEnum<typeof Region8>;
 
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export const AISIEMEndpointPath = {
+export const AISIEMEndpointPath8 = {
   RootServicesCollectorEvent: "/services/collector/event",
   RootServicesCollectorRaw: "/services/collector/raw",
 } as const;
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export type AISIEMEndpointPath = OpenEnum<typeof AISIEMEndpointPath>;
+export type AISIEMEndpointPath8 = OpenEnum<typeof AISIEMEndpointPath8>;
 
-export type OutputSentinelOneAiSiemExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputSentinelOneAiSiemFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputSentinelOneAiSiemFailedRequestLoggingMode = OpenEnum<
-  typeof OutputSentinelOneAiSiemFailedRequestLoggingMode
->;
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const OutputSentinelOneAiSiemAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type OutputSentinelOneAiSiemAuthenticationMethod = OpenEnum<
-  typeof OutputSentinelOneAiSiemAuthenticationMethod
->;
-
-export type OutputSentinelOneAiSiemResponseRetrySetting = {
+export type OutputSentinelOneAiSiemSentinelOneAiSiem8 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * How to handle events when all receivers are exerting backpressure
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputSentinelOneAiSiemTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSentinelOneAiSiemBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSentinelOneAiSiemBackpressureBehavior = OpenEnum<
-  typeof OutputSentinelOneAiSiemBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSentinelOneAiSiemCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSentinelOneAiSiemCompression = OpenEnum<
-  typeof OutputSentinelOneAiSiemCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSentinelOneAiSiemQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSentinelOneAiSiemQueueFullBehavior = OpenEnum<
-  typeof OutputSentinelOneAiSiemQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSentinelOneAiSiemMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSentinelOneAiSiemMode = OpenEnum<
-  typeof OutputSentinelOneAiSiemMode
->;
-
-export type OutputSentinelOneAiSiemPqControls = {};
-
-export type OutputSentinelOneAiSiem = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSentinelOneAiSiemType;
+  type: OutputSentinelOneAiSiemType8;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -205,11 +132,11 @@ export type OutputSentinelOneAiSiem = {
   /**
    * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
    */
-  region?: OutputSentinelOneAiSiemRegion | undefined;
+  region?: Region8 | undefined;
   /**
    * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
    */
-  endpoint?: AISIEMEndpointPath | undefined;
+  endpoint?: AISIEMEndpointPath8 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -245,38 +172,28 @@ export type OutputSentinelOneAiSiem = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputSentinelOneAiSiemExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputSentinelOneAiSiemFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
   /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   * Enter credentials directly, or select a stored secret
    */
-  authType?: OutputSentinelOneAiSiemAuthenticationMethod | undefined;
+  authType?: AuthType2Options | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputSentinelOneAiSiemResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputSentinelOneAiSiemTimeoutRetrySettings
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputSentinelOneAiSiemBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
    * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
@@ -347,6 +264,26 @@ export type OutputSentinelOneAiSiem = {
    */
   eventType?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -361,590 +298,1755 @@ export type OutputSentinelOneAiSiem = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSentinelOneAiSiemCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSentinelOneAiSiemQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputSentinelOneAiSiemType7 = {
+  SentinelOneAiSiem: "sentinel_one_ai_siem",
+} as const;
+export type OutputSentinelOneAiSiemType7 = ClosedEnum<
+  typeof OutputSentinelOneAiSiemType7
+>;
+
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export const Region7 = {
+  Us: "US",
+  Ca: "CA",
+  Emea: "EMEA",
+  Ap: "AP",
+  Aps: "APS",
+  Au: "AU",
+  Custom: "Custom",
+} as const;
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export type Region7 = OpenEnum<typeof Region7>;
+
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export const AISIEMEndpointPath7 = {
+  RootServicesCollectorEvent: "/services/collector/event",
+  RootServicesCollectorRaw: "/services/collector/raw",
+} as const;
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export type AISIEMEndpointPath7 = OpenEnum<typeof AISIEMEndpointPath7>;
+
+export type OutputSentinelOneAiSiemSentinelOneAiSiem7 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelOneAiSiemType7;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region?: Region7 | undefined;
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint?: AISIEMEndpointPath7 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+   */
+  baseUrl?: string | undefined;
+  /**
+   * Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+   */
+  hostExpression?: string | undefined;
+  /**
+   * Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+   */
+  sourceExpression?: string | undefined;
+  /**
+   * Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+   */
+  sourceTypeExpression?: string | undefined;
+  /**
+   * Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+   */
+  dataSourceCategoryExpression?: string | undefined;
+  /**
+   * Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+   */
+  dataSourceNameExpression?: string | undefined;
+  /**
+   * Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+   */
+  dataSourceVendorExpression?: string | undefined;
+  /**
+   * Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+   */
+  eventTypeExpression?: string | undefined;
+  /**
+   * Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+   */
+  host?: string | undefined;
+  /**
+   * Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+   */
+  source?: string | undefined;
+  /**
+   * Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+   */
+  sourceType?: string | undefined;
+  /**
+   * Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+   */
+  dataSourceCategory?: string | undefined;
+  /**
+   * Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceName?: string | undefined;
+  /**
+   * Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceVendor?: string | undefined;
+  /**
+   * Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+   */
+  eventType?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSentinelOneAiSiemMode | undefined;
-  pqControls?: OutputSentinelOneAiSiemPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSentinelOneAiSiemType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelOneAiSiemType
-> = z.nativeEnum(OutputSentinelOneAiSiemType);
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export const AISIEMEndpointPath6 = {
+  RootServicesCollectorEvent: "/services/collector/event",
+  RootServicesCollectorRaw: "/services/collector/raw",
+} as const;
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export type AISIEMEndpointPath6 = OpenEnum<typeof AISIEMEndpointPath6>;
 
-/** @internal */
-export const OutputSentinelOneAiSiemType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelOneAiSiemType
-> = OutputSentinelOneAiSiemType$inboundSchema;
+export const OutputSentinelOneAiSiemType6 = {
+  SentinelOneAiSiem: "sentinel_one_ai_siem",
+} as const;
+export type OutputSentinelOneAiSiemType6 = ClosedEnum<
+  typeof OutputSentinelOneAiSiemType6
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export namespace OutputSentinelOneAiSiemType$ {
-  /** @deprecated use `OutputSentinelOneAiSiemType$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelOneAiSiemType$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemType$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelOneAiSiemType$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiemRegion$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemRegion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelOneAiSiemRegion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelOneAiSiemRegion$outboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemRegion,
-  z.ZodTypeDef,
-  OutputSentinelOneAiSiemRegion
-> = z.union([
-  z.nativeEnum(OutputSentinelOneAiSiemRegion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const Region6 = {
+  Us: "US",
+  Ca: "CA",
+  Emea: "EMEA",
+  Ap: "AP",
+  Aps: "APS",
+  Au: "AU",
+  Custom: "Custom",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export namespace OutputSentinelOneAiSiemRegion$ {
-  /** @deprecated use `OutputSentinelOneAiSiemRegion$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelOneAiSiemRegion$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemRegion$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelOneAiSiemRegion$outboundSchema;
-}
+export type Region6 = OpenEnum<typeof Region6>;
 
-/** @internal */
-export const AISIEMEndpointPath$inboundSchema: z.ZodType<
-  AISIEMEndpointPath,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(AISIEMEndpointPath),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const AISIEMEndpointPath$outboundSchema: z.ZodType<
-  AISIEMEndpointPath,
-  z.ZodTypeDef,
-  AISIEMEndpointPath
-> = z.union([
-  z.nativeEnum(AISIEMEndpointPath),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AISIEMEndpointPath$ {
-  /** @deprecated use `AISIEMEndpointPath$inboundSchema` instead. */
-  export const inboundSchema = AISIEMEndpointPath$inboundSchema;
-  /** @deprecated use `AISIEMEndpointPath$outboundSchema` instead. */
-  export const outboundSchema = AISIEMEndpointPath$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiemExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputSentinelOneAiSiemExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputSentinelOneAiSiemSentinelOneAiSiem6 = {
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint?: AISIEMEndpointPath6 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelOneAiSiemType6;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region?: Region6 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+   */
+  baseUrl?: string | undefined;
+  /**
+   * Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+   */
+  hostExpression?: string | undefined;
+  /**
+   * Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+   */
+  sourceExpression?: string | undefined;
+  /**
+   * Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+   */
+  sourceTypeExpression?: string | undefined;
+  /**
+   * Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+   */
+  dataSourceCategoryExpression?: string | undefined;
+  /**
+   * Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+   */
+  dataSourceNameExpression?: string | undefined;
+  /**
+   * Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+   */
+  dataSourceVendorExpression?: string | undefined;
+  /**
+   * Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+   */
+  eventTypeExpression?: string | undefined;
+  /**
+   * Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+   */
+  host?: string | undefined;
+  /**
+   * Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+   */
+  source?: string | undefined;
+  /**
+   * Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+   */
+  sourceType?: string | undefined;
+  /**
+   * Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+   */
+  dataSourceCategory?: string | undefined;
+  /**
+   * Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceName?: string | undefined;
+  /**
+   * Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceVendor?: string | undefined;
+  /**
+   * Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+   */
+  eventType?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSentinelOneAiSiemExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputSentinelOneAiSiemExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export const AISIEMEndpointPath5 = {
+  RootServicesCollectorEvent: "/services/collector/event",
+  RootServicesCollectorRaw: "/services/collector/raw",
+} as const;
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export type AISIEMEndpointPath5 = OpenEnum<typeof AISIEMEndpointPath5>;
+
+export const OutputSentinelOneAiSiemType5 = {
+  SentinelOneAiSiem: "sentinel_one_ai_siem",
+} as const;
+export type OutputSentinelOneAiSiemType5 = ClosedEnum<
+  typeof OutputSentinelOneAiSiemType5
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export namespace OutputSentinelOneAiSiemExtraHttpHeader$ {
-  /** @deprecated use `OutputSentinelOneAiSiemExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelOneAiSiemExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSentinelOneAiSiemExtraHttpHeader$Outbound;
-}
+export const Region5 = {
+  Us: "US",
+  Ca: "CA",
+  Emea: "EMEA",
+  Ap: "AP",
+  Aps: "APS",
+  Au: "AU",
+  Custom: "Custom",
+} as const;
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export type Region5 = OpenEnum<typeof Region5>;
 
-export function outputSentinelOneAiSiemExtraHttpHeaderToJSON(
-  outputSentinelOneAiSiemExtraHttpHeader:
-    OutputSentinelOneAiSiemExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputSentinelOneAiSiemExtraHttpHeader$outboundSchema.parse(
-      outputSentinelOneAiSiemExtraHttpHeader,
-    ),
-  );
-}
+export type OutputSentinelOneAiSiemSentinelOneAiSiem5 = {
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint?: AISIEMEndpointPath5 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelOneAiSiemType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region?: Region5 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+   */
+  baseUrl?: string | undefined;
+  /**
+   * Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+   */
+  hostExpression?: string | undefined;
+  /**
+   * Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+   */
+  sourceExpression?: string | undefined;
+  /**
+   * Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+   */
+  sourceTypeExpression?: string | undefined;
+  /**
+   * Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+   */
+  dataSourceCategoryExpression?: string | undefined;
+  /**
+   * Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+   */
+  dataSourceNameExpression?: string | undefined;
+  /**
+   * Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+   */
+  dataSourceVendorExpression?: string | undefined;
+  /**
+   * Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+   */
+  eventTypeExpression?: string | undefined;
+  /**
+   * Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+   */
+  host?: string | undefined;
+  /**
+   * Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+   */
+  source?: string | undefined;
+  /**
+   * Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+   */
+  sourceType?: string | undefined;
+  /**
+   * Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+   */
+  dataSourceCategory?: string | undefined;
+  /**
+   * Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceName?: string | undefined;
+  /**
+   * Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceVendor?: string | undefined;
+  /**
+   * Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+   */
+  eventType?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
 
-export function outputSentinelOneAiSiemExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSentinelOneAiSiemExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSentinelOneAiSiemExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSentinelOneAiSiemExtraHttpHeader' from JSON`,
-  );
-}
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export const Region4 = {
+  Us: "US",
+  Ca: "CA",
+  Emea: "EMEA",
+  Ap: "AP",
+  Aps: "APS",
+  Au: "AU",
+  Custom: "Custom",
+} as const;
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export type Region4 = OpenEnum<typeof Region4>;
+
+export const OutputSentinelOneAiSiemType4 = {
+  SentinelOneAiSiem: "sentinel_one_ai_siem",
+} as const;
+export type OutputSentinelOneAiSiemType4 = ClosedEnum<
+  typeof OutputSentinelOneAiSiemType4
+>;
+
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export const AISIEMEndpointPath4 = {
+  RootServicesCollectorEvent: "/services/collector/event",
+  RootServicesCollectorRaw: "/services/collector/raw",
+} as const;
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export type AISIEMEndpointPath4 = OpenEnum<typeof AISIEMEndpointPath4>;
+
+export type OutputSentinelOneAiSiemSentinelOneAiSiem4 = {
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region?: Region4 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelOneAiSiemType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint?: AISIEMEndpointPath4 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+   */
+  baseUrl?: string | undefined;
+  /**
+   * Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+   */
+  hostExpression?: string | undefined;
+  /**
+   * Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+   */
+  sourceExpression?: string | undefined;
+  /**
+   * Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+   */
+  sourceTypeExpression?: string | undefined;
+  /**
+   * Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+   */
+  dataSourceCategoryExpression?: string | undefined;
+  /**
+   * Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+   */
+  dataSourceNameExpression?: string | undefined;
+  /**
+   * Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+   */
+  dataSourceVendorExpression?: string | undefined;
+  /**
+   * Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+   */
+  eventTypeExpression?: string | undefined;
+  /**
+   * Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+   */
+  host?: string | undefined;
+  /**
+   * Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+   */
+  source?: string | undefined;
+  /**
+   * Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+   */
+  sourceType?: string | undefined;
+  /**
+   * Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+   */
+  dataSourceCategory?: string | undefined;
+  /**
+   * Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceName?: string | undefined;
+  /**
+   * Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceVendor?: string | undefined;
+  /**
+   * Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+   */
+  eventType?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export const Region3 = {
+  Us: "US",
+  Ca: "CA",
+  Emea: "EMEA",
+  Ap: "AP",
+  Aps: "APS",
+  Au: "AU",
+  Custom: "Custom",
+} as const;
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export type Region3 = OpenEnum<typeof Region3>;
+
+export const OutputSentinelOneAiSiemType3 = {
+  SentinelOneAiSiem: "sentinel_one_ai_siem",
+} as const;
+export type OutputSentinelOneAiSiemType3 = ClosedEnum<
+  typeof OutputSentinelOneAiSiemType3
+>;
+
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export const AISIEMEndpointPath3 = {
+  RootServicesCollectorEvent: "/services/collector/event",
+  RootServicesCollectorRaw: "/services/collector/raw",
+} as const;
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export type AISIEMEndpointPath3 = OpenEnum<typeof AISIEMEndpointPath3>;
+
+export type OutputSentinelOneAiSiemSentinelOneAiSiem3 = {
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region?: Region3 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelOneAiSiemType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint?: AISIEMEndpointPath3 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+   */
+  baseUrl?: string | undefined;
+  /**
+   * Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+   */
+  hostExpression?: string | undefined;
+  /**
+   * Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+   */
+  sourceExpression?: string | undefined;
+  /**
+   * Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+   */
+  sourceTypeExpression?: string | undefined;
+  /**
+   * Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+   */
+  dataSourceCategoryExpression?: string | undefined;
+  /**
+   * Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+   */
+  dataSourceNameExpression?: string | undefined;
+  /**
+   * Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+   */
+  dataSourceVendorExpression?: string | undefined;
+  /**
+   * Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+   */
+  eventTypeExpression?: string | undefined;
+  /**
+   * Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+   */
+  host?: string | undefined;
+  /**
+   * Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+   */
+  source?: string | undefined;
+  /**
+   * Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+   */
+  sourceType?: string | undefined;
+  /**
+   * Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+   */
+  dataSourceCategory?: string | undefined;
+  /**
+   * Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceName?: string | undefined;
+  /**
+   * Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceVendor?: string | undefined;
+  /**
+   * Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+   */
+  eventType?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputSentinelOneAiSiemType2 = {
+  SentinelOneAiSiem: "sentinel_one_ai_siem",
+} as const;
+export type OutputSentinelOneAiSiemType2 = ClosedEnum<
+  typeof OutputSentinelOneAiSiemType2
+>;
+
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export const Region2 = {
+  Us: "US",
+  Ca: "CA",
+  Emea: "EMEA",
+  Ap: "AP",
+  Aps: "APS",
+  Au: "AU",
+  Custom: "Custom",
+} as const;
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export type Region2 = OpenEnum<typeof Region2>;
+
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export const AISIEMEndpointPath2 = {
+  RootServicesCollectorEvent: "/services/collector/event",
+  RootServicesCollectorRaw: "/services/collector/raw",
+} as const;
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export type AISIEMEndpointPath2 = OpenEnum<typeof AISIEMEndpointPath2>;
+
+export type OutputSentinelOneAiSiemSentinelOneAiSiem2 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelOneAiSiemType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region?: Region2 | undefined;
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint?: AISIEMEndpointPath2 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+   */
+  baseUrl?: string | undefined;
+  /**
+   * Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+   */
+  hostExpression?: string | undefined;
+  /**
+   * Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+   */
+  sourceExpression?: string | undefined;
+  /**
+   * Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+   */
+  sourceTypeExpression?: string | undefined;
+  /**
+   * Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+   */
+  dataSourceCategoryExpression?: string | undefined;
+  /**
+   * Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+   */
+  dataSourceNameExpression?: string | undefined;
+  /**
+   * Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+   */
+  dataSourceVendorExpression?: string | undefined;
+  /**
+   * Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+   */
+  eventTypeExpression?: string | undefined;
+  /**
+   * Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+   */
+  host?: string | undefined;
+  /**
+   * Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+   */
+  source?: string | undefined;
+  /**
+   * Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+   */
+  sourceType?: string | undefined;
+  /**
+   * Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+   */
+  dataSourceCategory?: string | undefined;
+  /**
+   * Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceName?: string | undefined;
+  /**
+   * Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceVendor?: string | undefined;
+  /**
+   * Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+   */
+  eventType?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputSentinelOneAiSiemType1 = {
+  SentinelOneAiSiem: "sentinel_one_ai_siem",
+} as const;
+export type OutputSentinelOneAiSiemType1 = ClosedEnum<
+  typeof OutputSentinelOneAiSiemType1
+>;
+
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export const Region1 = {
+  Us: "US",
+  Ca: "CA",
+  Emea: "EMEA",
+  Ap: "AP",
+  Aps: "APS",
+  Au: "AU",
+  Custom: "Custom",
+} as const;
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export type Region1 = OpenEnum<typeof Region1>;
+
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export const AISIEMEndpointPath1 = {
+  RootServicesCollectorEvent: "/services/collector/event",
+  RootServicesCollectorRaw: "/services/collector/raw",
+} as const;
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export type AISIEMEndpointPath1 = OpenEnum<typeof AISIEMEndpointPath1>;
+
+export type OutputSentinelOneAiSiemSentinelOneAiSiem1 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelOneAiSiemType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region?: Region1 | undefined;
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint?: AISIEMEndpointPath1 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+   */
+  token: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+   */
+  baseUrl?: string | undefined;
+  /**
+   * Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+   */
+  hostExpression?: string | undefined;
+  /**
+   * Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+   */
+  sourceExpression?: string | undefined;
+  /**
+   * Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+   */
+  sourceTypeExpression?: string | undefined;
+  /**
+   * Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+   */
+  dataSourceCategoryExpression?: string | undefined;
+  /**
+   * Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+   */
+  dataSourceNameExpression?: string | undefined;
+  /**
+   * Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+   */
+  dataSourceVendorExpression?: string | undefined;
+  /**
+   * Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+   */
+  eventTypeExpression?: string | undefined;
+  /**
+   * Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+   */
+  host?: string | undefined;
+  /**
+   * Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+   */
+  source?: string | undefined;
+  /**
+   * Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+   */
+  sourceType?: string | undefined;
+  /**
+   * Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+   */
+  dataSourceCategory?: string | undefined;
+  /**
+   * Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceName?: string | undefined;
+  /**
+   * Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceVendor?: string | undefined;
+  /**
+   * Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+   */
+  eventType?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputSentinelOneAiSiem =
+  | OutputSentinelOneAiSiemSentinelOneAiSiem1
+  | OutputSentinelOneAiSiemSentinelOneAiSiem2
+  | OutputSentinelOneAiSiemSentinelOneAiSiem8
+  | OutputSentinelOneAiSiemSentinelOneAiSiem3
+  | OutputSentinelOneAiSiemSentinelOneAiSiem4
+  | OutputSentinelOneAiSiemSentinelOneAiSiem5
+  | OutputSentinelOneAiSiemSentinelOneAiSiem6
+  | OutputSentinelOneAiSiemSentinelOneAiSiem7;
 
 /** @internal */
-export const OutputSentinelOneAiSiemFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    unknown
-  > = z
+export const OutputSentinelOneAiSiemType8$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType8
+> = z.nativeEnum(OutputSentinelOneAiSiemType8);
+/** @internal */
+export const OutputSentinelOneAiSiemType8$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType8
+> = OutputSentinelOneAiSiemType8$inboundSchema;
+
+/** @internal */
+export const Region8$inboundSchema: z.ZodType<Region8, z.ZodTypeDef, unknown> =
+  z
     .union([
-      z.nativeEnum(OutputSentinelOneAiSiemFailedRequestLoggingMode),
+      z.nativeEnum(Region8),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
-export const OutputSentinelOneAiSiemFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    OutputSentinelOneAiSiemFailedRequestLoggingMode
-  > = z.union([
-    z.nativeEnum(OutputSentinelOneAiSiemFailedRequestLoggingMode),
+export const Region8$outboundSchema: z.ZodType<Region8, z.ZodTypeDef, Region8> =
+  z.union([
+    z.nativeEnum(Region8),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSentinelOneAiSiemFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelOneAiSiemFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemFailedRequestLoggingMode$outboundSchema;
-}
-
 /** @internal */
-export const OutputSentinelOneAiSiemAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputSentinelOneAiSiemAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputSentinelOneAiSiemAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemAuthenticationMethod,
-    z.ZodTypeDef,
-    OutputSentinelOneAiSiemAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputSentinelOneAiSiemAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemAuthenticationMethod$ {
-  /** @deprecated use `OutputSentinelOneAiSiemAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelOneAiSiemAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiemResponseRetrySetting$inboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemResponseRetrySetting,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/** @internal */
-export type OutputSentinelOneAiSiemResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputSentinelOneAiSiemResponseRetrySetting$outboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemResponseRetrySetting$Outbound,
-    z.ZodTypeDef,
-    OutputSentinelOneAiSiemResponseRetrySetting
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemResponseRetrySetting$ {
-  /** @deprecated use `OutputSentinelOneAiSiemResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelOneAiSiemResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSentinelOneAiSiemResponseRetrySetting$Outbound;
-}
-
-export function outputSentinelOneAiSiemResponseRetrySettingToJSON(
-  outputSentinelOneAiSiemResponseRetrySetting:
-    OutputSentinelOneAiSiemResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputSentinelOneAiSiemResponseRetrySetting$outboundSchema.parse(
-      outputSentinelOneAiSiemResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputSentinelOneAiSiemResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputSentinelOneAiSiemResponseRetrySetting,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSentinelOneAiSiemResponseRetrySetting$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputSentinelOneAiSiemResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiemTimeoutRetrySettings$inboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemTimeoutRetrySettings,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/** @internal */
-export type OutputSentinelOneAiSiemTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputSentinelOneAiSiemTimeoutRetrySettings$outboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemTimeoutRetrySettings$Outbound,
-    z.ZodTypeDef,
-    OutputSentinelOneAiSiemTimeoutRetrySettings
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSentinelOneAiSiemTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelOneAiSiemTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSentinelOneAiSiemTimeoutRetrySettings$Outbound;
-}
-
-export function outputSentinelOneAiSiemTimeoutRetrySettingsToJSON(
-  outputSentinelOneAiSiemTimeoutRetrySettings:
-    OutputSentinelOneAiSiemTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputSentinelOneAiSiemTimeoutRetrySettings$outboundSchema.parse(
-      outputSentinelOneAiSiemTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputSentinelOneAiSiemTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputSentinelOneAiSiemTimeoutRetrySettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSentinelOneAiSiemTimeoutRetrySettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputSentinelOneAiSiemTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiemBackpressureBehavior$inboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemBackpressureBehavior,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputSentinelOneAiSiemBackpressureBehavior),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputSentinelOneAiSiemBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    OutputSentinelOneAiSiemBackpressureBehavior,
-    z.ZodTypeDef,
-    OutputSentinelOneAiSiemBackpressureBehavior
-  > = z.union([
-    z.nativeEnum(OutputSentinelOneAiSiemBackpressureBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemBackpressureBehavior$ {
-  /** @deprecated use `OutputSentinelOneAiSiemBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelOneAiSiemBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiemCompression$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemCompression,
+export const AISIEMEndpointPath8$inboundSchema: z.ZodType<
+  AISIEMEndpointPath8,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputSentinelOneAiSiemCompression),
+    z.nativeEnum(AISIEMEndpointPath8),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputSentinelOneAiSiemCompression$outboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemCompression,
+export const AISIEMEndpointPath8$outboundSchema: z.ZodType<
+  AISIEMEndpointPath8,
   z.ZodTypeDef,
-  OutputSentinelOneAiSiemCompression
+  AISIEMEndpointPath8
 > = z.union([
-  z.nativeEnum(OutputSentinelOneAiSiemCompression),
+  z.nativeEnum(AISIEMEndpointPath8),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemCompression$ {
-  /** @deprecated use `OutputSentinelOneAiSiemCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelOneAiSiemCompression$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemCompression$outboundSchema;
-}
-
 /** @internal */
-export const OutputSentinelOneAiSiemQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelOneAiSiemQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelOneAiSiemQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSentinelOneAiSiemQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSentinelOneAiSiemQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemQueueFullBehavior$ {
-  /** @deprecated use `OutputSentinelOneAiSiemQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelOneAiSiemQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiemMode$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelOneAiSiemMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelOneAiSiemMode$outboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemMode,
-  z.ZodTypeDef,
-  OutputSentinelOneAiSiemMode
-> = z.union([
-  z.nativeEnum(OutputSentinelOneAiSiemMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemMode$ {
-  /** @deprecated use `OutputSentinelOneAiSiemMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelOneAiSiemMode$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelOneAiSiemMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiemPqControls$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputSentinelOneAiSiemPqControls$Outbound = {};
-
-/** @internal */
-export const OutputSentinelOneAiSiemPqControls$outboundSchema: z.ZodType<
-  OutputSentinelOneAiSiemPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputSentinelOneAiSiemPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiemPqControls$ {
-  /** @deprecated use `OutputSentinelOneAiSiemPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelOneAiSiemPqControls$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemPqControls$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelOneAiSiemPqControls$outboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiemPqControls$Outbound` instead. */
-  export type Outbound = OutputSentinelOneAiSiemPqControls$Outbound;
-}
-
-export function outputSentinelOneAiSiemPqControlsToJSON(
-  outputSentinelOneAiSiemPqControls: OutputSentinelOneAiSiemPqControls,
-): string {
-  return JSON.stringify(
-    OutputSentinelOneAiSiemPqControls$outboundSchema.parse(
-      outputSentinelOneAiSiemPqControls,
-    ),
-  );
-}
-
-export function outputSentinelOneAiSiemPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSentinelOneAiSiemPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSentinelOneAiSiemPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSentinelOneAiSiemPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
-  OutputSentinelOneAiSiem,
+export const OutputSentinelOneAiSiemSentinelOneAiSiem8$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemSentinelOneAiSiem8,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSentinelOneAiSiemType$inboundSchema,
+  type: OutputSentinelOneAiSiemType8$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: OutputSentinelOneAiSiemRegion$inboundSchema.default("US"),
-  endpoint: AISIEMEndpointPath$inboundSchema.default(
+  region: Region8$inboundSchema.default("US"),
+  endpoint: AISIEMEndpointPath8$inboundSchema.default(
     "/services/collector/event",
   ),
   concurrency: z.number().default(5),
@@ -954,26 +2056,15 @@ export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(5),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSentinelOneAiSiemExtraHttpHeader$inboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputSentinelOneAiSiemFailedRequestLoggingMode$inboundSchema.default(
-      "none",
-    ),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputSentinelOneAiSiemAuthenticationMethod$inboundSchema.default(
-    "manual",
-  ),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSentinelOneAiSiemResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSentinelOneAiSiemTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputSentinelOneAiSiemBackpressureBehavior$inboundSchema
-    .default("block"),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
@@ -998,19 +2089,21 @@ export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
   dataSourceName: z.string().default("cribl"),
   dataSourceVendor: z.string().default("cribl"),
   eventType: z.string().default(""),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSentinelOneAiSiemCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSentinelOneAiSiemQueueFullBehavior$inboundSchema
-    .default("block"),
-  pqMode: OutputSentinelOneAiSiemMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSentinelOneAiSiemPqControls$inboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputSentinelOneAiSiem$Outbound = {
+export type OutputSentinelOneAiSiemSentinelOneAiSiem8$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1026,18 +2119,541 @@ export type OutputSentinelOneAiSiem$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputSentinelOneAiSiemExtraHttpHeader$Outbound>
-    | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   authType: string;
-  responseRetrySettings?:
-    | Array<OutputSentinelOneAiSiemResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputSentinelOneAiSiemTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  baseUrl: string;
+  hostExpression: string;
+  sourceExpression: string;
+  sourceTypeExpression: string;
+  dataSourceCategoryExpression: string;
+  dataSourceNameExpression: string;
+  dataSourceVendorExpression: string;
+  eventTypeExpression: string;
+  host: string;
+  source: string;
+  sourceType: string;
+  dataSourceCategory: string;
+  dataSourceName: string;
+  dataSourceVendor: string;
+  eventType: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+};
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem8$outboundSchema:
+  z.ZodType<
+    OutputSentinelOneAiSiemSentinelOneAiSiem8$Outbound,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemSentinelOneAiSiem8
+  > = z.object({
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    id: z.string().optional(),
+    type: OutputSentinelOneAiSiemType8$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    region: Region8$outboundSchema.default("US"),
+    endpoint: AISIEMEndpointPath8$outboundSchema.default(
+      "/services/collector/event",
+    ),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(5120),
+    maxPayloadEvents: z.number().default(0),
+    compress: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushPeriodSec: z.number().default(5),
+    extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+    failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+      .default("none"),
+    safeHeaders: z.array(z.string()).optional(),
+    authType: AuthType2Options$outboundSchema.default("manual"),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+    hostExpression: z.string().default("__e.host || C.os.hostname()"),
+    sourceExpression: z.string().default(
+      "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+    ),
+    sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+    dataSourceCategoryExpression: z.string().default("'security'"),
+    dataSourceNameExpression: z.string().default(
+      "__e.__dataSourceName || 'cribl'",
+    ),
+    dataSourceVendorExpression: z.string().default(
+      "__e.__dataSourceVendor || 'cribl'",
+    ),
+    eventTypeExpression: z.string().default(""),
+    host: z.string().default("C.os.hostname()"),
+    source: z.string().default("cribl"),
+    sourceType: z.string().default("hecRawParser"),
+    dataSourceCategory: z.string().default("security"),
+    dataSourceName: z.string().default("cribl"),
+    dataSourceVendor: z.string().default("cribl"),
+    eventType: z.string().default(""),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema,
+  });
+
+export function outputSentinelOneAiSiemSentinelOneAiSiem8ToJSON(
+  outputSentinelOneAiSiemSentinelOneAiSiem8:
+    OutputSentinelOneAiSiemSentinelOneAiSiem8,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiemSentinelOneAiSiem8$outboundSchema.parse(
+      outputSentinelOneAiSiemSentinelOneAiSiem8,
+    ),
+  );
+}
+export function outputSentinelOneAiSiemSentinelOneAiSiem8FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputSentinelOneAiSiemSentinelOneAiSiem8,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSentinelOneAiSiemSentinelOneAiSiem8$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputSentinelOneAiSiemSentinelOneAiSiem8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelOneAiSiemType7$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType7
+> = z.nativeEnum(OutputSentinelOneAiSiemType7);
+/** @internal */
+export const OutputSentinelOneAiSiemType7$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType7
+> = OutputSentinelOneAiSiemType7$inboundSchema;
+
+/** @internal */
+export const Region7$inboundSchema: z.ZodType<Region7, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(Region7),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const Region7$outboundSchema: z.ZodType<Region7, z.ZodTypeDef, Region7> =
+  z.union([
+    z.nativeEnum(Region7),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const AISIEMEndpointPath7$inboundSchema: z.ZodType<
+  AISIEMEndpointPath7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AISIEMEndpointPath7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AISIEMEndpointPath7$outboundSchema: z.ZodType<
+  AISIEMEndpointPath7,
+  z.ZodTypeDef,
+  AISIEMEndpointPath7
+> = z.union([
+  z.nativeEnum(AISIEMEndpointPath7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem7$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemSentinelOneAiSiem7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSentinelOneAiSiemType7$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: Region7$inboundSchema.default("US"),
+  endpoint: AISIEMEndpointPath7$inboundSchema.default(
+    "/services/collector/event",
+  ),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(5120),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(5),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+  hostExpression: z.string().default("__e.host || C.os.hostname()"),
+  sourceExpression: z.string().default(
+    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+  ),
+  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+  dataSourceCategoryExpression: z.string().default("'security'"),
+  dataSourceNameExpression: z.string().default(
+    "__e.__dataSourceName || 'cribl'",
+  ),
+  dataSourceVendorExpression: z.string().default(
+    "__e.__dataSourceVendor || 'cribl'",
+  ),
+  eventTypeExpression: z.string().default(""),
+  host: z.string().default("C.os.hostname()"),
+  source: z.string().default("cribl"),
+  sourceType: z.string().default("hecRawParser"),
+  dataSourceCategory: z.string().default("security"),
+  dataSourceName: z.string().default("cribl"),
+  dataSourceVendor: z.string().default("cribl"),
+  eventType: z.string().default(""),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSentinelOneAiSiemSentinelOneAiSiem7$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  endpoint: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  baseUrl: string;
+  hostExpression: string;
+  sourceExpression: string;
+  sourceTypeExpression: string;
+  dataSourceCategoryExpression: string;
+  dataSourceNameExpression: string;
+  dataSourceVendorExpression: string;
+  eventTypeExpression: string;
+  host: string;
+  source: string;
+  sourceType: string;
+  dataSourceCategory: string;
+  dataSourceName: string;
+  dataSourceVendor: string;
+  eventType: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem7$outboundSchema:
+  z.ZodType<
+    OutputSentinelOneAiSiemSentinelOneAiSiem7$Outbound,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemSentinelOneAiSiem7
+  > = z.object({
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    id: z.string().optional(),
+    type: OutputSentinelOneAiSiemType7$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    region: Region7$outboundSchema.default("US"),
+    endpoint: AISIEMEndpointPath7$outboundSchema.default(
+      "/services/collector/event",
+    ),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(5120),
+    maxPayloadEvents: z.number().default(0),
+    compress: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushPeriodSec: z.number().default(5),
+    extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+    failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+      .default("none"),
+    safeHeaders: z.array(z.string()).optional(),
+    authType: AuthType2Options$outboundSchema.default("manual"),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+    hostExpression: z.string().default("__e.host || C.os.hostname()"),
+    sourceExpression: z.string().default(
+      "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+    ),
+    sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+    dataSourceCategoryExpression: z.string().default("'security'"),
+    dataSourceNameExpression: z.string().default(
+      "__e.__dataSourceName || 'cribl'",
+    ),
+    dataSourceVendorExpression: z.string().default(
+      "__e.__dataSourceVendor || 'cribl'",
+    ),
+    eventTypeExpression: z.string().default(""),
+    host: z.string().default("C.os.hostname()"),
+    source: z.string().default("cribl"),
+    sourceType: z.string().default("hecRawParser"),
+    dataSourceCategory: z.string().default("security"),
+    dataSourceName: z.string().default("cribl"),
+    dataSourceVendor: z.string().default("cribl"),
+    eventType: z.string().default(""),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputSentinelOneAiSiemSentinelOneAiSiem7ToJSON(
+  outputSentinelOneAiSiemSentinelOneAiSiem7:
+    OutputSentinelOneAiSiemSentinelOneAiSiem7,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiemSentinelOneAiSiem7$outboundSchema.parse(
+      outputSentinelOneAiSiemSentinelOneAiSiem7,
+    ),
+  );
+}
+export function outputSentinelOneAiSiemSentinelOneAiSiem7FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputSentinelOneAiSiemSentinelOneAiSiem7,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSentinelOneAiSiemSentinelOneAiSiem7$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputSentinelOneAiSiemSentinelOneAiSiem7' from JSON`,
+  );
+}
+
+/** @internal */
+export const AISIEMEndpointPath6$inboundSchema: z.ZodType<
+  AISIEMEndpointPath6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AISIEMEndpointPath6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AISIEMEndpointPath6$outboundSchema: z.ZodType<
+  AISIEMEndpointPath6,
+  z.ZodTypeDef,
+  AISIEMEndpointPath6
+> = z.union([
+  z.nativeEnum(AISIEMEndpointPath6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType6
+> = z.nativeEnum(OutputSentinelOneAiSiemType6);
+/** @internal */
+export const OutputSentinelOneAiSiemType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType6
+> = OutputSentinelOneAiSiemType6$inboundSchema;
+
+/** @internal */
+export const Region6$inboundSchema: z.ZodType<Region6, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(Region6),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const Region6$outboundSchema: z.ZodType<Region6, z.ZodTypeDef, Region6> =
+  z.union([
+    z.nativeEnum(Region6),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem6$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemSentinelOneAiSiem6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  endpoint: AISIEMEndpointPath6$inboundSchema.default(
+    "/services/collector/event",
+  ),
+  id: z.string().optional(),
+  type: OutputSentinelOneAiSiemType6$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: Region6$inboundSchema.default("US"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(5120),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(5),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+  hostExpression: z.string().default("__e.host || C.os.hostname()"),
+  sourceExpression: z.string().default(
+    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+  ),
+  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+  dataSourceCategoryExpression: z.string().default("'security'"),
+  dataSourceNameExpression: z.string().default(
+    "__e.__dataSourceName || 'cribl'",
+  ),
+  dataSourceVendorExpression: z.string().default(
+    "__e.__dataSourceVendor || 'cribl'",
+  ),
+  eventTypeExpression: z.string().default(""),
+  host: z.string().default("C.os.hostname()"),
+  source: z.string().default("cribl"),
+  sourceType: z.string().default("hecRawParser"),
+  dataSourceCategory: z.string().default("security"),
+  dataSourceName: z.string().default("cribl"),
+  dataSourceVendor: z.string().default("cribl"),
+  eventType: z.string().default(""),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSentinelOneAiSiemSentinelOneAiSiem6$Outbound = {
+  endpoint: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   description?: string | undefined;
@@ -1058,31 +2674,175 @@ export type OutputSentinelOneAiSiem$Outbound = {
   dataSourceName: string;
   dataSourceVendor: string;
   eventType: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputSentinelOneAiSiemPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
-  OutputSentinelOneAiSiem$Outbound,
+export const OutputSentinelOneAiSiemSentinelOneAiSiem6$outboundSchema:
+  z.ZodType<
+    OutputSentinelOneAiSiemSentinelOneAiSiem6$Outbound,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemSentinelOneAiSiem6
+  > = z.object({
+    endpoint: AISIEMEndpointPath6$outboundSchema.default(
+      "/services/collector/event",
+    ),
+    id: z.string().optional(),
+    type: OutputSentinelOneAiSiemType6$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    region: Region6$outboundSchema.default("US"),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(5120),
+    maxPayloadEvents: z.number().default(0),
+    compress: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushPeriodSec: z.number().default(5),
+    extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+    failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+      .default("none"),
+    safeHeaders: z.array(z.string()).optional(),
+    authType: AuthType2Options$outboundSchema.default("manual"),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+    hostExpression: z.string().default("__e.host || C.os.hostname()"),
+    sourceExpression: z.string().default(
+      "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+    ),
+    sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+    dataSourceCategoryExpression: z.string().default("'security'"),
+    dataSourceNameExpression: z.string().default(
+      "__e.__dataSourceName || 'cribl'",
+    ),
+    dataSourceVendorExpression: z.string().default(
+      "__e.__dataSourceVendor || 'cribl'",
+    ),
+    eventTypeExpression: z.string().default(""),
+    host: z.string().default("C.os.hostname()"),
+    source: z.string().default("cribl"),
+    sourceType: z.string().default("hecRawParser"),
+    dataSourceCategory: z.string().default("security"),
+    dataSourceName: z.string().default("cribl"),
+    dataSourceVendor: z.string().default("cribl"),
+    eventType: z.string().default(""),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputSentinelOneAiSiemSentinelOneAiSiem6ToJSON(
+  outputSentinelOneAiSiemSentinelOneAiSiem6:
+    OutputSentinelOneAiSiemSentinelOneAiSiem6,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiemSentinelOneAiSiem6$outboundSchema.parse(
+      outputSentinelOneAiSiemSentinelOneAiSiem6,
+    ),
+  );
+}
+export function outputSentinelOneAiSiemSentinelOneAiSiem6FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputSentinelOneAiSiemSentinelOneAiSiem6,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSentinelOneAiSiemSentinelOneAiSiem6$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputSentinelOneAiSiemSentinelOneAiSiem6' from JSON`,
+  );
+}
+
+/** @internal */
+export const AISIEMEndpointPath5$inboundSchema: z.ZodType<
+  AISIEMEndpointPath5,
   z.ZodTypeDef,
-  OutputSentinelOneAiSiem
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AISIEMEndpointPath5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AISIEMEndpointPath5$outboundSchema: z.ZodType<
+  AISIEMEndpointPath5,
+  z.ZodTypeDef,
+  AISIEMEndpointPath5
+> = z.union([
+  z.nativeEnum(AISIEMEndpointPath5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType5
+> = z.nativeEnum(OutputSentinelOneAiSiemType5);
+/** @internal */
+export const OutputSentinelOneAiSiemType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType5
+> = OutputSentinelOneAiSiemType5$inboundSchema;
+
+/** @internal */
+export const Region5$inboundSchema: z.ZodType<Region5, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(Region5),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const Region5$outboundSchema: z.ZodType<Region5, z.ZodTypeDef, Region5> =
+  z.union([
+    z.nativeEnum(Region5),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem5$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemSentinelOneAiSiem5,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
+  endpoint: AISIEMEndpointPath5$inboundSchema.default(
+    "/services/collector/event",
+  ),
   id: z.string().optional(),
-  type: OutputSentinelOneAiSiemType$outboundSchema,
+  type: OutputSentinelOneAiSiemType5$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: OutputSentinelOneAiSiemRegion$outboundSchema.default("US"),
-  endpoint: AISIEMEndpointPath$outboundSchema.default(
-    "/services/collector/event",
-  ),
+  region: Region5$inboundSchema.default("US"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(5120),
   maxPayloadEvents: z.number().default(0),
@@ -1090,26 +2850,16 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(5),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSentinelOneAiSiemExtraHttpHeader$outboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputSentinelOneAiSiemFailedRequestLoggingMode$outboundSchema.default(
-      "none",
-    ),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputSentinelOneAiSiemAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSentinelOneAiSiemResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSentinelOneAiSiemTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputSentinelOneAiSiemBackpressureBehavior$outboundSchema
-    .default("block"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
@@ -1134,29 +2884,1272 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   dataSourceName: z.string().default("cribl"),
   dataSourceVendor: z.string().default("cribl"),
   eventType: z.string().default(""),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSentinelOneAiSiemCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSentinelOneAiSiemQueueFullBehavior$outboundSchema
-    .default("block"),
-  pqMode: OutputSentinelOneAiSiemMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSentinelOneAiSiemPqControls$outboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
 });
+/** @internal */
+export type OutputSentinelOneAiSiemSentinelOneAiSiem5$Outbound = {
+  endpoint: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  baseUrl: string;
+  hostExpression: string;
+  sourceExpression: string;
+  sourceTypeExpression: string;
+  dataSourceCategoryExpression: string;
+  dataSourceNameExpression: string;
+  dataSourceVendorExpression: string;
+  eventTypeExpression: string;
+  host: string;
+  source: string;
+  sourceType: string;
+  dataSourceCategory: string;
+  dataSourceName: string;
+  dataSourceVendor: string;
+  eventType: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelOneAiSiem$ {
-  /** @deprecated use `OutputSentinelOneAiSiem$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelOneAiSiem$inboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiem$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelOneAiSiem$outboundSchema;
-  /** @deprecated use `OutputSentinelOneAiSiem$Outbound` instead. */
-  export type Outbound = OutputSentinelOneAiSiem$Outbound;
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem5$outboundSchema:
+  z.ZodType<
+    OutputSentinelOneAiSiemSentinelOneAiSiem5$Outbound,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemSentinelOneAiSiem5
+  > = z.object({
+    endpoint: AISIEMEndpointPath5$outboundSchema.default(
+      "/services/collector/event",
+    ),
+    id: z.string().optional(),
+    type: OutputSentinelOneAiSiemType5$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    region: Region5$outboundSchema.default("US"),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(5120),
+    maxPayloadEvents: z.number().default(0),
+    compress: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushPeriodSec: z.number().default(5),
+    extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+    failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+      .default("none"),
+    safeHeaders: z.array(z.string()).optional(),
+    authType: AuthType2Options$outboundSchema.default("manual"),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+    hostExpression: z.string().default("__e.host || C.os.hostname()"),
+    sourceExpression: z.string().default(
+      "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+    ),
+    sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+    dataSourceCategoryExpression: z.string().default("'security'"),
+    dataSourceNameExpression: z.string().default(
+      "__e.__dataSourceName || 'cribl'",
+    ),
+    dataSourceVendorExpression: z.string().default(
+      "__e.__dataSourceVendor || 'cribl'",
+    ),
+    eventTypeExpression: z.string().default(""),
+    host: z.string().default("C.os.hostname()"),
+    source: z.string().default("cribl"),
+    sourceType: z.string().default("hecRawParser"),
+    dataSourceCategory: z.string().default("security"),
+    dataSourceName: z.string().default("cribl"),
+    dataSourceVendor: z.string().default("cribl"),
+    eventType: z.string().default(""),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputSentinelOneAiSiemSentinelOneAiSiem5ToJSON(
+  outputSentinelOneAiSiemSentinelOneAiSiem5:
+    OutputSentinelOneAiSiemSentinelOneAiSiem5,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiemSentinelOneAiSiem5$outboundSchema.parse(
+      outputSentinelOneAiSiemSentinelOneAiSiem5,
+    ),
+  );
 }
+export function outputSentinelOneAiSiemSentinelOneAiSiem5FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputSentinelOneAiSiemSentinelOneAiSiem5,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSentinelOneAiSiemSentinelOneAiSiem5$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputSentinelOneAiSiemSentinelOneAiSiem5' from JSON`,
+  );
+}
+
+/** @internal */
+export const Region4$inboundSchema: z.ZodType<Region4, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(Region4),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const Region4$outboundSchema: z.ZodType<Region4, z.ZodTypeDef, Region4> =
+  z.union([
+    z.nativeEnum(Region4),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType4
+> = z.nativeEnum(OutputSentinelOneAiSiemType4);
+/** @internal */
+export const OutputSentinelOneAiSiemType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType4
+> = OutputSentinelOneAiSiemType4$inboundSchema;
+
+/** @internal */
+export const AISIEMEndpointPath4$inboundSchema: z.ZodType<
+  AISIEMEndpointPath4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AISIEMEndpointPath4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AISIEMEndpointPath4$outboundSchema: z.ZodType<
+  AISIEMEndpointPath4,
+  z.ZodTypeDef,
+  AISIEMEndpointPath4
+> = z.union([
+  z.nativeEnum(AISIEMEndpointPath4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem4$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemSentinelOneAiSiem4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  region: Region4$inboundSchema.default("US"),
+  id: z.string().optional(),
+  type: OutputSentinelOneAiSiemType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: AISIEMEndpointPath4$inboundSchema.default(
+    "/services/collector/event",
+  ),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(5120),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(5),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+  hostExpression: z.string().default("__e.host || C.os.hostname()"),
+  sourceExpression: z.string().default(
+    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+  ),
+  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+  dataSourceCategoryExpression: z.string().default("'security'"),
+  dataSourceNameExpression: z.string().default(
+    "__e.__dataSourceName || 'cribl'",
+  ),
+  dataSourceVendorExpression: z.string().default(
+    "__e.__dataSourceVendor || 'cribl'",
+  ),
+  eventTypeExpression: z.string().default(""),
+  host: z.string().default("C.os.hostname()"),
+  source: z.string().default("cribl"),
+  sourceType: z.string().default("hecRawParser"),
+  dataSourceCategory: z.string().default("security"),
+  dataSourceName: z.string().default("cribl"),
+  dataSourceVendor: z.string().default("cribl"),
+  eventType: z.string().default(""),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSentinelOneAiSiemSentinelOneAiSiem4$Outbound = {
+  region: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  baseUrl: string;
+  hostExpression: string;
+  sourceExpression: string;
+  sourceTypeExpression: string;
+  dataSourceCategoryExpression: string;
+  dataSourceNameExpression: string;
+  dataSourceVendorExpression: string;
+  eventTypeExpression: string;
+  host: string;
+  source: string;
+  sourceType: string;
+  dataSourceCategory: string;
+  dataSourceName: string;
+  dataSourceVendor: string;
+  eventType: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem4$outboundSchema:
+  z.ZodType<
+    OutputSentinelOneAiSiemSentinelOneAiSiem4$Outbound,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemSentinelOneAiSiem4
+  > = z.object({
+    region: Region4$outboundSchema.default("US"),
+    id: z.string().optional(),
+    type: OutputSentinelOneAiSiemType4$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    endpoint: AISIEMEndpointPath4$outboundSchema.default(
+      "/services/collector/event",
+    ),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(5120),
+    maxPayloadEvents: z.number().default(0),
+    compress: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushPeriodSec: z.number().default(5),
+    extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+    failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+      .default("none"),
+    safeHeaders: z.array(z.string()).optional(),
+    authType: AuthType2Options$outboundSchema.default("manual"),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+    hostExpression: z.string().default("__e.host || C.os.hostname()"),
+    sourceExpression: z.string().default(
+      "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+    ),
+    sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+    dataSourceCategoryExpression: z.string().default("'security'"),
+    dataSourceNameExpression: z.string().default(
+      "__e.__dataSourceName || 'cribl'",
+    ),
+    dataSourceVendorExpression: z.string().default(
+      "__e.__dataSourceVendor || 'cribl'",
+    ),
+    eventTypeExpression: z.string().default(""),
+    host: z.string().default("C.os.hostname()"),
+    source: z.string().default("cribl"),
+    sourceType: z.string().default("hecRawParser"),
+    dataSourceCategory: z.string().default("security"),
+    dataSourceName: z.string().default("cribl"),
+    dataSourceVendor: z.string().default("cribl"),
+    eventType: z.string().default(""),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputSentinelOneAiSiemSentinelOneAiSiem4ToJSON(
+  outputSentinelOneAiSiemSentinelOneAiSiem4:
+    OutputSentinelOneAiSiemSentinelOneAiSiem4,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiemSentinelOneAiSiem4$outboundSchema.parse(
+      outputSentinelOneAiSiemSentinelOneAiSiem4,
+    ),
+  );
+}
+export function outputSentinelOneAiSiemSentinelOneAiSiem4FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputSentinelOneAiSiemSentinelOneAiSiem4,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSentinelOneAiSiemSentinelOneAiSiem4$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputSentinelOneAiSiemSentinelOneAiSiem4' from JSON`,
+  );
+}
+
+/** @internal */
+export const Region3$inboundSchema: z.ZodType<Region3, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(Region3),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const Region3$outboundSchema: z.ZodType<Region3, z.ZodTypeDef, Region3> =
+  z.union([
+    z.nativeEnum(Region3),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType3
+> = z.nativeEnum(OutputSentinelOneAiSiemType3);
+/** @internal */
+export const OutputSentinelOneAiSiemType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType3
+> = OutputSentinelOneAiSiemType3$inboundSchema;
+
+/** @internal */
+export const AISIEMEndpointPath3$inboundSchema: z.ZodType<
+  AISIEMEndpointPath3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AISIEMEndpointPath3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AISIEMEndpointPath3$outboundSchema: z.ZodType<
+  AISIEMEndpointPath3,
+  z.ZodTypeDef,
+  AISIEMEndpointPath3
+> = z.union([
+  z.nativeEnum(AISIEMEndpointPath3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem3$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemSentinelOneAiSiem3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  region: Region3$inboundSchema.default("US"),
+  id: z.string().optional(),
+  type: OutputSentinelOneAiSiemType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: AISIEMEndpointPath3$inboundSchema.default(
+    "/services/collector/event",
+  ),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(5120),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(5),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+  hostExpression: z.string().default("__e.host || C.os.hostname()"),
+  sourceExpression: z.string().default(
+    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+  ),
+  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+  dataSourceCategoryExpression: z.string().default("'security'"),
+  dataSourceNameExpression: z.string().default(
+    "__e.__dataSourceName || 'cribl'",
+  ),
+  dataSourceVendorExpression: z.string().default(
+    "__e.__dataSourceVendor || 'cribl'",
+  ),
+  eventTypeExpression: z.string().default(""),
+  host: z.string().default("C.os.hostname()"),
+  source: z.string().default("cribl"),
+  sourceType: z.string().default("hecRawParser"),
+  dataSourceCategory: z.string().default("security"),
+  dataSourceName: z.string().default("cribl"),
+  dataSourceVendor: z.string().default("cribl"),
+  eventType: z.string().default(""),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSentinelOneAiSiemSentinelOneAiSiem3$Outbound = {
+  region: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  baseUrl: string;
+  hostExpression: string;
+  sourceExpression: string;
+  sourceTypeExpression: string;
+  dataSourceCategoryExpression: string;
+  dataSourceNameExpression: string;
+  dataSourceVendorExpression: string;
+  eventTypeExpression: string;
+  host: string;
+  source: string;
+  sourceType: string;
+  dataSourceCategory: string;
+  dataSourceName: string;
+  dataSourceVendor: string;
+  eventType: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem3$outboundSchema:
+  z.ZodType<
+    OutputSentinelOneAiSiemSentinelOneAiSiem3$Outbound,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemSentinelOneAiSiem3
+  > = z.object({
+    region: Region3$outboundSchema.default("US"),
+    id: z.string().optional(),
+    type: OutputSentinelOneAiSiemType3$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    endpoint: AISIEMEndpointPath3$outboundSchema.default(
+      "/services/collector/event",
+    ),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(5120),
+    maxPayloadEvents: z.number().default(0),
+    compress: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushPeriodSec: z.number().default(5),
+    extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+    failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+      .default("none"),
+    safeHeaders: z.array(z.string()).optional(),
+    authType: AuthType2Options$outboundSchema.default("manual"),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string().optional(),
+    baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+    hostExpression: z.string().default("__e.host || C.os.hostname()"),
+    sourceExpression: z.string().default(
+      "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+    ),
+    sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+    dataSourceCategoryExpression: z.string().default("'security'"),
+    dataSourceNameExpression: z.string().default(
+      "__e.__dataSourceName || 'cribl'",
+    ),
+    dataSourceVendorExpression: z.string().default(
+      "__e.__dataSourceVendor || 'cribl'",
+    ),
+    eventTypeExpression: z.string().default(""),
+    host: z.string().default("C.os.hostname()"),
+    source: z.string().default("cribl"),
+    sourceType: z.string().default("hecRawParser"),
+    dataSourceCategory: z.string().default("security"),
+    dataSourceName: z.string().default("cribl"),
+    dataSourceVendor: z.string().default("cribl"),
+    eventType: z.string().default(""),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputSentinelOneAiSiemSentinelOneAiSiem3ToJSON(
+  outputSentinelOneAiSiemSentinelOneAiSiem3:
+    OutputSentinelOneAiSiemSentinelOneAiSiem3,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiemSentinelOneAiSiem3$outboundSchema.parse(
+      outputSentinelOneAiSiemSentinelOneAiSiem3,
+    ),
+  );
+}
+export function outputSentinelOneAiSiemSentinelOneAiSiem3FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputSentinelOneAiSiemSentinelOneAiSiem3,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSentinelOneAiSiemSentinelOneAiSiem3$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputSentinelOneAiSiemSentinelOneAiSiem3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelOneAiSiemType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType2
+> = z.nativeEnum(OutputSentinelOneAiSiemType2);
+/** @internal */
+export const OutputSentinelOneAiSiemType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType2
+> = OutputSentinelOneAiSiemType2$inboundSchema;
+
+/** @internal */
+export const Region2$inboundSchema: z.ZodType<Region2, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(Region2),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const Region2$outboundSchema: z.ZodType<Region2, z.ZodTypeDef, Region2> =
+  z.union([
+    z.nativeEnum(Region2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const AISIEMEndpointPath2$inboundSchema: z.ZodType<
+  AISIEMEndpointPath2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AISIEMEndpointPath2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AISIEMEndpointPath2$outboundSchema: z.ZodType<
+  AISIEMEndpointPath2,
+  z.ZodTypeDef,
+  AISIEMEndpointPath2
+> = z.union([
+  z.nativeEnum(AISIEMEndpointPath2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem2$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemSentinelOneAiSiem2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputSentinelOneAiSiemType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: Region2$inboundSchema.default("US"),
+  endpoint: AISIEMEndpointPath2$inboundSchema.default(
+    "/services/collector/event",
+  ),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(5120),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(5),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+  hostExpression: z.string().default("__e.host || C.os.hostname()"),
+  sourceExpression: z.string().default(
+    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+  ),
+  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+  dataSourceCategoryExpression: z.string().default("'security'"),
+  dataSourceNameExpression: z.string().default(
+    "__e.__dataSourceName || 'cribl'",
+  ),
+  dataSourceVendorExpression: z.string().default(
+    "__e.__dataSourceVendor || 'cribl'",
+  ),
+  eventTypeExpression: z.string().default(""),
+  host: z.string().default("C.os.hostname()"),
+  source: z.string().default("cribl"),
+  sourceType: z.string().default("hecRawParser"),
+  dataSourceCategory: z.string().default("security"),
+  dataSourceName: z.string().default("cribl"),
+  dataSourceVendor: z.string().default("cribl"),
+  eventType: z.string().default(""),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSentinelOneAiSiemSentinelOneAiSiem2$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  endpoint: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret: string;
+  baseUrl: string;
+  hostExpression: string;
+  sourceExpression: string;
+  sourceTypeExpression: string;
+  dataSourceCategoryExpression: string;
+  dataSourceNameExpression: string;
+  dataSourceVendorExpression: string;
+  eventTypeExpression: string;
+  host: string;
+  source: string;
+  sourceType: string;
+  dataSourceCategory: string;
+  dataSourceName: string;
+  dataSourceVendor: string;
+  eventType: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem2$outboundSchema:
+  z.ZodType<
+    OutputSentinelOneAiSiemSentinelOneAiSiem2$Outbound,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemSentinelOneAiSiem2
+  > = z.object({
+    authType: AuthType2Options$outboundSchema.default("manual"),
+    id: z.string().optional(),
+    type: OutputSentinelOneAiSiemType2$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    region: Region2$outboundSchema.default("US"),
+    endpoint: AISIEMEndpointPath2$outboundSchema.default(
+      "/services/collector/event",
+    ),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(5120),
+    maxPayloadEvents: z.number().default(0),
+    compress: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushPeriodSec: z.number().default(5),
+    extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+    failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+      .default("none"),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    description: z.string().optional(),
+    token: z.string().optional(),
+    textSecret: z.string(),
+    baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+    hostExpression: z.string().default("__e.host || C.os.hostname()"),
+    sourceExpression: z.string().default(
+      "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+    ),
+    sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+    dataSourceCategoryExpression: z.string().default("'security'"),
+    dataSourceNameExpression: z.string().default(
+      "__e.__dataSourceName || 'cribl'",
+    ),
+    dataSourceVendorExpression: z.string().default(
+      "__e.__dataSourceVendor || 'cribl'",
+    ),
+    eventTypeExpression: z.string().default(""),
+    host: z.string().default("C.os.hostname()"),
+    source: z.string().default("cribl"),
+    sourceType: z.string().default("hecRawParser"),
+    dataSourceCategory: z.string().default("security"),
+    dataSourceName: z.string().default("cribl"),
+    dataSourceVendor: z.string().default("cribl"),
+    eventType: z.string().default(""),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputSentinelOneAiSiemSentinelOneAiSiem2ToJSON(
+  outputSentinelOneAiSiemSentinelOneAiSiem2:
+    OutputSentinelOneAiSiemSentinelOneAiSiem2,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiemSentinelOneAiSiem2$outboundSchema.parse(
+      outputSentinelOneAiSiemSentinelOneAiSiem2,
+    ),
+  );
+}
+export function outputSentinelOneAiSiemSentinelOneAiSiem2FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputSentinelOneAiSiemSentinelOneAiSiem2,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSentinelOneAiSiemSentinelOneAiSiem2$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputSentinelOneAiSiemSentinelOneAiSiem2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelOneAiSiemType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType1
+> = z.nativeEnum(OutputSentinelOneAiSiemType1);
+/** @internal */
+export const OutputSentinelOneAiSiemType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelOneAiSiemType1
+> = OutputSentinelOneAiSiemType1$inboundSchema;
+
+/** @internal */
+export const Region1$inboundSchema: z.ZodType<Region1, z.ZodTypeDef, unknown> =
+  z
+    .union([
+      z.nativeEnum(Region1),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const Region1$outboundSchema: z.ZodType<Region1, z.ZodTypeDef, Region1> =
+  z.union([
+    z.nativeEnum(Region1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const AISIEMEndpointPath1$inboundSchema: z.ZodType<
+  AISIEMEndpointPath1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AISIEMEndpointPath1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AISIEMEndpointPath1$outboundSchema: z.ZodType<
+  AISIEMEndpointPath1,
+  z.ZodTypeDef,
+  AISIEMEndpointPath1
+> = z.union([
+  z.nativeEnum(AISIEMEndpointPath1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem1$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiemSentinelOneAiSiem1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputSentinelOneAiSiemType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: Region1$inboundSchema.default("US"),
+  endpoint: AISIEMEndpointPath1$inboundSchema.default(
+    "/services/collector/event",
+  ),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(5120),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(5),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+  hostExpression: z.string().default("__e.host || C.os.hostname()"),
+  sourceExpression: z.string().default(
+    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+  ),
+  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+  dataSourceCategoryExpression: z.string().default("'security'"),
+  dataSourceNameExpression: z.string().default(
+    "__e.__dataSourceName || 'cribl'",
+  ),
+  dataSourceVendorExpression: z.string().default(
+    "__e.__dataSourceVendor || 'cribl'",
+  ),
+  eventTypeExpression: z.string().default(""),
+  host: z.string().default("C.os.hostname()"),
+  source: z.string().default("cribl"),
+  sourceType: z.string().default("hecRawParser"),
+  dataSourceCategory: z.string().default("security"),
+  dataSourceName: z.string().default("cribl"),
+  dataSourceVendor: z.string().default("cribl"),
+  eventType: z.string().default(""),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSentinelOneAiSiemSentinelOneAiSiem1$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  endpoint: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  token: string;
+  textSecret?: string | undefined;
+  baseUrl: string;
+  hostExpression: string;
+  sourceExpression: string;
+  sourceTypeExpression: string;
+  dataSourceCategoryExpression: string;
+  dataSourceNameExpression: string;
+  dataSourceVendorExpression: string;
+  eventTypeExpression: string;
+  host: string;
+  source: string;
+  sourceType: string;
+  dataSourceCategory: string;
+  dataSourceName: string;
+  dataSourceVendor: string;
+  eventType: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSentinelOneAiSiemSentinelOneAiSiem1$outboundSchema:
+  z.ZodType<
+    OutputSentinelOneAiSiemSentinelOneAiSiem1$Outbound,
+    z.ZodTypeDef,
+    OutputSentinelOneAiSiemSentinelOneAiSiem1
+  > = z.object({
+    authType: AuthType2Options$outboundSchema.default("manual"),
+    id: z.string().optional(),
+    type: OutputSentinelOneAiSiemType1$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    region: Region1$outboundSchema.default("US"),
+    endpoint: AISIEMEndpointPath1$outboundSchema.default(
+      "/services/collector/event",
+    ),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(5120),
+    maxPayloadEvents: z.number().default(0),
+    compress: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushPeriodSec: z.number().default(5),
+    extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+    failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+      .default("none"),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    description: z.string().optional(),
+    token: z.string(),
+    textSecret: z.string().optional(),
+    baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
+    hostExpression: z.string().default("__e.host || C.os.hostname()"),
+    sourceExpression: z.string().default(
+      "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
+    ),
+    sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
+    dataSourceCategoryExpression: z.string().default("'security'"),
+    dataSourceNameExpression: z.string().default(
+      "__e.__dataSourceName || 'cribl'",
+    ),
+    dataSourceVendorExpression: z.string().default(
+      "__e.__dataSourceVendor || 'cribl'",
+    ),
+    eventTypeExpression: z.string().default(""),
+    host: z.string().default("C.os.hostname()"),
+    source: z.string().default("cribl"),
+    sourceType: z.string().default("hecRawParser"),
+    dataSourceCategory: z.string().default("security"),
+    dataSourceName: z.string().default("cribl"),
+    dataSourceVendor: z.string().default("cribl"),
+    eventType: z.string().default(""),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputSentinelOneAiSiemSentinelOneAiSiem1ToJSON(
+  outputSentinelOneAiSiemSentinelOneAiSiem1:
+    OutputSentinelOneAiSiemSentinelOneAiSiem1,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiemSentinelOneAiSiem1$outboundSchema.parse(
+      outputSentinelOneAiSiemSentinelOneAiSiem1,
+    ),
+  );
+}
+export function outputSentinelOneAiSiemSentinelOneAiSiem1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputSentinelOneAiSiemSentinelOneAiSiem1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSentinelOneAiSiemSentinelOneAiSiem1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputSentinelOneAiSiemSentinelOneAiSiem1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelOneAiSiem$inboundSchema: z.ZodType<
+  OutputSentinelOneAiSiem,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem1$inboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem2$inboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem8$inboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem3$inboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem4$inboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem5$inboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem6$inboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem7$inboundSchema),
+]);
+/** @internal */
+export type OutputSentinelOneAiSiem$Outbound =
+  | OutputSentinelOneAiSiemSentinelOneAiSiem1$Outbound
+  | OutputSentinelOneAiSiemSentinelOneAiSiem2$Outbound
+  | OutputSentinelOneAiSiemSentinelOneAiSiem8$Outbound
+  | OutputSentinelOneAiSiemSentinelOneAiSiem3$Outbound
+  | OutputSentinelOneAiSiemSentinelOneAiSiem4$Outbound
+  | OutputSentinelOneAiSiemSentinelOneAiSiem5$Outbound
+  | OutputSentinelOneAiSiemSentinelOneAiSiem6$Outbound
+  | OutputSentinelOneAiSiemSentinelOneAiSiem7$Outbound;
+
+/** @internal */
+export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
+  OutputSentinelOneAiSiem$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelOneAiSiem
+> = z.union([
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem1$outboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem2$outboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem8$outboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem3$outboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem4$outboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem5$outboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem6$outboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiemSentinelOneAiSiem7$outboundSchema),
+]);
 
 export function outputSentinelOneAiSiemToJSON(
   outputSentinelOneAiSiem: OutputSentinelOneAiSiem,
@@ -1165,7 +4158,6 @@ export function outputSentinelOneAiSiemToJSON(
     OutputSentinelOneAiSiem$outboundSchema.parse(outputSentinelOneAiSiem),
   );
 }
-
 export function outputSentinelOneAiSiemFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSentinelOneAiSiem, SDKValidationError> {

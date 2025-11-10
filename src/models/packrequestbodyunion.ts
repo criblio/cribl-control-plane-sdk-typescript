@@ -3,16 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PackRequestBodyTags2 = {
-  dataType?: Array<string> | undefined;
-  domain?: Array<string> | undefined;
-  technology?: Array<string> | undefined;
-  streamtags?: Array<string> | undefined;
-};
+import {
+  Tags1Type,
+  Tags1Type$Outbound,
+  Tags1Type$outboundSchema,
+} from "./tags1type.js";
 
 export type PackRequestBody2 = {
   id?: string | undefined;
@@ -26,16 +21,9 @@ export type PackRequestBody2 = {
    * The source of the pack. If not present, an empty pack will be created
    */
   source: string;
-  tags?: PackRequestBodyTags2 | undefined;
+  tags?: Tags1Type | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
-};
-
-export type PackRequestBodyTags1 = {
-  dataType?: Array<string> | undefined;
-  domain?: Array<string> | undefined;
-  technology?: Array<string> | undefined;
-  streamtags?: Array<string> | undefined;
 };
 
 export type PackRequestBody1 = {
@@ -50,94 +38,12 @@ export type PackRequestBody1 = {
    * The source of the pack. If not present, an empty pack will be created
    */
   source?: string | undefined;
-  tags?: PackRequestBodyTags1 | undefined;
+  tags?: Tags1Type | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
 };
 
 export type PackRequestBodyUnion = PackRequestBody1 | PackRequestBody2;
-
-/** @internal */
-export const PackRequestBodyTags2$inboundSchema: z.ZodType<
-  PackRequestBodyTags2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  dataType: z.array(z.string()).optional(),
-  domain: z.array(z.string()).optional(),
-  technology: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-});
-
-/** @internal */
-export type PackRequestBodyTags2$Outbound = {
-  dataType?: Array<string> | undefined;
-  domain?: Array<string> | undefined;
-  technology?: Array<string> | undefined;
-  streamtags?: Array<string> | undefined;
-};
-
-/** @internal */
-export const PackRequestBodyTags2$outboundSchema: z.ZodType<
-  PackRequestBodyTags2$Outbound,
-  z.ZodTypeDef,
-  PackRequestBodyTags2
-> = z.object({
-  dataType: z.array(z.string()).optional(),
-  domain: z.array(z.string()).optional(),
-  technology: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackRequestBodyTags2$ {
-  /** @deprecated use `PackRequestBodyTags2$inboundSchema` instead. */
-  export const inboundSchema = PackRequestBodyTags2$inboundSchema;
-  /** @deprecated use `PackRequestBodyTags2$outboundSchema` instead. */
-  export const outboundSchema = PackRequestBodyTags2$outboundSchema;
-  /** @deprecated use `PackRequestBodyTags2$Outbound` instead. */
-  export type Outbound = PackRequestBodyTags2$Outbound;
-}
-
-export function packRequestBodyTags2ToJSON(
-  packRequestBodyTags2: PackRequestBodyTags2,
-): string {
-  return JSON.stringify(
-    PackRequestBodyTags2$outboundSchema.parse(packRequestBodyTags2),
-  );
-}
-
-export function packRequestBodyTags2FromJSON(
-  jsonString: string,
-): SafeParseResult<PackRequestBodyTags2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PackRequestBodyTags2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PackRequestBodyTags2' from JSON`,
-  );
-}
-
-/** @internal */
-export const PackRequestBody2$inboundSchema: z.ZodType<
-  PackRequestBody2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  spec: z.string().optional(),
-  version: z.string().optional(),
-  minLogStreamVersion: z.string().optional(),
-  displayName: z.string().optional(),
-  author: z.string().optional(),
-  description: z.string().optional(),
-  source: z.string(),
-  tags: z.lazy(() => PackRequestBodyTags2$inboundSchema).optional(),
-  allowCustomFunctions: z.boolean().optional(),
-  force: z.boolean().optional(),
-});
 
 /** @internal */
 export type PackRequestBody2$Outbound = {
@@ -149,7 +55,7 @@ export type PackRequestBody2$Outbound = {
   author?: string | undefined;
   description?: string | undefined;
   source: string;
-  tags?: PackRequestBodyTags2$Outbound | undefined;
+  tags?: Tags1Type$Outbound | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
 };
@@ -168,23 +74,10 @@ export const PackRequestBody2$outboundSchema: z.ZodType<
   author: z.string().optional(),
   description: z.string().optional(),
   source: z.string(),
-  tags: z.lazy(() => PackRequestBodyTags2$outboundSchema).optional(),
+  tags: Tags1Type$outboundSchema.optional(),
   allowCustomFunctions: z.boolean().optional(),
   force: z.boolean().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackRequestBody2$ {
-  /** @deprecated use `PackRequestBody2$inboundSchema` instead. */
-  export const inboundSchema = PackRequestBody2$inboundSchema;
-  /** @deprecated use `PackRequestBody2$outboundSchema` instead. */
-  export const outboundSchema = PackRequestBody2$outboundSchema;
-  /** @deprecated use `PackRequestBody2$Outbound` instead. */
-  export type Outbound = PackRequestBody2$Outbound;
-}
 
 export function packRequestBody2ToJSON(
   packRequestBody2: PackRequestBody2,
@@ -193,98 +86,6 @@ export function packRequestBody2ToJSON(
     PackRequestBody2$outboundSchema.parse(packRequestBody2),
   );
 }
-
-export function packRequestBody2FromJSON(
-  jsonString: string,
-): SafeParseResult<PackRequestBody2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PackRequestBody2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PackRequestBody2' from JSON`,
-  );
-}
-
-/** @internal */
-export const PackRequestBodyTags1$inboundSchema: z.ZodType<
-  PackRequestBodyTags1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  dataType: z.array(z.string()).optional(),
-  domain: z.array(z.string()).optional(),
-  technology: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-});
-
-/** @internal */
-export type PackRequestBodyTags1$Outbound = {
-  dataType?: Array<string> | undefined;
-  domain?: Array<string> | undefined;
-  technology?: Array<string> | undefined;
-  streamtags?: Array<string> | undefined;
-};
-
-/** @internal */
-export const PackRequestBodyTags1$outboundSchema: z.ZodType<
-  PackRequestBodyTags1$Outbound,
-  z.ZodTypeDef,
-  PackRequestBodyTags1
-> = z.object({
-  dataType: z.array(z.string()).optional(),
-  domain: z.array(z.string()).optional(),
-  technology: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackRequestBodyTags1$ {
-  /** @deprecated use `PackRequestBodyTags1$inboundSchema` instead. */
-  export const inboundSchema = PackRequestBodyTags1$inboundSchema;
-  /** @deprecated use `PackRequestBodyTags1$outboundSchema` instead. */
-  export const outboundSchema = PackRequestBodyTags1$outboundSchema;
-  /** @deprecated use `PackRequestBodyTags1$Outbound` instead. */
-  export type Outbound = PackRequestBodyTags1$Outbound;
-}
-
-export function packRequestBodyTags1ToJSON(
-  packRequestBodyTags1: PackRequestBodyTags1,
-): string {
-  return JSON.stringify(
-    PackRequestBodyTags1$outboundSchema.parse(packRequestBodyTags1),
-  );
-}
-
-export function packRequestBodyTags1FromJSON(
-  jsonString: string,
-): SafeParseResult<PackRequestBodyTags1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PackRequestBodyTags1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PackRequestBodyTags1' from JSON`,
-  );
-}
-
-/** @internal */
-export const PackRequestBody1$inboundSchema: z.ZodType<
-  PackRequestBody1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  spec: z.string().optional(),
-  version: z.string().optional(),
-  minLogStreamVersion: z.string().optional(),
-  displayName: z.string().optional(),
-  author: z.string().optional(),
-  description: z.string().optional(),
-  source: z.string().optional(),
-  tags: z.lazy(() => PackRequestBodyTags1$inboundSchema).optional(),
-  allowCustomFunctions: z.boolean().optional(),
-  force: z.boolean().optional(),
-});
 
 /** @internal */
 export type PackRequestBody1$Outbound = {
@@ -296,7 +97,7 @@ export type PackRequestBody1$Outbound = {
   author?: string | undefined;
   description?: string | undefined;
   source?: string | undefined;
-  tags?: PackRequestBodyTags1$Outbound | undefined;
+  tags?: Tags1Type$Outbound | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
 };
@@ -315,23 +116,10 @@ export const PackRequestBody1$outboundSchema: z.ZodType<
   author: z.string().optional(),
   description: z.string().optional(),
   source: z.string().optional(),
-  tags: z.lazy(() => PackRequestBodyTags1$outboundSchema).optional(),
+  tags: Tags1Type$outboundSchema.optional(),
   allowCustomFunctions: z.boolean().optional(),
   force: z.boolean().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackRequestBody1$ {
-  /** @deprecated use `PackRequestBody1$inboundSchema` instead. */
-  export const inboundSchema = PackRequestBody1$inboundSchema;
-  /** @deprecated use `PackRequestBody1$outboundSchema` instead. */
-  export const outboundSchema = PackRequestBody1$outboundSchema;
-  /** @deprecated use `PackRequestBody1$Outbound` instead. */
-  export type Outbound = PackRequestBody1$Outbound;
-}
 
 export function packRequestBody1ToJSON(
   packRequestBody1: PackRequestBody1,
@@ -340,26 +128,6 @@ export function packRequestBody1ToJSON(
     PackRequestBody1$outboundSchema.parse(packRequestBody1),
   );
 }
-
-export function packRequestBody1FromJSON(
-  jsonString: string,
-): SafeParseResult<PackRequestBody1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PackRequestBody1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PackRequestBody1' from JSON`,
-  );
-}
-
-/** @internal */
-export const PackRequestBodyUnion$inboundSchema: z.ZodType<
-  PackRequestBodyUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => PackRequestBody1$inboundSchema),
-  z.lazy(() => PackRequestBody2$inboundSchema),
-]);
 
 /** @internal */
 export type PackRequestBodyUnion$Outbound =
@@ -376,33 +144,10 @@ export const PackRequestBodyUnion$outboundSchema: z.ZodType<
   z.lazy(() => PackRequestBody2$outboundSchema),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackRequestBodyUnion$ {
-  /** @deprecated use `PackRequestBodyUnion$inboundSchema` instead. */
-  export const inboundSchema = PackRequestBodyUnion$inboundSchema;
-  /** @deprecated use `PackRequestBodyUnion$outboundSchema` instead. */
-  export const outboundSchema = PackRequestBodyUnion$outboundSchema;
-  /** @deprecated use `PackRequestBodyUnion$Outbound` instead. */
-  export type Outbound = PackRequestBodyUnion$Outbound;
-}
-
 export function packRequestBodyUnionToJSON(
   packRequestBodyUnion: PackRequestBodyUnion,
 ): string {
   return JSON.stringify(
     PackRequestBodyUnion$outboundSchema.parse(packRequestBodyUnion),
-  );
-}
-
-export function packRequestBodyUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<PackRequestBodyUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PackRequestBodyUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PackRequestBodyUnion' from JSON`,
   );
 }

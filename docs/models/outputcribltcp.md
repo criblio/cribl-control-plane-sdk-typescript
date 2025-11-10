@@ -1,16 +1,107 @@
 # OutputCriblTcp
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputCriblTCPCriblTcp1`
 
 ```typescript
-import { OutputCriblTcp } from "cribl-control-plane/models";
-
-let value: OutputCriblTcp = {
+const value: models.OutputCriblTCPCriblTcp1 = {
   id: "<id>",
   type: "cribl_tcp",
   pipeline: "<value>",
   systemFields: [
     "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
+  excludeFields: [
+    "<value 1>",
+  ],
+  description: "how mid gadzooks majestic",
+  host: "failing-pleasure.biz",
+  hosts: [
+    {
+      host: "strange-jury.com",
+      port: 3451.43,
+      servername: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+
+### `models.OutputCriblTCPCriblTcp2`
+
+```typescript
+const value: models.OutputCriblTCPCriblTcp2 = {
+  id: "<id>",
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
+  excludeFields: [
+    "<value 1>",
+  ],
+  description:
+    "rowdy censor fragrant now throughout eyeliner hastily overvalue gee utilized",
+  host: "petty-captain.name",
+  hosts: [],
+  pqControls: {},
+};
+```
+
+### `models.OutputCriblTCPCriblTcp3`
+
+```typescript
+const value: models.OutputCriblTCPCriblTcp3 = {
+  id: "<id>",
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
   ],
   environment: "<value>",
   streamtags: [
@@ -26,17 +117,23 @@ let value: OutputCriblTcp = {
     certPath: "<value>",
     passphrase: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
   },
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
   excludeFields: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "zany hydrocarbon government",
-  host: "imaginative-amendment.org",
+  description: "oh eek submitter strong fence secondary",
+  host: "grumpy-airmail.name",
   hosts: [
     {
-      host: "musty-meander.org",
+      host: "strange-jury.com",
+      port: 3451.43,
       servername: "<value>",
     },
   ],
@@ -44,38 +141,52 @@ let value: OutputCriblTcp = {
 };
 ```
 
-## Fields
+### `models.OutputCriblTCPCriblTcp4`
 
-| Field                                                                                                                                                                                                                                                          | Type                                                                                                                                                                                                                                                           | Required                                                                                                                                                                                                                                                       | Description                                                                                                                                                                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Unique ID for this output                                                                                                                                                                                                                                      |
-| `type`                                                                                                                                                                                                                                                         | [models.OutputCriblTcpType](../models/outputcribltcptype.md)                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
-| `pipeline`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Pipeline to process data before sending out to this output                                                                                                                                                                                                     |
-| `systemFields`                                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                 |
-| `environment`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                           |
-| `streamtags`                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                  |
-| `loadBalanced`                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Use load-balanced destinations                                                                                                                                                                                                                                 |
-| `compression`                                                                                                                                                                                                                                                  | [models.OutputCriblTcpCompression](../models/outputcribltcpcompression.md)                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Codec to use to compress the data before sending                                                                                                                                                                                                               |
-| `logFailedRequests`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Use to troubleshoot issues with sending data                                                                                                                                                                                                                   |
-| `throttleRatePerSec`                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.                                                               |
-| `tls`                                                                                                                                                                                                                                                          | [models.OutputCriblTcpTLSSettingsClientSide](../models/outputcribltcptlssettingsclientside.md)                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
-| `connectionTimeout`                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Amount of time (milliseconds) to wait for the connection to establish before retrying                                                                                                                                                                          |
-| `writeTimeout`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead                                                                                                                                                               |
-| `tokenTTLMinutes`                                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The number of minutes before the internally generated authentication token expires, valid values between 1 and 60                                                                                                                                              |
-| `excludeFields`                                                                                                                                                                                                                                                | *string*[]                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                             | Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.                                                                                                                |
-| `onBackpressure`                                                                                                                                                                                                                                               | [models.OutputCriblTcpBackpressureBehavior](../models/outputcribltcpbackpressurebehavior.md)                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                              |
-| `description`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
-| `host`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The hostname of the receiver                                                                                                                                                                                                                                   |
-| `port`                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The port to connect to on the provided host                                                                                                                                                                                                                    |
-| `excludeSelf`                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Exclude all IPs of the current host from the list of any resolved hostnames                                                                                                                                                                                    |
-| `hosts`                                                                                                                                                                                                                                                        | [models.OutputCriblTcpHost](../models/outputcribltcphost.md)[]                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                             | Set of hosts to load-balance data to                                                                                                                                                                                                                           |
-| `dnsResolvePeriodSec`                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The interval in which to re-resolve any hostnames and pick up destinations from A records                                                                                                                                                                      |
-| `loadBalanceStatsPeriodSec`                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | How far back in time to keep traffic stats for load balancing purposes                                                                                                                                                                                         |
-| `maxConcurrentSenders`                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.                                                                                                         |
-| `pqMaxFileSize`                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)                                                                                                                                                          |
-| `pqMaxSize`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.                                                                                                         |
-| `pqPath`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.                                                                                                                                          |
-| `pqCompress`                                                                                                                                                                                                                                                   | [models.OutputCriblTcpPqCompressCompression](../models/outputcribltcppqcompresscompression.md)                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                    |
-| `pqOnBackpressure`                                                                                                                                                                                                                                             | [models.OutputCriblTcpQueueFullBehavior](../models/outputcribltcpqueuefullbehavior.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                          |
-| `pqMode`                                                                                                                                                                                                                                                       | [models.OutputCriblTcpMode](../models/outputcribltcpmode.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                             | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem. |
-| `pqControls`                                                                                                                                                                                                                                                   | [models.OutputCriblTcpPqControls](../models/outputcribltcppqcontrols.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
+```typescript
+const value: models.OutputCriblTCPCriblTcp4 = {
+  id: "<id>",
+  type: "cribl_tcp",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "psst whoa zowie when waterspout",
+    },
+  ],
+  excludeFields: [
+    "<value 1>",
+  ],
+  description:
+    "sedately editor psst brr compete kowtow bitterly politely waist",
+  host: "svelte-unique.biz",
+  hosts: [
+    {
+      host: "strange-jury.com",
+      port: 3451.43,
+      servername: "<value>",
+    },
+  ],
+  pqControls: {},
+};
+```
+

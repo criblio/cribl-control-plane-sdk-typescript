@@ -11,86 +11,41 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputOffice365MsgTraceType = {
-  Office365MsgTrace: "office365_msg_trace",
-} as const;
-export type InputOffice365MsgTraceType = ClosedEnum<
-  typeof InputOffice365MsgTraceType
->;
-
-export type InputOffice365MsgTraceConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputOffice365MsgTraceMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputOffice365MsgTraceMode = OpenEnum<
-  typeof InputOffice365MsgTraceMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputOffice365MsgTraceCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputOffice365MsgTraceCompression = OpenEnum<
-  typeof InputOffice365MsgTraceCompression
->;
-
-export type InputOffice365MsgTracePqControls = {};
-
-export type InputOffice365MsgTracePq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputOffice365MsgTraceMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputOffice365MsgTraceCompression | undefined;
-  pqControls?: InputOffice365MsgTracePqControls | undefined;
-};
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PlanTypeOptions,
+  PlanTypeOptions$inboundSchema,
+  PlanTypeOptions$outboundSchema,
+} from "./plantypeoptions.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  RetryRulesType,
+  RetryRulesType$inboundSchema,
+  RetryRulesType$Outbound,
+  RetryRulesType$outboundSchema,
+} from "./retryrulestype.js";
 
 /**
  * Select authentication method.
  */
-export const InputOffice365MsgTraceAuthenticationMethod = {
+export const InputOffice365MsgTraceAuthenticationMethod9 = {
   Manual: "manual",
   Secret: "secret",
   Oauth: "oauth",
@@ -100,14 +55,21 @@ export const InputOffice365MsgTraceAuthenticationMethod = {
 /**
  * Select authentication method.
  */
-export type InputOffice365MsgTraceAuthenticationMethod = OpenEnum<
-  typeof InputOffice365MsgTraceAuthenticationMethod
+export type InputOffice365MsgTraceAuthenticationMethod9 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod9
+>;
+
+export const InputOffice365MsgTraceType9 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType9 = ClosedEnum<
+  typeof InputOffice365MsgTraceType9
 >;
 
 /**
  * Log Level (verbosity) for collection runtime behavior.
  */
-export const InputOffice365MsgTraceLogLevel = {
+export const InputOffice365MsgTraceLogLevel9 = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -117,85 +79,11 @@ export const InputOffice365MsgTraceLogLevel = {
 /**
  * Log Level (verbosity) for collection runtime behavior.
  */
-export type InputOffice365MsgTraceLogLevel = OpenEnum<
-  typeof InputOffice365MsgTraceLogLevel
+export type InputOffice365MsgTraceLogLevel9 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel9
 >;
 
-export type InputOffice365MsgTraceMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const InputOffice365MsgTraceRetryType = {
-  None: "none",
-  Backoff: "backoff",
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type InputOffice365MsgTraceRetryType = OpenEnum<
-  typeof InputOffice365MsgTraceRetryType
->;
-
-export type InputOffice365MsgTraceRetryRules = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type?: InputOffice365MsgTraceRetryType | undefined;
-  /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * The maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-   */
-  multiplier?: number | undefined;
-  /**
-   * List of http codes that trigger a retry. Leave empty to use the default list of 429, 500, and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
-};
-
-/**
- * Office 365 subscription plan for your organization, typically Office 365 Enterprise
- */
-export const InputOffice365MsgTraceSubscriptionPlan = {
-  EnterpriseGcc: "enterprise_gcc",
-  Gcc: "gcc",
-  GccHigh: "gcc_high",
-  Dod: "dod",
-} as const;
-/**
- * Office 365 subscription plan for your organization, typically Office 365 Enterprise
- */
-export type InputOffice365MsgTraceSubscriptionPlan = OpenEnum<
-  typeof InputOffice365MsgTraceSubscriptionPlan
->;
-
-export type CertOptions = {
+export type CertOptions9 = {
   /**
    * The name of the predefined certificate.
    */
@@ -214,12 +102,16 @@ export type CertOptions = {
   certPath: string;
 };
 
-export type InputOffice365MsgTrace = {
+export type InputOffice365MsgTraceOffice365MsgTrace9 = {
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod9 | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOffice365MsgTraceType;
+  type: InputOffice365MsgTraceType9;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -244,8 +136,989 @@ export type InputOffice365MsgTrace = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputOffice365MsgTraceConnection> | undefined;
-  pq?: InputOffice365MsgTracePq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url?: string | undefined;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval?: number | undefined;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: InputOffice365MsgTraceLogLevel9 | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId: string;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions: CertOptions9;
+};
+
+/**
+ * Select authentication method.
+ */
+export const InputOffice365MsgTraceAuthenticationMethod8 = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod8 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod8
+>;
+
+export const InputOffice365MsgTraceType8 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType8 = ClosedEnum<
+  typeof InputOffice365MsgTraceType8
+>;
+
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export const InputOffice365MsgTraceLogLevel8 = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export type InputOffice365MsgTraceLogLevel8 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel8
+>;
+
+export type CertOptions8 = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+};
+
+export type InputOffice365MsgTraceOffice365MsgTrace8 = {
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod8 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MsgTraceType8;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url?: string | undefined;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval?: number | undefined;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: InputOffice365MsgTraceLogLevel8 | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId: string;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret: string;
+  certOptions?: CertOptions8 | undefined;
+};
+
+/**
+ * Select authentication method.
+ */
+export const InputOffice365MsgTraceAuthenticationMethod7 = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod7 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod7
+>;
+
+export const InputOffice365MsgTraceType7 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType7 = ClosedEnum<
+  typeof InputOffice365MsgTraceType7
+>;
+
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export const InputOffice365MsgTraceLogLevel7 = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export type InputOffice365MsgTraceLogLevel7 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel7
+>;
+
+export type CertOptions7 = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+};
+
+export type InputOffice365MsgTraceOffice365MsgTrace7 = {
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod7 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MsgTraceType7;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url?: string | undefined;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval?: number | undefined;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: InputOffice365MsgTraceLogLevel7 | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret: string;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId: string;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: CertOptions7 | undefined;
+};
+
+/**
+ * Select authentication method.
+ */
+export const InputOffice365MsgTraceAuthenticationMethod6 = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod6 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod6
+>;
+
+export const InputOffice365MsgTraceType6 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType6 = ClosedEnum<
+  typeof InputOffice365MsgTraceType6
+>;
+
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export const InputOffice365MsgTraceLogLevel6 = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export type InputOffice365MsgTraceLogLevel6 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel6
+>;
+
+export type CertOptions6 = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+};
+
+export type InputOffice365MsgTraceOffice365MsgTrace6 = {
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod6 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MsgTraceType6;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url?: string | undefined;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval?: number | undefined;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: InputOffice365MsgTraceLogLevel6 | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret: string;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: CertOptions6 | undefined;
+};
+
+/**
+ * Select authentication method.
+ */
+export const InputOffice365MsgTraceAuthenticationMethod5 = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod5 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod5
+>;
+
+export const InputOffice365MsgTraceType5 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType5 = ClosedEnum<
+  typeof InputOffice365MsgTraceType5
+>;
+
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export const InputOffice365MsgTraceLogLevel5 = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export type InputOffice365MsgTraceLogLevel5 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel5
+>;
+
+export type CertOptions5 = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+};
+
+export type InputOffice365MsgTraceOffice365MsgTrace5 = {
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod5 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MsgTraceType5;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url?: string | undefined;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval?: number | undefined;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: InputOffice365MsgTraceLogLevel5 | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username: string;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password: string;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: CertOptions5 | undefined;
+};
+
+export const InputOffice365MsgTraceType4 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType4 = ClosedEnum<
+  typeof InputOffice365MsgTraceType4
+>;
+
+/**
+ * Select authentication method.
+ */
+export const InputOffice365MsgTraceAuthenticationMethod4 = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod4 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod4
+>;
+
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export const InputOffice365MsgTraceLogLevel4 = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export type InputOffice365MsgTraceLogLevel4 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel4
+>;
+
+export type CertOptions4 = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+};
+
+export type InputOffice365MsgTraceOffice365MsgTrace4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MsgTraceType4;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * URL to use when retrieving report data.
    */
@@ -273,7 +1146,7 @@ export type InputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?: InputOffice365MsgTraceAuthenticationMethod | undefined;
+  authType?: InputOffice365MsgTraceAuthenticationMethod4 | undefined;
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
@@ -285,7 +1158,7 @@ export type InputOffice365MsgTrace = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: InputOffice365MsgTraceLogLevel | undefined;
+  logLevel?: InputOffice365MsgTraceLogLevel4 | undefined;
   /**
    * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
    */
@@ -309,8 +1182,8 @@ export type InputOffice365MsgTrace = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputOffice365MsgTraceMetadatum> | undefined;
-  retryRules?: InputOffice365MsgTraceRetryRules | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -343,556 +1216,670 @@ export type InputOffice365MsgTrace = {
   /**
    * Office 365 subscription plan for your organization, typically Office 365 Enterprise
    */
-  planType?: InputOffice365MsgTraceSubscriptionPlan | undefined;
+  planType?: PlanTypeOptions | undefined;
   /**
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
   textSecret?: string | undefined;
-  certOptions?: CertOptions | undefined;
+  certOptions?: CertOptions4 | undefined;
 };
 
-/** @internal */
-export const InputOffice365MsgTraceType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MsgTraceType
-> = z.nativeEnum(InputOffice365MsgTraceType);
-
-/** @internal */
-export const InputOffice365MsgTraceType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MsgTraceType
-> = InputOffice365MsgTraceType$inboundSchema;
+export const InputOffice365MsgTraceType3 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType3 = ClosedEnum<
+  typeof InputOffice365MsgTraceType3
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Select authentication method.
  */
-export namespace InputOffice365MsgTraceType$ {
-  /** @deprecated use `InputOffice365MsgTraceType$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceType$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceType$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceType$outboundSchema;
-}
+export const InputOffice365MsgTraceAuthenticationMethod3 = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod3 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod3
+>;
 
-/** @internal */
-export const InputOffice365MsgTraceConnection$inboundSchema: z.ZodType<
-  InputOffice365MsgTraceConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export const InputOffice365MsgTraceLogLevel3 = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export type InputOffice365MsgTraceLogLevel3 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel3
+>;
 
-/** @internal */
-export type InputOffice365MsgTraceConnection$Outbound = {
+export type CertOptions3 = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+};
+
+export type InputOffice365MsgTraceOffice365MsgTrace3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MsgTraceType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url?: string | undefined;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval?: number | undefined;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod3 | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: InputOffice365MsgTraceLogLevel3 | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: CertOptions3 | undefined;
 };
 
-/** @internal */
-export const InputOffice365MsgTraceConnection$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceConnection$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MsgTraceConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export const InputOffice365MsgTraceType2 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType2 = ClosedEnum<
+  typeof InputOffice365MsgTraceType2
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Select authentication method.
  */
-export namespace InputOffice365MsgTraceConnection$ {
-  /** @deprecated use `InputOffice365MsgTraceConnection$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceConnection$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceConnection$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceConnection$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceConnection$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTraceConnection$Outbound;
-}
-
-export function inputOffice365MsgTraceConnectionToJSON(
-  inputOffice365MsgTraceConnection: InputOffice365MsgTraceConnection,
-): string {
-  return JSON.stringify(
-    InputOffice365MsgTraceConnection$outboundSchema.parse(
-      inputOffice365MsgTraceConnection,
-    ),
-  );
-}
-
-export function inputOffice365MsgTraceConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MsgTraceConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MsgTraceConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MsgTraceConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MsgTraceMode$inboundSchema: z.ZodType<
-  InputOffice365MsgTraceMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MsgTraceMode$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceMode,
-  z.ZodTypeDef,
-  InputOffice365MsgTraceMode
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputOffice365MsgTraceAuthenticationMethod2 = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod2 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod2
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Log Level (verbosity) for collection runtime behavior.
  */
-export namespace InputOffice365MsgTraceMode$ {
-  /** @deprecated use `InputOffice365MsgTraceMode$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceMode$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceMode$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceMode$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365MsgTraceCompression$inboundSchema: z.ZodType<
-  InputOffice365MsgTraceCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MsgTraceCompression$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceCompression,
-  z.ZodTypeDef,
-  InputOffice365MsgTraceCompression
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const InputOffice365MsgTraceLogLevel2 = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Log Level (verbosity) for collection runtime behavior.
  */
-export namespace InputOffice365MsgTraceCompression$ {
-  /** @deprecated use `InputOffice365MsgTraceCompression$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceCompression$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365MsgTraceCompression$outboundSchema;
-}
+export type InputOffice365MsgTraceLogLevel2 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel2
+>;
 
-/** @internal */
-export const InputOffice365MsgTracePqControls$inboundSchema: z.ZodType<
-  InputOffice365MsgTracePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputOffice365MsgTracePqControls$Outbound = {};
-
-/** @internal */
-export const InputOffice365MsgTracePqControls$outboundSchema: z.ZodType<
-  InputOffice365MsgTracePqControls$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MsgTracePqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTracePqControls$ {
-  /** @deprecated use `InputOffice365MsgTracePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTracePqControls$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTracePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTracePqControls$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTracePqControls$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTracePqControls$Outbound;
-}
-
-export function inputOffice365MsgTracePqControlsToJSON(
-  inputOffice365MsgTracePqControls: InputOffice365MsgTracePqControls,
-): string {
-  return JSON.stringify(
-    InputOffice365MsgTracePqControls$outboundSchema.parse(
-      inputOffice365MsgTracePqControls,
-    ),
-  );
-}
-
-export function inputOffice365MsgTracePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MsgTracePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MsgTracePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MsgTracePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MsgTracePq$inboundSchema: z.ZodType<
-  InputOffice365MsgTracePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputOffice365MsgTraceMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputOffice365MsgTraceCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputOffice365MsgTracePqControls$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputOffice365MsgTracePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputOffice365MsgTracePqControls$Outbound | undefined;
+export type CertOptions2 = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
 };
 
-/** @internal */
-export const InputOffice365MsgTracePq$outboundSchema: z.ZodType<
-  InputOffice365MsgTracePq$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MsgTracePq
-> = z.object({
-  mode: InputOffice365MsgTraceMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputOffice365MsgTraceCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputOffice365MsgTracePqControls$outboundSchema)
-    .optional(),
-});
+export type InputOffice365MsgTraceOffice365MsgTrace2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MsgTraceType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url?: string | undefined;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval?: number | undefined;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod2 | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: InputOffice365MsgTraceLogLevel2 | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: CertOptions2 | undefined;
+};
+
+export const InputOffice365MsgTraceType1 = {
+  Office365MsgTrace: "office365_msg_trace",
+} as const;
+export type InputOffice365MsgTraceType1 = ClosedEnum<
+  typeof InputOffice365MsgTraceType1
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Select authentication method.
  */
-export namespace InputOffice365MsgTracePq$ {
-  /** @deprecated use `InputOffice365MsgTracePq$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTracePq$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTracePq$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTracePq$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTracePq$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTracePq$Outbound;
-}
+export const InputOffice365MsgTraceAuthenticationMethod1 = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type InputOffice365MsgTraceAuthenticationMethod1 = OpenEnum<
+  typeof InputOffice365MsgTraceAuthenticationMethod1
+>;
 
-export function inputOffice365MsgTracePqToJSON(
-  inputOffice365MsgTracePq: InputOffice365MsgTracePq,
-): string {
-  return JSON.stringify(
-    InputOffice365MsgTracePq$outboundSchema.parse(inputOffice365MsgTracePq),
-  );
-}
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export const InputOffice365MsgTraceLogLevel1 = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export type InputOffice365MsgTraceLogLevel1 = OpenEnum<
+  typeof InputOffice365MsgTraceLogLevel1
+>;
 
-export function inputOffice365MsgTracePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MsgTracePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MsgTracePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MsgTracePq' from JSON`,
-  );
-}
+export type CertOptions1 = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+};
+
+export type InputOffice365MsgTraceOffice365MsgTrace1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputOffice365MsgTraceType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url?: string | undefined;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval?: number | undefined;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Select authentication method.
+   */
+  authType?: InputOffice365MsgTraceAuthenticationMethod1 | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: InputOffice365MsgTraceLogLevel1 | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: PlanTypeOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: CertOptions1 | undefined;
+};
+
+export type InputOffice365MsgTrace =
+  | InputOffice365MsgTraceOffice365MsgTrace7
+  | InputOffice365MsgTraceOffice365MsgTrace8
+  | InputOffice365MsgTraceOffice365MsgTrace9
+  | InputOffice365MsgTraceOffice365MsgTrace5
+  | InputOffice365MsgTraceOffice365MsgTrace2
+  | InputOffice365MsgTraceOffice365MsgTrace4
+  | InputOffice365MsgTraceOffice365MsgTrace6
+  | InputOffice365MsgTraceOffice365MsgTrace1
+  | InputOffice365MsgTraceOffice365MsgTrace3;
 
 /** @internal */
-export const InputOffice365MsgTraceAuthenticationMethod$inboundSchema:
-  z.ZodType<InputOffice365MsgTraceAuthenticationMethod, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
-
-/** @internal */
-export const InputOffice365MsgTraceAuthenticationMethod$outboundSchema:
+export const InputOffice365MsgTraceAuthenticationMethod9$inboundSchema:
   z.ZodType<
-    InputOffice365MsgTraceAuthenticationMethod,
+    InputOffice365MsgTraceAuthenticationMethod9,
     z.ZodTypeDef,
-    InputOffice365MsgTraceAuthenticationMethod
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod9),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod9$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod9,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod9
   > = z.union([
-    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod),
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod9),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceAuthenticationMethod$ {
-  /** @deprecated use `InputOffice365MsgTraceAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOffice365MsgTraceAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365MsgTraceAuthenticationMethod$outboundSchema;
-}
+/** @internal */
+export const InputOffice365MsgTraceType9$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType9
+> = z.nativeEnum(InputOffice365MsgTraceType9);
+/** @internal */
+export const InputOffice365MsgTraceType9$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType9
+> = InputOffice365MsgTraceType9$inboundSchema;
 
 /** @internal */
-export const InputOffice365MsgTraceLogLevel$inboundSchema: z.ZodType<
-  InputOffice365MsgTraceLogLevel,
+export const InputOffice365MsgTraceLogLevel9$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel9,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputOffice365MsgTraceLogLevel),
+    z.nativeEnum(InputOffice365MsgTraceLogLevel9),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputOffice365MsgTraceLogLevel$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceLogLevel,
+export const InputOffice365MsgTraceLogLevel9$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel9,
   z.ZodTypeDef,
-  InputOffice365MsgTraceLogLevel
+  InputOffice365MsgTraceLogLevel9
 > = z.union([
-  z.nativeEnum(InputOffice365MsgTraceLogLevel),
+  z.nativeEnum(InputOffice365MsgTraceLogLevel9),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceLogLevel$ {
-  /** @deprecated use `InputOffice365MsgTraceLogLevel$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceLogLevel$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceLogLevel$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceLogLevel$outboundSchema;
-}
-
 /** @internal */
-export const InputOffice365MsgTraceMetadatum$inboundSchema: z.ZodType<
-  InputOffice365MsgTraceMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputOffice365MsgTraceMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputOffice365MsgTraceMetadatum$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MsgTraceMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceMetadatum$ {
-  /** @deprecated use `InputOffice365MsgTraceMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceMetadatum$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceMetadatum$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceMetadatum$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTraceMetadatum$Outbound;
-}
-
-export function inputOffice365MsgTraceMetadatumToJSON(
-  inputOffice365MsgTraceMetadatum: InputOffice365MsgTraceMetadatum,
-): string {
-  return JSON.stringify(
-    InputOffice365MsgTraceMetadatum$outboundSchema.parse(
-      inputOffice365MsgTraceMetadatum,
-    ),
-  );
-}
-
-export function inputOffice365MsgTraceMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MsgTraceMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MsgTraceMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MsgTraceMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MsgTraceRetryType$inboundSchema: z.ZodType<
-  InputOffice365MsgTraceRetryType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MsgTraceRetryType$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceRetryType,
-  z.ZodTypeDef,
-  InputOffice365MsgTraceRetryType
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceRetryType$ {
-  /** @deprecated use `InputOffice365MsgTraceRetryType$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceRetryType$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceRetryType$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceRetryType$outboundSchema;
-}
-
-/** @internal */
-export const InputOffice365MsgTraceRetryRules$inboundSchema: z.ZodType<
-  InputOffice365MsgTraceRetryRules,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: InputOffice365MsgTraceRetryType$inboundSchema.default("backoff"),
-  interval: z.number().default(1000),
-  limit: z.number().default(5),
-  multiplier: z.number().default(2),
-  codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().default(true),
-  retryConnectTimeout: z.boolean().default(false),
-  retryConnectReset: z.boolean().default(false),
-});
-
-/** @internal */
-export type InputOffice365MsgTraceRetryRules$Outbound = {
-  type: string;
-  interval: number;
-  limit: number;
-  multiplier: number;
-  codes?: Array<number> | undefined;
-  enableHeader: boolean;
-  retryConnectTimeout: boolean;
-  retryConnectReset: boolean;
-};
-
-/** @internal */
-export const InputOffice365MsgTraceRetryRules$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceRetryRules$Outbound,
-  z.ZodTypeDef,
-  InputOffice365MsgTraceRetryRules
-> = z.object({
-  type: InputOffice365MsgTraceRetryType$outboundSchema.default("backoff"),
-  interval: z.number().default(1000),
-  limit: z.number().default(5),
-  multiplier: z.number().default(2),
-  codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().default(true),
-  retryConnectTimeout: z.boolean().default(false),
-  retryConnectReset: z.boolean().default(false),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceRetryRules$ {
-  /** @deprecated use `InputOffice365MsgTraceRetryRules$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceRetryRules$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceRetryRules$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceRetryRules$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceRetryRules$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTraceRetryRules$Outbound;
-}
-
-export function inputOffice365MsgTraceRetryRulesToJSON(
-  inputOffice365MsgTraceRetryRules: InputOffice365MsgTraceRetryRules,
-): string {
-  return JSON.stringify(
-    InputOffice365MsgTraceRetryRules$outboundSchema.parse(
-      inputOffice365MsgTraceRetryRules,
-    ),
-  );
-}
-
-export function inputOffice365MsgTraceRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOffice365MsgTraceRetryRules, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOffice365MsgTraceRetryRules$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOffice365MsgTraceRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOffice365MsgTraceSubscriptionPlan$inboundSchema: z.ZodType<
-  InputOffice365MsgTraceSubscriptionPlan,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceSubscriptionPlan),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOffice365MsgTraceSubscriptionPlan$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceSubscriptionPlan,
-  z.ZodTypeDef,
-  InputOffice365MsgTraceSubscriptionPlan
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceSubscriptionPlan),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceSubscriptionPlan$ {
-  /** @deprecated use `InputOffice365MsgTraceSubscriptionPlan$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOffice365MsgTraceSubscriptionPlan$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceSubscriptionPlan$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365MsgTraceSubscriptionPlan$outboundSchema;
-}
-
-/** @internal */
-export const CertOptions$inboundSchema: z.ZodType<
-  CertOptions,
+export const CertOptions9$inboundSchema: z.ZodType<
+  CertOptions9,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -901,9 +1888,8 @@ export const CertOptions$inboundSchema: z.ZodType<
   passphrase: z.string().optional(),
   certPath: z.string(),
 });
-
 /** @internal */
-export type CertOptions$Outbound = {
+export type CertOptions9$Outbound = {
   certificateName?: string | undefined;
   privKeyPath: string;
   passphrase?: string | undefined;
@@ -911,10 +1897,10 @@ export type CertOptions$Outbound = {
 };
 
 /** @internal */
-export const CertOptions$outboundSchema: z.ZodType<
-  CertOptions$Outbound,
+export const CertOptions9$outboundSchema: z.ZodType<
+  CertOptions9$Outbound,
   z.ZodTypeDef,
-  CertOptions
+  CertOptions9
 > = z.object({
   certificateName: z.string().optional(),
   privKeyPath: z.string(),
@@ -922,51 +1908,38 @@ export const CertOptions$outboundSchema: z.ZodType<
   certPath: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CertOptions$ {
-  /** @deprecated use `CertOptions$inboundSchema` instead. */
-  export const inboundSchema = CertOptions$inboundSchema;
-  /** @deprecated use `CertOptions$outboundSchema` instead. */
-  export const outboundSchema = CertOptions$outboundSchema;
-  /** @deprecated use `CertOptions$Outbound` instead. */
-  export type Outbound = CertOptions$Outbound;
+export function certOptions9ToJSON(certOptions9: CertOptions9): string {
+  return JSON.stringify(CertOptions9$outboundSchema.parse(certOptions9));
 }
-
-export function certOptionsToJSON(certOptions: CertOptions): string {
-  return JSON.stringify(CertOptions$outboundSchema.parse(certOptions));
-}
-
-export function certOptionsFromJSON(
+export function certOptions9FromJSON(
   jsonString: string,
-): SafeParseResult<CertOptions, SDKValidationError> {
+): SafeParseResult<CertOptions9, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CertOptions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CertOptions' from JSON`,
+    (x) => CertOptions9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions9' from JSON`,
   );
 }
 
 /** @internal */
-export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
-  InputOffice365MsgTrace,
+export const InputOffice365MsgTraceOffice365MsgTrace9$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace9,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod9$inboundSchema.default(
+    "oauth",
+  ),
   id: z.string().optional(),
-  type: InputOffice365MsgTraceType$inboundSchema,
+  type: InputOffice365MsgTraceType9$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputOffice365MsgTraceConnection$inboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputOffice365MsgTracePq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   url: z.string().default(
     "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
   ),
@@ -975,38 +1948,31 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().default(300),
   disableTimeFilter: z.boolean().default(true),
-  authType: InputOffice365MsgTraceAuthenticationMethod$inboundSchema.default(
-    "oauth",
-  ),
   rescheduleDroppedTasks: z.boolean().default(true),
   maxTaskReschedule: z.number().default(1),
-  logLevel: InputOffice365MsgTraceLogLevel$inboundSchema.default("info"),
+  logLevel: InputOffice365MsgTraceLogLevel9$inboundSchema.default("info"),
   jobTimeout: z.string().default("0"),
   keepAliveTime: z.number().default(30),
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputOffice365MsgTraceMetadatum$inboundSchema))
-    .optional(),
-  retryRules: z.lazy(() => InputOffice365MsgTraceRetryRules$inboundSchema)
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   clientSecret: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
+  tenantId: z.string(),
+  clientId: z.string(),
   resource: z.string().default("https://outlook.office365.com"),
-  planType: InputOffice365MsgTraceSubscriptionPlan$inboundSchema.default(
-    "enterprise_gcc",
-  ),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
   textSecret: z.string().optional(),
-  certOptions: z.lazy(() => CertOptions$inboundSchema).optional(),
+  certOptions: z.lazy(() => CertOptions9$inboundSchema),
 });
-
 /** @internal */
-export type InputOffice365MsgTrace$Outbound = {
+export type InputOffice365MsgTraceOffice365MsgTrace9$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1015,8 +1981,1317 @@ export type InputOffice365MsgTrace$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputOffice365MsgTraceConnection$Outbound> | undefined;
-  pq?: InputOffice365MsgTracePq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId: string;
+  clientId: string;
+  resource: string;
+  planType: string;
+  textSecret?: string | undefined;
+  certOptions: CertOptions9$Outbound;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace9$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace9$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceOffice365MsgTrace9
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod9$outboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType9$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel9$outboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions9$outboundSchema),
+});
+
+export function inputOffice365MsgTraceOffice365MsgTrace9ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace9:
+    InputOffice365MsgTraceOffice365MsgTrace9,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace9$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace9,
+    ),
+  );
+}
+export function inputOffice365MsgTraceOffice365MsgTrace9FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace9,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace9$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace9' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod8$inboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod8,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod8),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod8$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod8,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod8
+  > = z.union([
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod8),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputOffice365MsgTraceType8$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType8
+> = z.nativeEnum(InputOffice365MsgTraceType8);
+/** @internal */
+export const InputOffice365MsgTraceType8$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType8
+> = InputOffice365MsgTraceType8$inboundSchema;
+
+/** @internal */
+export const InputOffice365MsgTraceLogLevel8$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputOffice365MsgTraceLogLevel8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputOffice365MsgTraceLogLevel8$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel8,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceLogLevel8
+> = z.union([
+  z.nativeEnum(InputOffice365MsgTraceLogLevel8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const CertOptions8$inboundSchema: z.ZodType<
+  CertOptions8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+/** @internal */
+export type CertOptions8$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions8$outboundSchema: z.ZodType<
+  CertOptions8$Outbound,
+  z.ZodTypeDef,
+  CertOptions8
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptions8ToJSON(certOptions8: CertOptions8): string {
+  return JSON.stringify(CertOptions8$outboundSchema.parse(certOptions8));
+}
+export function certOptions8FromJSON(
+  jsonString: string,
+): SafeParseResult<CertOptions8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CertOptions8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions8' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace8$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod8$inboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType8$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel8$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  textSecret: z.string(),
+  certOptions: z.lazy(() => CertOptions8$inboundSchema).optional(),
+});
+/** @internal */
+export type InputOffice365MsgTraceOffice365MsgTrace8$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId: string;
+  clientId: string;
+  resource: string;
+  planType: string;
+  textSecret: string;
+  certOptions?: CertOptions8$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace8$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace8$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceOffice365MsgTrace8
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod8$outboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType8$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel8$outboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  textSecret: z.string(),
+  certOptions: z.lazy(() => CertOptions8$outboundSchema).optional(),
+});
+
+export function inputOffice365MsgTraceOffice365MsgTrace8ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace8:
+    InputOffice365MsgTraceOffice365MsgTrace8,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace8$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace8,
+    ),
+  );
+}
+export function inputOffice365MsgTraceOffice365MsgTrace8FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace8,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace8$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace8' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod7$inboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod7,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod7),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod7$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod7,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod7
+  > = z.union([
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod7),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputOffice365MsgTraceType7$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType7
+> = z.nativeEnum(InputOffice365MsgTraceType7);
+/** @internal */
+export const InputOffice365MsgTraceType7$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType7
+> = InputOffice365MsgTraceType7$inboundSchema;
+
+/** @internal */
+export const InputOffice365MsgTraceLogLevel7$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputOffice365MsgTraceLogLevel7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputOffice365MsgTraceLogLevel7$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel7,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceLogLevel7
+> = z.union([
+  z.nativeEnum(InputOffice365MsgTraceLogLevel7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const CertOptions7$inboundSchema: z.ZodType<
+  CertOptions7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+/** @internal */
+export type CertOptions7$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions7$outboundSchema: z.ZodType<
+  CertOptions7$Outbound,
+  z.ZodTypeDef,
+  CertOptions7
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptions7ToJSON(certOptions7: CertOptions7): string {
+  return JSON.stringify(CertOptions7$outboundSchema.parse(certOptions7));
+}
+export function certOptions7FromJSON(
+  jsonString: string,
+): SafeParseResult<CertOptions7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CertOptions7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace7$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod7$inboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType7$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel7$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions7$inboundSchema).optional(),
+});
+/** @internal */
+export type InputOffice365MsgTraceOffice365MsgTrace7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret: string;
+  tenantId: string;
+  clientId: string;
+  resource: string;
+  planType: string;
+  textSecret?: string | undefined;
+  certOptions?: CertOptions7$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace7$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace7$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceOffice365MsgTrace7
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod7$outboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType7$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel7$outboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions7$outboundSchema).optional(),
+});
+
+export function inputOffice365MsgTraceOffice365MsgTrace7ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace7:
+    InputOffice365MsgTraceOffice365MsgTrace7,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace7$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace7,
+    ),
+  );
+}
+export function inputOffice365MsgTraceOffice365MsgTrace7FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace7,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace7$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod6$inboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod6,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod6),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod6$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod6,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod6
+  > = z.union([
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod6),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputOffice365MsgTraceType6$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType6
+> = z.nativeEnum(InputOffice365MsgTraceType6);
+/** @internal */
+export const InputOffice365MsgTraceType6$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType6
+> = InputOffice365MsgTraceType6$inboundSchema;
+
+/** @internal */
+export const InputOffice365MsgTraceLogLevel6$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputOffice365MsgTraceLogLevel6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputOffice365MsgTraceLogLevel6$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel6,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceLogLevel6
+> = z.union([
+  z.nativeEnum(InputOffice365MsgTraceLogLevel6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const CertOptions6$inboundSchema: z.ZodType<
+  CertOptions6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+/** @internal */
+export type CertOptions6$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions6$outboundSchema: z.ZodType<
+  CertOptions6$Outbound,
+  z.ZodTypeDef,
+  CertOptions6
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptions6ToJSON(certOptions6: CertOptions6): string {
+  return JSON.stringify(CertOptions6$outboundSchema.parse(certOptions6));
+}
+export function certOptions6FromJSON(
+  jsonString: string,
+): SafeParseResult<CertOptions6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CertOptions6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace6$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod6$inboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType6$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel6$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions6$inboundSchema).optional(),
+});
+/** @internal */
+export type InputOffice365MsgTraceOffice365MsgTrace6$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret: string;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource: string;
+  planType: string;
+  textSecret?: string | undefined;
+  certOptions?: CertOptions6$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace6$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace6$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceOffice365MsgTrace6
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod6$outboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType6$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel6$outboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions6$outboundSchema).optional(),
+});
+
+export function inputOffice365MsgTraceOffice365MsgTrace6ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace6:
+    InputOffice365MsgTraceOffice365MsgTrace6,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace6$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace6,
+    ),
+  );
+}
+export function inputOffice365MsgTraceOffice365MsgTrace6FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace6,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace6$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod5$inboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod5,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod5),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod5$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod5,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod5
+  > = z.union([
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod5),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputOffice365MsgTraceType5$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType5
+> = z.nativeEnum(InputOffice365MsgTraceType5);
+/** @internal */
+export const InputOffice365MsgTraceType5$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType5
+> = InputOffice365MsgTraceType5$inboundSchema;
+
+/** @internal */
+export const InputOffice365MsgTraceLogLevel5$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputOffice365MsgTraceLogLevel5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputOffice365MsgTraceLogLevel5$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel5,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceLogLevel5
+> = z.union([
+  z.nativeEnum(InputOffice365MsgTraceLogLevel5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const CertOptions5$inboundSchema: z.ZodType<
+  CertOptions5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+/** @internal */
+export type CertOptions5$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions5$outboundSchema: z.ZodType<
+  CertOptions5$Outbound,
+  z.ZodTypeDef,
+  CertOptions5
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptions5ToJSON(certOptions5: CertOptions5): string {
+  return JSON.stringify(CertOptions5$outboundSchema.parse(certOptions5));
+}
+export function certOptions5FromJSON(
+  jsonString: string,
+): SafeParseResult<CertOptions5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CertOptions5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace5$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod5$inboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType5$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel5$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions5$inboundSchema).optional(),
+});
+/** @internal */
+export type InputOffice365MsgTraceOffice365MsgTrace5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username: string;
+  password: string;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource: string;
+  planType: string;
+  textSecret?: string | undefined;
+  certOptions?: CertOptions5$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace5$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace5$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceOffice365MsgTrace5
+> = z.object({
+  authType: InputOffice365MsgTraceAuthenticationMethod5$outboundSchema.default(
+    "oauth",
+  ),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType5$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel5$outboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions5$outboundSchema).optional(),
+});
+
+export function inputOffice365MsgTraceOffice365MsgTrace5ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace5:
+    InputOffice365MsgTraceOffice365MsgTrace5,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace5$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace5,
+    ),
+  );
+}
+export function inputOffice365MsgTraceOffice365MsgTrace5FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace5,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace5$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType4
+> = z.nativeEnum(InputOffice365MsgTraceType4);
+/** @internal */
+export const InputOffice365MsgTraceType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType4
+> = InputOffice365MsgTraceType4$inboundSchema;
+
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod4$inboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod4,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod4),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod4$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod4,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod4
+  > = z.union([
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod4),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputOffice365MsgTraceLogLevel4$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputOffice365MsgTraceLogLevel4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputOffice365MsgTraceLogLevel4$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel4,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceLogLevel4
+> = z.union([
+  z.nativeEnum(InputOffice365MsgTraceLogLevel4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const CertOptions4$inboundSchema: z.ZodType<
+  CertOptions4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+/** @internal */
+export type CertOptions4$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions4$outboundSchema: z.ZodType<
+  CertOptions4$Outbound,
+  z.ZodTypeDef,
+  CertOptions4
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptions4ToJSON(certOptions4: CertOptions4): string {
+  return JSON.stringify(CertOptions4$outboundSchema.parse(certOptions4));
+}
+export function certOptions4FromJSON(
+  jsonString: string,
+): SafeParseResult<CertOptions4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CertOptions4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace4$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType4$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  authType: InputOffice365MsgTraceAuthenticationMethod4$inboundSchema.default(
+    "oauth",
+  ),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel4$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions4$inboundSchema).optional(),
+});
+/** @internal */
+export type InputOffice365MsgTraceOffice365MsgTrace4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   url: string;
   interval: number;
   startDate?: string | undefined;
@@ -1032,8 +3307,8 @@ export type InputOffice365MsgTrace$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<InputOffice365MsgTraceMetadatum$Outbound> | undefined;
-  retryRules?: InputOffice365MsgTraceRetryRules$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1044,27 +3319,25 @@ export type InputOffice365MsgTrace$Outbound = {
   resource: string;
   planType: string;
   textSecret?: string | undefined;
-  certOptions?: CertOptions$Outbound | undefined;
+  certOptions?: CertOptions4$Outbound | undefined;
 };
 
 /** @internal */
-export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
-  InputOffice365MsgTrace$Outbound,
+export const InputOffice365MsgTraceOffice365MsgTrace4$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace4$Outbound,
   z.ZodTypeDef,
-  InputOffice365MsgTrace
+  InputOffice365MsgTraceOffice365MsgTrace4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputOffice365MsgTraceType$outboundSchema,
+  type: InputOffice365MsgTraceType4$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputOffice365MsgTraceConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputOffice365MsgTracePq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   url: z.string().default(
     "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
   ),
@@ -1073,22 +3346,19 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().default(300),
   disableTimeFilter: z.boolean().default(true),
-  authType: InputOffice365MsgTraceAuthenticationMethod$outboundSchema.default(
+  authType: InputOffice365MsgTraceAuthenticationMethod4$outboundSchema.default(
     "oauth",
   ),
   rescheduleDroppedTasks: z.boolean().default(true),
   maxTaskReschedule: z.number().default(1),
-  logLevel: InputOffice365MsgTraceLogLevel$outboundSchema.default("info"),
+  logLevel: InputOffice365MsgTraceLogLevel4$outboundSchema.default("info"),
   jobTimeout: z.string().default("0"),
   keepAliveTime: z.number().default(30),
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(
-    z.lazy(() => InputOffice365MsgTraceMetadatum$outboundSchema),
-  ).optional(),
-  retryRules: z.lazy(() => InputOffice365MsgTraceRetryRules$outboundSchema)
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1097,25 +3367,867 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   tenantId: z.string().optional(),
   clientId: z.string().optional(),
   resource: z.string().default("https://outlook.office365.com"),
-  planType: InputOffice365MsgTraceSubscriptionPlan$outboundSchema.default(
-    "enterprise_gcc",
-  ),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
   textSecret: z.string().optional(),
-  certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
+  certOptions: z.lazy(() => CertOptions4$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTrace$ {
-  /** @deprecated use `InputOffice365MsgTrace$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTrace$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTrace$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTrace$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTrace$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTrace$Outbound;
+export function inputOffice365MsgTraceOffice365MsgTrace4ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace4:
+    InputOffice365MsgTraceOffice365MsgTrace4,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace4$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace4,
+    ),
+  );
 }
+export function inputOffice365MsgTraceOffice365MsgTrace4FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace4,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace4$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType3
+> = z.nativeEnum(InputOffice365MsgTraceType3);
+/** @internal */
+export const InputOffice365MsgTraceType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType3
+> = InputOffice365MsgTraceType3$inboundSchema;
+
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod3$inboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod3,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod3),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod3$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod3,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod3
+  > = z.union([
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod3),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputOffice365MsgTraceLogLevel3$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputOffice365MsgTraceLogLevel3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputOffice365MsgTraceLogLevel3$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel3,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceLogLevel3
+> = z.union([
+  z.nativeEnum(InputOffice365MsgTraceLogLevel3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const CertOptions3$inboundSchema: z.ZodType<
+  CertOptions3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+/** @internal */
+export type CertOptions3$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions3$outboundSchema: z.ZodType<
+  CertOptions3$Outbound,
+  z.ZodTypeDef,
+  CertOptions3
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptions3ToJSON(certOptions3: CertOptions3): string {
+  return JSON.stringify(CertOptions3$outboundSchema.parse(certOptions3));
+}
+export function certOptions3FromJSON(
+  jsonString: string,
+): SafeParseResult<CertOptions3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CertOptions3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace3$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  authType: InputOffice365MsgTraceAuthenticationMethod3$inboundSchema.default(
+    "oauth",
+  ),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel3$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions3$inboundSchema).optional(),
+});
+/** @internal */
+export type InputOffice365MsgTraceOffice365MsgTrace3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  authType: string;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource: string;
+  planType: string;
+  textSecret?: string | undefined;
+  certOptions?: CertOptions3$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace3$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace3$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceOffice365MsgTrace3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  authType: InputOffice365MsgTraceAuthenticationMethod3$outboundSchema.default(
+    "oauth",
+  ),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel3$outboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions3$outboundSchema).optional(),
+});
+
+export function inputOffice365MsgTraceOffice365MsgTrace3ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace3:
+    InputOffice365MsgTraceOffice365MsgTrace3,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace3$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace3,
+    ),
+  );
+}
+export function inputOffice365MsgTraceOffice365MsgTrace3FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace3,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace3$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType2
+> = z.nativeEnum(InputOffice365MsgTraceType2);
+/** @internal */
+export const InputOffice365MsgTraceType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType2
+> = InputOffice365MsgTraceType2$inboundSchema;
+
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod2$inboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod2,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod2),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod2$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod2,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod2
+  > = z.union([
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputOffice365MsgTraceLogLevel2$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputOffice365MsgTraceLogLevel2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputOffice365MsgTraceLogLevel2$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel2,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceLogLevel2
+> = z.union([
+  z.nativeEnum(InputOffice365MsgTraceLogLevel2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const CertOptions2$inboundSchema: z.ZodType<
+  CertOptions2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+/** @internal */
+export type CertOptions2$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions2$outboundSchema: z.ZodType<
+  CertOptions2$Outbound,
+  z.ZodTypeDef,
+  CertOptions2
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptions2ToJSON(certOptions2: CertOptions2): string {
+  return JSON.stringify(CertOptions2$outboundSchema.parse(certOptions2));
+}
+export function certOptions2FromJSON(
+  jsonString: string,
+): SafeParseResult<CertOptions2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CertOptions2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace2$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  authType: InputOffice365MsgTraceAuthenticationMethod2$inboundSchema.default(
+    "oauth",
+  ),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel2$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions2$inboundSchema).optional(),
+});
+/** @internal */
+export type InputOffice365MsgTraceOffice365MsgTrace2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  authType: string;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource: string;
+  planType: string;
+  textSecret?: string | undefined;
+  certOptions?: CertOptions2$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace2$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace2$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceOffice365MsgTrace2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  authType: InputOffice365MsgTraceAuthenticationMethod2$outboundSchema.default(
+    "oauth",
+  ),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel2$outboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions2$outboundSchema).optional(),
+});
+
+export function inputOffice365MsgTraceOffice365MsgTrace2ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace2:
+    InputOffice365MsgTraceOffice365MsgTrace2,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace2$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace2,
+    ),
+  );
+}
+export function inputOffice365MsgTraceOffice365MsgTrace2FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace2,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace2$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType1
+> = z.nativeEnum(InputOffice365MsgTraceType1);
+/** @internal */
+export const InputOffice365MsgTraceType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputOffice365MsgTraceType1
+> = InputOffice365MsgTraceType1$inboundSchema;
+
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod1$inboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod1,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod1),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputOffice365MsgTraceAuthenticationMethod1$outboundSchema:
+  z.ZodType<
+    InputOffice365MsgTraceAuthenticationMethod1,
+    z.ZodTypeDef,
+    InputOffice365MsgTraceAuthenticationMethod1
+  > = z.union([
+    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputOffice365MsgTraceLogLevel1$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputOffice365MsgTraceLogLevel1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputOffice365MsgTraceLogLevel1$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceLogLevel1,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceLogLevel1
+> = z.union([
+  z.nativeEnum(InputOffice365MsgTraceLogLevel1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const CertOptions1$inboundSchema: z.ZodType<
+  CertOptions1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+/** @internal */
+export type CertOptions1$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions1$outboundSchema: z.ZodType<
+  CertOptions1$Outbound,
+  z.ZodTypeDef,
+  CertOptions1
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptions1ToJSON(certOptions1: CertOptions1): string {
+  return JSON.stringify(CertOptions1$outboundSchema.parse(certOptions1));
+}
+export function certOptions1FromJSON(
+  jsonString: string,
+): SafeParseResult<CertOptions1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CertOptions1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CertOptions1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace1$inboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  authType: InputOffice365MsgTraceAuthenticationMethod1$inboundSchema.default(
+    "oauth",
+  ),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel1$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$inboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions1$inboundSchema).optional(),
+});
+/** @internal */
+export type InputOffice365MsgTraceOffice365MsgTrace1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout: number;
+  disableTimeFilter: boolean;
+  authType: string;
+  rescheduleDroppedTasks: boolean;
+  maxTaskReschedule: number;
+  logLevel: string;
+  jobTimeout: string;
+  keepAliveTime: number;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource: string;
+  planType: string;
+  textSecret?: string | undefined;
+  certOptions?: CertOptions1$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTraceOffice365MsgTrace1$outboundSchema: z.ZodType<
+  InputOffice365MsgTraceOffice365MsgTrace1$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTraceOffice365MsgTrace1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputOffice365MsgTraceType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  url: z.string().default(
+    "https://reports.office365.com/ecp/reportingwebservice/reporting.svc/MessageTrace",
+  ),
+  interval: z.number().default(60),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().default(300),
+  disableTimeFilter: z.boolean().default(true),
+  authType: InputOffice365MsgTraceAuthenticationMethod1$outboundSchema.default(
+    "oauth",
+  ),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: InputOffice365MsgTraceLogLevel1$outboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  keepAliveTime: z.number().default(30),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().default("https://outlook.office365.com"),
+  planType: PlanTypeOptions$outboundSchema.default("enterprise_gcc"),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions1$outboundSchema).optional(),
+});
+
+export function inputOffice365MsgTraceOffice365MsgTrace1ToJSON(
+  inputOffice365MsgTraceOffice365MsgTrace1:
+    InputOffice365MsgTraceOffice365MsgTrace1,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTraceOffice365MsgTrace1$outboundSchema.parse(
+      inputOffice365MsgTraceOffice365MsgTrace1,
+    ),
+  );
+}
+export function inputOffice365MsgTraceOffice365MsgTrace1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputOffice365MsgTraceOffice365MsgTrace1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputOffice365MsgTraceOffice365MsgTrace1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputOffice365MsgTraceOffice365MsgTrace1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
+  InputOffice365MsgTrace,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace7$inboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace8$inboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace9$inboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace5$inboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace2$inboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace4$inboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace6$inboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace1$inboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace3$inboundSchema),
+]);
+/** @internal */
+export type InputOffice365MsgTrace$Outbound =
+  | InputOffice365MsgTraceOffice365MsgTrace7$Outbound
+  | InputOffice365MsgTraceOffice365MsgTrace8$Outbound
+  | InputOffice365MsgTraceOffice365MsgTrace9$Outbound
+  | InputOffice365MsgTraceOffice365MsgTrace5$Outbound
+  | InputOffice365MsgTraceOffice365MsgTrace2$Outbound
+  | InputOffice365MsgTraceOffice365MsgTrace4$Outbound
+  | InputOffice365MsgTraceOffice365MsgTrace6$Outbound
+  | InputOffice365MsgTraceOffice365MsgTrace1$Outbound
+  | InputOffice365MsgTraceOffice365MsgTrace3$Outbound;
+
+/** @internal */
+export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
+  InputOffice365MsgTrace$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTrace
+> = z.union([
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace7$outboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace8$outboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace9$outboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace5$outboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace2$outboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace4$outboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace6$outboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace1$outboundSchema),
+  z.lazy(() => InputOffice365MsgTraceOffice365MsgTrace3$outboundSchema),
+]);
 
 export function inputOffice365MsgTraceToJSON(
   inputOffice365MsgTrace: InputOffice365MsgTrace,
@@ -1124,7 +4236,6 @@ export function inputOffice365MsgTraceToJSON(
     InputOffice365MsgTrace$outboundSchema.parse(inputOffice365MsgTrace),
   );
 }
-
 export function inputOffice365MsgTraceFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365MsgTrace, SDKValidationError> {

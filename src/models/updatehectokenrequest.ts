@@ -3,97 +3,23 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type UpdateHecTokenRequestMetadatum = {
-  name: string;
-  value: string;
-};
+import {
+  Metadata1Type,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
 
 export type UpdateHecTokenRequest = {
   description?: string | undefined;
   enabled?: boolean | undefined;
-  metadata?: Array<UpdateHecTokenRequestMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
 };
-
-/** @internal */
-export const UpdateHecTokenRequestMetadatum$inboundSchema: z.ZodType<
-  UpdateHecTokenRequestMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type UpdateHecTokenRequestMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const UpdateHecTokenRequestMetadatum$outboundSchema: z.ZodType<
-  UpdateHecTokenRequestMetadatum$Outbound,
-  z.ZodTypeDef,
-  UpdateHecTokenRequestMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateHecTokenRequestMetadatum$ {
-  /** @deprecated use `UpdateHecTokenRequestMetadatum$inboundSchema` instead. */
-  export const inboundSchema = UpdateHecTokenRequestMetadatum$inboundSchema;
-  /** @deprecated use `UpdateHecTokenRequestMetadatum$outboundSchema` instead. */
-  export const outboundSchema = UpdateHecTokenRequestMetadatum$outboundSchema;
-  /** @deprecated use `UpdateHecTokenRequestMetadatum$Outbound` instead. */
-  export type Outbound = UpdateHecTokenRequestMetadatum$Outbound;
-}
-
-export function updateHecTokenRequestMetadatumToJSON(
-  updateHecTokenRequestMetadatum: UpdateHecTokenRequestMetadatum,
-): string {
-  return JSON.stringify(
-    UpdateHecTokenRequestMetadatum$outboundSchema.parse(
-      updateHecTokenRequestMetadatum,
-    ),
-  );
-}
-
-export function updateHecTokenRequestMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateHecTokenRequestMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateHecTokenRequestMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateHecTokenRequestMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdateHecTokenRequest$inboundSchema: z.ZodType<
-  UpdateHecTokenRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  description: z.string().optional(),
-  enabled: z.boolean().optional(),
-  metadata: z.array(z.lazy(() => UpdateHecTokenRequestMetadatum$inboundSchema))
-    .optional(),
-});
 
 /** @internal */
 export type UpdateHecTokenRequest$Outbound = {
   description?: string | undefined;
   enabled?: boolean | undefined;
-  metadata?: Array<UpdateHecTokenRequestMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
 };
 
 /** @internal */
@@ -104,37 +30,13 @@ export const UpdateHecTokenRequest$outboundSchema: z.ZodType<
 > = z.object({
   description: z.string().optional(),
   enabled: z.boolean().optional(),
-  metadata: z.array(z.lazy(() => UpdateHecTokenRequestMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateHecTokenRequest$ {
-  /** @deprecated use `UpdateHecTokenRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateHecTokenRequest$inboundSchema;
-  /** @deprecated use `UpdateHecTokenRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdateHecTokenRequest$outboundSchema;
-  /** @deprecated use `UpdateHecTokenRequest$Outbound` instead. */
-  export type Outbound = UpdateHecTokenRequest$Outbound;
-}
 
 export function updateHecTokenRequestToJSON(
   updateHecTokenRequest: UpdateHecTokenRequest,
 ): string {
   return JSON.stringify(
     UpdateHecTokenRequest$outboundSchema.parse(updateHecTokenRequest),
-  );
-}
-
-export function updateHecTokenRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateHecTokenRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateHecTokenRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateHecTokenRequest' from JSON`,
   );
 }

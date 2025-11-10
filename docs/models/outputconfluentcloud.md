@@ -1,11 +1,12 @@
 # OutputConfluentCloud
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputConfluentCloudConfluentCloud1`
 
 ```typescript
-import { OutputConfluentCloud } from "cribl-control-plane/models";
-
-let value: OutputConfluentCloud = {
+const value: models.OutputConfluentCloudConfluentCloud1 = {
   id: "<id>",
   type: "confluent_cloud",
   pipeline: "<value>",
@@ -16,7 +17,6 @@ let value: OutputConfluentCloud = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   brokers: [
     "<value 1>",
@@ -28,7 +28,7 @@ let value: OutputConfluentCloud = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1.1",
   },
   topic: "<value>",
@@ -46,52 +46,274 @@ let value: OutputConfluentCloud = {
       minVersion: "TLSv1.1",
       maxVersion: "TLSv1.3",
     },
-    defaultKeySchemaId: 4559.39,
-    defaultValueSchemaId: 7875.65,
+    defaultKeySchemaId: 4585.31,
+    defaultValueSchemaId: 8064.39,
   },
-  sasl: {},
-  description: "exacerbate sun overconfidently",
+  sasl: {
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  description: "generously blissfully parsnip meh nimble hammock",
   protobufLibraryId: "<id>",
+  protobufEncodingId: "<id>",
   pqControls: {},
 };
 ```
 
-## Fields
+### `models.OutputConfluentCloudConfluentCloud2`
 
-| Field                                                                                                                                                                                                                                                                                                                                                          | Type                                                                                                                                                                                                                                                                                                                                                           | Required                                                                                                                                                                                                                                                                                                                                                       | Description                                                                                                                                                                                                                                                                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Unique ID for this output                                                                                                                                                                                                                                                                                                                                      |
-| `type`                                                                                                                                                                                                                                                                                                                                                         | [models.OutputConfluentCloudType](../models/outputconfluentcloudtype.md)                                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
-| `pipeline`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Pipeline to process data before sending out to this output                                                                                                                                                                                                                                                                                                     |
-| `systemFields`                                                                                                                                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                                                                                                                 |
-| `environment`                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                                           |
-| `streamtags`                                                                                                                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                                  |
-| `brokers`                                                                                                                                                                                                                                                                                                                                                      | *string*[]                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                             | List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.                                                                                                                                                                                                                                                                    |
-| `tls`                                                                                                                                                                                                                                                                                                                                                          | [models.OutputConfluentCloudTLSSettingsClientSide](../models/outputconfluentcloudtlssettingsclientside.md)                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
-| `topic`                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                             | The topic to publish events to. Can be overridden using the __topicOut field.                                                                                                                                                                                                                                                                                  |
-| `ack`                                                                                                                                                                                                                                                                                                                                                          | [models.OutputConfluentCloudAcknowledgments](../models/outputconfluentcloudacknowledgments.md)                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Control the number of required acknowledgments.                                                                                                                                                                                                                                                                                                                |
-| `format`                                                                                                                                                                                                                                                                                                                                                       | [models.OutputConfluentCloudRecordDataFormat](../models/outputconfluentcloudrecorddataformat.md)                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Format to use to serialize events before writing to Kafka.                                                                                                                                                                                                                                                                                                     |
-| `compression`                                                                                                                                                                                                                                                                                                                                                  | [models.OutputConfluentCloudCompression](../models/outputconfluentcloudcompression.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Codec to use to compress the data before sending to Kafka                                                                                                                                                                                                                                                                                                      |
-| `maxRecordSizeKB`                                                                                                                                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.                                                                                                                                                                                                                                  |
-| `flushEventCount`                                                                                                                                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | The maximum number of events you want the Destination to allow in a batch before forcing a flush                                                                                                                                                                                                                                                               |
-| `flushPeriodSec`                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.                                                                                                                                                                                                            |
-| `kafkaSchemaRegistry`                                                                                                                                                                                                                                                                                                                                          | [models.OutputConfluentCloudKafkaSchemaRegistryAuthentication](../models/outputconfluentcloudkafkaschemaregistryauthentication.md)                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
-| `connectionTimeout`                                                                                                                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Maximum time to wait for a connection to complete successfully                                                                                                                                                                                                                                                                                                 |
-| `requestTimeout`                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Maximum time to wait for Kafka to respond to a request                                                                                                                                                                                                                                                                                                         |
-| `maxRetries`                                                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data                                                                                                                                                                                                                                                      |
-| `maxBackOff`                                                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).                                                                                                                                                                                                                      |
-| `initialBackoff`                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).                                                                                                                                                                                                                                                                |
-| `backoffRate`                                                                                                                                                                                                                                                                                                                                                  | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details. |
-| `authenticationTimeout`                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Maximum time to wait for Kafka to respond to an authentication request                                                                                                                                                                                                                                                                                         |
-| `reauthenticationThreshold`                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.                                                                                                                                                                                        |
-| `sasl`                                                                                                                                                                                                                                                                                                                                                         | [models.OutputConfluentCloudAuthentication](../models/outputconfluentcloudauthentication.md)                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.                                                                                                                                                                                                                                                                  |
-| `onBackpressure`                                                                                                                                                                                                                                                                                                                                               | [models.OutputConfluentCloudBackpressureBehavior](../models/outputconfluentcloudbackpressurebehavior.md)                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                              |
-| `description`                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
-| `protobufLibraryId`                                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Select a set of Protobuf definitions for the events you want to send                                                                                                                                                                                                                                                                                           |
-| `pqMaxFileSize`                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)                                                                                                                                                                                                                                                          |
-| `pqMaxSize`                                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.                                                                                                                                                                                                         |
-| `pqPath`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.                                                                                                                                                                                                                                          |
-| `pqCompress`                                                                                                                                                                                                                                                                                                                                                   | [models.OutputConfluentCloudPqCompressCompression](../models/outputconfluentcloudpqcompresscompression.md)                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                                    |
-| `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                                             | [models.OutputConfluentCloudQueueFullBehavior](../models/outputconfluentcloudqueuefullbehavior.md)                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                                          |
-| `pqMode`                                                                                                                                                                                                                                                                                                                                                       | [models.OutputConfluentCloudMode](../models/outputconfluentcloudmode.md)                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.                                                                                                 |
-| `pqControls`                                                                                                                                                                                                                                                                                                                                                   | [models.OutputConfluentCloudPqControls](../models/outputconfluentcloudpqcontrols.md)                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
+```typescript
+const value: models.OutputConfluentCloudConfluentCloud2 = {
+  id: "<id>",
+  type: "confluent_cloud",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  topic: "<value>",
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.1",
+      maxVersion: "TLSv1.3",
+    },
+    defaultKeySchemaId: 4585.31,
+    defaultValueSchemaId: 8064.39,
+  },
+  sasl: {
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  description: "geez silent ride regularly out flash criminal wherever",
+  protobufLibraryId: "<id>",
+  protobufEncodingId: "<id>",
+  pqControls: {},
+};
+```
+
+### `models.OutputConfluentCloudConfluentCloud3`
+
+```typescript
+const value: models.OutputConfluentCloudConfluentCloud3 = {
+  id: "<id>",
+  type: "confluent_cloud",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  topic: "<value>",
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.1",
+      maxVersion: "TLSv1.3",
+    },
+    defaultKeySchemaId: 4585.31,
+    defaultValueSchemaId: 8064.39,
+  },
+  sasl: {
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  description: "until why unto",
+  protobufLibraryId: "<id>",
+  protobufEncodingId: "<id>",
+  pqControls: {},
+};
+```
+
+### `models.OutputConfluentCloudConfluentCloud4`
+
+```typescript
+const value: models.OutputConfluentCloudConfluentCloud4 = {
+  id: "<id>",
+  type: "confluent_cloud",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
+  },
+  topic: "<value>",
+  kafkaSchemaRegistry: {
+    auth: {
+      credentialsSecret: "<value>",
+    },
+    tls: {
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.1",
+      maxVersion: "TLSv1.3",
+    },
+    defaultKeySchemaId: 4585.31,
+    defaultValueSchemaId: 8064.39,
+  },
+  sasl: {
+    username: "Jocelyn_Casper88",
+    password: "PIwQ9BxwvdkIdNi",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://alive-spear.com",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  description: "unlike outrageous that sting",
+  protobufLibraryId: "<id>",
+  protobufEncodingId: "<id>",
+  pqControls: {},
+};
+```
+

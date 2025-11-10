@@ -11,111 +11,72 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputWefType = {
-  Wef: "wef",
-} as const;
-export type InputWefType = ClosedEnum<typeof InputWefType>;
-
-export type InputWefConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputWefMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputWefMode = OpenEnum<typeof InputWefMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputWefCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputWefCompression = OpenEnum<typeof InputWefCompression>;
-
-export type InputWefPqControls = {};
-
-export type InputWefPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputWefMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputWefCompression | undefined;
-  pqControls?: InputWefPqControls | undefined;
-};
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 /**
  * How to authenticate incoming client connections
  */
-export const InputWefAuthenticationMethod = {
+export const InputWefAuthenticationMethod6 = {
+  /**
+   * Client certificate
+   */
   ClientCert: "clientCert",
+  /**
+   * Kerberos
+   */
   Kerberos: "kerberos",
 } as const;
 /**
  * How to authenticate incoming client connections
  */
-export type InputWefAuthenticationMethod = OpenEnum<
-  typeof InputWefAuthenticationMethod
+export type InputWefAuthenticationMethod6 = OpenEnum<
+  typeof InputWefAuthenticationMethod6
 >;
 
-export const InputWefMinimumTLSVersion = {
+export const InputWefType6 = {
+  Wef: "wef",
+} as const;
+export type InputWefType6 = ClosedEnum<typeof InputWefType6>;
+
+export const InputWefMinimumTLSVersion6 = {
   TLSv1: "TLSv1",
   TLSv11: "TLSv1.1",
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputWefMinimumTLSVersion = OpenEnum<
-  typeof InputWefMinimumTLSVersion
+export type InputWefMinimumTLSVersion6 = OpenEnum<
+  typeof InputWefMinimumTLSVersion6
 >;
 
-export const InputWefMaximumTLSVersion = {
+export const InputWefMaximumTLSVersion6 = {
   TLSv1: "TLSv1",
   TLSv11: "TLSv1.1",
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
-export type InputWefMaximumTLSVersion = OpenEnum<
-  typeof InputWefMaximumTLSVersion
+export type InputWefMaximumTLSVersion6 = OpenEnum<
+  typeof InputWefMaximumTLSVersion6
 >;
 
-export type MTLSSettings = {
+export type MTLSSettings6 = {
   /**
    * Enable TLS
    */
@@ -152,8 +113,8 @@ export type MTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?: InputWefMinimumTLSVersion | undefined;
-  maxVersion?: InputWefMaximumTLSVersion | undefined;
+  minVersion?: InputWefMinimumTLSVersion6 | undefined;
+  maxVersion?: InputWefMaximumTLSVersion6 | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -169,22 +130,22 @@ export type MTLSSettings = {
 /**
  * Content format in which the endpoint should deliver events
  */
-export const InputWefFormat = {
+export const InputWefFormat6 = {
   Raw: "Raw",
   RenderedText: "RenderedText",
 } as const;
 /**
  * Content format in which the endpoint should deliver events
  */
-export type InputWefFormat = OpenEnum<typeof InputWefFormat>;
+export type InputWefFormat6 = OpenEnum<typeof InputWefFormat6>;
 
-export const QueryBuilderMode = {
+export const QueryBuilderMode6 = {
   Simple: "simple",
   Xml: "xml",
 } as const;
-export type QueryBuilderMode = OpenEnum<typeof QueryBuilderMode>;
+export type QueryBuilderMode6 = OpenEnum<typeof QueryBuilderMode6>;
 
-export type SubscriptionMetadatum = {
+export type InputWefMetadatum6 = {
   name: string;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -192,7 +153,7 @@ export type SubscriptionMetadatum = {
   value: string;
 };
 
-export type Subscription = {
+export type Subscription6 = {
   subscriptionName: string;
   /**
    * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
@@ -201,7 +162,7 @@ export type Subscription = {
   /**
    * Content format in which the endpoint should deliver events
    */
-  contentFormat?: InputWefFormat | undefined;
+  contentFormat?: InputWefFormat6 | undefined;
   /**
    * Maximum time (in seconds) between endpoint checkins before considering it unavailable
    */
@@ -230,27 +191,23 @@ export type Subscription = {
    * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
    */
   locale?: string | undefined;
-  querySelector?: QueryBuilderMode | undefined;
+  querySelector?: QueryBuilderMode6 | undefined;
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<SubscriptionMetadatum> | undefined;
+  metadata?: Array<InputWefMetadatum6> | undefined;
 };
 
-export type InputWefMetadatum = {
-  name: string;
+export type InputWefWef6 = {
   /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   * How to authenticate incoming client connections
    */
-  value: string;
-};
-
-export type InputWef = {
+  authMethod?: InputWefAuthenticationMethod6 | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputWefType;
+  type: InputWefType6;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -275,8 +232,562 @@ export type InputWef = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputWefConnection> | undefined;
-  pq?: InputWefPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls: MTLSSettings6;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint: string;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab: string;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal: string;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription6>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+/**
+ * How to authenticate incoming client connections
+ */
+export const InputWefAuthenticationMethod5 = {
+  /**
+   * Client certificate
+   */
+  ClientCert: "clientCert",
+  /**
+   * Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+/**
+ * How to authenticate incoming client connections
+ */
+export type InputWefAuthenticationMethod5 = OpenEnum<
+  typeof InputWefAuthenticationMethod5
+>;
+
+export const InputWefType5 = {
+  Wef: "wef",
+} as const;
+export type InputWefType5 = ClosedEnum<typeof InputWefType5>;
+
+export const InputWefMinimumTLSVersion5 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMinimumTLSVersion5 = OpenEnum<
+  typeof InputWefMinimumTLSVersion5
+>;
+
+export const InputWefMaximumTLSVersion5 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMaximumTLSVersion5 = OpenEnum<
+  typeof InputWefMaximumTLSVersion5
+>;
+
+export type MTLSSettings5 = {
+  /**
+   * Enable TLS
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+   */
+  caPath: string;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  minVersion?: InputWefMinimumTLSVersion5 | undefined;
+  maxVersion?: InputWefMaximumTLSVersion5 | undefined;
+  /**
+   * Enable OCSP check of certificate
+   */
+  ocspCheck?: boolean | undefined;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  /**
+   * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+   */
+  ocspCheckFailClose?: boolean | undefined;
+};
+
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export const InputWefFormat5 = {
+  Raw: "Raw",
+  RenderedText: "RenderedText",
+} as const;
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export type InputWefFormat5 = OpenEnum<typeof InputWefFormat5>;
+
+export const QueryBuilderMode5 = {
+  Simple: "simple",
+  Xml: "xml",
+} as const;
+export type QueryBuilderMode5 = OpenEnum<typeof QueryBuilderMode5>;
+
+export type InputWefMetadatum5 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type Subscription5 = {
+  subscriptionName: string;
+  /**
+   * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+   */
+  version?: string | undefined;
+  /**
+   * Content format in which the endpoint should deliver events
+   */
+  contentFormat?: InputWefFormat5 | undefined;
+  /**
+   * Maximum time (in seconds) between endpoint checkins before considering it unavailable
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+   */
+  readExistingEvents?: boolean | undefined;
+  /**
+   * Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+   */
+  sendBookmarks?: boolean | undefined;
+  /**
+   * Receive compressed events from the source
+   */
+  compress?: boolean | undefined;
+  /**
+   * The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+   */
+  targets: Array<string>;
+  /**
+   * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+   */
+  locale?: string | undefined;
+  querySelector?: QueryBuilderMode5 | undefined;
+  /**
+   * Fields to add to events ingested under this subscription
+   */
+  metadata?: Array<InputWefMetadatum5> | undefined;
+};
+
+export type InputWefWef5 = {
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: InputWefAuthenticationMethod5 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWefType5;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls: MTLSSettings5;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint: string;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription5>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+export const InputWefType4 = {
+  Wef: "wef",
+} as const;
+export type InputWefType4 = ClosedEnum<typeof InputWefType4>;
+
+/**
+ * How to authenticate incoming client connections
+ */
+export const InputWefAuthenticationMethod4 = {
+  /**
+   * Client certificate
+   */
+  ClientCert: "clientCert",
+  /**
+   * Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+/**
+ * How to authenticate incoming client connections
+ */
+export type InputWefAuthenticationMethod4 = OpenEnum<
+  typeof InputWefAuthenticationMethod4
+>;
+
+export const InputWefMinimumTLSVersion4 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMinimumTLSVersion4 = OpenEnum<
+  typeof InputWefMinimumTLSVersion4
+>;
+
+export const InputWefMaximumTLSVersion4 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMaximumTLSVersion4 = OpenEnum<
+  typeof InputWefMaximumTLSVersion4
+>;
+
+export type MTLSSettings4 = {
+  /**
+   * Enable TLS
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+   */
+  caPath: string;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  minVersion?: InputWefMinimumTLSVersion4 | undefined;
+  maxVersion?: InputWefMaximumTLSVersion4 | undefined;
+  /**
+   * Enable OCSP check of certificate
+   */
+  ocspCheck?: boolean | undefined;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  /**
+   * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+   */
+  ocspCheckFailClose?: boolean | undefined;
+};
+
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export const InputWefFormat4 = {
+  Raw: "Raw",
+  RenderedText: "RenderedText",
+} as const;
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export type InputWefFormat4 = OpenEnum<typeof InputWefFormat4>;
+
+export const QueryBuilderMode4 = {
+  Simple: "simple",
+  Xml: "xml",
+} as const;
+export type QueryBuilderMode4 = OpenEnum<typeof QueryBuilderMode4>;
+
+export type InputWefMetadatum4 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type Subscription4 = {
+  subscriptionName: string;
+  /**
+   * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+   */
+  version?: string | undefined;
+  /**
+   * Content format in which the endpoint should deliver events
+   */
+  contentFormat?: InputWefFormat4 | undefined;
+  /**
+   * Maximum time (in seconds) between endpoint checkins before considering it unavailable
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+   */
+  readExistingEvents?: boolean | undefined;
+  /**
+   * Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+   */
+  sendBookmarks?: boolean | undefined;
+  /**
+   * Receive compressed events from the source
+   */
+  compress?: boolean | undefined;
+  /**
+   * The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+   */
+  targets: Array<string>;
+  /**
+   * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+   */
+  locale?: string | undefined;
+  querySelector?: QueryBuilderMode4 | undefined;
+  /**
+   * Fields to add to events ingested under this subscription
+   */
+  metadata?: Array<InputWefMetadatum4> | undefined;
+};
+
+export type InputWefWef4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWefType4;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -288,8 +799,8 @@ export type InputWef = {
   /**
    * How to authenticate incoming client connections
    */
-  authMethod?: InputWefAuthenticationMethod | undefined;
-  tls?: MTLSSettings | undefined;
+  authMethod?: InputWefAuthenticationMethod4 | undefined;
+  tls?: MTLSSettings4 | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -345,11 +856,11 @@ export type InputWef = {
   /**
    * Subscriptions to events on forwarding endpoints
    */
-  subscriptions: Array<Subscription>;
+  subscriptions: Array<Subscription4>;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputWefMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
@@ -357,364 +868,923 @@ export type InputWef = {
   logFingerprintMismatch?: boolean | undefined;
 };
 
-/** @internal */
-export const InputWefType$inboundSchema: z.ZodNativeEnum<typeof InputWefType> =
-  z.nativeEnum(InputWefType);
-
-/** @internal */
-export const InputWefType$outboundSchema: z.ZodNativeEnum<typeof InputWefType> =
-  InputWefType$inboundSchema;
+export const InputWefType3 = {
+  Wef: "wef",
+} as const;
+export type InputWefType3 = ClosedEnum<typeof InputWefType3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * How to authenticate incoming client connections
  */
-export namespace InputWefType$ {
-  /** @deprecated use `InputWefType$inboundSchema` instead. */
-  export const inboundSchema = InputWefType$inboundSchema;
-  /** @deprecated use `InputWefType$outboundSchema` instead. */
-  export const outboundSchema = InputWefType$outboundSchema;
-}
+export const InputWefAuthenticationMethod3 = {
+  /**
+   * Client certificate
+   */
+  ClientCert: "clientCert",
+  /**
+   * Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+/**
+ * How to authenticate incoming client connections
+ */
+export type InputWefAuthenticationMethod3 = OpenEnum<
+  typeof InputWefAuthenticationMethod3
+>;
 
-/** @internal */
-export const InputWefConnection$inboundSchema: z.ZodType<
-  InputWefConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export const InputWefMinimumTLSVersion3 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMinimumTLSVersion3 = OpenEnum<
+  typeof InputWefMinimumTLSVersion3
+>;
 
-/** @internal */
-export type InputWefConnection$Outbound = {
+export const InputWefMaximumTLSVersion3 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMaximumTLSVersion3 = OpenEnum<
+  typeof InputWefMaximumTLSVersion3
+>;
+
+export type MTLSSettings3 = {
+  /**
+   * Enable TLS
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+   */
+  caPath: string;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  minVersion?: InputWefMinimumTLSVersion3 | undefined;
+  maxVersion?: InputWefMaximumTLSVersion3 | undefined;
+  /**
+   * Enable OCSP check of certificate
+   */
+  ocspCheck?: boolean | undefined;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  /**
+   * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+   */
+  ocspCheckFailClose?: boolean | undefined;
+};
+
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export const InputWefFormat3 = {
+  Raw: "Raw",
+  RenderedText: "RenderedText",
+} as const;
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export type InputWefFormat3 = OpenEnum<typeof InputWefFormat3>;
+
+export const QueryBuilderMode3 = {
+  Simple: "simple",
+  Xml: "xml",
+} as const;
+export type QueryBuilderMode3 = OpenEnum<typeof QueryBuilderMode3>;
+
+export type InputWefMetadatum3 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type Subscription3 = {
+  subscriptionName: string;
+  /**
+   * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+   */
+  version?: string | undefined;
+  /**
+   * Content format in which the endpoint should deliver events
+   */
+  contentFormat?: InputWefFormat3 | undefined;
+  /**
+   * Maximum time (in seconds) between endpoint checkins before considering it unavailable
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+   */
+  readExistingEvents?: boolean | undefined;
+  /**
+   * Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+   */
+  sendBookmarks?: boolean | undefined;
+  /**
+   * Receive compressed events from the source
+   */
+  compress?: boolean | undefined;
+  /**
+   * The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+   */
+  targets: Array<string>;
+  /**
+   * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+   */
+  locale?: string | undefined;
+  querySelector?: QueryBuilderMode3 | undefined;
+  /**
+   * Fields to add to events ingested under this subscription
+   */
+  metadata?: Array<InputWefMetadatum3> | undefined;
+};
+
+export type InputWefWef3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWefType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: InputWefAuthenticationMethod3 | undefined;
+  tls?: MTLSSettings3 | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint?: string | undefined;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription3>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
 };
 
-/** @internal */
-export const InputWefConnection$outboundSchema: z.ZodType<
-  InputWefConnection$Outbound,
-  z.ZodTypeDef,
-  InputWefConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export const InputWefType2 = {
+  Wef: "wef",
+} as const;
+export type InputWefType2 = ClosedEnum<typeof InputWefType2>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * How to authenticate incoming client connections
  */
-export namespace InputWefConnection$ {
-  /** @deprecated use `InputWefConnection$inboundSchema` instead. */
-  export const inboundSchema = InputWefConnection$inboundSchema;
-  /** @deprecated use `InputWefConnection$outboundSchema` instead. */
-  export const outboundSchema = InputWefConnection$outboundSchema;
-  /** @deprecated use `InputWefConnection$Outbound` instead. */
-  export type Outbound = InputWefConnection$Outbound;
-}
-
-export function inputWefConnectionToJSON(
-  inputWefConnection: InputWefConnection,
-): string {
-  return JSON.stringify(
-    InputWefConnection$outboundSchema.parse(inputWefConnection),
-  );
-}
-
-export function inputWefConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWefConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWefConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWefMode$inboundSchema: z.ZodType<
-  InputWefMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputWefMode$outboundSchema: z.ZodType<
-  InputWefMode,
-  z.ZodTypeDef,
-  InputWefMode
-> = z.union([
-  z.nativeEnum(InputWefMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const InputWefAuthenticationMethod2 = {
+  /**
+   * Client certificate
+   */
+  ClientCert: "clientCert",
+  /**
+   * Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * How to authenticate incoming client connections
  */
-export namespace InputWefMode$ {
-  /** @deprecated use `InputWefMode$inboundSchema` instead. */
-  export const inboundSchema = InputWefMode$inboundSchema;
-  /** @deprecated use `InputWefMode$outboundSchema` instead. */
-  export const outboundSchema = InputWefMode$outboundSchema;
-}
+export type InputWefAuthenticationMethod2 = OpenEnum<
+  typeof InputWefAuthenticationMethod2
+>;
 
-/** @internal */
-export const InputWefCompression$inboundSchema: z.ZodType<
-  InputWefCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputWefMinimumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMinimumTLSVersion2 = OpenEnum<
+  typeof InputWefMinimumTLSVersion2
+>;
 
-/** @internal */
-export const InputWefCompression$outboundSchema: z.ZodType<
-  InputWefCompression,
-  z.ZodTypeDef,
-  InputWefCompression
-> = z.union([
-  z.nativeEnum(InputWefCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputWefMaximumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMaximumTLSVersion2 = OpenEnum<
+  typeof InputWefMaximumTLSVersion2
+>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefCompression$ {
-  /** @deprecated use `InputWefCompression$inboundSchema` instead. */
-  export const inboundSchema = InputWefCompression$inboundSchema;
-  /** @deprecated use `InputWefCompression$outboundSchema` instead. */
-  export const outboundSchema = InputWefCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputWefPqControls$inboundSchema: z.ZodType<
-  InputWefPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputWefPqControls$Outbound = {};
-
-/** @internal */
-export const InputWefPqControls$outboundSchema: z.ZodType<
-  InputWefPqControls$Outbound,
-  z.ZodTypeDef,
-  InputWefPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefPqControls$ {
-  /** @deprecated use `InputWefPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputWefPqControls$inboundSchema;
-  /** @deprecated use `InputWefPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputWefPqControls$outboundSchema;
-  /** @deprecated use `InputWefPqControls$Outbound` instead. */
-  export type Outbound = InputWefPqControls$Outbound;
-}
-
-export function inputWefPqControlsToJSON(
-  inputWefPqControls: InputWefPqControls,
-): string {
-  return JSON.stringify(
-    InputWefPqControls$outboundSchema.parse(inputWefPqControls),
-  );
-}
-
-export function inputWefPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWefPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWefPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWefPq$inboundSchema: z.ZodType<
-  InputWefPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputWefMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputWefCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputWefPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputWefPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputWefPqControls$Outbound | undefined;
+export type MTLSSettings2 = {
+  /**
+   * Enable TLS
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+   */
+  caPath: string;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  minVersion?: InputWefMinimumTLSVersion2 | undefined;
+  maxVersion?: InputWefMaximumTLSVersion2 | undefined;
+  /**
+   * Enable OCSP check of certificate
+   */
+  ocspCheck?: boolean | undefined;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  /**
+   * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+   */
+  ocspCheckFailClose?: boolean | undefined;
 };
 
-/** @internal */
-export const InputWefPq$outboundSchema: z.ZodType<
-  InputWefPq$Outbound,
-  z.ZodTypeDef,
-  InputWefPq
-> = z.object({
-  mode: InputWefMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputWefCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputWefPqControls$outboundSchema).optional(),
-});
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export const InputWefFormat2 = {
+  Raw: "Raw",
+  RenderedText: "RenderedText",
+} as const;
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export type InputWefFormat2 = OpenEnum<typeof InputWefFormat2>;
+
+export const QueryBuilderMode2 = {
+  Simple: "simple",
+  Xml: "xml",
+} as const;
+export type QueryBuilderMode2 = OpenEnum<typeof QueryBuilderMode2>;
+
+export type InputWefMetadatum2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type Subscription2 = {
+  subscriptionName: string;
+  /**
+   * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+   */
+  version?: string | undefined;
+  /**
+   * Content format in which the endpoint should deliver events
+   */
+  contentFormat?: InputWefFormat2 | undefined;
+  /**
+   * Maximum time (in seconds) between endpoint checkins before considering it unavailable
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+   */
+  readExistingEvents?: boolean | undefined;
+  /**
+   * Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+   */
+  sendBookmarks?: boolean | undefined;
+  /**
+   * Receive compressed events from the source
+   */
+  compress?: boolean | undefined;
+  /**
+   * The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+   */
+  targets: Array<string>;
+  /**
+   * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+   */
+  locale?: string | undefined;
+  querySelector?: QueryBuilderMode2 | undefined;
+  /**
+   * Fields to add to events ingested under this subscription
+   */
+  metadata?: Array<InputWefMetadatum2> | undefined;
+};
+
+export type InputWefWef2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWefType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: InputWefAuthenticationMethod2 | undefined;
+  tls?: MTLSSettings2 | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint?: string | undefined;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription2>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+export const InputWefType1 = {
+  Wef: "wef",
+} as const;
+export type InputWefType1 = ClosedEnum<typeof InputWefType1>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * How to authenticate incoming client connections
  */
-export namespace InputWefPq$ {
-  /** @deprecated use `InputWefPq$inboundSchema` instead. */
-  export const inboundSchema = InputWefPq$inboundSchema;
-  /** @deprecated use `InputWefPq$outboundSchema` instead. */
-  export const outboundSchema = InputWefPq$outboundSchema;
-  /** @deprecated use `InputWefPq$Outbound` instead. */
-  export type Outbound = InputWefPq$Outbound;
-}
+export const InputWefAuthenticationMethod1 = {
+  /**
+   * Client certificate
+   */
+  ClientCert: "clientCert",
+  /**
+   * Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+/**
+ * How to authenticate incoming client connections
+ */
+export type InputWefAuthenticationMethod1 = OpenEnum<
+  typeof InputWefAuthenticationMethod1
+>;
 
-export function inputWefPqToJSON(inputWefPq: InputWefPq): string {
-  return JSON.stringify(InputWefPq$outboundSchema.parse(inputWefPq));
-}
+export const InputWefMinimumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMinimumTLSVersion1 = OpenEnum<
+  typeof InputWefMinimumTLSVersion1
+>;
 
-export function inputWefPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWefPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWefPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefPq' from JSON`,
-  );
-}
+export const InputWefMaximumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputWefMaximumTLSVersion1 = OpenEnum<
+  typeof InputWefMaximumTLSVersion1
+>;
+
+export type MTLSSettings1 = {
+  /**
+   * Enable TLS
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+   */
+  caPath: string;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  minVersion?: InputWefMinimumTLSVersion1 | undefined;
+  maxVersion?: InputWefMaximumTLSVersion1 | undefined;
+  /**
+   * Enable OCSP check of certificate
+   */
+  ocspCheck?: boolean | undefined;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  /**
+   * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+   */
+  ocspCheckFailClose?: boolean | undefined;
+};
+
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export const InputWefFormat1 = {
+  Raw: "Raw",
+  RenderedText: "RenderedText",
+} as const;
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export type InputWefFormat1 = OpenEnum<typeof InputWefFormat1>;
+
+export const QueryBuilderMode1 = {
+  Simple: "simple",
+  Xml: "xml",
+} as const;
+export type QueryBuilderMode1 = OpenEnum<typeof QueryBuilderMode1>;
+
+export type InputWefMetadatum1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type Subscription1 = {
+  subscriptionName: string;
+  /**
+   * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+   */
+  version?: string | undefined;
+  /**
+   * Content format in which the endpoint should deliver events
+   */
+  contentFormat?: InputWefFormat1 | undefined;
+  /**
+   * Maximum time (in seconds) between endpoint checkins before considering it unavailable
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+   */
+  readExistingEvents?: boolean | undefined;
+  /**
+   * Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+   */
+  sendBookmarks?: boolean | undefined;
+  /**
+   * Receive compressed events from the source
+   */
+  compress?: boolean | undefined;
+  /**
+   * The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+   */
+  targets: Array<string>;
+  /**
+   * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+   */
+  locale?: string | undefined;
+  querySelector?: QueryBuilderMode1 | undefined;
+  /**
+   * Fields to add to events ingested under this subscription
+   */
+  metadata?: Array<InputWefMetadatum1> | undefined;
+};
+
+export type InputWefWef1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputWefType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: InputWefAuthenticationMethod1 | undefined;
+  tls?: MTLSSettings1 | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint?: string | undefined;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription1>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+export type InputWef =
+  | InputWefWef6
+  | InputWefWef5
+  | InputWefWef2
+  | InputWefWef4
+  | InputWefWef1
+  | InputWefWef3;
 
 /** @internal */
-export const InputWefAuthenticationMethod$inboundSchema: z.ZodType<
-  InputWefAuthenticationMethod,
+export const InputWefAuthenticationMethod6$inboundSchema: z.ZodType<
+  InputWefAuthenticationMethod6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputWefAuthenticationMethod),
+    z.nativeEnum(InputWefAuthenticationMethod6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputWefAuthenticationMethod$outboundSchema: z.ZodType<
-  InputWefAuthenticationMethod,
+export const InputWefAuthenticationMethod6$outboundSchema: z.ZodType<
+  InputWefAuthenticationMethod6,
   z.ZodTypeDef,
-  InputWefAuthenticationMethod
+  InputWefAuthenticationMethod6
 > = z.union([
-  z.nativeEnum(InputWefAuthenticationMethod),
+  z.nativeEnum(InputWefAuthenticationMethod6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefAuthenticationMethod$ {
-  /** @deprecated use `InputWefAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputWefAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputWefAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputWefAuthenticationMethod$outboundSchema;
-}
+/** @internal */
+export const InputWefType6$inboundSchema: z.ZodNativeEnum<
+  typeof InputWefType6
+> = z.nativeEnum(InputWefType6);
+/** @internal */
+export const InputWefType6$outboundSchema: z.ZodNativeEnum<
+  typeof InputWefType6
+> = InputWefType6$inboundSchema;
 
 /** @internal */
-export const InputWefMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputWefMinimumTLSVersion,
+export const InputWefMinimumTLSVersion6$inboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputWefMinimumTLSVersion),
+    z.nativeEnum(InputWefMinimumTLSVersion6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputWefMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputWefMinimumTLSVersion,
+export const InputWefMinimumTLSVersion6$outboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion6,
   z.ZodTypeDef,
-  InputWefMinimumTLSVersion
+  InputWefMinimumTLSVersion6
 > = z.union([
-  z.nativeEnum(InputWefMinimumTLSVersion),
+  z.nativeEnum(InputWefMinimumTLSVersion6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefMinimumTLSVersion$ {
-  /** @deprecated use `InputWefMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputWefMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputWefMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputWefMinimumTLSVersion$outboundSchema;
-}
-
 /** @internal */
-export const InputWefMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputWefMaximumTLSVersion,
+export const InputWefMaximumTLSVersion6$inboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputWefMaximumTLSVersion),
+    z.nativeEnum(InputWefMaximumTLSVersion6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputWefMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputWefMaximumTLSVersion,
+export const InputWefMaximumTLSVersion6$outboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion6,
   z.ZodTypeDef,
-  InputWefMaximumTLSVersion
+  InputWefMaximumTLSVersion6
 > = z.union([
-  z.nativeEnum(InputWefMaximumTLSVersion),
+  z.nativeEnum(InputWefMaximumTLSVersion6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefMaximumTLSVersion$ {
-  /** @deprecated use `InputWefMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputWefMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputWefMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputWefMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
-export const MTLSSettings$inboundSchema: z.ZodType<
-  MTLSSettings,
+export const MTLSSettings6$inboundSchema: z.ZodType<
+  MTLSSettings6,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -727,16 +1797,15 @@ export const MTLSSettings$inboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().default("/.*/"),
-  minVersion: InputWefMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputWefMaximumTLSVersion$inboundSchema.optional(),
+  minVersion: InputWefMinimumTLSVersion6$inboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion6$inboundSchema.optional(),
   ocspCheck: z.boolean().default(false),
   keytab: z.any().optional(),
   principal: z.any().optional(),
   ocspCheckFailClose: z.boolean().default(false),
 });
-
 /** @internal */
-export type MTLSSettings$Outbound = {
+export type MTLSSettings6$Outbound = {
   disabled: boolean;
   rejectUnauthorized: boolean;
   requestCert: boolean;
@@ -755,10 +1824,10 @@ export type MTLSSettings$Outbound = {
 };
 
 /** @internal */
-export const MTLSSettings$outboundSchema: z.ZodType<
-  MTLSSettings$Outbound,
+export const MTLSSettings6$outboundSchema: z.ZodType<
+  MTLSSettings6$Outbound,
   z.ZodTypeDef,
-  MTLSSettings
+  MTLSSettings6
 > = z.object({
   disabled: z.boolean().default(false),
   rejectUnauthorized: z.boolean().default(true),
@@ -769,171 +1838,118 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().default("/.*/"),
-  minVersion: InputWefMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputWefMaximumTLSVersion$outboundSchema.optional(),
+  minVersion: InputWefMinimumTLSVersion6$outboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion6$outboundSchema.optional(),
   ocspCheck: z.boolean().default(false),
   keytab: z.any().optional(),
   principal: z.any().optional(),
   ocspCheckFailClose: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MTLSSettings$ {
-  /** @deprecated use `MTLSSettings$inboundSchema` instead. */
-  export const inboundSchema = MTLSSettings$inboundSchema;
-  /** @deprecated use `MTLSSettings$outboundSchema` instead. */
-  export const outboundSchema = MTLSSettings$outboundSchema;
-  /** @deprecated use `MTLSSettings$Outbound` instead. */
-  export type Outbound = MTLSSettings$Outbound;
+export function mTLSSettings6ToJSON(mtlsSettings6: MTLSSettings6): string {
+  return JSON.stringify(MTLSSettings6$outboundSchema.parse(mtlsSettings6));
 }
-
-export function mTLSSettingsToJSON(mtlsSettings: MTLSSettings): string {
-  return JSON.stringify(MTLSSettings$outboundSchema.parse(mtlsSettings));
-}
-
-export function mTLSSettingsFromJSON(
+export function mTLSSettings6FromJSON(
   jsonString: string,
-): SafeParseResult<MTLSSettings, SDKValidationError> {
+): SafeParseResult<MTLSSettings6, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MTLSSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MTLSSettings' from JSON`,
+    (x) => MTLSSettings6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MTLSSettings6' from JSON`,
   );
 }
 
 /** @internal */
-export const InputWefFormat$inboundSchema: z.ZodType<
-  InputWefFormat,
+export const InputWefFormat6$inboundSchema: z.ZodType<
+  InputWefFormat6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputWefFormat),
+    z.nativeEnum(InputWefFormat6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputWefFormat$outboundSchema: z.ZodType<
-  InputWefFormat,
+export const InputWefFormat6$outboundSchema: z.ZodType<
+  InputWefFormat6,
   z.ZodTypeDef,
-  InputWefFormat
+  InputWefFormat6
 > = z.union([
-  z.nativeEnum(InputWefFormat),
+  z.nativeEnum(InputWefFormat6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefFormat$ {
-  /** @deprecated use `InputWefFormat$inboundSchema` instead. */
-  export const inboundSchema = InputWefFormat$inboundSchema;
-  /** @deprecated use `InputWefFormat$outboundSchema` instead. */
-  export const outboundSchema = InputWefFormat$outboundSchema;
-}
-
 /** @internal */
-export const QueryBuilderMode$inboundSchema: z.ZodType<
-  QueryBuilderMode,
+export const QueryBuilderMode6$inboundSchema: z.ZodType<
+  QueryBuilderMode6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(QueryBuilderMode),
+    z.nativeEnum(QueryBuilderMode6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const QueryBuilderMode$outboundSchema: z.ZodType<
-  QueryBuilderMode,
+export const QueryBuilderMode6$outboundSchema: z.ZodType<
+  QueryBuilderMode6,
   z.ZodTypeDef,
-  QueryBuilderMode
+  QueryBuilderMode6
 > = z.union([
-  z.nativeEnum(QueryBuilderMode),
+  z.nativeEnum(QueryBuilderMode6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace QueryBuilderMode$ {
-  /** @deprecated use `QueryBuilderMode$inboundSchema` instead. */
-  export const inboundSchema = QueryBuilderMode$inboundSchema;
-  /** @deprecated use `QueryBuilderMode$outboundSchema` instead. */
-  export const outboundSchema = QueryBuilderMode$outboundSchema;
-}
-
 /** @internal */
-export const SubscriptionMetadatum$inboundSchema: z.ZodType<
-  SubscriptionMetadatum,
+export const InputWefMetadatum6$inboundSchema: z.ZodType<
+  InputWefMetadatum6,
   z.ZodTypeDef,
   unknown
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
-export type SubscriptionMetadatum$Outbound = {
+export type InputWefMetadatum6$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const SubscriptionMetadatum$outboundSchema: z.ZodType<
-  SubscriptionMetadatum$Outbound,
+export const InputWefMetadatum6$outboundSchema: z.ZodType<
+  InputWefMetadatum6$Outbound,
   z.ZodTypeDef,
-  SubscriptionMetadatum
+  InputWefMetadatum6
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionMetadatum$ {
-  /** @deprecated use `SubscriptionMetadatum$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionMetadatum$inboundSchema;
-  /** @deprecated use `SubscriptionMetadatum$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionMetadatum$outboundSchema;
-  /** @deprecated use `SubscriptionMetadatum$Outbound` instead. */
-  export type Outbound = SubscriptionMetadatum$Outbound;
-}
-
-export function subscriptionMetadatumToJSON(
-  subscriptionMetadatum: SubscriptionMetadatum,
+export function inputWefMetadatum6ToJSON(
+  inputWefMetadatum6: InputWefMetadatum6,
 ): string {
   return JSON.stringify(
-    SubscriptionMetadatum$outboundSchema.parse(subscriptionMetadatum),
+    InputWefMetadatum6$outboundSchema.parse(inputWefMetadatum6),
   );
 }
-
-export function subscriptionMetadatumFromJSON(
+export function inputWefMetadatum6FromJSON(
   jsonString: string,
-): SafeParseResult<SubscriptionMetadatum, SDKValidationError> {
+): SafeParseResult<InputWefMetadatum6, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SubscriptionMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubscriptionMetadatum' from JSON`,
+    (x) => InputWefMetadatum6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefMetadatum6' from JSON`,
   );
 }
 
 /** @internal */
-export const Subscription$inboundSchema: z.ZodType<
-  Subscription,
+export const Subscription6$inboundSchema: z.ZodType<
+  Subscription6,
   z.ZodTypeDef,
   unknown
 > = z.object({
   subscriptionName: z.string(),
   version: z.string().optional(),
-  contentFormat: InputWefFormat$inboundSchema.default("Raw"),
+  contentFormat: InputWefFormat6$inboundSchema.default("Raw"),
   heartbeatInterval: z.number().default(60),
   batchTimeout: z.number().default(60),
   readExistingEvents: z.boolean().default(false),
@@ -941,13 +1957,11 @@ export const Subscription$inboundSchema: z.ZodType<
   compress: z.boolean().default(true),
   targets: z.array(z.string()),
   locale: z.string().default("en-US"),
-  querySelector: QueryBuilderMode$inboundSchema.default("simple"),
-  metadata: z.array(z.lazy(() => SubscriptionMetadatum$inboundSchema))
-    .optional(),
+  querySelector: QueryBuilderMode6$inboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum6$inboundSchema)).optional(),
 });
-
 /** @internal */
-export type Subscription$Outbound = {
+export type Subscription6$Outbound = {
   subscriptionName: string;
   version?: string | undefined;
   contentFormat: string;
@@ -959,18 +1973,18 @@ export type Subscription$Outbound = {
   targets: Array<string>;
   locale: string;
   querySelector: string;
-  metadata?: Array<SubscriptionMetadatum$Outbound> | undefined;
+  metadata?: Array<InputWefMetadatum6$Outbound> | undefined;
 };
 
 /** @internal */
-export const Subscription$outboundSchema: z.ZodType<
-  Subscription$Outbound,
+export const Subscription6$outboundSchema: z.ZodType<
+  Subscription6$Outbound,
   z.ZodTypeDef,
-  Subscription
+  Subscription6
 > = z.object({
   subscriptionName: z.string(),
   version: z.string().optional(),
-  contentFormat: InputWefFormat$outboundSchema.default("Raw"),
+  contentFormat: InputWefFormat6$outboundSchema.default("Raw"),
   heartbeatInterval: z.number().default(60),
   batchTimeout: z.number().default(60),
   readExistingEvents: z.boolean().default(false),
@@ -978,116 +1992,889 @@ export const Subscription$outboundSchema: z.ZodType<
   compress: z.boolean().default(true),
   targets: z.array(z.string()),
   locale: z.string().default("en-US"),
-  querySelector: QueryBuilderMode$outboundSchema.default("simple"),
-  metadata: z.array(z.lazy(() => SubscriptionMetadatum$outboundSchema))
-    .optional(),
+  querySelector: QueryBuilderMode6$outboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum6$outboundSchema)).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Subscription$ {
-  /** @deprecated use `Subscription$inboundSchema` instead. */
-  export const inboundSchema = Subscription$inboundSchema;
-  /** @deprecated use `Subscription$outboundSchema` instead. */
-  export const outboundSchema = Subscription$outboundSchema;
-  /** @deprecated use `Subscription$Outbound` instead. */
-  export type Outbound = Subscription$Outbound;
+export function subscription6ToJSON(subscription6: Subscription6): string {
+  return JSON.stringify(Subscription6$outboundSchema.parse(subscription6));
 }
-
-export function subscriptionToJSON(subscription: Subscription): string {
-  return JSON.stringify(Subscription$outboundSchema.parse(subscription));
-}
-
-export function subscriptionFromJSON(
+export function subscription6FromJSON(
   jsonString: string,
-): SafeParseResult<Subscription, SDKValidationError> {
+): SafeParseResult<Subscription6, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Subscription$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Subscription' from JSON`,
+    (x) => Subscription6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Subscription6' from JSON`,
   );
 }
 
 /** @internal */
-export const InputWefMetadatum$inboundSchema: z.ZodType<
-  InputWefMetadatum,
+export const InputWefWef6$inboundSchema: z.ZodType<
+  InputWefWef6,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputWefMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputWefMetadatum$outboundSchema: z.ZodType<
-  InputWefMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputWefMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefMetadatum$ {
-  /** @deprecated use `InputWefMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputWefMetadatum$inboundSchema;
-  /** @deprecated use `InputWefMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputWefMetadatum$outboundSchema;
-  /** @deprecated use `InputWefMetadatum$Outbound` instead. */
-  export type Outbound = InputWefMetadatum$Outbound;
-}
-
-export function inputWefMetadatumToJSON(
-  inputWefMetadatum: InputWefMetadatum,
-): string {
-  return JSON.stringify(
-    InputWefMetadatum$outboundSchema.parse(inputWefMetadatum),
-  );
-}
-
-export function inputWefMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWefMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWefMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWef$inboundSchema: z.ZodType<
-  InputWef,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authMethod: InputWefAuthenticationMethod6$inboundSchema.default("clientCert"),
   id: z.string().optional(),
-  type: InputWefType$inboundSchema,
+  type: InputWefType6$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputWefConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputWefPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
-  authMethod: InputWefAuthenticationMethod$inboundSchema.default("clientCert"),
-  tls: z.lazy(() => MTLSSettings$inboundSchema).optional(),
+  tls: z.lazy(() => MTLSSettings6$inboundSchema),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string(),
+  keytab: z.string(),
+  principal: z.string(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription6$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+/** @internal */
+export type InputWefWef6$Outbound = {
+  authMethod: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls: MTLSSettings6$Outbound;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  socketTimeout: number;
+  caFingerprint: string;
+  keytab: string;
+  principal: string;
+  allowMachineIdMismatch: boolean;
+  subscriptions: Array<Subscription6$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch: boolean;
+};
+
+/** @internal */
+export const InputWefWef6$outboundSchema: z.ZodType<
+  InputWefWef6$Outbound,
+  z.ZodTypeDef,
+  InputWefWef6
+> = z.object({
+  authMethod: InputWefAuthenticationMethod6$outboundSchema.default(
+    "clientCert",
+  ),
+  id: z.string().optional(),
+  type: InputWefType6$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  tls: z.lazy(() => MTLSSettings6$outboundSchema),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string(),
+  keytab: z.string(),
+  principal: z.string(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription6$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+
+export function inputWefWef6ToJSON(inputWefWef6: InputWefWef6): string {
+  return JSON.stringify(InputWefWef6$outboundSchema.parse(inputWefWef6));
+}
+export function inputWefWef6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefWef6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefWef6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefWef6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefAuthenticationMethod5$inboundSchema: z.ZodType<
+  InputWefAuthenticationMethod5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefAuthenticationMethod5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefAuthenticationMethod5$outboundSchema: z.ZodType<
+  InputWefAuthenticationMethod5,
+  z.ZodTypeDef,
+  InputWefAuthenticationMethod5
+> = z.union([
+  z.nativeEnum(InputWefAuthenticationMethod5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefType5$inboundSchema: z.ZodNativeEnum<
+  typeof InputWefType5
+> = z.nativeEnum(InputWefType5);
+/** @internal */
+export const InputWefType5$outboundSchema: z.ZodNativeEnum<
+  typeof InputWefType5
+> = InputWefType5$inboundSchema;
+
+/** @internal */
+export const InputWefMinimumTLSVersion5$inboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMinimumTLSVersion5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMinimumTLSVersion5$outboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion5,
+  z.ZodTypeDef,
+  InputWefMinimumTLSVersion5
+> = z.union([
+  z.nativeEnum(InputWefMinimumTLSVersion5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMaximumTLSVersion5$inboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMaximumTLSVersion5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMaximumTLSVersion5$outboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion5,
+  z.ZodTypeDef,
+  InputWefMaximumTLSVersion5
+> = z.union([
+  z.nativeEnum(InputWefMaximumTLSVersion5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const MTLSSettings5$inboundSchema: z.ZodType<
+  MTLSSettings5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion5$inboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion5$inboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+/** @internal */
+export type MTLSSettings5$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  requestCert: boolean;
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+  caPath: string;
+  commonNameRegex: string;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+  ocspCheck: boolean;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  ocspCheckFailClose: boolean;
+};
+
+/** @internal */
+export const MTLSSettings5$outboundSchema: z.ZodType<
+  MTLSSettings5$Outbound,
+  z.ZodTypeDef,
+  MTLSSettings5
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion5$outboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion5$outboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+
+export function mTLSSettings5ToJSON(mtlsSettings5: MTLSSettings5): string {
+  return JSON.stringify(MTLSSettings5$outboundSchema.parse(mtlsSettings5));
+}
+export function mTLSSettings5FromJSON(
+  jsonString: string,
+): SafeParseResult<MTLSSettings5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MTLSSettings5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MTLSSettings5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefFormat5$inboundSchema: z.ZodType<
+  InputWefFormat5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefFormat5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefFormat5$outboundSchema: z.ZodType<
+  InputWefFormat5,
+  z.ZodTypeDef,
+  InputWefFormat5
+> = z.union([
+  z.nativeEnum(InputWefFormat5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const QueryBuilderMode5$inboundSchema: z.ZodType<
+  QueryBuilderMode5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(QueryBuilderMode5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const QueryBuilderMode5$outboundSchema: z.ZodType<
+  QueryBuilderMode5,
+  z.ZodTypeDef,
+  QueryBuilderMode5
+> = z.union([
+  z.nativeEnum(QueryBuilderMode5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMetadatum5$inboundSchema: z.ZodType<
+  InputWefMetadatum5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputWefMetadatum5$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputWefMetadatum5$outboundSchema: z.ZodType<
+  InputWefMetadatum5$Outbound,
+  z.ZodTypeDef,
+  InputWefMetadatum5
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputWefMetadatum5ToJSON(
+  inputWefMetadatum5: InputWefMetadatum5,
+): string {
+  return JSON.stringify(
+    InputWefMetadatum5$outboundSchema.parse(inputWefMetadatum5),
+  );
+}
+export function inputWefMetadatum5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefMetadatum5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefMetadatum5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefMetadatum5' from JSON`,
+  );
+}
+
+/** @internal */
+export const Subscription5$inboundSchema: z.ZodType<
+  Subscription5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat5$inboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode5$inboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum5$inboundSchema)).optional(),
+});
+/** @internal */
+export type Subscription5$Outbound = {
+  subscriptionName: string;
+  version?: string | undefined;
+  contentFormat: string;
+  heartbeatInterval: number;
+  batchTimeout: number;
+  readExistingEvents: boolean;
+  sendBookmarks: boolean;
+  compress: boolean;
+  targets: Array<string>;
+  locale: string;
+  querySelector: string;
+  metadata?: Array<InputWefMetadatum5$Outbound> | undefined;
+};
+
+/** @internal */
+export const Subscription5$outboundSchema: z.ZodType<
+  Subscription5$Outbound,
+  z.ZodTypeDef,
+  Subscription5
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat5$outboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode5$outboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum5$outboundSchema)).optional(),
+});
+
+export function subscription5ToJSON(subscription5: Subscription5): string {
+  return JSON.stringify(Subscription5$outboundSchema.parse(subscription5));
+}
+export function subscription5FromJSON(
+  jsonString: string,
+): SafeParseResult<Subscription5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Subscription5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Subscription5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefWef5$inboundSchema: z.ZodType<
+  InputWefWef5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authMethod: InputWefAuthenticationMethod5$inboundSchema.default("clientCert"),
+  id: z.string().optional(),
+  type: InputWefType5$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  tls: z.lazy(() => MTLSSettings5$inboundSchema),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription5$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+/** @internal */
+export type InputWefWef5$Outbound = {
+  authMethod: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls: MTLSSettings5$Outbound;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  socketTimeout: number;
+  caFingerprint: string;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch: boolean;
+  subscriptions: Array<Subscription5$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch: boolean;
+};
+
+/** @internal */
+export const InputWefWef5$outboundSchema: z.ZodType<
+  InputWefWef5$Outbound,
+  z.ZodTypeDef,
+  InputWefWef5
+> = z.object({
+  authMethod: InputWefAuthenticationMethod5$outboundSchema.default(
+    "clientCert",
+  ),
+  id: z.string().optional(),
+  type: InputWefType5$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  tls: z.lazy(() => MTLSSettings5$outboundSchema),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription5$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+
+export function inputWefWef5ToJSON(inputWefWef5: InputWefWef5): string {
+  return JSON.stringify(InputWefWef5$outboundSchema.parse(inputWefWef5));
+}
+export function inputWefWef5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefWef5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefWef5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefWef5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputWefType4
+> = z.nativeEnum(InputWefType4);
+/** @internal */
+export const InputWefType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputWefType4
+> = InputWefType4$inboundSchema;
+
+/** @internal */
+export const InputWefAuthenticationMethod4$inboundSchema: z.ZodType<
+  InputWefAuthenticationMethod4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefAuthenticationMethod4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefAuthenticationMethod4$outboundSchema: z.ZodType<
+  InputWefAuthenticationMethod4,
+  z.ZodTypeDef,
+  InputWefAuthenticationMethod4
+> = z.union([
+  z.nativeEnum(InputWefAuthenticationMethod4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMinimumTLSVersion4$inboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMinimumTLSVersion4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMinimumTLSVersion4$outboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion4,
+  z.ZodTypeDef,
+  InputWefMinimumTLSVersion4
+> = z.union([
+  z.nativeEnum(InputWefMinimumTLSVersion4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMaximumTLSVersion4$inboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMaximumTLSVersion4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMaximumTLSVersion4$outboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion4,
+  z.ZodTypeDef,
+  InputWefMaximumTLSVersion4
+> = z.union([
+  z.nativeEnum(InputWefMaximumTLSVersion4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const MTLSSettings4$inboundSchema: z.ZodType<
+  MTLSSettings4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion4$inboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion4$inboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+/** @internal */
+export type MTLSSettings4$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  requestCert: boolean;
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+  caPath: string;
+  commonNameRegex: string;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+  ocspCheck: boolean;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  ocspCheckFailClose: boolean;
+};
+
+/** @internal */
+export const MTLSSettings4$outboundSchema: z.ZodType<
+  MTLSSettings4$Outbound,
+  z.ZodTypeDef,
+  MTLSSettings4
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion4$outboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion4$outboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+
+export function mTLSSettings4ToJSON(mtlsSettings4: MTLSSettings4): string {
+  return JSON.stringify(MTLSSettings4$outboundSchema.parse(mtlsSettings4));
+}
+export function mTLSSettings4FromJSON(
+  jsonString: string,
+): SafeParseResult<MTLSSettings4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MTLSSettings4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MTLSSettings4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefFormat4$inboundSchema: z.ZodType<
+  InputWefFormat4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefFormat4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefFormat4$outboundSchema: z.ZodType<
+  InputWefFormat4,
+  z.ZodTypeDef,
+  InputWefFormat4
+> = z.union([
+  z.nativeEnum(InputWefFormat4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const QueryBuilderMode4$inboundSchema: z.ZodType<
+  QueryBuilderMode4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(QueryBuilderMode4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const QueryBuilderMode4$outboundSchema: z.ZodType<
+  QueryBuilderMode4,
+  z.ZodTypeDef,
+  QueryBuilderMode4
+> = z.union([
+  z.nativeEnum(QueryBuilderMode4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMetadatum4$inboundSchema: z.ZodType<
+  InputWefMetadatum4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputWefMetadatum4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputWefMetadatum4$outboundSchema: z.ZodType<
+  InputWefMetadatum4$Outbound,
+  z.ZodTypeDef,
+  InputWefMetadatum4
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputWefMetadatum4ToJSON(
+  inputWefMetadatum4: InputWefMetadatum4,
+): string {
+  return JSON.stringify(
+    InputWefMetadatum4$outboundSchema.parse(inputWefMetadatum4),
+  );
+}
+export function inputWefMetadatum4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefMetadatum4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefMetadatum4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefMetadatum4' from JSON`,
+  );
+}
+
+/** @internal */
+export const Subscription4$inboundSchema: z.ZodType<
+  Subscription4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat4$inboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode4$inboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum4$inboundSchema)).optional(),
+});
+/** @internal */
+export type Subscription4$Outbound = {
+  subscriptionName: string;
+  version?: string | undefined;
+  contentFormat: string;
+  heartbeatInterval: number;
+  batchTimeout: number;
+  readExistingEvents: boolean;
+  sendBookmarks: boolean;
+  compress: boolean;
+  targets: Array<string>;
+  locale: string;
+  querySelector: string;
+  metadata?: Array<InputWefMetadatum4$Outbound> | undefined;
+};
+
+/** @internal */
+export const Subscription4$outboundSchema: z.ZodType<
+  Subscription4$Outbound,
+  z.ZodTypeDef,
+  Subscription4
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat4$outboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode4$outboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum4$outboundSchema)).optional(),
+});
+
+export function subscription4ToJSON(subscription4: Subscription4): string {
+  return JSON.stringify(Subscription4$outboundSchema.parse(subscription4));
+}
+export function subscription4FromJSON(
+  jsonString: string,
+): SafeParseResult<Subscription4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Subscription4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Subscription4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefWef4$inboundSchema: z.ZodType<
+  InputWefWef4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputWefType4$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod4$inboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings4$inboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -1101,28 +2888,27 @@ export const InputWef$inboundSchema: z.ZodType<
   keytab: z.string().optional(),
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().default(false),
-  subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
-  metadata: z.array(z.lazy(() => InputWefMetadatum$inboundSchema)).optional(),
+  subscriptions: z.array(z.lazy(() => Subscription4$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().default(false),
 });
-
 /** @internal */
-export type InputWef$Outbound = {
+export type InputWefWef4$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputWefConnection$Outbound> | undefined;
-  pq?: InputWefPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   host: string;
   port: number;
   authMethod: string;
-  tls?: MTLSSettings$Outbound | undefined;
+  tls?: MTLSSettings4$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -1136,33 +2922,34 @@ export type InputWef$Outbound = {
   keytab?: string | undefined;
   principal?: string | undefined;
   allowMachineIdMismatch: boolean;
-  subscriptions: Array<Subscription$Outbound>;
-  metadata?: Array<InputWefMetadatum$Outbound> | undefined;
+  subscriptions: Array<Subscription4$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch: boolean;
 };
 
 /** @internal */
-export const InputWef$outboundSchema: z.ZodType<
-  InputWef$Outbound,
+export const InputWefWef4$outboundSchema: z.ZodType<
+  InputWefWef4$Outbound,
   z.ZodTypeDef,
-  InputWef
+  InputWefWef4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputWefType$outboundSchema,
+  type: InputWefType4$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputWefConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputWefPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
-  authMethod: InputWefAuthenticationMethod$outboundSchema.default("clientCert"),
-  tls: z.lazy(() => MTLSSettings$outboundSchema).optional(),
+  authMethod: InputWefAuthenticationMethod4$outboundSchema.default(
+    "clientCert",
+  ),
+  tls: z.lazy(() => MTLSSettings4$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -1176,29 +2963,1333 @@ export const InputWef$outboundSchema: z.ZodType<
   keytab: z.string().optional(),
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().default(false),
-  subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
-  metadata: z.array(z.lazy(() => InputWefMetadatum$outboundSchema)).optional(),
+  subscriptions: z.array(z.lazy(() => Subscription4$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWef$ {
-  /** @deprecated use `InputWef$inboundSchema` instead. */
-  export const inboundSchema = InputWef$inboundSchema;
-  /** @deprecated use `InputWef$outboundSchema` instead. */
-  export const outboundSchema = InputWef$outboundSchema;
-  /** @deprecated use `InputWef$Outbound` instead. */
-  export type Outbound = InputWef$Outbound;
+export function inputWefWef4ToJSON(inputWefWef4: InputWefWef4): string {
+  return JSON.stringify(InputWefWef4$outboundSchema.parse(inputWefWef4));
 }
+export function inputWefWef4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefWef4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefWef4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefWef4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputWefType3
+> = z.nativeEnum(InputWefType3);
+/** @internal */
+export const InputWefType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputWefType3
+> = InputWefType3$inboundSchema;
+
+/** @internal */
+export const InputWefAuthenticationMethod3$inboundSchema: z.ZodType<
+  InputWefAuthenticationMethod3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefAuthenticationMethod3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefAuthenticationMethod3$outboundSchema: z.ZodType<
+  InputWefAuthenticationMethod3,
+  z.ZodTypeDef,
+  InputWefAuthenticationMethod3
+> = z.union([
+  z.nativeEnum(InputWefAuthenticationMethod3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMinimumTLSVersion3$inboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMinimumTLSVersion3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMinimumTLSVersion3$outboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion3,
+  z.ZodTypeDef,
+  InputWefMinimumTLSVersion3
+> = z.union([
+  z.nativeEnum(InputWefMinimumTLSVersion3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMaximumTLSVersion3$inboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMaximumTLSVersion3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMaximumTLSVersion3$outboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion3,
+  z.ZodTypeDef,
+  InputWefMaximumTLSVersion3
+> = z.union([
+  z.nativeEnum(InputWefMaximumTLSVersion3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const MTLSSettings3$inboundSchema: z.ZodType<
+  MTLSSettings3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion3$inboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion3$inboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+/** @internal */
+export type MTLSSettings3$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  requestCert: boolean;
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+  caPath: string;
+  commonNameRegex: string;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+  ocspCheck: boolean;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  ocspCheckFailClose: boolean;
+};
+
+/** @internal */
+export const MTLSSettings3$outboundSchema: z.ZodType<
+  MTLSSettings3$Outbound,
+  z.ZodTypeDef,
+  MTLSSettings3
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion3$outboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion3$outboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+
+export function mTLSSettings3ToJSON(mtlsSettings3: MTLSSettings3): string {
+  return JSON.stringify(MTLSSettings3$outboundSchema.parse(mtlsSettings3));
+}
+export function mTLSSettings3FromJSON(
+  jsonString: string,
+): SafeParseResult<MTLSSettings3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MTLSSettings3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MTLSSettings3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefFormat3$inboundSchema: z.ZodType<
+  InputWefFormat3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefFormat3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefFormat3$outboundSchema: z.ZodType<
+  InputWefFormat3,
+  z.ZodTypeDef,
+  InputWefFormat3
+> = z.union([
+  z.nativeEnum(InputWefFormat3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const QueryBuilderMode3$inboundSchema: z.ZodType<
+  QueryBuilderMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(QueryBuilderMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const QueryBuilderMode3$outboundSchema: z.ZodType<
+  QueryBuilderMode3,
+  z.ZodTypeDef,
+  QueryBuilderMode3
+> = z.union([
+  z.nativeEnum(QueryBuilderMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMetadatum3$inboundSchema: z.ZodType<
+  InputWefMetadatum3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputWefMetadatum3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputWefMetadatum3$outboundSchema: z.ZodType<
+  InputWefMetadatum3$Outbound,
+  z.ZodTypeDef,
+  InputWefMetadatum3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputWefMetadatum3ToJSON(
+  inputWefMetadatum3: InputWefMetadatum3,
+): string {
+  return JSON.stringify(
+    InputWefMetadatum3$outboundSchema.parse(inputWefMetadatum3),
+  );
+}
+export function inputWefMetadatum3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefMetadatum3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefMetadatum3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefMetadatum3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Subscription3$inboundSchema: z.ZodType<
+  Subscription3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat3$inboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode3$inboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum3$inboundSchema)).optional(),
+});
+/** @internal */
+export type Subscription3$Outbound = {
+  subscriptionName: string;
+  version?: string | undefined;
+  contentFormat: string;
+  heartbeatInterval: number;
+  batchTimeout: number;
+  readExistingEvents: boolean;
+  sendBookmarks: boolean;
+  compress: boolean;
+  targets: Array<string>;
+  locale: string;
+  querySelector: string;
+  metadata?: Array<InputWefMetadatum3$Outbound> | undefined;
+};
+
+/** @internal */
+export const Subscription3$outboundSchema: z.ZodType<
+  Subscription3$Outbound,
+  z.ZodTypeDef,
+  Subscription3
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat3$outboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode3$outboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum3$outboundSchema)).optional(),
+});
+
+export function subscription3ToJSON(subscription3: Subscription3): string {
+  return JSON.stringify(Subscription3$outboundSchema.parse(subscription3));
+}
+export function subscription3FromJSON(
+  jsonString: string,
+): SafeParseResult<Subscription3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Subscription3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Subscription3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefWef3$inboundSchema: z.ZodType<
+  InputWefWef3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputWefType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod3$inboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings3$inboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription3$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+/** @internal */
+export type InputWefWef3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authMethod: string;
+  tls?: MTLSSettings3$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  socketTimeout: number;
+  caFingerprint?: string | undefined;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch: boolean;
+  subscriptions: Array<Subscription3$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch: boolean;
+};
+
+/** @internal */
+export const InputWefWef3$outboundSchema: z.ZodType<
+  InputWefWef3$Outbound,
+  z.ZodTypeDef,
+  InputWefWef3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputWefType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod3$outboundSchema.default(
+    "clientCert",
+  ),
+  tls: z.lazy(() => MTLSSettings3$outboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription3$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+
+export function inputWefWef3ToJSON(inputWefWef3: InputWefWef3): string {
+  return JSON.stringify(InputWefWef3$outboundSchema.parse(inputWefWef3));
+}
+export function inputWefWef3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefWef3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefWef3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefWef3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputWefType2
+> = z.nativeEnum(InputWefType2);
+/** @internal */
+export const InputWefType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputWefType2
+> = InputWefType2$inboundSchema;
+
+/** @internal */
+export const InputWefAuthenticationMethod2$inboundSchema: z.ZodType<
+  InputWefAuthenticationMethod2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefAuthenticationMethod2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefAuthenticationMethod2$outboundSchema: z.ZodType<
+  InputWefAuthenticationMethod2,
+  z.ZodTypeDef,
+  InputWefAuthenticationMethod2
+> = z.union([
+  z.nativeEnum(InputWefAuthenticationMethod2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMinimumTLSVersion2$inboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMinimumTLSVersion2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMinimumTLSVersion2$outboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion2,
+  z.ZodTypeDef,
+  InputWefMinimumTLSVersion2
+> = z.union([
+  z.nativeEnum(InputWefMinimumTLSVersion2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMaximumTLSVersion2$inboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMaximumTLSVersion2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMaximumTLSVersion2$outboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion2,
+  z.ZodTypeDef,
+  InputWefMaximumTLSVersion2
+> = z.union([
+  z.nativeEnum(InputWefMaximumTLSVersion2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const MTLSSettings2$inboundSchema: z.ZodType<
+  MTLSSettings2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion2$inboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion2$inboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+/** @internal */
+export type MTLSSettings2$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  requestCert: boolean;
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+  caPath: string;
+  commonNameRegex: string;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+  ocspCheck: boolean;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  ocspCheckFailClose: boolean;
+};
+
+/** @internal */
+export const MTLSSettings2$outboundSchema: z.ZodType<
+  MTLSSettings2$Outbound,
+  z.ZodTypeDef,
+  MTLSSettings2
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion2$outboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion2$outboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+
+export function mTLSSettings2ToJSON(mtlsSettings2: MTLSSettings2): string {
+  return JSON.stringify(MTLSSettings2$outboundSchema.parse(mtlsSettings2));
+}
+export function mTLSSettings2FromJSON(
+  jsonString: string,
+): SafeParseResult<MTLSSettings2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MTLSSettings2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MTLSSettings2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefFormat2$inboundSchema: z.ZodType<
+  InputWefFormat2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefFormat2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefFormat2$outboundSchema: z.ZodType<
+  InputWefFormat2,
+  z.ZodTypeDef,
+  InputWefFormat2
+> = z.union([
+  z.nativeEnum(InputWefFormat2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const QueryBuilderMode2$inboundSchema: z.ZodType<
+  QueryBuilderMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(QueryBuilderMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const QueryBuilderMode2$outboundSchema: z.ZodType<
+  QueryBuilderMode2,
+  z.ZodTypeDef,
+  QueryBuilderMode2
+> = z.union([
+  z.nativeEnum(QueryBuilderMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMetadatum2$inboundSchema: z.ZodType<
+  InputWefMetadatum2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputWefMetadatum2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputWefMetadatum2$outboundSchema: z.ZodType<
+  InputWefMetadatum2$Outbound,
+  z.ZodTypeDef,
+  InputWefMetadatum2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputWefMetadatum2ToJSON(
+  inputWefMetadatum2: InputWefMetadatum2,
+): string {
+  return JSON.stringify(
+    InputWefMetadatum2$outboundSchema.parse(inputWefMetadatum2),
+  );
+}
+export function inputWefMetadatum2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefMetadatum2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefMetadatum2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefMetadatum2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Subscription2$inboundSchema: z.ZodType<
+  Subscription2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat2$inboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode2$inboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum2$inboundSchema)).optional(),
+});
+/** @internal */
+export type Subscription2$Outbound = {
+  subscriptionName: string;
+  version?: string | undefined;
+  contentFormat: string;
+  heartbeatInterval: number;
+  batchTimeout: number;
+  readExistingEvents: boolean;
+  sendBookmarks: boolean;
+  compress: boolean;
+  targets: Array<string>;
+  locale: string;
+  querySelector: string;
+  metadata?: Array<InputWefMetadatum2$Outbound> | undefined;
+};
+
+/** @internal */
+export const Subscription2$outboundSchema: z.ZodType<
+  Subscription2$Outbound,
+  z.ZodTypeDef,
+  Subscription2
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat2$outboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode2$outboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum2$outboundSchema)).optional(),
+});
+
+export function subscription2ToJSON(subscription2: Subscription2): string {
+  return JSON.stringify(Subscription2$outboundSchema.parse(subscription2));
+}
+export function subscription2FromJSON(
+  jsonString: string,
+): SafeParseResult<Subscription2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Subscription2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Subscription2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefWef2$inboundSchema: z.ZodType<
+  InputWefWef2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWefType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod2$inboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings2$inboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription2$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+/** @internal */
+export type InputWefWef2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authMethod: string;
+  tls?: MTLSSettings2$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  socketTimeout: number;
+  caFingerprint?: string | undefined;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch: boolean;
+  subscriptions: Array<Subscription2$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch: boolean;
+};
+
+/** @internal */
+export const InputWefWef2$outboundSchema: z.ZodType<
+  InputWefWef2$Outbound,
+  z.ZodTypeDef,
+  InputWefWef2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWefType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod2$outboundSchema.default(
+    "clientCert",
+  ),
+  tls: z.lazy(() => MTLSSettings2$outboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription2$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+
+export function inputWefWef2ToJSON(inputWefWef2: InputWefWef2): string {
+  return JSON.stringify(InputWefWef2$outboundSchema.parse(inputWefWef2));
+}
+export function inputWefWef2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefWef2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefWef2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefWef2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputWefType1
+> = z.nativeEnum(InputWefType1);
+/** @internal */
+export const InputWefType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputWefType1
+> = InputWefType1$inboundSchema;
+
+/** @internal */
+export const InputWefAuthenticationMethod1$inboundSchema: z.ZodType<
+  InputWefAuthenticationMethod1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefAuthenticationMethod1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefAuthenticationMethod1$outboundSchema: z.ZodType<
+  InputWefAuthenticationMethod1,
+  z.ZodTypeDef,
+  InputWefAuthenticationMethod1
+> = z.union([
+  z.nativeEnum(InputWefAuthenticationMethod1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMinimumTLSVersion1$inboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMinimumTLSVersion1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMinimumTLSVersion1$outboundSchema: z.ZodType<
+  InputWefMinimumTLSVersion1,
+  z.ZodTypeDef,
+  InputWefMinimumTLSVersion1
+> = z.union([
+  z.nativeEnum(InputWefMinimumTLSVersion1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMaximumTLSVersion1$inboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefMaximumTLSVersion1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefMaximumTLSVersion1$outboundSchema: z.ZodType<
+  InputWefMaximumTLSVersion1,
+  z.ZodTypeDef,
+  InputWefMaximumTLSVersion1
+> = z.union([
+  z.nativeEnum(InputWefMaximumTLSVersion1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const MTLSSettings1$inboundSchema: z.ZodType<
+  MTLSSettings1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion1$inboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion1$inboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+/** @internal */
+export type MTLSSettings1$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  requestCert: boolean;
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+  caPath: string;
+  commonNameRegex: string;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+  ocspCheck: boolean;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  ocspCheckFailClose: boolean;
+};
+
+/** @internal */
+export const MTLSSettings1$outboundSchema: z.ZodType<
+  MTLSSettings1$Outbound,
+  z.ZodTypeDef,
+  MTLSSettings1
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  requestCert: z.boolean().default(true),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().default("/.*/"),
+  minVersion: InputWefMinimumTLSVersion1$outboundSchema.optional(),
+  maxVersion: InputWefMaximumTLSVersion1$outboundSchema.optional(),
+  ocspCheck: z.boolean().default(false),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().default(false),
+});
+
+export function mTLSSettings1ToJSON(mtlsSettings1: MTLSSettings1): string {
+  return JSON.stringify(MTLSSettings1$outboundSchema.parse(mtlsSettings1));
+}
+export function mTLSSettings1FromJSON(
+  jsonString: string,
+): SafeParseResult<MTLSSettings1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MTLSSettings1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MTLSSettings1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefFormat1$inboundSchema: z.ZodType<
+  InputWefFormat1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputWefFormat1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputWefFormat1$outboundSchema: z.ZodType<
+  InputWefFormat1,
+  z.ZodTypeDef,
+  InputWefFormat1
+> = z.union([
+  z.nativeEnum(InputWefFormat1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const QueryBuilderMode1$inboundSchema: z.ZodType<
+  QueryBuilderMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(QueryBuilderMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const QueryBuilderMode1$outboundSchema: z.ZodType<
+  QueryBuilderMode1,
+  z.ZodTypeDef,
+  QueryBuilderMode1
+> = z.union([
+  z.nativeEnum(QueryBuilderMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputWefMetadatum1$inboundSchema: z.ZodType<
+  InputWefMetadatum1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputWefMetadatum1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputWefMetadatum1$outboundSchema: z.ZodType<
+  InputWefMetadatum1$Outbound,
+  z.ZodTypeDef,
+  InputWefMetadatum1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputWefMetadatum1ToJSON(
+  inputWefMetadatum1: InputWefMetadatum1,
+): string {
+  return JSON.stringify(
+    InputWefMetadatum1$outboundSchema.parse(inputWefMetadatum1),
+  );
+}
+export function inputWefMetadatum1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefMetadatum1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefMetadatum1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefMetadatum1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Subscription1$inboundSchema: z.ZodType<
+  Subscription1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat1$inboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode1$inboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum1$inboundSchema)).optional(),
+});
+/** @internal */
+export type Subscription1$Outbound = {
+  subscriptionName: string;
+  version?: string | undefined;
+  contentFormat: string;
+  heartbeatInterval: number;
+  batchTimeout: number;
+  readExistingEvents: boolean;
+  sendBookmarks: boolean;
+  compress: boolean;
+  targets: Array<string>;
+  locale: string;
+  querySelector: string;
+  metadata?: Array<InputWefMetadatum1$Outbound> | undefined;
+};
+
+/** @internal */
+export const Subscription1$outboundSchema: z.ZodType<
+  Subscription1$Outbound,
+  z.ZodTypeDef,
+  Subscription1
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: InputWefFormat1$outboundSchema.default("Raw"),
+  heartbeatInterval: z.number().default(60),
+  batchTimeout: z.number().default(60),
+  readExistingEvents: z.boolean().default(false),
+  sendBookmarks: z.boolean().default(true),
+  compress: z.boolean().default(true),
+  targets: z.array(z.string()),
+  locale: z.string().default("en-US"),
+  querySelector: QueryBuilderMode1$outboundSchema.default("simple"),
+  metadata: z.array(z.lazy(() => InputWefMetadatum1$outboundSchema)).optional(),
+});
+
+export function subscription1ToJSON(subscription1: Subscription1): string {
+  return JSON.stringify(Subscription1$outboundSchema.parse(subscription1));
+}
+export function subscription1FromJSON(
+  jsonString: string,
+): SafeParseResult<Subscription1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Subscription1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Subscription1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWefWef1$inboundSchema: z.ZodType<
+  InputWefWef1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWefType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod1$inboundSchema.default("clientCert"),
+  tls: z.lazy(() => MTLSSettings1$inboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription1$inboundSchema)),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+/** @internal */
+export type InputWefWef1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authMethod: string;
+  tls?: MTLSSettings1$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  socketTimeout: number;
+  caFingerprint?: string | undefined;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch: boolean;
+  subscriptions: Array<Subscription1$Outbound>;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch: boolean;
+};
+
+/** @internal */
+export const InputWefWef1$outboundSchema: z.ZodType<
+  InputWefWef1$Outbound,
+  z.ZodTypeDef,
+  InputWefWef1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputWefType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(5986),
+  authMethod: InputWefAuthenticationMethod1$outboundSchema.default(
+    "clientCert",
+  ),
+  tls: z.lazy(() => MTLSSettings1$outboundSchema).optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  keepAliveTimeout: z.number().default(90),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  socketTimeout: z.number().default(0),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().default(false),
+  subscriptions: z.array(z.lazy(() => Subscription1$outboundSchema)),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().default(false),
+});
+
+export function inputWefWef1ToJSON(inputWefWef1: InputWefWef1): string {
+  return JSON.stringify(InputWefWef1$outboundSchema.parse(inputWefWef1));
+}
+export function inputWefWef1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputWefWef1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWefWef1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWefWef1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWef$inboundSchema: z.ZodType<
+  InputWef,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputWefWef6$inboundSchema),
+  z.lazy(() => InputWefWef5$inboundSchema),
+  z.lazy(() => InputWefWef2$inboundSchema),
+  z.lazy(() => InputWefWef4$inboundSchema),
+  z.lazy(() => InputWefWef1$inboundSchema),
+  z.lazy(() => InputWefWef3$inboundSchema),
+]);
+/** @internal */
+export type InputWef$Outbound =
+  | InputWefWef6$Outbound
+  | InputWefWef5$Outbound
+  | InputWefWef2$Outbound
+  | InputWefWef4$Outbound
+  | InputWefWef1$Outbound
+  | InputWefWef3$Outbound;
+
+/** @internal */
+export const InputWef$outboundSchema: z.ZodType<
+  InputWef$Outbound,
+  z.ZodTypeDef,
+  InputWef
+> = z.union([
+  z.lazy(() => InputWefWef6$outboundSchema),
+  z.lazy(() => InputWefWef5$outboundSchema),
+  z.lazy(() => InputWefWef2$outboundSchema),
+  z.lazy(() => InputWefWef4$outboundSchema),
+  z.lazy(() => InputWefWef1$outboundSchema),
+  z.lazy(() => InputWefWef3$outboundSchema),
+]);
 
 export function inputWefToJSON(inputWef: InputWef): string {
   return JSON.stringify(InputWef$outboundSchema.parse(inputWef));
 }
-
 export function inputWefFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWef, SDKValidationError> {

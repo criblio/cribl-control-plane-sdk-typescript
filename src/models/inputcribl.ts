@@ -4,97 +4,43 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
-export const InputCriblType = {
+export const InputCriblType4 = {
   Cribl: "cribl",
 } as const;
-export type InputCriblType = ClosedEnum<typeof InputCriblType>;
+export type InputCriblType4 = ClosedEnum<typeof InputCriblType4>;
 
-export type InputCriblConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputCriblMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputCriblMode = OpenEnum<typeof InputCriblMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputCriblCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputCriblCompression = OpenEnum<typeof InputCriblCompression>;
-
-export type InputCriblPqControls = {};
-
-export type InputCriblPq = {
+export type InputCriblCribl4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputCriblMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputCriblCompression | undefined;
-  pqControls?: InputCriblPqControls | undefined;
-};
-
-export type InputCriblMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputCribl = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCriblType;
+  type: InputCriblType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -104,6 +50,92 @@ export type InputCribl = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+};
+
+export const InputCriblType3 = {
+  Cribl: "cribl",
+} as const;
+export type InputCriblType3 = ClosedEnum<typeof InputCriblType3>;
+
+export type InputCriblCribl3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+};
+
+export const InputCriblType2 = {
+  Cribl: "cribl",
+} as const;
+export type InputCriblType2 = ClosedEnum<typeof InputCriblType2>;
+
+export type InputCriblCribl2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -119,331 +151,400 @@ export type InputCribl = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputCriblConnection> | undefined;
-  pq?: InputCriblPq | undefined;
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
   filter?: string | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputCriblMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+};
+
+export const InputCriblType1 = {
+  Cribl: "cribl",
+} as const;
+export type InputCriblType1 = ClosedEnum<typeof InputCriblType1>;
+
+export type InputCriblCribl1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputCriblType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCribl =
+  | InputCriblCribl2
+  | InputCriblCribl4
+  | InputCriblCribl1
+  | InputCriblCribl3;
+
+/** @internal */
+export const InputCriblType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType4
+> = z.nativeEnum(InputCriblType4);
+/** @internal */
+export const InputCriblType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType4
+> = InputCriblType4$inboundSchema;
+
+/** @internal */
+export const InputCriblCribl4$inboundSchema: z.ZodType<
+  InputCriblCribl4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCriblType4$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  filter: z.string().optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputCriblCribl4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  filter?: string | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblType
-> = z.nativeEnum(InputCriblType);
+export const InputCriblCribl4$outboundSchema: z.ZodType<
+  InputCriblCribl4$Outbound,
+  z.ZodTypeDef,
+  InputCriblCribl4
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCriblType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  filter: z.string().optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
-/** @internal */
-export const InputCriblType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblType
-> = InputCriblType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblType$ {
-  /** @deprecated use `InputCriblType$inboundSchema` instead. */
-  export const inboundSchema = InputCriblType$inboundSchema;
-  /** @deprecated use `InputCriblType$outboundSchema` instead. */
-  export const outboundSchema = InputCriblType$outboundSchema;
+export function inputCriblCribl4ToJSON(
+  inputCriblCribl4: InputCriblCribl4,
+): string {
+  return JSON.stringify(
+    InputCriblCribl4$outboundSchema.parse(inputCriblCribl4),
+  );
+}
+export function inputCriblCribl4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblCribl4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblCribl4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblCribl4' from JSON`,
+  );
 }
 
 /** @internal */
-export const InputCriblConnection$inboundSchema: z.ZodType<
-  InputCriblConnection,
+export const InputCriblType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType3
+> = z.nativeEnum(InputCriblType3);
+/** @internal */
+export const InputCriblType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType3
+> = InputCriblType3$inboundSchema;
+
+/** @internal */
+export const InputCriblCribl3$inboundSchema: z.ZodType<
+  InputCriblCribl3,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCriblType3$inboundSchema,
+  disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  output: z.string(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
 });
-
 /** @internal */
-export type InputCriblConnection$Outbound = {
+export type InputCriblCribl3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
   pipeline?: string | undefined;
-  output: string;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblConnection$outboundSchema: z.ZodType<
-  InputCriblConnection$Outbound,
+export const InputCriblCribl3$outboundSchema: z.ZodType<
+  InputCriblCribl3$Outbound,
   z.ZodTypeDef,
-  InputCriblConnection
+  InputCriblCribl3
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputCriblType3$outboundSchema,
+  disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  output: z.string(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblConnection$ {
-  /** @deprecated use `InputCriblConnection$inboundSchema` instead. */
-  export const inboundSchema = InputCriblConnection$inboundSchema;
-  /** @deprecated use `InputCriblConnection$outboundSchema` instead. */
-  export const outboundSchema = InputCriblConnection$outboundSchema;
-  /** @deprecated use `InputCriblConnection$Outbound` instead. */
-  export type Outbound = InputCriblConnection$Outbound;
-}
-
-export function inputCriblConnectionToJSON(
-  inputCriblConnection: InputCriblConnection,
+export function inputCriblCribl3ToJSON(
+  inputCriblCribl3: InputCriblCribl3,
 ): string {
   return JSON.stringify(
-    InputCriblConnection$outboundSchema.parse(inputCriblConnection),
+    InputCriblCribl3$outboundSchema.parse(inputCriblCribl3),
   );
 }
-
-export function inputCriblConnectionFromJSON(
+export function inputCriblCribl3FromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblConnection, SDKValidationError> {
+): SafeParseResult<InputCriblCribl3, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputCriblConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblConnection' from JSON`,
+    (x) => InputCriblCribl3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblCribl3' from JSON`,
   );
 }
 
 /** @internal */
-export const InputCriblMode$inboundSchema: z.ZodType<
-  InputCriblMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputCriblType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType2
+> = z.nativeEnum(InputCriblType2);
+/** @internal */
+export const InputCriblType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType2
+> = InputCriblType2$inboundSchema;
 
 /** @internal */
-export const InputCriblMode$outboundSchema: z.ZodType<
-  InputCriblMode,
-  z.ZodTypeDef,
-  InputCriblMode
-> = z.union([
-  z.nativeEnum(InputCriblMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblMode$ {
-  /** @deprecated use `InputCriblMode$inboundSchema` instead. */
-  export const inboundSchema = InputCriblMode$inboundSchema;
-  /** @deprecated use `InputCriblMode$outboundSchema` instead. */
-  export const outboundSchema = InputCriblMode$outboundSchema;
-}
-
-/** @internal */
-export const InputCriblCompression$inboundSchema: z.ZodType<
-  InputCriblCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputCriblCompression$outboundSchema: z.ZodType<
-  InputCriblCompression,
-  z.ZodTypeDef,
-  InputCriblCompression
-> = z.union([
-  z.nativeEnum(InputCriblCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblCompression$ {
-  /** @deprecated use `InputCriblCompression$inboundSchema` instead. */
-  export const inboundSchema = InputCriblCompression$inboundSchema;
-  /** @deprecated use `InputCriblCompression$outboundSchema` instead. */
-  export const outboundSchema = InputCriblCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputCriblPqControls$inboundSchema: z.ZodType<
-  InputCriblPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputCriblPqControls$Outbound = {};
-
-/** @internal */
-export const InputCriblPqControls$outboundSchema: z.ZodType<
-  InputCriblPqControls$Outbound,
-  z.ZodTypeDef,
-  InputCriblPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblPqControls$ {
-  /** @deprecated use `InputCriblPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputCriblPqControls$inboundSchema;
-  /** @deprecated use `InputCriblPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputCriblPqControls$outboundSchema;
-  /** @deprecated use `InputCriblPqControls$Outbound` instead. */
-  export type Outbound = InputCriblPqControls$Outbound;
-}
-
-export function inputCriblPqControlsToJSON(
-  inputCriblPqControls: InputCriblPqControls,
-): string {
-  return JSON.stringify(
-    InputCriblPqControls$outboundSchema.parse(inputCriblPqControls),
-  );
-}
-
-export function inputCriblPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblPq$inboundSchema: z.ZodType<
-  InputCriblPq,
+export const InputCriblCribl2$inboundSchema: z.ZodType<
+  InputCriblCribl2,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputCriblMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCriblCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCriblPqControls$inboundSchema).optional(),
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
 });
-
 /** @internal */
-export type InputCriblPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputCriblPqControls$Outbound | undefined;
+export type InputCriblCribl2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblPq$outboundSchema: z.ZodType<
-  InputCriblPq$Outbound,
+export const InputCriblCribl2$outboundSchema: z.ZodType<
+  InputCriblCribl2$Outbound,
   z.ZodTypeDef,
-  InputCriblPq
+  InputCriblCribl2
 > = z.object({
-  mode: InputCriblMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCriblCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCriblPqControls$outboundSchema).optional(),
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblPq$ {
-  /** @deprecated use `InputCriblPq$inboundSchema` instead. */
-  export const inboundSchema = InputCriblPq$inboundSchema;
-  /** @deprecated use `InputCriblPq$outboundSchema` instead. */
-  export const outboundSchema = InputCriblPq$outboundSchema;
-  /** @deprecated use `InputCriblPq$Outbound` instead. */
-  export type Outbound = InputCriblPq$Outbound;
+export function inputCriblCribl2ToJSON(
+  inputCriblCribl2: InputCriblCribl2,
+): string {
+  return JSON.stringify(
+    InputCriblCribl2$outboundSchema.parse(inputCriblCribl2),
+  );
 }
-
-export function inputCriblPqToJSON(inputCriblPq: InputCriblPq): string {
-  return JSON.stringify(InputCriblPq$outboundSchema.parse(inputCriblPq));
-}
-
-export function inputCriblPqFromJSON(
+export function inputCriblCribl2FromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblPq, SDKValidationError> {
+): SafeParseResult<InputCriblCribl2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputCriblPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblPq' from JSON`,
+    (x) => InputCriblCribl2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblCribl2' from JSON`,
   );
 }
 
 /** @internal */
-export const InputCriblMetadatum$inboundSchema: z.ZodType<
-  InputCriblMetadatum,
+export const InputCriblType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType1
+> = z.nativeEnum(InputCriblType1);
+/** @internal */
+export const InputCriblType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputCriblType1
+> = InputCriblType1$inboundSchema;
+
+/** @internal */
+export const InputCriblCribl1$inboundSchema: z.ZodType<
+  InputCriblCribl1,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
 });
-
 /** @internal */
-export type InputCriblMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputCriblCribl1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblMetadatum$outboundSchema: z.ZodType<
-  InputCriblMetadatum$Outbound,
+export const InputCriblCribl1$outboundSchema: z.ZodType<
+  InputCriblCribl1$Outbound,
   z.ZodTypeDef,
-  InputCriblMetadatum
+  InputCriblCribl1
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputCriblType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblMetadatum$ {
-  /** @deprecated use `InputCriblMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputCriblMetadatum$inboundSchema;
-  /** @deprecated use `InputCriblMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputCriblMetadatum$outboundSchema;
-  /** @deprecated use `InputCriblMetadatum$Outbound` instead. */
-  export type Outbound = InputCriblMetadatum$Outbound;
-}
-
-export function inputCriblMetadatumToJSON(
-  inputCriblMetadatum: InputCriblMetadatum,
+export function inputCriblCribl1ToJSON(
+  inputCriblCribl1: InputCriblCribl1,
 ): string {
   return JSON.stringify(
-    InputCriblMetadatum$outboundSchema.parse(inputCriblMetadatum),
+    InputCriblCribl1$outboundSchema.parse(inputCriblCribl1),
   );
 }
-
-export function inputCriblMetadatumFromJSON(
+export function inputCriblCribl1FromJSON(
   jsonString: string,
-): SafeParseResult<InputCriblMetadatum, SDKValidationError> {
+): SafeParseResult<InputCriblCribl1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputCriblMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblMetadatum' from JSON`,
+    (x) => InputCriblCribl1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblCribl1' from JSON`,
   );
 }
 
@@ -452,80 +553,34 @@ export const InputCribl$inboundSchema: z.ZodType<
   InputCribl,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputCriblType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCriblConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCriblPq$inboundSchema).optional(),
-  filter: z.string().optional(),
-  metadata: z.array(z.lazy(() => InputCriblMetadatum$inboundSchema)).optional(),
-  description: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputCriblCribl2$inboundSchema),
+  z.lazy(() => InputCriblCribl4$inboundSchema),
+  z.lazy(() => InputCriblCribl1$inboundSchema),
+  z.lazy(() => InputCriblCribl3$inboundSchema),
+]);
 /** @internal */
-export type InputCribl$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputCriblConnection$Outbound> | undefined;
-  pq?: InputCriblPq$Outbound | undefined;
-  filter?: string | undefined;
-  metadata?: Array<InputCriblMetadatum$Outbound> | undefined;
-  description?: string | undefined;
-};
+export type InputCribl$Outbound =
+  | InputCriblCribl2$Outbound
+  | InputCriblCribl4$Outbound
+  | InputCriblCribl1$Outbound
+  | InputCriblCribl3$Outbound;
 
 /** @internal */
 export const InputCribl$outboundSchema: z.ZodType<
   InputCribl$Outbound,
   z.ZodTypeDef,
   InputCribl
-> = z.object({
-  id: z.string().optional(),
-  type: InputCriblType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCriblConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCriblPq$outboundSchema).optional(),
-  filter: z.string().optional(),
-  metadata: z.array(z.lazy(() => InputCriblMetadatum$outboundSchema))
-    .optional(),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCribl$ {
-  /** @deprecated use `InputCribl$inboundSchema` instead. */
-  export const inboundSchema = InputCribl$inboundSchema;
-  /** @deprecated use `InputCribl$outboundSchema` instead. */
-  export const outboundSchema = InputCribl$outboundSchema;
-  /** @deprecated use `InputCribl$Outbound` instead. */
-  export type Outbound = InputCribl$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputCriblCribl2$outboundSchema),
+  z.lazy(() => InputCriblCribl4$outboundSchema),
+  z.lazy(() => InputCriblCribl1$outboundSchema),
+  z.lazy(() => InputCriblCribl3$outboundSchema),
+]);
 
 export function inputCriblToJSON(inputCribl: InputCribl): string {
   return JSON.stringify(InputCribl$outboundSchema.parse(inputCribl));
 }
-
 export function inputCriblFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCribl, SDKValidationError> {

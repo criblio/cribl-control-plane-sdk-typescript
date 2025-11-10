@@ -13,156 +13,102 @@ import {
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSentinelType = {
-  Sentinel: "sentinel",
-} as const;
-export type OutputSentinelType = ClosedEnum<typeof OutputSentinelType>;
-
-export type OutputSentinelExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputSentinelFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputSentinelFailedRequestLoggingMode = OpenEnum<
-  typeof OutputSentinelFailedRequestLoggingMode
->;
-
-export type OutputSentinelResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputSentinelTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSentinelBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSentinelBackpressureBehavior = OpenEnum<
-  typeof OutputSentinelBackpressureBehavior
->;
-
-export const AuthType = {
-  Oauth: "oauth",
-} as const;
-export type AuthType = OpenEnum<typeof AuthType>;
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 /**
  * Enter the data collection endpoint URL or the individual ID
  */
-export const EndpointConfiguration = {
+export const EndpointConfiguration8 = {
+  /**
+   * URL
+   */
   Url: "url",
+  /**
+   * ID
+   */
   Id: "ID",
 } as const;
 /**
  * Enter the data collection endpoint URL or the individual ID
  */
-export type EndpointConfiguration = OpenEnum<typeof EndpointConfiguration>;
+export type EndpointConfiguration8 = OpenEnum<typeof EndpointConfiguration8>;
 
-export const OutputSentinelFormat = {
+export const OutputSentinelType8 = {
+  Sentinel: "sentinel",
+} as const;
+export type OutputSentinelType8 = ClosedEnum<typeof OutputSentinelType8>;
+
+export const AuthTypeEnum8 = {
+  Oauth: "oauth",
+} as const;
+export type AuthTypeEnum8 = OpenEnum<typeof AuthTypeEnum8>;
+
+export const OutputSentinelFormat8 = {
   Ndjson: "ndjson",
   JsonArray: "json_array",
   Custom: "custom",
   Advanced: "advanced",
 } as const;
-export type OutputSentinelFormat = OpenEnum<typeof OutputSentinelFormat>;
+export type OutputSentinelFormat8 = OpenEnum<typeof OutputSentinelFormat8>;
 
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSentinelCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSentinelCompression = OpenEnum<
-  typeof OutputSentinelCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSentinelQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSentinelQueueFullBehavior = OpenEnum<
-  typeof OutputSentinelQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSentinelMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSentinelMode = OpenEnum<typeof OutputSentinelMode>;
-
-export type OutputSentinelPqControls = {};
-
-export type OutputSentinel = {
+export type OutputSentinelSentinel8 = {
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration?: EndpointConfiguration8 | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSentinelType;
+  type: OutputSentinelType8;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -218,7 +164,7 @@ export type OutputSentinel = {
   /**
    * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
    */
-  extraHttpHeaders?: Array<OutputSentinelExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -226,7 +172,7 @@ export type OutputSentinel = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputSentinelFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -234,8 +180,8 @@ export type OutputSentinel = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputSentinelResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputSentinelTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -243,8 +189,8 @@ export type OutputSentinel = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputSentinelBackpressureBehavior | undefined;
-  authType?: AuthType | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
+  authType?: AuthTypeEnum8 | undefined;
   /**
    * URL for OAuth
    */
@@ -262,15 +208,11 @@ export type OutputSentinel = {
    */
   scope?: string | undefined;
   /**
-   * Enter the data collection endpoint URL or the individual ID
-   */
-  endpointURLConfiguration?: EndpointConfiguration | undefined;
-  /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  format?: OutputSentinelFormat | undefined;
+  format?: OutputSentinelFormat8 | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
    */
@@ -304,6 +246,26 @@ export type OutputSentinel = {
    */
   formatPayloadCode?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -318,16 +280,494 @@ export type OutputSentinel = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSentinelCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSentinelQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url?: string | undefined;
+  /**
+   * Immutable ID for the Data Collection Rule (DCR)
+   */
+  dcrID: string;
+  /**
+   * Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+   */
+  dceEndpoint: string;
+  /**
+   * The name of the stream (Sentinel table) in which to store the events
+   */
+  streamName: string;
+};
+
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export const EndpointConfiguration7 = {
+  /**
+   * URL
+   */
+  Url: "url",
+  /**
+   * ID
+   */
+  Id: "ID",
+} as const;
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export type EndpointConfiguration7 = OpenEnum<typeof EndpointConfiguration7>;
+
+export const OutputSentinelType7 = {
+  Sentinel: "sentinel",
+} as const;
+export type OutputSentinelType7 = ClosedEnum<typeof OutputSentinelType7>;
+
+export const AuthTypeEnum7 = {
+  Oauth: "oauth",
+} as const;
+export type AuthTypeEnum7 = OpenEnum<typeof AuthTypeEnum7>;
+
+export const OutputSentinelFormat7 = {
+  Ndjson: "ndjson",
+  JsonArray: "json_array",
+  Custom: "custom",
+  Advanced: "advanced",
+} as const;
+export type OutputSentinelFormat7 = OpenEnum<typeof OutputSentinelFormat7>;
+
+export type OutputSentinelSentinel7 = {
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration?: EndpointConfiguration7 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelType7;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  authType?: AuthTypeEnum7 | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request
+   */
+  scope?: string | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  format?: OutputSentinelFormat7 | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSentinelMode | undefined;
-  pqControls?: OutputSentinelPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url: string;
+  /**
+   * Immutable ID for the Data Collection Rule (DCR)
+   */
+  dcrID?: string | undefined;
+  /**
+   * Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+   */
+  dceEndpoint?: string | undefined;
+  /**
+   * The name of the stream (Sentinel table) in which to store the events
+   */
+  streamName?: string | undefined;
+};
+
+export const OutputSentinelType6 = {
+  Sentinel: "sentinel",
+} as const;
+export type OutputSentinelType6 = ClosedEnum<typeof OutputSentinelType6>;
+
+export const AuthTypeEnum6 = {
+  Oauth: "oauth",
+} as const;
+export type AuthTypeEnum6 = OpenEnum<typeof AuthTypeEnum6>;
+
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export const EndpointConfiguration6 = {
+  /**
+   * URL
+   */
+  Url: "url",
+  /**
+   * ID
+   */
+  Id: "ID",
+} as const;
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export type EndpointConfiguration6 = OpenEnum<typeof EndpointConfiguration6>;
+
+export const OutputSentinelFormat6 = {
+  Ndjson: "ndjson",
+  JsonArray: "json_array",
+  Custom: "custom",
+  Advanced: "advanced",
+} as const;
+export type OutputSentinelFormat6 = OpenEnum<typeof OutputSentinelFormat6>;
+
+export type OutputSentinelSentinel6 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelType6;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  authType?: AuthTypeEnum6 | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request
+   */
+  scope?: string | undefined;
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration?: EndpointConfiguration6 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  format?: OutputSentinelFormat6 | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
   /**
    * URL to send events to. Can be overwritten by an event's __url field.
    */
@@ -346,535 +786,1299 @@ export type OutputSentinel = {
   streamName?: string | undefined;
 };
 
-/** @internal */
-export const OutputSentinelType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelType
-> = z.nativeEnum(OutputSentinelType);
+export const OutputSentinelType5 = {
+  Sentinel: "sentinel",
+} as const;
+export type OutputSentinelType5 = ClosedEnum<typeof OutputSentinelType5>;
 
-/** @internal */
-export const OutputSentinelType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelType
-> = OutputSentinelType$inboundSchema;
+export const AuthTypeEnum5 = {
+  Oauth: "oauth",
+} as const;
+export type AuthTypeEnum5 = OpenEnum<typeof AuthTypeEnum5>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter the data collection endpoint URL or the individual ID
  */
-export namespace OutputSentinelType$ {
-  /** @deprecated use `OutputSentinelType$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelType$inboundSchema;
-  /** @deprecated use `OutputSentinelType$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelType$outboundSchema;
-}
+export const EndpointConfiguration5 = {
+  /**
+   * URL
+   */
+  Url: "url",
+  /**
+   * ID
+   */
+  Id: "ID",
+} as const;
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export type EndpointConfiguration5 = OpenEnum<typeof EndpointConfiguration5>;
 
-/** @internal */
-export const OutputSentinelExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputSentinelExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+export const OutputSentinelFormat5 = {
+  Ndjson: "ndjson",
+  JsonArray: "json_array",
+  Custom: "custom",
+  Advanced: "advanced",
+} as const;
+export type OutputSentinelFormat5 = OpenEnum<typeof OutputSentinelFormat5>;
 
-/** @internal */
-export type OutputSentinelExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputSentinelSentinel5 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  authType?: AuthTypeEnum5 | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request
+   */
+  scope?: string | undefined;
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration?: EndpointConfiguration5 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  format?: OutputSentinelFormat5 | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url?: string | undefined;
+  /**
+   * Immutable ID for the Data Collection Rule (DCR)
+   */
+  dcrID?: string | undefined;
+  /**
+   * Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+   */
+  dceEndpoint?: string | undefined;
+  /**
+   * The name of the stream (Sentinel table) in which to store the events
+   */
+  streamName?: string | undefined;
 };
 
-/** @internal */
-export const OutputSentinelExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputSentinelExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputSentinelExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+export const OutputSentinelFormat4 = {
+  Ndjson: "ndjson",
+  JsonArray: "json_array",
+  Custom: "custom",
+  Advanced: "advanced",
+} as const;
+export type OutputSentinelFormat4 = OpenEnum<typeof OutputSentinelFormat4>;
+
+export const OutputSentinelType4 = {
+  Sentinel: "sentinel",
+} as const;
+export type OutputSentinelType4 = ClosedEnum<typeof OutputSentinelType4>;
+
+export const AuthTypeEnum4 = {
+  Oauth: "oauth",
+} as const;
+export type AuthTypeEnum4 = OpenEnum<typeof AuthTypeEnum4>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter the data collection endpoint URL or the individual ID
  */
-export namespace OutputSentinelExtraHttpHeader$ {
-  /** @deprecated use `OutputSentinelExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSentinelExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSentinelExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSentinelExtraHttpHeader$Outbound;
-}
-
-export function outputSentinelExtraHttpHeaderToJSON(
-  outputSentinelExtraHttpHeader: OutputSentinelExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputSentinelExtraHttpHeader$outboundSchema.parse(
-      outputSentinelExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputSentinelExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSentinelExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSentinelExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSentinelExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSentinelFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputSentinelFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputSentinelFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputSentinelFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputSentinelFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const EndpointConfiguration4 = {
+  /**
+   * URL
+   */
+  Url: "url",
+  /**
+   * ID
+   */
+  Id: "ID",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter the data collection endpoint URL or the individual ID
  */
-export namespace OutputSentinelFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSentinelFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSentinelFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSentinelFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelFailedRequestLoggingMode$outboundSchema;
-}
+export type EndpointConfiguration4 = OpenEnum<typeof EndpointConfiguration4>;
 
-/** @internal */
-export const OutputSentinelResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputSentinelResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputSentinelResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputSentinelSentinel4 = {
+  format: OutputSentinelFormat4;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  authType?: AuthTypeEnum4 | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request
+   */
+  scope?: string | undefined;
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration?: EndpointConfiguration4 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode: string;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url?: string | undefined;
+  /**
+   * Immutable ID for the Data Collection Rule (DCR)
+   */
+  dcrID?: string | undefined;
+  /**
+   * Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+   */
+  dceEndpoint?: string | undefined;
+  /**
+   * The name of the stream (Sentinel table) in which to store the events
+   */
+  streamName?: string | undefined;
 };
 
-/** @internal */
-export const OutputSentinelResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputSentinelResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputSentinelResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
+export const OutputSentinelFormat3 = {
+  Ndjson: "ndjson",
+  JsonArray: "json_array",
+  Custom: "custom",
+  Advanced: "advanced",
+} as const;
+export type OutputSentinelFormat3 = OpenEnum<typeof OutputSentinelFormat3>;
+
+export const OutputSentinelType3 = {
+  Sentinel: "sentinel",
+} as const;
+export type OutputSentinelType3 = ClosedEnum<typeof OutputSentinelType3>;
+
+export const AuthTypeEnum3 = {
+  Oauth: "oauth",
+} as const;
+export type AuthTypeEnum3 = OpenEnum<typeof AuthTypeEnum3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter the data collection endpoint URL or the individual ID
  */
-export namespace OutputSentinelResponseRetrySetting$ {
-  /** @deprecated use `OutputSentinelResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSentinelResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSentinelResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSentinelResponseRetrySetting$Outbound;
-}
+export const EndpointConfiguration3 = {
+  /**
+   * URL
+   */
+  Url: "url",
+  /**
+   * ID
+   */
+  Id: "ID",
+} as const;
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export type EndpointConfiguration3 = OpenEnum<typeof EndpointConfiguration3>;
 
-export function outputSentinelResponseRetrySettingToJSON(
-  outputSentinelResponseRetrySetting: OutputSentinelResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputSentinelResponseRetrySetting$outboundSchema.parse(
-      outputSentinelResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputSentinelResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSentinelResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSentinelResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSentinelResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSentinelTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputSentinelTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputSentinelTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputSentinelSentinel3 = {
+  format: OutputSentinelFormat3;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  authType?: AuthTypeEnum3 | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request
+   */
+  scope?: string | undefined;
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration?: EndpointConfiguration3 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url?: string | undefined;
+  /**
+   * Immutable ID for the Data Collection Rule (DCR)
+   */
+  dcrID?: string | undefined;
+  /**
+   * Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+   */
+  dceEndpoint?: string | undefined;
+  /**
+   * The name of the stream (Sentinel table) in which to store the events
+   */
+  streamName?: string | undefined;
 };
 
+export const OutputSentinelFormat2 = {
+  Ndjson: "ndjson",
+  JsonArray: "json_array",
+  Custom: "custom",
+  Advanced: "advanced",
+} as const;
+export type OutputSentinelFormat2 = OpenEnum<typeof OutputSentinelFormat2>;
+
+export const OutputSentinelType2 = {
+  Sentinel: "sentinel",
+} as const;
+export type OutputSentinelType2 = ClosedEnum<typeof OutputSentinelType2>;
+
+export const AuthTypeEnum2 = {
+  Oauth: "oauth",
+} as const;
+export type AuthTypeEnum2 = OpenEnum<typeof AuthTypeEnum2>;
+
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export const EndpointConfiguration2 = {
+  /**
+   * URL
+   */
+  Url: "url",
+  /**
+   * ID
+   */
+  Id: "ID",
+} as const;
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export type EndpointConfiguration2 = OpenEnum<typeof EndpointConfiguration2>;
+
+export type OutputSentinelSentinel2 = {
+  format: OutputSentinelFormat2;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  authType?: AuthTypeEnum2 | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request
+   */
+  scope?: string | undefined;
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration?: EndpointConfiguration2 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url?: string | undefined;
+  /**
+   * Immutable ID for the Data Collection Rule (DCR)
+   */
+  dcrID?: string | undefined;
+  /**
+   * Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+   */
+  dceEndpoint?: string | undefined;
+  /**
+   * The name of the stream (Sentinel table) in which to store the events
+   */
+  streamName?: string | undefined;
+};
+
+export const OutputSentinelFormat1 = {
+  Ndjson: "ndjson",
+  JsonArray: "json_array",
+  Custom: "custom",
+  Advanced: "advanced",
+} as const;
+export type OutputSentinelFormat1 = OpenEnum<typeof OutputSentinelFormat1>;
+
+export const OutputSentinelType1 = {
+  Sentinel: "sentinel",
+} as const;
+export type OutputSentinelType1 = ClosedEnum<typeof OutputSentinelType1>;
+
+export const AuthTypeEnum1 = {
+  Oauth: "oauth",
+} as const;
+export type AuthTypeEnum1 = OpenEnum<typeof AuthTypeEnum1>;
+
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export const EndpointConfiguration1 = {
+  /**
+   * URL
+   */
+  Url: "url",
+  /**
+   * ID
+   */
+  Id: "ID",
+} as const;
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export type EndpointConfiguration1 = OpenEnum<typeof EndpointConfiguration1>;
+
+export type OutputSentinelSentinel1 = {
+  format: OutputSentinelFormat1;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputSentinelType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  authType?: AuthTypeEnum1 | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request
+   */
+  scope?: string | undefined;
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration?: EndpointConfiguration1 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url?: string | undefined;
+  /**
+   * Immutable ID for the Data Collection Rule (DCR)
+   */
+  dcrID?: string | undefined;
+  /**
+   * Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+   */
+  dceEndpoint?: string | undefined;
+  /**
+   * The name of the stream (Sentinel table) in which to store the events
+   */
+  streamName?: string | undefined;
+};
+
+export type OutputSentinel =
+  | OutputSentinelSentinel4
+  | OutputSentinelSentinel8
+  | OutputSentinelSentinel1
+  | OutputSentinelSentinel2
+  | OutputSentinelSentinel3
+  | OutputSentinelSentinel6
+  | OutputSentinelSentinel7
+  | OutputSentinelSentinel5;
+
 /** @internal */
-export const OutputSentinelTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputSentinelTimeoutRetrySettings$Outbound,
+export const EndpointConfiguration8$inboundSchema: z.ZodType<
+  EndpointConfiguration8,
   z.ZodTypeDef,
-  OutputSentinelTimeoutRetrySettings
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EndpointConfiguration8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const EndpointConfiguration8$outboundSchema: z.ZodType<
+  EndpointConfiguration8,
+  z.ZodTypeDef,
+  EndpointConfiguration8
+> = z.union([
+  z.nativeEnum(EndpointConfiguration8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelType8$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType8
+> = z.nativeEnum(OutputSentinelType8);
+/** @internal */
+export const OutputSentinelType8$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType8
+> = OutputSentinelType8$inboundSchema;
+
+/** @internal */
+export const AuthTypeEnum8$inboundSchema: z.ZodType<
+  AuthTypeEnum8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTypeEnum8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTypeEnum8$outboundSchema: z.ZodType<
+  AuthTypeEnum8,
+  z.ZodTypeDef,
+  AuthTypeEnum8
+> = z.union([
+  z.nativeEnum(AuthTypeEnum8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelFormat8$inboundSchema: z.ZodType<
+  OutputSentinelFormat8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelFormat8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSentinelFormat8$outboundSchema: z.ZodType<
+  OutputSentinelFormat8,
+  z.ZodTypeDef,
+  OutputSentinelFormat8
+> = z.union([
+  z.nativeEnum(OutputSentinelFormat8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelSentinel8$inboundSchema: z.ZodType<
+  OutputSentinelSentinel8,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSentinelTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSentinelTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSentinelTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSentinelTimeoutRetrySettings$Outbound;
-}
-
-export function outputSentinelTimeoutRetrySettingsToJSON(
-  outputSentinelTimeoutRetrySettings: OutputSentinelTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputSentinelTimeoutRetrySettings$outboundSchema.parse(
-      outputSentinelTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputSentinelTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSentinelTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSentinelTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSentinelTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSentinelBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSentinelBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSentinelBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSentinelBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSentinelBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelBackpressureBehavior$ {
-  /** @deprecated use `OutputSentinelBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSentinelBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSentinelBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const AuthType$inboundSchema: z.ZodType<
-  AuthType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(AuthType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const AuthType$outboundSchema: z.ZodType<
-  AuthType,
-  z.ZodTypeDef,
-  AuthType
-> = z.union([
-  z.nativeEnum(AuthType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AuthType$ {
-  /** @deprecated use `AuthType$inboundSchema` instead. */
-  export const inboundSchema = AuthType$inboundSchema;
-  /** @deprecated use `AuthType$outboundSchema` instead. */
-  export const outboundSchema = AuthType$outboundSchema;
-}
-
-/** @internal */
-export const EndpointConfiguration$inboundSchema: z.ZodType<
-  EndpointConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(EndpointConfiguration),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const EndpointConfiguration$outboundSchema: z.ZodType<
-  EndpointConfiguration,
-  z.ZodTypeDef,
-  EndpointConfiguration
-> = z.union([
-  z.nativeEnum(EndpointConfiguration),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EndpointConfiguration$ {
-  /** @deprecated use `EndpointConfiguration$inboundSchema` instead. */
-  export const inboundSchema = EndpointConfiguration$inboundSchema;
-  /** @deprecated use `EndpointConfiguration$outboundSchema` instead. */
-  export const outboundSchema = EndpointConfiguration$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelFormat$inboundSchema: z.ZodType<
-  OutputSentinelFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelFormat$outboundSchema: z.ZodType<
-  OutputSentinelFormat,
-  z.ZodTypeDef,
-  OutputSentinelFormat
-> = z.union([
-  z.nativeEnum(OutputSentinelFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelFormat$ {
-  /** @deprecated use `OutputSentinelFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelFormat$inboundSchema;
-  /** @deprecated use `OutputSentinelFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelCompression$inboundSchema: z.ZodType<
-  OutputSentinelCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelCompression$outboundSchema: z.ZodType<
-  OutputSentinelCompression,
-  z.ZodTypeDef,
-  OutputSentinelCompression
-> = z.union([
-  z.nativeEnum(OutputSentinelCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelCompression$ {
-  /** @deprecated use `OutputSentinelCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelCompression$inboundSchema;
-  /** @deprecated use `OutputSentinelCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSentinelQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSentinelQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSentinelQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSentinelQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelQueueFullBehavior$ {
-  /** @deprecated use `OutputSentinelQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSentinelQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelMode$inboundSchema: z.ZodType<
-  OutputSentinelMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSentinelMode$outboundSchema: z.ZodType<
-  OutputSentinelMode,
-  z.ZodTypeDef,
-  OutputSentinelMode
-> = z.union([
-  z.nativeEnum(OutputSentinelMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelMode$ {
-  /** @deprecated use `OutputSentinelMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelMode$inboundSchema;
-  /** @deprecated use `OutputSentinelMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSentinelPqControls$inboundSchema: z.ZodType<
-  OutputSentinelPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputSentinelPqControls$Outbound = {};
-
-/** @internal */
-export const OutputSentinelPqControls$outboundSchema: z.ZodType<
-  OutputSentinelPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputSentinelPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinelPqControls$ {
-  /** @deprecated use `OutputSentinelPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinelPqControls$inboundSchema;
-  /** @deprecated use `OutputSentinelPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinelPqControls$outboundSchema;
-  /** @deprecated use `OutputSentinelPqControls$Outbound` instead. */
-  export type Outbound = OutputSentinelPqControls$Outbound;
-}
-
-export function outputSentinelPqControlsToJSON(
-  outputSentinelPqControls: OutputSentinelPqControls,
-): string {
-  return JSON.stringify(
-    OutputSentinelPqControls$outboundSchema.parse(outputSentinelPqControls),
-  );
-}
-
-export function outputSentinelPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSentinelPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSentinelPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSentinelPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSentinel$inboundSchema: z.ZodType<
-  OutputSentinel,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  endpointURLConfiguration: EndpointConfiguration8$inboundSchema.default("url"),
   id: z.string().optional(),
-  type: OutputSentinelType$inboundSchema,
+  type: OutputSentinelType8$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -887,32 +2091,24 @@ export const OutputSentinel$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSentinelExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputSentinelFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSentinelResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSentinelTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputSentinelBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: AuthType$inboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthTypeEnum8$inboundSchema.optional(),
   loginUrl: z.string(),
   secret: z.string(),
   client_id: z.string(),
   scope: z.string().default("https://monitor.azure.com/.default"),
-  endpointURLConfiguration: EndpointConfiguration$inboundSchema.default("url"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  format: OutputSentinelFormat$inboundSchema.optional(),
+  format: OutputSentinelFormat8$inboundSchema.optional(),
   customSourceExpression: z.string().default("__httpOut"),
   customDropWhenNull: z.boolean().default(false),
   customEventDelimiter: z.string().default("\\n"),
@@ -921,27 +2117,29 @@ export const OutputSentinel$inboundSchema: z.ZodType<
   advancedContentType: z.string().default("application/json"),
   formatEventCode: z.string().optional(),
   formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSentinelCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSentinelQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSentinelMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSentinelPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   url: z.string().optional(),
-  dcrID: z.string().optional(),
-  dceEndpoint: z.string().optional(),
-  streamName: z.string().optional(),
+  dcrID: z.string(),
+  dceEndpoint: z.string(),
+  streamName: z.string(),
 }).transform((v) => {
   return remap$(v, {
     "client_id": "clientId",
   });
 });
-
 /** @internal */
-export type OutputSentinel$Outbound = {
+export type OutputSentinelSentinel8$Outbound = {
+  endpointURLConfiguration: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -956,18 +2154,575 @@ export type OutputSentinel$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputSentinelExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputSentinelResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputSentinelTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
+  authType?: string | undefined;
+  loginUrl: string;
+  secret: string;
+  client_id: string;
+  scope: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  format?: string | undefined;
+  customSourceExpression: string;
+  customDropWhenNull: boolean;
+  customEventDelimiter: string;
+  customContentType: string;
+  customPayloadExpression: string;
+  advancedContentType: string;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  url?: string | undefined;
+  dcrID: string;
+  dceEndpoint: string;
+  streamName: string;
+};
+
+/** @internal */
+export const OutputSentinelSentinel8$outboundSchema: z.ZodType<
+  OutputSentinelSentinel8$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelSentinel8
+> = z.object({
+  endpointURLConfiguration: EndpointConfiguration8$outboundSchema.default(
+    "url",
+  ),
+  id: z.string().optional(),
+  type: OutputSentinelType8$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthTypeEnum8$outboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  clientId: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  format: OutputSentinelFormat8$outboundSchema.optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string(),
+  dceEndpoint: z.string(),
+  streamName: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    clientId: "client_id",
+  });
+});
+
+export function outputSentinelSentinel8ToJSON(
+  outputSentinelSentinel8: OutputSentinelSentinel8,
+): string {
+  return JSON.stringify(
+    OutputSentinelSentinel8$outboundSchema.parse(outputSentinelSentinel8),
+  );
+}
+export function outputSentinelSentinel8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSentinelSentinel8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSentinelSentinel8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSentinelSentinel8' from JSON`,
+  );
+}
+
+/** @internal */
+export const EndpointConfiguration7$inboundSchema: z.ZodType<
+  EndpointConfiguration7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EndpointConfiguration7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const EndpointConfiguration7$outboundSchema: z.ZodType<
+  EndpointConfiguration7,
+  z.ZodTypeDef,
+  EndpointConfiguration7
+> = z.union([
+  z.nativeEnum(EndpointConfiguration7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelType7$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType7
+> = z.nativeEnum(OutputSentinelType7);
+/** @internal */
+export const OutputSentinelType7$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType7
+> = OutputSentinelType7$inboundSchema;
+
+/** @internal */
+export const AuthTypeEnum7$inboundSchema: z.ZodType<
+  AuthTypeEnum7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTypeEnum7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTypeEnum7$outboundSchema: z.ZodType<
+  AuthTypeEnum7,
+  z.ZodTypeDef,
+  AuthTypeEnum7
+> = z.union([
+  z.nativeEnum(AuthTypeEnum7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelFormat7$inboundSchema: z.ZodType<
+  OutputSentinelFormat7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelFormat7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSentinelFormat7$outboundSchema: z.ZodType<
+  OutputSentinelFormat7,
+  z.ZodTypeDef,
+  OutputSentinelFormat7
+> = z.union([
+  z.nativeEnum(OutputSentinelFormat7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelSentinel7$inboundSchema: z.ZodType<
+  OutputSentinelSentinel7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  endpointURLConfiguration: EndpointConfiguration7$inboundSchema.default("url"),
+  id: z.string().optional(),
+  type: OutputSentinelType7$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthTypeEnum7$inboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  client_id: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  format: OutputSentinelFormat7$inboundSchema.optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  url: z.string(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "client_id": "clientId",
+  });
+});
+/** @internal */
+export type OutputSentinelSentinel7$Outbound = {
+  endpointURLConfiguration: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  keepAlive: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType?: string | undefined;
+  loginUrl: string;
+  secret: string;
+  client_id: string;
+  scope: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  format?: string | undefined;
+  customSourceExpression: string;
+  customDropWhenNull: boolean;
+  customEventDelimiter: string;
+  customContentType: string;
+  customPayloadExpression: string;
+  advancedContentType: string;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  url: string;
+  dcrID?: string | undefined;
+  dceEndpoint?: string | undefined;
+  streamName?: string | undefined;
+};
+
+/** @internal */
+export const OutputSentinelSentinel7$outboundSchema: z.ZodType<
+  OutputSentinelSentinel7$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelSentinel7
+> = z.object({
+  endpointURLConfiguration: EndpointConfiguration7$outboundSchema.default(
+    "url",
+  ),
+  id: z.string().optional(),
+  type: OutputSentinelType7$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthTypeEnum7$outboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  clientId: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  format: OutputSentinelFormat7$outboundSchema.optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  url: z.string(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    clientId: "client_id",
+  });
+});
+
+export function outputSentinelSentinel7ToJSON(
+  outputSentinelSentinel7: OutputSentinelSentinel7,
+): string {
+  return JSON.stringify(
+    OutputSentinelSentinel7$outboundSchema.parse(outputSentinelSentinel7),
+  );
+}
+export function outputSentinelSentinel7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSentinelSentinel7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSentinelSentinel7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSentinelSentinel7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType6
+> = z.nativeEnum(OutputSentinelType6);
+/** @internal */
+export const OutputSentinelType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType6
+> = OutputSentinelType6$inboundSchema;
+
+/** @internal */
+export const AuthTypeEnum6$inboundSchema: z.ZodType<
+  AuthTypeEnum6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTypeEnum6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTypeEnum6$outboundSchema: z.ZodType<
+  AuthTypeEnum6,
+  z.ZodTypeDef,
+  AuthTypeEnum6
+> = z.union([
+  z.nativeEnum(AuthTypeEnum6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const EndpointConfiguration6$inboundSchema: z.ZodType<
+  EndpointConfiguration6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EndpointConfiguration6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const EndpointConfiguration6$outboundSchema: z.ZodType<
+  EndpointConfiguration6,
+  z.ZodTypeDef,
+  EndpointConfiguration6
+> = z.union([
+  z.nativeEnum(EndpointConfiguration6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelFormat6$inboundSchema: z.ZodType<
+  OutputSentinelFormat6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelFormat6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSentinelFormat6$outboundSchema: z.ZodType<
+  OutputSentinelFormat6,
+  z.ZodTypeDef,
+  OutputSentinelFormat6
+> = z.union([
+  z.nativeEnum(OutputSentinelFormat6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelSentinel6$inboundSchema: z.ZodType<
+  OutputSentinelSentinel6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSentinelType6$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthTypeEnum6$inboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  client_id: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration6$inboundSchema.default("url"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  format: OutputSentinelFormat6$inboundSchema.optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "client_id": "clientId",
+  });
+});
+/** @internal */
+export type OutputSentinelSentinel6$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  keepAlive: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
   authType?: string | undefined;
   loginUrl: string;
   secret: string;
@@ -985,13 +2740,17 @@ export type OutputSentinel$Outbound = {
   advancedContentType: string;
   formatEventCode?: string | undefined;
   formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputSentinelPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
   url?: string | undefined;
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
@@ -999,13 +2758,14 @@ export type OutputSentinel$Outbound = {
 };
 
 /** @internal */
-export const OutputSentinel$outboundSchema: z.ZodType<
-  OutputSentinel$Outbound,
+export const OutputSentinelSentinel6$outboundSchema: z.ZodType<
+  OutputSentinelSentinel6$Outbound,
   z.ZodTypeDef,
-  OutputSentinel
+  OutputSentinelSentinel6
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSentinelType$outboundSchema,
+  type: OutputSentinelType6$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1018,32 +2778,26 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputSentinelExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputSentinelFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputSentinelResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputSentinelTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputSentinelBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: AuthType$outboundSchema.optional(),
+  authType: AuthTypeEnum6$outboundSchema.optional(),
   loginUrl: z.string(),
   secret: z.string(),
   clientId: z.string(),
   scope: z.string().default("https://monitor.azure.com/.default"),
-  endpointURLConfiguration: EndpointConfiguration$outboundSchema.default("url"),
+  endpointURLConfiguration: EndpointConfiguration6$outboundSchema.default(
+    "url",
+  ),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  format: OutputSentinelFormat$outboundSchema.optional(),
+  format: OutputSentinelFormat6$outboundSchema.optional(),
   customSourceExpression: z.string().default("__httpOut"),
   customDropWhenNull: z.boolean().default(false),
   customEventDelimiter: z.string().default("\\n"),
@@ -1052,15 +2806,17 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   advancedContentType: z.string().default("application/json"),
   formatEventCode: z.string().optional(),
   formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSentinelCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSentinelQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputSentinelMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSentinelPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
   url: z.string().optional(),
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
@@ -1071,23 +2827,1473 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSentinel$ {
-  /** @deprecated use `OutputSentinel$inboundSchema` instead. */
-  export const inboundSchema = OutputSentinel$inboundSchema;
-  /** @deprecated use `OutputSentinel$outboundSchema` instead. */
-  export const outboundSchema = OutputSentinel$outboundSchema;
-  /** @deprecated use `OutputSentinel$Outbound` instead. */
-  export type Outbound = OutputSentinel$Outbound;
+export function outputSentinelSentinel6ToJSON(
+  outputSentinelSentinel6: OutputSentinelSentinel6,
+): string {
+  return JSON.stringify(
+    OutputSentinelSentinel6$outboundSchema.parse(outputSentinelSentinel6),
+  );
 }
+export function outputSentinelSentinel6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSentinelSentinel6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSentinelSentinel6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSentinelSentinel6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType5
+> = z.nativeEnum(OutputSentinelType5);
+/** @internal */
+export const OutputSentinelType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType5
+> = OutputSentinelType5$inboundSchema;
+
+/** @internal */
+export const AuthTypeEnum5$inboundSchema: z.ZodType<
+  AuthTypeEnum5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTypeEnum5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTypeEnum5$outboundSchema: z.ZodType<
+  AuthTypeEnum5,
+  z.ZodTypeDef,
+  AuthTypeEnum5
+> = z.union([
+  z.nativeEnum(AuthTypeEnum5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const EndpointConfiguration5$inboundSchema: z.ZodType<
+  EndpointConfiguration5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EndpointConfiguration5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const EndpointConfiguration5$outboundSchema: z.ZodType<
+  EndpointConfiguration5,
+  z.ZodTypeDef,
+  EndpointConfiguration5
+> = z.union([
+  z.nativeEnum(EndpointConfiguration5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelFormat5$inboundSchema: z.ZodType<
+  OutputSentinelFormat5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelFormat5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSentinelFormat5$outboundSchema: z.ZodType<
+  OutputSentinelFormat5,
+  z.ZodTypeDef,
+  OutputSentinelFormat5
+> = z.union([
+  z.nativeEnum(OutputSentinelFormat5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelSentinel5$inboundSchema: z.ZodType<
+  OutputSentinelSentinel5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSentinelType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthTypeEnum5$inboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  client_id: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration5$inboundSchema.default("url"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  format: OutputSentinelFormat5$inboundSchema.optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "client_id": "clientId",
+  });
+});
+/** @internal */
+export type OutputSentinelSentinel5$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  keepAlive: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType?: string | undefined;
+  loginUrl: string;
+  secret: string;
+  client_id: string;
+  scope: string;
+  endpointURLConfiguration: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  format?: string | undefined;
+  customSourceExpression: string;
+  customDropWhenNull: boolean;
+  customEventDelimiter: string;
+  customContentType: string;
+  customPayloadExpression: string;
+  advancedContentType: string;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  url?: string | undefined;
+  dcrID?: string | undefined;
+  dceEndpoint?: string | undefined;
+  streamName?: string | undefined;
+};
+
+/** @internal */
+export const OutputSentinelSentinel5$outboundSchema: z.ZodType<
+  OutputSentinelSentinel5$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelSentinel5
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputSentinelType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthTypeEnum5$outboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  clientId: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration5$outboundSchema.default(
+    "url",
+  ),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  format: OutputSentinelFormat5$outboundSchema.optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    clientId: "client_id",
+  });
+});
+
+export function outputSentinelSentinel5ToJSON(
+  outputSentinelSentinel5: OutputSentinelSentinel5,
+): string {
+  return JSON.stringify(
+    OutputSentinelSentinel5$outboundSchema.parse(outputSentinelSentinel5),
+  );
+}
+export function outputSentinelSentinel5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSentinelSentinel5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSentinelSentinel5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSentinelSentinel5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelFormat4$inboundSchema: z.ZodType<
+  OutputSentinelFormat4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelFormat4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSentinelFormat4$outboundSchema: z.ZodType<
+  OutputSentinelFormat4,
+  z.ZodTypeDef,
+  OutputSentinelFormat4
+> = z.union([
+  z.nativeEnum(OutputSentinelFormat4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType4
+> = z.nativeEnum(OutputSentinelType4);
+/** @internal */
+export const OutputSentinelType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType4
+> = OutputSentinelType4$inboundSchema;
+
+/** @internal */
+export const AuthTypeEnum4$inboundSchema: z.ZodType<
+  AuthTypeEnum4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTypeEnum4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTypeEnum4$outboundSchema: z.ZodType<
+  AuthTypeEnum4,
+  z.ZodTypeDef,
+  AuthTypeEnum4
+> = z.union([
+  z.nativeEnum(AuthTypeEnum4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const EndpointConfiguration4$inboundSchema: z.ZodType<
+  EndpointConfiguration4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EndpointConfiguration4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const EndpointConfiguration4$outboundSchema: z.ZodType<
+  EndpointConfiguration4,
+  z.ZodTypeDef,
+  EndpointConfiguration4
+> = z.union([
+  z.nativeEnum(EndpointConfiguration4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelSentinel4$inboundSchema: z.ZodType<
+  OutputSentinelSentinel4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: OutputSentinelFormat4$inboundSchema,
+  id: z.string().optional(),
+  type: OutputSentinelType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthTypeEnum4$inboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  client_id: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration4$inboundSchema.default("url"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string(),
+  formatPayloadCode: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "client_id": "clientId",
+  });
+});
+/** @internal */
+export type OutputSentinelSentinel4$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  keepAlive: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType?: string | undefined;
+  loginUrl: string;
+  secret: string;
+  client_id: string;
+  scope: string;
+  endpointURLConfiguration: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customSourceExpression: string;
+  customDropWhenNull: boolean;
+  customEventDelimiter: string;
+  customContentType: string;
+  customPayloadExpression: string;
+  advancedContentType: string;
+  formatEventCode: string;
+  formatPayloadCode: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  url?: string | undefined;
+  dcrID?: string | undefined;
+  dceEndpoint?: string | undefined;
+  streamName?: string | undefined;
+};
+
+/** @internal */
+export const OutputSentinelSentinel4$outboundSchema: z.ZodType<
+  OutputSentinelSentinel4$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelSentinel4
+> = z.object({
+  format: OutputSentinelFormat4$outboundSchema,
+  id: z.string().optional(),
+  type: OutputSentinelType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthTypeEnum4$outboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  clientId: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration4$outboundSchema.default(
+    "url",
+  ),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string(),
+  formatPayloadCode: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    clientId: "client_id",
+  });
+});
+
+export function outputSentinelSentinel4ToJSON(
+  outputSentinelSentinel4: OutputSentinelSentinel4,
+): string {
+  return JSON.stringify(
+    OutputSentinelSentinel4$outboundSchema.parse(outputSentinelSentinel4),
+  );
+}
+export function outputSentinelSentinel4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSentinelSentinel4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSentinelSentinel4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSentinelSentinel4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelFormat3$inboundSchema: z.ZodType<
+  OutputSentinelFormat3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelFormat3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSentinelFormat3$outboundSchema: z.ZodType<
+  OutputSentinelFormat3,
+  z.ZodTypeDef,
+  OutputSentinelFormat3
+> = z.union([
+  z.nativeEnum(OutputSentinelFormat3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType3
+> = z.nativeEnum(OutputSentinelType3);
+/** @internal */
+export const OutputSentinelType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType3
+> = OutputSentinelType3$inboundSchema;
+
+/** @internal */
+export const AuthTypeEnum3$inboundSchema: z.ZodType<
+  AuthTypeEnum3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTypeEnum3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTypeEnum3$outboundSchema: z.ZodType<
+  AuthTypeEnum3,
+  z.ZodTypeDef,
+  AuthTypeEnum3
+> = z.union([
+  z.nativeEnum(AuthTypeEnum3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const EndpointConfiguration3$inboundSchema: z.ZodType<
+  EndpointConfiguration3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EndpointConfiguration3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const EndpointConfiguration3$outboundSchema: z.ZodType<
+  EndpointConfiguration3,
+  z.ZodTypeDef,
+  EndpointConfiguration3
+> = z.union([
+  z.nativeEnum(EndpointConfiguration3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelSentinel3$inboundSchema: z.ZodType<
+  OutputSentinelSentinel3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: OutputSentinelFormat3$inboundSchema,
+  id: z.string().optional(),
+  type: OutputSentinelType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthTypeEnum3$inboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  client_id: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration3$inboundSchema.default("url"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "client_id": "clientId",
+  });
+});
+/** @internal */
+export type OutputSentinelSentinel3$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  keepAlive: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType?: string | undefined;
+  loginUrl: string;
+  secret: string;
+  client_id: string;
+  scope: string;
+  endpointURLConfiguration: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customSourceExpression: string;
+  customDropWhenNull: boolean;
+  customEventDelimiter: string;
+  customContentType: string;
+  customPayloadExpression: string;
+  advancedContentType: string;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  url?: string | undefined;
+  dcrID?: string | undefined;
+  dceEndpoint?: string | undefined;
+  streamName?: string | undefined;
+};
+
+/** @internal */
+export const OutputSentinelSentinel3$outboundSchema: z.ZodType<
+  OutputSentinelSentinel3$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelSentinel3
+> = z.object({
+  format: OutputSentinelFormat3$outboundSchema,
+  id: z.string().optional(),
+  type: OutputSentinelType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthTypeEnum3$outboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  clientId: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration3$outboundSchema.default(
+    "url",
+  ),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    clientId: "client_id",
+  });
+});
+
+export function outputSentinelSentinel3ToJSON(
+  outputSentinelSentinel3: OutputSentinelSentinel3,
+): string {
+  return JSON.stringify(
+    OutputSentinelSentinel3$outboundSchema.parse(outputSentinelSentinel3),
+  );
+}
+export function outputSentinelSentinel3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSentinelSentinel3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSentinelSentinel3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSentinelSentinel3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelFormat2$inboundSchema: z.ZodType<
+  OutputSentinelFormat2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelFormat2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSentinelFormat2$outboundSchema: z.ZodType<
+  OutputSentinelFormat2,
+  z.ZodTypeDef,
+  OutputSentinelFormat2
+> = z.union([
+  z.nativeEnum(OutputSentinelFormat2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType2
+> = z.nativeEnum(OutputSentinelType2);
+/** @internal */
+export const OutputSentinelType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType2
+> = OutputSentinelType2$inboundSchema;
+
+/** @internal */
+export const AuthTypeEnum2$inboundSchema: z.ZodType<
+  AuthTypeEnum2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTypeEnum2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTypeEnum2$outboundSchema: z.ZodType<
+  AuthTypeEnum2,
+  z.ZodTypeDef,
+  AuthTypeEnum2
+> = z.union([
+  z.nativeEnum(AuthTypeEnum2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const EndpointConfiguration2$inboundSchema: z.ZodType<
+  EndpointConfiguration2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EndpointConfiguration2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const EndpointConfiguration2$outboundSchema: z.ZodType<
+  EndpointConfiguration2,
+  z.ZodTypeDef,
+  EndpointConfiguration2
+> = z.union([
+  z.nativeEnum(EndpointConfiguration2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelSentinel2$inboundSchema: z.ZodType<
+  OutputSentinelSentinel2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: OutputSentinelFormat2$inboundSchema,
+  id: z.string().optional(),
+  type: OutputSentinelType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthTypeEnum2$inboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  client_id: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration2$inboundSchema.default("url"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "client_id": "clientId",
+  });
+});
+/** @internal */
+export type OutputSentinelSentinel2$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  keepAlive: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType?: string | undefined;
+  loginUrl: string;
+  secret: string;
+  client_id: string;
+  scope: string;
+  endpointURLConfiguration: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customSourceExpression: string;
+  customDropWhenNull: boolean;
+  customEventDelimiter: string;
+  customContentType: string;
+  customPayloadExpression: string;
+  advancedContentType: string;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  url?: string | undefined;
+  dcrID?: string | undefined;
+  dceEndpoint?: string | undefined;
+  streamName?: string | undefined;
+};
+
+/** @internal */
+export const OutputSentinelSentinel2$outboundSchema: z.ZodType<
+  OutputSentinelSentinel2$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelSentinel2
+> = z.object({
+  format: OutputSentinelFormat2$outboundSchema,
+  id: z.string().optional(),
+  type: OutputSentinelType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthTypeEnum2$outboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  clientId: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration2$outboundSchema.default(
+    "url",
+  ),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    clientId: "client_id",
+  });
+});
+
+export function outputSentinelSentinel2ToJSON(
+  outputSentinelSentinel2: OutputSentinelSentinel2,
+): string {
+  return JSON.stringify(
+    OutputSentinelSentinel2$outboundSchema.parse(outputSentinelSentinel2),
+  );
+}
+export function outputSentinelSentinel2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSentinelSentinel2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSentinelSentinel2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSentinelSentinel2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinelFormat1$inboundSchema: z.ZodType<
+  OutputSentinelFormat1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSentinelFormat1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSentinelFormat1$outboundSchema: z.ZodType<
+  OutputSentinelFormat1,
+  z.ZodTypeDef,
+  OutputSentinelFormat1
+> = z.union([
+  z.nativeEnum(OutputSentinelFormat1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType1
+> = z.nativeEnum(OutputSentinelType1);
+/** @internal */
+export const OutputSentinelType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputSentinelType1
+> = OutputSentinelType1$inboundSchema;
+
+/** @internal */
+export const AuthTypeEnum1$inboundSchema: z.ZodType<
+  AuthTypeEnum1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(AuthTypeEnum1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const AuthTypeEnum1$outboundSchema: z.ZodType<
+  AuthTypeEnum1,
+  z.ZodTypeDef,
+  AuthTypeEnum1
+> = z.union([
+  z.nativeEnum(AuthTypeEnum1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const EndpointConfiguration1$inboundSchema: z.ZodType<
+  EndpointConfiguration1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(EndpointConfiguration1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const EndpointConfiguration1$outboundSchema: z.ZodType<
+  EndpointConfiguration1,
+  z.ZodTypeDef,
+  EndpointConfiguration1
+> = z.union([
+  z.nativeEnum(EndpointConfiguration1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSentinelSentinel1$inboundSchema: z.ZodType<
+  OutputSentinelSentinel1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: OutputSentinelFormat1$inboundSchema,
+  id: z.string().optional(),
+  type: OutputSentinelType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthTypeEnum1$inboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  client_id: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration1$inboundSchema.default("url"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "client_id": "clientId",
+  });
+});
+/** @internal */
+export type OutputSentinelSentinel1$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  keepAlive: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType?: string | undefined;
+  loginUrl: string;
+  secret: string;
+  client_id: string;
+  scope: string;
+  endpointURLConfiguration: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customSourceExpression: string;
+  customDropWhenNull: boolean;
+  customEventDelimiter: string;
+  customContentType: string;
+  customPayloadExpression: string;
+  advancedContentType: string;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  url?: string | undefined;
+  dcrID?: string | undefined;
+  dceEndpoint?: string | undefined;
+  streamName?: string | undefined;
+};
+
+/** @internal */
+export const OutputSentinelSentinel1$outboundSchema: z.ZodType<
+  OutputSentinelSentinel1$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelSentinel1
+> = z.object({
+  format: OutputSentinelFormat1$outboundSchema,
+  id: z.string().optional(),
+  type: OutputSentinelType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1000),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthTypeEnum1$outboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  clientId: z.string(),
+  scope: z.string().default("https://monitor.azure.com/.default"),
+  endpointURLConfiguration: EndpointConfiguration1$outboundSchema.default(
+    "url",
+  ),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().default("__httpOut"),
+  customDropWhenNull: z.boolean().default(false),
+  customEventDelimiter: z.string().default("\\n"),
+  customContentType: z.string().default("application/x-ndjson"),
+  customPayloadExpression: z.string().default("`${events}`"),
+  advancedContentType: z.string().default("application/json"),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    clientId: "client_id",
+  });
+});
+
+export function outputSentinelSentinel1ToJSON(
+  outputSentinelSentinel1: OutputSentinelSentinel1,
+): string {
+  return JSON.stringify(
+    OutputSentinelSentinel1$outboundSchema.parse(outputSentinelSentinel1),
+  );
+}
+export function outputSentinelSentinel1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSentinelSentinel1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSentinelSentinel1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSentinelSentinel1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSentinel$inboundSchema: z.ZodType<
+  OutputSentinel,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSentinelSentinel4$inboundSchema),
+  z.lazy(() => OutputSentinelSentinel8$inboundSchema),
+  z.lazy(() => OutputSentinelSentinel1$inboundSchema),
+  z.lazy(() => OutputSentinelSentinel2$inboundSchema),
+  z.lazy(() => OutputSentinelSentinel3$inboundSchema),
+  z.lazy(() => OutputSentinelSentinel6$inboundSchema),
+  z.lazy(() => OutputSentinelSentinel7$inboundSchema),
+  z.lazy(() => OutputSentinelSentinel5$inboundSchema),
+]);
+/** @internal */
+export type OutputSentinel$Outbound =
+  | OutputSentinelSentinel4$Outbound
+  | OutputSentinelSentinel8$Outbound
+  | OutputSentinelSentinel1$Outbound
+  | OutputSentinelSentinel2$Outbound
+  | OutputSentinelSentinel3$Outbound
+  | OutputSentinelSentinel6$Outbound
+  | OutputSentinelSentinel7$Outbound
+  | OutputSentinelSentinel5$Outbound;
+
+/** @internal */
+export const OutputSentinel$outboundSchema: z.ZodType<
+  OutputSentinel$Outbound,
+  z.ZodTypeDef,
+  OutputSentinel
+> = z.union([
+  z.lazy(() => OutputSentinelSentinel4$outboundSchema),
+  z.lazy(() => OutputSentinelSentinel8$outboundSchema),
+  z.lazy(() => OutputSentinelSentinel1$outboundSchema),
+  z.lazy(() => OutputSentinelSentinel2$outboundSchema),
+  z.lazy(() => OutputSentinelSentinel3$outboundSchema),
+  z.lazy(() => OutputSentinelSentinel6$outboundSchema),
+  z.lazy(() => OutputSentinelSentinel7$outboundSchema),
+  z.lazy(() => OutputSentinelSentinel5$outboundSchema),
+]);
 
 export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {
   return JSON.stringify(OutputSentinel$outboundSchema.parse(outputSentinel));
 }
-
 export function outputSentinelFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSentinel, SDKValidationError> {
